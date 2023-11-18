@@ -3,8 +3,8 @@
 ; ------------------- Settings -------------------
 ; Make sure to reload() (F2) if you change these while running
 
-global EnableLogging := true
-; Useful for debugging issues, disable if you don't need it
+global EnableLogging := false
+; true/false, Useful for debugging issues, disable if you don't need it
 
 global HaveBorbDLC := false
 ; Set this true to fill the first two slots with full teams
@@ -109,6 +109,13 @@ global QuarkFarmResetToBoss := 0
 global NavigateTime := 101
 ; Delay between actions while trying to travel, if experiencing retry loops
 ; increasing this may help. In ms, default 101
+
+global DisableZoneChecks := false
+; Disables the background checking to ensure we traveled zone and goes back to
+; using guesswork and timing. Use this if travel is failing a lot and
+; NavigateTime isn't giving you stable enough travels to zones. Still uses
+; NavigateTime for timing, blind travel adds 200ms so you may want to
+; reduce NavigateTime to between 0-100 to avoid slow travel times.
 
 global DisableSettingsChecks := false
 ; WARNING: This will stop the script checking for badly configured settings, if

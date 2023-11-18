@@ -6,6 +6,7 @@
 
 #Include Lib\Functions.ahk
 #Include Lib\Navigate.ahk
+#Include Lib\SettingsCheck.ahk
 
 #Include Lib\Borbventure.ahk
 #Include Lib\Cards.ahk
@@ -22,7 +23,6 @@
 Log("Script loaded")
 
 global X, Y, W, H
-global HaveErroredToSettings := false
 if (WinExist("Leaf Blower Revolution")) {
     WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
 }
@@ -44,7 +44,7 @@ Run this file to load script
     ExitApp()
 }
 *F2:: {
-    ;IsAreaSampleColour() ; Using this to sample 0x0 pixel for area checks
+    IsDarkBackgroundOn()
     log("F2: Activated, reloading...")
     sleep(2)
     ResetModifierKeys() ; Cleanup incase needed
@@ -55,8 +55,6 @@ Run this file to load script
 *F3:: { ; Open cards clicker
     global HadToHideNotifs
     Static on3 := False
-    global HaveErroredToSettings
-    HaveErroredToSettings := false
     Log("F3: Activated")
     if (!InitGameWindow() && !on3) {
         return
@@ -89,8 +87,6 @@ Run this file to load script
 
 *F4:: { ; Gem farm using suitcase
     Static on4 := False
-    global HaveErroredToSettings
-    HaveErroredToSettings := false
     Log("F4: Activated")
     if (!InitGameWindow() && !on4) {
         return
@@ -112,8 +108,6 @@ Run this file to load script
 
 *F5:: { ; Tower 72hr boost loop
     Static on5 := False
-    global HaveErroredToSettings
-    HaveErroredToSettings := false
     Log("F5: Activated")
     if (!InitGameWindow() && !on5) {
         return
@@ -133,8 +127,6 @@ Run this file to load script
 
 *F6:: { ; Borb pink juice farm in borbventures
     Static on6 := False
-    global HaveErroredToSettings
-    HaveErroredToSettings := false
     Log("F6: Activated")
     if (!InitGameWindow() && !on6) {
         return
@@ -150,8 +142,6 @@ Run this file to load script
 
 *F7:: { ; Claw pumpkin farm
     Static on7 := False
-    global HaveErroredToSettings
-    HaveErroredToSettings := false
     Log("F7: Activated")
     if (!InitGameWindow() && !on7) {
         return
@@ -167,8 +157,6 @@ Run this file to load script
 
 *F8:: { ; Green Flame/Soulseeker farm
     Static on8 := False
-    global HaveErroredToSettings
-    HaveErroredToSettings := false
     Log("F8: Activated")
     if (!InitGameWindow() && !on8) {
         return
@@ -186,9 +174,7 @@ global on9 := 0
 global HadToHideNotifsF9 := false
 
 *F9:: { ; Farm bosses using violins
-    global on9
-    global HaveErroredToSettings := false
-    global HadToHideNotifsF9
+    global on9, HadToHideNotifsF9
     Log("F9: Activated")
     if (!InitGameWindow() && !on9) {
         reload()
@@ -244,8 +230,6 @@ global HadToHideNotifsF9 := false
 
 *F10:: { ; Farm nature boss using violins
     Static on10 := False
-    global HaveErroredToSettings
-    HaveErroredToSettings := false
     Log("F10: Activated")
     if (!InitGameWindow() && !on10) {
         return
@@ -289,9 +273,7 @@ global HadToHideNotifsF9 := false
 
 #HotIf WinActive("Leaf Blower Revolution")
 *F12:: {
-    global X, Y, W, H
-    global HaveErroredToSettings
-    HaveErroredToSettings := false
+    global X, Y, W, H, DisableSettingsChecks
     Log("F12: Activated")
     if (MakeWindowActive()) {
         WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
@@ -304,29 +286,40 @@ global HadToHideNotifsF9 := false
     WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
     Sleep(500)
     if (!CheckGameSettingsCorrectVerbose()) {
+        ; If it fails checks we need to restore the size we needed and then return
         WinMove(, , 1294, 703, "Leaf Blower Revolution")
         return
     }
     WinMove(, , 1294, 703, "Leaf Blower Revolution")
     WinWait("Leaf Blower Revolution")
     WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
-    if (IsFontCorrectCheck()) {
-        ToolTip(, , , 1)
-        ToolTip(, , , 2)
-        ToolTip("Correct render mode, transparency and font settings found`n"
-            "F2 to dismiss", W / 2 - WinRelPosW(150),
-            H / 2)
-        Log("F12: Correct font settings found")
-    } else {
-        Log("F12: Incorrect font settings found")
+    if (!DisableSettingsChecks) {
+        if (IsFontCorrectCheck()) {
+            ToolTip(, , , 1)
+            ToolTip(, , , 2)
+            ToolTip(, , , 3)
+            ToolTip(, , , 4)
+            ToolTip(, , , 5)
+            ToolTip("Correct render mode, transparency, trees, dark background,`n"
+                "smooth graphics and font settings found`n"
+                "F2 to dismiss", W / 2 - WinRelPosW(150),
+                H / 3, 10)
+            Log("F12: Correct font settings found")
+        } else {
+            Log("F12: Incorrect font settings found")
+        }
+        SetTimer(removeLastCheckTooltip, -3000)
     }
-    SetTimer(ToolTip, -3000)
+}
+
+; As passing the number of the tooltip is such a pain
+removeLastCheckTooltip() {
+    ToolTip(, , , 10)
 }
 
 *Insert:: {
     ; Farm bosses using violins
     Static on13 := false
-    global HaveErroredToSettings := false
     Log("Insert: Activated")
     if (!InitGameWindow() && !on13) {
         reload()

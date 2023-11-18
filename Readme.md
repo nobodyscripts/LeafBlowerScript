@@ -1,4 +1,4 @@
-# Resolution independent scripts v3 build 7
+# Resolution independent scripts v3 build 8
 
 Autohotkey V2 script, install v2 of autohotkey and run the LeafBlowerV3.ahk
 file to load. Edit the ahk files with a text editor to configure.
@@ -91,75 +91,55 @@ another quickly.
 
     2560x1440 or less                Alignment issues (untested above but may work)
 
-    100% solid menus                 Setting is tested for and errors without
+    100% solid menus                 All: Setting is tested for and errors without
 
-    Alternative renderer             Setting is tested for and errors without
+    Alternative renderer             All: Setting is tested for and errors without
 
-    Font size 0/1 (0 default)        May cause missalignment, both should work
-                                     0 is my default and will work better in borbv
-                                     F12 tests this setting and errors
+    Font size 0/1 (0 default)        F12: tests this setting and errors
+                                     (May cause missalignment, both should work
+                                     0 is my default and will work better in borbv)
+                                     
+    Font alternative                 F12: tests this setting and errors without
+                                     (May cause missalignment)
 
-    Font alternative                 May cause missalignment
-                                     F12 tests this setting and errors
-
-    Dark dialog background off       For timer detection in boss scripts
+    Dark dialog background off       All/F12: tests this setting and errors without
+                                     (Used for boss timer and area travel)
 
     Alb 90% transparent/off/no tools Boss timer at top of screen can missread
                                      it looks for pure white to see the timer
 
-    Smooth graphics off              Could affect detections, untested
+    Smooth graphics off              All/F12 tests this setting and errors without
+                                     (Used for detection of pixels)
 
     Notifications off/reduced        May interupt some scripts
+                                     Checks are in place for the scripts it affects
+
+    Trees off                        F12 tests this setting and errors without
+                                     (Used for area travel)
 
     Hotkeys need to either be changed ingame or in script to match
 
 ## Changes
 
-Note: You can leave gravity autouse off with the changes to F8/F9 unless you need it elsewhere.
-Adds some further hotkeys to the hotkey.ahk file as a result
-Added check for alternative rendering mode being active (if aspect ratio is incorrect)
-Added toggle to config.ahk that disables the settings checks if you live dangerously
-Added logging to LeafBlowerV3.log, disabled by default
-Added passthrough to all keybinds while the game is not focused (renaming files ftw)
-All traveling to areas now have checks and redundant attempts, plus skip travel if
-   already there (if detection fails, travel manually then activate feature).
-Added config for all traveling sleep times, if needed due to it retrying travel
-Insert(new key) Added quark boss farming, violin and wind rotation based on boss timer with
-   travel and travel on death with a delay to heal.
-Insert Added a return to boss when dead option in config.ahk
-F3 Added card purchasing, loads of options in config.ahk, disabled by default
-F3 Purchasing loops before opening, disable purchasing if you need to just open
-F3 Added perma loop option, lets you keep buying and opening as you brew
-F3 Added retry to opening cards panel (and on F9)
-F3 Added custom purchase priority, this is useful for situations with a large stockpile
-F3 Improved the shift/ctrl/alt handling so it gets stuck less
-F3 Check for panel being open to prevent a notification close loop
-F6 More reliable swapping to the correct tab
-F6 Made the flickering tooltip solid
-F7 Improved reliability of check for halloween being active
-F8 Added spamming of gravity and wind when boss spawned (option in config.ahk)
-F8 Slowed the mouseclicks when resetting SS/GF to increase reliability
-F9 Reloads when focus lost, to reset which mode is used next
-F9 Changed the spamming to a seperate timer, much faster spamming as a result but
-   may cause F9 to be ignored occasionally.
-F10 Changed the area traveled to for spamming violins for more reliable travel
-F11 Reduced the chance of the mouse grabbing things at the end of usage
-F12 Added check for incorrect font size and not being set to alternative font this
-   is resolution dependant, thus only on F12 for debug.
+Traveling improved further with a blind attempt and reduced speed, should it fail to
+not travel correctly. Blind mode tries once and trusts it succeeded.
+Added toggle to disable the new checks and retries on travel and use blind travel
+Added check for smooth graphics
+Added check for dark dialog background
+Logging off by default to avoid filling ssds
+F10: Fixed an issue with traveling to The Doomed Tree zone
+F12: Fully disabled the settings checks in F12 when configured not to check
+Insert: Fixed issues with traveling to quark bosses due to incorrect locations
 
 ## TODO
 
 Check for alb
-Check for corner buttons colour to check if dark background is on
-Check for panel gradiant to check if smooth graphics is on
 Better check for notifications
 Mouse blocking during active farming and release during waiting
 Investigate fullscreen (it breaks fullscreen)
 Investigate a gui to replace function keys and a proper config
-When task requires a specific zone, check that area repeatedly, incase changed (ww on)
 Buying x amount of cards to openall specific amounts
 Trade farming for non gems/non suitcase version
-Redo the failed to settings system
 F6 Borb check for active refresh button (handle notifications)
 F6 Scroll alignment for borbventures and a 'state memory'
 F6 Check if 2 inactive slots when finding 2 active slots with no dlc

@@ -38,6 +38,7 @@ fFarmNormalBoss(modecheck) {
 }
 
 fFarmNormalBossAndBrew(modecheck) {
+    ToolTip()
     global on9
     Killcount := 0
     OpenPets()
@@ -109,6 +110,7 @@ SpamBrewButtons() {
 }
 
 fNormalBossFarmWithBorbs(modecheck) {
+    ToolTip()
     global on9
     OpenPets() ; Opens or closes another screen so that when areas is opened it
     ; doesn't close
@@ -186,4 +188,5 @@ fNormalBossFarmWithCards(modecheck) {
     Log("BossCards: Stopped.")
     ToolTip("Card opening aborted`nFound no active buttons.`nF3 to remove note",
         W / 2 - WinRelPosLargeH(170), H / 2)
+    SetTimer(ToolTip, -500)
 }

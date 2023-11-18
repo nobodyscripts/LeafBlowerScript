@@ -35,8 +35,8 @@ fGemFarmSuitcase() {
         ; Disable auto refresh if its on based on timer at top of panel
         fCustomClick(WinRelPosLargeW(1000), WinRelPosLargeH(1100), 101)
         ToolTip("Toggled off auto refresh",
-            W / 2 - WinRelPosLargeW(50), H / 2, 1)
-
+            W / 2 - WinRelPosLargeW(50), H / 2)
+        SetTimer(ToolTip, -500)
     }
     ScrollAmountUp(6)
     sleep(50)
