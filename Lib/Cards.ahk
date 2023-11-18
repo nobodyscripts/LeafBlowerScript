@@ -3,14 +3,14 @@
 global HadToHideNotifs, HaveWarnedDisplayRewards
 HadToHideNotifs := false
 HaveWarnedDisplayRewards := false
-global cardOpenCommonButtonX := 547
-global cardOpenCommonButtonY := 806
+global cardOpenCommonButtonX := 548
+global cardOpenCommonButtonY := 807
 
-global cardOpenRareButtonX := 1107
-global cardOpenRareButtonY := 806
+global cardOpenRareButtonX := 1108
+global cardOpenRareButtonY := 807
 
-global cardOpenLegButtonX := 1667
-global cardOpenLegButtonY := 806
+global cardOpenLegButtonX := 1668
+global cardOpenLegButtonY := 807
 
 
 fOpenCardLoop() {

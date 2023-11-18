@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0
 
 global cardBuyOffset := 5
-global cardBuyCommonButtonX := 455
-global cardBuyCommonButtonY := 934
+global cardBuyCommonButtonX := 456
+global cardBuyCommonButtonY := 935
 
-global cardBuyRareButtonX := 1015
-global cardBuyRareButtonY := 934
+global cardBuyRareButtonX := 1016
+global cardBuyRareButtonY := 935
 
-global cardBuyLegButtonX := 1575
-global cardBuyLegButtonY := 934
+global cardBuyLegButtonX := 1576
+global cardBuyLegButtonY := 935
 
 CardBuySinglePass() {
     global HadToHideNotifs, W, H, X, Y
