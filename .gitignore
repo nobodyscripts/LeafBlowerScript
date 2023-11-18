@@ -1,6 +1,7 @@
 # Block private files
 IsNobody
 *.log
+*.Log
 UserSettings.ini
 *.zip
 
