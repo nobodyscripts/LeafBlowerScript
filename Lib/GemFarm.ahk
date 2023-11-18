@@ -6,94 +6,66 @@ TradesAutoRefreshOldState := false
 TradesDetailedModeOldState := false
 
 fGemFarmSuitcase() {
-
     global TradesAutoRefreshOldState
     global TradesDetailedModeOldState
     global GemFarmSleepAmount
-    if !WinExist("Leaf Blower Revolution") {
-        return ; Kill early if no game
-    }
-    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
-    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-
-    OpenPets()
-    ; Opens or closes another screen so that when areas is opened it doesn't
-    ; close
-    Sleep 200
-    OpenAreas()
-    Sleep 200
-    ResetAreaScroll() ; Reset tab and scroll position
-    If (CheckForTransparentPanelsSilent()) {
-        ; Warning is displayed if there is an issue, return to avoid harm
-        return
-    }
-    Sleep 200
-    ;MouseMove(WinRelPosW(875), WinRelPosH(313)) ; Move mouse for scrolling
-    ; Move the screen up to reset the scroll incase its been changed outside
-    ; the script
-    ;Sleep 150
-    ScrollAmountDown(22) ; Scroll down for the zones
-    Sleep 200
-    DesertLeaf := FindDesertZone()
-    if (!DesertLeaf) {
+    global X, Y, W, H
+    if (!GoToDesert()) {
+        Log("GemFarm: Could not find desert area. Aborted travel.")
         ToolTip("Could not find desert area`nUse F4 to finish",
             W / 2 - WinRelPosW(50),
             H / 2)
         return
     }
-    ButtonX := DesertLeaf[1] + WinRelPosLargeW(225)
-    ButtonY := DesertLeaf[2] + WinRelPosLargeW(30)
-    if (IsBackground(ButtonX, ButtonY)) {
-        ToolTip("Could not find desert area`nUse F4 to finish",
-            W / 2 - WinRelPosW(50),
-            H / 2)
-        return
-    }
-    fCustomClick(ButtonX, ButtonY, 72) ; Set zone to golden suitcase territory
-
-    Sleep 200
+    Sleep(202)
     OpenPets()
-    Sleep 200
+    Sleep(202)
     RemoveBearo() ; Removes bearo from your pet team if its active
-    Sleep 150
+    sleep(150)
 
     OpenTrades()
-    Sleep 150
+    sleep(150)
     RefreshTrades()
     ; Need to refresh once otherwise there might be blank trade screen
 
     TradesAutoRefreshOldState := IsTradeAutoRefreshOn()
     ; Store old state to reset
     If (TradesAutoRefreshOldState) {
+        Log("GemFarm: Auto refresh found on. Toggled off.")
         ; Disable auto refresh if its on based on timer at top of panel
-        fCustomClick(WinRelPosLargeW(1000), WinRelPosLargeH(1100), 100)
-        ToolTip("Toggled off auto refresh", W / 2 - WinRelPosLargeW(50), H / 2, 1)
+        fCustomClick(WinRelPosLargeW(1000), WinRelPosLargeH(1100), 101)
+        ToolTip("Toggled off auto refresh",
+            W / 2 - WinRelPosLargeW(50), H / 2, 1)
 
     }
     ScrollAmountUp(6)
-    Sleep 50
+    sleep(50)
     TradesDetailedModeOldState := IsTradeDetailedModeOn()
     If (IsTradeDetailedModeOn()) {
+        Log("GemFarm: Detailed mode found on. Toggled off.")
         ; Disable detailed mode if its on based on gap between blue arrows
-        fCustomClick(WinRelPosLargeW(1357), WinRelPosLargeH(1100), 100)
+        fCustomClick(WinRelPosLargeW(1357), WinRelPosLargeH(1100), 101)
         ToolTip("Toggled off details", W / 2 - WinRelPosLargeW(50), H / 2 + WinRelPosLargeH(20))
         SetTimer(ToolTip, -500)
     }
     ; Cancel first trade, so that the first slot cannot be filled
-    fCustomClick(WinRelPosLargeW(1920), WinRelPosLargeH(400), 100)
-    Sleep 50
+    fCustomClick(WinRelPosLargeW(1920), WinRelPosLargeH(400), 101)
+    sleep(50)
     ; Collect first trade
-    fCustomClick(WinRelPosLargeW(1990), WinRelPosLargeH(400), 100)
+    fCustomClick(WinRelPosLargeW(1990), WinRelPosLargeH(400), 101)
     RefreshTrades()
-    FillTradeSlots() ; Leaves the first slot free to use suitcase on
+    ; Leaves the first slot free to use suitcase on
+    if (!FillTradeSlots()) {
+        ; Try one more time if it fails
+        FillTradeSlots()
+    }
 
     Loop {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
         ; Update window size
 
-        if !WinExist("Leaf Blower Revolution") ||
-            !WinActive("Leaf Blower Revolution") {
-                break ; Kill the loop if the window closes
+        if (!IsWindowActive()) {
+            reload() ; Kill the loop if the window closes
         }
         try {
             ; PixelSearch resolution independant function based on higher
@@ -101,33 +73,22 @@ fGemFarmSuitcase() {
             ; drift when scaled up.
             colour := PixelGetColor(WinRelPosLargeW(1252), WinRelPosLargeH(397))
             If (colour = "0xFF0044") {
-                If (GemFarmSleepAmount > 0) {
-                    Sleep 71 + GemFarmSleepAmount
-                } else {
-                    Sleep 71
-                }
+                Sleep(GemFarmSleepAmount)
                 colour := PixelGetColor(WinRelPosLargeW(1252),
                     WinRelPosLargeH(397))
                 If (colour = "0xFF0044") {
                     ; Double check to try and avoid false usage
                     TriggerSuitcase()
-                    If (GemFarmSleepAmount > 0) {
-                        Sleep 71 + GemFarmSleepAmount
-                    } else {
-                        Sleep 71
-                    }
+                    Sleep(GemFarmSleepAmount)
                 }
             }
         } catch as exc {
-            MsgBox "Could not conduct the search due to the following error:`n"
-            exc.Message
+            Log("GemFarm: Searching for Gem icon failed - " exc.Message)
+            MsgBox("Could not conduct the search due to the following error:`n"
+                exc.Message)
         }
         RefreshTrades()
-        If (GemFarmSleepAmount > 0) {
-            Sleep 71 + GemFarmSleepAmount
-        } else {
-            Sleep 71
-        }
+        Sleep(GemFarmSleepAmount)
     }
 }
 
@@ -150,13 +111,15 @@ RemoveBearo() {
         Y2 := WinRelPosLargeH(1138)
         found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x64747A", 0)
         If (found and OutX != 0) {
+            Log("GemFarm: Bearo found and removed.")
             ToolTip("Bearo found and removed", OutX, OutY)
             SetTimer(Tooltip, -100)
-            Sleep 72
+            Sleep(72)
             fCustomClick(OutX, OutY)
         }
     } catch as exc {
-        MsgBox ("Could not conduct the search due to the following error:`n"
+        Log("GemFarm: Searching for Bearo failed - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
         return
     }
@@ -167,6 +130,7 @@ FillTradeSlots() {
     ; Could get stuck here if L1 leafscensions are on and no trades available
     ; So capped at trying 50 times
     i := 100
+    Log("GemFarm: Filling trade slots for suitcase farming.")
     ToolTip("Filling trade slots", W / 2 - 70, H / 2)
     SetTimer(ToolTip, -1000)
     While i > 0 {
@@ -174,28 +138,32 @@ FillTradeSlots() {
         if (!IsBackground(WinRelPosW(1040), WinRelPosH(227))) {
             ; If the button isn't active, ignore it and don't count it
             If (!IsButtonInactive(WinRelPosW(1040), WinRelPosH(222))) {
-                Sleep 50
+                sleep(50)
                 fSlowClick(1040, 230)
-                Sleep 50
-                i := i - 1
+                sleep(50)
+                i--
             }
             RefreshTrades()
-            Sleep 50
-            If (i = 1) {
+            sleep(50)
+            If (i = 0) {
+                Log("GemFarm: Filling trades failed")
                 MsgBox("Have tried to fill trade slots but no trades available`nTry running again or disable L1 Leafscensions.")
+                return false
             }
         } Else {
             ; Done? Double check
             RefreshTrades()
-            Sleep 72
+            Sleep(72)
             if (IsBackground(WinRelPosW(1040), WinRelPosH(227))) {
                 i := 0
             } else {
                 ; Try again
-                i := i + 1
+                i++
             }
         }
     }
+    Log("GemFarm: Completed filling trade slots.")
+    return true
 }
 
 IsTradeAutoRefreshOn() {
@@ -220,7 +188,8 @@ IsTradeAutoRefreshOn() {
             return true ; Found colour
         }
     } catch as exc {
-        MsgBox ("Could not conduct the search due to the following error:`n"
+        Log("GemFarm: Searching for Auto Refresh state failed - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
     return false
@@ -236,24 +205,24 @@ IsTradeDetailedModeOn() {
 ToggleAutoRefresh() {
     global TradesAutoRefreshOldState
     OpenPets()
-    Sleep 100
+    Sleep(101)
     OpenTrades()
-    Sleep 100
+    Sleep(101)
     ; Disable auto refresh if its on based on timer at top of panel
-    fCustomClick(WinRelPosLargeW(1000), WinRelPosLargeH(1100), 100)
-    sleep 50
+    fCustomClick(WinRelPosLargeW(1000), WinRelPosLargeH(1100), 101)
+    sleep(50)
     TradesAutoRefreshOldState := IsTradeAutoRefreshOn()
 }
 
 ToggleDetailedMode() {
     global TradesDetailedModeOldState
     OpenPets()
-    Sleep 100
+    Sleep(101)
     OpenTrades()
-    Sleep 100
+    Sleep(101)
     ; Disable auto refresh if its on based on timer at top of panel
-    fCustomClick(WinRelPosLargeW(1357), WinRelPosLargeH(1100), 100)
-    sleep 50
+    fCustomClick(WinRelPosLargeW(1357), WinRelPosLargeH(1100), 101)
+    sleep(50)
     TradesDetailedModeOldState := IsTradeDetailedModeOn()
 }
 
@@ -269,7 +238,8 @@ FindDesertZone() {
         }
         return [Outx, OutY]
     } catch as exc {
-        MsgBox ("Could not conduct the search due to the following error:`n"
+        Log("GemFarm: Searching for desert zone failed - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
 }
@@ -277,6 +247,7 @@ FindDesertZone() {
 ResetToPriorAutoRefresh() {
     global TradesAutoRefreshOldState
     if (IsTradeAutoRefreshOn() != TradesAutoRefreshOldState) {
+        Log("GemFarm: Auto refresh doesn't match previous setting, toggling.")
         ToggleAutoRefresh()
     }
 }
@@ -284,6 +255,7 @@ ResetToPriorAutoRefresh() {
 ResetToPriorDetailedMode() {
     global TradesDetailedModeOldState
     if (IsTradeDetailedModeOn() != TradesDetailedModeOldState) {
+        Log("GemFarm: Detailed mode doesn't match previous setting, toggling.")
         ToggleDetailedMode()
     }
 }

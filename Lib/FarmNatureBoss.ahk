@@ -1,54 +1,47 @@
 ﻿#Requires AutoHotkey v2.0
 
 fFarmNatureBoss() {
-    if !WinExist("Leaf Blower Revolution") {
-        return ; Kill early if no game
-    }
-    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
-    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-
     ; Check zone is available
-
-    If(!GoToNatureBoss()) {
-        ToolTip("Could not travel to nature boss zone`nPlease use the artifact to enable nature season",
-        W / 2 - WinRelPosW(50),
-        H / 2)
+    If (!GoToNatureBoss()) {
+        Log("NatureBoss: Traveling to The Doomed Tree failed."
+            " Nature season not active.")
+        ToolTip("Could not travel to nature boss zone`n"
+            "Please use the artifact to enable nature season",
+            W / 2 - WinRelPosW(50),
+            H / 2)
         SetTimer(ToolTip, -5000)
         return
     }
-    sleep 100
-    If (CheckForTransparentPanelsSilent()) {
-        ; Warning is displayed if there is an issue, return to avoid harm
-        return
-    }
-    sleep 100
+    Sleep(101)
     ClosePanel()
-    sleep 100
+    Sleep(101)
     Killcount := 0
 
-    IsInFF := false
+    IsInShadowCavern := false
     loop {
-        if (!WinExist("Leaf Blower Revolution") ||
-            !WinActive("Leaf Blower Revolution")) {
-                break ; Kill early if no game
+        if (!IsWindowActive()) {
+            break ; Kill early if no game
         }
         CurrentAliveState := IsNatureBossAlive()
 
         ; if we just started and there is a timer or looped and theres
         ; still a timer, we need to use a violin
         if (!CurrentAliveState && IsBossTimerActive()) {
-            if (!IsInFF) {
-                ToolTip("Going to ff", W / 2, H / 2)
+            if (!IsInShadowCavern) {
+                Log("NatureBoss: Going to Shadow Cavern to spam violins.")
+                ToolTip("Going to Shadow Cavern", W / 2 - WinRelPosW(50), H / 2)
                 SetTimer(ToolTip, -250)
-                if(!GoToFarmField()) {
-                    ToolTip("Could not travel to nature farm zone`nPlease use the artifact to enable nature season",
-                    W / 2 - WinRelPosW(50),
-                    H / 2)
+                if (!GoToShadowCavern()) {
+                    Log("NatureBoss: Traveling to Shadow Cavern failed.")
+                    ToolTip("Traveling to Shadow Cavern failed.",
+                        W / 2 - WinRelPosW(50),
+                        H / 2)
                     SetTimer(ToolTip, -5000)
                     return
                 }
-                Killcount := Killcount + 1
-                IsInFF := true
+                OpenEventsAreasPanel()
+                Killcount++
+                IsInShadowCavern := true
 
                 ToolTip("Kills: " . Killcount,
                     W / 2,
@@ -56,30 +49,33 @@ fFarmNatureBoss() {
                 SetTimer(ToolTip, -200)
             }
             loop {
-                if (!WinExist("Leaf Blower Revolution") ||
-                    !WinActive("Leaf Blower Revolution")) {
-                        break ; Kill early if no game
+                if (!IsWindowActive()) {
+                    break ; Kill early if no game
                 }
                 if (IsNatureBossTimerActive()) {
                     ToolTip("Using violins", W / 2, H / 2)
                     SetTimer(ToolTip, -250)
                     TriggerViolin()
-                    sleep 71
+                    Sleep(71)
                 } else {
-                    ToolTip("Returning to boss", W / 2, H / 2)
+                    Log("NatureBoss: Traveling to The Doomed Tree.")
+                    ToolTip("Returning to The Doomed Tree", W / 2, H / 2)
                     SetTimer(ToolTip, -250)
                     ; Timers reset send user back
-                    If(!GoToNatureBoss()) {
-                        ToolTip("Could not travel to nature boss zone`nPlease use the artifact to enable nature season",
-                        W / 2 - WinRelPosW(50),
-                        H / 2)
+                    If (!GoToNatureBoss()) {
+                        Log("NatureBoss: Traveling to The Doomed Tree failed."
+                            " Nature season not active.")
+                        ToolTip("Could not travel to The Doomed Tree zone`n"
+                            "Please use the artifact to enable nature season",
+                            W / 2 - WinRelPosW(50),
+                            H / 2)
                         SetTimer(ToolTip, -5000)
                         return
                     }
-                    IsInFF := false
-                    sleep 100
+                    IsInShadowCavern := false
+                    Sleep(101)
                     ClosePanel()
-                    sleep 1000
+                    Sleep(101)
                     ; boss doesn't appear instantly so we need a manual delay
                     break
                 }
@@ -87,6 +83,7 @@ fFarmNatureBoss() {
         }
         ; If boss killed us not much we can do, on user to address
         if (IsAreaResetToGarden()) {
+            Log("NatureBoss: Killed by boss, aborting farm.")
             ToolTip("Killed by boss, exiting", W / 2, H / 2)
             SetTimer(ToolTip, -3000)
             break
@@ -109,7 +106,9 @@ IsNatureBossAlive() {
             return false
         }
     } catch as exc {
-        MsgBox ("Could not conduct the search due to the following error:`n"
+        Log("NatureBoss: IsNatureBossAlive check failed with error - "
+            exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
     return false
@@ -130,26 +129,10 @@ IsNatureBossTimerActive() {
             return true ; Found colour
         }
     } catch as exc {
-        MsgBox ("Could not conduct the search due to the following error:`n"
+        Log("NatureBoss: IsNatureBossTimerActive check failed with error - "
+            exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
     return false
-}
-
-GoToNatureBoss() {
-    OpenEventsAreasPanel()
-       if (IsBackground(WinRelPosW(875), WinRelPosH(470))) {
-        return false
-    }
-    fSlowClick(875, 470) ; Open nature boss area
-    return true
-}
-
-GoToFarmField() {
-    OpenEventsAreasPanel()
-    if (IsBackground(WinRelPosW(875), WinRelPosH(260))) {
-        return false
-    }
-    fSlowClick(875, 260) ; Open farm field
-    return true
 }

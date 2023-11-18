@@ -1,24 +1,31 @@
 ﻿#Requires AutoHotkey v2.0
 #MaxThreadsPerHotkey 8
+#SingleInstance Force
 #Include Config.ahk
 #Include Hotkeys.ahk
 
 #Include Lib\Functions.ahk
+#Include Lib\Navigate.ahk
 
 #Include Lib\Borbventure.ahk
 #Include Lib\Cards.ahk
+#Include Lib\CardsBuy.ahk
 #Include Lib\Claw.ahk
 #Include Lib\FarmGFSS.ahk
 #Include Lib\FarmNatureBoss.ahk
 #Include Lib\FarmNormalBoss.ahk
+#Include Lib\FarmQuarkBoss.ahk
 #Include Lib\GemFarm.ahk
 #Include Lib\TowerTimeWarp.ahk
 
-global X, Y, W, H
-if WinExist("Leaf Blower Revolution") {
-    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-}
 
+Log("Script loaded")
+
+global X, Y, W, H
+global HaveErroredToSettings := false
+if (WinExist("Leaf Blower Revolution")) {
+    WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+}
 ; ------------------- Readme -------------------
 /*
 See Readme.md for readme
@@ -27,27 +34,41 @@ Run this file to load script
 
 ; ------------------- Script Triggers -------------------
 
+#HotIf WinActive("Leaf Blower Revolution")
 *F1:: {
+    Log("F1: Activated")
     ; Wildcard shortcut * to allow functions to work while looping with
     ; modifiers held
-    ExitApp
+    ResetModifierKeys() ; Cleanup incase needed
+    ResetModifierKeys() ; Twice for good luck
+    ExitApp()
 }
-
 *F2:: {
-    Reload
+    ;IsAreaSampleColour() ; Using this to sample 0x0 pixel for area checks
+    log("F2: Activated, reloading...")
+    sleep(2)
+    ResetModifierKeys() ; Cleanup incase needed
+    ResetModifierKeys() ; Twice for good luck
+    reload()
 }
 
 *F3:: { ; Open cards clicker
-    global X, Y, W, H
     global HadToHideNotifs
-    if WinExist("Leaf Blower Revolution") {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-    } else {
-        reload
+    Static on3 := False
+    global HaveErroredToSettings
+    HaveErroredToSettings := false
+    Log("F3: Activated")
+    if (!InitGameWindow() && !on3) {
+        return
     }
     ResetModifierKeys() ; Cleanup incase needed
-    Static on3 := False
+    Sleep(34)
+    ResetModifierKeys() ; Twice for good luck
+    Sleep(34)
     If on3 := !on3 {
+        if (!CheckGameSettingsCorrect()) {
+            reload()
+        }
         fOpenCardLoop()
     } Else {
         if (HadToHideNotifs) {
@@ -55,179 +76,277 @@ Run this file to load script
             HadToHideNotifs := false
         }
         ResetModifierKeys() ; Cleanup incase needed
-        Reload
+        Sleep(34)
+        ResetModifierKeys() ; Twice for good luck
+        Sleep(34)
+        reload()
     }
+    ResetModifierKeys() ; Cleanup incase needed
+    Sleep(34)
+    ResetModifierKeys() ; Twice for good luck
+    Sleep(34)
 }
 
 *F4:: { ; Gem farm using suitcase
-    global X, Y, W, H
-
-    if WinExist("Leaf Blower Revolution") {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-    } else {
-        reload
+    Static on4 := False
+    global HaveErroredToSettings
+    HaveErroredToSettings := false
+    Log("F4: Activated")
+    if (!InitGameWindow() && !on4) {
+        return
     }
     ResetModifierKeys() ; Cleanup incase needed
-    Static on4 := False
     If on4 := !on4 {
+        if (!CheckGameSettingsCorrect()) {
+            reload()
+        }
         fGemFarmSuitcase()
     } Else {
+        Log("GemFarm: Equiping default loadout to reapply Bearo")
         EquipDefaultGearLoadout()
         ResetToPriorAutoRefresh()
         ResetToPriorDetailedMode()
-        Reload
+        reload()
     }
 }
 
 *F5:: { ; Tower 72hr boost loop
-    global X, Y, W, H
-    if WinExist("Leaf Blower Revolution") {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-    } else {
-        reload
+    Static on5 := False
+    global HaveErroredToSettings
+    HaveErroredToSettings := false
+    Log("F5: Activated")
+    if (!InitGameWindow() && !on5) {
+        return
     }
     ResetModifierKeys() ; Cleanup incase needed
-    Static on5 := False
     If on5 := !on5 {
+        if (!CheckGameSettingsCorrect()) {
+            reload()
+        }
         fTimeWarpAndRaiseTower()
     } Else {
+        Log("TowerBoost: Equiping default loadout.")
         EquipDefaultGearLoadout()
-        Reload
+        reload()
     }
 }
 
 *F6:: { ; Borb pink juice farm in borbventures
-    global X, Y, W, H
-    if WinExist("Leaf Blower Revolution") {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-    } else {
-        reload
+    Static on6 := False
+    global HaveErroredToSettings
+    HaveErroredToSettings := false
+    Log("F6: Activated")
+    if (!InitGameWindow() && !on6) {
+        return
     }
     ResetModifierKeys() ; Cleanup incase needed
-    Static on6 := False
     If on6 := !on6 {
+        if (!CheckGameSettingsCorrect()) {
+            reload()
+        }
         fBorbVentureJuiceFarm()
-    } Else Reload
+    } Else reload()
 }
 
 *F7:: { ; Claw pumpkin farm
-    global X, Y, W, H
-    if WinExist("Leaf Blower Revolution") {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-    } else {
-        reload
+    Static on7 := False
+    global HaveErroredToSettings
+    HaveErroredToSettings := false
+    Log("F7: Activated")
+    if (!InitGameWindow() && !on7) {
+        return
     }
     ResetModifierKeys() ; Cleanup incase needed
-    Static on7 := False
     If on7 := !on7 {
+        if (!CheckGameSettingsCorrect()) {
+            reload()
+        }
         fClawFarm()
-    } Else Reload
+    } Else reload()
 }
 
 *F8:: { ; Green Flame/Soulseeker farm
-    global X, Y, W, H
-    if WinExist("Leaf Blower Revolution") {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-    } else {
-        reload
+    Static on8 := False
+    global HaveErroredToSettings
+    HaveErroredToSettings := false
+    Log("F8: Activated")
+    if (!InitGameWindow() && !on8) {
+        return
     }
     ResetModifierKeys() ; Cleanup incase needed
-    Static on8 := False
     If on8 := !on8 {
+        if (!CheckGameSettingsCorrect()) {
+            reload()
+        }
         fFarmGFSS()
-    } Else Reload
+    } Else reload()
 }
 
 global on9 := 0
+global HadToHideNotifsF9 := false
 
-*F9:: { ; Farm normal boss using violins
-    global X, Y, W, H
-    if WinExist("Leaf Blower Revolution") {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-    } else {
-        reload
-    }
+*F9:: { ; Farm bosses using violins
     global on9
+    global HaveErroredToSettings := false
     global HadToHideNotifsF9
+    Log("F9: Activated")
+    if (!InitGameWindow() && !on9) {
+        reload()
+        return
+    }
+    if (!IsWindowActive()) {
+        reload() ; Kill if no game
+        return
+    }
+    Thread('Interrupt', 0)  ; Make all threads always-interruptible.
     ResetModifierKeys() ; Cleanup incase needed
     switch on9 {
         case 1:
             on9 := 2 ; Brew and boss mode
-            fFarmNormalBossAndBrew()
+            Log("F9: Brew and Boss Activated")
+            fFarmNormalBossAndBrew(on9)
         case 2:
             on9 := 3 ; Boss mode with borbventures
-            ;SetTimer(SpamBrewButtons, 0)
-            fNormalBossFarmWithBorbs()
+            Log("F9: Borbventures and Boss Activated")
+            fNormalBossFarmWithBorbs(on9)
         case 3:
             on9 := 4 ; Boss mode with cards
             if (CardsBossFarmEnabled) {
-                fNormalBossFarmWithCards()
+                Log("F9: Cards and Boss Activated")
+                fNormalBossFarmWithCards(on9)
             } else {
                 on9 := 0 ; Disabled
+                Log("F9: Resetting with cards disabled")
                 ClosePanel()
-                Reload
+                reload()
             }
         case 4:
             on9 := 0 ; Disabled
             if (HadToHideNotifsF9) {
+                Log("F9: Reenabling notifications")
                 fSlowClick(32, 596, 17)
                 HadToHideNotifsF9 := false
             }
+            Log("F9: Resetting")
             ResetModifierKeys() ; Cleanup incase needed
             ClosePanel()
-            Reload
+            reload()
         default:
             on9 := 1 ; Normal boss mode
-            fFarmNormalBoss()
+            if (!CheckGameSettingsCorrect()) {
+                reload()
+            }
+            ClosePanel()
+            Log("F9: Boss Farm Activated")
+            fFarmNormalBoss(on9)
     }
 }
 
 *F10:: { ; Farm nature boss using violins
-    global X, Y, W, H
-    if WinExist("Leaf Blower Revolution") {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-    } else {
-        reload
+    Static on10 := False
+    global HaveErroredToSettings
+    HaveErroredToSettings := false
+    Log("F10: Activated")
+    if (!InitGameWindow() && !on10) {
+        return
     }
     ResetModifierKeys() ; Cleanup incase needed
-    Static on10 := False
-    If on10 := !on10 {
+    If (on10 := !on10) {
+        if (!CheckGameSettingsCorrect()) {
+            reload()
+        }
         fFarmNatureBoss()
-    } Else Reload
+    } Else reload()
 }
 
+;Allow autoclicker outside game
+#HotIf
 *F11:: { ; Autoclicker non game specific
     global X, Y, W, H
-    if WinExist("Leaf Blower Revolution") {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-    }
     Static on11 := False
-    If on11 := !on11 {
-        Loop {
-            MouseClick "left", , , , , "D"
-            Sleep 16.7
+    Log("F11: Activated")
+    if (WinExist("Leaf Blower Revolution")) {
+        ; Slightly different as you can use this outside lbr
+        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+    }
+    If (on11 := !on11) {
+        while (on11) {
+            MouseClick("left", , , , , "D")
+            Sleep(17)
             ; Must be higher than 16.67 which is a single frame of 60fps
-            MouseClick "left", , , , , "U"
-            Sleep 16.7
+            MouseClick("left", , , , , "U")
+            Sleep(17)
         }
     } Else {
-        ;if(GetKeyState("MButton"))
-        Reload
+        ; Do one click when killing, so that we reset the click state
+        MouseClick("left", , , , , "D")
+        Sleep(17)
+        MouseClick("left", , , , , "U")
+        Sleep(17)
+        reload()
     }
 }
 
+#HotIf WinActive("Leaf Blower Revolution")
 *F12:: {
     global X, Y, W, H
-    if WinExist("Leaf Blower Revolution") {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+    global HaveErroredToSettings
+    HaveErroredToSettings := false
+    Log("F12: Activated")
+    if (MakeWindowActive()) {
+        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
     } else {
-        reload
+        return
+    }
+    ; Changes size of client window for windows 11
+    WinMove(, , 1294, 603, "Leaf Blower Revolution")
+    WinWait("Leaf Blower Revolution")
+    WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+    Sleep(500)
+    if (!CheckGameSettingsCorrectVerbose()) {
+        WinMove(, , 1294, 703, "Leaf Blower Revolution")
+        return
     }
     WinMove(, , 1294, 703, "Leaf Blower Revolution")
-    ; Changes size of client window for windows 11
-    OpenPets()
-    Sleep 50
-    OpenAreas()
-    Sleep 50
-    CheckForTransparentPanels()
+    WinWait("Leaf Blower Revolution")
+    WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+    if (IsFontCorrectCheck()) {
+        ToolTip(, , , 1)
+        ToolTip(, , , 2)
+        ToolTip("Correct render mode, transparency and font settings found`n"
+            "F2 to dismiss", W / 2 - WinRelPosW(150),
+            H / 2)
+        Log("F12: Correct font settings found")
+    } else {
+        Log("F12: Incorrect font settings found")
+    }
+    SetTimer(ToolTip, -3000)
+}
+
+*Insert:: {
+    ; Farm bosses using violins
+    Static on13 := false
+    global HaveErroredToSettings := false
+    Log("Insert: Activated")
+    if (!InitGameWindow() && !on13) {
+        reload()
+        return
+    }
+    if (!IsWindowActive()) {
+        reload() ; Kill if no game
+        return
+    }
+    ResetModifierKeys() ; Cleanup incase needed
+    If (on13 := !on13) {
+        if (!CheckGameSettingsCorrect()) {
+            reload()
+        }
+        Log("Insert: Quark Boss Activated")
+        fFarmNormalBossQuark()
+    } Else {
+        Log("Insert: Equipped Default Loadout")
+        EquipDefaultGearLoadout()
+        Log("Insert: Resetting")
+        reload()
+    }
 }

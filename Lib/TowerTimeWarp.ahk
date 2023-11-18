@@ -1,51 +1,20 @@
 #Requires AutoHotkey v2.0
 
 fTimeWarpAndRaiseTower() {
-    if !WinExist("Leaf Blower Revolution") {
-        return ; Kill early if no game
-    }
-    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
-    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-
-    OpenPets()
-    ; Opens or closes another screen so that when areas is opened it doesn't
-    ; close
-    Sleep 50
-    OpenAreas()
-    Sleep 50
-    If (CheckForTransparentPanelsSilent()) {
-        ; Warning is displayed if there is an issue, return to avoid harm
-        return
-    }
-    if (!IsButtonActive(WinRelPosW(317), WinRelPosH(574))) {
-        ToolTip("Alignment issue 1, could not continue`nUse F5 to finish`nApplied default loadout",
-            W / 2 - WinRelPosW(150),
-            H / 2)
-        EquipDefaultGearLoadout()
-        return
-    }
-    fSlowClick(317, 574)
-    ; Open leaf galaxy tab incase wrong tab and to reset scroll
-    Sleep 100
-    ResetAreaScroll()
-    Sleep 100
-    ;MouseMove(W/2, H/2) ; Move mouse for scrolling
-    Sleep 100
-    ; Move the screen up to reset the scroll incase its been changed outside
-    ; the script
+    global X, Y, W, H
+    OpenAreasPanel()
     ScrollAmountDown(16) ; Scroll down for the zones
-    Sleep 100
+    Sleep(101)
+    Log("TowerBoost: Equiping tower loadout")
     EquipTowerGearLoadout() ; Equip Tower set
-
     Loop {
         ; Check if: lost focus, close or crash and break if so
-        if !WinExist("Leaf Blower Revolution") ||
-            !WinActive("Leaf Blower Revolution") {
-                break
+        if (!IsWindowActive()) {
+            break
         }
         WinActivate("Leaf Blower Revolution")
         ; Use the window found by WinExist.
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
         ; Update window size
 
         ; Look for colour of a segment of the rightmost tower leaf c5d8e0
@@ -56,19 +25,21 @@ fTimeWarpAndRaiseTower() {
             ; Leaf pixel search
             If (!found || OutX = 0) {
                 ; Not found
-                ToolTip("Could not find tower area`nUse F5 to finish`nApplied default loadout",
+
+                Log("TowerBoost: Could not find tower zone.")
+                ToolTip("Could not find tower area`nUse F5 to finish"
+                    "`nApplied default loadout",
                     W / 2 - WinRelPosW(50),
                     H / 2)
+                Log("TowerBoost: Equiping default loadout")
                 EquipDefaultGearLoadout()
                 break
             }
         } catch as exc {
-            MsgBox ("Could not conduct the search due to the following error:`n"
+            Log("Error: Tower leaf detection failed. Alignment1 - " exc.Message)
+            MsgBox("Alignment issue 1, could not conduct the search due to the following error:`n"
                 exc.Message)
         }
-        ;ToolTip("Found tower floor leaf at: " . OutX . "x" . OutY,
-        ;    OutX, OutY)
-
         ; Found at 1595x778 (1440)
         ; 1664 800 < tower floor zone Relative: 69 22
         ; 2066 865 < Max floor button Relative: 471 87
@@ -78,61 +49,73 @@ fTimeWarpAndRaiseTower() {
         if (IsBackground(OutX + WinRelPosLargeW(69),
             OutY - WinRelPosLargeH(132))) {
                 ; Background colour found
+                Log("Error: Tower alt area detection failed. Alignment2.")
                 ToolTip("Alignment issue 2, could not continue`nUse F5 to finish`nApplied default loadout",
                     W / 2 - WinRelPosW(50),
                     H / 2)
+                Log("TowerBoost: Equiping default loadout")
                 EquipDefaultGearLoadout()
                 break
         }
-        fCustomClick(OutX + WinRelPosLargeW(69), OutY - WinRelPosLargeH(132))
-        Sleep 100
+        fCustomClick(OutX + WinRelPosLargeW(69),
+            OutY - WinRelPosLargeH(132), 101)
+        Sleep(101)
 
         ; Max Tower level
         if (!IsButtonActive(OutX + WinRelPosLargeW(471), OutY + WinRelPosLargeH(87))) {
+            Log("Error: Tower max detection failed. Alignment3.")
             ToolTip("Alignment issue 3, could not continue`nUse F5 to finish`nApplied default loadout",
                 W / 2 - WinRelPosW(50),
                 H / 2)
+            Log("TowerBoost: Equiping default loadout")
             EquipDefaultGearLoadout()
             break
         }
-        fCustomClick(OutX + WinRelPosLargeW(471), OutY + WinRelPosLargeH(87))
-        Sleep 100
+        fCustomClick(OutX + WinRelPosLargeW(471),
+            OutY + WinRelPosLargeH(87), 101)
+        Sleep(101)
 
         ; Select Tower area
         if (!IsButtonActive(OutX + WinRelPosLargeW(69), OutY + WinRelPosLargeH(22))) {
+            Log("Error: Tower area detection failed. Alignment4.")
             ToolTip("Alignment issue 4, could not continue`nUse F5 to finish`nApplied default loadout",
                 W / 2 - WinRelPosW(50),
                 H / 2)
+            Log("TowerBoost: Equiping default loadout")
             EquipDefaultGearLoadout()
             break
         }
-        fCustomClick(OutX + WinRelPosLargeW(69), OutY + WinRelPosLargeH(22))
-        Sleep 100
+        fCustomClick(OutX + WinRelPosLargeW(69),
+            OutY + WinRelPosLargeH(22), 101)
+        Sleep(101)
 
         OpenGemShop()
-        Sleep 150
+        sleep(150)
 
         if (!IsButtonActive(WinRelPosW(904), WinRelPosH(571))) {
+            Log("Error: Gem purchase detection failed. Alignment5.")
             ToolTip("Alignment issue 5, could not continue`nUse F5 to finish`nApplied default loadout",
                 W / 2 - WinRelPosW(50),
                 H / 2)
+            Log("TowerBoost: Equiping default loadout")
             EquipDefaultGearLoadout()
             break
         }
-        fSlowClick(904, 571) ; Navigate to Time Travel tab
-        Sleep 100
+        fSlowClick(904, 571, 101) ; Navigate to Time Travel tab
+        Sleep(101)
 
         if (IsButtonActive(WinRelPosW(894), WinRelPosH(312))) {
-            fSlowClick(894, 312) ; Click 72h warp
+            fSlowClick(894, 312, 101) ; Click 72h warp
         } else {
+            Log("TowerBoost: No boosts remaining. Exiting.")
             ToolTip("Run out of 72hr boosts to use`nUse F5 to finish`nApplied default loadout",
                 W / 2 - WinRelPosW(50),
                 H / 2)
+            Log("TowerBoost: Equiping default loadout")
             EquipDefaultGearLoadout()
             break
         }
-        Sleep 100
         OpenAreas() ; Doing this last as we open this to scroll to start
-        Sleep 150
+        sleep(150)
     }
 }

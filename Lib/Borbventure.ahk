@@ -1,152 +1,119 @@
 ﻿#Requires AutoHotkey v2.0
 
-#Include ..\Config.ahk
-
 fBorbVentureJuiceFarm() {
-
-    if !WinExist("Leaf Blower Revolution") {
-        return ; Kill early if no game
-    }
-    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
-    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-
     OpenPets() ; Opens or closes another screen so that when areas is opened it
     ; doesn't close
-    Sleep 100
+    Sleep(101)
     OpenBorbVentures() ; Open BV
-    Sleep 100
-    If (CheckForTransparentPanelsSilent()) {
-        ; Warning is displayed if there is an issue, return to avoid harm
-        return
-    }
-
-    fSlowClick(211, 573) ; Select tab
-    Sleep 50
-
+    Sleep(101)
+    BVResetScroll()
+    Log("Borbv: Main loop starting.")
     loop {
-
-        if (!WinExist("Leaf Blower Revolution") ||
-            !WinActive("Leaf Blower Revolution")) {
-                break ; Kill if no game
+        if (!IsWindowActive()) {
+            break ; Kill if no game
         }
         BVMainLoop()
     }
+    Log("Borbv: Aborted.")
+    ToolTip()
+}
+
+BVResetScroll() {
+    ; Double up due to notifications
+    fSlowClick(315, 574, 72) ; Click borbs tab to reset scroll
+    fSlowClick(315, 574, 72) ; Redundant for stability
+    Sleep(72)
+    fSlowClick(200, 574, 72) ; Click borbventures
+    fSlowClick(200, 574, 72) ; Redundant for stability
+    Sleep(72)
 }
 
 BVMainLoop() {
-        ; Check for any finished items in view and collect them
-        loop 8 {
-            found := BVGetFinishButtonLocation()
-            if (!found) {
-                break
-            }
-            fCustomClick(WinRelPosLargeW(1911),
-                found[2] + WinRelPosLargeH(10), 72)
-            Sleep 72
+    ; Check for any finished items in view and collect them
+    loop 8 {
+        found := BVGetFinishButtonLocation()
+        if (!found) {
+            break
+        }
+        fCustomClick(WinRelPosLargeW(1911),
+            found[2] + WinRelPosLargeH(10), 72)
+        Sleep(72)
+    }
+
+    ; Check first four slots for item
+    Slot1Y := BVScanSlotItem(1299, 431, 1353, 520)
+    Slot2Y := BVScanSlotItem(1299, 521, 1353, 750)
+    Slot3Y := BVScanSlotItem(1299, 751, 1353, 900)
+    Slot4Y := BVScanSlotItem(1299, 901, 1353, 1076)
+
+    ;Charslot 1 is at X 1600
+    ;Charslot 2 is at X 1717
+    ;Start/Finish is at X 1911
+    ;Cancel is at X 2120
+    ;BorbJuice first detect point is at X 1326
+    SlotsYArray := [Slot4Y, Slot3Y, Slot2Y, Slot1Y]
+    activeSlots := 0
+    for SlotY in SlotsYArray {
+        if (SlotY != 0 && IsBackground(WinRelPosLargeW(1855), SlotY) &&
+            IsButtonActive(WinRelPosLargeW(2120), SlotY - WinRelPosLargeH(5))) {
+                ; If slots cancel button exists, assume active. This lets us
+                ; pause refreshing until something new happens to avoid wastage
+                activeSlots++
         }
 
-        ; Check first four slots for item
-        Slot1Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(431),
-            WinRelPosLargeW(1353), WinRelPosLargeH(520))
-        Slot2Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(521),
-            WinRelPosLargeW(1353), WinRelPosLargeH(750))
-        Slot3Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(751),
-            WinRelPosLargeW(1353), WinRelPosLargeH(900))
-        Slot4Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(901),
-            WinRelPosLargeW(1353), WinRelPosLargeH(1076))
+    }
 
-        ;Charslot 1 is at X 1600
-        ;Charslot 2 is at X 1717
-        ;Start/Finish is at X 1911
-        ;Cancel is at X 2120
-        ;BorbJuice first detect point is at X 1326
-        SlotsYArray := [Slot4Y, Slot3Y, Slot2Y, Slot1Y]
-        activeSlots := 0
-        for SlotY in SlotsYArray {
-            if (SlotY != 0) {
-                if (!IsBackground(WinRelPosLargeW(1855), SlotY) && IsButtonActive(WinRelPosLargeW(2120), SlotY)) {
-                    fCustomClick(WinRelPosLargeW(1911), SlotY, 72)
-                    Sleep 150
+    for SlotY in SlotsYArray {
+        if (SlotY != 0 &&
+            IsButtonInactive(WinRelPosLargeW(1864), SlotY) &&
+            WinActive("Leaf Blower Revolution")) {
+                ; Don't try to start more if we're full even if another is
+                ; detected
+                if ((!HaveBorbDLC and activeSlots != 2) ||
+                    (HaveBorbDLC and activeSlots != 4)) {
+                        ; If slots inactive, its ready to start,
+                        ; use its y to align clicks
+                        fCustomClick(WinRelPosLargeW(1600), SlotY, 101)
+                        ; Click team slot 1
+                        Sleep(72)
+                        fCustomClick(WinRelPosLargeW(1717), SlotY, 101)
+                        ; Click team slot 2
+                        Sleep(72)
+                        fCustomClick(WinRelPosLargeW(1911), SlotY, 101)
+                        ; Click Start
+                        Sleep(72)
                 }
-                if (IsButtonActive(WinRelPosLargeW(2120), SlotY - WinRelPosLargeH(5))) {
-                    ; If slots cancel button exists, assume active. This lets us
-                    ; pause refreshing until something new happens to avoid wastage
-                    activeSlots := activeSlots + 1
-                }
-            }
         }
-        
-        Slot1Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(431),
-            WinRelPosLargeW(1353), WinRelPosLargeH(520))
-        Slot2Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(521),
-            WinRelPosLargeW(1353), WinRelPosLargeH(750))
-        Slot3Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(751),
-            WinRelPosLargeW(1353), WinRelPosLargeH(900))
-        Slot4Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(901),
-            WinRelPosLargeW(1353), WinRelPosLargeH(1076))
-        SlotsYArray := [Slot4Y, Slot3Y, Slot2Y, Slot1Y]
-
-        for SlotY in SlotsYArray {
-            if (SlotY != 0 &&
-                IsButtonInactive(WinRelPosLargeW(1864), SlotY) &&
-                WinActive("Leaf Blower Revolution")) {
-                    ; Don't try to start more if we're full even if another is
-                    ; detected
-                    if ((!HaveBorbDLC and activeSlots != 2) ||
-                        (HaveBorbDLC and activeSlots != 4)) {
-                            ; If slots inactive, its ready to start,
-                            ; use its y to align clicks
-                            fCustomClick(WinRelPosLargeW(1600), SlotY, 101)
-                            ; Click team slot 1
-                            Sleep 72
-                            fCustomClick(WinRelPosLargeW(1717), SlotY, 101)
-                            ; Click team slot 2
-                            Sleep 72
-                            fCustomClick(WinRelPosLargeW(1911), SlotY, 101)
-                            ; Click Start
-                            Sleep 72
-                    }
-            }
-        }
-        if (activeSlots >= 1) {
-            ToolTip("Found " . activeSlots . " active slots", W / 2, H / 2)
-            SetTimer(ToolTip, -700)
-        }
-        if (!HaveBorbDLC and activeSlots < 2) {
-            ; If we have not filled all available slots refresh
-            RefreshTrades()
-            Sleep 34
-        }
-        if (HaveBorbDLC and activeSlots < 4) {
-            RefreshTrades()
-            Sleep 34
-        }
+    }
+    if (activeSlots >= 1) {
+        ToolTip("Found " . activeSlots . " active slots", W / 2, H / 2)
+    } else {
+        ToolTip()
+    }
+    if (!HaveBorbDLC and activeSlots < 2) {
+        ; If we have not filled all available slots refresh
+        RefreshTrades()
+        Sleep(34)
+    }
+    if (HaveBorbDLC and activeSlots < 4) {
+        RefreshTrades()
+        Sleep(34)
+    }
 }
-
 
 BVGetFinishButtonLocation() {
-    try {
-        ; 1855 276 top left 1440 res
-        ; 1855 1073 bottom right
-        found := PixelSearch(&OutX, &OutY,
-            WinRelPosLargeW(1855), WinRelPosLargeH(276),
-            WinRelPosLargeW(1855), WinRelPosLargeH(1073), "0xFFF1D2", 0)
-        If (!found || OutX = 0) {
-            found := PixelSearch(&OutX, &OutY,
-                WinRelPosLargeW(1855), WinRelPosLargeH(276),
-                WinRelPosLargeW(1855), WinRelPosLargeH(1073), "0xFDD28A", 0)
-            If (!found || OutX = 0) {
-                return false
-            }
-        }
-
-    } catch as exc {
-        MsgBox ("Could not conduct the search due to the following error:`n"
-            exc.Message)
+    ; 1855 276 top left 1440 res
+    ; 1855 1073 bottom right
+    col1 := PixelSearchWrapperRel(1855, 276, 1855, 1073, "0xFFF1D2")
+    if (col1 != false) {
+        return col1
     }
-    return [OutX, OutY]
+    col2 := PixelSearchWrapper(1855, 276, 1855, 1073, "0xFDD28A")
+    if (col2 != false) {
+        return col2
+    }
+    return false
 }
-
 
 BVScanSlotItem(X1, Y1, X2, Y2) {
     global BVItemsArr
@@ -177,14 +144,40 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
 
     try {
         for colour in BVItemsArr {
-            found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, colour, 0)
+            found := PixelSearch(&OutX, &OutY,
+                WinRelPosLargeW(X1), WinRelPosLargeH(Y1),
+                WinRelPosLargeW(X2), WinRelPosLargeH(Y2),
+                colour, 0)
             If (found and OutX != 0) {
+                ; Log("Borbv: Found " BVColourToItem(colour) " at " OutX
+                ;    " x " OutY)
                 return OutY ; Found item row
             }
         }
     } catch as exc {
-        MsgBox ("Could not conduct the search due to the following error:`n"
+        Log("Borbv: ScanSlotItem failed to scan - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
     return 0
+}
+
+BVColourToItem(colour) {
+    switch colour {
+        case "0xF91FF6": return "Borb ascention juice (purple default)"
+        case "0x70F928": return "Borb juice (green)"
+        case "0x0F2A1D": return "Nature time sphere"
+        case "0x55B409": return "Borb rune (green)"
+        case "0x018C9C": return "Magic mulch"
+        case "0x01D814": return "Nature gem"
+        case "0xAB5A53": return "Random item box (all types)"
+        case "0x98125F": return "Borb rune (purple)"
+        case "0xC1C1C1": return "Candy"
+        case "0x6CD820": return "Both clovers (uses same colours)"
+        case "0x6BEA15": return "Borb token"
+        case "0xCEF587": return "Free borb token"
+        case "0xC9C9C9": return "Dice Points (white)"
+        case "0x0E44BE": return "Power Dice Points (blue)"
+        default: return "Unknown"
+    }
 }

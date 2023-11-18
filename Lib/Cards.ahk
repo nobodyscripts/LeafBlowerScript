@@ -2,150 +2,110 @@
 global HadToHideNotifs
 HadToHideNotifs := false
 
-fOpenCardLoop()
-{
-    global HadToHideNotifs
-    if !WinExist("Leaf Blower Revolution") {
-        return ; Kill early if no game
-    }
-    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
-    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+fOpenCardLoop() {
+    global HadToHideNotifs, W, H, X, Y
 
-    OpenPets()
-    ; Opens or closes another screen so that when areas is opened it doesn't
-    ; close
-    Sleep 100
-    OpenCards()
-    Sleep 100
-    If (CheckForTransparentPanelsSilent()) {
-        ; Warning is displayed if there is an issue, return to avoid harm
+    if (!GotoCardsFirstTab()) {
+        ; We still failed to travel
+        Log("Cards: Failed to open cards first tab")
         return
     }
-    fSlowClick(202, 574)
-    ; Open leaf galaxy tab incase wrong tab and to reset scroll
 
     loop {
-        ; Check if lost focus, close or crash and break if so
-        if !WinExist("Leaf Blower Revolution") ||
-            !WinActive("Leaf Blower Revolution") {
-                break
+        if (!IsWindowActive()) {
+            Log("Cards: Did not find game. Aborted.")
+            return ; Kill if no game
         }
-        WinActivate("Leaf Blower Revolution")
-        ; Use the window found by WinExist.
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-        ; Update window size
-
-        ClickOffset := WinRelPosLargeH(2)
-        CommonX := WinRelPosLargeW(565)
-        CommonY := WinRelPosLargeH(820)
-        if (IsCoveredByNotification(CommonX, CommonY)) {
-            fSlowClick(32, 596, 34)
-            HadToHideNotifs := true
-            ; Notifications were blocking, close notifications and reshow
-            OpenCards()
-            Sleep 100
-        }
-        CommonButtonActive := IsButtonActive(CommonX, CommonY)
-        ; Check if button is active, if not we can skip
-
-        if (CardsDontOpenCommons = false && CommonButtonActive) {
-            CardNumberToModifier(CardsCommonAmount)
-            fCustomClick(CommonX, CommonY + ClickOffset)
-            ; Common pack open
-            Sleep CardsSleepAmount
-        }
-
-        RareX := WinRelPosLargeW(1130)
-        RareY := WinRelPosLargeH(820)
-        RareButtonActive := IsButtonActive(RareX, RareY)
-        ; Check if button is active, if not we can skip
-        if (CardsDontOpenRare = false && RareButtonActive) {
-            CardNumberToModifier(CardsRareAmount)
-            fCustomClick(RareX, RareY + ClickOffset)
-            ; Rare pack open
-            Sleep CardsSleepAmount
-        }
-
-        LegendaryX := WinRelPosLargeW(1690)
-        LegendaryY := WinRelPosLargeH(820)
-        LegendaryButtonActive := IsButtonActive(LegendaryX, LegendaryY)
-        ; Check if button is active, if not we can skip
-        if (CardsDontOpenLegendary = false && LegendaryButtonActive) {
-            CardNumberToModifier(CardsLegendaryAmount)
-            fCustomClick(LegendaryX, LegendaryY + ClickOffset)
-            ; Legendary pack open
-            Sleep CardsSleepAmount
-        }
-
-        If (!CommonButtonActive && !RareButtonActive && !LegendaryButtonActive)
-        {
+        if (!CardButtonsActive() && !CardsPermaLoop) {
+            Log("Cards: Exiting.")
             break
         }
-
-        ResetModifierKeys() ; Cleanup ctrl+shift+alt modifiers
+        if (CardsBuyEnabled) {
+            Log("Card buy: Loop starting.")
+            CardBuyLoop()
+        }
+        Log("Card Opening: Loop starting.")
+        loop {
+            if (!CardsOpenSinglePass()) {
+                Log("Card Opening: Loop finishing.")
+                break
+            }
+        }
     }
-    if (HadToHideNotifs = true) {
+    if (HadToHideNotifs) {
+        Log("Cards: Reenabling notifications.")
         fSlowClick(32, 596, 17)
         HadToHideNotifs := false
     }
+    ResetModifierKeys() ; Cleanup incase needed
+    Log("Cards: Stopped.")
     ToolTip("Card opening aborted`nFound no active buttons.`nF3 to remove note",
         W / 2 - WinRelPosLargeH(170), H / 2)
-    ResetModifierKeys() ; Cleanup incase of broken loop
 }
 
-CardBuyLoop() {
-    loop {
-        ; Check if lost focus, close or crash and break if so
-        if !WinExist("Leaf Blower Revolution") ||
-            !WinActive("Leaf Blower Revolution") {
-                break
-        }
-        WinActivate("Leaf Blower Revolution")
-        ; Use the window found by WinExist.
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-        ; Update window size
-
-        ClickOffset := WinRelPosLargeH(2)
-
-        CommonX := WinRelPosLargeW(593)
-        CommonY := WinRelPosLargeH(955)
-        CommonButtonActive := IsButtonActive(CommonX, CommonY)
-        ; Check if button is active, if not we can skip
-        if (CardsDontOpenCommons = false && CommonButtonActive) {
-            CardNumberToModifier(CardsCommonAmount)
-            fCustomClick(CommonX, CommonY + ClickOffset)
-            ; Common pack open
-        }
-
-        RareX := WinRelPosLargeW(1158)
-        RareY := WinRelPosLargeH(955)
-        RareButtonActive := IsButtonActive(RareX, RareY)
-        ; Check if button is active, if not we can skip
-        if (CardsDontOpenRare = false && RareButtonActive) {
-            CardNumberToModifier(CardsRareAmount)
-            fCustomClick(RareX, RareY + ClickOffset)
-            ; Rare pack open
-        }
-
-        LegendaryX := WinRelPosLargeW(1690)
-        LegendaryY := WinRelPosLargeH(955)
-        LegendaryButtonActive := IsButtonActive(LegendaryX, LegendaryY)
-        ; Check if button is active, if not we can skip
-        if (CardsDontOpenLegendary = false && LegendaryButtonActive) {
-            CardNumberToModifier(CardsLegendaryAmount)
-            fCustomClick(LegendaryX, LegendaryY + ClickOffset)
-            ; Legendary pack open
-        }
-
-        If (!CommonButtonActive && !RareButtonActive && !LegendaryButtonActive)
-        {
-            break
-        }
-
-        Sleep CardsSleepAmount
-        ResetModifierKeys() ; Cleanup ctrl+shift+alt modifiers
+CardsOpenSinglePass() {
+    global HadToHideNotifs, W, H, X, Y
+    ; Check if lost focus, close or crash and break if so
+    if (!IsWindowActive()) {
+        Log("Card opening: Did not find game. Aborted.")
+        return false ; Kill if no game
     }
-    ResetModifierKeys() ; Cleanup incase of broken loop
+    WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+    ; Update window size
+
+    ; Use the transparent check to make sure we have a panel, otherwise
+    ; we'll close notifications for no reason and get into a loop
+    if (IsPanelTransparent()) {
+        Log("Card opening: Did not find panel.")
+        return false
+    }
+    CommonX := WinRelPosLargeW(565)
+    CommonY := WinRelPosLargeH(820)
+    ; Close notifications if they are getting in the way
+    if (!IsPanelTransparent() && IsCoveredByNotification(CommonX, CommonY)) {
+        Log("Card opening: Found notification covering button and hid"
+            " notifications.")
+        fSlowClick(32, 596, 101)
+        HadToHideNotifs := true
+        ; Notifications were blocking, close notifications and reshow
+        OpenCards()
+        Sleep(101)
+    }
+
+    ; Common
+    ; If disabled skip, get active state back
+    if (!CardsDontOpenCommons) {
+        CommonButtonActive := CardOpenerRel(565, 820,
+            5, CardsCommonAmount)
+    } else {
+        ; If disabled mark inactive
+        CommonButtonActive := false
+    }
+    ; Rare
+    ; If disabled skip, get active state back
+    if (!CardsDontOpenRare) {
+        RareButtonActive := CardOpenerRel(1110, 820,
+            5, CardsRareAmount)
+    } else {
+        ; If disabled mark inactive
+        RareButtonActive := false
+    }
+    ; Legendary
+    ; If disabled skip, get active state back
+    if (!CardsDontOpenLegendary) {
+        LegendaryButtonActive := CardOpenerRel(1673, 820,
+            5, CardsLegendaryAmount)
+    } else {
+        ; If disabled mark inactive
+        LegendaryButtonActive := false
+    }
+
+    If (!CommonButtonActive && !RareButtonActive && !LegendaryButtonActive)
+    {
+        Log("Card opening: No packs to open.")
+        return false
+    }
+    return true
 }
 
 CardNumberToModifier(num) {
@@ -156,25 +116,102 @@ CardNumberToModifier(num) {
     */
     switch num {
         case 10:
-            ControlSend "{Shift down}", , "Leaf Blower Revolution"
+            ControlSend("{Control up}", , "Leaf Blower Revolution")
+            ControlSend("{Alt up}", , "Leaf Blower Revolution")
+            ControlSend("{Shift down}", , "Leaf Blower Revolution")
         case 25:
-            ControlSend "{Control down}", , "Leaf Blower Revolution"
+            ControlSend("{Control down}", , "Leaf Blower Revolution")
+            ControlSend("{Alt up}", , "Leaf Blower Revolution")
+            ControlSend("{Shift up}", , "Leaf Blower Revolution")
         case 100:
-            ControlSend "{Alt down}", , "Leaf Blower Revolution"
+            ControlSend("{Control up}", , "Leaf Blower Revolution")
+            ControlSend("{Alt down}", , "Leaf Blower Revolution")
+            ControlSend("{Shift up}", , "Leaf Blower Revolution")
         case 250:
-            ControlSend "{Control down}", , "Leaf Blower Revolution"
-            ControlSend "{Shift down}", , "Leaf Blower Revolution"
+            ControlSend("{Control down}", , "Leaf Blower Revolution")
+            ControlSend("{Alt up}", , "Leaf Blower Revolution")
+            ControlSend("{Shift down}", , "Leaf Blower Revolution")
         case 1000:
-            ControlSend "{Alt down}", , "Leaf Blower Revolution"
-            ControlSend "{Shift down}", , "Leaf Blower Revolution"
+            ControlSend("{Control up}", , "Leaf Blower Revolution")
+            ControlSend("{Alt down}", , "Leaf Blower Revolution")
+            ControlSend("{Shift down}", , "Leaf Blower Revolution")
         case 2500:
-            ControlSend "{Control down}", , "Leaf Blower Revolution"
-            ControlSend "{Alt down}", , "Leaf Blower Revolution"
+            ControlSend("{Control down}", , "Leaf Blower Revolution")
+            ControlSend("{Alt down}", , "Leaf Blower Revolution")
+            ControlSend("{Shift up}", , "Leaf Blower Revolution")
         case 25000:
-            ControlSend "{Control down}", , "Leaf Blower Revolution"
-            ControlSend "{Alt down}", , "Leaf Blower Revolution"
-            ControlSend "{Shift down}", , "Leaf Blower Revolution"
+            ControlSend("{Control down}", , "Leaf Blower Revolution")
+            ControlSend("{Alt down}", , "Leaf Blower Revolution")
+            ControlSend("{Shift down}", , "Leaf Blower Revolution")
         default:
 
     }
+}
+
+CardOpenerRel(x, y, offset, amount) {
+    x := WinRelPosLargeW(x)
+    y := WinRelPosLargeH(y)
+    offset := WinRelPosLargeH(offset)
+    ; Check if button is active, if not we can skip
+    CardNumberToModifier(amount)
+    Sleep(72)
+    if (IsButtonActive(x, y) && IsWindowActive()) {
+        fCustomClick(x, y + offset, 72)
+        ; Legendary pack open
+        Sleep(CardsSleepAmount)
+    }
+    ; Deliberate second check to return new state
+    return IsButtonActive(x, y)
+}
+
+; Seperate buyer to have faster turnover
+CardBuyerRel(posx, posy, offset, amount) {
+    posx := WinRelPosLargeW(posx)
+    posy := WinRelPosLargeH(posy)
+    offset := WinRelPosLargeH(offset)
+    ; Check if button is active, if not we can skip
+    CardNumberToModifier(amount)
+    sleep(CardsSleepBuyAmount)
+    if (!IsButtonInactive(posx, posy) && IsWindowActive()) {
+        fCustomClick(posx, posy + offset, CardsSleepBuyAmount)
+        ; Legendary pack open
+        Sleep(CardsSleepBuyAmount)
+        return true
+    } else {
+        return false
+    }
+}
+
+CardButtonsActive() {
+    CardNumberToModifier(CardsCommonAmount)
+    Sleep(72)
+    if (IsButtonActive(WinRelPosLargeW(565), WinRelPosLargeH(820))) {
+        return true
+    }
+    CardNumberToModifier(CardsRareAmount)
+    Sleep(72)
+    if (IsButtonActive(WinRelPosLargeW(1110), WinRelPosLargeH(820))) {
+        return true
+    }
+    CardNumberToModifier(CardsLegendaryAmount)
+    Sleep(72)
+    if (IsButtonActive(WinRelPosLargeW(1673), WinRelPosLargeH(820))) {
+        return true
+    }
+    CardNumberToModifier(CardsCommonBuyAmount)
+    Sleep(72)
+    if (IsButtonActive(WinRelPosLargeW(590), WinRelPosLargeH(950))) {
+        return true
+    }
+    CardNumberToModifier(CardsRareBuyAmount)
+    Sleep(72)
+    if (IsButtonActive(WinRelPosLargeW(1155), WinRelPosLargeH(950))) {
+        return true
+    }
+    CardNumberToModifier(CardsLegBuyAmount)
+    Sleep(72)
+    if (IsButtonActive(WinRelPosLargeW(1711), WinRelPosLargeH(950))) {
+        return true
+    }
+    return false
 }

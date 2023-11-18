@@ -2,49 +2,38 @@
 
 
 fClawFarm() {
-    if !WinExist("Leaf Blower Revolution") {
-        return ; Kill early if no game
-    }
-    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
-    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
-
     If (!IsHalloweenEventActive()) {
+        Log("Claw: Halloween inactive.")
         ToolTip("Halloween inactive`nPlease use the artifact to enable halloween event",
             W / 2 - WinRelPosW(50),
             H / 2)
         SetTimer(ToolTip, -5000)
         return
     }
-    If (CheckForTransparentPanelsSilent()) {
-        ; Warning is displayed if there is an issue, return to avoid harm
-        return
-    }
-
-    fSlowClick(315, 574, 100) ; Click the right tab after checking halloween
-    Sleep 150
+    fSlowClick(315, 574, 101) ; Click the right tab after checking halloween
+    sleep(150)
     ResetAreaScroll() ; Reset incase
-    Sleep 150
+    sleep(150)
     ScrollAmountDown(46) ; Scroll down
-    Sleep 150
+    sleep(150)
     If (IsBackground(WinRelPosW(830), WinRelPosH(359))) {
+        Log("Claw: Could not travel to pub.")
         ToolTip("Pub area button didn't align, try again",
             W / 2 - WinRelPosW(50), H / 2)
         SetTimer(ToolTip, -5000)
         return
     }
-    fSlowClick(830, 359, 100) ; Open pub area
-    Sleep 250
-    fSlowClick(50, 252, 100) ; Close the area screen
-    Sleep 250
-    fSlowClick(276, 252, 100) ; Open claw machine
-    Sleep 250
+    fSlowClick(830, 359, 101) ; Open pub area
+    sleep(250)
+    fSlowClick(50, 252, 101) ; Close the area screen
+    sleep(250)
+    fSlowClick(276, 252, 101) ; Open claw machine
+    sleep(250)
     RefreshTrades()
-    Sleep 150
+    sleep(150)
     loop {
-
-        if (!WinExist("Leaf Blower Revolution") ||
-            !WinActive("Leaf Blower Revolution")) {
-                return ; Kill early if no game
+        if (!IsWindowActive()) {
+            return ; Kill if no game
         }
         TargetX := ClawGetPumpkinLocation()
         if (TargetX = 0) {
@@ -52,12 +41,9 @@ fClawFarm() {
             TargetX := ClawGetGemLocation()
             if (TargetX = 0) {
                 ; Still nothing just reset
-                ToolTip("Nothing found, resetting",
-                    W / 2 - WinRelPosLargeW(50), H / 2)
-                SetTimer(ToolTip, -500)
-                Sleep 100
+                Sleep(101)
                 RefreshTrades()
-                Sleep 50
+                sleep(50)
             }
         }
         ; Version 3
@@ -81,7 +67,8 @@ ClawGetPumpkinLocation() {
             return OutX ; Found colour
         }
     } catch as exc {
-        MsgBox ("Could not conduct the search due to the following error:`n"
+        Log("Claw: ClawGetPumpkinLocation search failed - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
     return 0
@@ -101,7 +88,8 @@ ClawGetGemLocation() {
             return OutX ; Found colour
         }
     } catch as exc {
-        MsgBox ("Could not conduct the search due to the following error:`n"
+        Log("Claw: ClawGetGemLocation search failed - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
     return 0
@@ -129,7 +117,8 @@ ClawGetHookLocation(ScreenX) {
             return OutX ; Found colour
         }
     } catch as exc {
-        MsgBox ("Could not conduct the search due to the following error:`n"
+        Log("Claw: ClawGetHookLocation search failed - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
     return 0
@@ -146,12 +135,10 @@ IsClawAboveLocation(ScreenX) {
 ClawCheck(TargetX, offset := 0, delay := 0) {
     if (IsClawAboveLocation(TargetX - WinRelPosLargeW(offset)) &&
         TargetX != 0) {
-            Sleep delay
+            Sleep(delay)
             RefreshTrades()
-            ToolTip("Trying to catch offset " . offset . " Delay " . delay,
-                TargetX - WinRelPosLargeW(offset),
-                WinRelPosLargeH(970))
-            SetTimer(ToolTip, -100)
+            Log("Trying to catch, Offset " offset " Delay " delay " X "
+                TargetX - WinRelPosLargeW(offset))
             return true
     }
     return false
