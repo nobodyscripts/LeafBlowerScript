@@ -106,7 +106,7 @@ fGemFarmSuitcase() {
     GemFarmActive := true
     Log("GemFarm: Starting main loop.")
     while (GemFarmActive) {
-        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+        WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
         ; Update window size
 
         if (!IsWindowActive()) {

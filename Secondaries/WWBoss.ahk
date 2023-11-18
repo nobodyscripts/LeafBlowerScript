@@ -10,33 +10,33 @@
 
 global X, Y, W, H
 global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
-
 global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
 global settings := cSettings()
 settings.initSettings()
 
-OnExit(CleanupTimer)
+OnExit(CleanupTimer2)
 
-Log("Secondary: Normal Boss Started")
+Log("Secondary: WW Boss Started")
 
 InitGameWindow()
-fNormalBoss()
 
-fNormalBoss() {
+fWWBoss()
+
+fWWBoss() {
     if (F9UsesWobblyWings && IsWindowActive() && IsBossTimerActive()) {
-        SetTimer(UseWings, WobblyWingsSleepAmount)
+        SetTimer(UseWings2, WobblyWingsSleepAmount)
         ; Use it once to avoid getting stuck
         TriggerWobblyWings()
     }
     loop {
         if (!IsWindowActive()) {
-            Log("NormBoss: Exiting as no game.")
+            Log("WWBoss: Exiting as no game.")
             return
         }
         ; If boss killed us at gf assume we're weak and reset gf
         ; If user set gf kills too high it'll hit this
         if (IsAreaResetToGarden()) {
-            Log("NormBoss: User killed. Aborted.")
+            Log("WWBoss: User killed. Aborted.")
             return
         }
         if (IsWindowActive() && IsBossTimerActive()) {
@@ -47,16 +47,20 @@ fNormalBoss() {
             TriggerWind()
             Sleep(ArtifactSleepAmount)
         }
+        if (IsAreaGFOrSS()) {
+            TriggerGravity()
+            Sleep(ArtifactSleepAmount)
+        }
     }
 }
 
-UseWings() {
+UseWings2() {
     if (IsWindowActive() && IsBossTimerActive()) {
         TriggerWobblyWings()
     }
 }
 
-CleanupTimer(ExitReason, ExitCode) {
-    SetTimer(UseWings, -1)
+CleanupTimer2(ExitReason, ExitCode) {
+    SetTimer(UseWings2, -1)
     ExitApp()
 }

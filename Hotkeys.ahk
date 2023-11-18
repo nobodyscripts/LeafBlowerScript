@@ -7,98 +7,98 @@
 ; https://www.autohotkey.com/docs/v2/KeyList.htm for a list of possible keys
 
 OpenAreas() {
-    ControlSend("{v}", , "Leaf Blower Revolution")
+    ControlSend("{v}", , LBRWindowTitle)
 }
 
 OpenGemShop() {
-    ControlSend("{.}", , "Leaf Blower Revolution") ; Period/full stop
+    ControlSend("{.}", , LBRWindowTitle) ; Period/full stop
 }
 
 OpenTrades() {
-    ControlSend("{y}", , "Leaf Blower Revolution")
+    ControlSend("{y}", , LBRWindowTitle)
 }
 
 OpenPets() {
-    ControlSend("{k}", , "Leaf Blower Revolution")
+    ControlSend("{k}", , LBRWindowTitle)
 }
 
 OpenBorbVentures() {
-    ControlSend("{j}", , "Leaf Blower Revolution")
+    ControlSend("{j}", , LBRWindowTitle)
 }
 
 OpenCards() {
-    ControlSend("{i}", , "Leaf Blower Revolution")
+    ControlSend("{i}", , LBRWindowTitle)
 }
 
 OpenAlchemy() {
-    ControlSend("{o}", , "Leaf Blower Revolution") ; Letter O
+    ControlSend("{o}", , LBRWindowTitle) ; Letter O
 }
 
 TriggerGravity() {
-    ControlSend("{]}", , "Leaf Blower Revolution")
+    ControlSend("{]}", , LBRWindowTitle)
 }
 
 TriggerSuitcase() {
-    ControlSend("{,}", , "Leaf Blower Revolution") ; Comma
+    ControlSend("{,}", , LBRWindowTitle) ; Comma
 }
 
 TriggerViolin() {
-    ControlSend("{/}", , "Leaf Blower Revolution")
+    ControlSend("{/}", , LBRWindowTitle)
 }
 
 TriggerWind() {
-    ControlSend("{[}", , "Leaf Blower Revolution")
+    ControlSend("{[}", , LBRWindowTitle)
 }
 
 TriggerWobblyWings() {
-    ControlSend("{#}", , "Leaf Blower Revolution")
+    ControlSend("{#}", , LBRWindowTitle)
 }
 
 RefreshTrades() {
-    ControlSend("{Space}", , "Leaf Blower Revolution")
+    ControlSend("{Space}", , LBRWindowTitle)
 }
 
 EquipDefaultGearLoadout() {
-    ControlSend("{Numpad1}", , "Leaf Blower Revolution")
+    ControlSend("{Numpad1}", , LBRWindowTitle)
     ; Used as default after using other loadouts
     ; In my case this is my brew set
 }
 
 EquipTowerGearLoadout() {
-    ControlSend("{Numpad3}", , "Leaf Blower Revolution")
+    ControlSend("{Numpad3}", , LBRWindowTitle)
 }
 
 EquipQuarkGearLoadout() {
-    ControlSend("{Numpad7}", , "Leaf Blower Revolution")
+    ControlSend("{Numpad7}", , LBRWindowTitle)
 }
 
 ClosePanel() {
-    ControlSend("{Esc}", , "Leaf Blower Revolution")
+    ControlSend("{Esc}", , LBRWindowTitle)
 }
 
 /*
 ;These are not currently used so you can ignore the keybinds below
 
 OpenTools() {
-    ControlSend("{1}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend("{1}", , LBRWindowTitle) ; Inactive
 }
 
 EquipDamageGearLoadout() {
-    ControlSend("{Numpad2}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend("{Numpad2}", , LBRWindowTitle) ; Inactive
 }
 
 EquipBlowingGearLoadout() {
-    ControlSend("{Numpad4}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend("{Numpad4}", , LBRWindowTitle) ; Inactive
 }
 
 EquipSwordGearLoadout() {
-    ControlSend("{Numpad5}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend("{Numpad5}", , LBRWindowTitle) ; Inactive
 }
 
 EquipPyramidGearLoadout() {
-    ControlSend("{Numpad6}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend("{Numpad6}", , LBRWindowTitle) ; Inactive
 }
 
 EquipEightGearLoadout() {
-    ControlSend("{Numpad8}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend("{Numpad8}", , LBRWindowTitle) ; Inactive
 }*/

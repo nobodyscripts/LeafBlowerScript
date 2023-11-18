@@ -4,20 +4,24 @@
 
 ; Convert positions from 1278*664 client resolution to current resolution
 WinRelPosW(PosW) {
+    global W
     return PosW / 1278 * W
 }
 
 WinRelPosH(PosH) {
+    global H
     return PosH / 664 * H
 }
 
 ; Convert positions from 2560*1396 client resolution to current resolution to
 ; allow higher accuracy
 WinRelPosLargeW(PosW2) {
+    global W
     return PosW2 / 2560 * W
 }
 
 WinRelPosLargeH(PosH2) {
+    global H
     return PosH2 / 1369 * H
 }
 
@@ -72,9 +76,9 @@ ResetModifierKeys() {
     ; Cleanup incase still held, ahk cannot tell if the key has been sent as up
     ; getkeystate reports the key, not what lbr has been given
 
-    ControlSend("{Control up}", , "Leaf Blower Revolution")
-    ControlSend("{Alt up}", , "Leaf Blower Revolution")
-    ControlSend("{Shift up}", , "Leaf Blower Revolution")
+    ControlSend("{Control up}", , LBRWindowTitle)
+    ControlSend("{Alt up}", , LBRWindowTitle)
+    ControlSend("{Shift up}", , LBRWindowTitle)
 }
 
 IsButtonActive(screenX, screenY) {
@@ -100,7 +104,13 @@ IsButtonInactive(screenX, screenY) {
         targetColour := PixelGetColor(screenX, screenY)
         If (targetColour = "0xC8BDA5") {
             ; Check button for non background colour
+            If (Debug) {
+                Log("IsButtonInactive() true: " targetColour " at " screenX "*" screenY)
+            }
             return true
+        }
+        If (Debug) {
+            Log("IsButtonInactive() false: " targetColour " at " screenX "*" screenY)
         }
     } catch as exc {
         Log("Error 3: IsButtonInactive check failed - " exc.Message)
@@ -314,21 +324,33 @@ IsScrollAblePanelAtTop() {
  * overwritable
  */
 Log(logmessage, logfile := ScriptsLogFile) {
-    OutputDebug(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
-        logmessage '`r`n')
+    static isWritingToLog := false
+    if (!EnableLogging) {
+        return
+    }
+    k := 0
     try {
-        if (EnableLogging) {
-            /* local LogFileHandle := FileOpen(logfile, "a")
-            LogFileHandle.WriteLine(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
-            logmessage)
-            LogFileHandle.Close() */
-            FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
-                logmessage '`r`n', logfile)
+        message := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - ' logmessage '`r`n'
+        while (k <= 10) {
+            if (isWritingToLog) {
+                Sleep(6)
+                k++
+            }
+            if (!isWritingToLog) {
+                isWritingToLog := true
+                FileAppend(message, logfile)
+                if (Debug) {
+                    OutputDebug(message)
+                }
+                Sleep(5)
+                isWritingToLog := false
+                return
+            }
         }
+        OutputDebug("Could not log message after 10 attempts`r`n" message)
     } catch as exc {
-        OutputDebug("LogError: Error writing to log - " exc.Message)
-        MsgBox("Error writing to log:`n"
-            exc.Message)
+        OutputDebug("LogError: Error writing to log - " exc.Message "`r`n")
+        ; MsgBox("Error writing to log:`n" exc.Message)
         Sleep(2)
         FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
             logmessage '`r`n', logfile)

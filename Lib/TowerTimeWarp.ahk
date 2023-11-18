@@ -18,9 +18,9 @@ fTimeWarpAndRaiseTower() {
         if (!IsWindowActive()) {
             break
         }
-        WinActivate("Leaf Blower Revolution")
+        WinActivate(LBRWindowTitle)
         ; Use the window found by WinExist.
-        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+        WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
         ; Update window size
 
         ; Look for colour of a segment of the rightmost tower leaf c5d8e0

@@ -1,9 +1,9 @@
 ﻿#Requires AutoHotkey v2.0
 #MaxThreadsPerHotkey 8
 #SingleInstance Force
-#Include Config.ahk
 #Include Hotkeys.ahk
 
+#Include Lib\ScriptSettings.ahk
 #Include Lib\Functions.ahk
 #Include Lib\Navigate.ahk
 #Include Lib\SettingsCheck.ahk
@@ -16,22 +16,38 @@
 #Include Lib\FarmNatureBoss.ahk
 #Include Lib\FarmNormalBoss.ahk
 #Include Lib\FarmQuarkBoss.ahk
+#Include Lib\FarmWWBoss.ahk
 #Include Lib\GemFarm.ahk
 #Include Lib\TowerTimeWarp.ahk
 
+DetectHiddenWindows(true)
 Persistent()  ; Prevent the script from exiting automatically.
 OnExit(ExitFunc)
 
-global X, Y, W, H
 global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
+global Debug := false
+global on9 := 0
+global HadToHideNotifsF9 := false
+global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
+global X, Y, W, H
+global settings := cSettings()
+
+if (!settings.initSettings()) {
+    ; If the first load fails, it attempts to write a new config, this retrys
+    ; loading after that first failure
+    ; Hardcoding 2 attempts because a loop could continuously error
+    if (!settings.initSettings()) {
+        MsgBox("Script failed to load settings, script closing, try restarting.")
+        ExitApp()
+    }
+}
+X := Y := W := H := 0
+if (WinExist(LBRWindowTitle)) {
+    WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
+}
 Log("Script loaded")
 
 
-if (WinExist("Leaf Blower Revolution")) {
-    WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
-} else {
-    X := Y := W := H := 0
-}
 ; ------------------- Readme -------------------
 /*
 See Readme.md for readme
@@ -40,9 +56,10 @@ Run this file to load script
 
 ; ------------------- Script Triggers -------------------
 
-#HotIf WinActive("Leaf Blower Revolution")
+#HotIf WinActive(LBRWindowTitle)
 *F1:: {
     KillSpammer()
+    KillWWSpammer()
     Log("F1: Pressed")
     ; Wildcard shortcut * to allow functions to work while looping with
     ; modifiers held
@@ -55,6 +72,7 @@ Run this file to load script
         QuarkFarmActive
     ; Toggle notifs to handle multiple situations where its toggled
     KillSpammer()
+    KillWWSpammer()
     if (HadToHideNotifs) {
         Log("F2: Reenabling notifications.")
         fSlowClick(32, 596, 101)
@@ -247,8 +265,6 @@ Run this file to load script
     } Else reload()
 }
 
-global on9 := 0
-global HadToHideNotifsF9 := false
 
 *F9:: { ; Farm bosses using violins
     global on9, HadToHideNotifsF9
@@ -328,13 +344,9 @@ global HadToHideNotifsF9 := false
 ;Allow autoclicker outside game
 #HotIf
 *F11:: { ; Autoclicker non game specific
-    global X, Y, W, H
     Static on11 := False
     Log("F11: Pressed")
-    if (WinExist("Leaf Blower Revolution")) {
-        ; Slightly different as you can use this outside lbr
-        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
-    }
+    ;InitGameWindow()
     If (on11 := !on11) {
         while (on11) {
             MouseClick("left", , , , , "D")
@@ -353,22 +365,20 @@ global HadToHideNotifsF9 := false
     }
 }
 
-#HotIf WinActive("Leaf Blower Revolution")
+#HotIf WinActive(LBRWindowTitle)
 *F12:: {
     global X, Y, W, H, DisableSettingsChecks
     Log("F12: Pressed")
-    if (MakeWindowActive()) {
-        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
-    } else {
+    if (!InitGameWindow()) {
         return
     }
-    If (WinGetMinMax("Leaf Blower Revolution") != 0) {
-        WinRestore("Leaf Blower Revolution")
+    If (WinGetMinMax(LBRWindowTitle) != 0) {
+        WinRestore(LBRWindowTitle)
     }
     ; Changes size of client window for windows 11
-    WinMove(, , 1294, 603, "Leaf Blower Revolution")
-    WinWait("Leaf Blower Revolution")
-    WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+    WinMove(, , 1294, 603, LBRWindowTitle)
+    WinWait(LBRWindowTitle)
+    InitGameWindow()
     if (W != "1278" || H != "564") {
         Log("Resized window to 1294*603 client size should be 1278*564, found: " W "*" H)
     }
@@ -376,16 +386,16 @@ global HadToHideNotifsF9 := false
     if (!CheckGameSettingsCorrectVerbose()) {
         ; If it fails checks we need to restore the size we needed and then
         ; return
-        WinMove(, , 1294, 703, "Leaf Blower Revolution")
-        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+        WinMove(, , 1294, 703, LBRWindowTitle)
+        InitGameWindow()
         if (W != "1278" || H != "664") {
             Log("Resized window to 1294*703 client size should be 1278*664, found: " W "*" H)
         }
         return
     }
-    WinMove(, , 1294, 703, "Leaf Blower Revolution")
-    WinWait("Leaf Blower Revolution")
-    WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+    WinMove(, , 1294, 703, LBRWindowTitle)
+    WinWait(LBRWindowTitle)
+    InitGameWindow()
     if (W != "1278" || H != "664") {
         Log("Resized window to 1294*703 client size should be 1278*664, found: " W "*" H)
     }
@@ -446,6 +456,43 @@ removeLastCheckTooltip() {
         Log("Insert: Equipped Default Loadout")
         EquipDefaultGearLoadout()
         Log("Insert: Resetting")
+        reload()
+        return
+    }
+}
+
+/**
+ * Toggle the Wobbly Wings + GFSS farm mode
+ * @param ThisHotkey Home
+ * @returns {void} 
+ */
+*Home:: {
+    ; Farm bosses using violins
+    Static on14 := false
+    global WWFarmActive
+    WWFarmActive := true
+    Log("Home: Pressed")
+    KillWWSpammer()
+    if (!InitGameWindow() && !on14) {
+        reload()
+        return
+    }
+    if (!IsWindowActive()) {
+        reload() ; Kill if no game
+        return
+    }
+    ResetModifierKeys() ; Cleanup incase needed
+    If (on14 := !on14) {
+        if (!CheckGameSettingsCorrect()) {
+            reload()
+            return
+        }
+        Log("Home: WW Boss Activated")
+        fFarmWWBoss()
+    } Else {
+        WWFarmActive := false
+        KillWWSpammer()
+        Log("Home: Resetting")
         reload()
         return
     }

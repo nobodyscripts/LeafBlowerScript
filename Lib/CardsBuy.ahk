@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0
 
 global cardBuyOffset := 5
+global cardBuyCommonButtonX := 455
+global cardBuyCommonButtonY := 934
+
+global cardBuyRareButtonX := 1015
+global cardBuyRareButtonY := 934
+
+global cardBuyLegButtonX := 1575
+global cardBuyLegButtonY := 934
 
 CardBuySinglePass() {
     global HadToHideNotifs, W, H, X, Y
@@ -8,7 +16,7 @@ CardBuySinglePass() {
     if (!IsWindowActive()) {
         return
     }
-    WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+    WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
     ; Update window size
 
     if (!IsPanelActive()) {
@@ -20,7 +28,7 @@ CardBuySinglePass() {
         Log("Card buying: Found notification covering button and hid"
             " notifications.")
         fSlowClick(32, 596, 101)
-        HadToHideNotifs := true 
+        HadToHideNotifs := true
         OpenCards()
         Sleep(101)
     }
@@ -43,14 +51,14 @@ CardBuySinglePass() {
     Sleep(CardsSleepBuyAmount)
 }
 
-CardBuyLoop(SpamViolins := false) {
-    global HadToHideNotifs, W, H, X, Y
+CardBuyLoop() {
+    global HadToHideNotifs, W, H, X, Y, Debug
     loop {
         ; Check if lost focus, close or crash and break if so
         if (!IsWindowActive()) {
             break
         }
-        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+        WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
         ; Update window size
         if (!IsPanelActive()) {
             Log("Card buying: Did not find panel. Aborted.")
@@ -61,28 +69,32 @@ CardBuyLoop(SpamViolins := false) {
             Log("Card buying: Found notification covering button and hid"
                 " notifications.")
             fSlowClick(32, 596, 101)
-            HadToHideNotifs := true 
+            HadToHideNotifs := true
             OpenCards()
             Sleep(101)
         }
-        if (SpamViolins && IsBossTimerActive()) {
-            TriggerViolin()
-        }
         switch CardsBuyStyle {
             case "FocusLegend":
-                state := CardBuyLegFirst()
+                if (Debug) Log("FocusLegend Mode")
+                    state := CardBuyLegFirst()
             case "FocusRare":
-                state := CardBuyRareFirst()
+                if (Debug) Log("FocusRare Mode")
+                    state := CardBuyRareFirst()
             case "FocusRare2":
-                state := CardBuyRare2First()
+                if (Debug) Log("FocusRare2 Mode")
+                    state := CardBuyRare2First()
             case "FocusCommon":
-                state := CardBuyCommonFirst()
+                if (Debug) Log("FocusCommon Mode")
+                    state := CardBuyCommonFirst()
             case "RoundRobin":
-                state := CardBuyRoundRobin()
+                if (Debug) Log("RoundRobin Mode")
+                    state := CardBuyRoundRobin()
             case "RoundRobin2":
-                state := CardBuyRoundRobin2()
+                if (Debug) Log("RoundRobin2 Mode")
+                    state := CardBuyRoundRobin2()
             default:
-                state := CardBuyRoundRobin()
+                if (Debug) Log("Default Mode")
+                    state := CardBuyRoundRobin()
         }
         if (!state) {
             break
@@ -97,7 +109,7 @@ CardBuyRoundRobin() {
     ; Legendary
     ; If disabled skip, get active state back
     if (!CardsDontBuyLeg) {
-        LegButtonActive := CardBuyerRel(1711, 950,
+        LegButtonActive := CardBuyerRel(cardBuyLegButtonX, cardBuyLegButtonY,
             cardBuyOffset, CardsLegBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -106,7 +118,7 @@ CardBuyRoundRobin() {
     ; Rare
     ; If disabled skip, get active state back
     if (!CardsDontBuyRare) {
-        RareButtonActive := CardBuyerRel(1155, 950,
+        RareButtonActive := CardBuyerRel(cardBuyRareButtonX, cardBuyRareButtonY,
             cardBuyOffset, CardsRareBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -115,7 +127,7 @@ CardBuyRoundRobin() {
     ; Common
     ; If disabled skip, get active state back
     if (!CardsDontBuyCommons) {
-        CommonButtonActive := CardBuyerRel(590, 950,
+        CommonButtonActive := CardBuyerRel(cardBuyCommonButtonX, cardBuyCommonButtonY,
             cardBuyOffset, CardsCommonBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -134,7 +146,7 @@ CardBuyRoundRobin2() {
     ; Common
     ; If disabled skip, get active state back
     if (!CardsDontBuyCommons) {
-        CommonButtonActive := CardBuyerRel(590, 950,
+        CommonButtonActive := CardBuyerRel(cardBuyCommonButtonX, cardBuyCommonButtonY,
             cardBuyOffset, CardsCommonBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -143,7 +155,7 @@ CardBuyRoundRobin2() {
     ; Rare
     ; If disabled skip, get active state back
     if (!CardsDontBuyRare) {
-        RareButtonActive := CardBuyerRel(1155, 950,
+        RareButtonActive := CardBuyerRel(cardBuyRareButtonX, cardBuyRareButtonY,
             cardBuyOffset, CardsRareBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -152,7 +164,7 @@ CardBuyRoundRobin2() {
     ; Legendary
     ; If disabled skip, get active state back
     if (!CardsDontBuyLeg) {
-        LegButtonActive := CardBuyerRel(1711, 950,
+        LegButtonActive := CardBuyerRel(cardBuyLegButtonX, cardBuyLegButtonY,
             cardBuyOffset, CardsLegBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -170,33 +182,48 @@ CardBuyLegFirst() {
     ; Legendary
     ; If disabled skip, get active state back
     if (!CardsDontBuyLeg) {
-        LegButtonActive := CardBuyerRel(1711, 950,
+        LegButtonActive := CardBuyerRel(cardBuyLegButtonX, cardBuyLegButtonY,
             cardBuyOffset, CardsLegBuyAmount)
     } else {
         ; If disabled mark inactive
+        if (Debug) {
+            Log("Leg Disabled ")
+            if (CardsDontBuyLeg == "true") {
+                Log("Is string")
+            }
+        }
         LegButtonActive := false
     }
     ; Rare
     ; If disabled skip, get active state back
     if (!CardsDontBuyRare && !LegButtonActive) {
-        RareButtonActive := CardBuyerRel(1155, 950,
+        RareButtonActive := CardBuyerRel(cardBuyRareButtonX, cardBuyRareButtonY,
             cardBuyOffset, CardsRareBuyAmount)
     } else {
         ; If disabled mark inactive
+        if (Debug) {
+            Log("Rare Disabled")
+        }
         RareButtonActive := false
     }
     ; Common
     ; If disabled skip, get active state back
     if (!CardsDontBuyCommons && !LegButtonActive && !RareButtonActive) {
-        CommonButtonActive := CardBuyerRel(590, 950,
+        CommonButtonActive := CardBuyerRel(cardBuyCommonButtonX, cardBuyCommonButtonY,
             cardBuyOffset, CardsCommonBuyAmount)
     } else {
         ; If disabled mark inactive
+        if (Debug) {
+            Log("Commons Disabled")
+        }
         CommonButtonActive := false
     }
 
     If (!CommonButtonActive && !RareButtonActive &&
         !LegButtonActive) {
+            if (Debug) {
+                Log("All inactive")
+            }
             return false
     }
     return true
@@ -207,7 +234,7 @@ CardBuyRareFirst() {
     ; Rare
     ; If disabled skip, get active state back
     if (!CardsDontBuyRare) {
-        RareButtonActive := CardBuyerRel(1155, 950,
+        RareButtonActive := CardBuyerRel(cardBuyRareButtonX, cardBuyRareButtonY,
             cardBuyOffset, CardsRareBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -216,7 +243,7 @@ CardBuyRareFirst() {
     ; Common
     ; If disabled skip, get active state back
     if (!CardsDontBuyCommons && !RareButtonActive) {
-        CommonButtonActive := CardBuyerRel(590, 950,
+        CommonButtonActive := CardBuyerRel(cardBuyCommonButtonX, cardBuyCommonButtonY,
             cardBuyOffset, CardsCommonBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -225,7 +252,7 @@ CardBuyRareFirst() {
     ; Legendary
     ; If disabled skip, get active state back
     if (!CardsDontBuyLeg && !RareButtonActive && !CommonButtonActive) {
-        LegButtonActive := CardBuyerRel(1711, 950,
+        LegButtonActive := CardBuyerRel(cardBuyLegButtonX, cardBuyLegButtonY,
             cardBuyOffset, CardsLegBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -244,7 +271,7 @@ CardBuyRare2First() {
     ; Rare
     ; If disabled skip, get active state back
     if (!CardsDontBuyRare) {
-        RareButtonActive := CardBuyerRel(1155, 950,
+        RareButtonActive := CardBuyerRel(cardBuyRareButtonX, cardBuyRareButtonY,
             cardBuyOffset, CardsRareBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -253,7 +280,7 @@ CardBuyRare2First() {
     ; Legendary
     ; If disabled skip, get active state back
     if (!CardsDontBuyLeg && !RareButtonActive) {
-        LegButtonActive := CardBuyerRel(1711, 950,
+        LegButtonActive := CardBuyerRel(cardBuyLegButtonX, cardBuyLegButtonY,
             cardBuyOffset, CardsLegBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -262,7 +289,7 @@ CardBuyRare2First() {
     ; Common
     ; If disabled skip, get active state back
     if (!CardsDontBuyCommons && !RareButtonActive && !LegButtonActive) {
-        CommonButtonActive := CardBuyerRel(590, 950,
+        CommonButtonActive := CardBuyerRel(cardBuyCommonButtonX, cardBuyCommonButtonY,
             cardBuyOffset, CardsCommonBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -281,7 +308,7 @@ CardBuyCommonFirst() {
     ; Common
     ; If disabled skip, get active state back
     if (!CardsDontBuyCommons) {
-        CommonButtonActive := CardBuyerRel(590, 950,
+        CommonButtonActive := CardBuyerRel(cardBuyCommonButtonX, cardBuyCommonButtonY,
             cardBuyOffset, CardsCommonBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -290,7 +317,7 @@ CardBuyCommonFirst() {
     ; Rare
     ; If disabled skip, get active state back
     if (!CardsDontBuyRare && !CommonButtonActive) {
-        RareButtonActive := CardBuyerRel(1155, 950,
+        RareButtonActive := CardBuyerRel(cardBuyRareButtonX, cardBuyRareButtonY,
             cardBuyOffset, CardsRareBuyAmount)
     } else {
         ; If disabled mark inactive
@@ -299,7 +326,7 @@ CardBuyCommonFirst() {
     ; Legendary
     ; If disabled skip, get active state back
     if (!CardsDontBuyLeg && !CommonButtonActive && !RareButtonActive) {
-        LegButtonActive := CardBuyerRel(1711, 950,
+        LegButtonActive := CardBuyerRel(cardBuyLegButtonX, cardBuyLegButtonY,
             cardBuyOffset, CardsLegBuyAmount)
     } else {
         ; If disabled mark inactive

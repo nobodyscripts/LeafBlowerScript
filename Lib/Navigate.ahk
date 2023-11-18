@@ -41,7 +41,7 @@ ScrollAmountDown(amount := 1, extraDelay := 0) {
         if (!IsWindowActive() || !IsPanelActive()) {
             break
         } Else {
-            ControlClick(, "Leaf Blower Revolution", , "WheelDown")
+            ControlClick(, LBRWindowTitle, , "WheelDown")
             Sleep(NavigateTime + extraDelay)
             amount--
         }
@@ -59,7 +59,7 @@ ScrollAmountUp(amount := 1, extraDelay := 0) {
         if (!IsWindowActive() || !IsPanelActive()) {
             break
         } Else {
-            ControlClick(, "Leaf Blower Revolution", , "WheelUp")
+            ControlClick(, LBRWindowTitle, , "WheelUp")
             Sleep(NavigateTime + extraDelay)
             amount--
         }
@@ -101,7 +101,7 @@ IsAreaResetToGarden() {
         }
     } catch as exc {
         Log("Error 10: IsAreaResetToGarden check failed - " exc.Message "`n"
-        exc.Extra)
+            exc.Extra)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
@@ -297,7 +297,7 @@ GoToShadowCavern() {
     }
 }
 
-ResetSS() {
+GotoResetSS() {
     if (!IsWindowActive()) {
         Log("No window found while trying to travel.")
         return false
@@ -307,19 +307,15 @@ ResetSS() {
     sleep(NavigateTime)
     fSlowClick(880, 180, NavigateTime) ; Go to Borbiana Jones screen
     sleep(NavigateTime)
+}
+
+ResetSS() {
+    GotoResetSS()
     fSlowClick(517, 245, NavigateTime) ; Reset SpectralSeeker
 }
 
 ResetGF() {
-    if (!IsWindowActive()) {
-        Log("No window found while trying to travel.")
-        return false
-    }
-    GoToShadowCavern()
-    ClosePanel() ; Close the panel to see borb
-    sleep(NavigateTime)
-    fSlowClick(880, 180, NavigateTime) ; Go to Borbiana Jones screen
-    sleep(NavigateTime)
+    GotoResetSS()
     fSlowClick(280, 245, NavigateTime) ; Reset Green Flame
 }
 
@@ -713,12 +709,12 @@ GotoCardsFirstTab() {
 }
 
 IsOnCardsFirstPanel(&OutColour?) {
-    if (IsButtonActive(WinRelPosLargeW(2129), WinRelPosLargeH(383))) {
+    if (IsButtonActive(WinRelPosLargeW(2129), WinRelPosLargeH(420))) {
         return true
     }
     try {
         targetColour := PixelGetColor(WinRelPosLargeW(2129),
-            WinRelPosLargeH(383))
+            WinRelPosLargeH(420))
         OutColour := targetColour
     } catch as exc {
         Log("Error 11: IsOnCardsFirstPanel check failed - " exc.Message)
@@ -759,6 +755,27 @@ GetAreaSampleColour() {
     return sampleColour
 }
 
+IsAreaFlameBrazier() {
+    if (GetAreaSampleColour() = "0x121328") {
+        return true
+    }
+    return false
+}
+
+IsAreaTheFireUniverse() {
+    if (GetAreaSampleColour() = "0x17190F") {
+        return true
+    }
+    return false
+}
+
+IsAreaGFOrSS() {
+    local col := GetAreaSampleColour()
+    if (col = "0x121328" || col = "0x17190F") {
+        return true
+    }
+    return false
+}
 
 ; IsAreaSampleColour samples:
 /*

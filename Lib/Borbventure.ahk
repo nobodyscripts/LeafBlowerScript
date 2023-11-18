@@ -82,9 +82,8 @@ BVMainLoop() {
     }
 
     for SlotY in SlotsYArray {
-        if (SlotY != 0 &&
-            IsButtonInactive(WinRelPosLargeW(1864), SlotY) &&
-            WinActive("Leaf Blower Revolution")) {
+        if (SlotY != 0 && IsWindowActive() &&
+            IsButtonInactive(WinRelPosLargeW(1864), SlotY)) {
                 ; Don't try to start more if we're full even if another is
                 ; detected
                 if ((!HaveBorbDLC and activeSlots != 2) ||

@@ -2,19 +2,19 @@
 
 
 MakeWindowActive() {
-    if (!WinExist("Leaf Blower Revolution")) {
+    if (!WinExist(LBRWindowTitle)) {
         Log("Error 14: Window doesn't exist.")
         return false ; Don't check further
     }
-    if (!WinActive("Leaf Blower Revolution")) {
-        WinActivate("Leaf Blower Revolution")
+    if (!WinActive(LBRWindowTitle)) {
+        WinActivate(LBRWindowTitle)
     }
     return true
 }
 
 IsWindowActive() {
-    if (!WinExist("Leaf Blower Revolution") ||
-        !WinActive("Leaf Blower Revolution")) {
+    if (!WinExist(LBRWindowTitle) ||
+        !WinActive(LBRWindowTitle)) {
             Log("Error 1: Window not active or doesn't exist.")
             return false
     }
@@ -23,8 +23,8 @@ IsWindowActive() {
 
 InitGameWindow() {
     global X, Y, W, H
-    if (IsWindowActive()) {
-        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+    if (WinExist(LBRWindowTitle)) {
+        WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
         return true
     }
     return false
@@ -157,7 +157,7 @@ IsPanelTransparentCorrectCheck() {
         MsgBox("Error: It appears you may be using menu transparency,"
             " please set to 100% then F2 to reload().`nSee Readme.md"
             " for other required settings.")
-        WinActivate("Leaf Blower Revolution")
+        WinActivate(LBRWindowTitle)
         OpenPets()
         sleep(150)
         ClosePanel()
@@ -209,7 +209,7 @@ IsAspectRatioCorrectCheck() {
         MsgBox("Error: It appears you may be using normal render mode,"
             " please set to Alternative then F2 to reload().`nSee Readme.md"
             " for other required settings.")
-        WinActivate("Leaf Blower Revolution")
+        WinActivate(LBRWindowTitle)
         OpenPets()
         sleep(150)
         ClosePanel()
@@ -283,7 +283,7 @@ IsFontCorrectCheck() {
         MsgBox("Error: It appears you are not using alternative font type,"
             " please set to Alternative then F2 to reload().`nSee Readme.md"
             " for other required settings.")
-        WinActivate("Leaf Blower Revolution")
+        WinActivate(LBRWindowTitle)
         OpenPets()
         sleep(150)
         ClosePanel()
@@ -295,7 +295,7 @@ IsFontCorrectCheck() {
     MsgBox("Error: It appears you are using font size " (font - 1)
         ", please set to 0/1 then F2 to reload().`nSee Readme.md"
         " for other required settings.")
-    WinActivate("Leaf Blower Revolution")
+    WinActivate(LBRWindowTitle)
     OpenPets()
     sleep(150)
     ClosePanel()
@@ -337,7 +337,7 @@ IsPanelSmoothedCheck() {
     MsgBox("Error: It appears you are using Smooth Graphics, please set"
         " to off then F2 to reload().`nSee Readme.md for other required"
         " settings.")
-    WinActivate("Leaf Blower Revolution")
+    WinActivate(LBRWindowTitle)
     OpenPets()
     sleep(150)
     ClosePanel()
@@ -382,7 +382,7 @@ IsDarkBackgroundCheck() {
     MsgBox("Error: It appears you are using Dark Dialog Background, please"
         " set to off then F2 to reload().`nSee Readme.md for other"
         " required settings.")
-    WinActivate("Leaf Blower Revolution")
+    WinActivate(LBRWindowTitle)
     OpenPets()
     sleep(150)
     ClosePanel()
@@ -407,7 +407,7 @@ IsTreesSetCheck() {
         MsgBox("Error: It appears you are using Trees, please set to"
             " off then F2 to reload().`nSee Readme.md for other"
             " required settings.")
-        WinActivate("Leaf Blower Revolution")
+        WinActivate(LBRWindowTitle)
         OpenPets()
         sleep(150)
         ClosePanel()

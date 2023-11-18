@@ -98,8 +98,6 @@ SpamViolins() {
     }
 }
 
-DetectHiddenWindows(true)
-
 KillSpammer() {
     ;F:\Documents\AutoHotkey\LeafBlowerV3\Secondaries\NormalBoss.ahk - AutoHotkey v2.0.4
     if (SpammerPID && ProcessExist(SpammerPID)) {
@@ -227,6 +225,8 @@ fNormalBossFarmWithCards(modecheck) {
         if (CardsBuyEnabled) {
             Log("BossCards buy: Loop starting.")
             CardBuyLoop()
+        } else {
+            Log("BossCards buy: Disabled.")
         }
         Log("BossCards Opening: Loop starting.")
         loop {

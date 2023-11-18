@@ -1,4 +1,4 @@
-# Resolution independent scripts v3 build 9
+# Resolution independent scripts v3 build 10
 
 Autohotkey V2 script, install v2 of autohotkey and run the LeafBlowerV3.ahk
 file to load. Edit the ahk files with a text editor to configure.
@@ -7,7 +7,7 @@ Same key toggles the feature off, if this toggle fails, F1 or F2 to abort.
 
 F1: Closes the script entirely
 
-F2: reloads the script, deactivating anything that is active but keeping it
+F2: Reloads the script, deactivating anything that is active but keeping it
 loaded
 
 F3: Open/Buy card packs - Opens/buys card screen for you. Customize the amount
@@ -49,8 +49,7 @@ F9x3 (three times): Boss farm + borbventures
 F9x4 (four times): Boss farm + card opening - Will continue when done opening
 cards, can disable this in the config.ahk if concerned about using cards
 unintentionally
-F9x5 (five times): Toggles off (though you can just F2 early if you prefer, it
-won't reset some of your settings)
+F9x5 (five times): Toggles off (though you can just F2 early if you prefer)
 
 F10: Nature boss farmer - Swaps out to Farm Fields to use violins, uses the
 timer in the area screen to check if the timers done, so don't close the panels
@@ -142,53 +141,66 @@ Hotkeys need to either be changed ingame or in script to match
 
 ## Changes
 
-Added a few remaining settings to the chart above.
-Fixed multiple scripts being run as a result of reloading on failures.
-Added better notification detection.
-Added better detection of panel windows being closed and reloads.
-Corrected settings checks to properly handle afk mode when window focused by
-    the titlebar and afk mode is still active, while window focused.
-Added setting check for afk mode, clicks the window to gain proper focus.
-F2: Improved the handling of using F2 to exit other functions when they have
-    reset of settings or loadout. (F3/F4/F5/Insert).
-F3: Added check for Display Rewards Dialog being active, will run with it on.
-F4: Added suitcase usage amount display to help judge how long to run.
-F4: Improved notification toggle around checks, should be more reliable.
-F4: Now only applies default loadout if bearo was removed, also applies to F2.
-F4: Added window check to filling trade slots to stop perma loop if alt tabbed
-    during fill process.
-F5: Exiting with F2 now properly applies the default loadout.
-F6: Checks for scrolled window and resets to top.
-F6: Checks for less than a full page of borbventures
-F9: Big change to how this works, all modes of F9 now use a second script to
-    spam hotkeys, results in massive speed improvements on boss kill rates in
-    the background.
-F9: Added a sleep timer to the config to control the spam rate of artifacts.
-F9: Added an option to use wind like the quark mode, for situations where you
-    would rather brew/borb/card while farming and are not worried about dying.
-    See config.ahk for options. This new mode doesn't apply loadouts.
-F9: Added a wobbly wings spammer, with a seperate timer.
-F12: Now unmaximises/unminimizes before resizing.
+Converted config.ahk into UserSettings.ini, will write a default version if not
+found, otherwise works the same way. Should make updates less painful if config
+changes take place.
+Moved the comments to help with settings to UserSettingsHelp.md
+Removed Config.ahk
+Hotkeys remain in Hotkeys.ahk for the moment
+Adjusted the window title searched for, to stop script running if in lbr discord
+Logging now checks for previous log being written to reduce chance of clash
+F3: Fixed travel to card packs button new location
+F3: Updated the open button locations
+F9: Fixed the callback error in NormalBoss.ahk
+Home: Added WW farm, goes to ss reset page and clicks the ss reset while
+      spamming wings, wind, gravity and ww as appropriate. Uses same
+      WobblyWingsSleepAmount value to configure. No loadout set.
+      Setup your ww to include gf and ss + any other bosses you want beforehand.
+      Only resets at 1 SS kill. So if you want more, use F8/F9 and swap between.
 
 ## TODO
 
+### Since Update
+
+F3 - Handle new multipliers, decreasing amounts, priorities. Will probably need
+to read save file, get caps, work out how much to open to avoid breaking auto
+transcend limits, then ocr the buttons and openall the right amount. Permaloop is broken
+F6 - Small mode refreshes constantly, large mode ok, need to handle auto start,
+finish all, auto finish, min chance, need to handle non intended items due to
+auto start
+F9 - Cards and borb modes have same issues
+F10 - Initial traveling looping with nature event inactive
+F12 - Passes with normal settings
+Insert - While on home garden, no travel enabled, repeated log errors, is not
+exiting when dead, travel enabled works
+
+### Longterm
+
 Devoption: Window check, keybinds and active checks designed around dev,
-   noreload
+   noreload. F12 Test mode, edit save file to incorrect settings and test each
+   mode detects, versbose debug on pixel checks
 Cleanup card purchase orders into a more generic func
 Break up monolithic funcs to logical parts
 Check for alb
 Investigate fullscreen (it breaks fullscreen)
-Investigate a gui to replace function keys and a proper config
+Investigate a gui to replace function keys
+Move keybinds to UserSettings.ini
 Buying x amount of cards to openall specific amounts
 Trade farming for non gems/non suitcase version
+Brew + cards rotation mode
+Halloween + Nature artifact secondary which pauses main functions
+F5 Check if boosters available before traveling and equipping
 F6 Recheck item icon when trying to start, also recheck party buttons have
    changed to avoid single borb starts
 F6 If item is not a valid target, or has buttons which are valid buttons (not
    used) cancel borbv
 F6 If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked
+F6 Handle new detail mode, auto start, auto finish
 F7 Autoplay check
 F7 Needs to use artifact if need be / get replacement
+F8 Move violin to secondary, spam during non boss timer after farming starts
+F9 Brew: Fix flickering tooltip
 F10 Needs to use artifact if need be / get replacement
 Adjust window resize based on delta from intended size, for non matching window
    dressing

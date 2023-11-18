@@ -1,7 +1,17 @@
 #Requires AutoHotkey v2.0
+
 global HadToHideNotifs, HaveWarnedDisplayRewards
 HadToHideNotifs := false
 HaveWarnedDisplayRewards := false
+global cardOpenCommonButtonX := 547
+global cardOpenCommonButtonY := 806
+
+global cardOpenRareButtonX := 1107
+global cardOpenRareButtonY := 806
+
+global cardOpenLegButtonX := 1667
+global cardOpenLegButtonY := 806
+
 
 fOpenCardLoop() {
     global HadToHideNotifs, W, H, X, Y
@@ -27,22 +37,24 @@ fOpenCardLoop() {
             return ; Kill if no game
         }
         if (!IsPanelActive()) {
-            Log("Card opening: Did not find panel. Aborted.")
+            Log("Card Opening: Did not find panel. Aborted.")
             break
         }
         if (IsNotificationActive()) {
-            Log("Card opening: Found notification covering button and hid"
+            Log("Card Opening: Found notification covering button and hid"
                 " notifications.")
             fSlowClick(32, 596, 101)
             HadToHideNotifs := true
         }
-        if (!CardButtonsActive() && !CardsPermaLoop) {
-            Log("Cards: Exiting.")
+        if (!CardsPermaLoop && !CardButtonsActive()) {
+            Log("Cards: Found no active buttons. Exiting.")
             break
         }
         if (CardsBuyEnabled) {
-            Log("Card buy: Loop starting.")
+            Log("Card Buy: Loop starting.")
             CardBuyLoop()
+        } else {
+            Log("Card Buy: Disabled.")
         }
         Log("Card Opening: Loop starting.")
         loop {
@@ -72,7 +84,7 @@ CardsOpenSinglePass() {
         MakeWindowActive()
         ;return false ; Kill if no game
     }
-    WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+    WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
     ; Update window size
 
     ; Use the transparent check to make sure we have a panel, otherwise
@@ -95,7 +107,7 @@ CardsOpenSinglePass() {
     ; Common
     ; If disabled skip, get active state back
     if (!CardsDontOpenCommons) {
-        CommonButtonActive := CardOpenerRel(565, 820,
+        CommonButtonActive := CardOpenerRel(cardOpenCommonButtonX, cardOpenCommonButtonY,
             5, CardsCommonAmount)
     } else {
         ; If disabled mark inactive
@@ -104,7 +116,7 @@ CardsOpenSinglePass() {
     ; Rare
     ; If disabled skip, get active state back
     if (!CardsDontOpenRare) {
-        RareButtonActive := CardOpenerRel(1110, 820,
+        RareButtonActive := CardOpenerRel(cardOpenRareButtonX, cardOpenRareButtonY,
             5, CardsRareAmount)
     } else {
         ; If disabled mark inactive
@@ -113,16 +125,15 @@ CardsOpenSinglePass() {
     ; Legendary
     ; If disabled skip, get active state back
     if (!CardsDontOpenLegendary) {
-        LegendaryButtonActive := CardOpenerRel(1673, 820,
+        LegendaryButtonActive := CardOpenerRel(cardOpenLegButtonX, cardOpenLegButtonY,
             5, CardsLegendaryAmount)
     } else {
         ; If disabled mark inactive
         LegendaryButtonActive := false
     }
 
-    If (!CommonButtonActive && !RareButtonActive && !LegendaryButtonActive)
-    {
-        Log("Card opening: No packs to open.")
+    If (!CommonButtonActive && !RareButtonActive && !LegendaryButtonActive) {
+        Log("Card Opening: No packs to open.")
         return false
     }
     return true
@@ -136,48 +147,48 @@ CardNumberToModifier(num) {
     */
     switch num {
         case 10:
-            ControlSend("{Control up}", , "Leaf Blower Revolution")
-            ControlSend("{Alt up}", , "Leaf Blower Revolution")
-            ControlSend("{Shift down}", , "Leaf Blower Revolution")
+            ControlSend("{Control up}", , LBRWindowTitle)
+            ControlSend("{Alt up}", , LBRWindowTitle)
+            ControlSend("{Shift down}", , LBRWindowTitle)
         case 25:
-            ControlSend("{Control down}", , "Leaf Blower Revolution")
-            ControlSend("{Alt up}", , "Leaf Blower Revolution")
-            ControlSend("{Shift up}", , "Leaf Blower Revolution")
+            ControlSend("{Control down}", , LBRWindowTitle)
+            ControlSend("{Alt up}", , LBRWindowTitle)
+            ControlSend("{Shift up}", , LBRWindowTitle)
         case 100:
-            ControlSend("{Control up}", , "Leaf Blower Revolution")
-            ControlSend("{Alt down}", , "Leaf Blower Revolution")
-            ControlSend("{Shift up}", , "Leaf Blower Revolution")
+            ControlSend("{Control up}", , LBRWindowTitle)
+            ControlSend("{Alt down}", , LBRWindowTitle)
+            ControlSend("{Shift up}", , LBRWindowTitle)
         case 250:
-            ControlSend("{Control down}", , "Leaf Blower Revolution")
-            ControlSend("{Alt up}", , "Leaf Blower Revolution")
-            ControlSend("{Shift down}", , "Leaf Blower Revolution")
+            ControlSend("{Control down}", , LBRWindowTitle)
+            ControlSend("{Alt up}", , LBRWindowTitle)
+            ControlSend("{Shift down}", , LBRWindowTitle)
         case 1000:
-            ControlSend("{Control up}", , "Leaf Blower Revolution")
-            ControlSend("{Alt down}", , "Leaf Blower Revolution")
-            ControlSend("{Shift down}", , "Leaf Blower Revolution")
+            ControlSend("{Control up}", , LBRWindowTitle)
+            ControlSend("{Alt down}", , LBRWindowTitle)
+            ControlSend("{Shift down}", , LBRWindowTitle)
         case 2500:
-            ControlSend("{Control down}", , "Leaf Blower Revolution")
-            ControlSend("{Alt down}", , "Leaf Blower Revolution")
-            ControlSend("{Shift up}", , "Leaf Blower Revolution")
+            ControlSend("{Control down}", , LBRWindowTitle)
+            ControlSend("{Alt down}", , LBRWindowTitle)
+            ControlSend("{Shift up}", , LBRWindowTitle)
         case 25000:
-            ControlSend("{Control down}", , "Leaf Blower Revolution")
-            ControlSend("{Alt down}", , "Leaf Blower Revolution")
-            ControlSend("{Shift down}", , "Leaf Blower Revolution")
+            ControlSend("{Control down}", , LBRWindowTitle)
+            ControlSend("{Alt down}", , LBRWindowTitle)
+            ControlSend("{Shift down}", , LBRWindowTitle)
         default:
 
     }
 }
 
-CardOpenerRel(x, y, offset, amount) {
-    global HaveWarnedDisplayRewards
-    x := WinRelPosLargeW(x)
-    y := WinRelPosLargeH(y)
+CardOpenerRel(xin, yin, offset, amount) {
+    global HaveWarnedDisplayRewards, Debug
+    posx := WinRelPosLargeW(xin)
+    posy := WinRelPosLargeH(yin)
     offset := WinRelPosLargeH(offset)
     ; Check if button is active, if not we can skip
     CardNumberToModifier(amount)
     Sleep(72)
-    if (IsButtonActive(x, y) && IsWindowActive()) {
-        fCustomClick(x, y + offset, 72)
+    if (IsButtonActive(posx, posy) && IsWindowActive()) {
+        fCustomClick(posx, posy + offset, 72)
         ; Legendary pack open
         Sleep(CardsSleepAmount)
         local i := 0
@@ -195,16 +206,28 @@ CardOpenerRel(x, y, offset, amount) {
             Sleep(150)
             i++
         }
+        if (Debug) {
+            Log("Attempted to open card at " posx "*" (posy + offset))
+        }
+    } else {
+        if (Debug) {
+            Log("Could not open card at " posx "*" (posy + offset))
+        }
     }
     ; Deliberate second check to return new state
-    return IsButtonActive(x, y)
+    return IsButtonActive(posx, posy)
 }
 
 ; Seperate buyer to have faster turnover
 CardBuyerRel(posx, posy, offset, amount) {
+    global Debug
     posx := WinRelPosLargeW(posx)
     posy := WinRelPosLargeH(posy)
     offset := WinRelPosLargeH(offset)
+    
+    if (Debug) {
+        Log("Card Buy: at " posx "*" (posy + offset) " x " amount)
+    }
     ; Check if button is active, if not we can skip
     CardNumberToModifier(amount)
     sleep(CardsSleepBuyAmount)
@@ -212,8 +235,14 @@ CardBuyerRel(posx, posy, offset, amount) {
         fCustomClick(posx, posy + offset, CardsSleepBuyAmount)
         ; Legendary pack open
         Sleep(CardsSleepBuyAmount)
+        if (Debug) {
+            Log("Attempted to buy card at " posx "*" (posy + offset))
+        }
         return true
     } else {
+        if (Debug) {
+            Log("Could not buy card at " posx "*" (posy + offset))
+        }
         return false
     }
 }
@@ -221,33 +250,39 @@ CardBuyerRel(posx, posy, offset, amount) {
 CardButtonsActive() {
     CardNumberToModifier(CardsCommonAmount)
     Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(565), WinRelPosLargeH(820))) {
-        return true
+    if (IsButtonActive(WinRelPosLargeW(cardOpenCommonButtonX),
+        WinRelPosLargeH(cardOpenCommonButtonY))) {
+            return true
     }
     CardNumberToModifier(CardsRareAmount)
     Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(1110), WinRelPosLargeH(820))) {
-        return true
+    if (IsButtonActive(WinRelPosLargeW(cardOpenRareButtonX),
+        WinRelPosLargeH(cardOpenRareButtonY))) {
+            return true
     }
     CardNumberToModifier(CardsLegendaryAmount)
     Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(1673), WinRelPosLargeH(820))) {
-        return true
+    if (IsButtonActive(WinRelPosLargeW(cardOpenLegButtonX),
+        WinRelPosLargeH(cardOpenLegButtonY))) {
+            return true
     }
     CardNumberToModifier(CardsCommonBuyAmount)
     Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(590), WinRelPosLargeH(950))) {
-        return true
+    if (IsButtonActive(WinRelPosLargeW(cardBuyCommonButtonX),
+        WinRelPosLargeH(cardBuyCommonButtonY))) {
+            return true
     }
     CardNumberToModifier(CardsRareBuyAmount)
     Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(1155), WinRelPosLargeH(950))) {
-        return true
+    if (IsButtonActive(WinRelPosLargeW(cardBuyRareButtonX),
+        WinRelPosLargeH(cardBuyRareButtonY))) {
+            return true
     }
     CardNumberToModifier(CardsLegBuyAmount)
     Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(1711), WinRelPosLargeH(950))) {
-        return true
+    if (IsButtonActive(WinRelPosLargeW(cardBuyLegButtonX),
+        WinRelPosLargeH(cardBuyLegButtonY))) {
+            return true
     }
     return false
 }
