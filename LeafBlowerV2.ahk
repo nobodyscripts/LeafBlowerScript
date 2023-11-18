@@ -52,8 +52,13 @@ F7 Claw machine pumpkin farmer - Tries to identify the pumpkin and use the
 hook to grab it, will miss some due to other items and sometimes doesn't grab
 things on the first pass.
 
-F8/F9/F10 work in progress (you can technically use F8 to farm some gf/ss
-slowly)
+F8 Green Flame/SoulSeeker farmer - Set how many of each to kill in the variables
+below, will cycle and use violins to farm that amount as well as resetting SS.
+
+F9 Normal boss farmer - Doesn't select a zone, sit in the area you want to farm and it'll spam violins when the timers up.
+
+F10 Nature boss farmer - Swaps out to Farm Fields to use violins, uses the timer in the area screen to check if the timers done, so don't close the panels
+while it is running.
 
 F11 A 16.7ms autoclicker - Works outside the game too so be careful
 
@@ -78,6 +83,8 @@ global CardOpeningUseShift := false ; Set cards opening to 2500 (default)
 global CardOpeningUseCtrl := true
 global CardOpeningUseAlt := true
 global CardOpeningMode := 3 ; 1 for Common, 2 for rare, 3 for legendary
+global GFToKillPerCycle := 8 ; How many gf to kill before attempting SS
+global SSToKillPerCycle := 2 ; How many ss to kill before resetting
 
 ; ------------------- Script Triggers -------------------
 
@@ -119,7 +126,6 @@ global CardOpeningMode := 3 ; 1 for Common, 2 for rare, 3 for legendary
 }
 
 *F6:: { ; Borb pink juice farm in borbventures
-
     ResetModifierKeys() ; Cleanup incase needed
     Static on5 := False
     If on5 := !on5 {
@@ -135,7 +141,7 @@ global CardOpeningMode := 3 ; 1 for Common, 2 for rare, 3 for legendary
     } Else Reload
 }
 
-*F8:: { ; GF/SS farm placeholder
+*F8:: { ; Green Flame/Soulseeker farm
     ResetModifierKeys() ; Cleanup incase needed
     Static on7 := False
     If on7 := !on7 {
@@ -143,8 +149,15 @@ global CardOpeningMode := 3 ; 1 for Common, 2 for rare, 3 for legendary
     } Else Reload
 }
 
+*F9:: { ; Farm normal boss using violins
+    ResetModifierKeys() ; Cleanup incase needed
+    Static on8 := False
+    If on8 := !on8 {
+        fFarmNormalBoss()
+    } Else Reload
+}
 
-*F9:: { ; Nature boss farm placeholder
+*F10:: { ; Farm nature boss using violins
     ResetModifierKeys() ; Cleanup incase needed
     Static on8 := False
     If on8 := !on8 {
@@ -198,8 +211,16 @@ OpenCards() {
     ControlSend "{i}", , "Leaf Blower Revolution"
 }
 
+OpenAlchemy() {
+    ControlSend "{o}", , "Leaf Blower Revolution" ; Letter O
+}
+
 TriggerSuitcase() {
     ControlSend "{,}", , "Leaf Blower Revolution"
+}
+
+TriggerViolin() {
+    ControlSend "{/}", , "Leaf Blower Revolution"
 }
 
 RefreshTrades() {
@@ -221,10 +242,6 @@ OpenTools() {
 }
 TriggerWind() {
     ControlSend "{[}", , "Leaf Blower Revolution" ; Inactive
-}
-
-TriggerViolin() {
-    ControlSend "{#}", , "Leaf Blower Revolution" ; Inactive
 }
 
 TriggerGravity() {
@@ -679,11 +696,11 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
         If (found and OutX != 0) {
             return OutY ; Found item row
         }
-        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x0F2A1D", 0)
+        ;found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x0F2A1D", 0)
         ; Nature time sphere
-        If (found and OutX != 0) {
-            return OutY ; Found item row
-        }
+        ;If (found and OutX != 0) {
+        ;    return OutY ; Found item row
+        ;}
         found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x0E44BE", 0)
         ; Power Dice Points (blue)
         If (found and OutX != 0) {
@@ -747,44 +764,6 @@ BVIsSlotActive(Y) {
         MsgBox "Could not conduct the search due to the following error:`n" exc.Message
     }
     return false
-}
-
-fGemsFarmNormal() {
-    ;If game isn't running exit
-    ;If game running focus
-    ;winH = Get window height
-    ;winW = Get window width
-
-    ;While in trading window
-    ;stop if safety check fails
-    ;Check if in trading window
-    ;Scan trading and find all gems, cancel, start and boost buttons
-    ;plot to rows and totals
-
-    ;For each row that has no gem and a cancel, click cancel
-    ;For each row that has gem and boost or start, click start button > boost
-    ;fSlowClick(1039, 194)
-    ;fSlowClick(805, 194)
-    ;If any row has collect button, click collect all
-    ;If rows are not full of active gems, or collect all has been clicked:
-    ;refresh
-    ;pause for a few hundred ms to avoid infinite looping
-    ;loop
-
-    ;Safety check
-    ;does window exist
-    ;is window focused
-    ;is window resized
-    ;is abort held
-    ;is error
-}
-
-fFarmNatureBoss() {
-    ;SetZone Nature boss
-    ;Spam wind and gravity until timer
-    ;SetZone Violin spawn
-    ;Use Violins to spawn boss
-    ;loop if timer gone, else trickle use till timer
 }
 
 fClawFarm() {
@@ -876,43 +855,103 @@ ClawGetHookLocation() {
     return 0
 }
 
-/*
-area menu
-go to gf boss zone
-start timer for GF 14s
-    spam wind and grav
-    use 20 violins at 40ms intervals
-
-go to ss boss zone (areas was not closed)
-start timer for SS 14s
-    spam wind and grav
-    use 20 violins at 40ms intervals
-if 2 ss kills reset
-    move to zone
-    close panel
-    click borbthing
-    reset
-    change area
-*/
-
 fFarmGFSS() {
-    static GFKills := 0
-    static MaxGFToKill := 7
-    static SSKills := 0
-    KillGF()
-    ; If white found in timer pixel zone, timer is running and classed as
-    ; killed
-    ; If black found at left end of blue bar (858, 265), assume kill failed
-    ; If failed or cap amount move to ss
-    KillSS()
-    ; If white found in timer pixel zone, timer is running and classed as
-    ; killed
-    ; If black found at left end of blue bar, assume kill failed
-    ; If failed reset
-    ResetSS()
+
+    ResettingGF := false
+    loop {
+        if (!WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution")) {
+                break ; Kill early if no game
+        }
+        GFKills := 0
+        SSKills := 0
+        IsInGF := true
+        IsInSS := false
+        GoToGF()
+        sleep 100
+        TimerLastCheckStatus := IsBossTimerActive()
+
+        while (SSToKillPerCycle != SSKills) {
+            if (!WinExist("Leaf Blower Revolution") ||
+                !WinActive("Leaf Blower Revolution")) {
+                    break ; Kill early if no game
+            }
+            while (GFToKillPerCycle != GFKills) {
+                if (!WinExist("Leaf Blower Revolution") ||
+                    !WinActive("Leaf Blower Revolution")) {
+                        break ; Kill early if no game
+                }
+                if (!IsInGF) {
+                    GoToGF()
+                    IsInGF := true
+                    IsInSS := false
+                }
+                TimerCurrentState := IsBossTimerActive()
+                ; if state of timer has changed and is now off, we killed
+                if (TimerLastCheckStatus != TimerCurrentState &&
+                    !TimerCurrentState) {
+                        GFKills := GFKills + 1
+                }
+                ; if we just started and there is a timer or looped and theres
+                ; still a timer, we need to use a violin
+                if (IsBossTimerActive()) {
+                    TriggerViolin()
+                    sleep 71
+                }
+                ; If boss killed us at gf assume we're weak and reset gf
+                ; If user set gf kills too high it'll hit this
+                if (IsAreaResetToGarden()) {
+                    ToolTip("Killed by boss, resetting", W / 2, H / 2 + 400, 6)
+                    SetTimer(ToolTip, -200)
+                    ResetGF()
+                    ResettingGF := true
+                    break
+                }
+                ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills,
+                    W / 2, H / 2 + 300, 1)
+                SetTimer(ToolTip, -200)
+                TimerLastCheckStatus := TimerCurrentState
+            }
+            if (!IsInSS) {
+                GoToSS()
+                IsInSS := true
+                IsInGF := false
+            }
+            TimerCurrentState := IsBossTimerActive()
+            ; if state of timer has changed and is now off, we killed
+            if (TimerLastCheckStatus != TimerCurrentState &&
+                !TimerCurrentState) {
+                    SSKills := SSKills + 1
+                    GFKills := 0
+            }
+            ; if we just started and there is a timer or looped and theres
+            ; still a timer, we need to use a violin
+            if (IsBossTimerActive()) {
+                TriggerViolin()
+                sleep 71
+            }
+            ; if boss killed us exit this loop, then let the master loop
+            ; reset
+            if (IsAreaResetToGarden() && !ResettingGF) {
+                ToolTip("Killed by boss, resetting", W / 2, H / 2 + 400, 6)
+                SetTimer(ToolTip, -200)
+                break
+            }
+            ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills,
+                W / 2, H / 2 + 300, 1)
+            SetTimer(ToolTip, -200)
+            TimerLastCheckStatus := TimerCurrentState
+
+        }
+        ; if we're done looping or got killed reset ss
+        if (!ResettingGF) {
+            ResetSS()
+        }
+        ResettingGF := false
+    }
 }
 
-KillGF() {
+GoToGF() {
     if !WinExist("Leaf Blower Revolution") {
         return ; Kill early if no game
     }
@@ -921,21 +960,20 @@ KillGF() {
 
     OpenPets() ; Opens or closes another screen so that when areas
     ; is opened it doesn't close
-    Sleep 100
+    Sleep 150
     OpenAreas() ; Open areas
-    Sleep 100
-    fSlowClick(317, 574)
+    Sleep 150
+    fSlowClick(317, 574, 100)
     ; Open leaf galaxy tab incase wrong tab and to reset scroll
     Sleep 150
-    fSlowClick(686, 574)
+    fSlowClick(686, 574, 100)
     ; Open Fire Fields tab
     Sleep 200
-    fSlowClick(877, 411)
+    fSlowClick(877, 411, 100)
     ; Open Flame Brazier (GF zone)
-    Sleep 10000
 }
 
-KillSS() {
+GoToSS() {
     if !WinExist("Leaf Blower Revolution") {
         return ; Kill early if no game
     }
@@ -944,21 +982,51 @@ KillSS() {
 
     OpenPets() ; Opens or closes another screen so that when areas
     ; is opened it doesn't close
-    Sleep 100
+    Sleep 150
     OpenAreas() ; Open areas
-    Sleep 100
-    fSlowClick(317, 574)
+    Sleep 150
+    fSlowClick(317, 574, 100)
     ; Open leaf galaxy tab incase wrong tab and to reset scroll
     Sleep 150
-    fSlowClick(686, 574)
+    fSlowClick(686, 574, 100)
     ; Open Fire Fields tab
     Sleep 200
-    fSlowClick(877, 516)
+    fSlowClick(877, 516, 100)
     ; Open Flame Universe (SS zone)
-    Sleep 10000
 }
 
 ResetSS() {
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+
+    OpenPets() ; Opens or closes another screen so that when areas
+    ; is opened it doesn't close
+    Sleep 150
+    OpenAreas() ; Open areas
+    Sleep 150
+    fSlowClick(317, 574)
+    ; Open leaf galaxy tab incase wrong tab and to reset scroll
+    Sleep 150
+    fSlowClick(686, 574)
+    ; Open Fire Fields tab
+    Sleep 150
+    fSlowClick(880, 159)
+    ; Go to shadow cavern
+    Sleep 150
+    ClosePanel()
+    ; Close the panel to see borb
+    Sleep 150
+    fSlowClick(880, 180)
+    ; Go to Borbiana Jones screen
+    Sleep 150
+    fSlowClick(517, 245)
+    ; Reset SpectralSeeker
+}
+
+ResetGF() {
     if !WinExist("Leaf Blower Revolution") {
         return ; Kill early if no game
     }
@@ -985,8 +1053,223 @@ ResetSS() {
     fSlowClick(880, 180)
     ; Go to Borbiana Jones screen
     Sleep 150
-    fSlowClick(517, 245)
-    ; Reset SpectralSeeker
+    fSlowClick(280, 245)
+    ; Reset Green Flame
+}
+
+IsBossTimerActive() {
+    ; if white is in this area, timer active (hopefully no zones have white bg
+    ; and text is pure white)
+    ; 1240 5
+    ; 1280 40
+    try {
+        found := PixelSearch(&OutX, &OutY,
+            WinRelPosLargeW(1240), WinRelPosLargeH(5),
+            WinRelPosLargeW(1280), WinRelPosLargeH(40), "0xFFFFFF", 0)
+        ; Timer pixel search
+        If (found and OutX != 0) {
+            return true ; Found colour
+        }
+    } catch as exc {
+        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+    }
+    return false
+}
+
+IsAreaResetToGarden() {
+    try {
+        found := PixelSearch(&OutX, &OutY,
+            WinRelPosLargeW(1240), WinRelPosLargeH(5),
+            WinRelPosLargeW(1280), WinRelPosLargeH(40), "0x4A9754", 0)
+        ; Timer pixel search
+        If (found and OutX != 0) {
+            return true ; Found colour
+        }
+    } catch as exc {
+        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+    }
+    return false
+}
+
+fFarmNormalBoss() {
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+
+    Killcount := 0
+    TimerLastCheckStatus := IsBossTimerActive()
+    loop {
+        if (!WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution")) {
+                break ; Kill early if no game
+        }
+        TimerCurrentState := IsBossTimerActive()
+        ; if state of timer has changed and is now off, we killed
+        if (TimerLastCheckStatus != TimerCurrentState &&
+            !TimerCurrentState) {
+                Killcount := Killcount + 1
+        }
+        ; if we just started and there is a timer or looped and theres
+        ; still a timer, we need to use a violin
+        if (IsBossTimerActive()) {
+            TriggerViolin()
+            sleep 71
+        }
+        ; If boss killed us at gf assume we're weak and reset gf
+        ; If user set gf kills too high it'll hit this
+        if (IsAreaResetToGarden()) {
+            ToolTip("Killed by boss, exiting", W / 2, H / 2 + WinRelPosLargeH(50), 6)
+            Sleep 30000
+            break
+        }
+        ToolTip("Kills: " . Killcount,
+            W / 2, H / 2 +  + WinRelPosLargeH(20), 1)
+        SetTimer(ToolTip, -200)
+        TimerLastCheckStatus := TimerCurrentState
+    }
+}
+
+fFarmNatureBoss() {
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+
+    ; Check zone is available
+
+    GoToNatureBoss()
+    sleep 100
+    ClosePanel()
+    sleep 100
+    Killcount := 0
+    LastAliveState := IsNatureBossAlive()
+
+    IsInFF := false
+    loop {
+        if (!WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution")) {
+                break ; Kill early if no game
+        }
+        CurrentAliveState := IsNatureBossAlive()
+
+        ; if state of timer has changed and is now off, we killed
+        if (LastAliveState != CurrentAliveState &&
+            !CurrentAliveState) {
+                Killcount := Killcount + 1
+        }
+        ; if we just started and there is a timer or looped and theres
+        ; still a timer, we need to use a violin
+        if (!CurrentAliveState && IsBossTimerActive()) {
+            if (!IsInFF) {
+                ToolTip("Going to ff", W / 2, H / 2, 2)
+                SetTimer(ToolTip, -250)
+                GoToFarmField()
+                IsInFF := true
+            }
+            loop {
+                if (!WinExist("Leaf Blower Revolution") ||
+                    !WinActive("Leaf Blower Revolution")) {
+                        break ; Kill early if no game
+                }
+                if (IsNatureBossTimerActive()) {
+                    ToolTip("Using violins", W / 2, H / 2, 4)
+                    SetTimer(ToolTip, -250)
+                    TriggerViolin()
+                    sleep 71
+                } else {
+                    ToolTip("Returning to boss", W / 2, H / 2, 2)
+                    SetTimer(ToolTip, -250)
+                    ; Timers reset send user back
+                    GoToNatureBoss()
+                    IsInFF := false
+                    sleep 100
+                    ClosePanel()
+                    sleep 1000
+                    ; boss doesn't appear instantly so we need a manual delay
+                    break
+                }
+            }
+        }
+        ; If boss killed us not much we can do, on user to address
+        if (IsAreaResetToGarden()) {
+            ToolTip("Killed by boss, exiting", W / 2, H / 2, 1)
+            SetTimer(ToolTip, -3000)
+            Sleep 3000
+            break
+        }
+        ToolTip("Kills: " . Killcount, W / 2, H / 2 + WinRelPosLargeH(50), 10)
+        SetTimer(ToolTip, -200)
+        LastAliveState := CurrentAliveState
+    }
+}
+
+IsNatureBossAlive() {
+    ;2ce8f5
+    ; 852 250 (1440)
+    try {
+        found := PixelGetColor(WinRelPosLargeW(852), WinRelPosLargeH(250))
+        ; Timer pixel search
+        If (found = "0x2CE8F5") {
+            return true ; Found colour
+        }
+        if (IsNatureBossTimerActive()) {
+            return false
+        }
+    } catch as exc {
+        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+    }
+    return false
+}
+
+IsNatureBossTimerActive() {
+    ; if white is in this area, timer active
+    ; ONLY WORKS ON THE AREA SCREEN IN THE EVENT TAB
+
+    ; 1883 1004
+    ; 2189 1033
+    try {
+        found := PixelSearch(&OutX, &OutY,
+            WinRelPosLargeW(1883), WinRelPosLargeH(1004),
+            WinRelPosLargeW(2189), WinRelPosLargeH(1033), "0xFFFFFF", 0)
+        ; Timer pixel search
+        If (found and OutX != 0) {
+            return true ; Found colour
+        }
+    } catch as exc {
+        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+    }
+    return false
+}
+
+GoToNatureBoss() {
+    OpenEventsAreasPanel()
+    fSlowClick(875, 470) ; Open nature boss area
+}
+
+GoToFarmField() {
+    OpenEventsAreasPanel()
+    fSlowClick(875, 260) ; Open farm field
+}
+
+OpenEventsAreasPanel() {
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+
+    OpenPets() ; Opens or closes another screen so that when areas
+    ; is opened it doesn't close
+    Sleep 150
+    OpenAreas() ; Open areas
+    Sleep 150
+    fSlowClick(1049, 572) ; Click the event tab
+    Sleep 150
+    ControlClick(, "Leaf Blower Revolution", , "WheelUp") ; Align the page
+    Sleep 150
 }
 
 ResetAreaScroll() {
