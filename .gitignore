@@ -1,0 +1,8 @@
+# Block private files
+IsNobody
+*.log
+UserSettings.ini
+*.zip
+
+# Block vscode workspace file
+*.code-workspace
