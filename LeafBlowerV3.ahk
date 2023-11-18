@@ -36,6 +36,7 @@ if (!settings.initSettings()) {
     ; If the first load fails, it attempts to write a new config, this retrys
     ; loading after that first failure
     ; Hardcoding 2 attempts because a loop could continuously error
+    Sleep(50)
     if (!settings.initSettings()) {
         MsgBox("Script failed to load settings, script closing, try restarting.")
         ExitApp()
