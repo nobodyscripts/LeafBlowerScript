@@ -41,14 +41,14 @@ SoulSeeker.
 
 F9: Normal boss farmer - Doesn't select a zone, sit in the area you want to farm
 and it'll spam violins when the timers up. If kill numbers look off see settings
-below.
+below.  
 F9x2 (twice): Boss farmer + brew spammer - Opens the first tab of brewing and
 spams Artifacts, Equipment, Materials and Card parts (no scrolls). Violin spam
-rate is reduced due to the extra actions.
-F9x3 (three times): Boss farm + borbventures
+rate is reduced due to the extra actions.  
+F9x3 (three times): Boss farm + borbventures  
 F9x4 (four times): Boss farm + card opening - Will continue when done opening
 cards, can disable this in the config.ahk if concerned about using cards
-unintentionally
+unintentionally  
 F9x5 (five times): Toggles off (though you can just F2 early if you prefer)
 
 F10: Nature boss farmer - Swaps out to Farm Fields to use violins, uses the
@@ -89,69 +89,54 @@ another quickly.
 
 Hotkeys need to either be changed ingame or in script to match
 
-|   Set to this                   |  What might happen without it              |
-|---------------------------------|--------------------------------------------|
-|   Windowed mode                 |  Broken (fullscreen takes you to desktop)  |
-|                                 |                                            |
-|   2560x1440 or less             |  Alignment issues                          |
-|                                 |  (untested above but may work)             |
-|                                 |                                            |
-|   100% solid menus              |  All: Setting is tested for and errors     |
-|                                 |  without                                   |
-|                                 |                                            |
-|   Alternative renderer          |  All: Setting is tested for and errors     |
-|                                 |  without                                   |
-|                                 |                                            |
-|   Font size (0/1) (0 default)   |  F12: tests this setting and errors (May   |
-|                                 |  cause missalignment, both should work 0   |
-|                                 |  is my default and will work better in     |
-|                                 |  borbv)                                    |
-|                                 |                                            |
-|   Font (Alternative)            |  F12: tests this setting and errors        |
-|                                 |  without (May cause missalignment)         |
-|                                 |                                            |
-|   Dark dialog background (OFF)  |  All/F12: Setting is tested for and errors |
-|                                 |  without (Used for boss timer and area     |
-|                                 |  travel)                                   |
-|                                 |                                            |
-|   Alb 90% (OFF/transparent      |  Boss timer at top of screen can missread  |
-|   /no tools)                    |  it looks for pure white to see the timer  |
-|                                 |                                            |
-|   Smooth graphics (OFF)         |  All/F12 tests this setting and errors     |
-|                                 |  without (Used for detection of pixels)    |
-|                                 |                                            |
-|   Notifications (OFF/reduced)   |  May interupt some scripts. Checks are in  |
-|                                 |  place for the scripts it affects          |
-|                                 |                                            |
-|   Trees (OFF)                   |  F12 tests this setting and errors without |
-|                                 |  (Used for area travel)                    |
-|                                 |                                            |
-|   AFK (AUTO/OFF)                |  Checks for and counters situations where  |
-|                                 |  this is active. Should be fine to use.    |
-|                                 |                                            |
-|   Display Reward Dialogs (OFF)  |  Checked, will slow down opening           |
-|   (Gameplay tab)                |                                            |
-|                                 |                                            |
-|   Display Blown Away Dialogs    |  Shouldn't matter, but might cause travel  |
-|   (OFF) (Gameplay tab)          |  issues                                    |
-|                                 |                                            |
-|   Reset Scroll position-        |                                            |
-|   on prestige (ON)              |  Unknown if this breaks scroll resetting   |
-|   (Gameplay tab)                |  If you have issues traveling it maybe this|
+|   Set to this                                           |  What might happen without it                                                                                                 |
+|---------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+|   Windowed mode                                         |  Broken (fullscreen takes you to desktop)                                                                                     |
+|                                                         |                                                                                                                               |
+|   2560x1440 or less                                     |  Alignment issues (untested above but may work)                                                                               |
+|                                                         |                                                                                                                               |
+|   100% solid menus                                      |  All: Setting is tested for and errors without                                                                                |
+|                                                         |                                                                                                                               |
+|   Alternative renderer                                  |  All: Setting is tested for and errors without                                                                                |
+|                                                         |                                                                                                                               |
+|   Font size (0/1) (0 default)                           |  F12: tests this setting and errors (May cause missalignment, both should work 0 is my default and will work better in borbv) |
+|                                                         |                                                                                                                               |
+|   Font (Alternative)                                    |  F12: tests this setting and errors without (May cause missalignment)                                                         |
+|                                                         |                                                                                                                               |
+|   Dark dialog background (OFF)                          |  All/F12: Setting is tested for and errors without (Used for boss timer and area travel)                                      |
+|                                                         |                                                                                                                               |
+|   Alb 90% (OFF/transparent/no tools)                    |  Boss timer at top of screen can missread it looks for pure white to see the timer                                            |
+|                                                         |                                                                                                                               |
+|   Smooth graphics (OFF)                                 |  All/F12 tests this setting and errors without (Used for detection of pixels)                                                 |
+|                                                         |                                                                                                                               |
+|   Notifications (OFF/reduced)                           |  May interupt some scripts. Checks are in place for the scripts it affects                                                    |
+|                                                         |                                                                                                                               |
+|   Trees (OFF)                                           |  F12 tests this setting and errors without (Used for area travel)                                                             |
+|                                                         |                                                                                                                               |
+|   AFK (AUTO/OFF)                                        |  Checks for and counters situations where this is active. Should be fine to use.                                              |
+|                                                         |                                                                                                                               |
+|   Display Reward Dialogs (OFF) (Gameplay tab)           |  Checked, will slow down opening                                                                                              |
+|                                                         |                                                                                                                               |
+|   Display Blown Away Dialogs (OFF) (Gameplay tab)       |  Shouldn't matter, but might cause travel issues                                                                              |
+|                                                         |                                                                                                                               |
+|   Reset Scroll position on prestige (ON) (Gameplay tab) |  Unknown if this breaks scroll resetting. If you have issues traveling it maybe this                                          |
 
 ## Changes
 
 Converted config.ahk into UserSettings.ini, will write a default version if not
 found, otherwise works the same way. Should make updates less painful if config
-changes take place.
-Moved the comments to help with settings to UserSettingsHelp.md
-Removed Config.ahk
-Hotkeys remain in Hotkeys.ahk for the moment
-Adjusted the window title searched for, to stop script running if in lbr discord
+changes take place.  
+Moved the comments to help with settings to UserSettingsHelp.md  
+Removed Config.ahk  
+Hotkeys remain in Hotkeys.ahk for the moment  
+Adjusted the window title searched for, to stop script running if in lbr discord  
 Logging now checks for previous log being written to reduce chance of clash
-F3: Fixed travel to card packs button new location
+
+F3: Fixed travel to card packs button new location  
 F3: Updated the open button locations
+
 F9: Fixed the callback error in NormalBoss.ahk
+
 Home: Added WW farm, goes to ss reset page and clicks the ss reset while
       spamming wings, wind, gravity and ww as appropriate. Uses same
       WobblyWingsSleepAmount value to configure. No loadout set.
@@ -165,12 +150,17 @@ Home: Added WW farm, goes to ss reset page and clicks the ss reset while
 F3 - Handle new multipliers, decreasing amounts, priorities. Will probably need
 to read save file, get caps, work out how much to open to avoid breaking auto
 transcend limits, then ocr the buttons and openall the right amount. Permaloop is broken
+
 F6 - Small mode refreshes constantly, large mode ok, need to handle auto start,
 finish all, auto finish, min chance, need to handle non intended items due to
 auto start
+
 F9 - Cards and borb modes have same issues
+
 F10 - Initial traveling looping with nature event inactive
+
 F12 - Passes with normal settings
+
 Insert - While on home garden, no travel enabled, repeated log errors, is not
 exiting when dead, travel enabled works
 
@@ -178,30 +168,30 @@ exiting when dead, travel enabled works
 
 Devoption: Window check, keybinds and active checks designed around dev,
    noreload. F12 Test mode, edit save file to incorrect settings and test each
-   mode detects, versbose debug on pixel checks
-Cleanup card purchase orders into a more generic func
-Break up monolithic funcs to logical parts
-Check for alb
-Investigate fullscreen (it breaks fullscreen)
-Investigate a gui to replace function keys
-Move keybinds to UserSettings.ini
-Buying x amount of cards to openall specific amounts
-Trade farming for non gems/non suitcase version
-Brew + cards rotation mode
-Halloween + Nature artifact secondary which pauses main functions
-F5 Check if boosters available before traveling and equipping
+   mode detects, versbose debug on pixel checks  
+Cleanup card purchase orders into a more generic func  
+Break up monolithic funcs to logical parts  
+Check for alb  
+Investigate fullscreen (it breaks fullscreen)  
+Investigate a gui to replace function keys  
+Move keybinds to UserSettings.ini  
+Buying x amount of cards to openall specific amounts  
+Trade farming for non gems/non suitcase version  
+Brew + cards rotation mode  
+Halloween + Nature artifact secondary which pauses main functions  
+F5 Check if boosters available before traveling and equipping  
 F6 Recheck item icon when trying to start, also recheck party buttons have
-   changed to avoid single borb starts
+   changed to avoid single borb starts  
 F6 If item is not a valid target, or has buttons which are valid buttons (not
-   used) cancel borbv
+   used) cancel borbv  
 F6 If white pixels in area next to normal text display, cancel borbv as
-   inventory is blocked
-F6 Handle new detail mode, auto start, auto finish
-F7 Autoplay check
-F7 Needs to use artifact if need be / get replacement
-F8 Move violin to secondary, spam during non boss timer after farming starts
-F9 Brew: Fix flickering tooltip
-F10 Needs to use artifact if need be / get replacement
+   inventory is blocked  
+F6 Handle new detail mode, auto start, auto finish  
+F7 Autoplay check  
+F7 Needs to use artifact if need be / get replacement  
+F8 Move violin to secondary, spam during non boss timer after farming starts  
+F9 Brew: Fix flickering tooltip  
+F10 Needs to use artifact if need be / get replacement  
 Adjust window resize based on delta from intended size, for non matching window
    dressing
 
@@ -210,16 +200,16 @@ Adjust window resize based on delta from intended size, for non matching window
 F3 If exited early, may toggle notifications to incorrect state
    If it looks like the buttons are going wild, its because its checking each
    button with its own modifiers to see if each one is available (intended)
-   Can still get ctrl/alt/shift stuck on (just press them to unstick)
+   Can still get ctrl/alt/shift stuck on (just press them to unstick)  
 F4 If exited early, may toggle notifications/auto refresh/details to incorrect
    state
-   Can sometimes miss bearo, if you see trade start buttons appearing, retry
+   Can sometimes miss bearo, if you see trade start buttons appearing, retry  
 F6 Incorrect items can be started if manually refreshed while it scans
    Incorrect items can block a slot if you have no inventory space, this can
-   also throw off the slots alignment and detection
+   also throw off the slots alignment and detection  
 F7 Will intentionally grab gems if no pumpkins are found
    Will go for pumpkins that are blocked by other items, its going for the
-   highest one
+   highest one  
 F9 Albs can register as boss timer (kills due to white on the tools)
    When killed the transparent panel check may reoccur but without a panel
    loaded, so fails
