@@ -5,55 +5,96 @@
 /*
 Same key toggles the feature off, if this toggle fails, F1 or F2 to abort.
 
-Sleep times might need adjusting for your pc, so increase them as needed if things are skipping.
-Increments of 17 should add another frame (at 60fps).
-Ingame Keybinds section below the script triggers can be adjusted either to what you use, or
-change them ingame to match.
+Sleep times might need adjusting for your pc, so increase them as needed if
+things are skipping. Increments of 17 should add another frame (at 60fps).
+Ingame Keybinds section below the script triggers can be adjusted either to
+what you use, or change them ingame to match.
 
-My window size (1440p snapped to corner) 1278*664 client size is what the locations are based on
-those are adapted to your window size, so set your window 'client' to this size for changes or if
-things don't work. The image search used for gems and scrolling used for tower may have issues at 
-other resolutions so use F12 and reload the script if you have trouble.
+My window size (1440p snapped to corner) 1278*664 client size is what the
+locations are based on, those are adapted to your window size, so set your
+window 'client' to this size for changes or if things don't work. For high
+accuracy situations I fullscreen to capture 2560*1369.
+
+All functions have protections to save you in cases of alt tabbing or pop up
+windows taking focus, and should cancel in such cases. Functions will try to
+setup the area and windows correctly for you so you can stop one and start
+another quickly.
 
 F1 Closes the script entirely
 
-F2 Reloads the script, deactivating anything that is active but keeping it loaded
+F2 Reloads the script, deactivating anything that is active but keeping it
+loaded
 
-F3 Open packs, open the card packs screen, customize the amount to open in the function below
+F3 Open card packs - Opens card screen for you. Customize the amount to open
+with the variables below the readme. May leave the ctrl/alt/shift keys pressed
+when canceling, just press them to update their state if you notice anything
+weird.
 
-F4 Gem suitcase farming - Fill up your trades with active/completed trades except for one slot,
-   sit in the desert zone for more suitcases, remove bearo from your team, turn off auto refresh
-   and hit F4 to farm
-   Untested at 4k resolutions for accuracy
+F4 Gem suitcase farming - Will do prep for you, you can turn off auto refresh
+in trades but not required, may not always manage to remove bearo, so watch out
+for trades being completed outside the first slot.
+Removes Bearo from pet team if active, so manually reset your loadout after. No
+check in place for remaining golden suitcases, if its skipping a bunch of gems
+you are out and can either wait for regen or let it continue to run slower.
+Does double checks for gem being present at the cost of speed, if you don't mind
+inaccuracy you can remove the extra checks.
 
-F5 (Unstable) 72h tower boost loop - Uses (doesn't buy) boosts, swaps levels to raise max floor
-   Does equip a tower gear equipment loadout, so you will need to swap back afterwards
+F5 72h tower boost loop - Uses (doesn't buy) boosts, swaps areas to raise max
+floor. Does equip a tower gear equipment loadout, so you will need to swap back
+afterwards
 
-F6 A 16.7ms autoclicker - should work outside the game too so be careful
+F6 Borbventure farming - Defaults to farming purple juice, nature gems and
+nature spheres and both dices (see BVScanSlotItem()). Variable below to set if you own the
+borb dlc otherwise it'll ignore the first two slots being unfilled. Doesn't
+ scroll so there may be some pauses.
 
-F12 Resizes the window to 1278*664 client area (on windows 11, may need tweaking if not)
-    This is intended to be optional, but you can avoid remaking bitmaps and coords if things
-    break for you.
+F7 Claw machine pumpkin farmer - Tries to identify the pumpkin and use the
+hook to grab it, will miss some due to other items and sometimes doesn't grab
+things on the first pass.
+
+F8/F9/F10 work in progress (you can technically use F8 to farm some gf/ss
+slowly)
+
+F11 A 16.7ms autoclicker - Works outside the game too so be careful
+
+F12 Resizes the window to 1278*664 client area (on windows 11, may need
+tweaking if not) This is intended to be optional, but you can use this if things
+break for you.
+
+Settings assumed, Alternative renderer, 100% solid menus, notifications may
+cause conflicts with things like bearo detection on F4 so i have most of those
+off. I do leave notifications on but disable all of them so i can see gem
+trades but not required.
 */
 global X, Y, W, H
-WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+if WinExist("Leaf Blower Revolution") {
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+}
+
+global HaveBorbDLC := false
+; Set this to fill the first two slots with full teams
+
+global CardOpeningUseShift := false ; Set cards opening to 2500 (default)
+global CardOpeningUseCtrl := true
+global CardOpeningUseAlt := true
+global CardOpeningMode := 3 ; 1 for Common, 2 for rare, 3 for legendary
 
 ; ------------------- Script Triggers -------------------
 
-*F1:: { ;Wildcard shortcut * to allow functions to work while looping with modifiers held
-    ResetModifierKeys() ; Cleanup incase needed
+*F1:: {
+    ;Wildcard shortcut * to allow functions to work while looping with
+    ; modifiers held
     ExitApp
 }
 
 *F2:: {
-    ResetModifierKeys() ; Cleanup incase needed
     Reload
 }
 
 *F3:: { ; Open cards clicker
     ResetModifierKeys() ; Cleanup incase needed
-    Static on := False
-    If on := !on {
+    Static on1 := False
+    If on1 := !on1 {
         fOpenCardLoop()
     } Else {
         ResetModifierKeys() ; Cleanup incase needed
@@ -69,20 +110,55 @@ WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
     } Else Reload
 }
 
-*F5:: { ; Gem farm using suitcase
+*F5:: { ; Tower 72hr boost loop
     ResetModifierKeys() ; Cleanup incase needed
-    Static on2 := False
-    If on2 := !on2 {
+    Static on3 := False
+    If on3 := !on3 {
         fTimeWarpAndRaiseTower()
     } Else Reload
 }
 
-*F6:: { ; Autoclicker non game specific
-    Static on2 := False
-    If on2 := !on2 {
+*F6:: { ; Borb pink juice farm in borbventures
+
+    ResetModifierKeys() ; Cleanup incase needed
+    Static on5 := False
+    If on5 := !on5 {
+        fBorbVentureJuiceFarm()
+    } Else Reload
+}
+
+*F7:: { ; Claw pumpkin farm
+    ResetModifierKeys() ; Cleanup incase needed
+    Static on6 := False
+    If on6 := !on6 {
+        fClawFarm()
+    } Else Reload
+}
+
+*F8:: { ; GF/SS farm placeholder
+    ResetModifierKeys() ; Cleanup incase needed
+    Static on7 := False
+    If on7 := !on7 {
+        fFarmGFSS()
+    } Else Reload
+}
+
+
+*F9:: { ; Nature boss farm placeholder
+    ResetModifierKeys() ; Cleanup incase needed
+    Static on8 := False
+    If on8 := !on8 {
+        fFarmNatureBoss()
+    } Else Reload
+}
+
+*F11:: { ; Autoclicker non game specific
+    Static on4 := False
+    If on4 := !on4 {
         Loop {
             MouseClick "left", , , , , "D"
-            Sleep 16.7 ; Must be higher than 16.67 which is a single frame of 60fps,
+            Sleep 16.7
+            ; Must be higher than 16.67 which is a single frame of 60fps
             MouseClick "left", , , , , "U"
             Sleep 16.7
         }
@@ -90,7 +166,8 @@ WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
 }
 
 *F12:: {
-    WinMove(,, 1294, 703, "Leaf Blower Revolution") ; Should size to windows 11 borders
+    WinMove(, , 1294, 703, "Leaf Blower Revolution")
+    ; Changes size of client window for windows 11
 }
 
 ; ------------------- Keybinds -------------------
@@ -105,6 +182,22 @@ OpenGemShop() {
     ControlSend "{.}", , "Leaf Blower Revolution" ; Period/full stop
 }
 
+OpenTrades() {
+    ControlSend "{y}", , "Leaf Blower Revolution"
+}
+
+OpenPets() {
+    ControlSend "{k}", , "Leaf Blower Revolution"
+}
+
+OpenBorbVentures() {
+    ControlSend "{j}", , "Leaf Blower Revolution"
+}
+
+OpenCards() {
+    ControlSend "{i}", , "Leaf Blower Revolution"
+}
+
 TriggerSuitcase() {
     ControlSend "{,}", , "Leaf Blower Revolution"
 }
@@ -114,18 +207,18 @@ RefreshTrades() {
 }
 
 EquipTowerGearLoadout() {
-    ControlSend("{Numpad3}", , "Leaf Blower Revolution") ; Used
-}
-
-/* These are not currently used so you can ignore the keybinds below
-OpenTools() {
-    ControlSend "{1}", , "Leaf Blower Revolution" ; Inactive, You can ignore the inactive ones
+    ControlSend "{Numpad3}", , "Leaf Blower Revolution"
 }
 
 ClosePanel() {
-    ControlSend "{Esc}", , "Leaf Blower Revolution" ; Inactive
+    ControlSend "{Esc}", , "Leaf Blower Revolution"
 }
+/* These are not currently used so you can ignore the keybinds below
 
+
+OpenTools() {
+    ControlSend "{1}", , "Leaf Blower Revolution" ; Inactive
+}
 TriggerWind() {
     ControlSend "{[}", , "Leaf Blower Revolution" ; Inactive
 }
@@ -143,77 +236,90 @@ TriggerWobblyWings() {
 }
 
 EquipBrewGearLoadout() {
-    ControlSend("{Numpad1}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend "{Numpad1}", , "Leaf Blower Revolution" ; Inactive
 }
 
 EquipDamageGearLoadout() {
-    ControlSend("{Numpad2}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend "{Numpad2}", , "Leaf Blower Revolution" ; Inactive
 }
 
 EquipBlowingGearLoadout() {
-    ControlSend("{Numpad4}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend "{Numpad4}", , "Leaf Blower Revolution" ; Inactive
 }
 
 EquipSwordGearLoadout() {
-    ControlSend("{Numpad5}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend "{Numpad5}", , "Leaf Blower Revolution" ; Inactive
 }
 
 EquipPyramidGearLoadout() {
-    ControlSend("{Numpad6}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend "{Numpad6}", , "Leaf Blower Revolution" ; Inactive
 }
 
 EquipSevenGearLoadout() {
-    ControlSend("{Numpad7}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend "{Numpad7}", , "Leaf Blower Revolution" ; Inactive
 }
 
 EquipEightGearLoadout() {
-    ControlSend("{Numpad8}", , "Leaf Blower Revolution") ; Inactive
+    ControlSend "{Numpad8}", , "Leaf Blower Revolution" ; Inactive
 }
 */
 
 ; ------------------- Functions -------------------
 
-; Convert positions from 1278*664 resolution to current resolution
-WinRelPosH(PosH)
-{
-    return PosH / 664 * H
-}
-
+; Convert positions from 1278*664 client resolution to current resolution
 WinRelPosW(PosW)
 {
     return PosW / 1278 * W
 }
 
+WinRelPosH(PosH)
+{
+    return PosH / 664 * H
+}
+
+; Convert positions from 2560*1396 client resolution to current resolution to
+; allow higher accuracy
+WinRelPosLargeW(PosW2)
+{
+    return PosW2 / 2560 * W
+}
+
+WinRelPosLargeH(PosH2)
+{
+    return PosH2 / 1369 * H
+}
+
 ; Default clicking function, uses relative locations
-fSlowClick(x, y)
+fSlowClick(x, y, delay := 34)
 {
     MouseClick "left", WinRelPosW(x), WinRelPosH(y), , , "D"
-    Sleep 34 ; Must be higher than 16.67 which is a single frame of 60fps,
-             ; set to slightly higher than 2 frames for safety
-             ; If clicking isn't reliable increase this sleep value
+    Sleep delay ; Must be higher than 16.67 which is a single frame of 60fps,
+    ; set to slightly higher than 2 frames for safety
+    ; If clicking isn't reliable increase this sleep value
     MouseClick "left", WinRelPosW(x), WinRelPosH(y), , , "U"
 }
 
 ; Custom clicking function, swap the above to this if you want static coords
 ; that are more easily changed
-fCustomClick(x, y) 
+fCustomClick(x, y, delay := 34)
 {
     MouseClick "left", x, y, , , "D"
-    Sleep 34 
+    Sleep delay
     /* Must be higher than 16.67 which is a single frame of 60fps,
-       set to slightly higher than 2 frames for safety
-       If clicking isn't reliable increase this sleep value */
+    set to slightly higher than 2 frames for safety
+    If clicking isn't reliable increase this sleep value */
     MouseClick "left", x, y, , , "U"
 }
 
 ResetModifierKeys() {
-    ; Cleanup incase still held
-    if GetKeyState("Control")
-        ControlSend "{Control up}", , "Leaf Blower Revolution"
-    if GetKeyState("Alt")
-        ControlSend "{Alt up}", , "Leaf Blower Revolution"
-    if GetKeyState("Shift")
-        ControlSend "{Shift up}", , "Leaf Blower Revolution"
+    ; Cleanup incase still held, lbr/ahk like to get stuck with them held and
+    ; getkeystate shows them not down
+    ;if GetKeyState("Control")
+    ControlSend "{Control up}", , "Leaf Blower Revolution"
+    ;if GetKeyState("Alt")
+    ControlSend "{Alt up}", , "Leaf Blower Revolution"
+    ;if GetKeyState("Shift")
+    ControlSend "{Shift up}", , "Leaf Blower Revolution"
 }
 
 ; ------------------- Main actions -------------------
@@ -225,30 +331,50 @@ fOpenCardLoop()
     }
     WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
 
+    OpenPets()
+    ; Opens or closes another screen so that when areas is opened it doesn't
+    ; close
+    Sleep 50
+    OpenCards()
+    Sleep 50
+    fSlowClick(202, 574)
+    ; Open leaf galaxy tab incase wrong tab and to reset scroll
+
     loop {
         ; Check if lost focus, close or crash and break if so
-        if !WinExist("Leaf Blower Revolution") or !WinActive("Leaf Blower Revolution") {
-            break
+        if !WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution") {
+                break
         }
-        WinActivate("Leaf Blower Revolution") ; Use the window found by WinExist.
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution" ; Update window size
+        WinActivate("Leaf Blower Revolution")
+        ; Use the window found by WinExist.
+        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+        ; Update window size
 
-        ControlSend "{Control down}", , "Leaf Blower Revolution"
-        ControlSend "{Alt down}", , "Leaf Blower Revolution" ; Add ctrl/alt/shift as required for amount
-        ;ControlSend "{Shift down}",, "Leaf Blower Revolution" ; Commented out, remove the semi colon at the start for 25000
-        fSlowClick 315, 400 ; Common pack open
-        Sleep 60
-        fSlowClick 597, 400 ; Rare pack open
-        Sleep 60
-        fSlowClick 880, 400 ; Legendary pack open
+        if CardOpeningUseCtrl = true {
+            ControlSend "{Control down}", , "Leaf Blower Revolution"
+        }
+        if CardOpeningUseAlt = true {
+            ControlSend "{Alt down}", , "Leaf Blower Revolution"
+        }
+        if CardOpeningUseShift = true {
+            ControlSend "{Shift down}", , "Leaf Blower Revolution"
+        }
+        if CardOpeningMode = 1 {
+            fSlowClick 315, 400 ; Common pack open
+        }
+        if CardOpeningMode = 2 {
+            fSlowClick 597, 400 ; Rare pack open
+        }
+        if CardOpeningMode = 3 {
+            fSlowClick 880, 400 ; Legendary pack open
+        }
+        Sleep 100
         ResetModifierKeys() ; Cleanup ctrl+shift+alt modifiers
-        Sleep 200
     }
     ResetModifierKeys() ; Cleanup incase of broken loop
 }
 
-; TODO: Work out how to control the scrolling or use pixel detection to adjust for the inaccuracies
-; without being resolution dependant
 fTimeWarpAndRaiseTower() {
     if !WinExist("Leaf Blower Revolution") {
         return ; Kill early if no game
@@ -256,37 +382,39 @@ fTimeWarpAndRaiseTower() {
     WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
     WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
 
+    OpenPets()
+    ; Opens or closes another screen so that when areas is opened it doesn't
+    ; close
+    Sleep 50
     OpenAreas()
+    Sleep 50
+    fSlowClick(317, 574)
+    ; Open leaf galaxy tab incase wrong tab and to reset scroll
     Sleep 100
-    fSlowClick(317, 574) ; Open leaf galaxy tab incase wrong tab and to reset scroll
-    Sleep 100
-    MouseMove(W / 2, H / 2) ; Move mouse for scrolling
-    loopcount1 := 50
-    while loopcount1 > 0 {
-        ControlClick(, "Leaf Blower Revolution", , "WheelUp")
-        Sleep 51
-        ; Reset area view scroll to top
-        loopcount1 := loopcount1 - 1
-    }
-    loopcount2 := 17
-    while loopcount2 > 0 {
-        ControlClick(, "Leaf Blower Revolution", , "WheelDown")
-        Sleep 51
-        ; Scroll down to the tower, game stores this so only need to loop once
-        loopcount2 := loopcount2 - 1
-    }
+    MouseMove(WinRelPosW(875), WinRelPosH(313)) ; Move mouse for scrolling
+
+    ResetAreaScroll()
+    ; Move the screen up to reset the scroll incase its been changed outside
+    ; the script
+
+    AreaScrollAmount(16) ; Scroll down for the zones
+
     EquipTowerGearLoadout() ; Equip Tower set
 
     Loop {
         ; Check if: lost focus, close or crash and break if so
-        if !WinExist("Leaf Blower Revolution") or !WinActive("Leaf Blower Revolution") {
-            break
+        if !WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution") {
+                break
         }
-        WinActivate("Leaf Blower Revolution") ; Use the window found by WinExist.
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution" ; Update window size
+        WinActivate("Leaf Blower Revolution")
+        ; Use the window found by WinExist.
+        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+        ; Update window size
 
         ; These next three clicks are unstable, the scrolling isn't accurate
-        ; Use window spy to correct, if your pc doesn't match these, as detailed at the top
+        ; Use window spy to correct, if your pc doesn't match these, as
+        ; detailed at the top
         fSlowClick(875, 313) ; Open leafsing harbor to allow max level reset
         Sleep 100
         fSlowClick(1046, 419) ; Max Tower level
@@ -301,67 +429,324 @@ fTimeWarpAndRaiseTower() {
         Sleep 100
         OpenAreas() ; Doing this last as we open this to scroll to start
         Sleep 150
-
     }
 
 }
 
-; TODO: Automate setup, work out why refresh works while not focused but suitcase doesn't so alt tab is possible
-; Also find a way to resolution independantly scan for the gems
 fGemFarmSuitcase() {
-    ;Open area menu (V)
-    ;Set zone to golden suitcase territory
-    ;Open trades
-    ;loop
-    ;Refresh trades (space)
-    ;If slot 2 isn't active or collect
-    ;Start every inactive trade viewable except first > loop
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+
+    OpenPets()
+    ; Opens or closes another screen so that when areas is opened it doesn't
+    ; close
+    Sleep 150
+    OpenAreas()
+    Sleep 150
+    fSlowClick(317, 574)
+    ; Open leaf galaxy tab incase wrong tab and to reset scroll
+    Sleep 150
+    MouseMove(WinRelPosW(875), WinRelPosH(313)) ; Move mouse for scrolling
+    ResetAreaScroll()
+    ; Move the screen up to reset the scroll incase its been changed outside
+    ; the script
+    AreaScrollAmount(22) ; Scroll down for the zones
+    fSlowClick(875, 298) ; Set zone to golden suitcase territory
+
+    OpenPets()
+    Sleep 150
+    RemoveBearo() ; Removes bearo from your pet team if its active
+    Sleep 200
+
+    OpenTrades()
+    Sleep 150
+    ResetTradeScroll()
+    FillTradeSlots() ; Leaves the first slot free to use suitcase on
+
     Loop {
-        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution" ; Update window size
-        ;OutputVarX := 0
-        ;OutputVarY := 0
-        ;X1 := Round(WinRelPosW(602)) ; First slot icon, top left
-        ;Y1 := Round(WinRelPosH(176))
-        ;X2 := Round(WinRelPosW(640)) ; First slot icon, bottom right
-        ;Y2 := Round(WinRelPosH(203))
-        if !WinExist("Leaf Blower Revolution") or !WinActive("Leaf Blower Revolution") {
-            break ; Kill the loop if the window closes
+        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+        ; Update window size
+
+        if !WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution") {
+                break ; Kill the loop if the window closes
         }
         try {
-            ; PixelSearch resolution independant function based on higher resolution to increase accuracy, using lower res resulted
-            ; in drift when scaled up. 4k might be ok? Cannot test
-            colour := PixelGetColor(1252 / 2560 * W, 397 / 1369 * H)
+            ; PixelSearch resolution independant function based on higher
+            ; resolution to increase accuracy, using lower res resulted in
+            ; drift when scaled up.
+            colour := PixelGetColor(WinRelPosLargeW(1252), WinRelPosLargeH(397))
             If (colour = "0xFF0044") {
-                TriggerSuitcase()
-                Sleep 50
+                Sleep 71
+                colour := PixelGetColor(WinRelPosLargeW(1252),
+                    WinRelPosLargeH(397))
+                If (colour = "0xFF0044") {
+                    ; Double check to try and avoid false usage
+                    TriggerSuitcase()
+                    Sleep 71
+                }
             }
-            ;If (ImageSearch(&OutputVarX, &OutputVarY, X1, Y1, X2, Y2, "Gem.bmp")) {
-                ;ToolTip("Gem Found", W/2, H/2+80, 3)
-                ;TriggerSuitcase()
-                ;Sleep 500
-            ;}
-            RefreshTrades()
         } catch as exc {
             MsgBox "Could not conduct the search due to the following error:`n" exc.Message
         }
-        Sleep 50
+        RefreshTrades()
+        Sleep 71
     }
 }
 
-; Plans for future
+ResetTradeScroll() {
+    loopcount1 := 6
+    ToolTip("Resetting scroll position, will take a moment", W / 2 - 120, H / 2)
+    while loopcount1 > 0 {
+        if !WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution") {
+                break ; Kill the loop if the window closes
+        }
+        ControlClick(, "Leaf Blower Revolution", , "WheelUp")
+        Sleep 102
+        loopcount1 := loopcount1 - 1
+    }
+    SetTimer(ToolTip, -1)
+}
+
+RemoveBearo() {
+    OutX := 0
+    OutY := 0
+    try {
+        X1 := WinRelPosLargeW(675)
+        Y1 := 1070 / 1369 * H
+        X2 := WinRelPosLargeW(1494)
+        Y2 := 1138 / 1369 * H
+        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x64747A", 0)
+        If (found and OutX != 0) {
+            ToolTip("Bearo found and removed", OutX, OutY)
+            SetTimer(Tooltip, -100)
+            Sleep 72
+            fCustomClick(OutX, OutY)
+        }
+
+    } catch as exc {
+        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+        return
+    }
+}
+
+FillTradeSlots() {
+    i := 24
+    ToolTip("Filling trade slots", W / 2 - 70, H / 2)
+    While i > 0 {
+        fSlowClick(1040, 230)
+        Sleep 50
+        RefreshTrades()
+        Sleep 50
+        i := i - 1
+    }
+    SetTimer(ToolTip, -1)
+}
+
 fBorbVentureJuiceFarm() {
-    ;Open BV
-    ;Select tab
-    ;Check first four slots
-    ;for each found
-    ;If not active
-    ;click team slot 1
-    ;click team slot 2
-    ;click start
-    ;If active and finished
-    ;click finish
-    ;wait a short time to not lag with infinite looping
-    ;Refresh list
+
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+
+    OpenPets() ; Opens or closes another screen so that when areas is opened it
+    ; doesn't close
+    Sleep 100
+    OpenBorbVentures() ; Open BV
+    Sleep 100
+    fSlowClick(211, 573) ; Select tab
+    loop {
+
+        if (!WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution")) {
+                break ; Kill if no game
+        }
+
+        ; Check first four slots for item
+        Slot1Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(431),
+            WinRelPosLargeW(1353), WinRelPosLargeH(490))
+        Slot2Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(620),
+            WinRelPosLargeW(1353), WinRelPosLargeH(675))
+        Slot3Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(811),
+            WinRelPosLargeW(1353), WinRelPosLargeH(866))
+        Slot4Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(1028),
+            WinRelPosLargeW(1353), WinRelPosLargeH(1076))
+
+        ;Charslot 1 is at X 1600
+        ;Charslot 2 is at X 1717
+        ;Start/Finish is at X 1911
+        ;Cancel is at X 2120
+        ;BorbJuice first detect point is at X 1326
+        SlotsYArray := [Slot1Y, Slot2Y, Slot3Y, Slot4Y]
+
+        activeSlots := 0
+        for SlotY in SlotsYArray {
+            if (SlotY != 0 && BVIsSlotActive(SlotY)) {
+                ; If slots cancel button exists, assume active. This lets us
+                ; pause refreshing until something new happens to avoid wastage
+                activeSlots := activeSlots + 1
+            }
+        }
+
+        for SlotY in SlotsYArray {
+            while (BVIsSlotFinished(SlotY)) {
+                if (SlotY != 0 && BVIsSlotFinished(SlotY) &&
+                    WinActive("Leaf Blower Revolution")) {
+                        ; If slots finished, its Y is used to align click and spam
+                        Sleep 100
+                        fCustomClick(WinRelPosLargeW(1911), SlotY, 100)
+                        Sleep 100
+                }
+            }
+        }
+
+        ; Scan again but reverse order so that we can start them bottom to top
+        ; Accounts for changes since 'finishing'
+
+        Slot1Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(431), WinRelPosLargeW(1353), WinRelPosLargeH(490))
+        Slot2Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(620), WinRelPosLargeW(1353), WinRelPosLargeH(675))
+        Slot3Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(811), WinRelPosLargeW(1353), WinRelPosLargeH(866))
+        Slot4Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(1028), WinRelPosLargeW(1353), WinRelPosLargeH(1076))
+
+        SlotsYArray := [Slot4Y, Slot3Y, Slot2Y, Slot1Y]
+
+        for SlotY in SlotsYArray {
+            if (SlotY != 0 && BVIsSlotStartInactive(SlotY) &&
+                WinActive("Leaf Blower Revolution")) {
+                    ; Don't try to start more if we're full even if another is
+                    ; detected
+                    if ((!HaveBorbDLC and activeSlots != 2) ||
+                        (HaveBorbDLC and activeSlots != 4)) {
+                            ; If slots inactive, its ready to start,
+                            ; use its y to align clicks
+                            Sleep 100
+                            fCustomClick(WinRelPosLargeW(1600), SlotY, 100)
+                            ; Click team slot 1
+                            Sleep 100
+                            fCustomClick(WinRelPosLargeW(1717), SlotY, 100)
+                            ; Click team slot 2
+                            Sleep 100
+                            fCustomClick(WinRelPosLargeW(1911), SlotY, 100)
+                            ; Click Start
+                            Sleep 100
+                    }
+            }
+        }
+        if (activeSlots >= 1) {
+            ToolTip("Found " . activeSlots . " active slots", W / 2, H / 2, 1)
+            SetTimer(ToolTip, -750)
+        }
+        if (!HaveBorbDLC and activeSlots != 2) {
+            ; If we have not filled all available slots refresh
+            RefreshTrades()
+        }
+        if (HaveBorbDLC and activeSlots != 4) {
+            RefreshTrades()
+        }
+    }
+}
+
+BVScanSlotItem(X1, Y1, X2, Y2) {
+    try {
+        ; This is the check for the borbjuice pink colour, if you want to scan
+        ; for something else. Change this colour to something unique to that
+        ; type, or add more checks if you want several.
+
+        ; "0xF91FF6" Borb ascention juice (purple default)
+        ; "0x70F928" Borb juice (green)
+        ; "0x0F2A1D" Nature time sphere
+        ; "0x55B409" Borb rune (green)
+        ; "0x018C9C" Magic mulch
+        ; "0x01D814" Nature gem
+        ; "0xAB5A53" Random item box (all types)
+        ; "0x98125F" Borb rune (purple)
+        ; "0xC1C1C1" Candy
+        ; "0x6CD820" Both clovers (uses same colours)
+        ; "0x6BEA15" Borb token
+        ; "0xCEF587" Free borb token
+        ; "0xC9C9C9" Dice Points (white)
+        ; "0x0E44BE" Power Dice Points (blue)
+
+
+        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x01D814", 0)
+        ; Nature gem
+        If (found and OutX != 0) {
+            return OutY ; Found item row
+        }
+        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x0F2A1D", 0)
+        ; Nature time sphere
+        If (found and OutX != 0) {
+            return OutY ; Found item row
+        }
+        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x0E44BE", 0)
+        ; Power Dice Points (blue)
+        If (found and OutX != 0) {
+            return OutY ; Found item row
+        }
+        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0xC9C9C9", 0)
+        ; Dice Points (white)
+        If (found and OutX != 0) {
+            return OutY ; Found item row
+        }
+        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0xF91FF6", 0)
+        ; Borb ascention juice (purple default)
+        If (found and OutX != 0) {
+            return OutY ; Found item row
+        }
+    } catch as exc {
+        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+    }
+    return 0
+}
+
+BVIsSlotFinished(Y) {
+    ;Start/Finish is at X 1911
+    try {
+        colour := PixelGetColor(WinRelPosLargeW(1911), Y)
+        If (colour = "0xFFF1D2") {
+            ;ToolTip("Slot found Finished button", WinRelPosLargeW(1911), Y, 1)
+            ;SetTimer(ToolTip, -500)
+            return true
+        }
+    } catch as exc {
+        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+    }
+    return false
+}
+
+BVIsSlotStartInactive(Y) {
+    ; Start/finish left side, blank background X 1864
+    try {
+        If (PixelGetColor(WinRelPosLargeW(1864), Y) = "0xC8BDA5") {
+            ; Check point to the left of the button to make sure its blank
+            ;ToolTip("Slot found Inactive button", WinRelPosLargeW(1864), Y, 1)
+            ;SetTimer(ToolTip, -500)
+            return true
+        }
+    } catch as exc {
+        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+    }
+    return false
+}
+
+BVIsSlotActive(Y) {
+    ; Position less important as just checking if not background X2120
+    try {
+        targetColour := PixelGetColor(WinRelPosLargeW(2120), Y)
+        If (targetColour != "0x97714A") {
+            ; Check cancel button for non background colour
+            return true
+        }
+    } catch as exc {
+        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+    }
+    return false
 }
 
 fGemsFarmNormal() {
@@ -398,23 +783,229 @@ fFarmNatureBoss() {
     ;SetZone Nature boss
     ;Spam wind and gravity until timer
     ;SetZone Violin spawn
-    ;Use 25+10+1 Violins to spawn boss
+    ;Use Violins to spawn boss
     ;loop if timer gone, else trickle use till timer
 }
 
 fClawFarm() {
-    ;Search for the orange pumpkin
-    ;Keep checking for claw vertically above
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+
+    OpenPets() ; Opens or closes another screen so that when areas
+    ; is opened it doesn't close
+    Sleep 50
+    OpenAreas() ; Open areas
+    Sleep 100
+    fSlowClick(315, 574) ; Click the right tab just incase
+    Sleep 100
+    ResetAreaScroll() ; Reset incase
+    Sleep 100
+    AreaScrollAmount(43) ; Scroll down
+    Sleep 100
+    fSlowClick(877, 359) ; Open pub area
+    Sleep 100
+    fSlowClick(50, 252) ; Close the area screen
+    Sleep 50
+    fSlowClick(276, 252) ; Open claw machine
+    Sleep 50
+    RefreshTrades()
+    Sleep 150
+    loop {
+
+        if (!WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution")) {
+                return ; Kill early if no game
+        }
+        PumpkinX := ClawGetPumpkinLocation()
+        HookX := ClawGetHookLocation()
+        if (PumpkinX = 0) {
+            Sleep 150
+            RefreshTrades()
+            Sleep 150
+        }
+
+        if (PumpkinX + WinRelPosLargeW(15) >= HookX && PumpkinX -
+            WinRelPosLargeW(15) <= HookX) {
+                RefreshTrades()
+                ToolTip("Trying to catch HookX " . HookX . " PumpX " . PumpkinX,
+                    PumpkinX - WinRelPosLargeW(15),
+                    WinRelPosLargeH(970), 5)
+                SetTimer(ToolTip, -200)
+        }
+        Sleep 8.35
+    }
+
 }
 
-fFarmSS() {
-
+ClawGetPumpkinLocation() {
+    try {
+        ; Pumpkin stem colour 0x6CD820
+        ; 406 672 top left pickup area 1440 res
+        ; 2070 920 bottom right  pickup area
+        found := PixelSearch(&OutX, &OutY,
+            WinRelPosLargeW(406), WinRelPosLargeH(672),
+            WinRelPosLargeW(2070), WinRelPosLargeH(970), "0x6CD820", 0)
+        ; Pumpkin stem pixel search
+        If (found and OutX != 0) {
+            return OutX ; Found colour
+        }
+    } catch as exc {
+        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+    }
+    return 0
 }
 
-fFarmGF() {
+ClawGetHookLocation() {
+    ;Hook colour 0x8B9BB4
+    ;296 346 top left Hook area 1440
+    ;2042 400 bottom right Hook area 1440
+    try {
+        found := PixelSearch(&OutX, &OutY,
+            WinRelPosLargeW(296), WinRelPosLargeH(346),
+            WinRelPosLargeW(2042), WinRelPosLargeH(400), "0x8B9BB4", 0)
+        ; Hook pixel search
+        If (found and OutX != 0) {
+            return OutX ; Found colour
+        }
+    } catch as exc {
+        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+    }
+    return 0
+}
 
+/*
+area menu
+go to gf boss zone
+start timer for GF 14s
+    spam wind and grav
+    use 20 violins at 40ms intervals
+
+go to ss boss zone (areas was not closed)
+start timer for SS 14s
+    spam wind and grav
+    use 20 violins at 40ms intervals
+if 2 ss kills reset
+    move to zone
+    close panel
+    click borbthing
+    reset
+    change area
+*/
+
+fFarmGFSS() {
+    static GFKills := 0
+    static MaxGFToKill := 7
+    static SSKills := 0
+    KillGF()
+    ; If white found in timer pixel zone, timer is running and classed as
+    ; killed
+    ; If black found at left end of blue bar (858, 265), assume kill failed
+    ; If failed or cap amount move to ss
+    KillSS()
+    ; If white found in timer pixel zone, timer is running and classed as
+    ; killed
+    ; If black found at left end of blue bar, assume kill failed
+    ; If failed reset
+    ResetSS()
+}
+
+KillGF() {
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+
+    OpenPets() ; Opens or closes another screen so that when areas
+    ; is opened it doesn't close
+    Sleep 100
+    OpenAreas() ; Open areas
+    Sleep 100
+    fSlowClick(317, 574)
+    ; Open leaf galaxy tab incase wrong tab and to reset scroll
+    Sleep 150
+    fSlowClick(686, 574)
+    ; Open Fire Fields tab
+    Sleep 200
+    fSlowClick(877, 411)
+    ; Open Flame Brazier (GF zone)
+    Sleep 10000
+}
+
+KillSS() {
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+
+    OpenPets() ; Opens or closes another screen so that when areas
+    ; is opened it doesn't close
+    Sleep 100
+    OpenAreas() ; Open areas
+    Sleep 100
+    fSlowClick(317, 574)
+    ; Open leaf galaxy tab incase wrong tab and to reset scroll
+    Sleep 150
+    fSlowClick(686, 574)
+    ; Open Fire Fields tab
+    Sleep 200
+    fSlowClick(877, 516)
+    ; Open Flame Universe (SS zone)
+    Sleep 10000
 }
 
 ResetSS() {
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
 
+    OpenPets() ; Opens or closes another screen so that when areas
+    ; is opened it doesn't close
+    Sleep 150
+    OpenAreas() ; Open areas
+    Sleep 150
+    fSlowClick(317, 574)
+    ; Open leaf galaxy tab incase wrong tab and to reset scroll
+    Sleep 150
+    fSlowClick(686, 574)
+    ; Open Fire Fields tab
+    Sleep 150
+    fSlowClick(880, 159)
+    ; Go to shadow cavern
+    Sleep 150
+    ClosePanel()
+    ; Go to shadow cavern
+    Sleep 150
+    fSlowClick(880, 180)
+    ; Go to Borbiana Jones screen
+    Sleep 150
+    fSlowClick(517, 245)
+    ; Reset SpectralSeeker
+}
+
+ResetAreaScroll() {
+    fSlowClick(200, 574) ; Click Favourites
+    Sleep 50
+    fSlowClick(315, 574) ; Click Back to default page to reset the scroll
+    Sleep 50
+}
+
+AreaScrollAmount(amount := 1) {
+    ToolTip("Scrolling to position, will take a moment", W / 2 - 100, H / 2)
+    while amount > 0 {
+        if !WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution") {
+                break ; Kill the loop if the window closes
+        }
+        ControlClick(, "Leaf Blower Revolution", , "WheelDown")
+        Sleep 102
+        amount := amount - 1
+    }
+    SetTimer(ToolTip, -1)
 }
