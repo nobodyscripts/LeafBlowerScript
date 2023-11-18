@@ -119,4 +119,19 @@ global DisableZoneChecks := false
 
 global DisableSettingsChecks := false
 ; WARNING: This will stop the script checking for badly configured settings, if
-; you want to accept the risk, change to true
+; you want to accept the risk, change to true. Disables all handling of
+; incorrect settings. So if things are not configured correctly they will break.
+
+global ArtifactSleepAmount := 74
+; Time between artifact usage, can speed up or slow down to avoid wastage
+
+global F9UsesWind := true
+; Add Wind spam to the violin spammer, while boss is spawned, useful with
+; high end nuclear fuel set to quickly kill bosses/quark.
+
+global F9UsesWobblyWings := false
+; Use WW on a split timer so that you can control due to slow time to spawn.
+
+global WobblyWingsSleepAmount := 750
+; Timer for WW spam, much lower and you might skip bosses entirely, higher if
+; you don't instantly kill.

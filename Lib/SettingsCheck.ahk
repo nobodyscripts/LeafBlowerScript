@@ -2,8 +2,8 @@
 
 
 MakeWindowActive() {
-    if !WinExist("Leaf Blower Revolution") {
-        Log("Error: Window doesn't exist.")
+    if (!WinExist("Leaf Blower Revolution")) {
+        Log("Error 14: Window doesn't exist.")
         return false ; Don't check further
     }
     if (!WinActive("Leaf Blower Revolution")) {
@@ -15,7 +15,7 @@ MakeWindowActive() {
 IsWindowActive() {
     if (!WinExist("Leaf Blower Revolution") ||
         !WinActive("Leaf Blower Revolution")) {
-            Log("Error: Window not active or doesn't exist.")
+            Log("Error 1: Window not active or doesn't exist.")
             return false
     }
     return true
@@ -38,23 +38,25 @@ CheckGameSettingsCorrect() {
     if (!IsWindowActive()) {
         return false ; Kill if no game
     }
+    ; Check for afk, if it is on, click the corner of the screen
+    AFKFix()
     OpenAreasPanel(false)
     ; Cannot check font here as it might not be correct res
     ; Changing res every activation would be annoying
     If (!IsAspectRatioCorrectCheck()) {
-        Log("Error: Failed settings check at rendering mode.")
+        Log("Error 15: Failed settings check at rendering mode.")
         return false
     }
     If (!IsPanelTransparentCorrectCheck()) {
-        Log("Error: Failed settings check at transparency.")
+        Log("Error 16: Failed settings check at transparency.")
         return false
     }
     If (!IsPanelSmoothedCheck()) {
-        Log("Error: Failed settings check at smooth graphics.")
+        Log("Error 17: Failed settings check at smooth graphics.")
         return false
     }
     If (!IsDarkBackgroundCheck()) {
-        Log("Error: Failed settings check at dark dialog background.")
+        Log("Error 18: Failed settings check at dark dialog background.")
         return false
     }
     return true
@@ -118,6 +120,19 @@ CheckGameSettingsCorrectVerbose() {
     return true
 }
 
+/**
+ * Check for panel being open
+ * @returns {number} True/False, True if a main panel is active
+ */
+IsPanelActive() {
+    return !IsPanelTransparent()
+}
+
+
+/**
+ * Check for panel being non standard background colour
+ * @returns {number} True/False, True if a main panel is transparent
+ */
 IsPanelTransparent() {
     try {
         targetColour := PixelGetColor(WinRelPosW(1090), WinRelPosH(107))
@@ -126,7 +141,7 @@ IsPanelTransparent() {
             return false
         }
     } catch as exc {
-        Log("Error: Panel transparency check failed - " exc.Message)
+        Log("Error 19: Panel transparency check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
@@ -139,7 +154,9 @@ IsPanelTransparentCorrectCheck() {
         return false ; Kill if no game
     }
     If (IsPanelTransparent()) {
-        MsgBox("Error: It appears you may be using menu transparency, please set to 100% then F2 to reload().`nSee Readme.md for other required settings.")
+        MsgBox("Error: It appears you may be using menu transparency,"
+            " please set to 100% then F2 to reload().`nSee Readme.md"
+            " for other required settings.")
         WinActivate("Leaf Blower Revolution")
         OpenPets()
         sleep(150)
@@ -161,20 +178,25 @@ IsAspectRatioCorrect() {
     ;54 1328 (lower left of lower left hide button)
     ;2425 51 (top right of top right hide button)
     try {
-        sampleColour := PixelGetColor(WinRelPosLargeW(58), WinRelPosLargeH(1323))
-        sampleColour2 := PixelGetColor(WinRelPosLargeW(2425), WinRelPosLargeH(51))
+        sampleColour := PixelGetColor(WinRelPosLargeW(58),
+            WinRelPosLargeH(1323))
+        sampleColour2 := PixelGetColor(WinRelPosLargeW(2425),
+            WinRelPosLargeH(51))
         If (sampleColour = "0xFFF1D2" || ; Normal
             sampleColour = "0xFDD28A" || ; Mouseover
             sampleColour = "0x837C6C" || ; Dark dialog background normal
-            sampleColour = "0x826C47" && ; Dark dialog background mouseover
+            sampleColour = "0x826C47" || ; Dark dialog background mouseover
+            sampleColour = "0xB3A993" || ; Afk mode normal
+            sampleColour = "0xB29361" &&  ; Afk mode mouseover
             sampleColour = sampleColour2) {
                 return true
         }
     } catch as exc {
-        Log("Error: Render Mode check failed - " exc.Message)
+        Log("Error 20: Render Mode check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
+    Log("Aspect ratio check found unknown colour " sampleColour)
     return false
 }
 
@@ -183,8 +205,10 @@ IsAspectRatioCorrectCheck() {
         return false ; Kill if no game
     }
     If (!IsAspectRatioCorrect()) {
-        Log("Error: Alternative rendering check failed.")
-        MsgBox("Error: It appears you may be using normal render mode, please set to Alternative then F2 to reload().`nSee Readme.md for other required settings.")
+        Log("Error 21: Alternative rendering check failed.")
+        MsgBox("Error: It appears you may be using normal render mode,"
+            " please set to Alternative then F2 to reload().`nSee Readme.md"
+            " for other required settings.")
         WinActivate("Leaf Blower Revolution")
         OpenPets()
         sleep(150)
@@ -238,7 +262,7 @@ WhatFont() {
             i++
         }
     } catch as exc {
-        Log("Error: WhatFont check failed - " exc.Message)
+        Log("Error 22: WhatFont check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
@@ -255,8 +279,10 @@ IsFontCorrectCheck() {
         return true
     }
     if (!font) {
-        Log("Error: Font type check failed, not using alternative")
-        MsgBox("Error: It appears you are not using alternative font type, please set to Alternative then F2 to reload().`nSee Readme.md for other required settings.")
+        Log("Error 23: Font type check failed, not using alternative")
+        MsgBox("Error: It appears you are not using alternative font type,"
+            " please set to Alternative then F2 to reload().`nSee Readme.md"
+            " for other required settings.")
         WinActivate("Leaf Blower Revolution")
         OpenPets()
         sleep(150)
@@ -265,8 +291,10 @@ IsFontCorrectCheck() {
         ClosePanel() ; Settings
         return false
     }
-    Log("Error: Font size check failed - size " (font - 1))
-    MsgBox("Error: It appears you are using font size " . (font - 1) . ", please set to 0/1 then F2 to reload().`nSee Readme.md for other required settings.")
+    Log("Error 24: Font size check failed - size " (font - 1))
+    MsgBox("Error: It appears you are using font size " (font - 1)
+        ", please set to 0/1 then F2 to reload().`nSee Readme.md"
+        " for other required settings.")
     WinActivate("Leaf Blower Revolution")
     OpenPets()
     sleep(150)
@@ -291,7 +319,7 @@ IsPanelSmoothed() {
             return true
         }
     } catch as exc {
-        Log("Error: Panel smoothing check failed - " exc.Message)
+        Log("Error 25: Panel smoothing check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
@@ -305,8 +333,10 @@ IsPanelSmoothedCheck() {
     If (!IsPanelSmoothed()) {
         return true
     }
-    Log("Error: Smooth graphics check failed.")
-    MsgBox("Error: It appears you are using Smooth Graphics, please set to off then F2 to reload().`nSee Readme.md for other required settings.")
+    Log("Error 26: Smooth graphics check failed.")
+    MsgBox("Error: It appears you are using Smooth Graphics, please set"
+        " to off then F2 to reload().`nSee Readme.md for other required"
+        " settings.")
     WinActivate("Leaf Blower Revolution")
     OpenPets()
     sleep(150)
@@ -323,15 +353,18 @@ IsPanelSmoothedCheck() {
 
 IsDarkBackgroundOn() {
     try {
-        sampleColour := PixelGetColor(WinRelPosLargeW(58), WinRelPosLargeH(1323))
-        sampleColour2 := PixelGetColor(WinRelPosLargeW(2425), WinRelPosLargeH(51))
-        If (sampleColour = "0x837C6C" || sampleColour2 = "0x837C6C") {
-            Log("Corner buttons found with Dark Dialog Background on.")
-            ; Found dark mode
-            return true
+        sampleColour := PixelGetColor(WinRelPosLargeW(58),
+            WinRelPosLargeH(1323))
+        sampleColour2 := PixelGetColor(WinRelPosLargeW(2425),
+            WinRelPosLargeH(51))
+        If (sampleColour = "0x837C6C" || sampleColour2 = "0x837C6C" ||
+            sampleColour = "0x826C47" || sampleColour2 = "0x826C47") {
+                Log("Corner buttons found with Dark Dialog Background on.")
+                ; Found dark mode
+                return true
         }
     } catch as exc {
-        Log("Error: Dark Dialog Background check failed - " exc.Message)
+        Log("Error 6: Dark Dialog Background check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
@@ -345,8 +378,10 @@ IsDarkBackgroundCheck() {
     If (!IsDarkBackgroundOn()) {
         return true
     }
-    Log("Error: Dark Dialog Background check failed.")
-    MsgBox("Error: It appears you are using Dark Dialog Background, please set to off then F2 to reload().`nSee Readme.md for other required settings.")
+    Log("Error 27: Dark Dialog Background check failed.")
+    MsgBox("Error: It appears you are using Dark Dialog Background, please"
+        " set to off then F2 to reload().`nSee Readme.md for other"
+        " required settings.")
     WinActivate("Leaf Blower Revolution")
     OpenPets()
     sleep(150)
@@ -368,8 +403,10 @@ IsTreesSetCheck() {
     if (IsAreaSampleColour("0x4A9754")) {
         return true
     } else {
-        Log("Error: Trees check failed. " GetAreaSampleColour())
-        MsgBox("Error: It appears you are using Trees, please set to off then F2 to reload().`nSee Readme.md for other required settings.")
+        Log("Error 28: Trees check failed. " GetAreaSampleColour())
+        MsgBox("Error: It appears you are using Trees, please set to"
+            " off then F2 to reload().`nSee Readme.md for other"
+            " required settings.")
         WinActivate("Leaf Blower Revolution")
         OpenPets()
         sleep(150)
@@ -384,4 +421,39 @@ IsTreesSetCheck() {
         return false
     }
 
+}
+
+IsAFKOn() {
+    try {
+        sampleColour := PixelGetColor(WinRelPosLargeW(58),
+            WinRelPosLargeH(1323))
+        sampleColour2 := PixelGetColor(WinRelPosLargeW(2425),
+            WinRelPosLargeH(51))
+        If (sampleColour = "0xB3A993" || ; Afk mode normal
+            sampleColour = "0xB29361" || ; Afk mode mouseover
+            sampleColour2 = "0xB3A993" || ; Afk mode normal
+            sampleColour2 = "0xB29361"  ; Afk mode mouseover
+        ) {
+            Log("IsAFKOn: Corner buttons found with AFK on.")
+            ; Found dark mode
+            return true
+        }
+    } catch as exc {
+        Log("Error 34: AFK check failed - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
+            exc.Message)
+    }
+    return false
+}
+
+AFKFix() {
+    if (!IsWindowActive()) {
+        return false ; Kill if no game
+    }
+    If (!IsAFKOn()) {
+        return true
+    }
+    Log("Warning 1: AFK found enabled.")
+    fSlowClick(5, 5)
+    return false
 }

@@ -1,9 +1,19 @@
 #Requires AutoHotkey v2.0
-global HadToHideNotifs
+global HadToHideNotifs, HaveWarnedDisplayRewards
 HadToHideNotifs := false
+HaveWarnedDisplayRewards := false
 
 fOpenCardLoop() {
     global HadToHideNotifs, W, H, X, Y
+
+    if (IsNotificationActive()) {
+        Log("Cards: Found notification covering button and hid"
+            " notifications.")
+        fSlowClick(32, 596, 101)
+        Sleep(72)
+        HadToHideNotifs := true
+        ; Notifications were blocking, close notifications and reshow
+    }
 
     if (!GotoCardsFirstTab()) {
         ; We still failed to travel
@@ -16,6 +26,16 @@ fOpenCardLoop() {
             Log("Cards: Did not find game. Aborted.")
             return ; Kill if no game
         }
+        if (!IsPanelActive()) {
+            Log("Card opening: Did not find panel. Aborted.")
+            break
+        }
+        if (IsNotificationActive()) {
+            Log("Card opening: Found notification covering button and hid"
+                " notifications.")
+            fSlowClick(32, 596, 101)
+            HadToHideNotifs := true
+        }
         if (!CardButtonsActive() && !CardsPermaLoop) {
             Log("Cards: Exiting.")
             break
@@ -26,7 +46,8 @@ fOpenCardLoop() {
         }
         Log("Card Opening: Loop starting.")
         loop {
-            if (!CardsOpenSinglePass()) {
+            value := CardsOpenSinglePass()
+            if (!value) {
                 Log("Card Opening: Loop finishing.")
                 break
             }
@@ -34,13 +55,13 @@ fOpenCardLoop() {
     }
     if (HadToHideNotifs) {
         Log("Cards: Reenabling notifications.")
-        fSlowClick(32, 596, 17)
+        fSlowClick(32, 596, 101)
         HadToHideNotifs := false
     }
     ResetModifierKeys() ; Cleanup incase needed
     Log("Cards: Stopped.")
     ToolTip("Card opening aborted`nFound no active buttons.`nF3 to remove note",
-        W / 2 - WinRelPosLargeH(170), H / 2)
+        W / 2 - WinRelPosLargeW(170), H / 2)
 }
 
 CardsOpenSinglePass() {
@@ -48,21 +69,20 @@ CardsOpenSinglePass() {
     ; Check if lost focus, close or crash and break if so
     if (!IsWindowActive()) {
         Log("Card opening: Did not find game. Aborted.")
-        return false ; Kill if no game
+        MakeWindowActive()
+        ;return false ; Kill if no game
     }
     WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
     ; Update window size
 
     ; Use the transparent check to make sure we have a panel, otherwise
     ; we'll close notifications for no reason and get into a loop
-    if (IsPanelTransparent()) {
-        Log("Card opening: Did not find panel.")
+    if (!IsPanelActive()) {
+        Log("Card opening: Did not find panel. Aborted.")
         return false
     }
-    CommonX := WinRelPosLargeW(565)
-    CommonY := WinRelPosLargeH(820)
     ; Close notifications if they are getting in the way
-    if (!IsPanelTransparent() && IsCoveredByNotification(CommonX, CommonY)) {
+    if (IsNotificationActive()) {
         Log("Card opening: Found notification covering button and hid"
             " notifications.")
         fSlowClick(32, 596, 101)
@@ -149,6 +169,7 @@ CardNumberToModifier(num) {
 }
 
 CardOpenerRel(x, y, offset, amount) {
+    global HaveWarnedDisplayRewards
     x := WinRelPosLargeW(x)
     y := WinRelPosLargeH(y)
     offset := WinRelPosLargeH(offset)
@@ -159,6 +180,21 @@ CardOpenerRel(x, y, offset, amount) {
         fCustomClick(x, y + offset, 72)
         ; Legendary pack open
         Sleep(CardsSleepAmount)
+        local i := 0
+        while (IsScrollAblePanelAtTop() && i <= 5) {
+            if (!HaveWarnedDisplayRewards) {
+                Log("Warning: Found 'Settings/Gameplay/Display "
+                    "Reward Dialogs' is on.")
+                ToolTip("Warning: Card opening found Settings/Gameplay/Display"
+                    " Reward Dialogs is on.`nSpeed up opening by disabling."
+                    , W / 2 - WinRelPosLargeW(450),
+                    H / 2 - WinRelPosLargeH(70))
+                HaveWarnedDisplayRewards := true
+            }
+            fSlowClick(1110, 94, 72)
+            Sleep(150)
+            i++
+        }
     }
     ; Deliberate second check to return new state
     return IsButtonActive(x, y)

@@ -14,7 +14,7 @@ fFarmGFSS() {
         IsInSS := false
         Log("GFSSFarm: Going to Green Flame")
         GoToGF()
-        if (!IsPanelTransparent()) {
+        if (IsPanelActive()) {
             ClosePanel()
         }
         TimerLastCheckStatus := IsBossTimerActive()
@@ -30,7 +30,7 @@ fFarmGFSS() {
                 if (!IsInGF) {
                     Log("GFSSFarm: Going to Green Flame")
                     GoToGF()
-                    if (!IsPanelTransparent()) {
+                    if (IsPanelActive()) {
                         ClosePanel()
                     }
                     IsInGF := true
@@ -78,7 +78,7 @@ fFarmGFSS() {
                 Log("GFSSFarm: Going to Soulseeker")
                 GoToSS()
                 Sleep(101)
-                if (!IsPanelTransparent()) {
+                if (IsPanelActive()) {
                     ClosePanel()
                 }
                 IsInSS := true

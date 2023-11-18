@@ -23,6 +23,11 @@ WinRelPosLargeH(PosH2) {
 
 ; Default clicking function, uses relative locations
 fSlowClick(clickX, clickY, delay := 34) {
+    if (!IsWindowActive()) {
+        Log("No window found while trying to Sclick at " clickX " * " clickY
+            "`n Rel: " WinRelPosW(clickX) " * " WinRelPosH(clickY))
+        return false
+    }
     MouseClick("left", WinRelPosW(clickX), WinRelPosH(clickY), , , "D")
     Sleep(delay) ; Must be higher than 16.67 which is a single frame of 60fps,
     ; set to slightly higher than 2 frames for safety
@@ -33,17 +38,28 @@ fSlowClick(clickX, clickY, delay := 34) {
 ; Custom clicking function, swap the above to this if you want static coords
 ; that are more easily changed
 fSlowClickRelL(clickX, clickY, delay := 34) {
-    MouseClick("left", WinRelPosLargeW(clickX), WinRelPosLargeH(clickY), , , "D")
+    if (!IsWindowActive()) {
+        Log("No window found while trying to Lclick at " clickX " * " clickY
+            "`n Rel: " WinRelPosLargeW(clickX) " * " WinRelPosLargeH(clickY))
+        return false
+    }
+    MouseClick("left", WinRelPosLargeW(clickX),
+        WinRelPosLargeH(clickY), , , "D")
     Sleep(delay)
     /* Must be higher than 16.67 which is a single frame of 60fps,
     set to slightly higher than 2 frames for safety
     If clicking isn't reliable increase this sleep value */
-    MouseClick("left", WinRelPosLargeW(clickX), WinRelPosLargeH(clickY), , , "U")
+    MouseClick("left", WinRelPosLargeW(clickX),
+        WinRelPosLargeH(clickY), , , "U")
 }
 
 ; Custom clicking function, swap the above to this if you want static coords
 ; that are more easily changed
 fCustomClick(clickX, clickY, delay := 34) {
+    if (!IsWindowActive()) {
+        Log("No window found while trying to click at " clickX " * " clickY)
+        return false
+    }
     MouseClick("left", clickX, clickY, , , "D")
     Sleep(delay)
     /* Must be higher than 16.67 which is a single frame of 60fps,
@@ -72,7 +88,7 @@ IsButtonActive(screenX, screenY) {
         }
 
     } catch as exc {
-        Log("Error: IsButtonActive check failed - " exc.Message)
+        Log("Error 2: IsButtonActive check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
@@ -87,7 +103,7 @@ IsButtonInactive(screenX, screenY) {
             return true
         }
     } catch as exc {
-        Log("Error: IsButtonInactive check failed - " exc.Message)
+        Log("Error 3: IsButtonInactive check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
@@ -102,7 +118,7 @@ IsBackground(screenX, screenY) {
             return true
         }
     } catch as exc {
-        Log("Error: IsBackground check failed - " exc.Message)
+        Log("Error 3: IsBackground check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
@@ -110,7 +126,8 @@ IsBackground(screenX, screenY) {
 }
 
 IsCoveredByNotification(ScreenX, ScreenY) {
-    ; Check for colour not being background, button, mouseover button, inactive button
+    ; Check for colour not being background, button, mouseover button,
+    ; inactive button
     try {
         targetColour := PixelGetColor(screenX, screenY)
         ;ToolTip(targetColour, screenX, screenY)
@@ -120,11 +137,39 @@ IsCoveredByNotification(ScreenX, ScreenY) {
                 return false
         }
     } catch as exc {
-        Log("Error: IsCoveredByNotification check failed - " exc.Message)
+        Log("Error 4: IsCoveredByNotification check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
     return true
+}
+
+IsNonPanelButtonActive(screenX, screenY) {
+    try {
+        targetColour := PixelGetColor(screenX, screenY)
+        ; Active, ActiveMouseOver, AfkActive, AfkActiveMouseover,
+        ; DarkBgActive, DarkBgActiveMouseover
+        If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A" ||
+            targetColour = "0xB3A993" || targetColour = "0xB29361" ||
+            targetColour = "0x837C6C" || targetColour = "0x826C47") {
+                return true
+        }
+
+    } catch as exc {
+        Log("Error 5: IsButtonActive check failed - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
+            exc.Message)
+    }
+    return false
+}
+
+
+IsNotificationActive() {
+    if (!IsNonPanelButtonActive(WinRelPosLargeW(69),
+        WinRelPosLargeH(1212))) {
+            return true
+    }
+    return false
 }
 
 IsBossTimerActive() {
@@ -141,7 +186,7 @@ IsBossTimerActive() {
             return true ; Found colour
         }
     } catch as exc {
-        Log("Error: IsBossTimerActive check failed - " exc.Message)
+        Log("Error 7: IsBossTimerActive check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
@@ -157,15 +202,23 @@ PixelSearchWrapper(x1, y1, x2, y2, colour) {
             return false
         }
     } catch as exc {
-        Log("Error: PixelSearchWrapper check failed - " exc.Message)
+        Log("Error 8: PixelSearchWrapper check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
     return [OutX, OutY]
 }
 
+/**
+ * Search area for first instance of colour found from top left
+ * @param x1 Top left Coordinate (relative 1440)
+ * @param y1 Top left Coordinate (relative 1440)
+ * @param x2 Bottom Right Coordinate (relative 1440)
+ * @param y2 Bottom Right Coordinate (relative 1440)
+ * @returns {array|number} returns array of { x, y, colour } or false
+ */
 PixelSearchWrapperRel(x1, y1, x2, y2, colour) {
-    try {
+    /*try {
         found := PixelSearch(&OutX, &OutY,
             WinRelPosLargeW(x1), WinRelPosLargeH(y1),
             WinRelPosLargeW(x2), WinRelPosLargeH(y2), colour, 0)
@@ -176,10 +229,20 @@ PixelSearchWrapperRel(x1, y1, x2, y2, colour) {
         Log("Error: PixelSearchWrapperRel check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
-    }
-    return [OutX, OutY]
+    }*/
+    return PixelSearchWrapper(WinRelPosLargeW(x1), WinRelPosLargeH(y1),
+        WinRelPosLargeW(x2), WinRelPosLargeH(y2), colour)
 }
 
+/**
+ * For a given 1px wide strip horizontally or vertically, get all blocks
+ * of colour from the first point reached.
+ * @param x1 Top left Coordinate (non relative)
+ * @param y1 Top left Coordinate (non relative)
+ * @param x2 Bottom Right Coordinate (non relative)
+ * @param y2 Bottom Right Coordinate (non relative)
+ * @returns {array|number} returns array of { x, y, colour } or false
+ */
 LineGetColourInstances(x1, y1, x2, y2) {
     ; Returns array of points and colours {x, y, colour}
     ; Detects when the colour changes to remove redundant entries
@@ -222,18 +285,55 @@ LineGetColourInstances(x1, y1, x2, y2) {
             return foundArr
         }
     } catch as exc {
-        Log("Error: LineGetColourInstances check failed - " exc.Message)
+        Log("Error 9: LineGetColourInstances check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
     return false
 }
 
+IsScrollAblePanelAtTop() {
+    ; 2220 258 top scroll arrow button
+    ; 2220 320 scroll handle
+    if (IsButtonActive(WinRelPosLargeW(2220), WinRelPosLargeH(258))) {
+        ; Up Arrow exists, so scrolling is possible
+        if (IsButtonActive(WinRelPosLargeW(2220), WinRelPosLargeH(320))) {
+            ; Is at top
+            return true
+        }
+    }
+    return false
+}
 
-; My god outputting some debug is annoying with tooltips
-; Lets try to make this more sane
-Log(logmessage, logfile := A_ScriptDir "\LeafBlowerV3.Log") {
-    if (EnableLogging) {
-        FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - ' logmessage '`r`n', logfile)
+/**
+ * Logger, user disable possible, debugout regardless of setting to vscode.
+ * Far more usable than outputting to tooltips or debugging using normal means
+ * due to focus changing and hotkeys overwriting
+ * @param logmessage 
+ * @param {string} logfile Defaults to A_ScriptDir "\LeafBlowerV3.log" but is 
+ * overwritable
+ */
+Log(logmessage, logfile := ScriptsLogFile) {
+    OutputDebug(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
+        logmessage '`r`n')
+    try {
+        if (EnableLogging) {
+            /* local LogFileHandle := FileOpen(logfile, "a")
+            LogFileHandle.WriteLine(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
+            logmessage)
+            LogFileHandle.Close() */
+            FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
+                logmessage '`r`n', logfile)
+        }
+    } catch as exc {
+        OutputDebug("LogError: Error writing to log - " exc.Message)
+        MsgBox("Error writing to log:`n"
+            exc.Message)
+        Sleep(2)
+        FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
+            logmessage '`r`n', logfile)
+        Sleep(2)
+        FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
+            "LogError: Error writing to log - " exc.Message '`r`n', logfile)
     }
 }

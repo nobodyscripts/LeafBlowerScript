@@ -11,12 +11,16 @@ CardBuySinglePass() {
     WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
     ; Update window size
 
-    CommonX := WinRelPosLargeW(470)
-    CommonY := WinRelPosLargeH(950)
-    if (!IsPanelTransparent() && IsCoveredByNotification(CommonX, CommonY)) {
-        fSlowClick(32, 596, 34)
-        HadToHideNotifs := true
-        ; Notifications were blocking, close notifications and reshow
+    if (!IsPanelActive()) {
+        Log("Card buying: Did not find panel. Aborted.")
+        return
+    }
+
+    if (IsNotificationActive()) {
+        Log("Card buying: Found notification covering button and hid"
+            " notifications.")
+        fSlowClick(32, 596, 101)
+        HadToHideNotifs := true 
         OpenCards()
         Sleep(101)
     }
@@ -48,18 +52,21 @@ CardBuyLoop(SpamViolins := false) {
         }
         WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
         ; Update window size
-
-        if (SpamViolins && IsBossTimerActive()) {
-            TriggerViolin()
+        if (!IsPanelActive()) {
+            Log("Card buying: Did not find panel. Aborted.")
+            return
         }
-        CommonX := WinRelPosLargeW(465)
-        CommonY := WinRelPosLargeH(950)
-        if (!IsPanelTransparent() && IsCoveredByNotification(CommonX, CommonY)) {
-            fSlowClick(32, 596, 34)
-            HadToHideNotifs := true
-            ; Notifications were blocking, close notifications and reshow
+
+        if (IsNotificationActive()) {
+            Log("Card buying: Found notification covering button and hid"
+                " notifications.")
+            fSlowClick(32, 596, 101)
+            HadToHideNotifs := true 
             OpenCards()
             Sleep(101)
+        }
+        if (SpamViolins && IsBossTimerActive()) {
+            TriggerViolin()
         }
         switch CardsBuyStyle {
             case "FocusLegend":

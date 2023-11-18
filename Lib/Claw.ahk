@@ -4,7 +4,8 @@
 fClawFarm() {
     If (!IsHalloweenEventActive()) {
         Log("Claw: Halloween inactive.")
-        ToolTip("Halloween inactive`nPlease use the artifact to enable halloween event",
+        ToolTip("Halloween inactive`nPlease use the artifact to enable"
+            " halloween event",
             W / 2 - WinRelPosW(50),
             H / 2)
         SetTimer(ToolTip, -5000)
@@ -34,6 +35,10 @@ fClawFarm() {
     loop {
         if (!IsWindowActive()) {
             return ; Kill if no game
+        }
+        if (!IsPanelActive()) {
+            Log("Claw: Did not find panel. Aborted. ")
+            return
         }
         TargetX := ClawGetPumpkinLocation()
         if (TargetX = 0) {
@@ -110,7 +115,8 @@ ClawGetHookLocation(ScreenX) {
         } else {
             found := PixelSearch(&OutX, &OutY,
                 ScreenX - WinRelPosLargeW(20), WinRelPosLargeH(346),
-                ScreenX + WinRelPosLargeW(20), WinRelPosLargeH(400), "0x8B9BB4", 0)
+                ScreenX + WinRelPosLargeW(20), WinRelPosLargeH(400),
+                "0x8B9BB4", 0)
         }
         ; Hook pixel search
         If (found and OutX != 0) {

@@ -19,12 +19,18 @@
 #Include Lib\GemFarm.ahk
 #Include Lib\TowerTimeWarp.ahk
 
-
-Log("Script loaded")
+Persistent()  ; Prevent the script from exiting automatically.
+OnExit(ExitFunc)
 
 global X, Y, W, H
+global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
+Log("Script loaded")
+
+
 if (WinExist("Leaf Blower Revolution")) {
     WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+} else {
+    X := Y := W := H := 0
 }
 ; ------------------- Readme -------------------
 /*
@@ -36,7 +42,8 @@ Run this file to load script
 
 #HotIf WinActive("Leaf Blower Revolution")
 *F1:: {
-    Log("F1: Activated")
+    KillSpammer()
+    Log("F1: Pressed")
     ; Wildcard shortcut * to allow functions to work while looping with
     ; modifiers held
     ResetModifierKeys() ; Cleanup incase needed
@@ -44,8 +51,52 @@ Run this file to load script
     ExitApp()
 }
 *F2:: {
-    IsDarkBackgroundOn()
-    log("F2: Activated, reloading...")
+    global HadToHideNotifs, HadToRemoveBearo, GemFarmActive, TowerFarmActive,
+        QuarkFarmActive
+    ; Toggle notifs to handle multiple situations where its toggled
+    KillSpammer()
+    if (HadToHideNotifs) {
+        Log("F2: Reenabling notifications.")
+        fSlowClick(32, 596, 101)
+        HadToHideNotifs := false
+    }
+    if (GemFarmActive) {
+        GemFarmActive := false
+        ToolTip(, , , 15)
+        if (!IsWindowActive()) {
+            reload()
+            return
+        }
+        if (!IsPanelActive()) {
+            OpenTrades()
+        }
+        Sleep(34)
+        if (HadToRemoveBearo) {
+            Log("F2: Equiping default loadout to reapply Bearo")
+            EquipDefaultGearLoadout()
+            HadToRemoveBearo := false
+        }
+        Log("F2: Resetting auto refresh and detailed mode.")
+        ResetToPriorAutoRefresh()
+        ResetToPriorDetailedMode()
+        reload()
+        return
+    }
+    if (TowerFarmActive) {
+        TowerFarmActive := false
+        Log("F2: Equiping default loadout.")
+        EquipDefaultGearLoadout()
+        reload()
+        return
+    }
+    if (QuarkFarmActive) {
+        QuarkFarmActive := false
+        Log("F2: Equipped Default Loadout")
+        EquipDefaultGearLoadout()
+        reload()
+        return
+    }
+    log("F2: Pressed, reloading...")
     sleep(2)
     ResetModifierKeys() ; Cleanup incase needed
     ResetModifierKeys() ; Twice for good luck
@@ -55,7 +106,7 @@ Run this file to load script
 *F3:: { ; Open cards clicker
     global HadToHideNotifs
     Static on3 := False
-    Log("F3: Activated")
+    Log("F3: Pressed")
     if (!InitGameWindow() && !on3) {
         return
     }
@@ -66,11 +117,13 @@ Run this file to load script
     If on3 := !on3 {
         if (!CheckGameSettingsCorrect()) {
             reload()
+            return
         }
         fOpenCardLoop()
     } Else {
         if (HadToHideNotifs) {
-            fSlowClick(32, 596, 17)
+            Log("Cards: Reenabling notifications.")
+            fSlowClick(32, 596, 101)
             HadToHideNotifs := false
         }
         ResetModifierKeys() ; Cleanup incase needed
@@ -78,6 +131,7 @@ Run this file to load script
         ResetModifierKeys() ; Twice for good luck
         Sleep(34)
         reload()
+        return
     }
     ResetModifierKeys() ; Cleanup incase needed
     Sleep(34)
@@ -86,8 +140,9 @@ Run this file to load script
 }
 
 *F4:: { ; Gem farm using suitcase
+    global HadToRemoveBearo, GemFarmActive
     Static on4 := False
-    Log("F4: Activated")
+    Log("F4: Pressed")
     if (!InitGameWindow() && !on4) {
         return
     }
@@ -95,11 +150,26 @@ Run this file to load script
     If on4 := !on4 {
         if (!CheckGameSettingsCorrect()) {
             reload()
+            return
         }
         fGemFarmSuitcase()
     } Else {
-        Log("GemFarm: Equiping default loadout to reapply Bearo")
-        EquipDefaultGearLoadout()
+        GemFarmActive := false
+        ToolTip(, , , 15)
+        if (!IsWindowActive()) {
+            reload()
+            return
+        }
+        if (!IsPanelActive()) {
+            OpenTrades()
+        }
+        Sleep(34)
+        if (HadToRemoveBearo) {
+            Log("F4: Equiping default loadout to reapply Bearo")
+            EquipDefaultGearLoadout()
+            HadToRemoveBearo := false
+        }
+        Log("F4: Resetting auto refresh and detailed mode.")
         ResetToPriorAutoRefresh()
         ResetToPriorDetailedMode()
         reload()
@@ -107,8 +177,10 @@ Run this file to load script
 }
 
 *F5:: { ; Tower 72hr boost loop
+    global TowerFarmActive
+    TowerFarmActive := true
     Static on5 := False
-    Log("F5: Activated")
+    Log("F5: Pressed")
     if (!InitGameWindow() && !on5) {
         return
     }
@@ -116,9 +188,11 @@ Run this file to load script
     If on5 := !on5 {
         if (!CheckGameSettingsCorrect()) {
             reload()
+            return
         }
         fTimeWarpAndRaiseTower()
     } Else {
+        TowerFarmActive := false
         Log("TowerBoost: Equiping default loadout.")
         EquipDefaultGearLoadout()
         reload()
@@ -127,7 +201,7 @@ Run this file to load script
 
 *F6:: { ; Borb pink juice farm in borbventures
     Static on6 := False
-    Log("F6: Activated")
+    Log("F6: Pressed")
     if (!InitGameWindow() && !on6) {
         return
     }
@@ -135,6 +209,7 @@ Run this file to load script
     If on6 := !on6 {
         if (!CheckGameSettingsCorrect()) {
             reload()
+            return
         }
         fBorbVentureJuiceFarm()
     } Else reload()
@@ -142,7 +217,7 @@ Run this file to load script
 
 *F7:: { ; Claw pumpkin farm
     Static on7 := False
-    Log("F7: Activated")
+    Log("F7: Pressed")
     if (!InitGameWindow() && !on7) {
         return
     }
@@ -150,6 +225,7 @@ Run this file to load script
     If on7 := !on7 {
         if (!CheckGameSettingsCorrect()) {
             reload()
+            return
         }
         fClawFarm()
     } Else reload()
@@ -157,7 +233,7 @@ Run this file to load script
 
 *F8:: { ; Green Flame/Soulseeker farm
     Static on8 := False
-    Log("F8: Activated")
+    Log("F8: Pressed")
     if (!InitGameWindow() && !on8) {
         return
     }
@@ -165,6 +241,7 @@ Run this file to load script
     If on8 := !on8 {
         if (!CheckGameSettingsCorrect()) {
             reload()
+            return
         }
         fFarmGFSS()
     } Else reload()
@@ -175,7 +252,7 @@ global HadToHideNotifsF9 := false
 
 *F9:: { ; Farm bosses using violins
     global on9, HadToHideNotifsF9
-    Log("F9: Activated")
+    Log("F9: Pressed")
     if (!InitGameWindow() && !on9) {
         reload()
         return
@@ -184,6 +261,7 @@ global HadToHideNotifsF9 := false
         reload() ; Kill if no game
         return
     }
+    KillSpammer()
     Thread('Interrupt', 0)  ; Make all threads always-interruptible.
     ResetModifierKeys() ; Cleanup incase needed
     switch on9 {
@@ -205,6 +283,7 @@ global HadToHideNotifsF9 := false
                 Log("F9: Resetting with cards disabled")
                 ClosePanel()
                 reload()
+                return
             }
         case 4:
             on9 := 0 ; Disabled
@@ -217,10 +296,12 @@ global HadToHideNotifsF9 := false
             ResetModifierKeys() ; Cleanup incase needed
             ClosePanel()
             reload()
+            return
         default:
             on9 := 1 ; Normal boss mode
             if (!CheckGameSettingsCorrect()) {
                 reload()
+                return
             }
             ClosePanel()
             Log("F9: Boss Farm Activated")
@@ -230,7 +311,7 @@ global HadToHideNotifsF9 := false
 
 *F10:: { ; Farm nature boss using violins
     Static on10 := False
-    Log("F10: Activated")
+    Log("F10: Pressed")
     if (!InitGameWindow() && !on10) {
         return
     }
@@ -238,6 +319,7 @@ global HadToHideNotifsF9 := false
     If (on10 := !on10) {
         if (!CheckGameSettingsCorrect()) {
             reload()
+            return
         }
         fFarmNatureBoss()
     } Else reload()
@@ -248,7 +330,7 @@ global HadToHideNotifsF9 := false
 *F11:: { ; Autoclicker non game specific
     global X, Y, W, H
     Static on11 := False
-    Log("F11: Activated")
+    Log("F11: Pressed")
     if (WinExist("Leaf Blower Revolution")) {
         ; Slightly different as you can use this outside lbr
         WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
@@ -274,25 +356,39 @@ global HadToHideNotifsF9 := false
 #HotIf WinActive("Leaf Blower Revolution")
 *F12:: {
     global X, Y, W, H, DisableSettingsChecks
-    Log("F12: Activated")
+    Log("F12: Pressed")
     if (MakeWindowActive()) {
         WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
     } else {
         return
     }
+    If (WinGetMinMax("Leaf Blower Revolution") != 0) {
+        WinRestore("Leaf Blower Revolution")
+    }
     ; Changes size of client window for windows 11
     WinMove(, , 1294, 603, "Leaf Blower Revolution")
     WinWait("Leaf Blower Revolution")
     WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+    if (W != "1278" || H != "564") {
+        Log("Resized window to 1294*603 client size should be 1278*564, found: " W "*" H)
+    }
     Sleep(500)
     if (!CheckGameSettingsCorrectVerbose()) {
-        ; If it fails checks we need to restore the size we needed and then return
+        ; If it fails checks we need to restore the size we needed and then
+        ; return
         WinMove(, , 1294, 703, "Leaf Blower Revolution")
+        WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+        if (W != "1278" || H != "664") {
+            Log("Resized window to 1294*703 client size should be 1278*664, found: " W "*" H)
+        }
         return
     }
     WinMove(, , 1294, 703, "Leaf Blower Revolution")
     WinWait("Leaf Blower Revolution")
     WinGetClientPos(&X, &Y, &W, &H, "Leaf Blower Revolution")
+    if (W != "1278" || H != "664") {
+        Log("Resized window to 1294*703 client size should be 1278*664, found: " W "*" H)
+    }
     if (!DisableSettingsChecks) {
         if (IsFontCorrectCheck()) {
             ToolTip(, , , 1)
@@ -300,9 +396,10 @@ global HadToHideNotifsF9 := false
             ToolTip(, , , 3)
             ToolTip(, , , 4)
             ToolTip(, , , 5)
-            ToolTip("Correct render mode, transparency, trees, dark background,`n"
-                "smooth graphics and font settings found`n"
-                "F2 to dismiss", W / 2 - WinRelPosW(150),
+            ToolTip("Correct render mode, transparency, trees, dark "
+                "background,`nsmooth graphics and font settings found`nF2 to "
+                "dismiss",
+                W / 2 - WinRelPosW(150),
                 H / 3, 10)
             Log("F12: Correct font settings found")
         } else {
@@ -317,10 +414,17 @@ removeLastCheckTooltip() {
     ToolTip(, , , 10)
 }
 
+/**
+ * Toggle the Quark Boss farm mode
+ * @param ThisHotkey Insert
+ * @returns {void} 
+ */
 *Insert:: {
     ; Farm bosses using violins
     Static on13 := false
-    Log("Insert: Activated")
+    global QuarkFarmActive
+    QuarkFarmActive := true
+    Log("Insert: Pressed")
     if (!InitGameWindow() && !on13) {
         reload()
         return
@@ -333,13 +437,20 @@ removeLastCheckTooltip() {
     If (on13 := !on13) {
         if (!CheckGameSettingsCorrect()) {
             reload()
+            return
         }
         Log("Insert: Quark Boss Activated")
         fFarmNormalBossQuark()
     } Else {
+        QuarkFarmActive := false
         Log("Insert: Equipped Default Loadout")
         EquipDefaultGearLoadout()
         Log("Insert: Resetting")
         reload()
+        return
     }
+}
+
+ExitFunc(ExitReason, ExitCode) {
+    Log("Script exiting. Due to " ExitReason ".")
 }

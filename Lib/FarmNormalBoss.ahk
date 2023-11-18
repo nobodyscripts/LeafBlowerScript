@@ -1,18 +1,20 @@
 ﻿#Requires AutoHotkey v2.0
 
-global ViolinSleepAmount := 74
+global SpammerPID := 0
 
 fFarmNormalBoss(modecheck) {
     global on9
     Killcount := 0
     TimerLastCheckStatus := IsBossTimerActive()
-    SetTimer(SpamViolins, ViolinSleepAmount)
+    SpamViolins()
     loop {
         If (on9 != modecheck) {
             return
         }
         if (!IsWindowActive()) {
+            Log("BossFarm: Exiting as no game.")
             reload() ; Kill early if no game
+            return
         }
         TimerCurrentState := IsBossTimerActive()
         ; if state of timer has changed and is now off, we killed
@@ -48,13 +50,19 @@ fFarmNormalBossAndBrew(modecheck) {
     fSlowClickRelL(512, 1181)
     sleep(150)
     TimerLastCheckStatus := IsBossTimerActive()
-    SetTimer(SpamViolins, ViolinSleepAmount)
+    SpamViolins()
     loop {
         If (on9 != modecheck) {
-            return
+            break
         }
         if (!IsWindowActive()) {
+            Log("BossBrew: Exiting as no game.")
             reload() ; Kill if no game
+            break
+        }
+        if (!IsPanelActive()) {
+            Log("BossBrew: Did not find panel. Aborted brewing. Violins active")
+            break
         }
         SetTimer(SpamBrewButtons, -5)
         TimerCurrentState := IsBossTimerActive()
@@ -70,7 +78,7 @@ fFarmNormalBossAndBrew(modecheck) {
             ToolTip("Killed by boss, exiting", W / 2, H / 2 +
                 WinRelPosLargeH(50))
             SetTimer(ToolTip, -5000)
-            return
+            break
         }
         ToolTip("Brewing on, Kills: " . Killcount,
             W / 2 - WinRelPosLargeW(150),
@@ -81,12 +89,38 @@ fFarmNormalBossAndBrew(modecheck) {
 }
 
 SpamViolins() {
+    global SpammerPID
     if (IsWindowActive() && IsBossTimerActive()) {
-        TriggerViolin()
+        ;TriggerViolin()
+        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\NormalBoss.ahk"',
+            , , &OutPid)
+        SpammerPID := OutPid
+    }
+}
+
+DetectHiddenWindows(true)
+
+KillSpammer() {
+    ;F:\Documents\AutoHotkey\LeafBlowerV3\Secondaries\NormalBoss.ahk - AutoHotkey v2.0.4
+    if (SpammerPID && ProcessExist(SpammerPID)) {
+        ProcessClose(SpammerPID)
+        Log("Closed NormalBoss.ahk using pid.")
+    } else {
+        if (WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")) {
+            WinClose(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")
+            Log("Closed NormalBoss.ahk using filename.")
+        }
+        /* if (WinExist("NormalBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")) {
+            WinClose("NormalBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")
+        } */
     }
 }
 
 SpamBrewButtons() {
+    if (!IsPanelActive()) {
+        Log("SpamBrewButtons: Did not find panel. Aborted.")
+        return
+    }
     ; Artifacts
     If (IsButtonActive(WinRelPosW(856), WinRelPosH(150))) {
         fSlowClick(856, 150, 34)
@@ -118,13 +152,19 @@ fNormalBossFarmWithBorbs(modecheck) {
     OpenBorbVentures() ; Open BV
     Sleep(101)
     BVResetScroll()
-    SetTimer(SpamViolins, ViolinSleepAmount)
+    SpamViolins()
     loop {
         If (on9 != modecheck) {
             return
         }
         if (!IsWindowActive()) {
+            Log("BossBorbs: Exiting as no game.")
             reload()
+            return
+        }
+        if (!IsPanelActive()) {
+            Log("BossBorbs: Did not find panel. Aborted.")
+            return
         }
         ; If boss killed us at gf assume we're weak and reset gf
         ; If user set gf kills too high it'll hit this
@@ -143,21 +183,39 @@ fNormalBossFarmWithCards(modecheck) {
     ToolTip()
     global HadToHideNotifs, W, H, X, Y, on9
 
+    if (IsNotificationActive()) {
+        Log("Card opening: Found notification covering button and hid"
+            " notifications.")
+        fSlowClick(32, 596, 101)
+        HadToHideNotifs := true
+    }
+
     if (!GotoCardsFirstTab()) {
         ; We still failed to travel
         Log("BossCards: Failed to open cards first tab")
         return
     }
 
-    SetTimer(SpamViolins, ViolinSleepAmount)
+    SpamViolins()
 
     loop {
         If (on9 != modecheck) {
             return
         }
         if (!IsWindowActive()) {
-            Log("BossCards: Did not find game. Aborted.")
+            Log("BossCards: Exiting as no game.")
             reload() ; Kill if no game
+            return
+        }
+        if (!IsPanelActive()) {
+            Log("BossCards: Did not find panel. Aborted.")
+            break
+        }
+        if (IsNotificationActive()) {
+            Log("BossCards: Found notification covering button and hid"
+                " notifications.")
+            fSlowClick(32, 596, 101)
+            HadToHideNotifs := true
         }
         if (!CardButtonsActive() && !CardsPermaLoop) {
             Log("BossCards: Exiting.")
@@ -189,4 +247,5 @@ fNormalBossFarmWithCards(modecheck) {
     ToolTip("Card opening aborted`nFound no active buttons.`nF3 to remove note",
         W / 2 - WinRelPosLargeH(170), H / 2)
     SetTimer(ToolTip, -500)
+
 }

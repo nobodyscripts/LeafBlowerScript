@@ -10,7 +10,14 @@ fBorbVentureJuiceFarm() {
     Log("Borbv: Main loop starting.")
     loop {
         if (!IsWindowActive()) {
-            break ; Kill if no game
+            Log("Borbv: Exiting as no game.")
+            reload()
+            return
+        }
+        if (!IsPanelActive()) {
+            Log("Borbv: Did not find panel. Aborted.")
+            reload()
+            return
         }
         BVMainLoop()
     }
@@ -29,6 +36,17 @@ BVResetScroll() {
 }
 
 BVMainLoop() {
+    ; Check for only if scroll is not at the top
+    if (!IsBVScrollAblePanelAtTop()) {
+        BVResetScroll()
+        Sleep(34)
+    }
+    ; Check if scroll exists at top (if less than 4 trades)
+    if (!IsScrollAblePanelAtTop()) {
+        RefreshTrades()
+        Sleep(34)
+    }
+
     ; Check for any finished items in view and collect them
     loop 8 {
         found := BVGetFinishButtonLocation()
@@ -104,11 +122,11 @@ BVMainLoop() {
 BVGetFinishButtonLocation() {
     ; 1855 276 top left 1440 res
     ; 1855 1073 bottom right
-    col1 := PixelSearchWrapperRel(1855, 276, 1855, 1073, "0xFFF1D2")
+    col1 := PixelSearchWrapperRel(1855, 352, 1855, 1073, "0xFFF1D2")
     if (col1 != false) {
         return col1
     }
-    col2 := PixelSearchWrapper(1855, 276, 1855, 1073, "0xFDD28A")
+    col2 := PixelSearchWrapperRel(1855, 352, 1855, 1073, "0xFDD28A")
     if (col2 != false) {
         return col2
     }
@@ -180,4 +198,19 @@ BVColourToItem(colour) {
         case "0x0E44BE": return "Power Dice Points (blue)"
         default: return "Unknown"
     }
+}
+
+IsBVScrollAblePanelAtTop() {
+    ; 2220 258 top scroll arrow button
+    ; 2220 320 scroll handle
+    if (IsButtonActive(WinRelPosLargeW(2220), WinRelPosLargeH(258))) {
+        ; Up Arrow exists, so scrolling is possible
+        if (IsButtonActive(WinRelPosLargeW(2220), WinRelPosLargeH(320))) {
+            ; Is at top
+            return true
+        } else {
+            return false
+        }
+    }
+    return true
 }

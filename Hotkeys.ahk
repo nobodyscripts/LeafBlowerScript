@@ -50,6 +50,10 @@ TriggerWind() {
     ControlSend("{[}", , "Leaf Blower Revolution")
 }
 
+TriggerWobblyWings() {
+    ControlSend("{#}", , "Leaf Blower Revolution")
+}
+
 RefreshTrades() {
     ControlSend("{Space}", , "Leaf Blower Revolution")
 }
@@ -77,10 +81,6 @@ ClosePanel() {
 
 OpenTools() {
     ControlSend("{1}", , "Leaf Blower Revolution") ; Inactive
-}
-
-TriggerWobblyWings() {
-    ControlSend("{#}", , "Leaf Blower Revolution") ; Inactive
 }
 
 EquipDamageGearLoadout() {

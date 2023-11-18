@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0
 
+global QuarkFarmActive
+QuarkFarmActive := false
+
 fFarmNormalBossQuark() {
     Killcount := 0
     TimerLastCheckStatus := IsBossTimerActive()
@@ -24,7 +27,9 @@ fFarmNormalBossQuark() {
     }
     loop {
         if (!IsWindowActive()) {
+            Log("BossQuark: Exiting as no game.")
             reload() ; Kill if no game
+            return
         }
         ToolTip("Quark Boss Mode",
             W / 2 - WinRelPosLargeW(100),
@@ -40,10 +45,10 @@ fFarmNormalBossQuark() {
         ; still a timer, we need to use a violin
         if (IsBossTimerActive()) {
             TriggerViolin()
-            Sleep(34)
+            Sleep(ArtifactSleepAmount)
         } else {
             TriggerWind()
-            Sleep(34)
+            Sleep(ArtifactSleepAmount)
         }
         ; If boss killed us at gf assume we're weak and reset gf
         ; If user set gf kills too high it'll hit this
