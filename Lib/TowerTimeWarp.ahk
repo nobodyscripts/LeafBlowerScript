@@ -27,14 +27,14 @@ fTimeWarpAndRaiseTower() {
     fSlowClick(317, 574)
     ; Open leaf galaxy tab incase wrong tab and to reset scroll
     Sleep 100
-    MouseMove(WinRelPosW(875), WinRelPosH(313)) ; Move mouse for scrolling
-
     ResetAreaScroll()
+    Sleep 100
+    ;MouseMove(W/2, H/2) ; Move mouse for scrolling
+    Sleep 100
     ; Move the screen up to reset the scroll incase its been changed outside
     ; the script
-
     ScrollAmountDown(16) ; Scroll down for the zones
-
+    Sleep 100
     EquipTowerGearLoadout() ; Equip Tower set
 
     Loop {

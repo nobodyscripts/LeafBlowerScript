@@ -1,11 +1,15 @@
 #Requires AutoHotkey v2.0
+global HadToHideNotifs
+HadToHideNotifs := false
 
 fOpenCardLoop()
 {
+    global HadToHideNotifs
     if !WinExist("Leaf Blower Revolution") {
         return ; Kill early if no game
     }
     WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
 
     OpenPets()
     ; Opens or closes another screen so that when areas is opened it doesn't
@@ -35,7 +39,11 @@ fOpenCardLoop()
         CommonX := WinRelPosLargeW(565)
         CommonY := WinRelPosLargeH(820)
         if (IsCoveredByNotification(CommonX, CommonY)) {
-            fCustomClick(CommonX, CommonY, 34)
+            fSlowClick(32, 596, 34)
+            HadToHideNotifs := true
+            ; Notifications were blocking, close notifications and reshow
+            OpenCards()
+            Sleep 100
         }
         CommonButtonActive := IsButtonActive(CommonX, CommonY)
         ; Check if button is active, if not we can skip
@@ -49,9 +57,6 @@ fOpenCardLoop()
 
         RareX := WinRelPosLargeW(1130)
         RareY := WinRelPosLargeH(820)
-        ;if (IsCoveredByNotification(RareX, RareY)) {
-        ;    fCustomClick(RareX, RareY, 34)
-        ;}
         RareButtonActive := IsButtonActive(RareX, RareY)
         ; Check if button is active, if not we can skip
         if (CardsDontOpenRare = false && RareButtonActive) {
@@ -63,9 +68,6 @@ fOpenCardLoop()
 
         LegendaryX := WinRelPosLargeW(1690)
         LegendaryY := WinRelPosLargeH(820)
-        ;if (IsCoveredByNotification(LegendaryX, LegendaryY)) {
-        ;    fCustomClick(LegendaryX, LegendaryY, 34)
-        ;}
         LegendaryButtonActive := IsButtonActive(LegendaryX, LegendaryY)
         ; Check if button is active, if not we can skip
         if (CardsDontOpenLegendary = false && LegendaryButtonActive) {
@@ -81,6 +83,10 @@ fOpenCardLoop()
         }
 
         ResetModifierKeys() ; Cleanup ctrl+shift+alt modifiers
+    }
+    if (HadToHideNotifs = true) {
+        fSlowClick(32, 596, 17)
+        HadToHideNotifs := false
     }
     ToolTip("Card opening aborted`nFound no active buttons.`nF3 to remove note",
         W / 2 - WinRelPosLargeH(170), H / 2)

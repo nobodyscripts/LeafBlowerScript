@@ -1,11 +1,15 @@
 ﻿#Requires AutoHotkey v2.0
 
 global TradesAutoRefreshOldState
+global TradesDetailedModeOldState
 TradesAutoRefreshOldState := false
+TradesDetailedModeOldState := false
 
 fGemFarmSuitcase() {
 
     global TradesAutoRefreshOldState
+    global TradesDetailedModeOldState
+    global GemFarmSleepAmount
     if !WinExist("Leaf Blower Revolution") {
         return ; Kill early if no game
     }
@@ -15,25 +19,43 @@ fGemFarmSuitcase() {
     OpenPets()
     ; Opens or closes another screen so that when areas is opened it doesn't
     ; close
-    Sleep 150
+    Sleep 200
     OpenAreas()
-    Sleep 150
+    Sleep 200
     ResetAreaScroll() ; Reset tab and scroll position
     If (CheckForTransparentPanelsSilent()) {
         ; Warning is displayed if there is an issue, return to avoid harm
         return
     }
-    Sleep 150
-    MouseMove(WinRelPosW(875), WinRelPosH(313)) ; Move mouse for scrolling
+    Sleep 200
+    ;MouseMove(WinRelPosW(875), WinRelPosH(313)) ; Move mouse for scrolling
     ; Move the screen up to reset the scroll incase its been changed outside
     ; the script
+    ;Sleep 150
     ScrollAmountDown(22) ; Scroll down for the zones
-    fSlowClick(875, 298) ; Set zone to golden suitcase territory
-
-    OpenPets()
-    Sleep 150
-    RemoveBearo() ; Removes bearo from your pet team if its active
     Sleep 200
+    DesertLeaf := FindDesertZone()
+    if (!DesertLeaf) {
+        ToolTip("Could not find desert area`nUse F4 to finish",
+            W / 2 - WinRelPosW(50),
+            H / 2)
+        return
+    }
+    ButtonX := DesertLeaf[1] + WinRelPosLargeW(225)
+    ButtonY := DesertLeaf[2] + WinRelPosLargeW(30)
+    if (IsBackground(ButtonX, ButtonY)) {
+        ToolTip("Could not find desert area`nUse F4 to finish",
+            W / 2 - WinRelPosW(50),
+            H / 2)
+        return
+    }
+    fCustomClick(ButtonX, ButtonY, 72) ; Set zone to golden suitcase territory
+
+    Sleep 200
+    OpenPets()
+    Sleep 200
+    RemoveBearo() ; Removes bearo from your pet team if its active
+    Sleep 150
 
     OpenTrades()
     Sleep 150
@@ -45,15 +67,24 @@ fGemFarmSuitcase() {
     If (TradesAutoRefreshOldState) {
         ; Disable auto refresh if its on based on timer at top of panel
         fCustomClick(WinRelPosLargeW(1000), WinRelPosLargeH(1100), 100)
-        ToolTip("Toggled off", WinRelPosLargeW(1000), WinRelPosLargeH(1100))
+        ToolTip("Toggled off auto refresh", W / 2 - WinRelPosLargeW(50), H / 2, 1)
+
     }
-    Sleep 100
-    If (IsTradeDetailedModeOn()) {
-        ; Disable auto refresh if its on based on timer at top of panel
-        fCustomClick(WinRelPosLargeW(1357), WinRelPosLargeH(1100), 100)
-    }
-    Sleep 100
     ScrollAmountUp(6)
+    Sleep 50
+    TradesDetailedModeOldState := IsTradeDetailedModeOn()
+    If (IsTradeDetailedModeOn()) {
+        ; Disable detailed mode if its on based on gap between blue arrows
+        fCustomClick(WinRelPosLargeW(1357), WinRelPosLargeH(1100), 100)
+        ToolTip("Toggled off details", W / 2 - WinRelPosLargeW(50), H / 2 + WinRelPosLargeH(20))
+        SetTimer(ToolTip, -500)
+    }
+    ; Cancel first trade, so that the first slot cannot be filled
+    fCustomClick(WinRelPosLargeW(1920), WinRelPosLargeH(400), 100)
+    Sleep 50
+    ; Collect first trade
+    fCustomClick(WinRelPosLargeW(1990), WinRelPosLargeH(400), 100)
+    RefreshTrades()
     FillTradeSlots() ; Leaves the first slot free to use suitcase on
 
     Loop {
@@ -70,13 +101,21 @@ fGemFarmSuitcase() {
             ; drift when scaled up.
             colour := PixelGetColor(WinRelPosLargeW(1252), WinRelPosLargeH(397))
             If (colour = "0xFF0044") {
-                Sleep 71
+                If (GemFarmSleepAmount > 0) {
+                    Sleep 71 + GemFarmSleepAmount
+                } else {
+                    Sleep 71
+                }
                 colour := PixelGetColor(WinRelPosLargeW(1252),
                     WinRelPosLargeH(397))
                 If (colour = "0xFF0044") {
                     ; Double check to try and avoid false usage
                     TriggerSuitcase()
-                    Sleep 34
+                    If (GemFarmSleepAmount > 0) {
+                        Sleep 71 + GemFarmSleepAmount
+                    } else {
+                        Sleep 71
+                    }
                 }
             }
         } catch as exc {
@@ -84,7 +123,11 @@ fGemFarmSuitcase() {
             exc.Message
         }
         RefreshTrades()
-        Sleep 34
+        If (GemFarmSleepAmount > 0) {
+            Sleep 71 + GemFarmSleepAmount
+        } else {
+            Sleep 71
+        }
     }
 }
 
@@ -112,7 +155,6 @@ RemoveBearo() {
             Sleep 72
             fCustomClick(OutX, OutY)
         }
-
     } catch as exc {
         MsgBox ("Could not conduct the search due to the following error:`n"
             exc.Message)
@@ -126,6 +168,7 @@ FillTradeSlots() {
     ; So capped at trying 50 times
     i := 100
     ToolTip("Filling trade slots", W / 2 - 70, H / 2)
+    SetTimer(ToolTip, -1000)
     While i > 0 {
         ; If we see background instead of a start button we are full
         if (!IsBackground(WinRelPosW(1040), WinRelPosH(227))) {
@@ -142,10 +185,17 @@ FillTradeSlots() {
                 MsgBox("Have tried to fill trade slots but no trades available`nTry running again or disable L1 Leafscensions.")
             }
         } Else {
-            i := 0
+            ; Done? Double check
+            RefreshTrades()
+            Sleep 72
+            if (IsBackground(WinRelPosW(1040), WinRelPosH(227))) {
+                i := 0
+            } else {
+                ; Try again
+                i := i + 1
+            }
         }
     }
-    SetTimer(ToolTip, -1)
 }
 
 IsTradeAutoRefreshOn() {
@@ -191,5 +241,49 @@ ToggleAutoRefresh() {
     Sleep 100
     ; Disable auto refresh if its on based on timer at top of panel
     fCustomClick(WinRelPosLargeW(1000), WinRelPosLargeH(1100), 100)
+    sleep 50
     TradesAutoRefreshOldState := IsTradeAutoRefreshOn()
+}
+
+ToggleDetailedMode() {
+    global TradesDetailedModeOldState
+    OpenPets()
+    Sleep 100
+    OpenTrades()
+    Sleep 100
+    ; Disable auto refresh if its on based on timer at top of panel
+    fCustomClick(WinRelPosLargeW(1357), WinRelPosLargeH(1100), 100)
+    sleep 50
+    TradesDetailedModeOldState := IsTradeDetailedModeOn()
+}
+
+FindDesertZone() {
+    try {
+        found := PixelSearch(&OutX, &OutY,
+            WinRelPosLargeW(1433), WinRelPosLargeH(278),
+            WinRelPosLargeW(1472), WinRelPosLargeH(1072), "0x4A4429", 0)
+        ; Leaf pixel search (sand in the third slot)
+        If (!found || OutX = 0) {
+            ; Not found
+            return false
+        }
+        return [Outx, OutY]
+    } catch as exc {
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
+    }
+}
+
+ResetToPriorAutoRefresh() {
+    global TradesAutoRefreshOldState
+    if (IsTradeAutoRefreshOn() != TradesAutoRefreshOldState) {
+        ToggleAutoRefresh()
+    }
+}
+
+ResetToPriorDetailedMode() {
+    global TradesDetailedModeOldState
+    if (IsTradeDetailedModeOn() != TradesDetailedModeOldState) {
+        ToggleDetailedMode()
+    }
 }

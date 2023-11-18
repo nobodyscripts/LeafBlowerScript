@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0
 
-
 ; ------------------- Functions -------------------
 
 ; Convert positions from 1278*664 client resolution to current resolution
@@ -65,7 +64,6 @@ IsButtonActive(screenX, screenY) {
         targetColour := PixelGetColor(screenX, screenY)
         ;ToolTip(targetColour, screenX, screenY)
         If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A") {
-            ; Check cancel button for non background colour
             return true
         }
     } catch as exc {
@@ -158,16 +156,15 @@ IsAreaResetToGarden() {
 
 ResetAreaScroll() {
     ; Double up due to notifications
-    fSlowClick(200, 574) ; Click Favourites
-    fSlowClick(200, 574) ; Click Favourites
-    Sleep 100
-    fSlowClick(315, 574) ; Click Back to default page to reset the scroll
-    fSlowClick(315, 574) ; Click Back to default page to reset the scroll
-    Sleep 100
+    fSlowClick(200, 574, 72) ; Click Favourites
+    fSlowClick(200, 574, 72) ; Click Favourites
+    Sleep 72
+    fSlowClick(315, 574, 72) ; Click Back to default page to reset the scroll
+    fSlowClick(315, 574, 72) ; Click Back to default page to reset the scroll
+    Sleep 72
 }
 
 ScrollAmountDown(amount := 1) {
-    ToolTip("Scrolling to position, will take a moment", W / 2 - 100, H / 2)
     while amount > 0 {
         if !WinExist("Leaf Blower Revolution") ||
             !WinActive("Leaf Blower Revolution") {
@@ -178,11 +175,9 @@ ScrollAmountDown(amount := 1) {
             amount := amount - 1
         }
     }
-    SetTimer(ToolTip, -1)
 }
 
 ScrollAmountUp(amount := 1) {
-    ToolTip("Scrolling to position, will take a moment", W / 2 - 100, H / 2)
     while amount > 0 {
         if !WinExist("Leaf Blower Revolution") ||
             !WinActive("Leaf Blower Revolution") {
@@ -193,7 +188,6 @@ ScrollAmountUp(amount := 1) {
             amount := amount - 1
         }
     }
-    SetTimer(ToolTip, -1)
 }
 
 GoToHomeGarden() {
@@ -237,15 +231,18 @@ CheckForTransparentPanels() {
     If (IsPanelTransparent()) {
         MsgBox("Error: It appears you are using menu transparency, please set to 100% then F2 to reload.`nSee Readme.md for other required settings.")
         ClosePanel()
-        Sleep 50
+        Sleep 150
         ClosePanel() ; Settings
-        Sleep 50
+        Sleep 150
         ; Set to graphics tab
         fSlowClick(443, 572)
+        sleep 100
+        ;MouseMove(W / 2, H / 2)
+        sleep 100
         ScrollAmountDown(32)
         return true
     } Else {
-        ToolTip("No transparency detected", W / 2 - WinRelPosW(50), H / 2, 1)
+        ToolTip("No transparency detected", W / 2 - WinRelPosW(50), H / 2)
         SetTimer(ToolTip, -3000)
         return false
     }
@@ -255,14 +252,59 @@ CheckForTransparentPanelsSilent() {
     If (IsPanelTransparent()) {
         MsgBox("Error: It appears you are using menu transparency, please set to 100% then F2 to reload.`nSee Readme.md for other required settings.")
         ClosePanel()
-        Sleep 50
+        Sleep 150
         ClosePanel() ; Settings
-        Sleep 50
+        Sleep 150
         ; Set to graphics tab
         fSlowClick(443, 572)
+        sleep 100
+        ;MouseMove(W / 2, H / 2)
+        sleep 100
         ScrollAmountDown(32)
         return true
     } Else {
         return false
     }
+}
+
+
+LineGetColourInstances(x1, y1, x2, y2, colour) {
+    try {
+        ; 1855 276 top left 1440 res
+        ; 1855 1073 bottom right
+        found := PixelSearch(&OutX, &OutY,
+            WinRelPosLargeW(1855), WinRelPosLargeH(276),
+            WinRelPosLargeW(1855), WinRelPosLargeH(1073), "0xFFF1D2", 0)
+        If (!found || OutX = 0) {
+            found := PixelSearch(&OutX, &OutY,
+                WinRelPosLargeW(1855), WinRelPosLargeH(276),
+                WinRelPosLargeW(1855), WinRelPosLargeH(1073), "0xFDD28A", 0)
+            If (!found || OutX = 0) {
+                return false
+            }
+        }
+
+    } catch as exc {
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
+    }
+    return [OutX, OutY]
+}
+
+OpenEventsAreasPanel() {
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+
+    OpenPets() ; Opens or closes another screen so that when areas
+    ; is opened it doesn't close
+    Sleep 150
+    OpenAreas() ; Open areas
+    Sleep 150
+    fSlowClick(1049, 572) ; Click the event tab
+    Sleep 150
+    ControlClick(, "Leaf Blower Revolution", , "WheelUp") ; Align the page
+    Sleep 150
 }

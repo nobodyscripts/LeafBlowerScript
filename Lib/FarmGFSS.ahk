@@ -55,7 +55,7 @@ fFarmGFSS() {
                 if (IsAreaResetToGarden()) {
                     ToolTip("Killed by boss, resetting",
                         W / 2 - WinRelPosLargeW(70),
-                        H / 2, 6)
+                        H / 2)
                     SetTimer(ToolTip, -200)
                     ResetGF()
                     ResettingGF := true
@@ -63,7 +63,7 @@ fFarmGFSS() {
                 }
                 ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills,
                     W / 2 - WinRelPosLargeW(70),
-                    H / 2, 1)
+                    H / 2)
                 SetTimer(ToolTip, -200)
                 TimerLastCheckStatus := TimerCurrentState
             }
@@ -92,13 +92,13 @@ fFarmGFSS() {
             if (IsAreaResetToGarden() && !ResettingGF) {
                 ToolTip("Killed by boss, resetting",
                     W / 2 - WinRelPosLargeW(100),
-                    H / 2, 6)
+                    H / 2)
                 SetTimer(ToolTip, -200)
                 break
             }
             ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills,
                 W / 2 - WinRelPosLargeW(70),
-                H / 2, 1)
+                H / 2)
             SetTimer(ToolTip, -200)
             TimerLastCheckStatus := TimerCurrentState
 
@@ -108,7 +108,7 @@ fFarmGFSS() {
             ToolTip("Resetting at: GF Kills " . GFKills .
                 " SS Kills " . SSKills,
                 W / 2 - WinRelPosLargeW(100),
-                H / 2, 1)
+                H / 2)
             SetTimer(ToolTip, -250)
             Sleep 250
             ResetSS()

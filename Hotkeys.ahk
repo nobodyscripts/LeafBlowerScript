@@ -3,6 +3,8 @@
 ; ------------------- Keybinds -------------------
 
 ; Customise these to match your keybinds or change to these ingame
+; Make sure to reload (F2) if you change these while running
+; https://www.autohotkey.com/docs/v2/KeyList.htm for a list of possible keys
 
 OpenAreas() {
     ControlSend "{v}", , "Leaf Blower Revolution"
