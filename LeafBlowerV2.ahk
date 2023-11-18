@@ -44,9 +44,9 @@ floor. Does equip a tower gear equipment loadout, so you will need to swap back
 afterwards
 
 F6 Borbventure farming - Defaults to farming purple juice, nature gems and
-nature spheres and both dices (see BVScanSlotItem()). Variable below to set if you own the
-borb dlc otherwise it'll ignore the first two slots being unfilled. Doesn't
- scroll so there may be some pauses.
+nature spheres and both dices (see BVScanSlotItem()). Variable below to set if
+you own the borb dlc otherwise it'll ignore the first two slots being unfilled.
+Doesn't scroll so there may be some pauses.
 
 F7 Claw machine pumpkin farmer - Tries to identify the pumpkin and use the
 hook to grab it, will miss some due to other items and sometimes doesn't grab
@@ -55,9 +55,11 @@ things on the first pass.
 F8 Green Flame/SoulSeeker farmer - Set how many of each to kill in the variables
 below, will cycle and use violins to farm that amount as well as resetting SS.
 
-F9 Normal boss farmer - Doesn't select a zone, sit in the area you want to farm and it'll spam violins when the timers up.
+F9 Normal boss farmer - Doesn't select a zone, sit in the area you want to farm
+and it'll spam violins when the timers up.
 
-F10 Nature boss farmer - Swaps out to Farm Fields to use violins, uses the timer in the area screen to check if the timers done, so don't close the panels
+F10 Nature boss farmer - Swaps out to Farm Fields to use violins, uses the
+timer in the area screen to check if the timers done, so don't close the panels
 while it is running.
 
 F11 A 16.7ms autoclicker - Works outside the game too so be careful
@@ -66,10 +68,54 @@ F12 Resizes the window to 1278*664 client area (on windows 11, may need
 tweaking if not) This is intended to be optional, but you can use this if things
 break for you.
 
-Settings assumed, Alternative renderer, 100% solid menus, notifications may
-cause conflicts with things like bearo detection on F4 so i have most of those
-off. I do leave notifications on but disable all of them so i can see gem
-trades but not required.
+Settings assumed:
+    Windowed mode (fullscreen untested)
+    2560x1440 or less (untested above but may work)
+    100% solid menus            <<< Will cause non detection
+    Alternative renderer        <<< Will cause missalignment
+    Font size 1                 <<< Will cause missalignment
+    Font alternative            <<< Will cause missalignment
+    Dark dialog background off  <<< For timer detection in boss scripts
+    Smooth graphics off
+    Notifications will interupt cards and trade scripts
+    Hotkeys need to either be changed ingame or in script to match
+
+Changes
+F9 has added Brew while spamming violins mode, opens first tab of brewing and spams the buttons (except scrolls)
+F9 Normal boss farm > Second F9 Brew mode > Third F9 stops
+Improved boss kill detection on normal/gfss/nature
+F5 Dynamic alignment for tower farming
+F6 Improved borbventure finish detection and Improved borbventure speed
+F6 Added array config of items to search for
+F3 Checks on cards to stop when done
+F3 Slowed timer between card opening to account for the believed 1s delay to
+auto transcend (configurable)
+F5 Checks on tower to stop when done or misalignment
+Added default loadout on cancel of gems or tower
+
+TODO
+Button active state checking for GF/SS farming reset before farming starts to
+reset amounts to known amounts
+Mouse blocking during active farming and release during waiting
+Coords flexible to font size/font type
+Investigate fullscreen (it breaks fullscreen)
+Investigate a gui to replace function keys and a proper config
+
+F4/Gems isn't resetting scroll properly
+Button active state checking for gem farming startup
+Check trade for autorefresh, details
+Check for L1 situations in gems
+Change F11/12 to card purchasing with greedy amounts
+
+F6/Borb check for active refresh button
+Scroll alignment for borbventures and a 'state memory'
+Normal boss farming with borbventures
+
+F7 Hook detection conversion to getpixelcolour to speed up scans
+
+F9 New modes: Borbventure and SS reset while spamming ww and violin
+Option for min amounts of violin usage, rather than as fast as possible
+
 */
 global X, Y, W, H
 if WinExist("Leaf Blower Revolution") {
@@ -79,12 +125,39 @@ if WinExist("Leaf Blower Revolution") {
 global HaveBorbDLC := false
 ; Set this to fill the first two slots with full teams
 
-global CardOpeningUseShift := false ; Set cards opening to 2500 (default)
-global CardOpeningUseCtrl := true
-global CardOpeningUseAlt := true
-global CardOpeningMode := 3 ; 1 for Common, 2 for rare, 3 for legendary
+
+global CardsCommonAmount := 2500 ; Amount of Common cards to open per pass
+global CardsRareAmount := 2500 ; Amount of Rare cards to open per pass
+global CardsLegendaryAmount := 2500 ; Amount of Legendary cards to open per pass
+global CardsSleepAmount := 950
+; Default 400, amount of time to wait between opens, in ms, if lagging
+; increase this amount.
+global CardsDontOpenCommons := false
+global CardsDontOpenRare := false
+global CardsDontOpenLegendary := false
+
 global GFToKillPerCycle := 8 ; How many gf to kill before attempting SS
-global SSToKillPerCycle := 2 ; How many ss to kill before resetting
+global SSToKillPerCycle := 1 ; How many ss to kill before resetting
+
+
+; This is the list of colours to check for in borbventures to farm those items.
+; Add/Remove to this array of colours to include the items you want to farm.
+
+global BVItemsArr := ["0x01D814", "0xC9C9C9", "0xF91FF6"]
+; "0xF91FF6" Borb ascention juice (purple default)
+; "0x70F928" Borb juice (green)
+; "0x0F2A1D" Nature time sphere
+; "0x55B409" Borb rune (green)
+; "0x018C9C" Magic mulch
+; "0x01D814" Nature gem
+; "0xAB5A53" Random item box (all types)
+; "0x98125F" Borb rune (purple)
+; "0xC1C1C1" Candy
+; "0x6CD820" Both clovers (uses same colours)
+; "0x6BEA15" Borb token
+; "0xCEF587" Free borb token
+; "0xC9C9C9" Dice Points (white)
+; "0x0E44BE" Power Dice Points (blue)
 
 ; ------------------- Script Triggers -------------------
 
@@ -100,8 +173,8 @@ global SSToKillPerCycle := 2 ; How many ss to kill before resetting
 
 *F3:: { ; Open cards clicker
     ResetModifierKeys() ; Cleanup incase needed
-    Static on1 := False
-    If on1 := !on1 {
+    Static on3 := False
+    If on3 := !on3 {
         fOpenCardLoop()
     } Else {
         ResetModifierKeys() ; Cleanup incase needed
@@ -111,63 +184,87 @@ global SSToKillPerCycle := 2 ; How many ss to kill before resetting
 
 *F4:: { ; Gem farm using suitcase
     ResetModifierKeys() ; Cleanup incase needed
-    Static on2 := False
-    If on2 := !on2 {
+    Static on4 := False
+    If on4 := !on4 {
         fGemFarmSuitcase()
-    } Else Reload
+    } Else {
+        EquipDefaultGearLoadout()
+        Reload
+    }
 }
 
 *F5:: { ; Tower 72hr boost loop
     ResetModifierKeys() ; Cleanup incase needed
-    Static on3 := False
-    If on3 := !on3 {
+    Static on5 := False
+    If on5 := !on5 {
         fTimeWarpAndRaiseTower()
-    } Else Reload
+    } Else {
+        EquipDefaultGearLoadout()
+        Reload
+    }
 }
 
 *F6:: { ; Borb pink juice farm in borbventures
     ResetModifierKeys() ; Cleanup incase needed
-    Static on5 := False
-    If on5 := !on5 {
+    Static on6 := False
+    If on6 := !on6 {
         fBorbVentureJuiceFarm()
     } Else Reload
 }
 
 *F7:: { ; Claw pumpkin farm
     ResetModifierKeys() ; Cleanup incase needed
-    Static on6 := False
-    If on6 := !on6 {
+    Static on7 := False
+    If on7 := !on7 {
         fClawFarm()
     } Else Reload
 }
 
 *F8:: { ; Green Flame/Soulseeker farm
     ResetModifierKeys() ; Cleanup incase needed
-    Static on7 := False
-    If on7 := !on7 {
+    Static on8 := False
+    If on8 := !on8 {
         fFarmGFSS()
     } Else Reload
 }
 
+global on9 := 0
+
 *F9:: { ; Farm normal boss using violins
+    global on9
     ResetModifierKeys() ; Cleanup incase needed
-    Static on8 := False
-    If on8 := !on8 {
-        fFarmNormalBoss()
-    } Else Reload
+    switch on9 {
+        case 1:
+            on9 := 2 ; Brew and boss mode
+            ToolTip()
+            ToolTip("Brew Farm Mode", WinRelPosW(50), WinRelPosH(50), 1)
+            fFarmNormalBossAndBrew()
+        case 2:
+            on9 := 0 ; Disabled
+            ToolTip()
+            ToolTip("Disabled", WinRelPosW(50), WinRelPosH(50), 1)
+            SetTimer(ToolTip, -500)
+            SetTimer(SpamBrewButtons, 0)
+            Reload
+        default:
+            on9 := 1 ; Normal boss mode
+            ToolTip()
+            ToolTip("Normal Farm Mode", WinRelPosW(50), WinRelPosH(50), 1)
+            fFarmNormalBoss()
+    }
 }
 
 *F10:: { ; Farm nature boss using violins
     ResetModifierKeys() ; Cleanup incase needed
-    Static on8 := False
-    If on8 := !on8 {
+    Static on10 := False
+    If on10 := !on10 {
         fFarmNatureBoss()
     } Else Reload
 }
 
 *F11:: { ; Autoclicker non game specific
-    Static on4 := False
-    If on4 := !on4 {
+    Static on11 := False
+    If on11 := !on11 {
         Loop {
             MouseClick "left", , , , , "D"
             Sleep 16.7
@@ -216,7 +313,7 @@ OpenAlchemy() {
 }
 
 TriggerSuitcase() {
-    ControlSend "{,}", , "Leaf Blower Revolution"
+    ControlSend "{,}", , "Leaf Blower Revolution" ; Comma
 }
 
 TriggerViolin() {
@@ -225,6 +322,12 @@ TriggerViolin() {
 
 RefreshTrades() {
     ControlSend "{Space}", , "Leaf Blower Revolution"
+}
+
+EquipDefaultGearLoadout() {
+    ControlSend "{Numpad1}", , "Leaf Blower Revolution"
+    ; Used as default after using other loadouts
+    ; In my case this is my brew set
 }
 
 EquipTowerGearLoadout() {
@@ -240,6 +343,7 @@ ClosePanel() {
 OpenTools() {
     ControlSend "{1}", , "Leaf Blower Revolution" ; Inactive
 }
+
 TriggerWind() {
     ControlSend "{[}", , "Leaf Blower Revolution" ; Inactive
 }
@@ -250,10 +354,6 @@ TriggerGravity() {
 
 TriggerWobblyWings() {
     ControlSend "{#}", , "Leaf Blower Revolution" ; Inactive
-}
-
-EquipBrewGearLoadout() {
-    ControlSend "{Numpad1}", , "Leaf Blower Revolution" ; Inactive
 }
 
 EquipDamageGearLoadout() {
@@ -272,7 +372,7 @@ EquipPyramidGearLoadout() {
     ControlSend "{Numpad6}", , "Leaf Blower Revolution" ; Inactive
 }
 
-EquipSevenGearLoadout() {
+EquipTargetCenterGearLoadout() {
     ControlSend "{Numpad7}", , "Leaf Blower Revolution" ; Inactive
 }
 
@@ -341,6 +441,7 @@ ResetModifierKeys() {
 
 ; ------------------- Main actions -------------------
 
+
 fOpenCardLoop()
 {
     if !WinExist("Leaf Blower Revolution") {
@@ -351,9 +452,9 @@ fOpenCardLoop()
     OpenPets()
     ; Opens or closes another screen so that when areas is opened it doesn't
     ; close
-    Sleep 50
+    Sleep 100
     OpenCards()
-    Sleep 50
+    Sleep 100
     fSlowClick(202, 574)
     ; Open leaf galaxy tab incase wrong tab and to reset scroll
 
@@ -368,28 +469,181 @@ fOpenCardLoop()
         WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
         ; Update window size
 
-        if CardOpeningUseCtrl = true {
-            ControlSend "{Control down}", , "Leaf Blower Revolution"
+        ClickOffset := WinRelPosLargeH(2)
+        CommonX := WinRelPosLargeW(565)
+        CommonY := WinRelPosLargeH(820)
+        CommonButtonActive := IsButtonActive(CommonX, CommonY)
+        ; Check if button is active, if not we can skip
+
+        if (CardsDontOpenCommons = false && CommonButtonActive) {
+            CardNumberToModifier(CardsCommonAmount)
+            fCustomClick(CommonX, CommonY + ClickOffset)
+            ; Common pack open
+            Sleep CardsSleepAmount
         }
-        if CardOpeningUseAlt = true {
-            ControlSend "{Alt down}", , "Leaf Blower Revolution"
+
+        RareX := WinRelPosLargeW(1130)
+        RareY := WinRelPosLargeH(820)
+        RareButtonActive := IsButtonActive(RareX, RareY)
+        ; Check if button is active, if not we can skip
+        if (CardsDontOpenRare = false && RareButtonActive) {
+            CardNumberToModifier(CardsRareAmount)
+            fCustomClick(RareX, RareY + ClickOffset)
+            ; Rare pack open
+            Sleep CardsSleepAmount
         }
-        if CardOpeningUseShift = true {
-            ControlSend "{Shift down}", , "Leaf Blower Revolution"
+
+        LegendaryX := WinRelPosLargeW(1690)
+        LegendaryY := WinRelPosLargeH(820)
+        LegendaryButtonActive := IsButtonActive(LegendaryX, LegendaryY)
+        ; Check if button is active, if not we can skip
+        if (CardsDontOpenLegendary = false && LegendaryButtonActive) {
+            CardNumberToModifier(CardsLegendaryAmount)
+            fCustomClick(LegendaryX, LegendaryY + ClickOffset)
+            ; Legendary pack open
+            Sleep CardsSleepAmount
         }
-        if CardOpeningMode = 1 {
-            fSlowClick 315, 400 ; Common pack open
+
+        If (!CommonButtonActive && !RareButtonActive && !LegendaryButtonActive)
+        {
+            break
         }
-        if CardOpeningMode = 2 {
-            fSlowClick 597, 400 ; Rare pack open
+
+        ResetModifierKeys() ; Cleanup ctrl+shift+alt modifiers
+    }
+    ToolTip("Card opening aborted`nFound no active buttons.`nF3 to remove note",
+        W / 2 - WinRelPosLargeH(170), H / 2)
+    ResetModifierKeys() ; Cleanup incase of broken loop
+}
+
+CardBuyLoop() {
+    loop {
+        ; Check if lost focus, close or crash and break if so
+        if !WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution") {
+                break
         }
-        if CardOpeningMode = 3 {
-            fSlowClick 880, 400 ; Legendary pack open
+        WinActivate("Leaf Blower Revolution")
+        ; Use the window found by WinExist.
+        WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+        ; Update window size
+
+        ClickOffset := WinRelPosLargeH(2)
+
+        CommonX := WinRelPosLargeW(593)
+        CommonY := WinRelPosLargeH(955)
+        CommonButtonActive := IsButtonActive(CommonX, CommonY)
+        ; Check if button is active, if not we can skip
+        if (CardsDontOpenCommons = false && CommonButtonActive) {
+            CardNumberToModifier(CardsCommonAmount)
+            fCustomClick(CommonX, CommonY + ClickOffset)
+            ; Common pack open
         }
-        Sleep 100
+
+        RareX := WinRelPosLargeW(1158)
+        RareY := WinRelPosLargeH(955)
+        RareButtonActive := IsButtonActive(RareX, RareY)
+        ; Check if button is active, if not we can skip
+        if (CardsDontOpenRare = false && RareButtonActive) {
+            CardNumberToModifier(CardsRareAmount)
+            fCustomClick(RareX, RareY + ClickOffset)
+            ; Rare pack open
+        }
+
+        LegendaryX := WinRelPosLargeW(1690)
+        LegendaryY := WinRelPosLargeH(955)
+        LegendaryButtonActive := IsButtonActive(LegendaryX, LegendaryY)
+        ; Check if button is active, if not we can skip
+        if (CardsDontOpenLegendary = false && LegendaryButtonActive) {
+            CardNumberToModifier(CardsLegendaryAmount)
+            fCustomClick(LegendaryX, LegendaryY + ClickOffset)
+            ; Legendary pack open
+        }
+
+        If (!CommonButtonActive && !RareButtonActive && !LegendaryButtonActive)
+        {
+            break
+        }
+
+        Sleep CardsSleepAmount
         ResetModifierKeys() ; Cleanup ctrl+shift+alt modifiers
     }
     ResetModifierKeys() ; Cleanup incase of broken loop
+}
+
+CardNumberToModifier(num) {
+    /*
+    shift 10
+    ctrl 25
+    alt 100
+    */
+    switch num {
+        case 10:
+            ControlSend "{Shift down}", , "Leaf Blower Revolution"
+        case 25:
+            ControlSend "{Control down}", , "Leaf Blower Revolution"
+        case 100:
+            ControlSend "{Alt down}", , "Leaf Blower Revolution"
+        case 250:
+            ControlSend "{Control down}", , "Leaf Blower Revolution"
+            ControlSend "{Shift down}", , "Leaf Blower Revolution"
+        case 1000:
+            ControlSend "{Alt down}", , "Leaf Blower Revolution"
+            ControlSend "{Shift down}", , "Leaf Blower Revolution"
+        case 2500:
+            ControlSend "{Control down}", , "Leaf Blower Revolution"
+            ControlSend "{Alt down}", , "Leaf Blower Revolution"
+        case 25000:
+            ControlSend "{Control down}", , "Leaf Blower Revolution"
+            ControlSend "{Alt down}", , "Leaf Blower Revolution"
+            ControlSend "{Shift down}", , "Leaf Blower Revolution"
+        default:
+
+    }
+}
+
+IsButtonActive(screenX, screenY) {
+    ; Position less important as just checking if not background X2120
+    try {
+        targetColour := PixelGetColor(screenX, screenY)
+        ;ToolTip(targetColour, screenX, screenY)
+        If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A") {
+            ; Check cancel button for non background colour
+            return true
+        }
+    } catch as exc {
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
+    }
+    return false
+}
+
+IsButtonInactive(screenX, screenY) {
+    try {
+        targetColour := PixelGetColor(screenX, screenY)
+        If (targetColour = "0xC8BDA5") {
+            ; Check button for non background colour
+            return true
+        }
+    } catch as exc {
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
+    }
+    return false
+}
+
+IsBackground(screenX, screenY) {
+    try {
+        targetColour := PixelGetColor(screenX, screenY)
+        If (targetColour = "0x97714A") {
+            ; Found background colour
+            return true
+        }
+    } catch as exc {
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
+    }
+    return false
 }
 
 fTimeWarpAndRaiseTower() {
@@ -405,6 +659,13 @@ fTimeWarpAndRaiseTower() {
     Sleep 50
     OpenAreas()
     Sleep 50
+    if (!IsButtonActive(WinRelPosW(317), WinRelPosH(574))) {
+        ToolTip("Alignment issue 1, could not continue`nUse F5 to finish`nApplied default loadout",
+            W / 2 - WinRelPosW(150),
+            H / 2)
+        EquipDefaultGearLoadout()
+        return
+    }
     fSlowClick(317, 574)
     ; Open leaf galaxy tab incase wrong tab and to reset scroll
     Sleep 100
@@ -429,25 +690,93 @@ fTimeWarpAndRaiseTower() {
         WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
         ; Update window size
 
-        ; These next three clicks are unstable, the scrolling isn't accurate
-        ; Use window spy to correct, if your pc doesn't match these, as
-        ; detailed at the top
-        fSlowClick(875, 313) ; Open leafsing harbor to allow max level reset
+        ; Look for colour of a segment of the rightmost tower leaf c5d8e0
+        try {
+            found := PixelSearch(&OutX, &OutY,
+                WinRelPosLargeW(1563), WinRelPosLargeH(430),
+                WinRelPosLargeW(1604), WinRelPosLargeH(964), "0xC5D8E0", 0)
+            ; Leaf pixel search
+            If (!found || OutX = 0) {
+                ; Not found
+                ToolTip("Could not find tower area`nUse F5 to finish`nApplied default loadout",
+                    W / 2 - WinRelPosW(50),
+                    H / 2)
+                EquipDefaultGearLoadout()
+                break
+            }
+        } catch as exc {
+            MsgBox ("Could not conduct the search due to the following error:`n"
+                exc.Message)
+        }
+        ;ToolTip("Found tower floor leaf at: " . OutX . "x" . OutY,
+        ;    OutX, OutY)
+
+        ; Found at 1595x778 (1440)
+        ; 1664 800 < tower floor zone Relative: 69 22
+        ; 2066 865 < Max floor button Relative: 471 87
+        ; 1664 646 < Leaksink Relative: 69 -132
+
+        ; Open leafsing harbor to allow max level reset
+        if (IsBackground(OutX + WinRelPosLargeW(69),
+            OutY - WinRelPosLargeH(132))) {
+                ; Background colour found
+                ToolTip("Alignment issue 2, could not continue`nUse F5 to finish`nApplied default loadout",
+                    W / 2 - WinRelPosW(50),
+                    H / 2)
+                EquipDefaultGearLoadout()
+                break
+        }
+        fCustomClick(OutX + WinRelPosLargeW(69), OutY - WinRelPosLargeH(132))
         Sleep 100
-        fSlowClick(1046, 419) ; Max Tower level
+
+        ; Max Tower level
+        if (!IsButtonActive(OutX + WinRelPosLargeW(471), OutY + WinRelPosLargeH(87))) {
+            ToolTip("Alignment issue 3, could not continue`nUse F5 to finish`nApplied default loadout",
+                W / 2 - WinRelPosW(50),
+                H / 2)
+            EquipDefaultGearLoadout()
+            break
+        }
+        fCustomClick(OutX + WinRelPosLargeW(471), OutY + WinRelPosLargeH(87))
         Sleep 100
-        fSlowClick(875, 388) ; Select Tower area
+
+        ; Select Tower area
+        if (!IsButtonActive(OutX + WinRelPosLargeW(69), OutY + WinRelPosLargeH(22))) {
+            ToolTip("Alignment issue 4, could not continue`nUse F5 to finish`nApplied default loadout",
+                W / 2 - WinRelPosW(50),
+                H / 2)
+            EquipDefaultGearLoadout()
+            break
+        }
+        fCustomClick(OutX + WinRelPosLargeW(69), OutY + WinRelPosLargeH(22))
         Sleep 100
+
         OpenGemShop()
         Sleep 150
+
+        if (!IsButtonActive(WinRelPosW(904), WinRelPosH(571))) {
+            ToolTip("Alignment issue 5, could not continue`nUse F5 to finish`nApplied default loadout",
+                W / 2 - WinRelPosW(50),
+                H / 2)
+            EquipDefaultGearLoadout()
+            break
+        }
         fSlowClick(904, 571) ; Navigate to Time Travel tab
         Sleep 100
-        fSlowClick(894, 312) ; Click 72h warp
+
+        if (IsButtonActive(WinRelPosW(894), WinRelPosH(312))) {
+            fSlowClick(894, 312) ; Click 72h warp
+        } else {
+            ToolTip("Run out of 72hr boosts to use`nUse F5 to finish`nApplied default loadout",
+                W / 2 - WinRelPosW(50),
+                H / 2)
+            EquipDefaultGearLoadout()
+            break
+        }
         Sleep 100
         OpenAreas() ; Doing this last as we open this to scroll to start
         Sleep 150
     }
-
 }
 
 fGemFarmSuitcase() {
@@ -507,7 +836,8 @@ fGemFarmSuitcase() {
                 }
             }
         } catch as exc {
-            MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+            MsgBox "Could not conduct the search due to the following error:`n"
+            exc.Message
         }
         RefreshTrades()
         Sleep 71
@@ -534,9 +864,9 @@ RemoveBearo() {
     OutY := 0
     try {
         X1 := WinRelPosLargeW(675)
-        Y1 := 1070 / 1369 * H
+        Y1 := WinRelPosLargeH(1070)
         X2 := WinRelPosLargeW(1494)
-        Y2 := 1138 / 1369 * H
+        Y2 := WinRelPosLargeH(1138)
         found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x64747A", 0)
         If (found and OutX != 0) {
             ToolTip("Bearo found and removed", OutX, OutY)
@@ -546,7 +876,8 @@ RemoveBearo() {
         }
 
     } catch as exc {
-        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
         return
     }
 }
@@ -600,7 +931,13 @@ fBorbVentureJuiceFarm() {
         ;Start/Finish is at X 1911
         ;Cancel is at X 2120
         ;BorbJuice first detect point is at X 1326
-        SlotsYArray := [Slot1Y, Slot2Y, Slot3Y, Slot4Y]
+        SlotsYArray := [Slot4Y, Slot3Y, Slot2Y, Slot1Y]
+
+        for SlotY in SlotsYArray {
+            While (SlotY != 0 && IsButtonActive(WinRelPosLargeW(1911), SlotY)) {
+                BVCollectFinishedItem(SlotY)
+            }
+        }
 
         activeSlots := 0
         for SlotY in SlotsYArray {
@@ -611,25 +948,16 @@ fBorbVentureJuiceFarm() {
             }
         }
 
-        for SlotY in SlotsYArray {
-            while (BVIsSlotFinished(SlotY)) {
-                if (SlotY != 0 && BVIsSlotFinished(SlotY) &&
-                    WinActive("Leaf Blower Revolution")) {
-                        ; If slots finished, its Y is used to align click and spam
-                        Sleep 100
-                        fCustomClick(WinRelPosLargeW(1911), SlotY, 100)
-                        Sleep 100
-                }
-            }
-        }
+        ; Scan again to account for changes since 'finishing'
 
-        ; Scan again but reverse order so that we can start them bottom to top
-        ; Accounts for changes since 'finishing'
-
-        Slot1Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(431), WinRelPosLargeW(1353), WinRelPosLargeH(490))
-        Slot2Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(620), WinRelPosLargeW(1353), WinRelPosLargeH(675))
-        Slot3Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(811), WinRelPosLargeW(1353), WinRelPosLargeH(866))
-        Slot4Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(1028), WinRelPosLargeW(1353), WinRelPosLargeH(1076))
+        Slot1Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(431),
+            WinRelPosLargeW(1353), WinRelPosLargeH(490))
+        Slot2Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(620),
+            WinRelPosLargeW(1353), WinRelPosLargeH(675))
+        Slot3Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(811),
+            WinRelPosLargeW(1353), WinRelPosLargeH(866))
+        Slot4Y := BVScanSlotItem(WinRelPosLargeW(1299), WinRelPosLargeH(1028),
+            WinRelPosLargeW(1353), WinRelPosLargeH(1076))
 
         SlotsYArray := [Slot4Y, Slot3Y, Slot2Y, Slot1Y]
 
@@ -642,22 +970,21 @@ fBorbVentureJuiceFarm() {
                         (HaveBorbDLC and activeSlots != 4)) {
                             ; If slots inactive, its ready to start,
                             ; use its y to align clicks
-                            Sleep 100
-                            fCustomClick(WinRelPosLargeW(1600), SlotY, 100)
+                            fCustomClick(WinRelPosLargeW(1600), SlotY, 86)
                             ; Click team slot 1
-                            Sleep 100
-                            fCustomClick(WinRelPosLargeW(1717), SlotY, 100)
+                            Sleep 86
+                            fCustomClick(WinRelPosLargeW(1717), SlotY, 86)
                             ; Click team slot 2
-                            Sleep 100
-                            fCustomClick(WinRelPosLargeW(1911), SlotY, 100)
+                            Sleep 86
+                            fCustomClick(WinRelPosLargeW(1911), SlotY, 86)
                             ; Click Start
-                            Sleep 100
+                            Sleep 86
                     }
             }
         }
         if (activeSlots >= 1) {
             ToolTip("Found " . activeSlots . " active slots", W / 2, H / 2, 1)
-            SetTimer(ToolTip, -750)
+            SetTimer(ToolTip, -500)
         }
         if (!HaveBorbDLC and activeSlots != 2) {
             ; If we have not filled all available slots refresh
@@ -669,12 +996,29 @@ fBorbVentureJuiceFarm() {
     }
 }
 
+BVCollectFinishedItem(SlotY) {
+    if (SlotY != 0 && IsButtonActive(WinRelPosLargeW(1911), SlotY) &&
+        WinActive("Leaf Blower Revolution")) {
+            ; If slots finished, its Y is used to align click and
+            ; spam
+            fCustomClick(WinRelPosLargeW(1911), SlotY, 86)
+            ToolTip("Have tried to finish " . SlotY, W / 2, H / 2)
+            SetTimer(ToolTip, -3000)
+            Sleep 86
+    }
+}
+
 BVScanSlotItem(X1, Y1, X2, Y2) {
+    global BVItemsArr
     try {
-        ; This is the check for the borbjuice pink colour, if you want to scan
+        ; This is the check for the items colours, if you want to scan
         ; for something else. Change this colour to something unique to that
         ; type, or add more checks if you want several.
 
+        if (!BVItemsArr) {
+            BVItemsArr := ["0xF91FF6"]
+            ; If no items selected default to purple juice
+        }
         ; "0xF91FF6" Borb ascention juice (purple default)
         ; "0x70F928" Borb juice (green)
         ; "0x0F2A1D" Nature time sphere
@@ -690,51 +1034,17 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
         ; "0xC9C9C9" Dice Points (white)
         ; "0x0E44BE" Power Dice Points (blue)
 
-
-        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x01D814", 0)
-        ; Nature gem
-        If (found and OutX != 0) {
-            return OutY ; Found item row
-        }
-        ;found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x0F2A1D", 0)
-        ; Nature time sphere
-        ;If (found and OutX != 0) {
-        ;    return OutY ; Found item row
-        ;}
-        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x0E44BE", 0)
-        ; Power Dice Points (blue)
-        If (found and OutX != 0) {
-            return OutY ; Found item row
-        }
-        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0xC9C9C9", 0)
-        ; Dice Points (white)
-        If (found and OutX != 0) {
-            return OutY ; Found item row
-        }
-        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0xF91FF6", 0)
-        ; Borb ascention juice (purple default)
-        If (found and OutX != 0) {
-            return OutY ; Found item row
+        for colour in BVItemsArr {
+            found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, colour, 0)
+            If (found and OutX != 0) {
+                return OutY ; Found item row
+            }
         }
     } catch as exc {
-        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
     }
     return 0
-}
-
-BVIsSlotFinished(Y) {
-    ;Start/Finish is at X 1911
-    try {
-        colour := PixelGetColor(WinRelPosLargeW(1911), Y)
-        If (colour = "0xFFF1D2") {
-            ;ToolTip("Slot found Finished button", WinRelPosLargeW(1911), Y, 1)
-            ;SetTimer(ToolTip, -500)
-            return true
-        }
-    } catch as exc {
-        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
-    }
-    return false
 }
 
 BVIsSlotStartInactive(Y) {
@@ -747,7 +1057,8 @@ BVIsSlotStartInactive(Y) {
             return true
         }
     } catch as exc {
-        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
     }
     return false
 }
@@ -761,7 +1072,8 @@ BVIsSlotActive(Y) {
             return true
         }
     } catch as exc {
-        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
     }
     return false
 }
@@ -832,7 +1144,8 @@ ClawGetPumpkinLocation() {
             return OutX ; Found colour
         }
     } catch as exc {
-        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
     }
     return 0
 }
@@ -850,7 +1163,8 @@ ClawGetHookLocation() {
             return OutX ; Found colour
         }
     } catch as exc {
-        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
     }
     return 0
 }
@@ -869,6 +1183,7 @@ fFarmGFSS() {
         IsInSS := false
         GoToGF()
         sleep 100
+        ClosePanel()
         TimerLastCheckStatus := IsBossTimerActive()
 
         while (SSToKillPerCycle != SSKills) {
@@ -883,13 +1198,15 @@ fFarmGFSS() {
                 }
                 if (!IsInGF) {
                     GoToGF()
+                    sleep 100
+                    ClosePanel()
                     IsInGF := true
                     IsInSS := false
                 }
                 TimerCurrentState := IsBossTimerActive()
                 ; if state of timer has changed and is now off, we killed
                 if (TimerLastCheckStatus != TimerCurrentState &&
-                    !TimerCurrentState) {
+                    TimerCurrentState) {
                         GFKills := GFKills + 1
                 }
                 ; if we just started and there is a timer or looped and theres
@@ -901,26 +1218,31 @@ fFarmGFSS() {
                 ; If boss killed us at gf assume we're weak and reset gf
                 ; If user set gf kills too high it'll hit this
                 if (IsAreaResetToGarden()) {
-                    ToolTip("Killed by boss, resetting", W / 2, H / 2 + 400, 6)
+                    ToolTip("Killed by boss, resetting",
+                        W / 2 - WinRelPosLargeW(70),
+                        H / 2, 6)
                     SetTimer(ToolTip, -200)
                     ResetGF()
                     ResettingGF := true
                     break
                 }
                 ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills,
-                    W / 2, H / 2 + 300, 1)
+                    W / 2 - WinRelPosLargeW(70),
+                    H / 2, 1)
                 SetTimer(ToolTip, -200)
                 TimerLastCheckStatus := TimerCurrentState
             }
             if (!IsInSS) {
                 GoToSS()
+                sleep 100
+                ClosePanel()
                 IsInSS := true
                 IsInGF := false
             }
             TimerCurrentState := IsBossTimerActive()
             ; if state of timer has changed and is now off, we killed
             if (TimerLastCheckStatus != TimerCurrentState &&
-                !TimerCurrentState) {
+                TimerCurrentState) {
                     SSKills := SSKills + 1
                     GFKills := 0
             }
@@ -933,18 +1255,27 @@ fFarmGFSS() {
             ; if boss killed us exit this loop, then let the master loop
             ; reset
             if (IsAreaResetToGarden() && !ResettingGF) {
-                ToolTip("Killed by boss, resetting", W / 2, H / 2 + 400, 6)
+                ToolTip("Killed by boss, resetting",
+                    W / 2 - WinRelPosLargeW(100),
+                    H / 2, 6)
                 SetTimer(ToolTip, -200)
                 break
             }
             ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills,
-                W / 2, H / 2 + 300, 1)
+                W / 2 - WinRelPosLargeW(70),
+                H / 2, 1)
             SetTimer(ToolTip, -200)
             TimerLastCheckStatus := TimerCurrentState
 
         }
         ; if we're done looping or got killed reset ss
         if (!ResettingGF) {
+            ToolTip("Resetting at: GF Kills " . GFKills .
+                " SS Kills " . SSKills,
+                W / 2 - WinRelPosLargeW(100),
+                H / 2, 1)
+            SetTimer(ToolTip, -250)
+            Sleep 250
             ResetSS()
         }
         ResettingGF := false
@@ -1071,7 +1402,8 @@ IsBossTimerActive() {
             return true ; Found colour
         }
     } catch as exc {
-        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
     }
     return false
 }
@@ -1086,12 +1418,14 @@ IsAreaResetToGarden() {
             return true ; Found colour
         }
     } catch as exc {
-        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
     }
     return false
 }
 
 fFarmNormalBoss() {
+    global on9
     if !WinExist("Leaf Blower Revolution") {
         return ; Kill early if no game
     }
@@ -1101,6 +1435,9 @@ fFarmNormalBoss() {
     Killcount := 0
     TimerLastCheckStatus := IsBossTimerActive()
     loop {
+        If (on9 != 1) {
+            break
+        }
         if (!WinExist("Leaf Blower Revolution") ||
             !WinActive("Leaf Blower Revolution")) {
                 break ; Kill early if no game
@@ -1108,26 +1445,99 @@ fFarmNormalBoss() {
         TimerCurrentState := IsBossTimerActive()
         ; if state of timer has changed and is now off, we killed
         if (TimerLastCheckStatus != TimerCurrentState &&
-            !TimerCurrentState) {
+            TimerCurrentState) {
                 Killcount := Killcount + 1
         }
         ; if we just started and there is a timer or looped and theres
         ; still a timer, we need to use a violin
         if (IsBossTimerActive()) {
             TriggerViolin()
-            sleep 71
+            sleep 34
         }
         ; If boss killed us at gf assume we're weak and reset gf
         ; If user set gf kills too high it'll hit this
         if (IsAreaResetToGarden()) {
-            ToolTip("Killed by boss, exiting", W / 2, H / 2 + WinRelPosLargeH(50), 6)
+            ToolTip("Killed by boss, exiting", W / 2, H / 2 +
+                WinRelPosLargeH(50), 6)
             Sleep 30000
             break
         }
         ToolTip("Kills: " . Killcount,
-            W / 2, H / 2 +  + WinRelPosLargeH(20), 1)
+            W / 2 - WinRelPosLargeW(50),
+            H / 2 + WinRelPosLargeH(20), 1)
         SetTimer(ToolTip, -200)
         TimerLastCheckStatus := TimerCurrentState
+    }
+}
+
+fFarmNormalBossAndBrew() {
+    global on9
+    if !WinExist("Leaf Blower Revolution") {
+        return ; Kill early if no game
+    }
+    WinActivate("Leaf Blower Revolution") ; Activate window to bypass loop check
+    WinGetClientPos &X, &Y, &W, &H, "Leaf Blower Revolution"
+
+    Killcount := 0
+    OpenPets()
+    Sleep 50
+    OpenAlchemy()
+    Sleep 50
+    TimerLastCheckStatus := IsBossTimerActive()
+    loop {
+        If (on9 != 2) {
+            break
+        }
+
+        SetTimer(SpamBrewButtons, -5)
+        if (!WinExist("Leaf Blower Revolution") ||
+            !WinActive("Leaf Blower Revolution")) {
+                break ; Kill early if no game
+        }
+        TimerCurrentState := IsBossTimerActive()
+        ; if state of timer has changed and is now off, we killed
+        if (TimerLastCheckStatus != TimerCurrentState &&
+            TimerCurrentState) {
+                Killcount := Killcount + 1
+        }
+        ; if we just started and there is a timer or looped and theres
+        ; still a timer, we need to use a violin
+        if (IsBossTimerActive()) {
+            TriggerViolin()
+            sleep 34
+        }
+        ; If boss killed us at gf assume we're weak and reset gf
+        ; If user set gf kills too high it'll hit this
+        if (IsAreaResetToGarden()) {
+            ToolTip("Killed by boss, exiting", W / 2, H / 2 +
+                WinRelPosLargeH(50), 6)
+            Sleep 30000
+            break
+        }
+        ToolTip("Brewing on, Kills: " . Killcount,
+            W / 2 - WinRelPosLargeW(150),
+            H / 2)
+        SetTimer(ToolTip, -200)
+        TimerLastCheckStatus := TimerCurrentState
+    }
+}
+
+SpamBrewButtons() {
+    ; Artifacts
+    If (IsButtonActive(WinRelPosW(856), WinRelPosH(150))) {
+        fCustomClick(WinRelPosW(856), WinRelPosH(150), 34)
+    }
+    ;Equipment
+    If (IsButtonActive(WinRelPosW(856), WinRelPosH(219))) {
+        fCustomClick(WinRelPosW(856), WinRelPosH(219), 34)
+    }
+    ; Materials
+    If (IsButtonActive(WinRelPosW(856), WinRelPosH(290))) {
+        fCustomClick(WinRelPosW(856), WinRelPosH(290), 34)
+    }
+    ; Card Parts
+    If (IsButtonActive(WinRelPosW(856), WinRelPosH(446))) {
+        fCustomClick(WinRelPosW(856), WinRelPosH(446), 34)
     }
 }
 
@@ -1145,7 +1555,6 @@ fFarmNatureBoss() {
     ClosePanel()
     sleep 100
     Killcount := 0
-    LastAliveState := IsNatureBossAlive()
 
     IsInFF := false
     loop {
@@ -1155,11 +1564,6 @@ fFarmNatureBoss() {
         }
         CurrentAliveState := IsNatureBossAlive()
 
-        ; if state of timer has changed and is now off, we killed
-        if (LastAliveState != CurrentAliveState &&
-            !CurrentAliveState) {
-                Killcount := Killcount + 1
-        }
         ; if we just started and there is a timer or looped and theres
         ; still a timer, we need to use a violin
         if (!CurrentAliveState && IsBossTimerActive()) {
@@ -1167,7 +1571,13 @@ fFarmNatureBoss() {
                 ToolTip("Going to ff", W / 2, H / 2, 2)
                 SetTimer(ToolTip, -250)
                 GoToFarmField()
+                Killcount := Killcount + 1
                 IsInFF := true
+
+                ToolTip("Kills: " . Killcount,
+                    W / 2,
+                    H / 2 + WinRelPosLargeH(50), 10)
+                SetTimer(ToolTip, -200)
             }
             loop {
                 if (!WinExist("Leaf Blower Revolution") ||
@@ -1202,7 +1612,6 @@ fFarmNatureBoss() {
         }
         ToolTip("Kills: " . Killcount, W / 2, H / 2 + WinRelPosLargeH(50), 10)
         SetTimer(ToolTip, -200)
-        LastAliveState := CurrentAliveState
     }
 }
 
@@ -1219,7 +1628,8 @@ IsNatureBossAlive() {
             return false
         }
     } catch as exc {
-        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
     }
     return false
 }
@@ -1239,7 +1649,8 @@ IsNatureBossTimerActive() {
             return true ; Found colour
         }
     } catch as exc {
-        MsgBox "Could not conduct the search due to the following error:`n" exc.Message
+        MsgBox ("Could not conduct the search due to the following error:`n"
+            exc.Message)
     }
     return false
 }
