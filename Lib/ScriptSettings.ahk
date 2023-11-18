@@ -231,7 +231,7 @@ class cSettings {
     } */
 
     WriteToIni(key, value, section := this.sFileSection) {
-        IniWrite(value, this.sFilename, this.sFileSection, key)
+        IniWrite(value, this.sFilename, section, key)
     }
 
     WriteDefaults() {
