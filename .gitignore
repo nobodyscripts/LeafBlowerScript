@@ -4,5 +4,6 @@ IsNobody
 UserSettings.ini
 *.zip
 
-# Block vscode workspace file
+# Block vscode workspace files
 *.code-workspace
+.vscode
