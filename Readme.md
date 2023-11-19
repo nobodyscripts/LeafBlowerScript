@@ -135,6 +135,10 @@ Logging now checks for previous log being written to reduce chance of clash
 F3: Fixed travel to card packs button new location  
 F3: Updated the open button locations
 
+F6: Borbventures now checks each slot based on the arrow, allowing for detailed
+    mode on or off.
+F6: Fixed the constant refreshing issues in detailed off mode.
+
 F9: Fixed the callback error in NormalBoss.ahk
 
 Home: Added WW farm, goes to ss reset page and clicks the ss reset while
@@ -151,9 +155,8 @@ F3 - Handle new multipliers, decreasing amounts, priorities. Will probably need
 to read save file, get caps, work out how much to open to avoid breaking auto
 transcend limits, then ocr the buttons and openall the right amount. Permaloop is broken
 
-F6 - Small mode refreshes constantly, large mode ok, need to handle auto start,
-finish all, auto finish, min chance, need to handle non intended items due to
-auto start
+F6 - Need to handle auto start, finish all, auto finish, min chance, need to
+handle non intended items due to auto start
 
 F9 - Cards and borb modes have same issues
 

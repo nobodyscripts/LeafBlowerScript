@@ -225,7 +225,7 @@ PixelSearchWrapper(x1, y1, x2, y2, colour) {
  * @param y1 Top left Coordinate (relative 1440)
  * @param x2 Bottom Right Coordinate (relative 1440)
  * @param y2 Bottom Right Coordinate (relative 1440)
- * @returns {array|number} returns array of { x, y, colour } or false
+ * @returns {array|number} returns array of [ x, y ] or false
  */
 PixelSearchWrapperRel(x1, y1, x2, y2, colour) {
     /*try {
@@ -257,6 +257,7 @@ LineGetColourInstances(x1, y1, x2, y2) {
     ; Returns array of points and colours {x, y, colour}
     ; Detects when the colour changes to remove redundant entries
     foundArr := []
+    lastColour := ""
     try {
         ; if no width, and y has length
         if (x1 = x2 && y1 < y2) {
@@ -264,13 +265,9 @@ LineGetColourInstances(x1, y1, x2, y2) {
             i := y1
             while (i <= y2) {
                 colour := PixelGetColor(x1, i)
-                if (foundArr.Length > 0) {
-                    if (foundArr[foundArr.Length].colour != colour) {
-                        foundArr.Push({ x: x1, y: i, colour: colour })
-                    }
-                } else {
-                    ; No length so no check for previous colour
+                if (foundArr.Length = 0 || lastColour != colour) {
                     foundArr.Push({ x: x1, y: i, colour: colour })
+                    lastColour := colour
                 }
                 i++
             }
@@ -282,13 +279,8 @@ LineGetColourInstances(x1, y1, x2, y2) {
             i := x1
             while (i <= x2) {
                 colour := PixelGetColor(i, y1)
-                if (foundArr.Length > 0) {
-                    if (foundArr[foundArr.Length].colour != colour) {
-                        foundArr.Push({ x: i, y: y1, colour: colour })
-                    }
-                } else {
-                    ; No length so no check for previous colour
-                    foundArr.Push({ x: x1, y: i, colour: colour })
+                if (foundArr.Length = 0 || foundArr[foundArr.Length].colour != colour) {
+                    foundArr.Push({ x: i, y: y1, colour: colour })
                 }
                 i++
             }
@@ -300,6 +292,68 @@ LineGetColourInstances(x1, y1, x2, y2) {
             exc.Message)
     }
     return false
+}
+
+/**
+ * 
+ * @param x 
+ * @param y1 
+ * @param y2 
+ * @param colour 
+ * @param {number} splitCount 
+ * @returns {array|number} false if nothing, array of Y heights if found
+ */
+LineGetColourInstancesOffsetV(x, y1, y2, colour, splitCount := 20) {
+    splitSize := (y2 - y1) / splitCount
+    splitCur := 0
+    foundArr := [splitCount]
+    found := 0
+    ; Because checking every pixel takes 7 seconds, lets split up the line
+    ; use pixelsearch and try to find a balance where we don't get overlap
+    while splitCur < splitCount {
+        yTop := y1 + (splitCur * splitSize)
+        yBot := y1 + ((splitCur + 1) * splitSize)
+        result := PixelSearchWrapperRel(x, yTop, x, yBot, colour)
+        if (result) {
+            if (Debug) {
+                ; Log("Found in segment " splitCur " at " result[1] " by " result[2])
+            }
+            found++
+            foundArr.Push(result[2])
+        }
+        splitCur++
+    }
+    if (found) {
+        return foundArr
+    }
+    return false
+}
+
+LineGetColourInstancesOffsetH(x1, y1, x2, y2, offset, colour) {
+    PixelSearchWrapper(x1, y1, x2, y2, colour)
+}
+
+
+bvtest() {
+    Log("Line Check started")
+    /* 6.931 sec
+    arrows := LineGetColourInstances(WinRelPosLargeW(1280),
+    WinRelPosLargeH(275), WinRelPosLargeW(1280), WinRelPosLargeH(1072)) */
+
+    ; 0.15 seconds, juuuuuuust a bit faster
+    LineGetColourInstancesOffsetV(1280, 275, 1072, "0x1989B8", 8)
+    Log("Line Check finished")
+    /* if (arrows) {
+        for arrow in arrows {
+            if (Debug) {
+                Log("x " Round(arrow.x) " y " Round(arrow.y) " col " arrow.colour)
+            }
+        }
+    } else {
+        if (Debug) {
+            Log("Failed line scan")
+        }
+    } */
 }
 
 IsScrollAblePanelAtTop() {

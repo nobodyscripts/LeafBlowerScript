@@ -36,19 +36,10 @@ BVResetScroll() {
 }
 
 BVMainLoop() {
-    ; Check for only if scroll is not at the top
-    if (!IsBVScrollAblePanelAtTop()) {
-        BVResetScroll()
-        Sleep(34)
-    }
-    ; Check if scroll exists at top (if less than 4 trades)
-    if (!IsScrollAblePanelAtTop()) {
-        RefreshTrades()
-        Sleep(34)
-    }
-
+    global HaveBorbDLC
     ; Check for any finished items in view and collect them
-    loop 8 {
+    ; Not really needed now but not much harm to leave going
+    loop 6 {
         found := BVGetFinishButtonLocation()
         if (!found) {
             break
@@ -57,21 +48,66 @@ BVMainLoop() {
             found[2] + WinRelPosLargeH(10), 72)
         Sleep(72)
     }
+    ; Get a list of the arrows heights so we can check the buttons and icons
+    ; relative to that position
+    ; Arrows 83 from point to point, 31 tall
+    SlotsYArray := []
+    arrows := LineGetColourInstancesOffsetV(1280, 275, 1073, "0x1989B8", 9)
+    arrowCount := 0
+    for arrowY in arrows {
+        if (arrowY) {
+            arrowCount++
+            IsUsefulItem := BVScanSlotItem(1299, arrowY - 20, 1353, arrowY + 30)
+            if (IsUsefulItem) {
+                SlotsYArray.Push(IsUsefulItem)
+                if (Debug) {
+                    Log("Have found a useful item at " IsUsefulItem)
+                }
+            }
+        }
+    }
+    detailedMode := false
+    ; If we have more than 4 arrows details mode is on
+    if (arrowCount >= 6) {
+        detailedMode := true
+    }
+    
+    ToolTip("Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows " 
+        arrowCount,
+        W / 2 - WinRelPosLargeW(50), H / 5, 1)
+    ; Check for only if scroll is not at the top
+    if (!detailedMode && !IsBVScrollAblePanelAtTop()) {
+        BVResetScroll()
+        Sleep(34)
+        return ; If we had to reset we should restart function and rescan
+    }
+    ; Check if scroll exists at top (if less than 4 trades)
+    if (!detailedMode && !IsScrollAblePanelAtTop()) {
+        RefreshTrades()
+        Sleep(34)
+        return ; If we had to refresh we should restart function and rescan
+    }
 
-    ; Check first four slots for item
+    /*     ; Check first four slots for item
     Slot1Y := BVScanSlotItem(1299, 431, 1353, 520)
     Slot2Y := BVScanSlotItem(1299, 521, 1353, 750)
     Slot3Y := BVScanSlotItem(1299, 751, 1353, 900)
-    Slot4Y := BVScanSlotItem(1299, 901, 1353, 1076)
+    Slot4Y := BVScanSlotItem(1299, 901, 1353, 1076) */
 
     ;Charslot 1 is at X 1600
     ;Charslot 2 is at X 1717
     ;Start/Finish is at X 1911
     ;Cancel is at X 2120
     ;BorbJuice first detect point is at X 1326
-    SlotsYArray := [Slot4Y, Slot3Y, Slot2Y, Slot1Y]
+    /* SlotsYArray := [Slot4Y, Slot3Y, Slot2Y, Slot1Y] */
     activeSlots := 0
-    for SlotY in SlotsYArray {
+
+    ToolTip("Found " . activeSlots . " active slots`n"
+        "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows " 
+        arrowCount,
+        W / 2 - WinRelPosLargeW(50), H / 5, 1)
+
+    for SlotY in arrows {
         if (SlotY != 0 && IsBackground(WinRelPosLargeW(1855), SlotY) &&
             IsButtonActive(WinRelPosLargeW(2120), SlotY - WinRelPosLargeH(5))) {
                 ; If slots cancel button exists, assume active. This lets us
@@ -81,40 +117,54 @@ BVMainLoop() {
 
     }
 
+    ToolTip("Found " . activeSlots . " active slots`n"
+        "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows " 
+        arrowCount,
+        W / 2 - WinRelPosLargeW(50), H / 5, 1)
+
     for SlotY in SlotsYArray {
         if (SlotY != 0 && IsWindowActive() &&
             IsButtonInactive(WinRelPosLargeW(1864), SlotY)) {
                 ; Don't try to start more if we're full even if another is
                 ; detected
-                if ((!HaveBorbDLC and activeSlots != 2) ||
-                    (HaveBorbDLC and activeSlots != 4)) {
+                if ((!detailedMode && !HaveBorbDLC && activeSlots < 2) ||
+                    (detailedMode && !HaveBorbDLC && activeSlots < 4) ||
+                    (!detailedMode && HaveBorbDLC && activeSlots < 4) ||
+                    (detailedMode && HaveBorbDLC && activeSlots < 6)) {
                         ; If slots inactive, its ready to start,
                         ; use its y to align clicks
-                        fCustomClick(WinRelPosLargeW(1600), SlotY, 101)
                         ; Click team slot 1
+                        fCustomClick(WinRelPosLargeW(1600), SlotY, 101)
                         Sleep(72)
-                        fCustomClick(WinRelPosLargeW(1717), SlotY, 101)
+                        if (IsButtonActive(WinRelPosLargeW(1595), SlotY)) {
+                            fCustomClick(WinRelPosLargeW(1600), SlotY, 101)
+                        }
                         ; Click team slot 2
+                        fCustomClick(WinRelPosLargeW(1717), SlotY, 101)
                         Sleep(72)
-                        fCustomClick(WinRelPosLargeW(1911), SlotY, 101)
+                        if (IsButtonActive(WinRelPosLargeW(1715), SlotY)) {
+                            fCustomClick(WinRelPosLargeW(1717), SlotY, 101)
+                            Sleep(17)
+                        }
                         ; Click Start
+                        fCustomClick(WinRelPosLargeW(1911), SlotY, 101)
                         Sleep(72)
                 }
         }
     }
-    if (activeSlots >= 1) {
-        ToolTip("Found " . activeSlots . " active slots", W / 2, H / 2)
-    } else {
-        ToolTip()
-    }
-    if (!HaveBorbDLC and activeSlots < 2) {
-        ; If we have not filled all available slots refresh
-        RefreshTrades()
-        Sleep(34)
-    }
-    if (HaveBorbDLC and activeSlots < 4) {
-        RefreshTrades()
-        Sleep(34)
+
+    ToolTip("Found " . activeSlots . " active slots`n"
+        "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows " 
+        arrowCount,
+        W / 2 - WinRelPosLargeW(50), H / 5, 1)
+
+    if ((!detailedMode && !HaveBorbDLC && activeSlots < 2) ||
+        (detailedMode && !HaveBorbDLC && activeSlots < 4) ||
+        (!detailedMode && HaveBorbDLC && activeSlots < 4) ||
+        (detailedMode && HaveBorbDLC && activeSlots < 6)) {
+            ; If we have not filled all available slots refresh
+            RefreshTrades()
+            Sleep(34)
     }
 }
 
@@ -132,6 +182,14 @@ BVGetFinishButtonLocation() {
     return false
 }
 
+/**
+ * Looks for user selected colour in designated box and returns height
+ * @param X1 
+ * @param Y1 
+ * @param X2 
+ * @param Y2 
+ * @returns {number} 0 if nothing, Y if found, nonrel coord
+ */
 BVScanSlotItem(X1, Y1, X2, Y2) {
     global BVItemsArr
 
@@ -142,22 +200,6 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
     ; This is the check for the items colours, if you want to scan
     ; for something else. Change this colour to something unique to that
     ; type, or add more checks if you want several.
-    ; "0xF91FF6" Borb ascention juice (purple default)
-    ; "0x70F928" Borb juice (green)
-    ; "0x0F2A1D" Nature time sphere
-    ; "0x55B409" Borb rune (green)
-    ; "0x018C9C" Magic mulch
-    ; "0x01D814" Nature gem
-    ; "0xAB5A53" Random item box (all types)
-    ; "0x98125F" Borb rune (purple)
-    ; "0xC1C1C1" Candy
-    ; "0x6CD820" Both clovers (uses same colours)
-    ; "0x6BEA15" Borb token
-    ; "0xCEF587" Free borb token
-    ; "0xC9C9C9" Dice Points (white)
-    ; "0x0E44BE" Power Dice Points (blue)
-
-    ; Please use config.ahk now to control this
 
     try {
         for colour in BVItemsArr {
