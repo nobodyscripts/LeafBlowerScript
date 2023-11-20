@@ -11,9 +11,9 @@ F2: Reloads the script, deactivating anything that is active but keeping it
 loaded
 
 F3: Open/Buy card packs - Opens/buys card screen for you. Customize the amount
-to open/buy in the config.ahk file, 2500 default. May leave the ctrl/alt/shift
-keys pressed when canceling, just press them to update their state if you notice
-anything weird.
+to open/buy in the UserSettings.ini file, 2500 default. May leave the
+ctrl/alt/shift keys pressed when canceling, just press them to update their
+state if you notice anything weird.
 
 F4: Gem suitcase farming - Will do prep for you and reset afterwards, keep an
 eye on it for a minute incase it has missed anything and is running smoothly.
@@ -27,17 +27,18 @@ floor. Does equip a tower gear equipment loadout, sets back to default loadout
 after exiting with F5.
 
 F6: Borbventure farming - Defaults to farming purple juice, nature gems and
-white dices (configure in config.ahk). Set if you own the borb dlc otherwise it
-will ignore the first two slots being unfilled. Doesn't scroll so there may be
-some pauses. Scrolling will interupt, requires to be at the top of the panel.
+white dices (configure in UserSettings.ini). Set if you own the borb dlc
+otherwise it will ignore the first two slots being unfilled. Doesn't scroll so
+there may be some pauses. Scrolling will interupt, requires to be at the top of
+the panel.
 
 F7: Claw machine pumpkin farmer - Tries to identify the pumpkin and use the
 hook to grab it, will miss some due to other items and sometimes doesn't grab
 things on the first pass.
 
 F8: Green Flame/SoulSeeker farmer - Set how many of each to kill in the
-config.ahk, will cycle and use violins to farm that amount as well as resetting
-SoulSeeker.
+UserSettings.ini, will cycle and use violins to farm that amount as well as
+resetting SoulSeeker.
 
 F9: Normal boss farmer - Doesn't select a zone, sit in the area you want to farm
 and it'll spam violins when the timers up. If kill numbers look off see settings
@@ -47,7 +48,7 @@ spams Artifacts, Equipment, Materials and Card parts (no scrolls). Violin spam
 rate is reduced due to the extra actions.  
 F9x3 (three times): Boss farm + borbventures  
 F9x4 (four times): Boss farm + card opening - Will continue when done opening
-cards, can disable this in the config.ahk if concerned about using cards
+cards, can disable this in the UserSettings.ini if concerned about using cards
 unintentionally  
 F9x5 (five times): Toggles off (though you can just F2 early if you prefer)
 
@@ -67,6 +68,10 @@ Insert: Quark boss farmer - Spams violins when on cd, wind when not, has an
 option in config to return to one of the three bosses on death (with 10s wait).
 Takes you to the same boss when run. Equips a loadout for nuclear fuel, resets
 to default loadout when canceled.
+
+Home: WW mode - Set the bosses you would like to farm and then this script will
+keep the ss reset screen loaded while you farm and reset when it can. Will abort
+when you die, so is not very useful, prefer F8 for GF/SS and F9 for WW
 
 ## Notes
 
@@ -127,8 +132,18 @@ Converted config.ahk into UserSettings.ini, will write a default version if not
 found, otherwise works the same way. Should make updates less painful if config
 changes take place.  
 Moved the comments to help with settings to UserSettingsHelp.md  
-Removed Config.ahk  
+Removed config.ahk  
 Hotkeys remain in Hotkeys.ahk for the moment  
+
+New WW mode will hit SS and let you die and doesn't reset, its honestly bad but
+proves peoples idea of 'just auto reset ss' doesn't work without changes.
+
+Borbventures can be better farmed with details mode off, other new settings are
+ignored. So set auto start off. Auto finish is fine to leave on. Ignores chance
+of success.
+
+Cards ignores new multipliers, set manually before or during if required.
+
 Adjusted the window title searched for, to stop script running if in lbr discord  
 Logging now checks for previous log being written to reduce chance of clash  
 Fixed afk mode issue with transparent panel check
@@ -179,38 +194,42 @@ Move keybinds to UserSettings.ini
 Trade farming for non gems/non suitcase version  
 Brew + cards rotation mode  
 Halloween + Nature artifact secondary which pauses main functions  
-F3 - Handle new multipliers, decreasing amounts, priorities. Will probably need
-to read save file, get caps, work out how much to open to avoid breaking auto
-transcend limits, then ocr the buttons and openall the right amount.  
-F6 If item is not a valid target, or has buttons which are valid buttons (not
-   used) cancel borbv  
-F6 If white pixels in area next to normal text display, cancel borbv as
-   inventory is blocked  
-F6 Handle new detail mode, auto start, auto finish, chance, finish all  
-F6 As we know the arrows are static, scan, cache, recheck with pixelchecks  
-F7 Autoplay check  
-F7 Needs to use artifact if need be / get replacement  
-F8 Move violin to secondary, spam during non boss timer after farming starts  
-F10 Needs to use artifact if need be / get replacement  
-
 Adjust window resize based on delta from intended size, for non matching window
    dressing
 
+F3: Handle new multipliers, decreasing amounts, priorities. Will probably need
+to read save file, get caps, work out how much to open to avoid breaking auto
+transcend limits, then ocr the buttons and openall the right amount.  
+F6: If item is not a valid target cancel borbv  
+F6: If white pixels in area next to normal text display, cancel borbv as
+   inventory is blocked  
+F6: Handle new detail mode, auto start, auto finish, chance, finish all  
+F6: As we know the arrows are static, scan, cache, recheck with pixelchecks  
+F7: Autoplay check  
+F7: Needs to use artifact if need be / get replacement  
+F8: Move violin to secondary, spam during non boss timer after farming starts  
+F10: Needs to use artifact if need be / get replacement  
+
 ## Known issues
 
-F3 If exited early, may toggle notifications to incorrect state
-   If it looks like the buttons are going wild, its because its checking each
+Some keys don't 'untoggle' properly when the scripts exit due to failures.
+F3: If exited early, may toggle notifications to incorrect state
+F3: If it looks like the buttons are going wild, its because its checking each
    button with its own modifiers to see if each one is available (intended)
-   Can still get ctrl/alt/shift stuck on (just press them to unstick)  
-F4 If exited early, may toggle notifications/auto refresh/details to incorrect
+F3: Can still get ctrl/alt/shift stuck on (just press them to unstick)  
+F3: Ignores new multipliers, you can manually set them before or during.
+F4: If exited early, may toggle notifications/auto refresh/details to incorrect
    state.  
-   Can sometimes miss bearo, if you see trade start buttons appearing, retry  
-   Due to nature event pet slot if nature event artifact runs out bearo may not
+F4: Can sometimes miss bearo, if you see trade start buttons appearing, retry  
+F4: Due to nature event pet slot if nature event artifact runs out bearo may not
    reapply after use  
-F6 Incorrect items can be started if manually refreshed while it scans  
-F7 Will intentionally grab gems if no pumpkins are found  
-   Will go for pumpkins that are blocked by other items, its going for the
+F6: Incorrect items can be started if manually refreshed while it scans  
+F6: Auto start blocks script from doing its job so make sure its off when using.  
+F7: Will intentionally grab gems if no pumpkins are found  
+F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
-F9 Albs can register as boss timer (kills due to white on the tools)  
-   When killed the transparent panel check may reoccur but without a panel
+F9: Albs can register as boss timer (kills due to white on the tools)  
+F9: When killed the transparent panel check may reoccur but without a panel
    loaded, so fails
+Home: WW being unpredictable you will occationally go to SS or GF when unable to
+   defeat boss and be sent to Home Garden, script will then exit. Use F8/F9.
