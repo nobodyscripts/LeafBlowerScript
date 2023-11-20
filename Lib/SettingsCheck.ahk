@@ -136,7 +136,8 @@ IsPanelActive() {
 IsPanelTransparent() {
     try {
         targetColour := PixelGetColor(WinRelPosW(1090), WinRelPosH(107))
-        If (targetColour = "0x97714A") {
+        ; If its afk mode return as well, let afk handle
+        If (targetColour = "0x97714A" || targetColour = "0x6A4F34") {
             ; Found panel background colour
             return false
         }

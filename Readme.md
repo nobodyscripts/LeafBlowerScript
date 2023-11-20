@@ -131,6 +131,7 @@ Removed Config.ahk
 Hotkeys remain in Hotkeys.ahk for the moment  
 Adjusted the window title searched for, to stop script running if in lbr discord  
 Logging now checks for previous log being written to reduce chance of clash
+Fixed afk mode issue with transparent panel check
 
 F3: Fixed travel to card packs button new location  
 F3: Updated the open button locations

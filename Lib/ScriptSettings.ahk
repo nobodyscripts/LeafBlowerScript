@@ -3,7 +3,7 @@
 ; ------------------- Settings -------------------
 ; Loads UserSettings.ini values for the rest of the script to use
 
-global EnableLogging, HaveBorbDLC
+global EnableLogging := false
 global CardsCommonAmount, CardsRareAmount, CardsLegendaryAmount
 global CardsDontOpenCommons, CardsDontOpenRare, CardsDontOpenLegendary
 global CardsSleepAmount, CardsBuyEnabled, CardsBuyStyle
@@ -14,12 +14,13 @@ global CardsBossFarmEnabled
 global GFSSFarmUseGrav, GFSSFarmUseWind, GFToKillPerCycle, SSToKillPerCycle
 global GemFarmSleepAmount
 global ClawCheckSizeOffset
-global BVItemsArr
+global BVItemsArr, HaveBorbDLC
 global QuarkFarmResetToBoss
 global NavigateTime
 global DisableZoneChecks, DisableSettingsChecks
 global ArtifactSleepAmount
 global F9UsesWind, F9UsesWobblyWings, WobblyWingsSleepAmount
+
 
 class cSettings {
     sFilename := A_ScriptDir "\UserSettings.ini"
