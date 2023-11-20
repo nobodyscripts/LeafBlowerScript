@@ -18,8 +18,7 @@ fFarmWWBoss() {
         }
         ToolTip("WW Boss Mode",
             W / 2 - WinRelPosLargeW(100),
-            H / 2 - WinRelPosLargeH(50), 5)
-        SetTimer(ToolTip, -500)
+            H / 2 - WinRelPosLargeH(50), 1)
         TimerCurrentState := IsBossTimerActive()
         ; if state of timer has changed and is now off, we killed
         if (TimerLastCheckStatus != TimerCurrentState &&
@@ -31,8 +30,8 @@ fFarmWWBoss() {
         if (IsAreaResetToGarden()) {
             Log("WWFarm: User killed.")
             ToolTip("Killed by boss", W / 2, H / 2 +
-                WinRelPosLargeH(50))
-            SetTimer(ToolTip, -5000)
+                WinRelPosLargeH(50), 2)
+            SetTimer(ToolTip.Bind(, , , 2), -3000)
             break
         }
         if (IsButtonActive(WinRelPosW(412), WinRelPosH(244))) {
@@ -40,10 +39,11 @@ fFarmWWBoss() {
         }
         ToolTip("WW Kills: " . Killcount,
             W / 2 - WinRelPosLargeW(75),
-            H / 2 + WinRelPosLargeH(20))
-        SetTimer(ToolTip, -200)
+            H / 2 + WinRelPosLargeH(20), 3)
         TimerLastCheckStatus := TimerCurrentState
     }
+    SetTimer(ToolTip.Bind(, , , 1), -1)
+    SetTimer(ToolTip.Bind(, , , 3), -1)
     KillWWSpammer()
 }
 
@@ -52,7 +52,7 @@ SpamWWArtifacts() {
     if (IsWindowActive() && IsBossTimerActive()) {
         Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\WWBoss.ahk"',
             , , &OutPid)
-            WWSpammerPID := OutPid
+        WWSpammerPID := OutPid
     }
 }
 
