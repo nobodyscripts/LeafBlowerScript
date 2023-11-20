@@ -379,12 +379,13 @@ IsScrollAblePanelAtTop() {
  */
 Log(logmessage, logfile := ScriptsLogFile) {
     static isWritingToLog := false
+    message := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - ' logmessage '`r`n'
+    OutputDebug(message)
     if (!EnableLogging) {
         return
     }
     k := 0
     try {
-        message := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - ' logmessage '`r`n'
         while (k <= 10) {
             if (isWritingToLog) {
                 Sleep(6)
@@ -393,21 +394,17 @@ Log(logmessage, logfile := ScriptsLogFile) {
             if (!isWritingToLog) {
                 isWritingToLog := true
                 FileAppend(message, logfile)
-                if (Debug) {
-                    OutputDebug(message)
-                }
                 Sleep(5)
                 isWritingToLog := false
                 return
             }
         }
-        OutputDebug("Could not log message after 10 attempts`r`n" message)
+        OutputDebug("Could not log message after 10 attempts`r`n" message "`r`n")
     } catch as exc {
         OutputDebug("LogError: Error writing to log - " exc.Message "`r`n")
         ; MsgBox("Error writing to log:`n" exc.Message)
         Sleep(2)
-        FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
-            logmessage '`r`n', logfile)
+        FileAppend(message, logfile)
         Sleep(2)
         FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
             "LogError: Error writing to log - " exc.Message '`r`n', logfile)
