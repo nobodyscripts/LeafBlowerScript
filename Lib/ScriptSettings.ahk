@@ -108,9 +108,12 @@ class cSettings {
         if (!secondary) {
             if (FileExist(A_ScriptDir "\..\IsNobody")) {
                 this.sUseNobody := true
+                OutputDebug("Settings: Using Nobody Defaults")
                 Log("Settings: Using Nobody Defaults")
             }
             if (!FileExist(this.sFilename)) {
+                OutputDebug("No UserSettings.ini found, writing default file.")
+                Log("No UserSettings.ini found, writing default file.")
                 this.WriteDefaults()
             }
             if (this.loadSettings()) {
@@ -227,8 +230,7 @@ class cSettings {
             } else {
                 Log("Error 35: LoadSettings failed - " exc.Message)
             }
-            MsgBox("Loading settings failed, writing new default file. `n"
-                "Error was: " exc.Message)
+            MsgBox("Could not load settings, making new default UserSettings.ini")
             Log("Attempting to write a new default UserSettings.ini.")
             this.WriteDefaults()
             return false
