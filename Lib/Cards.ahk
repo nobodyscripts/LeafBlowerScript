@@ -224,7 +224,7 @@ CardBuyerRel(posx, posy, offset, amount) {
     posx := WinRelPosLargeW(posx)
     posy := WinRelPosLargeH(posy)
     offset := WinRelPosLargeH(offset)
-    
+
     if (Debug) {
         Log("Card Buy: at " posx "*" (posy + offset) " x " amount)
     }
@@ -266,23 +266,25 @@ CardButtonsActive() {
         WinRelPosLargeH(cardOpenLegButtonY))) {
             return true
     }
-    CardNumberToModifier(CardsCommonBuyAmount)
-    Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(cardBuyCommonButtonX),
-        WinRelPosLargeH(cardBuyCommonButtonY))) {
-            return true
-    }
-    CardNumberToModifier(CardsRareBuyAmount)
-    Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(cardBuyRareButtonX),
-        WinRelPosLargeH(cardBuyRareButtonY))) {
-            return true
-    }
-    CardNumberToModifier(CardsLegBuyAmount)
-    Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(cardBuyLegButtonX),
-        WinRelPosLargeH(cardBuyLegButtonY))) {
-            return true
+    if (CardsBuyEnabled) {
+        CardNumberToModifier(CardsCommonBuyAmount)
+        Sleep(72)
+        if (IsButtonActive(WinRelPosLargeW(cardBuyCommonButtonX),
+            WinRelPosLargeH(cardBuyCommonButtonY))) {
+                return true
+        }
+        CardNumberToModifier(CardsRareBuyAmount)
+        Sleep(72)
+        if (IsButtonActive(WinRelPosLargeW(cardBuyRareButtonX),
+            WinRelPosLargeH(cardBuyRareButtonY))) {
+                return true
+        }
+        CardNumberToModifier(CardsLegBuyAmount)
+        Sleep(72)
+        if (IsButtonActive(WinRelPosLargeW(cardBuyLegButtonX),
+            WinRelPosLargeH(cardBuyLegButtonY))) {
+                return true
+        }
     }
     return false
 }

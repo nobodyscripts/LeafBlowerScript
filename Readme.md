@@ -135,6 +135,7 @@ Fixed afk mode issue with transparent panel check
 
 F3: Fixed travel to card packs button new location  
 F3: Updated the open button locations
+F3: Fix perma loop if buying is disabled
 
 F6: Borbventures now checks each slot based on the arrow, allowing for detailed
     mode on or off.
