@@ -126,23 +126,23 @@ BVMainLoop() {
                         ; If slots inactive, its ready to start,
                         ; use its y to align clicks
                         ; Click team slot 1
-                        fCustomClick(WinRelPosLargeW(1600), SlotY, 34)
-                        Sleep(101)
+                        fCustomClick(WinRelPosLargeW(1600), SlotY, 72)
+                        Sleep(150)
                         a := 0
                         b := 0
                         while (IsButtonActive(WinRelPosLargeW(1595), SlotY) &&
                             a < 2) {
-                                fCustomClick(WinRelPosLargeW(1600), SlotY, 34)
-                                Sleep(101)
+                                fCustomClick(WinRelPosLargeW(1600), SlotY, 72)
+                                Sleep(150)
                                 a++
                         }
                         ; Click team slot 2
-                        fCustomClick(WinRelPosLargeW(1717), SlotY, 34)
-                        Sleep(101)
+                        fCustomClick(WinRelPosLargeW(1717), SlotY, 72)
+                        Sleep(150)
                         while (IsButtonActive(WinRelPosLargeW(1715), SlotY) &&
                             b < 2) {
-                                fCustomClick(WinRelPosLargeW(1717), SlotY, 34)
-                                Sleep(101)
+                                fCustomClick(WinRelPosLargeW(1717), SlotY, 72)
+                                Sleep(150)
                                 b++
                         }
                         ; Click Start
