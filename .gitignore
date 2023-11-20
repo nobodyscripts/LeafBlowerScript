@@ -2,6 +2,8 @@
 IsNobody
 *.log
 *.Log
+LeafBlowerV3.Log
+Secondaries.Log
 UserSettings.ini
 *.zip
 

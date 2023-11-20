@@ -52,12 +52,15 @@ BVMainLoop() {
     ; relative to that position
     ; Arrows 83 from point to point, 31 tall
     SlotsYArray := []
-    arrows := LineGetColourInstancesOffsetV(1280, 275, 1073, "0x1989B8", 9)
+    arrows := LineGetColourInstancesOffsetV(1280, 275, 1073, "0x1989B8", 10)
     arrowCount := 0
     for arrowY in arrows {
         if (arrowY) {
             arrowCount++
-            IsUsefulItem := BVScanSlotItem(1299, arrowY - 20, 1353, arrowY + 30)
+            IsUsefulItem := BVScanSlotItem(WinRelPosLargeW(1299),
+                arrowY - WinRelPosLargeH(20),
+                WinRelPosLargeW(1353),
+                arrowY + WinRelPosLargeH(30))
             if (IsUsefulItem) {
                 SlotsYArray.Push(IsUsefulItem)
                 if (Debug) {
@@ -71,10 +74,7 @@ BVMainLoop() {
     if (arrowCount >= 6) {
         detailedMode := true
     }
-    
-    ToolTip("Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows " 
-        arrowCount,
-        W / 2 - WinRelPosLargeW(50), H / 5, 1)
+
     ; Check for only if scroll is not at the top
     if (!detailedMode && !IsBVScrollAblePanelAtTop()) {
         BVResetScroll()
@@ -101,12 +101,6 @@ BVMainLoop() {
     ;BorbJuice first detect point is at X 1326
     /* SlotsYArray := [Slot4Y, Slot3Y, Slot2Y, Slot1Y] */
     activeSlots := 0
-
-    ToolTip("Found " . activeSlots . " active slots`n"
-        "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows " 
-        arrowCount,
-        W / 2 - WinRelPosLargeW(50), H / 5, 1)
-
     for SlotY in arrows {
         if (SlotY != 0 && IsBackground(WinRelPosLargeW(1855), SlotY) &&
             IsButtonActive(WinRelPosLargeW(2120), SlotY - WinRelPosLargeH(5))) {
@@ -116,47 +110,54 @@ BVMainLoop() {
         }
 
     }
-
-    ToolTip("Found " . activeSlots . " active slots`n"
-        "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows " 
-        arrowCount,
-        W / 2 - WinRelPosLargeW(50), H / 5, 1)
-
+    started := 0
     for SlotY in SlotsYArray {
         if (SlotY != 0 && IsWindowActive() &&
             IsButtonInactive(WinRelPosLargeW(1864), SlotY)) {
                 ; Don't try to start more if we're full even if another is
                 ; detected
-                if ((!detailedMode && !HaveBorbDLC && activeSlots < 2) ||
-                    (detailedMode && !HaveBorbDLC && activeSlots < 4) ||
-                    (!detailedMode && HaveBorbDLC && activeSlots < 4) ||
-                    (detailedMode && HaveBorbDLC && activeSlots < 6)) {
+                if ((!detailedMode && !HaveBorbDLC && activeSlots + started < 2) ||
+                    (detailedMode && !HaveBorbDLC && activeSlots + started < 4) ||
+                    (!detailedMode && HaveBorbDLC && activeSlots + started < 4) ||
+                    (detailedMode && HaveBorbDLC && activeSlots + started < 6)) {
                         ; If slots inactive, its ready to start,
                         ; use its y to align clicks
                         ; Click team slot 1
-                        fCustomClick(WinRelPosLargeW(1600), SlotY, 101)
-                        Sleep(72)
-                        if (IsButtonActive(WinRelPosLargeW(1595), SlotY)) {
-                            fCustomClick(WinRelPosLargeW(1600), SlotY, 101)
+                        fCustomClick(WinRelPosLargeW(1600), SlotY, 34)
+                        Sleep(101)
+                        a := 0
+                        b := 0
+                        while (IsButtonActive(WinRelPosLargeW(1595), SlotY) &&
+                            a < 2) {
+                                fCustomClick(WinRelPosLargeW(1600), SlotY, 34)
+                                Sleep(101)
+                                a++
                         }
                         ; Click team slot 2
-                        fCustomClick(WinRelPosLargeW(1717), SlotY, 101)
-                        Sleep(72)
-                        if (IsButtonActive(WinRelPosLargeW(1715), SlotY)) {
-                            fCustomClick(WinRelPosLargeW(1717), SlotY, 101)
-                            Sleep(17)
+                        fCustomClick(WinRelPosLargeW(1717), SlotY, 34)
+                        Sleep(101)
+                        while (IsButtonActive(WinRelPosLargeW(1715), SlotY) &&
+                            b < 2) {
+                                fCustomClick(WinRelPosLargeW(1717), SlotY, 34)
+                                Sleep(101)
+                                b++
                         }
                         ; Click Start
                         fCustomClick(WinRelPosLargeW(1911), SlotY, 101)
                         Sleep(72)
+                        started++
                 }
         }
     }
-
-    ToolTip("Found " . activeSlots . " active slots`n"
-        "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows " 
-        arrowCount,
-        W / 2 - WinRelPosLargeW(50), H / 5, 1)
+    /*     if (Debug) {
+        ToolTip("Found " . activeSlots . " active slots`n"
+            "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows "
+            arrowCount,
+            W / 2.2, H / 6.5, 1)
+    } else { */
+    ToolTip("Found " . activeSlots . " active slots",
+        W / 2.2, H / 6.2, 1)
+    ;}
 
     if ((!detailedMode && !HaveBorbDLC && activeSlots < 2) ||
         (detailedMode && !HaveBorbDLC && activeSlots < 4) ||
@@ -184,13 +185,49 @@ BVGetFinishButtonLocation() {
 
 /**
  * Looks for user selected colour in designated box and returns height
- * @param X1 
- * @param Y1 
- * @param X2 
- * @param Y2 
+ * @param x1 Top left Coordinate
+ * @param y1 Top left Coordinate
+ * @param x2 Bottom Right Coordinate
+ * @param y2 Bottom Right Coordinate
  * @returns {number} 0 if nothing, Y if found, nonrel coord
  */
 BVScanSlotItem(X1, Y1, X2, Y2) {
+    global BVItemsArr
+
+    if (!BVItemsArr.Length) {
+        BVItemsArr := ["0xF91FF6"]
+        ; If no items selected default to purple juice
+    }
+    ; This is the check for the items colours, if you want to scan
+    ; for something else. Change this colour to something unique to that
+    ; type, or add more checks if you want several.
+
+    try {
+        for colour in BVItemsArr {
+            found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, colour, 0)
+            If (found and OutX != 0) {
+                ; Log("Borbv: Found " BVColourToItem(colour) " at " OutX
+                ;    " x " OutY)
+                return OutY ; Found item row
+            }
+        }
+    } catch as exc {
+        Log("Borbv: ScanSlotItem failed to scan - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
+            exc.Message)
+    }
+    return 0
+}
+
+/**
+ * Looks for user selected colour in designated box and returns height
+ * @param x1 Top left Coordinate (relative 1440)
+ * @param y1 Top left Coordinate (relative 1440)
+ * @param x2 Bottom Right Coordinate (relative 1440)
+ * @param y2 Bottom Right Coordinate (relative 1440)
+ * @returns {number} 0 if nothing, Y if found, nonrel coord
+ */
+BVScanSlotItemRel(X1, Y1, X2, Y2) {
     global BVItemsArr
 
     if (!BVItemsArr.Length) {
@@ -214,13 +251,12 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
             }
         }
     } catch as exc {
-        Log("Borbv: ScanSlotItem failed to scan - " exc.Message)
+        Log("Borbv: ScanSlotItemRel failed to scan - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
     return 0
 }
-
 BVColourToItem(colour) {
     switch colour {
         case "0xF91FF6": return "Borb ascention juice (purple default)"

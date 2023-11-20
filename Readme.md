@@ -1,6 +1,6 @@
-# Resolution independent scripts v3 build 10
+# LBR Resolution independent scripts V3.0.10
 
-Autohotkey V2 script, install v2 of autohotkey and run the LeafBlowerV3.ahk
+Autohotkey V2 script, install V2 of autohotkey and run the LeafBlowerV3.ahk
 file to load. Edit the ahk files with a text editor to configure.
 
 Same key toggles the feature off, if this toggle fails, F1 or F2 to abort.
@@ -137,7 +137,10 @@ F3: Updated the open button locations
 
 F6: Borbventures now checks each slot based on the arrow, allowing for detailed
     mode on or off.
-F6: Fixed the constant refreshing issues in detailed off mode.
+F6: Fixed the constant refreshing issues in detailed off mode.  
+F6: Rechecks party buttons to avoid single borb starts  
+F6: No longer attempts to start borbventures when already full before next
+    refresh
 
 F9: Fixed the callback error in NormalBoss.ahk
 F9: Removed perma loop disable on cards mode
@@ -154,10 +157,7 @@ Home: Added WW farm, goes to ss reset page and clicks the ss reset while
 
 F3 - Handle new multipliers, decreasing amounts, priorities. Will probably need
 to read save file, get caps, work out how much to open to avoid breaking auto
-transcend limits, then ocr the buttons and openall the right amount. Permaloop is broken
-
-F6 - Need to handle auto start, finish all, auto finish, min chance, need to
-handle non intended items due to auto start
+transcend limits, then ocr the buttons and openall the right amount.
 
 F9 - Cards and borb modes have same issues
 
@@ -184,13 +184,12 @@ Trade farming for non gems/non suitcase version
 Brew + cards rotation mode  
 Halloween + Nature artifact secondary which pauses main functions  
 F5 Check if boosters available before traveling and equipping  
-F6 Recheck item icon when trying to start, also recheck party buttons have
-   changed to avoid single borb starts  
 F6 If item is not a valid target, or has buttons which are valid buttons (not
    used) cancel borbv  
 F6 If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
-F6 Handle new detail mode, auto start, auto finish  
+F6 Handle new detail mode, auto start, auto finish, chance, finish all  
+F6 As we know the arrows are static, scan, cache, recheck with pixelchecks
 F7 Autoplay check  
 F7 Needs to use artifact if need be / get replacement  
 F8 Move violin to secondary, spam during non boss timer after farming starts  
@@ -208,9 +207,9 @@ F3 If exited early, may toggle notifications to incorrect state
 F4 If exited early, may toggle notifications/auto refresh/details to incorrect
    state
    Can sometimes miss bearo, if you see trade start buttons appearing, retry  
+   Due to nature event pet slot if nature event artifact runs out bearo may not
+   reapply after use  
 F6 Incorrect items can be started if manually refreshed while it scans
-   Incorrect items can block a slot if you have no inventory space, this can
-   also throw off the slots alignment and detection  
 F7 Will intentionally grab gems if no pumpkins are found
    Will go for pumpkins that are blocked by other items, its going for the
    highest one  

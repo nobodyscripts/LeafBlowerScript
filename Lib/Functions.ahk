@@ -306,7 +306,7 @@ LineGetColourInstances(x1, y1, x2, y2) {
 LineGetColourInstancesOffsetV(x, y1, y2, colour, splitCount := 20) {
     splitSize := (y2 - y1) / splitCount
     splitCur := 0
-    foundArr := [splitCount]
+    foundArr := []
     found := 0
     ; Because checking every pixel takes 7 seconds, lets split up the line
     ; use pixelsearch and try to find a balance where we don't get overlap
