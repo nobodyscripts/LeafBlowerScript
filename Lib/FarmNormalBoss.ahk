@@ -76,14 +76,13 @@ fFarmNormalBossAndBrew(modecheck) {
         if (IsAreaResetToGarden()) {
             Log("BossBrew: User killed. Aborted.")
             ToolTip("Killed by boss, exiting", W / 2, H / 2 +
-                WinRelPosLargeH(50))
-            SetTimer(ToolTip, -5000)
+                WinRelPosLargeH(50), 2)
+            SetTimer(ToolTip.Bind(, , , 2), -5000)
             break
         }
         ToolTip("Brewing on, Kills: " . Killcount,
             W / 2 - WinRelPosLargeW(150),
             H / 2)
-        SetTimer(ToolTip, -200)
         TimerLastCheckStatus := TimerCurrentState
     }
 }

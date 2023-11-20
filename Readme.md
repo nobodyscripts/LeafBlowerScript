@@ -130,27 +130,28 @@ Moved the comments to help with settings to UserSettingsHelp.md
 Removed Config.ahk  
 Hotkeys remain in Hotkeys.ahk for the moment  
 Adjusted the window title searched for, to stop script running if in lbr discord  
-Logging now checks for previous log being written to reduce chance of clash
+Logging now checks for previous log being written to reduce chance of clash  
 Fixed afk mode issue with transparent panel check
 
 F3: Fixed travel to card packs button new location  
-F3: Updated the open button locations
+F3: Updated the open button locations  
 F3: Fix perma loop if buying is disabled
 
 F5: Added check before traveling to see if there are boosts to use
 
 F6: Borbventures now checks each slot based on the arrow, allowing for detailed
-    mode on or off.
+    mode on or off.  
 F6: Fixed the constant refreshing issues in detailed off mode.  
 F6: Rechecks party buttons to avoid single borb starts  
 F6: No longer attempts to start borbventures when already full before next
     refresh
 
-F9: Fixed the callback error in NormalBoss.ahk
-F9: Removed perma loop disable on cards mode
-F9: Fixed secondaries usage of the settings folder
-F9: Checks for arrows in borbventure not existing when swap to cards
-F9: Forced use of wind and grav when in gf or ss zone
+F9: Fixed the callback error in NormalBoss.ahk  
+F9: Removed perma loop disable on cards mode  
+F9: Fixed secondaries usage of the settings folder  
+F9: Checks for arrows in borbventure not existing when swap to cards  
+F9: Forced use of wind and grav when in gf or ss zone  
+F9: Brew: Fix flickering tooltip  
 
 F10: Fixed initial traveling looping with nature event inactive
 
@@ -176,22 +177,20 @@ Move keybinds to UserSettings.ini
 Trade farming for non gems/non suitcase version  
 Brew + cards rotation mode  
 Halloween + Nature artifact secondary which pauses main functions  
-F3 - Handle new multipliers, decreasing amounts, priorities. Will probably need  
-to read save file, get caps, work out how much to open to avoid breaking auto  
+F3 - Handle new multipliers, decreasing amounts, priorities. Will probably need
+to read save file, get caps, work out how much to open to avoid breaking auto
 transcend limits, then ocr the buttons and openall the right amount.  
-F5 Check if boosters available before traveling and equipping  
 F6 If item is not a valid target, or has buttons which are valid buttons (not
    used) cancel borbv  
 F6 If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
 F6 Handle new detail mode, auto start, auto finish, chance, finish all  
-F6 As we know the arrows are static, scan, cache, recheck with pixelchecks
+F6 As we know the arrows are static, scan, cache, recheck with pixelchecks  
 F7 Autoplay check  
 F7 Needs to use artifact if need be / get replacement  
 F8 Move violin to secondary, spam during non boss timer after farming starts  
-F9 Brew: Fix flickering tooltip  
 F10 Needs to use artifact if need be / get replacement  
-Insert - While on home garden, no travel enabled, repeated log errors, is not  
+Insert - While on home garden, no travel enabled, repeated log errors, is not
 exiting when dead, travel enabled works  
 Adjust window resize based on delta from intended size, for non matching window
    dressing
@@ -203,14 +202,14 @@ F3 If exited early, may toggle notifications to incorrect state
    button with its own modifiers to see if each one is available (intended)
    Can still get ctrl/alt/shift stuck on (just press them to unstick)  
 F4 If exited early, may toggle notifications/auto refresh/details to incorrect
-   state
+   state.  
    Can sometimes miss bearo, if you see trade start buttons appearing, retry  
    Due to nature event pet slot if nature event artifact runs out bearo may not
    reapply after use  
-F6 Incorrect items can be started if manually refreshed while it scans
-F7 Will intentionally grab gems if no pumpkins are found
+F6 Incorrect items can be started if manually refreshed while it scans  
+F7 Will intentionally grab gems if no pumpkins are found  
    Will go for pumpkins that are blocked by other items, its going for the
    highest one  
-F9 Albs can register as boss timer (kills due to white on the tools)
+F9 Albs can register as boss timer (kills due to white on the tools)  
    When killed the transparent panel check may reoccur but without a panel
    loaded, so fails
