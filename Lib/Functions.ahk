@@ -388,24 +388,25 @@ Log(logmessage, logfile := ScriptsLogFile) {
     try {
         while (k <= 10) {
             if (isWritingToLog) {
-                Sleep(6)
+                Sleep(3)
                 k++
             }
             if (!isWritingToLog) {
                 isWritingToLog := true
+                Sleep(1)
                 FileAppend(message, logfile)
-                Sleep(5)
+                Sleep(1)
                 isWritingToLog := false
                 return
             }
         }
-        OutputDebug("Could not log message after 10 attempts`r`n" message "`r`n")
+        OutputDebug("Could not log message after 10 attempts - " message)
     } catch as exc {
         OutputDebug("LogError: Error writing to log - " exc.Message "`r`n")
         ; MsgBox("Error writing to log:`n" exc.Message)
-        Sleep(2)
+        Sleep(1)
         FileAppend(message, logfile)
-        Sleep(2)
+        Sleep(1)
         FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
             "LogError: Error writing to log - " exc.Message '`r`n', logfile)
     }
