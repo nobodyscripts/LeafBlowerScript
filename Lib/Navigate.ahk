@@ -337,6 +337,9 @@ GoToNatureBoss() {
             Sleep(NavigateTime)
             if (!IsBackground(WinRelPosW(875), WinRelPosH(470))) {
                 fSlowClick(875, 470, NavigateTime) ; Open nature boss area
+            } else {
+                Log("Nature event inactive, no button found.")
+                return false
             }
             Sleep(NavigateTime)
             i++
@@ -351,6 +354,9 @@ GoToNatureBoss() {
         Sleep(NavigateTime + 200)
         if (!IsBackground(WinRelPosW(875), WinRelPosH(470))) {
             fSlowClick(875, 470, NavigateTime + 200) ; Open nature boss area
+        } else {
+            Log("Nature event inactive, no button found.")
+            return false
         }
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {

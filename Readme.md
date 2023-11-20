@@ -148,6 +148,8 @@ F9: Fixed secondaries usage of the settings folder
 F9: Checks for arrows in borbventure not existing when swap to cards
 F9: Forced use of wind and grav when in gf or ss zone
 
+F10: Fixed initial traveling looping with nature event inactive
+
 Home: Added WW farm, goes to ss reset page and clicks the ss reset while
       spamming wings, wind, gravity and ww as appropriate. Uses same
       WobblyWingsSleepAmount value to configure. No loadout set.
@@ -155,21 +157,6 @@ Home: Added WW farm, goes to ss reset page and clicks the ss reset while
       Only resets at 1 SS kill. So if you want more, use F8/F9 and swap between.
 
 ## TODO
-
-### Since Update
-
-F3 - Handle new multipliers, decreasing amounts, priorities. Will probably need
-to read save file, get caps, work out how much to open to avoid breaking auto
-transcend limits, then ocr the buttons and openall the right amount.
-
-F9 - Cards and borb modes have same issues
-
-F10 - Initial traveling looping with nature event inactive
-
-F12 - Passes with normal settings
-
-Insert - While on home garden, no travel enabled, repeated log errors, is not
-exiting when dead, travel enabled works
 
 ### Longterm
 
@@ -182,10 +169,12 @@ Check for alb
 Investigate fullscreen (it breaks fullscreen)  
 Investigate a gui to replace function keys  
 Move keybinds to UserSettings.ini  
-Buying x amount of cards to openall specific amounts  
 Trade farming for non gems/non suitcase version  
 Brew + cards rotation mode  
 Halloween + Nature artifact secondary which pauses main functions  
+F3 - Handle new multipliers, decreasing amounts, priorities. Will probably need  
+to read save file, get caps, work out how much to open to avoid breaking auto  
+transcend limits, then ocr the buttons and openall the right amount.  
 F5 Check if boosters available before traveling and equipping  
 F6 If item is not a valid target, or has buttons which are valid buttons (not
    used) cancel borbv  
@@ -198,6 +187,8 @@ F7 Needs to use artifact if need be / get replacement
 F8 Move violin to secondary, spam during non boss timer after farming starts  
 F9 Brew: Fix flickering tooltip  
 F10 Needs to use artifact if need be / get replacement  
+Insert - While on home garden, no travel enabled, repeated log errors, is not  
+exiting when dead, travel enabled works  
 Adjust window resize based on delta from intended size, for non matching window
    dressing
 
