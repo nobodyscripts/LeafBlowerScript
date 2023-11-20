@@ -34,7 +34,6 @@ fFarmNormalBossQuark() {
         ToolTip("Quark Boss Mode",
             W / 2 - WinRelPosLargeW(100),
             H / 2 - WinRelPosLargeH(50), 5)
-        SetTimer(ToolTip, -500)
         TimerCurrentState := IsBossTimerActive()
         ; if state of timer has changed and is now off, we killed
         if (TimerLastCheckStatus != TimerCurrentState &&
@@ -54,9 +53,9 @@ fFarmNormalBossQuark() {
         ; If user set gf kills too high it'll hit this
         if (IsAreaResetToGarden()) {
             Log("BossQuark: User killed.")
-            ToolTip("Killed by boss", W / 2, H / 2 +
-                WinRelPosLargeH(50))
-            SetTimer(ToolTip, -5000)
+            ToolTip("Killed by boss", W / 2 - WinRelPosLargeW(70), H / 2 +
+                WinRelPosLargeH(50), 6)
+            SetTimer(ToolTip.Bind(, , , 6), -3000)
             switch QuarkFarmResetToBoss {
                 case 1:
                     Sleep(10000)
@@ -74,15 +73,19 @@ fFarmNormalBossQuark() {
                     Sleep(150)
                     ClosePanel()
                 default:
-
+                    ToolTip("Exiting quark mode.", W / 2 - WinRelPosLargeW(100),
+                        H / 1.7, 7)
+                    SetTimer(ToolTip.Bind(, , , 7), -3000)
+                    break
             }
         }
         ToolTip("Quark Kills: " . Killcount,
             W / 2 - WinRelPosLargeW(75),
-            H / 2 + WinRelPosLargeH(20))
-        SetTimer(ToolTip, -200)
+            H / 2 + WinRelPosLargeH(20), 8)
         TimerLastCheckStatus := TimerCurrentState
     }
+    SetTimer(ToolTip.Bind(, , , 5), -1)
+    SetTimer(ToolTip.Bind(, , , 8), -1)
     Sleep(72)
     Log("QuarkFarm: Equipped Default Loadout")
     EquipDefaultGearLoadout()

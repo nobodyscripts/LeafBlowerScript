@@ -43,14 +43,17 @@ fNormalBoss() {
             TriggerViolin()
             Sleep(ArtifactSleepAmount)
         }
-        if (F9UsesWind && IsWindowActive() && !IsBossTimerActive()) {
-            TriggerWind()
-            Sleep(ArtifactSleepAmount)
-        }
-        if (IsAreaGFOrSS() && IsWindowActive() && !IsBossTimerActive()) {
-            TriggerGravity()
-            TriggerWind()
-            Sleep(ArtifactSleepAmount)
+        if (IsWindowActive() && !IsBossTimerActive()) {
+            if (IsAreaGFOrSS()) {
+                TriggerGravity()
+                TriggerWind()
+                Sleep(ArtifactSleepAmount)
+            } else {
+                if (F9UsesWind) {
+                    TriggerWind()
+                    Sleep(ArtifactSleepAmount)
+                }
+            }
         }
     }
 }

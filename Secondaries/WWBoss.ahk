@@ -24,7 +24,7 @@ InitGameWindow()
 fWWBoss()
 
 fWWBoss() {
-    if (F9UsesWobblyWings && IsWindowActive() && IsBossTimerActive()) {
+    if (IsWindowActive() && IsBossTimerActive()) {
         SetTimer(UseWings2, WobblyWingsSleepAmount)
         ; Use it once to avoid getting stuck
         TriggerWobblyWings()
@@ -44,13 +44,17 @@ fWWBoss() {
             TriggerViolin()
             Sleep(ArtifactSleepAmount)
         }
-        if (F9UsesWind && IsWindowActive() && !IsBossTimerActive()) {
-            TriggerWind()
-            Sleep(ArtifactSleepAmount)
-        }
-        if (IsAreaGFOrSS()) {
-            TriggerGravity()
-            Sleep(ArtifactSleepAmount)
+        if (IsWindowActive() && !IsBossTimerActive()) {
+            if (IsAreaGFOrSS()) {
+                TriggerGravity()
+                TriggerWind()
+                Sleep(ArtifactSleepAmount)
+            } else {
+                if (F9UsesWind) {
+                    TriggerWind()
+                    Sleep(ArtifactSleepAmount)
+                }
+            }
         }
     }
 }

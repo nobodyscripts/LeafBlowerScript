@@ -155,15 +155,17 @@ F9: Brew: Fix flickering tooltip
 
 F10: Fixed initial traveling looping with nature event inactive
 
+Insert: Fixed not exiting loop on death with travel disabled  
+Insert: Cleaned up tooltips
+
 Home: Added WW farm, goes to ss reset page and clicks the ss reset while
       spamming wings, wind, gravity and ww as appropriate. Uses same
       WobblyWingsSleepAmount value to configure. No loadout set.
       Setup your ww to include gf and ss + any other bosses you want beforehand.
       Only resets at 1 SS kill. So if you want more, use F8/F9 and swap between.
+Home: Fixed issue with WW being disabled due to F9 setting
 
 ## TODO
-
-### Longterm
 
 Devoption: Window check, keybinds and active checks designed around dev,
    noreload. F12 Test mode, edit save file to incorrect settings and test each
@@ -190,8 +192,7 @@ F7 Autoplay check
 F7 Needs to use artifact if need be / get replacement  
 F8 Move violin to secondary, spam during non boss timer after farming starts  
 F10 Needs to use artifact if need be / get replacement  
-Insert - While on home garden, no travel enabled, repeated log errors, is not
-exiting when dead, travel enabled works  
+
 Adjust window resize based on delta from intended size, for non matching window
    dressing
 
