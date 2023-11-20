@@ -4,6 +4,7 @@
 ; Loads UserSettings.ini values for the rest of the script to use
 
 global EnableLogging := false
+global Debug := false
 global CardsCommonAmount, CardsRareAmount, CardsLegendaryAmount
 global CardsDontOpenCommons, CardsDontOpenRare, CardsDontOpenLegendary
 global CardsSleepAmount, CardsBuyEnabled, CardsBuyStyle
@@ -58,7 +59,7 @@ class cSettings {
         NavigateTime: 101,
         DisableZoneChecks: "false",
         DisableSettingsChecks: "false",
-        ArtifactSleepAmount: 74,
+        ArtifactSleepAmount: 17,
         F9UsesWind: "true",
         F9UsesWobblyWings: "false",
         WobblyWingsSleepAmount: 750,
@@ -105,9 +106,11 @@ class cSettings {
     __Init() {     } */
 
     initSettings(secondary := false) {
+        global Debug
         if (!secondary) {
-            if (FileExist(A_ScriptDir "\..\IsNobody")) {
+            if (FileExist(A_ScriptDir "\IsNobody")) {
                 this.sUseNobody := true
+                Debug := true
                 OutputDebug("Settings: Using Nobody Defaults.`r`n")
                 Log("Settings: Using Nobody Defaults")
             }
@@ -248,6 +251,7 @@ class cSettings {
     }
 
     WriteDefaults() {
+        global Debug
         if (this.sUseNobody) {
             this.WriteToIni("EnableLogging", this.defaultNobodySettings.EnableLogging)
             this.WriteToIni("HaveBorbDLC", this.defaultNobodySettings.HaveBorbDLC)
@@ -322,7 +326,7 @@ class cSettings {
             this.WriteToIni("WobblyWingsSleepAmount", this.defaultSettings.WobblyWingsSleepAmount)
 
         }
-        this.WriteToIni("Debug", "false", "Debug")
+        this.WriteToIni("Debug", BinaryToStr(Debug), "Debug")
     }
 }
 
@@ -336,4 +340,11 @@ IniToVar(file, section, name) {
         default:
             return var
     }
+}
+
+BinaryToStr(var) {
+    if (var){
+        return "true"
+    }
+    return "false"
 }

@@ -25,7 +25,6 @@ Persistent()  ; Prevent the script from exiting automatically.
 OnExit(ExitFunc)
 
 global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
-global Debug := false
 global on9 := 0
 global HadToHideNotifsF9 := false
 global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
