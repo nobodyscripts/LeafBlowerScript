@@ -140,6 +140,7 @@ F6: Borbventures now checks each slot based on the arrow, allowing for detailed
 F6: Fixed the constant refreshing issues in detailed off mode.
 
 F9: Fixed the callback error in NormalBoss.ahk
+F9: Removed perma loop disable on cards mode
 
 Home: Added WW farm, goes to ss reset page and clicks the ss reset while
       spamming wings, wind, gravity and ww as appropriate. Uses same

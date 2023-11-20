@@ -215,7 +215,7 @@ fNormalBossFarmWithCards(modecheck) {
             fSlowClick(32, 596, 101)
             HadToHideNotifs := true
         }
-        if (!CardButtonsActive() && !CardsPermaLoop) {
+        if (!CardButtonsActive()) {
             Log("BossCards: Exiting.")
             return
         }
