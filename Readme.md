@@ -59,7 +59,7 @@ while it is running.
 F11: A 16.7ms autoclicker - Works outside the game too so be careful
 
 F12: Performs settings tests for render type, menu transparency, font size and
-font type. Then resizes the window to 1278*664 client area (on windows 11, may
+font type. Then resizes the window to 1278x664 client area (on windows 11, may
 need tweaking if not) This is intended to be optional, but you can use this if
 things break for you. And to test if settings are working. Does not currently
 test for smooth graphics, alb settings or dark dialog background.
@@ -70,7 +70,7 @@ Takes you to the same boss when run. Equips a loadout for nuclear fuel, resets
 to default loadout when canceled.
 
 Home: WW mode - Set the bosses you would like to farm and then this script will
-keep the ss reset screen loaded while you farm and reset when it can. Will abort
+keep the SS reset screen loaded while you farm and reset when it can. Will abort
 when you die, so is not very useful, prefer F8 for GF/SS and F9 for WW
 
 ## Notes
@@ -80,10 +80,10 @@ things are skipping. Increments of 17 should add another frame (at 60fps).
 Ingame Keybinds section below the script triggers can be adjusted either to
 what you use, or change them ingame to match.
 
-My window size (1440p snapped to corner) 1278*664 client size is what the
+My window size (1440p snapped to corner) 1278x664 client size is what the
 locations are based on, those are adapted to your window size, so set your
 window 'client' to this size for changes or if things don't work. For high
-accuracy situations I maximise the window to capture 2560*1369.
+accuracy situations I maximise the window to capture 2560x1369.
 
 All functions have protections to save you in cases of alt tabbing or pop up
 windows taking focus, and should cancel in such cases. Functions will try to
@@ -125,6 +125,10 @@ Hotkeys need to either be changed ingame or in script to match
 |   Display Blown Away Dialogs (OFF) (Gameplay tab)       |  Shouldn't matter, but might cause travel issues                                                                              |
 |                                                         |                                                                                                                               |
 |   Reset Scroll position on prestige (ON) (Gameplay tab) |  Unknown if this breaks scroll resetting. If you have issues traveling it maybe this                                          |
+|                                                         |                                                                                                                               |
+|   Borbventures auto start                               |  Currently not detected and breaks F6/F9 borb mode if on, manually toggle it off during use.                                  |
+|                                                         |                                                                                                                               |
+|   Claw auto start                                       |  Currently not detected and required for claw machine, manually toggle it on.                                                 |
 
 ## Changes
 
@@ -136,7 +140,7 @@ Removed config.ahk
 Hotkeys remain in Hotkeys.ahk for the moment  
 
 New WW mode will hit SS and let you die and doesn't reset, its honestly bad but
-proves peoples idea of 'just auto reset ss' doesn't work without changes.
+proves peoples idea of 'just auto reset SS' doesn't work without changes.
 
 Borbventures can be better farmed with details mode off, other new settings are
 ignored. So set auto start off. Auto finish is fine to leave on. Ignores chance
@@ -165,7 +169,7 @@ F9: Fixed the callback error in NormalBoss.ahk
 F9: Removed perma loop disable on cards mode  
 F9: Fixed secondaries usage of the settings folder  
 F9: Checks for arrows in borbventure not existing when swap to cards  
-F9: Forced use of wind and grav when in gf or ss zone  
+F9: Forced use of wind and grav when in GF or SS zone  
 F9: Brew: Fix flickering tooltip  
 
 F10: Fixed initial traveling looping with nature event inactive
@@ -173,11 +177,11 @@ F10: Fixed initial traveling looping with nature event inactive
 Insert: Fixed not exiting loop on death with travel disabled  
 Insert: Cleaned up tooltips
 
-Home: Added WW farm, goes to ss reset page and clicks the ss reset while
+Home: Added WW farm, goes to SS reset page and clicks the SS reset while
       spamming wings, wind, gravity and ww as appropriate. Uses same
       WobblyWingsSleepAmount value to configure. No loadout set.
-      Setup your ww to include gf and ss + any other bosses you want beforehand.
-      Only resets at 1 SS kill. So if you want more, use F8/F9 and swap between.
+      Setup your ww to include GF and SS + any other bosses you want beforehand.
+      Only resets at 1 SS kill. So if you want more, use F8/F9 and swap between.  
 Home: Fixed issue with WW being disabled due to F9 setting
 
 ## TODO
@@ -212,12 +216,12 @@ F10: Needs to use artifact if need be / get replacement
 
 ## Known issues
 
-Some keys don't 'untoggle' properly when the scripts exit due to failures.
-F3: If exited early, may toggle notifications to incorrect state
+Some keys don't 'untoggle' properly when the scripts exit due to failures.  
+F3: If exited early, may toggle notifications to incorrect state  
 F3: If it looks like the buttons are going wild, its because its checking each
-   button with its own modifiers to see if each one is available (intended)
+   button with its own modifiers to see if each one is available (intended)  
 F3: Can still get ctrl/alt/shift stuck on (just press them to unstick)  
-F3: Ignores new multipliers, you can manually set them before or during.
+F3: Ignores new multipliers, you can manually set them before or during.  
 F4: If exited early, may toggle notifications/auto refresh/details to incorrect
    state.  
 F4: Can sometimes miss bearo, if you see trade start buttons appearing, retry  
@@ -230,6 +234,6 @@ F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
 F9: Albs can register as boss timer (kills due to white on the tools)  
 F9: When killed the transparent panel check may reoccur but without a panel
-   loaded, so fails
+   loaded, so fails  
 Home: WW being unpredictable you will occationally go to SS or GF when unable to
    defeat boss and be sent to Home Garden, script will then exit. Use F8/F9.
