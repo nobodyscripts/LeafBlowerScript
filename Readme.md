@@ -137,6 +137,8 @@ F3: Fixed travel to card packs button new location
 F3: Updated the open button locations
 F3: Fix perma loop if buying is disabled
 
+F5: Added check before traveling to see if there are boosts to use
+
 F6: Borbventures now checks each slot based on the arrow, allowing for detailed
     mode on or off.
 F6: Fixed the constant refreshing issues in detailed off mode.  
