@@ -103,20 +103,30 @@ class cSettings {
     /*
     __Init() {     } */
 
-    initSettings() {
-        if (FileExist(A_ScriptDir "\..\IsNobody")) {
-            this.sUseNobody := true
-            Log("Settings: Using Nobody Defaults")
-        }
-        if (!FileExist(this.sFilename)) {
-            this.WriteDefaults()
-        }
-        if (this.loadSettings()) {
-            Log("Loaded settings.")
+    initSettings(secondary := false) {
+        if (!secondary) {
+            if (FileExist(A_ScriptDir "\..\IsNobody")) {
+                this.sUseNobody := true
+                Log("Settings: Using Nobody Defaults")
+            }
+            if (!FileExist(this.sFilename)) {
+                this.WriteDefaults()
+            }
+            if (this.loadSettings()) {
+                Log("Loaded settings.")
+            } else {
+                return false
+            }
+            return true
         } else {
-            return false
+            this.sFilename := A_ScriptDir "\..\UserSettings.ini"
+            if (this.loadSettings()) {
+                Log("Loaded settings.")
+            } else {
+                return false
+            }
+            return true
         }
-        return true
     }
 
     loadSettings() {
@@ -208,7 +218,7 @@ class cSettings {
                 IniToVar(this.sFilename, this.sFileSection, "F9UsesWobblyWings")
             WobblyWingsSleepAmount := this.loadedSettings.WobblyWingsSleepAmount :=
                 IniToVar(this.sFilename, this.sFileSection, "WobblyWingsSleepAmount")
-                
+
             Debug := IniToVar(this.sFilename, "Debug", "Debug")
         } catch as exc {
             if (exc.Extra) {
@@ -316,7 +326,7 @@ class cSettings {
 IniToVar(file, section, name) {
     var := IniRead(file, section, name)
     switch var {
-        case "true" :
+        case "true":
             return true
         case "false":
             return false

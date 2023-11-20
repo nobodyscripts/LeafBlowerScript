@@ -10,9 +10,10 @@
 
 global X, Y, W, H
 global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
+global Debug := false
 global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
 global settings := cSettings()
-settings.initSettings()
+settings.initSettings(true)
 
 OnExit(CleanupTimer2)
 
