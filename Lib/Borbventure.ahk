@@ -54,6 +54,9 @@ BVMainLoop() {
     SlotsYArray := []
     arrows := LineGetColourInstancesOffsetV(1280, 275, 1073, "0x1989B8", 10)
     arrowCount := 0
+    if (!arrows) {
+        return
+    }
     for arrowY in arrows {
         if (arrowY) {
             arrowCount++
