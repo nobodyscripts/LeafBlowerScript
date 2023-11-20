@@ -136,7 +136,7 @@ IsPanelActive() {
 IsPanelTransparent() {
     try {
         targetColour := PixelGetColor(WinRelPosW(1090), WinRelPosH(107))
-        ; If its afk mode return as well, let afk handle
+        ; If its afk mode return as well, let afk check handle
         If (targetColour = "0x97714A" || targetColour = "0x6A4F34") {
             ; Found panel background colour
             return false
@@ -208,8 +208,8 @@ IsAspectRatioCorrectCheck() {
     If (!IsAspectRatioCorrect()) {
         Log("Error 21: Alternative rendering check failed.")
         MsgBox("Error: It appears you may be using normal render mode,"
-            " please set to Alternative then F2 to reload().`nSee Readme.md"
-            " for other required settings.")
+            " please set Alternative on then F2 to reload() at the bottom of"
+            " settings.`nSee Readme.md for other required settings.")
         WinActivate(LBRWindowTitle)
         OpenPets()
         sleep(150)
@@ -347,8 +347,6 @@ IsPanelSmoothedCheck() {
     sleep(150)
     ; Set to graphics tab
     fSlowClick(443, 572)
-    Sleep(101)
-    ScrollAmountDown(32)
     return false
 }
 
