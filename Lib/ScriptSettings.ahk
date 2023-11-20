@@ -108,11 +108,11 @@ class cSettings {
         if (!secondary) {
             if (FileExist(A_ScriptDir "\..\IsNobody")) {
                 this.sUseNobody := true
-                OutputDebug("Settings: Using Nobody Defaults")
+                OutputDebug("Settings: Using Nobody Defaults.`r`n")
                 Log("Settings: Using Nobody Defaults")
             }
             if (!FileExist(this.sFilename)) {
-                OutputDebug("No UserSettings.ini found, writing default file.")
+                OutputDebug("No UserSettings.ini found, writing default file.`r`n")
                 Log("No UserSettings.ini found, writing default file.")
                 this.WriteDefaults()
             }
