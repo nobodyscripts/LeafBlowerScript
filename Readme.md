@@ -145,6 +145,7 @@ F6: No longer attempts to start borbventures when already full before next
 F9: Fixed the callback error in NormalBoss.ahk
 F9: Removed perma loop disable on cards mode
 F9: Checks for arrows in borbventure not existing when swap to cards
+F9: Forced use of wind and grav when in gf or ss zone
 
 Home: Added WW farm, goes to ss reset page and clicks the ss reset while
       spamming wings, wind, gravity and ww as appropriate. Uses same

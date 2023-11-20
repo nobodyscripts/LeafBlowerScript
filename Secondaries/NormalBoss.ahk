@@ -45,6 +45,12 @@ fNormalBoss() {
         }
         if (F9UsesWind && IsWindowActive() && !IsBossTimerActive()) {
             TriggerWind()
+            Log("Used wind " F9UsesWind " " F9UsesWobblyWings)
+            Sleep(ArtifactSleepAmount)
+        }
+        if (IsAreaGFOrSS() && IsWindowActive() && !IsBossTimerActive()) {
+            TriggerGravity()
+            TriggerWind()
             Sleep(ArtifactSleepAmount)
         }
     }
