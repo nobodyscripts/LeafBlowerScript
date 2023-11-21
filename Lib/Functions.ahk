@@ -408,5 +408,5 @@ cReload() {
     if (Debug){
         ExitApp()
     }
-    cReload()
+    Reload()
 }
