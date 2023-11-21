@@ -687,7 +687,7 @@ GotoCardsFirstTab() {
             i++
         }
     }
-    if (IsOnCardsFirstPanel(&OutColour)) {
+    if (IsOnCardsFirstPanel()) {
         return true
     } else {
         ; Attempt to blind travel with slowed times
@@ -704,31 +704,19 @@ GotoCardsFirstTab() {
             ; Checks are disabled so blindly trust we reached zone
             return true
         }
-        if (IsOnCardsFirstPanel(&OutColour)) {
+        if (IsOnCardsFirstPanel()) {
             return true
         } else {
-            Log("GotoCardsFirstTab: Not at cards first tab, colour at target"
-                " location is " OutColour)
+            Log("GotoCardsFirstTab: Not at cards first tab")
             return false
         }
     }
 }
 
-IsOnCardsFirstPanel(&OutColour?) {
+IsOnCardsFirstPanel() {
     if (IsButtonActive(WinRelPosLargeW(2129), WinRelPosLargeH(420))) {
         return true
     }
-    try {
-        targetColour := PixelGetColor(WinRelPosLargeW(2129),
-            WinRelPosLargeH(420))
-        OutColour := targetColour
-    } catch as exc {
-        Log("Error 11: IsOnCardsFirstPanel check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
-    }
-    Log("IsOnCardsFirstPanel: Not at cards first tab, colour at target"
-        " location is " targetColour)
     return false
 }
 
