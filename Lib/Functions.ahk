@@ -333,29 +333,6 @@ LineGetColourInstancesOffsetH(x1, y1, x2, y2, offset, colour) {
     PixelSearchWrapper(x1, y1, x2, y2, colour)
 }
 
-
-bvtest() {
-    Log("Line Check started")
-    /* 6.931 sec
-    arrows := LineGetColourInstances(WinRelPosLargeW(1280),
-    WinRelPosLargeH(275), WinRelPosLargeW(1280), WinRelPosLargeH(1072)) */
-
-    ; 0.15 seconds, juuuuuuust a bit faster
-    LineGetColourInstancesOffsetV(1280, 275, 1072, "0x1989B8", 8)
-    Log("Line Check finished")
-    /* if (arrows) {
-        for arrow in arrows {
-            if (Debug) {
-                Log("x " Round(arrow.x) " y " Round(arrow.y) " col " arrow.colour)
-            }
-        }
-    } else {
-        if (Debug) {
-            Log("Failed line scan")
-        }
-    } */
-}
-
 IsScrollAblePanelAtTop() {
     ; 2220 258 top scroll arrow button
     ; 2220 320 scroll handle
