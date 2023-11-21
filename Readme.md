@@ -1,4 +1,4 @@
-# LBR Resolution independent scripts V3.0.10
+# LBR Resolution independent scripts V3.0.11
 
 Autohotkey V2 script, install V2 of autohotkey and run the LeafBlowerV3.ahk
 file to load. Edit the ahk files with a text editor to configure.
@@ -126,69 +126,13 @@ Hotkeys need to either be changed ingame or in script to match
 |                                                         |                                                                                                                               |
 |   Reset Scroll position on prestige (ON) (Gameplay tab) |  Unknown if this breaks scroll resetting. If you have issues traveling it maybe this                                          |
 |                                                         |                                                                                                                               |
-|   Borbventures auto start                               |  Currently not detected and breaks F6/F9 borb mode if on, manually toggle it off during use.                                  |
+|   Borbventures auto start                               |  Checked for and toggles off/on.                                                                                              |
+|                                                         |                                                                                                                               |
+|   Borbventures detailed mode                            |  Checked for and works in either mode, better with no details.                                                                |
 |                                                         |                                                                                                                               |
 |   Claw auto start                                       |  Currently not detected and required for claw machine, manually toggle it on.                                                 |
 
 ## Changes
-
-Converted config.ahk into UserSettings.ini, will write a default version if not
-found, otherwise works the same way. Should make updates less painful if config
-changes take place.  
-Moved the comments to help with settings to UserSettingsHelp.md  
-Removed config.ahk  
-Hotkeys remain in Hotkeys.ahk for the moment  
-
-New WW mode will hit SS and let you die and doesn't reset, its honestly bad but
-proves peoples idea of 'just auto reset SS' doesn't work without changes.
-
-Borbventures can be better farmed with details mode off, other new settings are
-ignored. So set auto start off. Auto finish is fine to leave on. Ignores chance
-of success.
-
-Cards ignores new multipliers, set manually before or during if required.
-
-Adjusted the window title searched for, to stop script running if in lbr discord  
-Logging now checks for previous log being written to reduce chance of clash  
-Fixed afk mode issue with transparent panel check
-
-F3: Fixed travel to card packs button new location  
-F3: Updated the open button locations  
-F3: Fix perma loop if buying is disabled
-
-F5: Added check before traveling to see if there are boosts to use
-
-F6: Borbventures now checks each slot based on the arrow, allowing for detailed
-    mode on or off.  
-F6: Fixed the constant refreshing issues in detailed off mode.  
-F6: Rechecks party buttons to avoid single borb starts  
-F6: No longer attempts to start borbventures when already full before next
-    refresh  
-F6: Modified logic for starting borbventures to base on new location data,
-    tighten checks and sleep times  
-F6: Stopped scanning active borbventures for item types to halve scan time  
-F6: Cached arrow positions to save scan time  
-F6: Using finish all  
-F6: Checks for and toggles off autostart, reapplies on exit with F2/F6
-
-F9: Fixed the callback error in NormalBoss.ahk  
-F9: Removed perma loop disable on cards mode  
-F9: Fixed secondaries usage of the settings folder  
-F9: Checks for arrows in borbventure not existing when swap to cards  
-F9: Forced use of wind and grav when in GF or SS zone  
-F9: Brew: Fix flickering tooltip  
-
-F10: Fixed initial traveling looping with nature event inactive
-
-Insert: Fixed not exiting loop on death with travel disabled  
-Insert: Cleaned up tooltips
-
-Home: Added WW farm, goes to SS reset page and clicks the SS reset while
-      spamming wings, wind, gravity and ww as appropriate. Uses same
-      WobblyWingsSleepAmount value to configure. No loadout set.
-      Setup your ww to include GF and SS + any other bosses you want beforehand.
-      Only resets at 1 SS kill. So if you want more, use F8/F9 and swap between.  
-Home: Fixed issue with WW being disabled due to F9 setting
 
 ## TODO
 
