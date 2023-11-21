@@ -75,26 +75,40 @@ CardBuyLoop() {
         }
         switch CardsBuyStyle {
             case "FocusLegend":
-                if (Debug) Log("FocusLegend Mode")
-                    state := CardBuyLegFirst()
+                if (Debug) {
+                    Log("FocusLegend Mode")
+                }
+                state := CardBuyLegFirst()
             case "FocusRare":
-                if (Debug) Log("FocusRare Mode")
-                    state := CardBuyRareFirst()
+                if (Debug) {
+                    Log("FocusRare Mode")
+                }
+                state := CardBuyRareFirst()
             case "FocusRare2":
-                if (Debug) Log("FocusRare2 Mode")
-                    state := CardBuyRare2First()
+                if (Debug) {
+                    Log("FocusRare2 Mode")
+                }
+                state := CardBuyRare2First()
             case "FocusCommon":
-                if (Debug) Log("FocusCommon Mode")
-                    state := CardBuyCommonFirst()
+                if (Debug) {
+                    Log("FocusCommon Mode")
+                }
+                state := CardBuyCommonFirst()
             case "RoundRobin":
-                if (Debug) Log("RoundRobin Mode")
-                    state := CardBuyRoundRobin()
+                if (Debug) {
+                    Log("RoundRobin Mode")
+                }
+                state := CardBuyRoundRobin()
             case "RoundRobin2":
-                if (Debug) Log("RoundRobin2 Mode")
-                    state := CardBuyRoundRobin2()
+                if (Debug) {
+                    Log("RoundRobin2 Mode")
+                }
+                state := CardBuyRoundRobin2()
             default:
-                if (Debug) Log("Default Mode")
-                    state := CardBuyRoundRobin()
+                if (Debug) {
+                    Log("Default Mode")
+                }
+                state := CardBuyRoundRobin()
         }
         if (!state) {
             break
@@ -187,10 +201,7 @@ CardBuyLegFirst() {
     } else {
         ; If disabled mark inactive
         if (Debug) {
-            Log("Leg Disabled ")
-            if (CardsDontBuyLeg == "true") {
-                Log("Is string")
-            }
+            Log("Leg Disabled")
         }
         LegButtonActive := false
     }
