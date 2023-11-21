@@ -163,7 +163,9 @@ F6: Borbventures now checks each slot based on the arrow, allowing for detailed
 F6: Fixed the constant refreshing issues in detailed off mode.  
 F6: Rechecks party buttons to avoid single borb starts  
 F6: No longer attempts to start borbventures when already full before next
-    refresh
+    refresh  
+F6: Modified logic for starting borbventures to base on new location data,
+    tighten checks and sleep times
 
 F9: Fixed the callback error in NormalBoss.ahk  
 F9: Removed perma loop disable on cards mode  

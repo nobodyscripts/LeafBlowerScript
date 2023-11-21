@@ -65,9 +65,9 @@ BVMainLoop() {
                 WinRelPosLargeW(1353),
                 arrowY + WinRelPosLargeH(30))
             if (IsUsefulItem) {
-                SlotsYArray.Push(IsUsefulItem)
+                SlotsYArray.Push(arrowY)
                 if (Debug) {
-                    Log("Have found a useful item at " IsUsefulItem)
+                    Log("Have found a useful item at " arrowY)
                 }
             }
         }
@@ -126,28 +126,29 @@ BVMainLoop() {
                         ; If slots inactive, its ready to start,
                         ; use its y to align clicks
                         ; Click team slot 1
-                        fCustomClick(WinRelPosLargeW(1600), SlotY, 72)
-                        Sleep(150)
+                        bvSleepTime := 72
+                        fCustomClick(WinRelPosLargeW(1610), SlotY, bvSleepTime)
+                        Sleep(bvSleepTime)
                         a := 0
                         b := 0
-                        while (IsButtonActive(WinRelPosLargeW(1595), SlotY) &&
+                        while (IsButtonActive(WinRelPosLargeW(1608), SlotY) &&
                             a < 2) {
-                                fCustomClick(WinRelPosLargeW(1600), SlotY, 72)
-                                Sleep(150)
+                                fCustomClick(WinRelPosLargeW(1610), SlotY, bvSleepTime)
                                 a++
+                                Sleep(bvSleepTime)
                         }
                         ; Click team slot 2
-                        fCustomClick(WinRelPosLargeW(1717), SlotY, 72)
-                        Sleep(150)
-                        while (IsButtonActive(WinRelPosLargeW(1715), SlotY) &&
+                        fCustomClick(WinRelPosLargeW(1730), SlotY, bvSleepTime)
+                        Sleep(bvSleepTime)
+                        while (IsButtonActive(WinRelPosLargeW(1728), SlotY) &&
                             b < 2) {
-                                fCustomClick(WinRelPosLargeW(1717), SlotY, 72)
-                                Sleep(150)
+                                fCustomClick(WinRelPosLargeW(1730), SlotY, bvSleepTime)
                                 b++
+                                Sleep(bvSleepTime)
                         }
                         ; Click Start
-                        fCustomClick(WinRelPosLargeW(1911), SlotY, 101)
-                        Sleep(72)
+                        fCustomClick(WinRelPosLargeW(1911), SlotY, bvSleepTime)
+                        Sleep(bvSleepTime)
                         started++
                 }
         }
