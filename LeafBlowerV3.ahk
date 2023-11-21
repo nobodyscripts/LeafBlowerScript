@@ -69,7 +69,7 @@ Run this file to load script
 }
 *F2:: {
     global HadToHideNotifs, HadToRemoveBearo, GemFarmActive, TowerFarmActive,
-        QuarkFarmActive
+        QuarkFarmActive, bvAutostartDisabled
     ; Toggle notifs to handle multiple situations where its toggled
     KillSpammer()
     KillWWSpammer()
@@ -77,6 +77,9 @@ Run this file to load script
         Log("F2: Reenabling notifications.")
         fSlowClick(32, 596, 101)
         HadToHideNotifs := false
+    }
+    if (bvAutostartDisabled = true) {
+        fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
     }
     if (GemFarmActive) {
         GemFarmActive := false
@@ -219,6 +222,7 @@ Run this file to load script
 
 *F6:: { ; Borb pink juice farm in borbventures
     Static on6 := False
+    global bvAutostartDisabled
     Log("F6: Pressed")
     if (!InitGameWindow() && !on6) {
         return
@@ -230,7 +234,19 @@ Run this file to load script
             return
         }
         fBorbVentureJuiceFarm()
-    } Else cReload()
+    } Else {
+        if (bvAutostartDisabled = true) {
+            OpenPets() ; Opens or closes another screen so that when areas is opened it
+            ; doesn't close
+            Sleep(101)
+            OpenBorbVentures() ; Open BV
+            Sleep(101)
+            BVResetScroll()
+            fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
+        }
+        ToolTip()
+        cReload()
+    }
 }
 
 *F7:: { ; Claw pumpkin farm

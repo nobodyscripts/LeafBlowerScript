@@ -1,6 +1,9 @@
 ﻿#Requires AutoHotkey v2.0
 
+global bvAutostartDisabled := false
+
 fBorbVentureJuiceFarm() {
+    global bvAutostartDisabled
     OpenPets() ; Opens or closes another screen so that when areas is opened it
     ; doesn't close
     Sleep(101)
@@ -8,6 +11,11 @@ fBorbVentureJuiceFarm() {
     Sleep(101)
     BVResetScroll()
     Log("Borbv: Main loop starting.")
+    bvAutostartDisabled := false
+    if (IsBVAutoStartOn()) {
+        fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
+        bvAutostartDisabled := true
+    }
     loop {
         if (!IsWindowActive()) {
             Log("Borbv: Exiting as no game.")
@@ -20,6 +28,9 @@ fBorbVentureJuiceFarm() {
             return
         }
         BVMainLoop()
+    }
+    if (bvAutostartDisabled = true) {
+        fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
     }
     Log("Borbv: Aborted.")
     ToolTip()
@@ -38,7 +49,10 @@ BVResetScroll() {
 BVMainLoop() {
     global HaveBorbDLC
     ; Check for any finished items in view and collect them
-    ; Not really needed now but not much harm to leave going
+    ; Not really needed now but not much harm to leave going 586 1098
+    ToolTip(IsButtonActive(WinRelPosLargeW(586), WinRelPosLargeH(1098)),
+        W / 1.5, H / 1.5, 5)
+
     loop 6 {
         found := BVGetFinishButtonLocation()
         if (!found) {
@@ -287,6 +301,10 @@ IsBVScrollAblePanelAtTop() {
         }
     }
     return true
+}
+
+IsBVAutoStartOn() {
+    return IsButtonActive(WinRelPosLargeW(586), WinRelPosLargeH(1098))
 }
 
 BVCachedArrowsLocations() {

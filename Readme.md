@@ -168,7 +168,8 @@ F6: Modified logic for starting borbventures to base on new location data,
     tighten checks and sleep times  
 F6: Stopped scanning active borbventures for item types to halve scan time  
 F6: Cached arrow positions to save scan time  
-F6: Using finish all
+F6: Using finish all  
+F6: Checks for and toggles off autostart, reapplies on exit with F2/F6
 
 F9: Fixed the callback error in NormalBoss.ahk  
 F9: Removed perma loop disable on cards mode  
@@ -212,7 +213,6 @@ transcend limits, then ocr the buttons and openall the right amount.
 F6: If item is not a valid target cancel borbv  
 F6: If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
-F6: Handle new detail mode, auto start, auto finish, chance  
 F7: Autoplay check  
 F7: Needs to use artifact if need be / get replacement  
 F8: Move violin to secondary, spam during non boss timer after farming starts  
@@ -232,7 +232,6 @@ F4: Can sometimes miss bearo, if you see trade start buttons appearing, retry
 F4: Due to nature event pet slot if nature event artifact runs out bearo may not
    reapply after use  
 F6: Incorrect items can be started if manually refreshed while it scans  
-F6: Auto start blocks script from doing its job so make sure its off when using.  
 F7: Will intentionally grab gems if no pumpkins are found  
 F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
