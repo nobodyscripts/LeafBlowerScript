@@ -344,7 +344,9 @@ Run this file to load script
                 cReload()
                 return
             }
-            ClosePanel()
+            if(IsPanelActive()) {
+                ClosePanel()
+            }
             Log("F9: Boss Farm Activated")
             fFarmNormalBoss(on9)
     }
