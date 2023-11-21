@@ -112,7 +112,7 @@ fGemFarmSuitcase() {
         if (!IsWindowActive()) {
             ToolTip(, , , 15)
             Log("GemFarm: Exiting as no game.")
-            reload() ; Kill the loop if the window closes
+            cReload() ; Kill the loop if the window closes
             return
         }
 
@@ -194,7 +194,7 @@ FillTradeSlots() {
     While i > 0 {
         if (!IsWindowActive()) {
             Log("GemFarm: Fill trades exiting as no game.")
-            reload() ; Kill the loop if the window closes
+            cReload() ; Kill the loop if the window closes
             i := 0
             return false
         }

@@ -82,7 +82,7 @@ Run this file to load script
         GemFarmActive := false
         ToolTip(, , , 15)
         if (!IsWindowActive()) {
-            reload()
+            cReload()
             return
         }
         if (!IsPanelActive()) {
@@ -97,28 +97,28 @@ Run this file to load script
         Log("F2: Resetting auto refresh and detailed mode.")
         ResetToPriorAutoRefresh()
         ResetToPriorDetailedMode()
-        reload()
+        cReload()
         return
     }
     if (TowerFarmActive) {
         TowerFarmActive := false
         Log("F2: Equiping default loadout.")
         EquipDefaultGearLoadout()
-        reload()
+        cReload()
         return
     }
     if (QuarkFarmActive) {
         QuarkFarmActive := false
         Log("F2: Equipped Default Loadout")
         EquipDefaultGearLoadout()
-        reload()
+        cReload()
         return
     }
     log("F2: Pressed, reloading...")
     sleep(2)
     ResetModifierKeys() ; Cleanup incase needed
     ResetModifierKeys() ; Twice for good luck
-    reload()
+    cReload()
 }
 
 *F3:: { ; Open cards clicker
@@ -134,7 +134,7 @@ Run this file to load script
     Sleep(34)
     If on3 := !on3 {
         if (!CheckGameSettingsCorrect()) {
-            reload()
+            cReload()
             return
         }
         fOpenCardLoop()
@@ -148,7 +148,7 @@ Run this file to load script
         Sleep(34)
         ResetModifierKeys() ; Twice for good luck
         Sleep(34)
-        reload()
+        cReload()
         return
     }
     ResetModifierKeys() ; Cleanup incase needed
@@ -167,7 +167,7 @@ Run this file to load script
     ResetModifierKeys() ; Cleanup incase needed
     If on4 := !on4 {
         if (!CheckGameSettingsCorrect()) {
-            reload()
+            cReload()
             return
         }
         fGemFarmSuitcase()
@@ -175,7 +175,7 @@ Run this file to load script
         GemFarmActive := false
         ToolTip(, , , 15)
         if (!IsWindowActive()) {
-            reload()
+            cReload()
             return
         }
         if (!IsPanelActive()) {
@@ -190,7 +190,7 @@ Run this file to load script
         Log("F4: Resetting auto refresh and detailed mode.")
         ResetToPriorAutoRefresh()
         ResetToPriorDetailedMode()
-        reload()
+        cReload()
     }
 }
 
@@ -205,7 +205,7 @@ Run this file to load script
     ResetModifierKeys() ; Cleanup incase needed
     If on5 := !on5 {
         if (!CheckGameSettingsCorrect()) {
-            reload()
+            cReload()
             return
         }
         fTimeWarpAndRaiseTower()
@@ -213,7 +213,7 @@ Run this file to load script
         TowerFarmActive := false
         Log("TowerBoost: Equiping default loadout.")
         EquipDefaultGearLoadout()
-        reload()
+        cReload()
     }
 }
 
@@ -226,11 +226,11 @@ Run this file to load script
     ResetModifierKeys() ; Cleanup incase needed
     If on6 := !on6 {
         if (!CheckGameSettingsCorrect()) {
-            reload()
+            cReload()
             return
         }
         fBorbVentureJuiceFarm()
-    } Else reload()
+    } Else cReload()
 }
 
 *F7:: { ; Claw pumpkin farm
@@ -242,11 +242,11 @@ Run this file to load script
     ResetModifierKeys() ; Cleanup incase needed
     If on7 := !on7 {
         if (!CheckGameSettingsCorrect()) {
-            reload()
+            cReload()
             return
         }
         fClawFarm()
-    } Else reload()
+    } Else cReload()
 }
 
 *F8:: { ; Green Flame/Soulseeker farm
@@ -258,7 +258,7 @@ Run this file to load script
     ResetModifierKeys() ; Cleanup incase needed
     If on8 := !on8 {
         if (!CheckGameSettingsCorrect()) {
-            reload()
+            cReload()
             return
         }
         fFarmGFSS()
@@ -270,11 +270,11 @@ Run this file to load script
     global on9, HadToHideNotifsF9
     Log("F9: Pressed")
     if (!InitGameWindow() && !on9) {
-        reload()
+        cReload()
         return
     }
     if (!IsWindowActive()) {
-        reload() ; Kill if no game
+        cReload() ; Kill if no game
         return
     }
     KillSpammer()
@@ -298,7 +298,7 @@ Run this file to load script
                 on9 := 0 ; Disabled
                 Log("F9: Resetting with cards disabled")
                 ClosePanel()
-                reload()
+                cReload()
                 return
             }
         case 4:
@@ -311,12 +311,12 @@ Run this file to load script
             Log("F9: Resetting")
             ResetModifierKeys() ; Cleanup incase needed
             ClosePanel()
-            reload()
+            cReload()
             return
         default:
             on9 := 1 ; Normal boss mode
             if (!CheckGameSettingsCorrect()) {
-                reload()
+                cReload()
                 return
             }
             ClosePanel()
@@ -334,7 +334,7 @@ Run this file to load script
     ResetModifierKeys() ; Cleanup incase needed
     If (on10 := !on10) {
         if (!CheckGameSettingsCorrect()) {
-            reload()
+            cReload()
             return
         }
         fFarmNatureBoss()
@@ -361,7 +361,7 @@ Run this file to load script
         Sleep(17)
         MouseClick("left", , , , , "U")
         Sleep(17)
-        reload()
+        cReload()
     }
 }
 
@@ -436,17 +436,17 @@ removeLastCheckTooltip() {
     QuarkFarmActive := true
     Log("Insert: Pressed")
     if (!InitGameWindow() && !on13) {
-        reload()
+        cReload()
         return
     }
     if (!IsWindowActive()) {
-        reload() ; Kill if no game
+        cReload() ; Kill if no game
         return
     }
     ResetModifierKeys() ; Cleanup incase needed
     If (on13 := !on13) {
         if (!CheckGameSettingsCorrect()) {
-            reload()
+            cReload()
             return
         }
         Log("Insert: Quark Boss Activated")
@@ -456,7 +456,7 @@ removeLastCheckTooltip() {
         Log("Insert: Equipped Default Loadout")
         EquipDefaultGearLoadout()
         Log("Insert: Resetting")
-        reload()
+        cReload()
         return
     }
 }
@@ -474,17 +474,17 @@ removeLastCheckTooltip() {
     Log("Home: Pressed")
     KillWWSpammer()
     if (!InitGameWindow() && !on14) {
-        reload()
+        cReload()
         return
     }
     if (!IsWindowActive()) {
-        reload() ; Kill if no game
+        cReload() ; Kill if no game
         return
     }
     ResetModifierKeys() ; Cleanup incase needed
     If (on14 := !on14) {
         if (!CheckGameSettingsCorrect()) {
-            reload()
+            cReload()
             return
         }
         Log("Home: WW Boss Activated")
@@ -493,7 +493,7 @@ removeLastCheckTooltip() {
         WWFarmActive := false
         KillWWSpammer()
         Log("Home: Resetting")
-        reload()
+        cReload()
         return
     }
 }

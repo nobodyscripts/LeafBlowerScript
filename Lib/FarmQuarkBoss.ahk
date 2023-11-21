@@ -28,7 +28,7 @@ fFarmNormalBossQuark() {
     loop {
         if (!IsWindowActive()) {
             Log("BossQuark: Exiting as no game.")
-            reload() ; Kill if no game
+            cReload() ; Kill if no game
             return
         }
         ToolTip("Quark Boss Mode",

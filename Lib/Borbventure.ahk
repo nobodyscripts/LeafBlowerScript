@@ -11,12 +11,12 @@ fBorbVentureJuiceFarm() {
     loop {
         if (!IsWindowActive()) {
             Log("Borbv: Exiting as no game.")
-            reload()
+            cReload()
             return
         }
         if (!IsPanelActive()) {
             Log("Borbv: Did not find panel. Aborted.")
-            reload()
+            cReload()
             return
         }
         BVMainLoop()

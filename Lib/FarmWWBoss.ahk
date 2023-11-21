@@ -13,7 +13,7 @@ fFarmWWBoss() {
     loop {
         if (!IsWindowActive()) {
             Log("WWFarm: Exiting as no game.")
-            reload() ; Kill if no game
+            cReload() ; Kill if no game
             return
         }
         ToolTip("WW Boss Mode",

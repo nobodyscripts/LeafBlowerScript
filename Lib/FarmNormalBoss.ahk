@@ -13,7 +13,7 @@ fFarmNormalBoss(modecheck) {
         }
         if (!IsWindowActive()) {
             Log("BossFarm: Exiting as no game.")
-            reload() ; Kill early if no game
+            cReload() ; Kill early if no game
             return
         }
         TimerCurrentState := IsBossTimerActive()
@@ -57,7 +57,7 @@ fFarmNormalBossAndBrew(modecheck) {
         }
         if (!IsWindowActive()) {
             Log("BossBrew: Exiting as no game.")
-            reload() ; Kill if no game
+            cReload() ; Kill if no game
             break
         }
         if (!IsPanelActive()) {
@@ -156,7 +156,7 @@ fNormalBossFarmWithBorbs(modecheck) {
         }
         if (!IsWindowActive()) {
             Log("BossBorbs: Exiting as no game.")
-            reload()
+            cReload()
             return
         }
         if (!IsPanelActive()) {
@@ -201,7 +201,7 @@ fNormalBossFarmWithCards(modecheck) {
         }
         if (!IsWindowActive()) {
             Log("BossCards: Exiting as no game.")
-            reload() ; Kill if no game
+            cReload() ; Kill if no game
             return
         }
         if (!IsPanelActive()) {

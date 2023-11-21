@@ -386,21 +386,13 @@ Log(logmessage, logfile := ScriptsLogFile) {
     }
     k := 0
     try {
-        while (k <= 10) {
-            if (isWritingToLog) {
-                Sleep(3)
-                k++
-            }
-            if (!isWritingToLog) {
-                isWritingToLog := true
-                Sleep(1)
-                FileAppend(message, logfile)
-                Sleep(1)
-                isWritingToLog := false
-                return
-            }
+        if (!isWritingToLog) {
+            isWritingToLog := true
+            Sleep(1)
+            FileAppend(message, logfile)
+            isWritingToLog := false
+
         }
-        OutputDebug("Could not log message after 10 attempts - " message)
     } catch as exc {
         OutputDebug("LogError: Error writing to log - " exc.Message "`r`n")
         ; MsgBox("Error writing to log:`n" exc.Message)
@@ -410,4 +402,11 @@ Log(logmessage, logfile := ScriptsLogFile) {
         FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
             "LogError: Error writing to log - " exc.Message '`r`n', logfile)
     }
+}
+
+cReload() {
+    if (Debug){
+        ExitApp()
+    }
+    cReload()
 }
