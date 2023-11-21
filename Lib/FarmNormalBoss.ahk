@@ -141,6 +141,7 @@ SpamBrewButtons() {
 }
 
 fNormalBossFarmWithBorbs(modecheck) {
+    global bvAutostartDisabled
     ToolTip()
     global on9
     OpenPets() ; Opens or closes another screen so that when areas is opened it
@@ -150,6 +151,11 @@ fNormalBossFarmWithBorbs(modecheck) {
     Sleep(101)
     BVResetScroll()
     SpamViolins()
+    bvAutostartDisabled := false
+    if (IsBVAutoStartOn()) {
+        fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
+        bvAutostartDisabled := true
+    }
     loop {
         If (on9 != modecheck) {
             return
@@ -173,6 +179,9 @@ fNormalBossFarmWithBorbs(modecheck) {
             return
         }
         BVMainLoop()
+    }
+    if (bvAutostartDisabled = true && !IsBVAutoStartOn()) {
+        fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
     }
 }
 

@@ -283,7 +283,7 @@ Run this file to load script
 
 
 *F9:: { ; Farm bosses using violins
-    global on9, HadToHideNotifsF9
+    global on9, HadToHideNotifsF9, bvAutostartDisabled
     Log("F9: Pressed")
     if (!InitGameWindow() && !on9) {
         cReload()
@@ -306,6 +306,11 @@ Run this file to load script
             Log("F9: Borbventures and Boss Activated")
             fNormalBossFarmWithBorbs(on9)
         case 3:
+            if (bvAutostartDisabled = true) {
+                if (!IsBVAutoStartOn()) {
+                    fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
+                }
+            }
             on9 := 4 ; Boss mode with cards
             if (CardsBossFarmEnabled) {
                 Log("F9: Cards and Boss Activated")
@@ -313,7 +318,9 @@ Run this file to load script
             } else {
                 on9 := 0 ; Disabled
                 Log("F9: Resetting with cards disabled")
-                ClosePanel()
+                if(IsPanelActive()) {
+                    ClosePanel()
+                }
                 cReload()
                 return
             }
@@ -326,7 +333,9 @@ Run this file to load script
             }
             Log("F9: Resetting")
             ResetModifierKeys() ; Cleanup incase needed
-            ClosePanel()
+            if(IsPanelActive()) {
+                ClosePanel()
+            }
             cReload()
             return
         default:

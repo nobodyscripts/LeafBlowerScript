@@ -29,7 +29,7 @@ fBorbVentureJuiceFarm() {
         }
         BVMainLoop()
     }
-    if (bvAutostartDisabled = true) {
+    if (bvAutostartDisabled = true && !IsBVAutoStartOn()) {
         fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
     }
     Log("Borbv: Aborted.")
@@ -50,9 +50,6 @@ BVMainLoop() {
     global HaveBorbDLC
     ; Check for any finished items in view and collect them
     ; Not really needed now but not much harm to leave going 586 1098
-    ToolTip(IsButtonActive(WinRelPosLargeW(586), WinRelPosLargeH(1098)),
-        W / 1.5, H / 1.5, 5)
-
     loop 6 {
         found := BVGetFinishButtonLocation()
         if (!found) {
