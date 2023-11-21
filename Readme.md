@@ -165,7 +165,10 @@ F6: Rechecks party buttons to avoid single borb starts
 F6: No longer attempts to start borbventures when already full before next
     refresh  
 F6: Modified logic for starting borbventures to base on new location data,
-    tighten checks and sleep times
+    tighten checks and sleep times  
+F6: Stopped scanning active borbventures for item types to halve scan time  
+F6: Cached arrow positions to save scan time  
+F6: Using finish all
 
 F9: Fixed the callback error in NormalBoss.ahk  
 F9: Removed perma loop disable on cards mode  
@@ -209,8 +212,7 @@ transcend limits, then ocr the buttons and openall the right amount.
 F6: If item is not a valid target cancel borbv  
 F6: If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
-F6: Handle new detail mode, auto start, auto finish, chance, finish all  
-F6: As we know the arrows are static, scan, cache, recheck with pixelchecks  
+F6: Handle new detail mode, auto start, auto finish, chance  
 F7: Autoplay check  
 F7: Needs to use artifact if need be / get replacement  
 F8: Move violin to secondary, spam during non boss timer after farming starts  

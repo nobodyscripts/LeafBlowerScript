@@ -44,30 +44,35 @@ BVMainLoop() {
         if (!found) {
             break
         }
-        fCustomClick(WinRelPosLargeW(1911),
-            found[2] + WinRelPosLargeH(10), 72)
-        Sleep(72)
+        fCustomClick(WinRelPosLargeW(1847), WinRelPosLargeH(1085), 34)
+        Sleep(34)
     }
     ; Get a list of the arrows heights so we can check the buttons and icons
     ; relative to that position
-    ; Arrows 83 from point to point, 31 tall
-    SlotsYArray := []
-    arrows := LineGetColourInstancesOffsetV(1280, 275, 1073, "0x1989B8", 10)
+    targetItemsYArray := []
+    arrows := BVCachedArrowsLocations()
     arrowCount := 0
+    activeSlots := 0
     if (!arrows) {
         return
     }
     for arrowY in arrows {
-        if (arrowY) {
+        if (arrowY && IsWindowActive()) {
             arrowCount++
-            IsUsefulItem := BVScanSlotItem(WinRelPosLargeW(1299),
-                arrowY - WinRelPosLargeH(20),
-                WinRelPosLargeW(1353),
-                arrowY + WinRelPosLargeH(30))
-            if (IsUsefulItem) {
-                SlotsYArray.Push(arrowY)
-                if (Debug) {
-                    Log("Have found a useful item at " arrowY)
+            ; If slot is active, we don't care what it is
+            if (IsBackground(WinRelPosLargeW(1855), arrowY) &&
+                !IsBackground(WinRelPosLargeW(2100), arrowY)) {
+                    ; If slots cancel button exists, assume active. This lets us
+                    ; pause refreshing until something new happens to avoid wastage
+                    activeSlots++
+            } else {
+                ; If slot has an item we want add it to the target list
+                IsUsefulItem := BVScanSlotItem(WinRelPosLargeW(1313),
+                    arrowY - WinRelPosLargeH(17),
+                    WinRelPosLargeW(1347),
+                    arrowY + WinRelPosLargeH(20))
+                if (IsUsefulItem) {
+                    targetItemsYArray.Push(arrowY)
                 }
             }
         }
@@ -77,7 +82,6 @@ BVMainLoop() {
     if (arrowCount >= 6) {
         detailedMode := true
     }
-
     ; Check for only if scroll is not at the top
     if (!detailedMode && !IsBVScrollAblePanelAtTop()) {
         BVResetScroll()
@@ -90,87 +94,79 @@ BVMainLoop() {
         Sleep(34)
         return ; If we had to refresh we should restart function and rescan
     }
-
-    /*     ; Check first four slots for item
-    Slot1Y := BVScanSlotItem(1299, 431, 1353, 520)
-    Slot2Y := BVScanSlotItem(1299, 521, 1353, 750)
-    Slot3Y := BVScanSlotItem(1299, 751, 1353, 900)
-    Slot4Y := BVScanSlotItem(1299, 901, 1353, 1076) */
-
-    ;Charslot 1 is at X 1600
-    ;Charslot 2 is at X 1717
-    ;Start/Finish is at X 1911
-    ;Cancel is at X 2120
-    ;BorbJuice first detect point is at X 1326
-    /* SlotsYArray := [Slot4Y, Slot3Y, Slot2Y, Slot1Y] */
-    activeSlots := 0
-    for SlotY in arrows {
-        if (SlotY != 0 && IsBackground(WinRelPosLargeW(1855), SlotY) &&
-            IsButtonActive(WinRelPosLargeW(2120), SlotY - WinRelPosLargeH(5))) {
-                ; If slots cancel button exists, assume active. This lets us
-                ; pause refreshing until something new happens to avoid wastage
-                activeSlots++
-        }
-
-    }
     started := 0
-    for SlotY in SlotsYArray {
-        if (SlotY != 0 && IsWindowActive() &&
-            IsButtonInactive(WinRelPosLargeW(1864), SlotY)) {
-                ; Don't try to start more if we're full even if another is
-                ; detected
-                if ((!detailedMode && !HaveBorbDLC && activeSlots + started < 2) ||
-                    (detailedMode && !HaveBorbDLC && activeSlots + started < 4) ||
-                    (!detailedMode && HaveBorbDLC && activeSlots + started < 4) ||
-                    (detailedMode && HaveBorbDLC && activeSlots + started < 6)) {
-                        ; If slots inactive, its ready to start,
-                        ; use its y to align clicks
-                        ; Click team slot 1
-                        bvSleepTime := 72
-                        fCustomClick(WinRelPosLargeW(1610), SlotY, bvSleepTime)
-                        Sleep(bvSleepTime)
-                        a := 0
-                        b := 0
-                        while (IsButtonActive(WinRelPosLargeW(1608), SlotY) &&
-                            a < 2) {
-                                fCustomClick(WinRelPosLargeW(1610), SlotY, bvSleepTime)
-                                a++
-                                Sleep(bvSleepTime)
-                        }
-                        ; Click team slot 2
-                        fCustomClick(WinRelPosLargeW(1730), SlotY, bvSleepTime)
-                        Sleep(bvSleepTime)
-                        while (IsButtonActive(WinRelPosLargeW(1728), SlotY) &&
-                            b < 2) {
-                                fCustomClick(WinRelPosLargeW(1730), SlotY, bvSleepTime)
-                                b++
-                                Sleep(bvSleepTime)
-                        }
-                        ; Click Start
-                        fCustomClick(WinRelPosLargeW(1911), SlotY, bvSleepTime)
-                        Sleep(bvSleepTime)
-                        started++
-                }
+    for SlotY in targetItemsYArray {
+        if (AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started)) {
+            if (BVStartItemFromSlot(SlotY)) {
+                started++
+            }
         }
     }
-    /*     if (Debug) {
+    if (Debug) {
         ToolTip("Found " . activeSlots . " active slots`n"
             "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows "
-            arrowCount,
+            arrowCount ", Target items " targetItemsYArray.Length,
             W / 2.2, H / 6.5, 1)
-    } else { */
-    ToolTip("Found " . activeSlots . " active slots",
-        W / 2.2, H / 6.2, 1)
-    ;}
-
-    if ((!detailedMode && !HaveBorbDLC && activeSlots < 2) ||
-        (detailedMode && !HaveBorbDLC && activeSlots < 4) ||
-        (!detailedMode && HaveBorbDLC && activeSlots < 4) ||
-        (detailedMode && HaveBorbDLC && activeSlots < 6)) {
-            ; If we have not filled all available slots refresh
-            RefreshTrades()
-            Sleep(34)
+    } else {
+        ToolTip("Found " . activeSlots . " active slots",
+            W / 2.2, H / 6.2, 1)
     }
+    if (AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started)) {
+        ; If we have not filled all available slots refresh
+        RefreshTrades()
+        Sleep(34)
+    }
+}
+
+AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started) {
+    if ((!detailedMode && !HaveBorbDLC && activeSlots + started < 2) ||
+        (detailedMode && !HaveBorbDLC && activeSlots + started < 4) ||
+        (!detailedMode && HaveBorbDLC && activeSlots + started < 4) ||
+        (detailedMode && HaveBorbDLC && activeSlots + started < 6)) {
+            return true
+    }
+    return false
+}
+
+BVStartItemFromSlot(SlotY) {
+    if (SlotY != 0 && IsWindowActive() &&
+        IsButtonInactive(WinRelPosLargeW(1864), SlotY)) {
+            ; Don't try to start more if we're full even if another is
+            ; detected
+            ; If slots inactive, its ready to start,
+            ; use its y to align clicks
+            ; Click team slot 1
+            bvSleepTime := 72
+            fCustomClick(WinRelPosLargeW(1610), SlotY, bvSleepTime)
+            Sleep(bvSleepTime)
+            a := b := c := 0
+            while (IsButtonActive(WinRelPosLargeW(1608), SlotY) &&
+                a < 2) {
+                    fCustomClick(WinRelPosLargeW(1610), SlotY, bvSleepTime)
+                    a++
+                    Sleep(bvSleepTime)
+            }
+            ; Click team slot 2
+            fCustomClick(WinRelPosLargeW(1730), SlotY, bvSleepTime)
+            Sleep(bvSleepTime)
+            while (IsButtonActive(WinRelPosLargeW(1728), SlotY) &&
+                b < 2) {
+                    fCustomClick(WinRelPosLargeW(1730), SlotY, bvSleepTime)
+                    b++
+                    Sleep(bvSleepTime)
+            }
+            ; Click Start
+            fCustomClick(WinRelPosLargeW(1911), SlotY, bvSleepTime)
+            Sleep(bvSleepTime)
+            while (IsButtonActive(WinRelPosLargeW(1850), SlotY) &&
+                c < 2) {
+                    fCustomClick(WinRelPosLargeW(1911), SlotY, bvSleepTime)
+                    c++
+                    Sleep(bvSleepTime)
+            }
+            return true
+    }
+    return false
 }
 
 BVGetFinishButtonLocation() {
@@ -208,11 +204,8 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
 
     try {
         for colour in BVItemsArr {
-            found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, colour, 0)
-            If (found and OutX != 0) {
-                ; Log("Borbv: Found " BVColourToItem(colour) " at " OutX
-                ;    " x " OutY)
-                return OutY ; Found item row
+            If (PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, colour, 0)) {
+                return OutY
             }
         }
     } catch as exc {
@@ -294,4 +287,24 @@ IsBVScrollAblePanelAtTop() {
         }
     }
     return true
+}
+
+BVCachedArrowsLocations() {
+    static locations := false
+    if (locations != false) {
+        ; if first two cached locations are correct, return the rest, otherwise
+        ; refresh
+        if (locations.Length >= 6 && PixelGetColor(WinRelPosLargeW(1280), locations[1]) = "0x1989B8" &&
+            PixelGetColor(WinRelPosLargeW(1280), locations[2]) = "0x1989B8" &&
+            PixelGetColor(WinRelPosLargeW(1280), locations[3]) = "0x1989B8" &&
+            PixelGetColor(WinRelPosLargeW(1280), locations[4]) = "0x1989B8" &&
+            PixelGetColor(WinRelPosLargeW(1280), locations[5]) = "0x1989B8" &&
+            PixelGetColor(WinRelPosLargeW(1280), locations[6]) = "0x1989B8") {
+                return locations
+        }
+
+    }
+    newlocations := LineGetColourInstancesOffsetV(1280, 275, 1073, "0x1989B8", 10)
+    locations := newlocations
+    return locations
 }
