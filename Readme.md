@@ -104,19 +104,19 @@ Hotkeys need to either be changed ingame or in script to match
 |                                                         |                                                                                                                               |
 |   Alternative renderer                                  |  All: Setting is tested for and errors without                                                                                |
 |                                                         |                                                                                                                               |
-|   Font size (0/1) (0 default)                           |  F12: tests this setting and errors (May cause missalignment, both should work 0 is my default and will work better in borbv) |
+|   Font size (0/1) (0 default)                           |  F12: Tests this setting and errors (May cause missalignment, both should work 0 is my default and will work better in borbv) |
 |                                                         |                                                                                                                               |
-|   Font (Alternative)                                    |  F12: tests this setting and errors without (May cause missalignment)                                                         |
+|   Font (Alternative)                                    |  F12: Tests this setting and errors without (May cause missalignment)                                                         |
 |                                                         |                                                                                                                               |
-|   Dark dialog background (OFF)                          |  All/F12: Setting is tested for and errors without (Used for boss timer and area travel)                                      |
+|   Dark dialog background (OFF)                          |  All/F12: Setting is tested for and errors if on (Used for boss timer and area travel)                                        |
 |                                                         |                                                                                                                               |
-|   Alb 90% (OFF/transparent/no tools)                    |  Boss timer at top of screen can missread it looks for pure white to see the timer                                            |
+|   Alb 90% (OFF/transparent/no tools)                    |  Boss timer at top of screen can missread, it looks for pure white to see the timer. So any setup without pure white is fine. |
 |                                                         |                                                                                                                               |
-|   Smooth graphics (OFF)                                 |  All/F12 tests this setting and errors without (Used for detection of pixels)                                                 |
+|   Smooth graphics (OFF)                                 |  All/F12 tests this setting and errors if on (Used for detection of pixels)                                                   |
 |                                                         |                                                                                                                               |
-|   Notifications (OFF/reduced)                           |  May interupt some scripts. Checks are in place for the scripts it affects                                                    |
+|   Notifications (OFF/reduced)                           |  May interupt some scripts. Checks are in place for the scripts it affects, so fine to leave on.                              |
 |                                                         |                                                                                                                               |
-|   Trees (OFF)                                           |  F12 tests this setting and errors without (Used for area travel)                                                             |
+|   Trees (OFF)                                           |  F12: Tests this setting and errors if on (Used for area travel)                                                              |
 |                                                         |                                                                                                                               |
 |   AFK (AUTO/OFF)                                        |  Checks for and counters situations where this is active. Should be fine to use.                                              |
 |                                                         |                                                                                                                               |
@@ -128,7 +128,7 @@ Hotkeys need to either be changed ingame or in script to match
 |                                                         |                                                                                                                               |
 |   Borbventures auto start                               |  Checked for and toggles off/on.                                                                                              |
 |                                                         |                                                                                                                               |
-|   Borbventures detailed mode                            |  Checked for and works in either mode, better with no details.                                                                |
+|   Borbventures detailed mode                            |  Checked for and works in either mode, better with details off.                                                               |
 |                                                         |                                                                                                                               |
 |   Claw auto start                                       |  Currently not detected and required for claw machine, manually toggle it on.                                                 |
 
@@ -136,20 +136,20 @@ Hotkeys need to either be changed ingame or in script to match
 
 ## TODO
 
-Devoption: Window check, keybinds and active checks designed around dev,
-   noreload. F12 Test mode, edit save file to incorrect settings and test each
-   mode detects, versbose debug on pixel checks  
-Cleanup card purchase orders into a more generic func  
-Break up monolithic funcs to logical parts  
-Check for alb  
-Investigate fullscreen (it breaks fullscreen)  
-Investigate a gui to replace function keys  
-Move keybinds to UserSettings.ini  
-Trade farming for non gems/non suitcase version  
-Brew + cards rotation mode  
-Halloween + Nature artifact secondary which pauses main functions  
+Devoption: Window check, keybinds and active checks designed around dev.
+   F12 Test mode, edit save file to incorrect settings and test each
+   mode detects, verbose debug on pixel checks.  
+Cleanup card purchase orders into a more generic func.  
+Break up monolithic funcs to logical parts.  
+Check for alb.  
+Investigate fullscreen (it breaks fullscreen).  
+Investigate a gui to replace function keys.  
+Move keybinds to UserSettings.ini.  
+Trade farming for non gems/non suitcase version.  
+Brew + cards rotation mode.  
+Halloween + Nature artifact secondary which pauses main functions.  
 Adjust window resize based on delta from intended size, for non matching window
-   dressing
+   dressing.
 
 F3: Handle new multipliers, decreasing amounts, priorities. Will probably need
 to read save file, get caps, work out how much to open to avoid breaking auto
@@ -157,6 +157,7 @@ transcend limits, then ocr the buttons and openall the right amount.
 F6: If item is not a valid target cancel borbv  
 F6: If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
+F6: Autostart check for both font sizes
 F7: Autoplay check  
 F7: Needs to use artifact if need be / get replacement  
 F8: Move violin to secondary, spam during non boss timer after farming starts  
