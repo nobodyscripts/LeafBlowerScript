@@ -301,7 +301,16 @@ IsBVScrollAblePanelAtTop() {
 }
 
 IsBVAutoStartOn() {
-    return IsButtonActive(WinRelPosLargeW(586), WinRelPosLargeH(1098))
+    font0 := IsButtonActive(WinRelPosLargeW(586), WinRelPosLargeH(1098))
+    font1 := IsButtonActive(WinRelPosLargeW(598), WinRelPosLargeH(1097))
+    if (Debug) {
+        Log("BVAutostart: Font 0 check " BinaryToStr(font0)
+            ", Font 1 check " BinaryToStr(font1))
+    }
+    if (font0 || font1) {
+        return true
+    }
+    return false
 }
 
 BVCachedArrowsLocations() {
