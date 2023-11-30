@@ -122,8 +122,8 @@ IsNatureBossTimerActive() {
     ; 2189 1033
     try {
         found := PixelSearch(&OutX, &OutY,
-            WinRelPosLargeW(1883), WinRelPosLargeH(1004),
-            WinRelPosLargeW(2189), WinRelPosLargeH(1033), "0xFFFFFF", 0)
+            WinRelPosLargeW(1525), WinRelPosLargeH(965),
+            WinRelPosLargeW(1660), WinRelPosLargeH(985), "0xFFFFFF", 0)
         ; Timer pixel search
         If (found and OutX != 0) {
             return true ; Found colour

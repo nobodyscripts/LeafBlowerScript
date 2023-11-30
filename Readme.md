@@ -141,6 +141,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 ## Changes
 
 F6: Check for autostart with font size 1
+F10: Fixed boss timer check
 
 ## TODO
 
