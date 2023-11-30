@@ -140,7 +140,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
+Changes made with Font 0, Font 1 untested
 F4: Fixed travel to desert
+F5: Fixed alignment issues
 F6: Check for autostart with font size 1
 F8: Fixed travel failure and reset ss failure
 F10: Fixed travel failed to nature boss

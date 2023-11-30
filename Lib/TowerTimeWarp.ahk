@@ -18,9 +18,9 @@ fTimeWarpAndRaiseTower() {
 
     if (!IsButtonActive(WinRelPosW(894), WinRelPosH(312))) {
         ToolTip("No 72hr boosts to use, exiting.`n"
-        "Use F5 to finish",
-        W / 2 - WinRelPosW(50),
-        H / 2)
+            "Use F5 to finish",
+            W / 2 - WinRelPosW(50),
+            H / 2)
         Log("TowerBoost: Found no 72 hour boosts, exiting.")
         return
     }
@@ -62,7 +62,7 @@ fTimeWarpAndRaiseTower() {
             }
         } catch as exc {
             Log("Error 29: Tower leaf detection failed. Alignment1 - "
-             exc.Message)
+                exc.Message)
             MsgBox("Alignment issue 1, could not conduct the search due to the"
                 " following error:`n" exc.Message)
         }
@@ -90,7 +90,7 @@ fTimeWarpAndRaiseTower() {
 
         ; Max Tower level
         if (!IsButtonActive(OutX + WinRelPosLargeW(471),
-            OutY + WinRelPosLargeH(87))) {
+            OutY + WinRelPosLargeH(67))) {
                 Log("Error 31: Tower max detection failed. Alignment3.")
                 ToolTip("Alignment issue 3, could not continue`n"
                     "Use F5 to finish`nApplied default loadout",
@@ -101,12 +101,16 @@ fTimeWarpAndRaiseTower() {
                 break
         }
         fCustomClick(OutX + WinRelPosLargeW(471),
-            OutY + WinRelPosLargeH(87), 101)
+            OutY + WinRelPosLargeH(67), 101)
         Sleep(101)
 
         ; Select Tower area
         if (!IsButtonActive(OutX + WinRelPosLargeW(69),
-            OutY + WinRelPosLargeH(22))) {
+            OutY + WinRelPosLargeH(5))) {
+
+                ToolTip(" ", OutX + WinRelPosLargeW(69),
+                    OutY + WinRelPosLargeH(5), 4)
+
                 Log("Error 32: Tower area detection failed. Alignment4.")
                 ToolTip("Alignment issue 4, could not continue`n"
                     "Use F5 to finish`nApplied default loadout",
@@ -117,7 +121,7 @@ fTimeWarpAndRaiseTower() {
                 break
         }
         fCustomClick(OutX + WinRelPosLargeW(69),
-            OutY + WinRelPosLargeH(22), 101)
+            OutY + WinRelPosLargeH(5), 101)
         Sleep(101)
 
         OpenGemShop()
