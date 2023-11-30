@@ -166,7 +166,7 @@ GoToGF() {
             Sleep(NavigateTime)
             fSlowClick(686, 574, NavigateTime) ; Open Fire Fields tab
             Sleep(NavigateTime)
-            fSlowClick(877, 411, NavigateTime) ; Open Flame Brazier (GF zone)
+            fSlowClickRelL(1680, 820, NavigateTime) ; Open Flame Brazier (GF zone)
             Sleep(NavigateTime)
             i++
         }
@@ -181,7 +181,7 @@ GoToGF() {
         Sleep(NavigateTime + 200)
         fSlowClick(686, 574, NavigateTime + 200) ; Open Fire Fields tab
         Sleep(NavigateTime + 200)
-        fSlowClick(877, 411, NavigateTime + 200) ; Open Flame Brazier (GF zone)
+        fSlowClickRelL(1680, 820, NavigateTime + 200) ; Open Flame Brazier (GF zone)
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
             ; Checks are disabled so blindly trust we reached zone
@@ -311,7 +311,7 @@ GotoResetSS() {
 
 ResetSS() {
     GotoResetSS()
-    fSlowClick(517, 245, NavigateTime) ; Reset SpectralSeeker
+    fSlowClickRelL(1280, 500, NavigateTime) ; Reset SpectralSeeker
 }
 
 ResetGF() {
@@ -320,6 +320,8 @@ ResetGF() {
 }
 
 GoToNatureBoss() {
+    buttonX := 840
+    buttonY := 459
     if (!IsWindowActive()) {
         Log("No window found while trying to travel.")
         return false
@@ -335,8 +337,8 @@ GoToNatureBoss() {
             Log("Traveling to The Doomed Tree")
             OpenEventsAreasPanel()
             Sleep(NavigateTime)
-            if (!IsBackground(WinRelPosW(875), WinRelPosH(470))) {
-                fSlowClick(875, 470, NavigateTime) ; Open nature boss area
+            if (!IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
+                fSlowClick(buttonX, buttonY, NavigateTime) ; Open nature boss area
             } else {
                 Log("Nature event inactive, no button found.")
                 return false
@@ -352,8 +354,8 @@ GoToNatureBoss() {
             " times.")
         OpenEventsAreasPanel(200)
         Sleep(NavigateTime + 200)
-        if (!IsBackground(WinRelPosW(875), WinRelPosH(470))) {
-            fSlowClick(875, 470, NavigateTime + 200) ; Open nature boss area
+        if (!IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
+            fSlowClick(buttonX, buttonY, NavigateTime + 200) ; Open nature boss area
         } else {
             Log("Nature event inactive, no button found.")
             return false
@@ -374,6 +376,8 @@ GoToNatureBoss() {
 }
 
 GoToFarmField() {
+    buttonX := 840
+    buttonY := 255
     if (!IsWindowActive()) {
         Log("No window found while trying to travel.")
         return false
@@ -398,20 +402,20 @@ GoToFarmField() {
                     return false
                 }
                 OpenEventsAreasPanel()
-                if (IsBackground(WinRelPosW(875), WinRelPosH(260))) {
+                if (IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
                     return false
                 }
-                fSlowClick(875, 260, NavigateTime) ; Open farm field
+                fSlowClick(buttonX, buttonY, NavigateTime) ; Open farm field
                 Sleep(NavigateTime)
                 i++
         }
         ; If we were not at home garden or now farm field, try travel
         while (!IsAreaSampleColour("0x4A9754") || i >= 4) {
             OpenEventsAreasPanel()
-            if (IsBackground(WinRelPosW(875), WinRelPosH(260))) {
+            if (IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
                 return false
             }
-            fSlowClick(875, 260, NavigateTime) ; Open farm field
+            fSlowClick(buttonX, buttonY, NavigateTime) ; Open farm field
             Sleep(NavigateTime)
             i++
         }
@@ -422,10 +426,10 @@ GoToFarmField() {
         Log("Traveling to Farm Field. Attempt to blind travel with slowed"
             " times.")
         OpenEventsAreasPanel(200)
-        if (IsBackground(WinRelPosW(875), WinRelPosH(260))) {
+        if (IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
             return false
         }
-        fSlowClick(875, 260, NavigateTime + 200) ; Open farm field
+        fSlowClick(buttonX, buttonY, NavigateTime + 200) ; Open farm field
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
             ; Checks are disabled so blindly trust we reached zone
@@ -471,8 +475,8 @@ GoToDesert() {
 
         ; Advantage of this sample check is script doesn't travel if already
         ; there and can recheck if travels failed
-        while (!(IsAreaSampleColour("0xAC816B") && !IsBossTimerActive()) ||
-            i >= 4) {
+        while (!(IsAreaSampleColour("0xAC816B") && !IsBossTimerActive()) &&
+            i <= 4) {
                 if (!IsWindowActive()) {
                     Log("No window found while trying to travel.")
                     return false
@@ -483,11 +487,13 @@ GoToDesert() {
                 local DesertLeaf := FindDesertZone()
                 if (DesertLeaf) {
                     ButtonX := DesertLeaf[1] + WinRelPosLargeW(225)
-                    ButtonY := DesertLeaf[2] + WinRelPosLargeW(30)
+                    ButtonY := DesertLeaf[2] + WinRelPosLargeH(5)
                     if (!IsBackground(ButtonX, ButtonY)) {
                         fCustomClick(ButtonX, ButtonY, NavigateTime)
                         ; Set zone to The Infernal Desert
                     }
+                } else {
+                    Log("Desert leaf not found while trying to travel.")
                 }
                 Sleep(NavigateTime)
                 ; Delay to allow the map to change, otherwise we travel twice
@@ -505,9 +511,12 @@ GoToDesert() {
         DesertLeaf := FindDesertZone()
         if (DesertLeaf) {
             ButtonX := DesertLeaf[1] + WinRelPosLargeW(225)
-            ButtonY := DesertLeaf[2] + WinRelPosLargeW(30)
+            ButtonY := DesertLeaf[2] + WinRelPosLargeH(5)
             if (!IsBackground(ButtonX, ButtonY)) {
                 fCustomClick(ButtonX, ButtonY, NavigateTime + 200)
+            } else {
+                Log("Desert travel: Button not found.")
+                ToolTip(" ", ButtonX, ButtonY, 7)
             }
         }
         Sleep(NavigateTime + 200)
@@ -733,7 +742,9 @@ IsAreaSampleColour(targetColour := "0xFFFFFF") {
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
-    Log("IsAreaSampleColour: Found invalid colour " sampleColour)
+    if (Debug) {
+        Log("IsAreaSampleColour: Found invalid colour " sampleColour)
+    }
     return false
 }
 

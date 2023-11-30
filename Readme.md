@@ -140,7 +140,10 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
+F4: Fixed travel to desert
 F6: Check for autostart with font size 1
+F8: Fixed travel failure and reset ss failure
+F10: Fixed travel failed to nature boss
 F10: Fixed boss timer check
 
 ## TODO
@@ -193,3 +196,13 @@ F9: When killed the transparent panel check may reoccur but without a panel
    loaded, so fails  
 Home: WW being unpredictable you will occationally go to SS or GF when unable to
    defeat boss and be sent to Home Garden, script will then exit. Use F8/F9.
+
+## Since update
+
+F6: Arrow spacing change causing incorrect detections
+F6: Auto start check out of alignment
+F12: Afk mode interfearing with alternative font?
+Home: WWBoss.ahk didn't exit on alt tab
+
+Retest all traveling at font 1
+Rethink F8, F9, Insert, Home
