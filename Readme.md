@@ -203,7 +203,7 @@ Home: WW being unpredictable you will occationally go to SS or GF when unable to
 
 F6: Arrow spacing change causing incorrect detections
 F6: Auto start check out of alignment
-F12: Afk mode interfearing with alternative font?
+F12: Afk mode interfering with alternative font?
 Home: WWBoss.ahk didn't exit on alt tab
 
 Retest all traveling at font 1

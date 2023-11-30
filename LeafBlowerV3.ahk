@@ -525,6 +525,48 @@ removeLastCheckTooltip() {
     }
 }
 
+/* *Del:: {
+     OpenAreasPanel()
+    Sleep(1000)
+    ResetAreaScroll()
+    Sleep(1000)
+    ScrollAmountDown(10)
+    Sleep(1000)
+    ScrollAmountUp(10)
+    Sleep(1000)
+    OpenEventsAreasPanel()
+    Sleep(1000)
+    OpenQuarkPanel()
+    Sleep(1000)
+    GoToHomeGarden()
+    Sleep(1000)
+    GoToGF()
+    Sleep(1000)
+    GoToSS()
+    Sleep(1000)
+    GoToShadowCavern()
+    Sleep(1000) 
+    GotoResetSS()
+    Sleep(1000)
+    ResetSS()
+    Sleep(1000)
+    ResetGF()
+    Sleep(1000)
+    GoToNatureBoss()
+    Sleep(1000)
+    GoToFarmField()
+    Sleep(1000)
+    GoToDesert()
+    Sleep(1000)
+    GoToAstralOasis()
+    Sleep(1000)
+    GoToDimentionalTapestry()
+    Sleep(1000)
+    GoToPlankScope()
+    Sleep(1000)
+    GotoCardsFirstTab() 
+} */
+
 ExitFunc(ExitReason, ExitCode) {
     Log("Script exiting. Due to " ExitReason ".")
 }

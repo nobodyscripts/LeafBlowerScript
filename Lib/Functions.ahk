@@ -382,8 +382,8 @@ Log(logmessage, logfile := ScriptsLogFile) {
 }
 
 cReload() {
-    if (Debug){
+    /* if (Debug){
         ExitApp()
-    }
+    } */
     Reload()
 }
