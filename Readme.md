@@ -139,6 +139,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 Home: Removed WW farm as now not needed.
 
+F6: Fixed arrow spacing change causing incorrect detections  
+F6: Account for changed max borbs
+
 F8: Removed usesWind and usesGrav settings, now using F9 secondary and its
 settings  
 F8: Added new option to disable the GF/SS resetting
@@ -197,7 +200,6 @@ F9: When killed the transparent panel check may reoccur but without a panel
 
 ## Since update
 
-F6: Arrow spacing change causing incorrect detections  
 F6: Auto start check out of alignment  
 F8: Traveling to Flame Universe (Soulseeker) loop  
 F12: Afk mode interfering with alternative font?

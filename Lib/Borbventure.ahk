@@ -130,9 +130,9 @@ BVMainLoop() {
 }
 
 AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started) {
-    if ((!detailedMode && !HaveBorbDLC && activeSlots + started < 2) ||
-        (detailedMode && !HaveBorbDLC && activeSlots + started < 4) ||
-        (!detailedMode && HaveBorbDLC && activeSlots + started < 4) ||
+    if ((!detailedMode && !HaveBorbDLC && activeSlots + started < 3) ||
+        (detailedMode && !HaveBorbDLC && activeSlots + started < 5) ||
+        (!detailedMode && HaveBorbDLC && activeSlots + started < 5) ||
         (detailedMode && HaveBorbDLC && activeSlots + started < 6)) {
             return true
     }
@@ -328,7 +328,7 @@ BVCachedArrowsLocations() {
         }
 
     }
-    newlocations := LineGetColourInstancesOffsetV(1280, 275, 1073, "0x1989B8", 10)
+    newlocations := LineGetColourInstancesOffsetV(1280, 275, 1073, "0x1989B8", 8)
     locations := newlocations
     return locations
 }
