@@ -151,6 +151,9 @@ to clear SS 50, set SSToKillPerCycle to 50 and set the new GFSSNoReset to 1.
 
 ## TODO
 
+Killing bosses too fast results in no gap in timer, will need to redo detection  
+Retest all traveling at font 1  
+Rethink F8, F9, Insert, Home
 Devoption: Window check, keybinds and active checks designed around dev.
    F12 Test mode, edit save file to incorrect settings and test each
    mode detects, verbose debug on pixel checks.  
@@ -203,7 +206,3 @@ F9: When killed the transparent panel check may reoccur but without a panel
 F6: Auto start check out of alignment  
 F8: Traveling to Flame Universe (Soulseeker) loop  
 F12: Afk mode interfering with alternative font?
-
-Killing bosses too fast results in no gap in timer, will need to redo detection  
-Retest all traveling at font 1  
-Rethink F8, F9, Insert, Home

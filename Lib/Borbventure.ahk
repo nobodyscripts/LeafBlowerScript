@@ -132,7 +132,7 @@ BVMainLoop() {
 AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started) {
     if ((!detailedMode && !HaveBorbDLC && activeSlots + started < 3) ||
         (detailedMode && !HaveBorbDLC && activeSlots + started < 5) ||
-        (!detailedMode && HaveBorbDLC && activeSlots + started < 5) ||
+        (!detailedMode && HaveBorbDLC && activeSlots + started < 4) ||
         (detailedMode && HaveBorbDLC && activeSlots + started < 6)) {
             return true
     }
