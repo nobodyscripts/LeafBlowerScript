@@ -234,13 +234,7 @@ Run this file to load script
         }
         fBorbVentureJuiceFarm()
     } Else {
-        if (bvAutostartDisabled = true) {
-            OpenPets() ; Opens or closes another screen so that when areas is opened it
-            ; doesn't close
-            Sleep(101)
-            OpenBorbVentures() ; Open BV
-            Sleep(101)
-            BVResetScroll()
+        if (bvAutostartDisabled = true && GotoBorbventuresFirstTab()) {
             fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
         }
         ToolTip()

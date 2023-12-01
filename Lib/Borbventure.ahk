@@ -5,12 +5,12 @@ global HaveBorbDLC := false
 
 fBorbVentureJuiceFarm() {
     global bvAutostartDisabled
-    OpenPets() ; Opens or closes another screen so that when areas is opened it
-    ; doesn't close
-    Sleep(101)
-    OpenBorbVentures() ; Open BV
-    Sleep(101)
-    BVResetScroll()
+    
+    if (!GotoBorbventuresFirstTab()) {
+        Log("Borbv: Failed to travel, aborting.")
+        return
+    }
+
     Log("Borbv: Main loop starting.")
     bvAutostartDisabled := false
     if (IsBVAutoStartOn()) {
@@ -35,16 +35,6 @@ fBorbVentureJuiceFarm() {
     }
     Log("Borbv: Aborted.")
     ToolTip()
-}
-
-BVResetScroll() {
-    ; Double up due to notifications
-    fSlowClick(315, 574, 72) ; Click borbs tab to reset scroll
-    fSlowClick(315, 574, 72) ; Redundant for stability
-    Sleep(72)
-    fSlowClick(200, 574, 72) ; Click borbventures
-    fSlowClick(200, 574, 72) ; Redundant for stability
-    Sleep(72)
 }
 
 BVMainLoop() {

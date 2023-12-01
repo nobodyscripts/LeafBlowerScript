@@ -733,6 +733,43 @@ IsOnCardsFirstPanel() {
     return false
 }
 
+GotoBorbventuresFirstTab() {
+    OpenPets() ; Opens or closes another screen so that when areas is opened it
+    ; doesn't close
+    Sleep(101)
+    OpenBorbVentures() ; Open BV
+    Sleep(101)
+    BVResetScroll()
+    i := 0
+    while (!IsButtonActive(WinRelPosLargeW(1100), WinRelPosLargeH(314)) &&
+        !IsButtonActive(WinRelPosLargeW(1574), WinRelPosLargeH(314)) &&
+        i <= 4) {
+            OpenPets() ; Opens or closes another screen so that when areas is opened it
+            ; doesn't close
+            Sleep(101)
+            OpenBorbVentures() ; Open BV
+            Sleep(101)
+            BVResetScroll()
+            i++
+    }
+    if (IsButtonActive(WinRelPosLargeW(1100), WinRelPosLargeH(314)) &&
+        IsButtonActive(WinRelPosLargeW(1574), WinRelPosLargeH(314))) {
+        return true
+    }
+    Log("Failed to travel to borbventures first tab")
+    return false
+}
+
+BVResetScroll() {
+    ; Double up due to notifications
+    fSlowClick(315, 574, 72) ; Click borbs tab to reset scroll
+    fSlowClick(315, 574, 72) ; Redundant for stability
+    Sleep(72)
+    fSlowClick(200, 574, 72) ; Click borbventures
+    fSlowClick(200, 574, 72) ; Redundant for stability
+    Sleep(72)
+}
+
 IsAreaSampleColour(targetColour := "0xFFFFFF") {
     try {
         ; Have to sample the corner to get a reliable pixel colour

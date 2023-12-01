@@ -146,7 +146,8 @@ Home: Removed WW farm as now not needed.
 
 F6: Fixed arrow spacing change causing incorrect detections.  
 F6: Account for changed max borbs.
-F6: Fixed auto start check out of alignment  
+F6: Fixed auto start check out of alignment.  
+F6: Added redundant travel to borbv with checks.  
 
 F8: Removed usesWind and usesGrav settings, now using F9 secondary and its
 settings.  
@@ -205,8 +206,6 @@ F6: Incorrect items can be started if manually refreshed while it scans
 F7: Will intentionally grab gems if no pumpkins are found  
 F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
-F8: Traveling to Flame Universe (Soulseeker) loop  
-F9: Borbs started on inventory tab  
 F9: Albs can register as boss timer (kills due to white on the tools)  
 F9: When killed the transparent panel check may reoccur but without a panel
    loaded, so fails.  

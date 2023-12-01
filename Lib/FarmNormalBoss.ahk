@@ -145,12 +145,15 @@ fNormalBossFarmWithBorbs(modecheck) {
     global bvAutostartDisabled
     ToolTip()
     global on9
-    OpenPets() ; Opens or closes another screen so that when areas is opened it
-    ; doesn't close
-    Sleep(101)
-    OpenBorbVentures() ; Open BV
-    Sleep(101)
-    BVResetScroll()
+
+    if (!GotoBorbventuresFirstTab()) {
+        Log("Borbv: Failed to travel, aborting.")
+        ToolTip("Failed to open Borbv, exiting.", W / 2, H / 2 +
+            WinRelPosLargeH(50), 5)
+        SetTimer(ToolTip.Bind(, , , 5), -3000)
+        return
+    }
+
     SpamViolins()
     bvAutostartDisabled := false
     if (IsBVAutoStartOn()) {
