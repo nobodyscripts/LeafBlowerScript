@@ -154,6 +154,9 @@ settings.
 F8: Added new option to disable the GF/SS resetting.  
 F8: Fixed SS travel.
 
+F10: Fix loop occuring when trying to check remaining timer after boss death
+using font size 1.
+
 ## TODO
 
 Killing bosses too fast results in no gap in timer, will need to redo detection  
@@ -209,5 +212,4 @@ F7: Will go for pumpkins that are blocked by other items, its going for the
 F9: Albs can register as boss timer (kills due to white on the tools)  
 F9: When killed the transparent panel check may reoccur but without a panel
    loaded, so fails.  
-F10: Loop occuring when trying to check remaining timer after boss death.  
 F12: Afk mode interfering with alternative font?
