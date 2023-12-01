@@ -1,5 +1,6 @@
 # Block private files
 IsNobody
+IsNobody2
 *.log
 *.Log
 *.ini
