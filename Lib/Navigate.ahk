@@ -598,7 +598,12 @@ GoToAstralOasis() {
             }
             Log("Traveling to Astral Oasis (Quark Boss 1)")
             OpenQuarkPanel()
-            fSlowClickRelL(1670, 670, NavigateTime)
+            if (IsButtonActive(WinRelPosLargeW(1665), WinRelPosLargeH(643)) ||
+                IsButtonInactive(WinRelPosLargeW(1665), WinRelPosLargeH(643))) {
+                    fSlowClickRelL(1670, 643, NavigateTime)
+            } else {
+                fSlowClickRelL(1670, 680, NavigateTime)
+            }
             Sleep(NavigateTime)
             i++
         }
@@ -612,7 +617,12 @@ GoToAstralOasis() {
         Log("Traveling to Astral Oasis (Quark Boss 1). Attempt to blind travel"
             " with slowed times.")
         OpenQuarkPanel(200)
-        fSlowClickRelL(1670, 670, NavigateTime + 200)
+        if (IsButtonActive(WinRelPosLargeW(1665), WinRelPosLargeH(643)) ||
+            IsButtonInactive(WinRelPosLargeW(1665), WinRelPosLargeH(643))) {
+                fSlowClickRelL(1670, 643, NavigateTime + 200)
+        } else {
+            fSlowClickRelL(1670, 680, NavigateTime + 200)
+        }
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
             ; Checks are disabled so blindly trust we reached zone
@@ -646,7 +656,12 @@ GoToDimentionalTapestry() {
             }
             Log("Traveling to Dimentional Tapestry (Quark Boss 2)")
             OpenQuarkPanel()
-            fSlowClickRelL(1670, 838, NavigateTime)
+            if (IsButtonActive(WinRelPosLargeW(1665), WinRelPosLargeH(820)) ||
+                IsButtonInactive(WinRelPosLargeW(1665), WinRelPosLargeH(820))) {
+                    fSlowClickRelL(1670, 820, NavigateTime)
+            } else {
+                fSlowClickRelL(1670, 860, NavigateTime)
+            }
             Sleep(NavigateTime)
             i++
         }
@@ -660,7 +675,12 @@ GoToDimentionalTapestry() {
         Log("Traveling to Dimentional Tapestry (Quark Boss 2). Attempt to"
             " blind travel with slowed times.")
         OpenQuarkPanel(200)
-        fSlowClickRelL(1670, 838, NavigateTime + 200)
+        if (IsButtonActive(WinRelPosLargeW(1665), WinRelPosLargeH(820)) ||
+            IsButtonInactive(WinRelPosLargeW(1665), WinRelPosLargeH(820))) {
+                fSlowClickRelL(1670, 820, NavigateTime + 200)
+        } else {
+            fSlowClickRelL(1670, 860, NavigateTime + 200)
+        }
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
             ; Checks are disabled so blindly trust we reached zone
@@ -694,13 +714,11 @@ GoToPlankScope() {
             }
             Log("Traveling to Plank Scope (Quark Boss 3)")
             OpenQuarkPanel()
-            ; Litterally only 1 pixel overlaps between font size 0/1
-            ; This really needs a image search
-            if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(970))) {
-                fSlowClickRelL(1670, 965, NavigateTime)
-            } else if (!IsBackground(WinRelPosLargeW(1665),
-                WinRelPosLargeH(1020))) {
-                    fSlowClickRelL(1670, 1020, NavigateTime)
+            if (IsButtonActive(WinRelPosLargeW(1665), WinRelPosLargeH(970)) ||
+                IsButtonInactive(WinRelPosLargeW(1665), WinRelPosLargeH(970))) {
+                    fSlowClickRelL(1670, 970, NavigateTime + 200)
+            } else {
+                fSlowClickRelL(1670, 1020, NavigateTime + 200)
             }
             Sleep(NavigateTime)
             i++
@@ -856,7 +874,7 @@ IsAreaSampleColour(targetColour := "0xFFFFFF") {
             exc.Message)
     }
     if (Debug) {
-        Log("IsAreaSampleColour: Found invalid colour " sampleColour)
+        Log("IsAreaSampleColour: Not in target area, colour: " sampleColour)
     }
     return false
 }

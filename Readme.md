@@ -157,11 +157,12 @@ F8: Fixed SS travel.
 F10: Fix loop occuring when trying to check remaining timer after boss death
 using font size 1.
 
+Insert: Fix traveling with font sizes change.
+
 ## TODO
 
 Killing bosses too fast results in no gap in timer, will need to redo detection  
-Retest all traveling at font 1  
-Rethink F8, F9, Insert, Home
+Rethink F8, F9, Insert, Home  
 Devoption: Window check, keybinds and active checks designed around dev.
    F12 Test mode, edit save file to incorrect settings and test each
    mode detects, verbose debug on pixel checks.  
@@ -185,9 +186,7 @@ F4: Check if trade moved after using suitcase to signal actual usage.
 F6: If item is not a valid target cancel borbv  
 F6: If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
-F7: Autoplay check for both font sizes  
 F7: Needs to use artifact if need be / get replacement  
-F8: Move violin to secondary, spam during non boss timer after farming starts  
 F10: Needs to use artifact if need be / get replacement  
 
 ## Known issues
