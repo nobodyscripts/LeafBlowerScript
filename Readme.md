@@ -1,5 +1,7 @@
 # LBR Resolution independent scripts v3.0.12
 
+Support and news: <https://discord.gg/xu8fXw4CQ8>
+
 Autohotkey V2 script, install V2 of autohotkey and run the LeafBlowerV3.ahk
 file to load. Edit the ahk files with a text editor to configure.
 
