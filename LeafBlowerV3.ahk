@@ -26,6 +26,8 @@ OnExit(ExitFunc)
 global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
 global on9 := 0
 global HadToHideNotifsF9 := false
+global CardsBossFarmEnabled := false
+global DisableSettingsChecks := false
 global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
 global X, Y, W, H
 global settings := cSettings()
@@ -58,7 +60,6 @@ Run this file to load script
 #HotIf WinActive(LBRWindowTitle)
 *F1:: {
     KillSpammer()
-    KillWWSpammer()
     Log("F1: Pressed")
     ; Wildcard shortcut * to allow functions to work while looping with
     ; modifiers held
@@ -71,7 +72,6 @@ Run this file to load script
         QuarkFarmActive, bvAutostartDisabled
     ; Toggle notifs to handle multiple situations where its toggled
     KillSpammer()
-    KillWWSpammer()
     if (HadToHideNotifs) {
         Log("F2: Reenabling notifications.")
         fSlowClick(32, 596, 101)

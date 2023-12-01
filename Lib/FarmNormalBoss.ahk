@@ -1,6 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
 
 global SpammerPID := 0
+global CardsBuyEnabled := false
 
 fFarmNormalBoss(modecheck) {
     global on9

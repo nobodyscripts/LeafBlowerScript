@@ -1,8 +1,7 @@
 #Requires AutoHotkey v2.0
 
-global HadToHideNotifs, HaveWarnedDisplayRewards
-HadToHideNotifs := false
-HaveWarnedDisplayRewards := false
+global HadToHideNotifs := false
+global HaveWarnedDisplayRewards := false
 global cardOpenCommonButtonX := 548
 global cardOpenCommonButtonY := 807
 

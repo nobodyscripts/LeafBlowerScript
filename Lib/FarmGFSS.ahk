@@ -1,5 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
 
+global GFSSNoReset := 0
+
 fFarmGFSS() {
     ResettingGF := false
     global GFSSNoReset

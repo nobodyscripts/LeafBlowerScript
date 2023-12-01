@@ -9,8 +9,13 @@
 #Include '../Hotkeys.ahk'
 
 global X, Y, W, H
+X := Y := W := H := 0
 global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
 global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
+global F9UsesWobblyWings := false
+global F9UsesWind := false
+global WobblyWingsSleepAmount := 1
+global ArtifactSleepAmount := 1
 global settings := cSettings()
 settings.initSettings(true)
 

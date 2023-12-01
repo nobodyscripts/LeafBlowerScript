@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
-global QuarkFarmActive
-QuarkFarmActive := false
+global QuarkFarmActive := false
+global QuarkFarmResetToBoss := 0
 
 fFarmNormalBossQuark() {
     Killcount := 0

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+global CardsBuyStyle := "FocusLegend"
+
 global cardBuyOffset := 5
 global cardBuyCommonButtonX := 456
 global cardBuyCommonButtonY := 935
