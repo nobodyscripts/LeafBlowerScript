@@ -1,6 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
 
 global bvAutostartDisabled := false
+global HaveBorbDLC := false
 
 fBorbVentureJuiceFarm() {
     global bvAutostartDisabled
@@ -301,16 +302,16 @@ IsBVScrollAblePanelAtTop() {
 }
 
 IsBVAutoStartOn() {
-    font0 := IsButtonActive(WinRelPosLargeW(586), WinRelPosLargeH(1098))
-    font1 := IsButtonActive(WinRelPosLargeW(598), WinRelPosLargeH(1097))
+    font0 := !IsButtonActive(WinRelPosLargeW(586), WinRelPosLargeH(1097))
+    font1 := !IsButtonActive(WinRelPosLargeW(597), WinRelPosLargeH(1097))
     if (Debug) {
         Log("BVAutostart: Font 0 check " BinaryToStr(font0)
             ", Font 1 check " BinaryToStr(font1))
     }
     if (font0 || font1) {
-        return true
+        return false
     }
-    return false
+    return true
 }
 
 BVCachedArrowsLocations() {

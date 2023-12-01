@@ -139,17 +139,19 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
+To use this new F8 setting, set GFToKillPerCycle to as many kills as required
+to clear SS 50, set SSToKillPerCycle to 50 and set the new GFSSNoReset to 1.
+
 Home: Removed WW farm as now not needed.
 
-F6: Fixed arrow spacing change causing incorrect detections  
-F6: Account for changed max borbs
+F6: Fixed arrow spacing change causing incorrect detections.  
+F6: Account for changed max borbs.
+F6: Fixed auto start check out of alignment  
 
 F8: Removed usesWind and usesGrav settings, now using F9 secondary and its
-settings  
-F8: Added new option to disable the GF/SS resetting
-
-To use this new setting, set GFToKillPerCycle to as many kills as required
-to clear SS 50, set SSToKillPerCycle to 50 and set the new GFSSNoReset to 1.
+settings.  
+F8: Added new option to disable the GF/SS resetting.  
+F8: Fixed SS travel.
 
 ## TODO
 
@@ -192,24 +194,21 @@ F3: If it looks like the buttons are going wild, its because its checking each
    button with its own modifiers to see if each one is available (intended)  
 F3: Can still get ctrl/alt/shift stuck on (just press them to unstick)  
 F3: Ignores new multipliers, you can manually set them before or during.  
+F4: Toggling notification when starting with on left trade window closed.  
 F4: If exited early, may toggle notifications/auto refresh/details to incorrect
    state. Wait till a suitcase has been used to avoid.  
 F4: Can sometimes miss bearo, if you see trade start buttons appearing, retry  
 F4: Due to nature event pet slot if nature event artifact runs out bearo may not
    reapply after use, to avoid leave a slot free in default loadout (8/9)  
+F6: Still! starting borbventures with only 1 borb  
 F6: Incorrect items can be started if manually refreshed while it scans  
 F7: Will intentionally grab gems if no pumpkins are found  
 F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
-F9: Albs can register as boss timer (kills due to white on the tools)  
-F9: When killed the transparent panel check may reoccur but without a panel
-   loaded, so fails
-
-## Since update
-
-F4: Toggling notification when starting with on left trade window closed  
-F6: Auto start check out of alignment  
-F6: Still! starting borbventures with only 1 borb  
 F8: Traveling to Flame Universe (Soulseeker) loop  
 F9: Borbs started on inventory tab  
+F9: Albs can register as boss timer (kills due to white on the tools)  
+F9: When killed the transparent panel check may reoccur but without a panel
+   loaded, so fails.  
+F10: Loop occuring when trying to check remaining timer after boss death.  
 F12: Afk mode interfering with alternative font?
