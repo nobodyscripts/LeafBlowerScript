@@ -11,6 +11,20 @@ global cardOpenRareButtonY := 807
 global cardOpenLegButtonX := 1668
 global cardOpenLegButtonY := 807
 
+; Vscode loves to warn me about globals so defining even though loading save
+global CardsPermaLoop := false
+global CardsDontOpenCommons := 0
+global CardsCommonAmount := 1
+global CardsCommonBuyAmount := 1
+global CardsDontOpenRare := 0
+global CardsRareAmount := 1
+global CardsRareBuyAmount := 1
+global CardsDontOpenLegendary := 0
+global CardsLegendaryAmount := 1
+global CardsLegBuyAmount := 1
+global CardsSleepAmount := 150
+global CardsSleepBuyAmount := 150
+
 
 fOpenCardLoop() {
     global HadToHideNotifs, W, H, X, Y

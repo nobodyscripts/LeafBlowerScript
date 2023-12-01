@@ -116,7 +116,7 @@ GoToHomeGarden() {
     global DisableZoneChecks
     i := 0
     if (!DisableZoneChecks) {
-        while (!IsAreaSampleColour("0x4A9754") || i >= 4) {
+        while (!IsAreaSampleColour("0x4A9754") && i <= 4) {
 
             Log("Traveling to Home Garden")
             OpenAreasPanel()
@@ -155,7 +155,7 @@ GoToGF() {
     global DisableZoneChecks
     i := 0
     if (!DisableZoneChecks) {
-        while (!IsAreaSampleColour("0x121328") || i >= 4) {
+        while (!IsAreaSampleColour("0x121328") && i <= 4) {
             if (!IsWindowActive()) {
                 Log("No window found while trying to travel.")
                 return false
@@ -205,7 +205,7 @@ GoToSS() {
     global DisableZoneChecks
     i := 0
     if (!DisableZoneChecks) {
-        while (!IsAreaSampleColour("0x17190F") || i >= 4) {
+        while (!IsAreaSampleColour("0x17190F") && i <= 4) {
             if (!IsWindowActive()) {
                 Log("No window found while trying to travel.")
                 return false
@@ -255,7 +255,7 @@ GoToShadowCavern() {
     global DisableZoneChecks
     i := 0
     if (!DisableZoneChecks) {
-        while (!IsAreaSampleColour("0x260000") || i >= 4) {
+        while (!IsAreaSampleColour("0x260000") && i <= 4) {
             if (!IsWindowActive()) {
                 Log("No window found while trying to travel.")
                 return false
@@ -267,7 +267,11 @@ GoToShadowCavern() {
             fSlowClick(686, 574, NavigateTime) ; Open Fire Fields tab
             sleep(NavigateTime)
             fSlowClick(880, 159, NavigateTime) ; Go to shadow cavern
-            sleep(NavigateTime)
+            if (NavigateTime > 101) {
+                sleep(NavigateTime)
+            } else {
+                sleep(101)
+            }
             i++
         }
     }
@@ -329,7 +333,7 @@ GoToNatureBoss() {
     global DisableZoneChecks
     i := 0
     if (!DisableZoneChecks) {
-        while (!IsAreaSampleColour("0x090B10") || i >= 4) {
+        while (!IsAreaSampleColour("0x090B10") && i <= 4) {
             if (!IsWindowActive()) {
                 Log("No window found while trying to travel.")
                 return false
@@ -396,7 +400,7 @@ GoToFarmField() {
         ; If we're at home garden attempt to travel, boss timer should appear,
         ; breaking
         while ((IsAreaSampleColour("0x4A9754") && !IsBossTimerActive())
-            || i >= 4) {
+            && i <= 4) {
                 if (!IsWindowActive()) {
                     Log("No window found while trying to travel.")
                     return false
@@ -410,7 +414,7 @@ GoToFarmField() {
                 i++
         }
         ; If we were not at home garden or now farm field, try travel
-        while (!IsAreaSampleColour("0x4A9754") || i >= 4) {
+        while (!IsAreaSampleColour("0x4A9754") && i <= 4) {
             OpenEventsAreasPanel()
             if (IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
                 return false
@@ -475,7 +479,7 @@ GoToDesert() {
 
         ; Advantage of this sample check is script doesn't travel if already
         ; there and can recheck if travels failed
-        while (!(IsAreaSampleColour("0xAC816B") && !IsBossTimerActive()) &&
+        while (!IsAreaSampleColour("0xAC816B") && !IsBossTimerActive() &&
             i <= 4) {
                 if (!IsWindowActive()) {
                     Log("No window found while trying to travel.")
@@ -542,7 +546,7 @@ GoToAstralOasis() {
     global DisableZoneChecks
     i := 0
     if (!DisableZoneChecks) {
-        while (!IsAreaSampleColour("0x000108") || i >= 4) {
+        while (!IsAreaSampleColour("0x000108") && i <= 4) {
             if (!IsWindowActive()) {
                 Log("No window found while trying to travel.")
                 return false
@@ -584,7 +588,7 @@ GoToDimentionalTapestry() {
     global DisableZoneChecks
     i := 0
     if (!DisableZoneChecks) {
-        while (!IsAreaSampleColour("0x37356B") || i >= 4) {
+        while (!IsAreaSampleColour("0x37356B") && i <= 4) {
             if (!IsWindowActive()) {
                 Log("No window found while trying to travel.")
                 return false
@@ -626,7 +630,7 @@ GoToPlankScope() {
     global DisableZoneChecks
     i := 0
     if (!DisableZoneChecks) {
-        while (!IsAreaSampleColour("0x0B1E32") || i >= 4) {
+        while (!IsAreaSampleColour("0x0B1E32") && i <= 4) {
             if (!IsWindowActive()) {
                 Log("No window found while trying to travel.")
                 return false

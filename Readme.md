@@ -167,11 +167,13 @@ Trade farming for non gems/non suitcase version.
 Brew + cards rotation mode.  
 Halloween + Nature artifact secondary which pauses main functions.  
 Adjust window resize based on delta from intended size, for non matching window
-   dressing.
+   dressing.  
+WW safety mode - Checks health bars for potential failure and changes level
 
 F3: Handle new multipliers, decreasing amounts, priorities. Will probably need
 to read save file, get caps, work out how much to open to avoid breaking auto
 transcend limits, then ocr the buttons and openall the right amount.  
+F4: Check if trade moved after using suitcase to signal actual usage.  
 F6: If item is not a valid target cancel borbv  
 F6: If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
@@ -203,6 +205,9 @@ F9: When killed the transparent panel check may reoccur but without a panel
 
 ## Since update
 
+F4: Toggling notification when starting with on left trade window closed  
 F6: Auto start check out of alignment  
+F6: Still! starting borbventures with only 1 borb  
 F8: Traveling to Flame Universe (Soulseeker) loop  
+F9: Borbs started on inventory tab  
 F12: Afk mode interfering with alternative font?
