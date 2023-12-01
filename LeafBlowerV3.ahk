@@ -16,7 +16,6 @@
 #Include Lib\FarmNatureBoss.ahk
 #Include Lib\FarmNormalBoss.ahk
 #Include Lib\FarmQuarkBoss.ahk
-#Include Lib\FarmWWBoss.ahk
 #Include Lib\GemFarm.ahk
 #Include Lib\TowerTimeWarp.ahk
 
@@ -484,43 +483,6 @@ removeLastCheckTooltip() {
         Log("Insert: Equipped Default Loadout")
         EquipDefaultGearLoadout()
         Log("Insert: Resetting")
-        cReload()
-        return
-    }
-}
-
-/**
- * Toggle the Wobbly Wings + GFSS farm mode
- * @param ThisHotkey Home
- * @returns {void} 
- */
-*Home:: {
-    ; Farm bosses using violins
-    Static on14 := false
-    global WWFarmActive
-    WWFarmActive := true
-    Log("Home: Pressed")
-    KillWWSpammer()
-    if (!InitGameWindow() && !on14) {
-        cReload()
-        return
-    }
-    if (!IsWindowActive()) {
-        cReload() ; Kill if no game
-        return
-    }
-    ResetModifierKeys() ; Cleanup incase needed
-    If (on14 := !on14) {
-        if (!CheckGameSettingsCorrect()) {
-            cReload()
-            return
-        }
-        Log("Home: WW Boss Activated")
-        fFarmWWBoss()
-    } Else {
-        WWFarmActive := false
-        KillWWSpammer()
-        Log("Home: Resetting")
         cReload()
         return
     }

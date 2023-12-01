@@ -76,10 +76,6 @@ option in config to return to one of the three bosses on death (with 10s wait).
 If set takes you to the boss when run. Equips a loadout for nuclear fuel, resets
 to default loadout when canceled.
 
-Home: WW mode - Set the bosses you would like to farm and then this script will
-keep the SS reset screen loaded while you farm and reset when it can. Will abort
-when you die. Prefer F8 for GF/SS and F9 for WW if farming for longer periods.
-
 ## Notes
 
 Sleep times might need adjusting for your pc, so increase them as needed if
@@ -141,6 +137,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
+Home: Removed WW farm as now not needed.
+
 F8: Removed usesWind and usesGrav settings, now using F9 secondary and its
 settings  
 F8: Added new option to disable the GF/SS resetting
@@ -195,17 +193,14 @@ F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
 F9: Albs can register as boss timer (kills due to white on the tools)  
 F9: When killed the transparent panel check may reoccur but without a panel
-   loaded, so fails  
-Home: WW being unpredictable you will occationally go to SS or GF when unable to
-   defeat boss and be sent to Home Garden, script will then exit. Use F8/F9.
+   loaded, so fails
 
 ## Since update
 
 F6: Arrow spacing change causing incorrect detections  
 F6: Auto start check out of alignment  
 F8: Traveling to Flame Universe (Soulseeker) loop  
-F12: Afk mode interfering with alternative font?  
-Home: WWBoss.ahk didn't exit on alt tab
+F12: Afk mode interfering with alternative font?
 
 Killing bosses too fast results in no gap in timer, will need to redo detection  
 Retest all traveling at font 1  
