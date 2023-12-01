@@ -268,6 +268,7 @@ Run this file to load script
 *F8:: { ; Green Flame/Soulseeker farm
     Static on8 := False
     Log("F8: Pressed")
+    KillSpammer()
     if (!InitGameWindow() && !on8) {
         return
     }

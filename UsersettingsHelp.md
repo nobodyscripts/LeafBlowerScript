@@ -65,17 +65,16 @@ Don't check for the buttons being done, stay in the loop till stopped
 CardsBossFarmEnabled: (Default) true  
 This disables the card mode on the F9 key rotation
 
-GFSSFarmUseGrav: (Default) true  
-Spam Grav while using F8 and boss spawned
-
-GFSSFarmUseWind: (Default) true  
-Spam Wind while using F8 and boss spawned
-
 GFToKillPerCycle: (Default) 8  
 F8 How many gf to kill before attempting SS
 
 SSToKillPerCycle: (Default) 1  
 F8 How many ss to kill before resetting
+
+GFSSNoReset: (Default) 0  
+F8 Disables the reset of kill counts, useful for farming milestones. To use
+this setting, set GFToKillPerCycle to as many kills as required
+to clear SS 50, set SSToKillPerCycle to 50 and set GFSSNoReset to 1.
 
 GemFarmSleepAmount: (Default) 101  
 Adds 1ms to the timers in gem farm for every 1 added here. 10=10ms slower.

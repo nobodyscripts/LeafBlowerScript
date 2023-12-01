@@ -1,9 +1,9 @@
 ﻿#Requires AutoHotkey v2.0
 
 fFarmGFSS() {
-    global GFSSFarmUseGrav
-    global GFSSFarmUseWind
     ResettingGF := false
+    global GFSSNoReset
+    SpamViolins()
     loop {
         if (!IsWindowActive()) {
             break ; Kill if no game
@@ -42,23 +42,12 @@ fFarmGFSS() {
                     TimerCurrentState) {
                         GFKills++
                 }
-                ; if we just started and there is a timer or looped and theres
-                ; still a timer, we need to use a violin
-                if (IsBossTimerActive()) {
-                    TriggerViolin()
-                    Sleep(71)
-                }
-                if (GFSSFarmUseGrav && !TimerCurrentState) {
-                    TriggerGravity()
-                    Sleep(71)
-                }
-                if (GFSSFarmUseWind && !TimerCurrentState) {
-                    TriggerWind()
-                    Sleep(71)
-                }
                 ; If boss killed us at gf assume we're weak and reset gf
                 ; If user set gf kills too high it'll hit this
                 if (IsAreaResetToGarden()) {
+                    if (GFSSNoReset) {
+                        break
+                    }
                     Log("GFSSFarm: User killed by GF boss, resetting.")
                     ToolTip("Killed by GF boss, resetting",
                         W / 2 - WinRelPosLargeW(70),
@@ -91,23 +80,12 @@ fFarmGFSS() {
                     SSKills++
                     GFKills := 0
             }
-            ; if we just started and there is a timer or looped and theres
-            ; still a timer, we need to use a violin
-            if (IsBossTimerActive() && !ResettingGF) {
-                TriggerViolin()
-                Sleep(71)
-            }
-            if (GFSSFarmUseGrav && !ResettingGF && !TimerCurrentState) {
-                TriggerGravity()
-                Sleep(71)
-            }
-            if (GFSSFarmUseWind && !ResettingGF && !TimerCurrentState) {
-                TriggerWind()
-                Sleep(71)
-            }
             ; if boss killed us exit this loop, then let the master loop
             ; reset
             if (IsAreaResetToGarden() && !ResettingGF) {
+                if (GFSSNoReset) {
+                    break
+                }
                 Log("GFSSFarm: Killed by SS boss, resetting.")
                 ToolTip("Killed by boss, resetting",
                     W / 2 - WinRelPosLargeW(100),
@@ -123,7 +101,7 @@ fFarmGFSS() {
 
         }
         ; if we're done looping or got killed reset ss
-        if (!ResettingGF) {
+        if (!ResettingGF && !GFSSNoReset) {
             Log("GFSSFarm: Have met SS Kill count, resetting.")
             ToolTip("Resetting at: GF Kills " . GFKills .
                 " SS Kills " . SSKills,

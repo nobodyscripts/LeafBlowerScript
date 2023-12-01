@@ -12,7 +12,7 @@ global CardsCommonBuyAmount, CardsRareBuyAmount, CardsLegBuyAmount
 global CardsDontBuyCommons, CardsDontBuyRare, CardsDontBuyLeg
 global CardsSleepBuyAmount, CardsPermaLoop
 global CardsBossFarmEnabled
-global GFSSFarmUseGrav, GFSSFarmUseWind, GFToKillPerCycle, SSToKillPerCycle
+global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
 global GemFarmSleepAmount
 global ClawCheckSizeOffset
 global BVItemsArr, HaveBorbDLC
@@ -48,10 +48,9 @@ class cSettings {
         CardsSleepBuyAmount: 17,
         CardsPermaLoop: "true",
         CardsBossFarmEnabled: "true",
-        GFSSFarmUseGrav: "true",
-        GFSSFarmUseWind: "true",
         GFToKillPerCycle: 2,
         SSToKillPerCycle: 1,
+        GFSSNoReset: 0,
         GemFarmSleepAmount: 72,
         ClawCheckSizeOffset: 0,
         BVItemsArr: "0x018C9C, 0x01D814, 0x0F2A1D, 0x6CD820, 0xC9C9C9",
@@ -85,10 +84,9 @@ class cSettings {
         CardsSleepBuyAmount: 72,
         CardsPermaLoop: "false",
         CardsBossFarmEnabled: "true",
-        GFSSFarmUseGrav: "true",
-        GFSSFarmUseWind: "true",
         GFToKillPerCycle: 8,
         SSToKillPerCycle: 1,
+        GFSSNoReset: 0,
         GemFarmSleepAmount: 101,
         ClawCheckSizeOffset: 0,
         BVItemsArr: "0x01D814, 0xC9C9C9, 0xF91FF6",
@@ -145,7 +143,7 @@ class cSettings {
         global CardsDontBuyCommons, CardsDontBuyRare, CardsDontBuyLeg
         global CardsSleepBuyAmount, CardsPermaLoop
         global CardsBossFarmEnabled
-        global GFSSFarmUseGrav, GFSSFarmUseWind, GFToKillPerCycle, SSToKillPerCycle
+        global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
         global GemFarmSleepAmount
         global ClawCheckSizeOffset
         global BVItemsArr
@@ -195,14 +193,12 @@ class cSettings {
                 IniToVar(this.sFilename, this.sFileSection, "CardsPermaLoop")
             CardsBossFarmEnabled := this.loadedSettings.CardsBossFarmEnabled :=
                 IniToVar(this.sFilename, this.sFileSection, "CardsBossFarmEnabled")
-            GFSSFarmUseGrav := this.loadedSettings.GFSSFarmUseGrav :=
-                IniToVar(this.sFilename, this.sFileSection, "GFSSFarmUseGrav")
-            GFSSFarmUseWind := this.loadedSettings.GFSSFarmUseWind :=
-                IniToVar(this.sFilename, this.sFileSection, "GFSSFarmUseWind")
             GFToKillPerCycle := this.loadedSettings.GFToKillPerCycle :=
                 IniToVar(this.sFilename, this.sFileSection, "GFToKillPerCycle")
             SSToKillPerCycle := this.loadedSettings.SSToKillPerCycle :=
                 IniToVar(this.sFilename, this.sFileSection, "SSToKillPerCycle")
+            GFSSNoReset := this.loadedSettings.GFSSNoReset :=
+                IniToVar(this.sFilename, this.sFileSection, "GFSSNoReset")
             GemFarmSleepAmount := this.loadedSettings.GemFarmSleepAmount :=
                 IniToVar(this.sFilename, this.sFileSection, "GemFarmSleepAmount")
             ClawCheckSizeOffset := this.loadedSettings.ClawCheckSizeOffset :=
@@ -233,7 +229,7 @@ class cSettings {
             } else {
                 Log("Error 35: LoadSettings failed - " exc.Message)
             }
-            MsgBox("Could not load settings, making new default UserSettings.ini")
+            MsgBox("Could not load all settings, making new default UserSettings.ini")
             Log("Attempting to write a new default UserSettings.ini.")
             this.WriteDefaults()
             return false
@@ -273,10 +269,9 @@ class cSettings {
             this.WriteToIni("CardsSleepBuyAmount", this.defaultNobodySettings.CardsSleepBuyAmount)
             this.WriteToIni("CardsPermaLoop", this.defaultNobodySettings.CardsPermaLoop)
             this.WriteToIni("CardsBossFarmEnabled", this.defaultNobodySettings.CardsBossFarmEnabled)
-            this.WriteToIni("GFSSFarmUseGrav", this.defaultNobodySettings.GFSSFarmUseGrav)
-            this.WriteToIni("GFSSFarmUseWind", this.defaultNobodySettings.GFSSFarmUseWind)
             this.WriteToIni("GFToKillPerCycle", this.defaultNobodySettings.GFToKillPerCycle)
             this.WriteToIni("SSToKillPerCycle", this.defaultNobodySettings.SSToKillPerCycle)
+            this.WriteToIni("GFSSNoReset", this.defaultNobodySettings.GFSSNoReset)
             this.WriteToIni("GemFarmSleepAmount", this.defaultNobodySettings.GemFarmSleepAmount)
             this.WriteToIni("ClawCheckSizeOffset", this.defaultNobodySettings.ClawCheckSizeOffset)
             this.WriteToIni("BVItemsArr", this.defaultNobodySettings.BVItemsArr)
@@ -309,10 +304,9 @@ class cSettings {
             this.WriteToIni("CardsSleepBuyAmount", this.defaultSettings.CardsSleepBuyAmount)
             this.WriteToIni("CardsPermaLoop", this.defaultSettings.CardsPermaLoop)
             this.WriteToIni("CardsBossFarmEnabled", this.defaultSettings.CardsBossFarmEnabled)
-            this.WriteToIni("GFSSFarmUseGrav", this.defaultSettings.GFSSFarmUseGrav)
-            this.WriteToIni("GFSSFarmUseWind", this.defaultSettings.GFSSFarmUseWind)
             this.WriteToIni("GFToKillPerCycle", this.defaultSettings.GFToKillPerCycle)
             this.WriteToIni("SSToKillPerCycle", this.defaultSettings.SSToKillPerCycle)
+            this.WriteToIni("GFSSNoReset", this.defaultSettings.GFSSNoReset)
             this.WriteToIni("GemFarmSleepAmount", this.defaultSettings.GemFarmSleepAmount)
             this.WriteToIni("ClawCheckSizeOffset", this.defaultSettings.ClawCheckSizeOffset)
             this.WriteToIni("BVItemsArr", this.defaultSettings.BVItemsArr)
@@ -343,7 +337,7 @@ IniToVar(file, section, name) {
 }
 
 BinaryToStr(var) {
-    if (var){
+    if (var) {
         return "true"
     }
     return "false"

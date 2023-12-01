@@ -1,4 +1,4 @@
-# LBR Resolution independent scripts V3.0.11
+# LBR Resolution independent scripts v3.0.12
 
 Autohotkey V2 script, install V2 of autohotkey and run the LeafBlowerV3.ahk
 file to load. Edit the ahk files with a text editor to configure.
@@ -42,7 +42,8 @@ start required on.
 
 F8: Green Flame/SoulSeeker farmer - Set how many of each to kill in the
 UserSettings.ini, will cycle and use violins to farm that amount as well as
-resetting SoulSeeker. Will attempt to reset GF if needed and handle deaths.
+resetting SoulSeeker. Will attempt to reset GF if needed and handle deaths.  
+Milestone farm mode (see settings) lets you stop automatic resetting.
 
 F9: Normal boss farmer - Doesn't select a zone, sit in the area you want to farm
 and it'll spam violins when the timers up. If kill numbers look off see settings
@@ -140,13 +141,12 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
-Changes made with Font 0, Font 1 untested  
-F4: Fixed travel to desert  
-F5: Fixed alignment issues  
-F6: Check for autostart with font size 1  
-F8: Fixed travel failure and reset ss failure  
-F10: Fixed travel failed to nature boss  
-F10: Fixed boss timer check
+F8: Removed usesWind and usesGrav settings, now using F9 secondary and its
+settings  
+F8: Added new option to disable the GF/SS resetting
+
+To use this new setting, set GFToKillPerCycle to as many kills as required
+to clear SS 50, set SSToKillPerCycle to 50 and set the new GFSSNoReset to 1.
 
 ## TODO
 
@@ -203,8 +203,10 @@ Home: WW being unpredictable you will occationally go to SS or GF when unable to
 
 F6: Arrow spacing change causing incorrect detections  
 F6: Auto start check out of alignment  
+F8: Traveling to Flame Universe (Soulseeker) loop  
 F12: Afk mode interfering with alternative font?  
 Home: WWBoss.ahk didn't exit on alt tab
 
+Killing bosses too fast results in no gap in timer, will need to redo detection  
 Retest all traveling at font 1  
 Rethink F8, F9, Insert, Home
