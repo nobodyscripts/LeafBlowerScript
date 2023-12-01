@@ -59,7 +59,9 @@ Run this file to load script
 
 #HotIf WinActive(LBRWindowTitle)
 *F1:: {
-    KillSpammer()
+    if (IsSpammerActive()) {
+        KillSpammer()
+    }
     Log("F1: Pressed")
     ; Wildcard shortcut * to allow functions to work while looping with
     ; modifiers held
@@ -71,7 +73,9 @@ Run this file to load script
     global HadToHideNotifs, HadToRemoveBearo, GemFarmActive, TowerFarmActive,
         QuarkFarmActive, bvAutostartDisabled
     ; Toggle notifs to handle multiple situations where its toggled
-    KillSpammer()
+    if (IsSpammerActive()) {
+        KillSpammer()
+    }
     if (HadToHideNotifs) {
         Log("F2: Reenabling notifications.")
         fSlowClick(32, 596, 101)
@@ -261,7 +265,9 @@ Run this file to load script
 *F8:: { ; Green Flame/Soulseeker farm
     Static on8 := False
     Log("F8: Pressed")
-    KillSpammer()
+    if (IsSpammerActive()) {
+        KillSpammer()
+    }
     if (!InitGameWindow() && !on8) {
         return
     }
@@ -287,7 +293,9 @@ Run this file to load script
         cReload() ; Kill if no game
         return
     }
-    KillSpammer()
+    if (IsSpammerActive()) {
+        KillSpammer()
+    }
     Thread('Interrupt', 0)  ; Make all threads always-interruptible.
     ResetModifierKeys() ; Cleanup incase needed
     switch on9 {

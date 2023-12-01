@@ -37,17 +37,11 @@ fNormalBoss() {
             Log("NormBoss: Exiting as no game.")
             return
         }
-        ; If boss killed us at gf assume we're weak and reset gf
-        ; If user set gf kills too high it'll hit this
-        if (IsAreaResetToGarden()) {
-            Log("NormBoss: User killed. Aborted.")
-            return
-        }
         if (IsWindowActive() && IsBossTimerActive()) {
             TriggerViolin()
             Sleep(ArtifactSleepAmount)
         }
-        if (IsWindowActive() && !IsBossTimerActive()) {
+        if (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
             if (IsAreaGFOrSS()) {
                 TriggerGravity()
                 TriggerWind()

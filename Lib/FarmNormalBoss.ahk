@@ -23,19 +23,16 @@ fFarmNormalBoss(modecheck) {
             TimerCurrentState) {
                 Killcount++
         }
-        ; If boss killed us at gf assume we're weak and reset gf
-        ; If user set gf kills too high it'll hit this
         if (IsAreaResetToGarden()) {
-            Log("BossFarm: User killed. Aborted.")
-            ToolTip("Killed by boss, exiting", W / 2, H / 2 +
-                WinRelPosLargeH(50))
-            SetTimer(ToolTip, -5000)
-            return
+            Log("BossFarm: User killed.")
+            ToolTip("Killed by boss", W / 2, H / 2 +
+                WinRelPosLargeH(50), 2)
+            SetTimer(ToolTip.Bind(, , , 2), -3000)
         }
         ToolTip("Kills: " . Killcount,
             W / 2 - WinRelPosLargeW(50),
-            H / 2 + WinRelPosLargeH(20))
-        SetTimer(ToolTip, -200)
+            H / 2 + WinRelPosLargeH(20), 1)
+        SetTimer(ToolTip.Bind(, , , 1), -200)
         TimerLastCheckStatus := TimerCurrentState
     }
 }
@@ -72,18 +69,18 @@ fFarmNormalBossAndBrew(modecheck) {
             TimerCurrentState) {
                 Killcount++
         }
-        ; If boss killed us at gf assume we're weak and reset gf
-        ; If user set gf kills too high it'll hit this
-        if (IsAreaResetToGarden()) {
-            Log("BossBrew: User killed. Aborted.")
-            ToolTip("Killed by boss, exiting", W / 2, H / 2 +
+        if (IsAreaResetToGarden() && IsSpammerActive()) {
+            KillSpammer()
+            Log("BossFarm: User killed.")
+            ToolTip("Killed by boss", W / 2, H / 2 +
                 WinRelPosLargeH(50), 2)
-            SetTimer(ToolTip.Bind(, , , 2), -5000)
-            break
+            SetTimer(ToolTip.Bind(, , , 2), -3000)
+            return
         }
         ToolTip("Brewing on, Kills: " . Killcount,
             W / 2 - WinRelPosLargeW(150),
-            H / 2)
+            H / 2 + WinRelPosLargeH(20), 1)
+        SetTimer(ToolTip.Bind(, , , 1), -200)
         TimerLastCheckStatus := TimerCurrentState
     }
 }
@@ -96,6 +93,14 @@ SpamViolins() {
             , , &OutPid)
         SpammerPID := OutPid
     }
+}
+
+IsSpammerActive() {
+    if ((SpammerPID && ProcessExist(SpammerPID)) ||
+        WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")) {
+            return true
+    }
+    return false
 }
 
 KillSpammer() {
@@ -173,13 +178,12 @@ fNormalBossFarmWithBorbs(modecheck) {
             Log("BossBorbs: Did not find panel. Aborted.")
             return
         }
-        ; If boss killed us at gf assume we're weak and reset gf
-        ; If user set gf kills too high it'll hit this
-        if (IsAreaResetToGarden()) {
-            Log("BossBorbs: User killed. Aborted.")
-            ToolTip("Killed by boss, exiting", W / 2, H / 2 +
-                WinRelPosLargeH(50))
-            SetTimer(ToolTip, -5000)
+        if (IsAreaResetToGarden() && IsSpammerActive()) {
+            KillSpammer()
+            Log("BossBorbs: User killed.")
+            ToolTip("Killed by boss", W / 2, H / 2 +
+                WinRelPosLargeH(50), 2)
+            SetTimer(ToolTip.Bind(, , , 2), -3000)
             return
         }
         BVMainLoop()
@@ -245,6 +249,14 @@ fNormalBossFarmWithCards(modecheck) {
             if (!CardsOpenSinglePass()) {
                 Log("BossCards Opening: Loop finishing.")
                 break
+            }
+            if (IsAreaResetToGarden() && IsSpammerActive()) {
+                KillSpammer()
+                Log("BossCards: User killed.")
+                ToolTip("Killed by boss", W / 2, H / 2 +
+                    WinRelPosLargeH(50), 2)
+                SetTimer(ToolTip.Bind(, , , 2), -3000)
+                return
             }
         }
     }

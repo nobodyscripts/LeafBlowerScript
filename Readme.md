@@ -154,6 +154,8 @@ settings.
 F8: Added new option to disable the GF/SS resetting.  
 F8: Fixed SS travel.
 
+F9: Secondary no longer auto exits on visit to home garden, main script controls.
+
 F10: Fix loop occuring when trying to check remaining timer after boss death
 using font size 1.
 
