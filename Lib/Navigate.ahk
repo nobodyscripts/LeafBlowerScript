@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0
 
+global DisableZoneChecks := false
+global NavigateTime := 150
+
 /**
  * Open the areas panel
  * @param {bool} reset (optional): swaps tab to reset scroll
@@ -126,6 +129,9 @@ GoToHomeGarden() {
         }
     }
     if (IsAreaSampleColour("0x4A9754")) {
+        if (Debug) {
+            Log("Travel success to Home Garden.")
+        }
         return true
     } else {
         Log("Traveling to Home Garden. Attempt to blind travel with"
@@ -138,6 +144,9 @@ GoToHomeGarden() {
             return true
         }
         if (IsAreaSampleColour("0x4A9754")) {
+            if (Debug) {
+                Log("Blind travel success to Home Garden.")
+            }
             return true
         } else {
             Log("Traveling to Home Garden failed, colour found was "
@@ -172,6 +181,9 @@ GoToGF() {
         }
     }
     if (IsAreaSampleColour("0x121328")) {
+        if (Debug) {
+            Log("Travel success to Flame Brazier (Green Flame).")
+        }
         return true
     } else {
         Log("Traveling to Flame Brazier (Green Flame). Attempt to blind travel"
@@ -188,6 +200,9 @@ GoToGF() {
             return true
         }
         if (IsAreaSampleColour("0x121328")) {
+            if (Debug) {
+                Log("Blind travel success to Flame Brazier (Green Flame).")
+            }
             return true
         } else {
             Log("Traveling to Flame Brazier (Green Flame) failed,"
@@ -222,6 +237,9 @@ GoToSS() {
         }
     }
     if (IsAreaSampleColour("0x17190F")) {
+        if (Debug) {
+            Log("Travel success to Flame Universe (Soulseeker).")
+        }
         return true
     } else {
         Log("Traveling to Flame Universe (Soulseeker). Attempt to blind travel"
@@ -238,6 +256,9 @@ GoToSS() {
             return true
         }
         if (IsAreaSampleColour("0x17190F")) {
+            if (Debug) {
+                Log("Blind travel success to Flame Universe (Soulseeker).")
+            }
             return true
         } else {
             Log("Traveling to Flame Universe (Soulseeker) failed,"
@@ -276,6 +297,9 @@ GoToShadowCavern() {
         }
     }
     if (IsAreaSampleColour("0x260000")) {
+        if (Debug) {
+            Log("Travel success to shadow cavern.")
+        }
         return true
     } else {
         Log("Traveling to Shadow Cavern. Attempt to blind travel with slowed"
@@ -292,6 +316,9 @@ GoToShadowCavern() {
             return true
         }
         if (IsAreaSampleColour("0x260000")) {
+            if (Debug) {
+                Log("Blind travel success to shadow cavern.")
+            }
             return true
         } else {
             Log("Traveling to Shadow Cavern failed, colour found was "
@@ -352,6 +379,9 @@ GoToNatureBoss() {
         }
     }
     if (IsAreaSampleColour("0x090B10")) {
+        if (Debug) {
+            Log("Travel success to The Doomed Tree.")
+        }
         return true
     } else {
         Log("Traveling to The Doomed Tree. Attempt to blind travel with slowed"
@@ -370,6 +400,9 @@ GoToNatureBoss() {
             return true
         }
         if (IsAreaSampleColour("0x090B10")) {
+            if (Debug) {
+                Log("Blind travel success to The Doomed Tree.")
+            }
             return true
         } else {
             Log("Traveling to The Doomed Tree failed, colour found was "
@@ -425,6 +458,9 @@ GoToFarmField() {
         }
     }
     if (IsAreaSampleColour("0x4A9754") && IsBossTimerActive()) {
+        if (Debug) {
+            Log("Travel success to Farm Field.")
+        }
         return true
     } else {
         Log("Traveling to Farm Field. Attempt to blind travel with slowed"
@@ -440,6 +476,9 @@ GoToFarmField() {
             return true
         }
         if (IsAreaSampleColour("0x4A9754")) {
+            if (Debug) {
+                Log("Blind travel success to Farm Field.")
+            }
             return true
         } else {
             Log("Traveling to Farm Field failed, colour found was "
@@ -505,6 +544,9 @@ GoToDesert() {
         }
     }
     if (IsAreaSampleColour("0xAC816B")) {
+        if (Debug) {
+            Log("Travel success to The Infernal Desert.")
+        }
         return true
     } else {
         Log("Traveling to The Infernal Desert. Attempt to blind travel with"
@@ -529,6 +571,9 @@ GoToDesert() {
             return true
         }
         if (IsAreaSampleColour("0xAC816B")) {
+            if (Debug) {
+                Log("Blind travel success to The Infernal Desert.")
+            }
             return true
         } else {
             Log("Traveling to The Infernal Desert failed, colour found was "
@@ -559,6 +604,9 @@ GoToAstralOasis() {
         }
     }
     if (IsAreaSampleColour("0x000108")) {
+        if (Debug) {
+            Log("Blind travel success to Astral Oasis (Quark Boss 1).")
+        }
         return true
     } else {
         Log("Traveling to Astral Oasis (Quark Boss 1). Attempt to blind travel"
@@ -571,6 +619,9 @@ GoToAstralOasis() {
             return true
         }
         if (IsAreaSampleColour("0x000108")) {
+            if (Debug) {
+                Log("Blind travel success to Astral Oasis (Quark Boss 1).")
+            }
             return true
         } else {
             Log("Traveling to Astral Oasis (Quark Boss 1) failed, colour"
@@ -601,6 +652,9 @@ GoToDimentionalTapestry() {
         }
     }
     if (IsAreaSampleColour("0x37356B")) {
+        if (Debug) {
+            Log("Travel success to Dimentional Tapestry (Quark Boss 2).")
+        }
         return true
     } else {
         Log("Traveling to Dimentional Tapestry (Quark Boss 2). Attempt to"
@@ -613,6 +667,9 @@ GoToDimentionalTapestry() {
             return true
         }
         if (IsAreaSampleColour("0x37356B")) {
+            if (Debug) {
+                Log("Blind travel success to Dimentional Tapestry (Quark Boss 2).")
+            }
             return true
         } else {
             Log("Traveling to Dimentional Tapestry (Quark Boss 2) failed,"
@@ -650,6 +707,9 @@ GoToPlankScope() {
         }
     }
     if (IsAreaSampleColour("0x0B1E32")) {
+        if (Debug) {
+            Log("Travel success to Plank Scope (Quark Boss 3).")
+        }
         return true
     } else {
         Log("Traveling to Plank Scope (Quark Boss 3). Attempt to blind travel"
@@ -667,6 +727,9 @@ GoToPlankScope() {
             return true
         }
         if (IsAreaSampleColour("0x0B1E32")) {
+            if (Debug) {
+                Log("Blind travel success to Plank Scope (Quark Boss 3).")
+            }
             return true
         } else {
             Log("Traveling to Plank Scope (Quark Boss 3) failed, colour"
@@ -701,6 +764,9 @@ GotoCardsFirstTab() {
         }
     }
     if (IsOnCardsFirstPanel()) {
+        if (Debug) {
+            Log("Travel success to Cards First Tab.")
+        }
         return true
     } else {
         ; Attempt to blind travel with slowed times
@@ -718,6 +784,9 @@ GotoCardsFirstTab() {
             return true
         }
         if (IsOnCardsFirstPanel()) {
+            if (Debug) {
+                Log("Blind travel success to Cards First Tab.")
+            }
             return true
         } else {
             Log("GotoCardsFirstTab: Not at cards first tab")
@@ -754,7 +823,10 @@ GotoBorbventuresFirstTab() {
     }
     if (IsButtonActive(WinRelPosLargeW(1100), WinRelPosLargeH(314)) &&
         IsButtonActive(WinRelPosLargeW(1574), WinRelPosLargeH(314))) {
-        return true
+            if (Debug) {
+                Log("Travel success to Borbventures First Tab.")
+            }
+            return true
     }
     Log("Failed to travel to borbventures first tab")
     return false
