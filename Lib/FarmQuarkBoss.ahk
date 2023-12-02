@@ -6,6 +6,7 @@ global QuarkFarmResetToBoss := 0
 fFarmNormalBossQuark() {
     Killcount := 0
     TimerLastCheckStatus := IsBossTimerActive()
+    IsPrevTimerLong := IsBossTimerLong()
     Log("QuarkFarm: Equipped Quark Loadout")
     EquipQuarkGearLoadout()
     Sleep(72)
@@ -35,11 +36,15 @@ fFarmNormalBossQuark() {
             W / 2 - WinRelPosLargeW(100),
             H / 2 - WinRelPosLargeH(50), 5)
         TimerCurrentState := IsBossTimerActive()
+        IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
-        if (TimerLastCheckStatus != TimerCurrentState &&
-            TimerCurrentState) {
+        if ((TimerLastCheckStatus != TimerCurrentState && TimerCurrentState) ||
+            (IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+                ; If the timer is longer, killed too quick to get a gap
                 Killcount++
         }
+        TimerLastCheckStatus := IsBossTimerActive()
+        IsPrevTimerLong := IsBossTimerLong()
         ; if we just started and there is a timer or looped and theres
         ; still a timer, we need to use a violin
         if (IsBossTimerActive()) {
@@ -82,7 +87,6 @@ fFarmNormalBossQuark() {
         ToolTip("Quark Kills: " . Killcount,
             W / 2 - WinRelPosLargeW(75),
             H / 2 + WinRelPosLargeH(20), 8)
-        TimerLastCheckStatus := TimerCurrentState
     }
     SetTimer(ToolTip.Bind(, , , 5), -1)
     SetTimer(ToolTip.Bind(, , , 8), -1)

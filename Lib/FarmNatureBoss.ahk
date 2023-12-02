@@ -16,8 +16,8 @@ fFarmNatureBoss() {
     ClosePanel()
     Sleep(101)
     Killcount := 0
-
     IsInShadowCavern := false
+
     loop {
         if (!IsWindowActive()) {
             break ; Kill early if no game

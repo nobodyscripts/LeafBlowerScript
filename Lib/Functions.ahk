@@ -193,6 +193,9 @@ IsBossTimerActive() {
             WinRelPosLargeW(1280), WinRelPosLargeH(40), "0xFFFFFF", 0)
         ; Timer pixel search
         If (found and OutX != 0) {
+            /* if (Debug) {
+                Log("Found bosstimer")
+            } */
             return true ; Found colour
         }
     } catch as exc {
@@ -202,6 +205,32 @@ IsBossTimerActive() {
     }
     return false
 }
+
+IsBossTimerLong() {
+    ; if white is in this area, timer active (hopefully no zones have white bg
+    ; and text is pure white)
+    ; 1240 5
+    ; 1280 40
+    try {
+        found := PixelSearch(&OutX, &OutY,
+            WinRelPosLargeW(1050), WinRelPosLargeH(5),
+            WinRelPosLargeW(1100), WinRelPosLargeH(40), "0xFFFFFF", 0)
+        ; Timer pixel search
+        If (found and OutX != 0) {
+            /* if (Debug) {
+                Log("Found long bosstimer")
+            } */
+            return true ; Found colour
+        }
+    } catch as exc {
+        Log("Error 7: IsBossTimerLong check failed - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
+            exc.Message)
+    }
+    return false
+}
+
+
 
 PixelSearchWrapper(x1, y1, x2, y2, colour) {
     try {

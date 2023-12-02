@@ -7,6 +7,7 @@ fFarmNormalBoss(modecheck) {
     global on9
     Killcount := 0
     TimerLastCheckStatus := IsBossTimerActive()
+    IsPrevTimerLong := IsBossTimerLong()
     SpamViolins()
     loop {
         If (on9 != modecheck) {
@@ -18,11 +19,18 @@ fFarmNormalBoss(modecheck) {
             return
         }
         TimerCurrentState := IsBossTimerActive()
+        IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
-        if (TimerLastCheckStatus != TimerCurrentState &&
-            TimerCurrentState) {
+        if ((TimerLastCheckStatus != TimerCurrentState && TimerCurrentState) ||
+            (IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+                ; If the timer is longer, killed too quick to get a gap
+                ; Log("Kill timerlast " TimerLastCheckStatus " timer cur "
+                ; TimerCurrentState " waslong " IsPrevTimerLong
+                ; " islong " IsTimerLong)
                 Killcount++
         }
+        TimerLastCheckStatus := IsBossTimerActive()
+        IsPrevTimerLong := IsBossTimerLong()
         if (IsAreaResetToGarden()) {
             Log("BossFarm: User killed.")
             ToolTip("Killed by boss", W / 2, H / 2 +
@@ -32,9 +40,8 @@ fFarmNormalBoss(modecheck) {
         ToolTip("Kills: " . Killcount,
             W / 2 - WinRelPosLargeW(50),
             H / 2 + WinRelPosLargeH(20), 1)
-        SetTimer(ToolTip.Bind(, , , 1), -200)
-        TimerLastCheckStatus := TimerCurrentState
     }
+    ToolTip(, , , 1)
 }
 
 fFarmNormalBossAndBrew(modecheck) {
@@ -48,6 +55,7 @@ fFarmNormalBossAndBrew(modecheck) {
     fSlowClickRelL(512, 1181)
     sleep(150)
     TimerLastCheckStatus := IsBossTimerActive()
+    IsPrevTimerLong := IsBossTimerLong()
     SpamViolins()
     loop {
         If (on9 != modecheck) {
@@ -64,11 +72,15 @@ fFarmNormalBossAndBrew(modecheck) {
         }
         SetTimer(SpamBrewButtons, -5)
         TimerCurrentState := IsBossTimerActive()
+        IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
-        if (TimerLastCheckStatus != TimerCurrentState &&
-            TimerCurrentState) {
+        if ((TimerLastCheckStatus != TimerCurrentState && TimerCurrentState) ||
+            (IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+                ; If the timer is longer, killed too quick to get a gap
                 Killcount++
         }
+        TimerLastCheckStatus := IsBossTimerActive()
+        IsPrevTimerLong := IsBossTimerLong()
         if (IsAreaResetToGarden() && IsSpammerActive()) {
             KillSpammer()
             Log("BossFarm: User killed.")
@@ -80,14 +92,13 @@ fFarmNormalBossAndBrew(modecheck) {
         ToolTip("Brewing on, Kills: " . Killcount,
             W / 2 - WinRelPosLargeW(150),
             H / 2 + WinRelPosLargeH(20), 1)
-        SetTimer(ToolTip.Bind(, , , 1), -200)
-        TimerLastCheckStatus := TimerCurrentState
     }
+    ToolTip(, , , 1)
 }
 
 SpamViolins() {
     global SpammerPID
-    if (IsWindowActive() && IsBossTimerActive()) {
+    if (IsWindowActive()) {
         ;TriggerViolin()
         Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\NormalBoss.ahk"',
             , , &OutPid)
@@ -165,6 +176,9 @@ fNormalBossFarmWithBorbs(modecheck) {
         fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
         bvAutostartDisabled := true
     }
+    Killcount := 0
+    TimerLastCheckStatus := IsBossTimerActive()
+    IsPrevTimerLong := IsBossTimerLong()
     loop {
         If (on9 != modecheck) {
             return
@@ -186,14 +200,29 @@ fNormalBossFarmWithBorbs(modecheck) {
             SetTimer(ToolTip.Bind(, , , 2), -3000)
             return
         }
+        ToolTip("Borbfarm on, Kills: " . Killcount,
+            W / 2 - WinRelPosLargeW(150),
+            H / 1.2, 4)
         BVMainLoop()
+        TimerCurrentState := IsBossTimerActive()
+        IsTimerLong := IsBossTimerLong()
+        ; if state of timer has changed and is now off, we killed
+        if ((TimerLastCheckStatus != TimerCurrentState && TimerCurrentState) ||
+            (IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+                ; If the timer is longer, killed too quick to get a gap
+                Killcount++
+        }
+        TimerLastCheckStatus := IsBossTimerActive()
+        IsPrevTimerLong := IsBossTimerLong()
     }
     if (bvAutostartDisabled = true && !IsBVAutoStartOn()) {
         fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
     }
+    ToolTip(, , , 4)
 }
 
 fNormalBossFarmWithCards(modecheck) {
+    ToolTip(, , , 4)
     ToolTip()
     global HadToHideNotifs, W, H, X, Y, on9
 
@@ -211,7 +240,8 @@ fNormalBossFarmWithCards(modecheck) {
     }
 
     SpamViolins()
-
+    TimerLastCheckStatus := IsBossTimerActive()
+    IsPrevTimerLong := IsBossTimerLong()
     loop {
         If (on9 != modecheck) {
             return
@@ -237,13 +267,23 @@ fNormalBossFarmWithCards(modecheck) {
         }
         ToolTip("Boss farm with cards active",
             W / 2 - WinRelPosLargeW(150),
-            H / 2 + WinRelPosLargeH(360))
+            H / 2 + WinRelPosLargeH(320), 9)
         if (CardsBuyEnabled) {
             Log("BossCards buy: Loop starting.")
             CardBuyLoop()
         } else {
             Log("BossCards buy: Disabled.")
         }
+        TimerCurrentState := IsBossTimerActive()
+        IsTimerLong := IsBossTimerLong()
+        ; if state of timer has changed and is now off, we killed
+        if ((TimerLastCheckStatus != TimerCurrentState && TimerCurrentState) ||
+            (IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+                ; If the timer is longer, killed too quick to get a gap
+                Killcount++
+        }
+        TimerLastCheckStatus := IsBossTimerActive()
+        IsPrevTimerLong := IsBossTimerLong()
         Log("BossCards Opening: Loop starting.")
         loop {
             if (!CardsOpenSinglePass()) {
@@ -258,8 +298,22 @@ fNormalBossFarmWithCards(modecheck) {
                 SetTimer(ToolTip.Bind(, , , 2), -3000)
                 return
             }
+            TimerCurrentState := IsBossTimerActive()
+            IsTimerLong := IsBossTimerLong()
+            ; if state of timer has changed and is now off, we killed
+            if ((TimerLastCheckStatus != TimerCurrentState && TimerCurrentState) ||
+                (IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+                    ; If the timer is longer, killed too quick to get a gap
+                    Killcount++
+            }
+            TimerLastCheckStatus := IsBossTimerActive()
+            IsPrevTimerLong := IsBossTimerLong()
+            ToolTip("Cardfarm on, Kills: " . Killcount,
+                W / 2 - WinRelPosLargeW(150),
+                H / 1.2, 4)
         }
     }
+    ToolTip(, , , 4)
     ToolTip()
     if (HadToHideNotifs) {
         Log("BossCards: Reenabling notifications.")

@@ -143,6 +143,7 @@ To use this new F8 setting, set GFToKillPerCycle to as many kills as required
 to clear SS 50, set SSToKillPerCycle to 50 and set the new GFSSNoReset to 1.
 
 Home: Removed WW farm as now not needed.
+F8/F9: Fix for killing bosses too quickly.
 
 F6: Fixed arrow spacing change causing incorrect detections.  
 F6: Account for changed max borbs.
@@ -154,7 +155,9 @@ settings.
 F8: Added new option to disable the GF/SS resetting.  
 F8: Fixed SS travel.
 
-F9: Secondary no longer auto exits on visit to home garden, main script controls.
+F9: Secondary no longer auto exits on visit to home garden, main script controls.  
+F9: Added tooltip for kills in borbv mode.  
+F9: Fix for secondary not reliably starting.
 
 F10: Fix loop occuring when trying to check remaining timer after boss death
 using font size 1.
