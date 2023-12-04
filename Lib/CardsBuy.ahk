@@ -12,6 +12,10 @@ global cardBuyRareButtonY := 935
 global cardBuyLegButtonX := 1576
 global cardBuyLegButtonY := 935
 
+global CardsDontBuyCommons := true
+global CardsDontBuyRare := true
+global CardsDontBuyLeg := true
+
 CardBuySinglePass() {
     global HadToHideNotifs, W, H, X, Y
     ; Check if lost focus, close or crash and break if so
