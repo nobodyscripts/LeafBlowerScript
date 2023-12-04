@@ -7,7 +7,6 @@ global SSToKillPerCycle := 1
 fFarmGFSS() {
     ResettingGF := false
     global GFSSNoReset
-    Log(GFSSNoReset)
     SpamViolins()
     loop {
         if (!IsWindowActive()) {
@@ -53,9 +52,11 @@ fFarmGFSS() {
                         GFKills++
                         Log("GFKill marked")
                 }
-                Log("GFKill timerlast " TimerLastCheckStatus " timer cur "
-                    TimerCurrentState " waslong " IsPrevTimerLong
-                    " islong " IsTimerLong)
+                /* if (Debug) {
+                    Log("GFKill timerlast " TimerLastCheckStatus " timer cur "
+                        TimerCurrentState " waslong " IsPrevTimerLong
+                        " islong " IsTimerLong)
+                } */
                 TimerLastCheckStatus := TimerCurrentState
                 IsPrevTimerLong := IsTimerLong
                 ; If boss killed us at gf assume we're weak and reset gf
@@ -98,9 +99,11 @@ fFarmGFSS() {
                     GFKills := 0
                     Log("SSKill marked")
             }
-            Log("SSKill timerlast " TimerLastCheckStatus " timer cur "
-                TimerCurrentState " waslong " IsPrevTimerLong
-                " islong " IsTimerLong)
+            /* if (Debug) {
+                Log("SSKill timerlast " TimerLastCheckStatus " timer cur "
+                    TimerCurrentState " waslong " IsPrevTimerLong
+                    " islong " IsTimerLong)
+            } */
             TimerLastCheckStatus := TimerCurrentState
             IsPrevTimerLong := IsTimerLong
             ; if boss killed us exit this loop, then let the master loop
