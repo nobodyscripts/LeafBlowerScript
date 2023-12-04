@@ -14,6 +14,12 @@ OpenAreasPanel(reset := true, extraDelay := 0) {
     sleep(NavigateTime + extraDelay)
     OpenAreas() ; Open areas
     sleep(NavigateTime + extraDelay)
+    i := 0
+    while (!IsButtonActive(WinRelPosW(520), WinRelPosH(564)) || i >= 4) {
+        OpenAreas() ; Open areas if it still hasn't opened
+        sleep(NavigateTime + extraDelay)
+        i++
+    }
     if (reset) {
         ResetAreaScroll()
         sleep(NavigateTime + extraDelay)
@@ -25,12 +31,20 @@ OpenAreasPanel(reset := true, extraDelay := 0) {
  * @param {number} extraDelay (optional): add ms to the sleep timers
  */
 ResetAreaScroll(extraDelay := 0) {
-    ; Double up due to notifications
     fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
     Sleep(NavigateTime + extraDelay)
     fSlowClick(315, 574, NavigateTime + extraDelay)
     ; Click Back to default page to reset the scroll
     Sleep(NavigateTime + extraDelay)
+    i := 0
+    while (!IsAreaTabLeafGalaxy() || i >= 4) { ; If we havn't reset properly, loop till
+        fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
+        Sleep(NavigateTime + extraDelay)
+        fSlowClick(315, 574, NavigateTime + extraDelay)
+        ; Click Back to default page to reset the scroll
+        Sleep(NavigateTime + extraDelay)
+        i++
+    }
 }
 
 /**
@@ -40,7 +54,7 @@ ResetAreaScroll(extraDelay := 0) {
  * @param {number} extraDelay (optional): add ms to the sleep timers
  */
 ScrollAmountDown(amount := 1, extraDelay := 0) {
-    while amount > 0 {
+    while (amount > 0) {
         if (!IsWindowActive() || !IsPanelActive()) {
             break
         } Else {
@@ -58,7 +72,7 @@ ScrollAmountDown(amount := 1, extraDelay := 0) {
  * @param {number} extraDelay (optional): add ms to the sleep timers
  */
 ScrollAmountUp(amount := 1, extraDelay := 0) {
-    while amount > 0 {
+    while (amount > 0) {
         if (!IsWindowActive() || !IsPanelActive()) {
             break
         } Else {
@@ -79,6 +93,15 @@ OpenEventsAreasPanel(extraDelay := 0) {
     Sleep(NavigateTime + extraDelay)
     fSlowClick(1049, 572, NavigateTime + extraDelay) ; Click the event tab
     sleep(NavigateTime + extraDelay)
+    i := 0
+    while (!IsAreaTabEvents() || i >= 4) { ; Loop till confirmed in events
+        OpenAreasPanel(false, extraDelay)
+        fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
+        Sleep(NavigateTime + extraDelay)
+        fSlowClick(1049, 572, NavigateTime + extraDelay) ; Click the event tab
+        sleep(NavigateTime + extraDelay)
+        i++
+    }
 }
 
 /**
@@ -91,6 +114,14 @@ OpenQuarkPanel(extraDelay := 0) {
     Sleep(NavigateTime + extraDelay)
     ScrollAmountUp(2)
     Sleep(NavigateTime + extraDelay)
+    i := 0
+    while (!IsAreaTabQuarkAmbit() || i >= 4) { ; Loop till confirmed in quark
+        OpenAreasPanel(false, extraDelay)
+        fSlowClickRelL(1780, 1180, NavigateTime + extraDelay) ; Quark tab
+        Sleep(NavigateTime + extraDelay)
+        ScrollAmountUp(2)
+        Sleep(NavigateTime + extraDelay)
+    }
 }
 
 IsAreaResetToGarden() {
@@ -170,13 +201,13 @@ GoToGF() {
                 return false
             }
             Log("Traveling to Flame Brazier (Green Flame)")
-            OpenAreasPanel(false)
-            fSlowClick(200, 574, NavigateTime) ; Click Favourites
-            Sleep(NavigateTime)
-            fSlowClick(686, 574, NavigateTime) ; Open Fire Fields tab
-            Sleep(NavigateTime)
+            GoToAreaFireFieldsTab()
             fSlowClickRelL(1680, 820, NavigateTime) ; Open Flame Brazier (GF zone)
-            Sleep(NavigateTime)
+            if (NavigateTime > 151) { ; Need a longer delay to load the slower map
+                sleep(NavigateTime)
+            } else {
+                sleep(2000)
+            }
             i++
         }
     }
@@ -188,11 +219,7 @@ GoToGF() {
     } else {
         Log("Traveling to Flame Brazier (Green Flame). Attempt to blind travel"
             " with slowed times.")
-        OpenAreasPanel(false, 200)
-        fSlowClick(200, 574, NavigateTime + 200) ; Click Favourites
-        Sleep(NavigateTime + 200)
-        fSlowClick(686, 574, NavigateTime + 200) ; Open Fire Fields tab
-        Sleep(NavigateTime + 200)
+        GoToAreaFireFieldsTab(200)
         fSlowClickRelL(1680, 820, NavigateTime + 200) ; Open Flame Brazier (GF zone)
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
@@ -226,13 +253,13 @@ GoToSS() {
                 return false
             }
             Log("Traveling to Flame Universe (Soulseeker)")
-            OpenAreasPanel(false)
-            fSlowClick(200, 574, NavigateTime) ; Click Favourites
-            Sleep(NavigateTime)
-            fSlowClick(686, 574, NavigateTime) ; Open Fire Fields tab
-            Sleep(NavigateTime)
+            GoToAreaFireFieldsTab()
             fSlowClick(877, 516, NavigateTime) ; Open Flame Universe (SS zone)
-            Sleep(NavigateTime)
+            if (NavigateTime > 151) { ; Need a longer delay to load the slower map
+                sleep(NavigateTime)
+            } else {
+                sleep(2000)
+            }
             i++
         }
     }
@@ -244,11 +271,7 @@ GoToSS() {
     } else {
         Log("Traveling to Flame Universe (Soulseeker). Attempt to blind travel"
             " with slowed times.")
-        OpenAreasPanel(false, 200)
-        fSlowClick(200, 574, NavigateTime + 200) ; Click Favourites
-        Sleep(NavigateTime + 200)
-        fSlowClick(686, 574, NavigateTime + 200) ; Open Fire Fields tab
-        Sleep(NavigateTime + 200)
+        GoToAreaFireFieldsTab(200)
         fSlowClick(877, 516, NavigateTime + 200) ; Open Flame Universe (SS zone)
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
@@ -282,16 +305,12 @@ GoToShadowCavern() {
                 return false
             }
             Log("Traveling to Shadow Cavern")
-            OpenAreasPanel(false)
-            fSlowClick(200, 574, NavigateTime) ; Click Favourites
-            Sleep(NavigateTime)
-            fSlowClick(686, 574, NavigateTime) ; Open Fire Fields tab
-            sleep(NavigateTime)
+            GoToAreaFireFieldsTab()
             fSlowClick(880, 159, NavigateTime) ; Go to shadow cavern
-            if (NavigateTime > 101) {
+            if (NavigateTime > 151) { ; Need a longer delay to load the slower map
                 sleep(NavigateTime)
             } else {
-                sleep(101)
+                sleep(151)
             }
             i++
         }
@@ -304,11 +323,7 @@ GoToShadowCavern() {
     } else {
         Log("Traveling to Shadow Cavern. Attempt to blind travel with slowed"
             " times.")
-        OpenAreasPanel(false, 200)
-        fSlowClick(200, 574, NavigateTime + 200) ; Click Favourites
-        Sleep(NavigateTime + 200)
-        fSlowClick(686, 574, NavigateTime + 200) ; Open Fire Fields tab
-        sleep(NavigateTime + 200)
+        GoToAreaFireFieldsTab(200)
         fSlowClick(880, 159, NavigateTime + 200) ; Go to shadow cavern
         sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
@@ -820,6 +835,18 @@ IsOnCardsFirstPanel() {
     return false
 }
 
+GoToAreaFireFieldsTab(extraDelay := 0) {
+    i := 0
+    OpenAreasPanel(false, extraDelay)
+    fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
+    Sleep(NavigateTime + extraDelay)
+    while (!IsAreaTabFireFields() || i >= 4) {
+        fSlowClick(686, 574, NavigateTime + extraDelay) ; Open Fire Fields tab
+        sleep(NavigateTime + extraDelay)
+        i++
+    }
+}
+
 GotoBorbventuresFirstTab() {
     OpenPets() ; Opens or closes another screen so that when areas is opened it
     ; doesn't close
@@ -911,6 +938,46 @@ IsAreaGFOrSS() {
         return true
     }
     return false
+}
+
+IsAreaTabLeafGalaxy() {
+    if (IsButtonActive(WinRelPosLargeW(715), WinRelPosLargeH(1176)) ||
+        IsButtonInactive(WinRelPosLargeW(715), WinRelPosLargeH(1176))) {
+            return false
+    }
+    return true
+}
+
+IsAreaTabFireFields() {
+    if (IsButtonActive(WinRelPosLargeW(1445), WinRelPosLargeH(1176)) ||
+        IsButtonInactive(WinRelPosLargeW(1445), WinRelPosLargeH(1176))) {
+            return false
+    }
+    return true
+}
+
+IsAreaTabSoulRealm() {
+    if (IsButtonActive(WinRelPosLargeW(1695), WinRelPosLargeH(1176)) ||
+        IsButtonInactive(WinRelPosLargeW(1695), WinRelPosLargeH(1176))) {
+            return false
+    }
+    return true
+}
+
+IsAreaTabQuarkAmbit() {
+    if (IsButtonActive(WinRelPosLargeW(1950), WinRelPosLargeH(1176)) ||
+        IsButtonInactive(WinRelPosLargeW(1950), WinRelPosLargeH(1176))) {
+            return false
+    }
+    return true
+}
+
+IsAreaTabEvents() {
+    if (IsButtonActive(WinRelPosLargeW(2161), WinRelPosLargeH(1176)) ||
+        IsButtonInactive(WinRelPosLargeW(2161), WinRelPosLargeH(1176))) {
+            return false
+    }
+    return true
 }
 
 ; IsAreaSampleColour samples:
