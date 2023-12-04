@@ -2,6 +2,7 @@
 
 global QuarkFarmActive := false
 global QuarkFarmResetToBoss := 0
+global ArtifactSleepAmount := 0
 
 fFarmNormalBossQuark() {
     Killcount := 0
@@ -43,8 +44,8 @@ fFarmNormalBossQuark() {
                 ; If the timer is longer, killed too quick to get a gap
                 Killcount++
         }
-        TimerLastCheckStatus := IsBossTimerActive()
-        IsPrevTimerLong := IsBossTimerLong()
+        TimerLastCheckStatus := TimerCurrentState
+        IsPrevTimerLong := IsTimerLong
         ; if we just started and there is a timer or looped and theres
         ; still a timer, we need to use a violin
         if (IsBossTimerActive()) {

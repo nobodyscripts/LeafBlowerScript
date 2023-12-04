@@ -29,8 +29,8 @@ fFarmNormalBoss(modecheck) {
                 ; " islong " IsTimerLong)
                 Killcount++
         }
-        TimerLastCheckStatus := IsBossTimerActive()
-        IsPrevTimerLong := IsBossTimerLong()
+        TimerLastCheckStatus := TimerCurrentState
+        IsPrevTimerLong := IsTimerLong
         if (IsAreaResetToGarden()) {
             Log("BossFarm: User killed.")
             ToolTip("Killed by boss", W / 2, H / 2 +
@@ -79,8 +79,8 @@ fFarmNormalBossAndBrew(modecheck) {
                 ; If the timer is longer, killed too quick to get a gap
                 Killcount++
         }
-        TimerLastCheckStatus := IsBossTimerActive()
-        IsPrevTimerLong := IsBossTimerLong()
+        TimerLastCheckStatus := TimerCurrentState
+        IsPrevTimerLong := IsTimerLong
         if (IsAreaResetToGarden() && IsSpammerActive()) {
             KillSpammer()
             Log("BossFarm: User killed.")
@@ -212,8 +212,8 @@ fNormalBossFarmWithBorbs(modecheck) {
                 ; If the timer is longer, killed too quick to get a gap
                 Killcount++
         }
-        TimerLastCheckStatus := IsBossTimerActive()
-        IsPrevTimerLong := IsBossTimerLong()
+        TimerLastCheckStatus := TimerCurrentState
+        IsPrevTimerLong := IsTimerLong
     }
     if (bvAutostartDisabled = true && !IsBVAutoStartOn()) {
         fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
@@ -282,8 +282,8 @@ fNormalBossFarmWithCards(modecheck) {
                 ; If the timer is longer, killed too quick to get a gap
                 Killcount++
         }
-        TimerLastCheckStatus := IsBossTimerActive()
-        IsPrevTimerLong := IsBossTimerLong()
+        TimerLastCheckStatus := TimerCurrentState
+        IsPrevTimerLong := IsTimerLong
         Log("BossCards Opening: Loop starting.")
         loop {
             if (!CardsOpenSinglePass()) {
@@ -306,8 +306,8 @@ fNormalBossFarmWithCards(modecheck) {
                     ; If the timer is longer, killed too quick to get a gap
                     Killcount++
             }
-            TimerLastCheckStatus := IsBossTimerActive()
-            IsPrevTimerLong := IsBossTimerLong()
+            TimerLastCheckStatus := TimerCurrentState
+            IsPrevTimerLong := IsTimerLong
             ToolTip("Cardfarm on, Kills: " . Killcount,
                 W / 2 - WinRelPosLargeW(150),
                 H / 1.2, 4)

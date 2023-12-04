@@ -7,6 +7,7 @@ global SSToKillPerCycle := 1
 fFarmGFSS() {
     ResettingGF := false
     global GFSSNoReset
+    Log(GFSSNoReset)
     SpamViolins()
     loop {
         if (!IsWindowActive()) {
@@ -18,11 +19,11 @@ fFarmGFSS() {
         IsInSS := false
         Log("GFSSFarm: Going to Green Flame")
         GoToGF()
+        TimerLastCheckStatus := IsBossTimerActive()
+        IsPrevTimerLong := IsBossTimerLong()
         if (IsPanelActive()) {
             ClosePanel()
         }
-        TimerLastCheckStatus := IsBossTimerActive()
-        IsPrevTimerLong := IsBossTimerLong()
 
         while (SSToKillPerCycle != SSKills) {
             if (!IsWindowActive()) {
@@ -35,6 +36,8 @@ fFarmGFSS() {
                 if (!IsInGF) {
                     Log("GFSSFarm: Going to Green Flame")
                     GoToGF()
+                    TimerLastCheckStatus := IsBossTimerActive()
+                    IsPrevTimerLong := IsBossTimerLong()
                     if (IsPanelActive()) {
                         ClosePanel()
                     }
@@ -48,9 +51,13 @@ fFarmGFSS() {
                     (IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
                         ; If the timer is longer, killed too quick to get a gap
                         GFKills++
+                        Log("GFKill marked")
                 }
-                TimerLastCheckStatus := IsBossTimerActive()
-                IsPrevTimerLong := IsBossTimerLong()
+                Log("GFKill timerlast " TimerLastCheckStatus " timer cur "
+                    TimerCurrentState " waslong " IsPrevTimerLong
+                    " islong " IsTimerLong)
+                TimerLastCheckStatus := TimerCurrentState
+                IsPrevTimerLong := IsTimerLong
                 ; If boss killed us at gf assume we're weak and reset gf
                 ; If user set gf kills too high it'll hit this
                 if (IsAreaResetToGarden()) {
@@ -89,9 +96,13 @@ fFarmGFSS() {
                     ; If the timer is longer, killed too quick to get a gap
                     SSKills++
                     GFKills := 0
+                    Log("SSKill marked")
             }
-            TimerLastCheckStatus := IsBossTimerActive()
-            IsPrevTimerLong := IsBossTimerLong()
+            Log("SSKill timerlast " TimerLastCheckStatus " timer cur "
+                TimerCurrentState " waslong " IsPrevTimerLong
+                " islong " IsTimerLong)
+            TimerLastCheckStatus := TimerCurrentState
+            IsPrevTimerLong := IsTimerLong
             ; if boss killed us exit this loop, then let the master loop
             ; reset
             if (IsAreaResetToGarden() && !ResettingGF) {
