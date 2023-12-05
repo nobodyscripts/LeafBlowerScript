@@ -9,16 +9,20 @@ global NavigateTime := 150
  * @param {number} extraDelay (optional): adds ms to the sleep timers
  */
 OpenAreasPanel(reset := true, extraDelay := 0) {
+    NavTime := NavigateTime + extraDelay
+    if(NavigateTime < 72) {
+        NavTime := 72 + extraDelay
+    }
     OpenPets() ; Opens or closes another screen so that when areas
     ; is opened it doesn't close
-    sleep(NavigateTime + extraDelay)
+    sleep(NavTime)
     OpenAreas() ; Open areas
-    sleep(NavigateTime + extraDelay)
+    sleep(NavTime*2)
     i := 0
     while (!IsButtonActive(WinRelPosW(520), WinRelPosH(564)) && i <= 4) {
         Log("OpenAreasPanel: Retry")
         OpenAreas() ; Open areas if it still hasn't opened
-        sleep(NavigateTime + extraDelay)
+        sleep(NavTime)
         i++
     }
     if (reset) {
@@ -31,19 +35,23 @@ OpenAreasPanel(reset := true, extraDelay := 0) {
  * @param {number} extraDelay (optional): add ms to the sleep timers
  */
 ResetAreaScroll(extraDelay := 0) {
-    fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
-    Sleep(NavigateTime + extraDelay)
-    fSlowClick(315, 574, NavigateTime + extraDelay)
+    NavTime := NavigateTime + extraDelay
+    if(NavigateTime < 72) {
+        NavTime := 72 + extraDelay
+    }
+    fSlowClick(200, 574, NavTime) ; Click Favourites
+    Sleep(NavTime)
+    fSlowClick(315, 574, NavTime)
     ; Click Back to default page to reset the scroll
-    Sleep(NavigateTime + extraDelay)
+    Sleep(NavTime)
     i := 0
     while (!IsAreaTabLeafGalaxy() && i <= 4) { ; If we havn't reset properly, loop till
         Log("ResetAreaScroll: Retry")
-        fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
-        Sleep(NavigateTime + extraDelay)
-        fSlowClick(315, 574, NavigateTime + extraDelay)
+        fSlowClick(200, 574, NavTime) ; Click Favourites
+        Sleep(NavTime)
+        fSlowClick(315, 574, NavTime)
         ; Click Back to default page to reset the scroll
-        Sleep(NavigateTime + extraDelay)
+        Sleep(NavTime)
         i++
     }
 }

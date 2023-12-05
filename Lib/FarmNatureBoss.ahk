@@ -121,14 +121,13 @@ IsNatureBossTimerActive() {
     ; 1883 1004
     ; 2189 1033
     try {
-        if (IsButtonActive(WinRelPosLargeW(1693), WinRelPosLargeH(965)) ||
-            IsButtonInactive(WinRelPosLargeW(1693), WinRelPosLargeH(965))) {
-                found := PixelSearch(&OutX, &OutY,
-                    WinRelPosLargeW(1574), WinRelPosLargeH(965),
-                    WinRelPosLargeW(1642), WinRelPosLargeH(1009), "0xFFFFFF", 0)
-                If (found and OutX != 0) {
-                    return true ; Found colour
-                }
+        if (!IsBackground(WinRelPosLargeW(1693), WinRelPosLargeH(960))) {
+            found := PixelSearch(&OutX, &OutY,
+                WinRelPosLargeW(1574), WinRelPosLargeH(965),
+                WinRelPosLargeW(1642), WinRelPosLargeH(1009), "0xFFFFFF", 0)
+            If (found and OutX != 0) {
+                return true ; Found colour
+            }
         } else {
             found := PixelSearch(&OutX, &OutY,
                 WinRelPosLargeW(1525), WinRelPosLargeH(965),
