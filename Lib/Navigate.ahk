@@ -624,8 +624,7 @@ GoToAstralOasis() {
             }
             Log("Traveling to Astral Oasis (Quark Boss 1)")
             OpenQuarkPanel()
-            if (IsButtonActive(WinRelPosLargeW(1665), WinRelPosLargeH(643)) ||
-                IsButtonInactive(WinRelPosLargeW(1665), WinRelPosLargeH(643))) {
+            if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(643))) {
                     fSlowClickRelL(1670, 643, NavigateTime)
             } else {
                 fSlowClickRelL(1670, 680, NavigateTime)
@@ -643,8 +642,7 @@ GoToAstralOasis() {
         Log("Traveling to Astral Oasis (Quark Boss 1). Attempt to blind travel"
             " with slowed times.")
         OpenQuarkPanel(200)
-        if (IsButtonActive(WinRelPosLargeW(1665), WinRelPosLargeH(643)) ||
-            IsButtonInactive(WinRelPosLargeW(1665), WinRelPosLargeH(643))) {
+        if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(643))) {
                 fSlowClickRelL(1670, 643, NavigateTime + 200)
         } else {
             fSlowClickRelL(1670, 680, NavigateTime + 200)
@@ -682,8 +680,7 @@ GoToDimentionalTapestry() {
             }
             Log("Traveling to Dimentional Tapestry (Quark Boss 2)")
             OpenQuarkPanel()
-            if (IsButtonActive(WinRelPosLargeW(1665), WinRelPosLargeH(820)) ||
-                IsButtonInactive(WinRelPosLargeW(1665), WinRelPosLargeH(820))) {
+            if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(820))) {
                     fSlowClickRelL(1670, 820, NavigateTime)
             } else {
                 fSlowClickRelL(1670, 860, NavigateTime)
@@ -701,8 +698,7 @@ GoToDimentionalTapestry() {
         Log("Traveling to Dimentional Tapestry (Quark Boss 2). Attempt to"
             " blind travel with slowed times.")
         OpenQuarkPanel(200)
-        if (IsButtonActive(WinRelPosLargeW(1665), WinRelPosLargeH(820)) ||
-            IsButtonInactive(WinRelPosLargeW(1665), WinRelPosLargeH(820))) {
+        if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(820))) {
                 fSlowClickRelL(1670, 820, NavigateTime + 200)
         } else {
             fSlowClickRelL(1670, 860, NavigateTime + 200)
@@ -740,8 +736,7 @@ GoToPlankScope() {
             }
             Log("Traveling to Plank Scope (Quark Boss 3)")
             OpenQuarkPanel()
-            if (IsButtonActive(WinRelPosLargeW(1665), WinRelPosLargeH(970)) ||
-                IsButtonInactive(WinRelPosLargeW(1665), WinRelPosLargeH(970))) {
+            if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(970))) {
                     fSlowClickRelL(1670, 970, NavigateTime + 200)
             } else {
                 fSlowClickRelL(1670, 1020, NavigateTime + 200)
