@@ -190,7 +190,6 @@ WW safety mode - Checks health bars for potential failure and changes level
 F3: Handle new multipliers, decreasing amounts, priorities. Will probably need
 to read save file, get caps, work out how much to open to avoid breaking auto
 transcend limits, then ocr the buttons and openall the right amount.  
-F4: Check if trade moved after using suitcase to signal actual usage.  
 F6: If item is not a valid target cancel borbv  
 F6: If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
@@ -211,6 +210,8 @@ F4: If exited early, may toggle notifications/auto refresh/details to incorrect
 F4: Can sometimes miss bearo, if you see trade start buttons appearing, retry  
 F4: Due to nature event pet slot if nature event artifact runs out bearo may not
    reapply after use, to avoid leave a slot free in default loadout (8/9)  
+F4: Will display failures to use suitcases before it runs out, this is due to
+   the game not handling inputs every time.  
 F6: Still! starting borbventures with only 1 borb  
 F6: Incorrect items can be started if manually refreshed while it scans  
 F7: Will intentionally grab gems if no pumpkins are found  
