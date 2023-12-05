@@ -15,14 +15,14 @@ OpenAreasPanel(reset := true, extraDelay := 0) {
     OpenAreas() ; Open areas
     sleep(NavigateTime + extraDelay)
     i := 0
-    while (!IsButtonActive(WinRelPosW(520), WinRelPosH(564)) || i >= 4) {
+    while (!IsButtonActive(WinRelPosW(520), WinRelPosH(564)) && i <= 4) {
+        Log("OpenAreasPanel: Retry")
         OpenAreas() ; Open areas if it still hasn't opened
         sleep(NavigateTime + extraDelay)
         i++
     }
     if (reset) {
         ResetAreaScroll()
-        sleep(NavigateTime + extraDelay)
     }
 }
 
@@ -37,7 +37,8 @@ ResetAreaScroll(extraDelay := 0) {
     ; Click Back to default page to reset the scroll
     Sleep(NavigateTime + extraDelay)
     i := 0
-    while (!IsAreaTabLeafGalaxy() || i >= 4) { ; If we havn't reset properly, loop till
+    while (!IsAreaTabLeafGalaxy() && i <= 4) { ; If we havn't reset properly, loop till
+        Log("ResetAreaScroll: Retry")
         fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
         Sleep(NavigateTime + extraDelay)
         fSlowClick(315, 574, NavigateTime + extraDelay)
@@ -94,7 +95,8 @@ OpenEventsAreasPanel(extraDelay := 0) {
     fSlowClick(1049, 572, NavigateTime + extraDelay) ; Click the event tab
     sleep(NavigateTime + extraDelay)
     i := 0
-    while (!IsAreaTabEvents() || i >= 4) { ; Loop till confirmed in events
+    while (!IsAreaTabEvents() && i <= 4) { ; Loop till confirmed in events
+        Log("OpenEventsAreasPanel: Retry")
         OpenAreasPanel(false, extraDelay)
         fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
         Sleep(NavigateTime + extraDelay)
@@ -115,7 +117,8 @@ OpenQuarkPanel(extraDelay := 0) {
     ScrollAmountUp(2)
     Sleep(NavigateTime + extraDelay)
     i := 0
-    while (!IsAreaTabQuarkAmbit() || i >= 4) { ; Loop till confirmed in quark
+    while (!IsAreaTabQuarkAmbit() && i <= 4) { ; Loop till confirmed in quark
+        Log("OpenQuarkPanel: Retry")
         OpenAreasPanel(false, extraDelay)
         fSlowClickRelL(1780, 1180, NavigateTime + extraDelay) ; Quark tab
         Sleep(NavigateTime + extraDelay)
@@ -206,7 +209,7 @@ GoToGF() {
             if (NavigateTime > 151) { ; Need a longer delay to load the slower map
                 sleep(NavigateTime)
             } else {
-                sleep(2000)
+                sleep(151)
             }
             i++
         }
@@ -258,7 +261,7 @@ GoToSS() {
             if (NavigateTime > 151) { ; Need a longer delay to load the slower map
                 sleep(NavigateTime)
             } else {
-                sleep(2000)
+                sleep(151)
             }
             i++
         }
@@ -840,7 +843,8 @@ GoToAreaFireFieldsTab(extraDelay := 0) {
     OpenAreasPanel(false, extraDelay)
     fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
     Sleep(NavigateTime + extraDelay)
-    while (!IsAreaTabFireFields() || i >= 4) {
+    while (!IsAreaTabFireFields() && i <= 4) {
+        Log("GotoAreaFireFieldsTab: Retry")
         fSlowClick(686, 574, NavigateTime + extraDelay) ; Open Fire Fields tab
         sleep(NavigateTime + extraDelay)
         i++
