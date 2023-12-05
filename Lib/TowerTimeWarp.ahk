@@ -5,26 +5,27 @@ TowerFarmActive := false
 
 fTimeWarpAndRaiseTower() {
     global X, Y, W, H, TowerFarmActive
+    GemTest := true
+    if (GemTest) {
+        OpenGemShop()
+        sleep(150)
 
-    OpenGemShop()
-    sleep(150)
+        if (!IsButtonActive(WinRelPosW(904), WinRelPosH(571))) {
+            Log("TowerBoost: Found no time travel button, exiting.")
+            return
+        }
+        fSlowClick(904, 571, 101) ; Navigate to Time Travel tab
+        Sleep(101)
 
-    if (!IsButtonActive(WinRelPosW(904), WinRelPosH(571))) {
-        Log("TowerBoost: Found no time travel button, exiting.")
-        return
+        if (!IsButtonActive(WinRelPosW(894), WinRelPosH(312))) {
+            ToolTip("No 72hr boosts to use, exiting.`n"
+                "Use F5 to finish",
+                W / 2 - WinRelPosW(50),
+                H / 2)
+            Log("TowerBoost: Found no 72 hour boosts, exiting.")
+            return
+        }
     }
-    fSlowClick(904, 571, 101) ; Navigate to Time Travel tab
-    Sleep(101)
-
-    if (!IsButtonActive(WinRelPosW(894), WinRelPosH(312))) {
-        ToolTip("No 72hr boosts to use, exiting.`n"
-            "Use F5 to finish",
-            W / 2 - WinRelPosW(50),
-            H / 2)
-        Log("TowerBoost: Found no 72 hour boosts, exiting.")
-        return
-    }
-
     OpenAreasPanel()
     ScrollAmountDown(16) ; Scroll down for the zones
     Sleep(101)

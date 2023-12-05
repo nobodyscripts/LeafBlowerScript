@@ -169,7 +169,6 @@ Insert: Fix traveling with font sizes change.
 
 ## TODO
 
-Killing bosses too fast results in no gap in timer, will need to redo detection  
 Rethink F8, F9, Insert, Home  
 Devoption: Window check, keybinds and active checks designed around dev.
    F12 Test mode, edit save file to incorrect settings and test each
