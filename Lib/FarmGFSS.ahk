@@ -18,7 +18,6 @@ fFarmGFSS() {
         IsInSS := false
         Log("GFSSFarm: Going to Green Flame")
         GoToGF()
-        TimerLastCheckStatus := IsBossTimerActive()
         IsPrevTimerLong := IsBossTimerLong()
         if (IsPanelActive()) {
             ClosePanel()
@@ -35,7 +34,6 @@ fFarmGFSS() {
                 if (!IsInGF) {
                     Log("GFSSFarm: Going to Green Flame")
                     GoToGF()
-                    TimerLastCheckStatus := IsBossTimerActive()
                     IsPrevTimerLong := IsBossTimerLong()
                     if (IsPanelActive()) {
                         ClosePanel()
@@ -43,11 +41,9 @@ fFarmGFSS() {
                     IsInGF := true
                     IsInSS := false
                 }
-                TimerCurrentState := IsBossTimerActive()
                 IsTimerLong := IsBossTimerLong()
                 ; if state of timer has changed and is now off, we killed
-                if ((TimerLastCheckStatus != TimerCurrentState && TimerCurrentState) ||
-                    (IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+                if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
                         ; If the timer is longer, killed too quick to get a gap
                         GFKills++
                         Log("GFKill marked")
@@ -57,7 +53,6 @@ fFarmGFSS() {
                         TimerCurrentState " waslong " IsPrevTimerLong
                         " islong " IsTimerLong)
                 } */
-                TimerLastCheckStatus := TimerCurrentState
                 IsPrevTimerLong := IsTimerLong
                 ; If boss killed us at gf assume we're weak and reset gf
                 ; If user set gf kills too high it'll hit this
@@ -89,11 +84,9 @@ fFarmGFSS() {
                 IsInSS := true
                 IsInGF := false
             }
-            TimerCurrentState := IsBossTimerActive()
             IsTimerLong := IsBossTimerLong()
             ; if state of timer has changed and is now off, we killed
-            if ((TimerLastCheckStatus != TimerCurrentState && TimerCurrentState) ||
-                (IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+            if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
                     ; If the timer is longer, killed too quick to get a gap
                     SSKills++
                     GFKills := 0
@@ -104,7 +97,6 @@ fFarmGFSS() {
                     TimerCurrentState " waslong " IsPrevTimerLong
                     " islong " IsTimerLong)
             } */
-            TimerLastCheckStatus := TimerCurrentState
             IsPrevTimerLong := IsTimerLong
             ; if boss killed us exit this loop, then let the master loop
             ; reset
