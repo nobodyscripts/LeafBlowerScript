@@ -843,8 +843,12 @@ GoToAreaFireFieldsTab(extraDelay := 0) {
     OpenAreasPanel(false, extraDelay)
     fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
     Sleep(NavigateTime + extraDelay)
+    fSlowClick(686, 574, NavigateTime + extraDelay) ; Open Fire Fields tab
+    sleep(NavigateTime + extraDelay)
     while (!IsAreaTabFireFields() && i <= 4) {
         Log("GotoAreaFireFieldsTab: Retry")
+        fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
+        Sleep(NavigateTime + extraDelay)
         fSlowClick(686, 574, NavigateTime + extraDelay) ; Open Fire Fields tab
         sleep(NavigateTime + extraDelay)
         i++
