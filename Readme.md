@@ -145,6 +145,9 @@ to clear SS 50, set SSToKillPerCycle to 50 and set the new GFSSNoReset to 1.
 Home: Removed WW farm as now not needed.
 F8/F9: Fix for killing bosses too quickly.
 
+F4: Added failcount, failing some is ok especially with sleep time below 72.
+This is to show you when you run out and are failing suitcases a lot.
+
 F6: Fixed arrow spacing change causing incorrect detections.  
 F6: Account for changed max borbs.
 F6: Fixed auto start check out of alignment.  

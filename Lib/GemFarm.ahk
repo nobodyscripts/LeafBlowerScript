@@ -1,11 +1,10 @@
 ﻿#Requires AutoHotkey v2.0
 
-global TradesAutoRefreshOldState, TradesDetailedModeOldState
-global HadToRemoveBearo, GemFarmActive
-TradesAutoRefreshOldState := false
-TradesDetailedModeOldState := false
-HadToRemoveBearo := false
-GemFarmActive := false
+global GemFarmSleepAmount := 1
+global TradesAutoRefreshOldState := false
+global TradesDetailedModeOldState := false
+global HadToRemoveBearo := false
+global GemFarmActive := false
 
 fGemFarmSuitcase() {
     global TradesAutoRefreshOldState
@@ -16,7 +15,7 @@ fGemFarmSuitcase() {
         Log("GemFarm: Could not find desert area. Aborted travel.")
         ToolTip("Could not find desert area`nUse F4 to finish",
             W / 2 - WinRelPosW(50),
-            H / 2,3)
+            H / 2, 3)
         return
     }
 
@@ -100,9 +99,10 @@ fGemFarmSuitcase() {
             W / 2 - WinRelPosLargeW(100), H / 2, 5)
         SetTimer(ToolTip.Bind(, , , 5), -1000)
         return
-
     }
+    MouseMove(W/2, WinRelPosH(400))
     sCount := 0
+    fCount := 0
     GemFarmActive := true
     Log("GemFarm: Starting main loop.")
     while (GemFarmActive) {
@@ -133,10 +133,16 @@ fGemFarmSuitcase() {
                 If (colour = "0xFF0044") {
                     ; Double check to try and avoid false usage
                     TriggerSuitcase()
-                    sCount++
-                    ToolTip("Used suitcases " sCount " times.",
-                        W / 2 - WinRelPosLargeW(100), H / 2, 15)
                     Sleep(GemFarmSleepAmount)
+                    if (HasSuitCaseBeenUsed()) {
+                        sCount++
+                    } else {
+                        fCount++
+                    }
+                    ToolTip("Used suitcases " sCount " times.`n"
+                    "Failed to use suitcases " fCount " times.",
+                        W / 2 - WinRelPosLargeW(100), H / 2, 15)
+
                 }
             }
         } catch as exc {
@@ -235,6 +241,14 @@ FillTradeSlots() {
         }
     }
     Log("GemFarm: Completed filling trade slots.")
+    return true
+}
+
+HasSuitCaseBeenUsed() {
+    if (IsBackground(WinRelPosW(960), WinRelPosH(195)) &&
+        IsBackground(WinRelPosW(997), WinRelPosH(195))) {
+            return false
+    }
     return true
 }
 
