@@ -3,8 +3,10 @@
 global SpammerPID := 0
 global HyacinthUseSlot := "All"
 global HyacinthFarmBoss := true
+global F9UsesWobblyWings := true
 
 fFarmNormalBossAndNatureHyacinth() {
+    global F9UsesWobblyWings
     ToolTip()
     Killcount := 0
     GoToFarmField()
@@ -41,9 +43,14 @@ fFarmNormalBossAndNatureHyacinth() {
     }
     sleep(NavigateTime)
     fSlowClickRelL(380, 600, NavigateTime) ; Hyacinth
-    IsPrevTimerLong := IsBossTimerLong()
-    if (HyacinthFarmBoss) SpamViolins()
     sleep(NavigateTime)
+    IsPrevTimerLong := IsBossTimerLong()
+    if (HyacinthFarmBoss && F9UsesWobblyWings) {
+        bossfarm := true
+        TriggerWobblyWings()
+        Sleep(NavigateTime)
+        SpamViolins()
+    }
     ; works for font 0 and font 1
     ; 530 425 harvest
     ; 666 425 harvest all
@@ -67,7 +74,7 @@ fFarmNormalBossAndNatureHyacinth() {
             break
         }
         if (!IsPanelActive()) {
-            Log("BossHyacinth: Did not find panel. Aborted brewing. Violins active")
+            Log("BossHyacinth: Did not find panel. Aborted farming. Violins active")
             break
         }
 
@@ -78,32 +85,37 @@ fFarmNormalBossAndNatureHyacinth() {
                 fSlowClickRelL(PlantBX + 5, PlantBY, NavigateTime)
             } else {
                 if (HyacinthFarmBoss) KillSpammer()
-                Log("BossHyacinth: Plants exausted. Exiting.")
+                    Log("BossHyacinth: Plants exausted. Exiting.")
                 ToolTip("Plants exausted. Exiting.", W / 2, H / 2 +
                     WinRelPosLargeH(50), 2)
                 SetTimer(ToolTip.Bind(, , , 2), -3000)
                 break
             }
         }
-
-        IsTimerLong := IsBossTimerLong()
-        ; if state of timer has changed and is now off, we killed
-        if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
-            ; If the timer is longer, killed too quick to get a gap
-            Killcount++
-        }
-        IsPrevTimerLong := IsTimerLong
-        if (IsAreaResetToGarden() && IsSpammerActive()) {
-            if (HyacinthFarmBoss) KillSpammer()
-            Log("BossHyacinth: User killed.")
-            ToolTip("Killed by boss", W / 2, H / 2 +
-                WinRelPosLargeH(50), 2)
-            SetTimer(ToolTip.Bind(, , , 2), -3000)
-            return
-        }
-        ToolTip("Hyacinth on, Kills: " . Killcount,
+        if (bossfarm) {
+            IsTimerLong := IsBossTimerLong()
+            ; if state of timer has changed and is now off, we killed
+            if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+                ; If the timer is longer, killed too quick to get a gap
+                Killcount++
+            }
+            IsPrevTimerLong := IsTimerLong
+            if (IsAreaResetToGarden() && IsSpammerActive()) {
+                if (HyacinthFarmBoss) KillSpammer()
+                    Log("BossHyacinth: User killed.")
+                ToolTip("Killed by boss", W / 2, H / 2 +
+                    WinRelPosLargeH(50), 2)
+                SetTimer(ToolTip.Bind(, , , 2), -3000)
+                return
+            }
+            ToolTip("Hyacinth on, Kills: " . Killcount,
+                W / 2 - WinRelPosLargeW(150),
+                H / 2 + WinRelPosLargeH(150), 1)
+        } else {
+            ToolTip("Hyacinth on, F9UsesWobblyWings disabled.",
             W / 2 - WinRelPosLargeW(150),
-            H / 2 + WinRelPosLargeH(20), 1)
+            H / 2 + WinRelPosLargeH(150), 1)
+        }
     }
     ToolTip(, , , 1)
 }

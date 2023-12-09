@@ -505,6 +505,9 @@ removeLastCheckTooltip() {
         cReload() ; Kill if no game
         return
     }
+    if (IsSpammerActive()) {
+        KillSpammer()
+    }
     ResetModifierKeys() ; Cleanup incase needed
     If (on14 := !on14) {
         if (!CheckGameSettingsCorrect()) {
