@@ -17,6 +17,7 @@
 #Include Lib\FarmNormalBoss.ahk
 #Include Lib\FarmQuarkBoss.ahk
 #Include Lib\GemFarm.ahk
+#Include Lib\NatureHyacinth.ahk
 #Include Lib\TowerTimeWarp.ahk
 
 DetectHiddenWindows(true)
@@ -485,6 +486,36 @@ removeLastCheckTooltip() {
         Log("Insert: Equipped Default Loadout")
         EquipDefaultGearLoadout()
         Log("Insert: Resetting")
+        cReload()
+        return
+    }
+}
+
+*Home:: {
+    ; Farm bosses while farming Hyacinths
+    Static on14 := false
+    global HyacinthFarmActive
+    HyacinthFarmActive := true
+    Log("Home: Pressed")
+    if (!InitGameWindow() && !on14) {
+        cReload()
+        return
+    }
+    if (!IsWindowActive()) {
+        cReload() ; Kill if no game
+        return
+    }
+    ResetModifierKeys() ; Cleanup incase needed
+    If (on14 := !on14) {
+        if (!CheckGameSettingsCorrect()) {
+            cReload()
+            return
+        }
+        Log("Home: Hyacinth + Boss Activated")
+        fFarmNormalBossAndNatureHyacinth()
+    } Else {
+        HyacinthFarmActive := false
+        Log("Home: Resetting")
         cReload()
         return
     }

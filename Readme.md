@@ -1,4 +1,4 @@
-# LBR Resolution independent scripts v3.0.12
+# LBR Resolution independent scripts v3.0.13
 
 Support and news: <https://discord.gg/xu8fXw4CQ8>
 
@@ -53,12 +53,16 @@ below. Settings for Wind/Grav/WW and timers available apply to all modes of F9,
 attempts to use artifacts smartly, depending which boss zone you are currently
 in (updates with WW use). Uses a second script to bypass limitations, so you
 will see 2 icons in tray.
+
 F9x2 (twice): Boss farmer + brew spammer - Opens the first tab of brewing and
 spams Artifacts, Equipment, Materials and Card parts (no scrolls).  
-F9x3 (three times): Boss farm + borbventures  
+
+F9x3 (three times): Boss farm + borbventures
+
 F9x4 (four times): Boss farm + card opening - Will continue when done opening
 cards, can disable this in the UserSettings.ini if concerned about using cards
-unintentionally  
+unintentionally
+
 F9x5 (five times): Toggles off (though you can just F2 early if you prefer)
 
 F10: Nature boss farmer - Swaps out to Shadow Cavern to use violins, uses the
@@ -77,6 +81,9 @@ Insert: Quark boss farmer - Spams violins when on cd, wind when not, has an
 option in config to return to one of the three bosses on death (with 10s wait).
 If set takes you to the boss when run. Equips a loadout for nuclear fuel, resets
 to default loadout when canceled.
+
+Home: Hyacinth farming - Spam grows hyacinths to farm nature gems/exp. Can farm
+bosses with WW in the background.
 
 ## Notes
 
@@ -139,33 +146,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
-To use this new F8 setting, set GFToKillPerCycle to as many kills as required
-to clear SS 50, set SSToKillPerCycle to 50 and set the new GFSSNoReset to 1.
-
-Home: Removed WW farm as now not needed.
-F8/F9: Fix for killing bosses too quickly.
-
-F4: Added failcount, failing some is ok especially with sleep time below 72.
-This is to show you when you run out and are failing suitcases a lot.
-
-F6: Fixed arrow spacing change causing incorrect detections.  
-F6: Account for changed max borbs.
-F6: Fixed auto start check out of alignment.  
-F6: Added redundant travel to borbv with checks.  
-
-F8: Removed usesWind and usesGrav settings, now using F9 secondary and its
-settings.  
-F8: Added new option to disable the GF/SS resetting.  
-F8: Fixed SS travel.
-
-F9: Secondary no longer auto exits on visit to home garden, main script controls.  
-F9: Added tooltip for kills in borbv mode.  
-F9: Fix for secondary not reliably starting.
-
-F10: Fix loop occuring when trying to check remaining timer after boss death
-using font size 1.
-
-Insert: Fix traveling with font sizes change.
+New Home: Hyacinth farm (nature event) mode with WW boss
 
 ## TODO
 
