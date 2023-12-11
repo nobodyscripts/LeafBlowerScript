@@ -130,7 +130,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 |                                                         |                                                                                                                               |
 |   Trees (OFF)                                           |  F12: Tests this setting and errors if on (Used for area travel).                                                             |
 |                                                         |                                                                                                                               |
-|   AFK (AUTO/OFF)                                        |  Checks for and counters situations where this is active. Should be fine to use.                                              |
+|   AFK Mode Lost Focus (OFF/ON)                                        |  Checks for and counters situations where this is active. Should be fine to use.                                              |
 |                                                         |                                                                                                                               |
 |   Display Reward Dialogs (OFF) (Gameplay tab)           |  Checked, will slow down opening.                                                                                             |
 |                                                         |                                                                                                                               |
@@ -177,6 +177,10 @@ F7: Needs to use artifact if need be / get replacement
 F10: Needs to use artifact if need be / get replacement  
 
 ## Known issues
+
+If you have menu transparency errors with all settings correct, it is likely your
+game colours are not correct, this can be caused by custom colour settings (like
+digital vibrancy, hdr or similar).
 
 Some keys don't 'untoggle' properly when the scripts exit due to failures.  
 F3: If exited early, may toggle notifications to incorrect state  
