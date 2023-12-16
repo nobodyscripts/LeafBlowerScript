@@ -15,7 +15,7 @@ global CardsBossFarmEnabled
 global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
 global GemFarmSleepAmount
 global ClawCheckSizeOffset
-global BVItemsArr, HaveBorbDLC
+global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
 global QuarkFarmResetToBoss
 global NavigateTime
 global DisableZoneChecks, DisableSettingsChecks
@@ -54,6 +54,7 @@ class cSettings {
         GemFarmSleepAmount: 72,
         ClawCheckSizeOffset: 0,
         BVItemsArr: "0x018C9C, 0x01D814, 0x0F2A1D, 0x6CD820, 0xC9C9C9",
+        BVBlockMythLeg: "false",
         QuarkFarmResetToBoss: 3,
         NavigateTime: 101,
         DisableZoneChecks: "false",
@@ -90,6 +91,7 @@ class cSettings {
         GemFarmSleepAmount: 101,
         ClawCheckSizeOffset: 0,
         BVItemsArr: "0x01D814, 0xC9C9C9, 0xF91FF6",
+        BVBlockMythLeg: "false",
         QuarkFarmResetToBoss: 0,
         NavigateTime: 101,
         DisableZoneChecks: "false",
@@ -146,7 +148,7 @@ class cSettings {
         global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
         global GemFarmSleepAmount
         global ClawCheckSizeOffset
-        global BVItemsArr
+        global BVItemsArr, BVBlockMythLeg
         global QuarkFarmResetToBoss
         global NavigateTime
         global DisableZoneChecks, DisableSettingsChecks
@@ -205,6 +207,8 @@ class cSettings {
                 IniToVar(this.sFilename, this.sFileSection, "ClawCheckSizeOffset")
             BVItemsArr := this.loadedSettings.BVItemsArr :=
                 StrSplit(IniToVar(this.sFilename, this.sFileSection, "BVItemsArr"), " ", ",.")
+            BVBlockMythLeg := this.loadedSettings.BVBlockMythLeg :=
+                IniToVar(this.sFilename, this.sFileSection, "BVBlockMythLeg")
             QuarkFarmResetToBoss := this.loadedSettings.QuarkFarmResetToBoss :=
                 IniToVar(this.sFilename, this.sFileSection, "QuarkFarmResetToBoss")
             NavigateTime := this.loadedSettings.NavigateTime :=
@@ -275,6 +279,7 @@ class cSettings {
             this.WriteToIni("GemFarmSleepAmount", this.defaultNobodySettings.GemFarmSleepAmount)
             this.WriteToIni("ClawCheckSizeOffset", this.defaultNobodySettings.ClawCheckSizeOffset)
             this.WriteToIni("BVItemsArr", this.defaultNobodySettings.BVItemsArr)
+            this.WriteToIni("BVBlockMythLeg", this.defaultNobodySettings.BVBlockMythLeg)
             this.WriteToIni("QuarkFarmResetToBoss", this.defaultNobodySettings.QuarkFarmResetToBoss)
             this.WriteToIni("NavigateTime", this.defaultNobodySettings.NavigateTime)
             this.WriteToIni("DisableZoneChecks", this.defaultNobodySettings.DisableZoneChecks)
@@ -310,6 +315,7 @@ class cSettings {
             this.WriteToIni("GemFarmSleepAmount", this.defaultSettings.GemFarmSleepAmount)
             this.WriteToIni("ClawCheckSizeOffset", this.defaultSettings.ClawCheckSizeOffset)
             this.WriteToIni("BVItemsArr", this.defaultSettings.BVItemsArr)
+            this.WriteToIni("BVBlockMythLeg", this.defaultSettings.BVBlockMythLeg)
             this.WriteToIni("QuarkFarmResetToBoss", this.defaultSettings.QuarkFarmResetToBoss)
             this.WriteToIni("NavigateTime", this.defaultSettings.NavigateTime)
             this.WriteToIni("DisableZoneChecks", this.defaultSettings.DisableZoneChecks)

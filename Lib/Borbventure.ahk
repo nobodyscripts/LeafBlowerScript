@@ -2,10 +2,11 @@
 
 global bvAutostartDisabled := false
 global HaveBorbDLC := false
+global BVBlockMythLeg := false
 
 fBorbVentureJuiceFarm() {
     global bvAutostartDisabled
-    
+
     if (!GotoBorbventuresFirstTab()) {
         Log("Borbv: Failed to travel, aborting.")
         return
@@ -38,7 +39,7 @@ fBorbVentureJuiceFarm() {
 }
 
 BVMainLoop() {
-    global HaveBorbDLC
+    global HaveBorbDLC, BVBlockMythLeg
     ; Check for any finished items in view and collect them
     ; Not really needed now but not much harm to leave going 586 1098
     loop 6 {
@@ -68,13 +69,16 @@ BVMainLoop() {
                     ; pause refreshing until something new happens to avoid wastage
                     activeSlots++
             } else {
-                ; If slot has an item we want add it to the target list
-                IsUsefulItem := BVScanSlotItem(WinRelPosLargeW(1313),
-                    arrowY - WinRelPosLargeH(17),
-                    WinRelPosLargeW(1347),
-                    arrowY + WinRelPosLargeH(20))
-                if (IsUsefulItem) {
-                    targetItemsYArray.Push(arrowY)
+                if ((BVScanSlotRarity(arrowY) != "0x9E10C1" &&
+                    BVScanSlotRarity(arrowY) != "0xE1661A") || !BVBlockMythLeg) {
+                        ; If slot has an item we want add it to the target list
+                        IsUsefulItem := BVScanSlotItem(WinRelPosLargeW(1313),
+                            arrowY - WinRelPosLargeH(17),
+                            WinRelPosLargeW(1347),
+                            arrowY + WinRelPosLargeH(20))
+                        if (IsUsefulItem) {
+                            targetItemsYArray.Push(arrowY)
+                        }
                 }
             }
         }
@@ -274,6 +278,16 @@ BVColourToItem(colour) {
         case "0x0E44BE": return "Power Dice Points (blue)"
         default: return "Unknown"
     }
+}
+
+/**
+ * Get the colour of the quest marker on the left side of the quest row
+ * @param arrowX Screenspace coord of the arrow detection point
+ * @param arrowY
+ * @returns {string} Returns raw from Pixelgetcolor, can be false
+ */
+BVScanSlotRarity(arrowY) {
+    return PixelGetColor(WinRelPosLargeW(331), arrowY)
 }
 
 IsBVScrollAblePanelAtTop() {

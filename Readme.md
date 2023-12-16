@@ -147,6 +147,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 ## Changes
 
 New Home: Hyacinth farm (nature event) mode with WW boss
+F6: Added setting BVBlockMythLeg to block start of mythical and legendary BV
 
 ## TODO
 
@@ -173,7 +174,6 @@ transcend limits, then ocr the buttons and openall the right amount.
 F6: If item is not a valid target cancel borbv  
 F6: If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
-F6: Add % setting to block start of bv which can fail with maxed items
 F7: Needs to use artifact if need be / get replacement  
 F10: Needs to use artifact if need be / get replacement  
 
