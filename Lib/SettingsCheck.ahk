@@ -70,6 +70,8 @@ CheckGameSettingsCorrectVerbose() {
     if (!IsWindowActive()) {
         return false ; Kill if no game
     }
+    ; Check for afk, if it is on, click the corner of the screen
+    AFKFix()
     OpenAreasPanel(false)
     if (IsAspectRatioCorrectCheck()) {
         Log("Passed Verbose Render Mode check.")
