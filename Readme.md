@@ -166,7 +166,9 @@ Brew + cards rotation mode.
 Halloween + Nature artifact secondary which pauses main functions.  
 Adjust window resize based on delta from intended size, for non matching window
    dressing.  
-WW safety mode - Checks health bars for potential failure and changes level
+WW safety mode - Checks health bars for potential failure and changes level  
+Issue with IsAreaTab* functions with font 1 causing misalignment, causing travel
+retrying
 
 F3: Handle new multipliers, decreasing amounts, priorities. Will probably need
 to read save file, get caps, work out how much to open to avoid breaking auto
