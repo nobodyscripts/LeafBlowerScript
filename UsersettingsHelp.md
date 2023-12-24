@@ -71,10 +71,10 @@ F8 How many gf to kill before attempting SS
 SSToKillPerCycle: (Default) 1  
 F8 How many ss to kill before resetting
 
-GFSSNoReset: (Default) 0  
+GFSSNoReset: (Default) false  
 F8 Disables the reset of kill counts, useful for farming milestones. To use
 this setting, set GFToKillPerCycle to as many kills as required
-to clear SS 50, set SSToKillPerCycle to 50 and set GFSSNoReset to 1.
+to clear SS 50, set SSToKillPerCycle to 50 and set GFSSNoReset to true.
 
 GemFarmSleepAmount: (Default) 101  
 Adds 1ms to the timers in gem farm for every 1 added here. 10=10ms slower.
@@ -106,6 +106,10 @@ Add/Remove to this array of colours to include the items you want to farm.
 0xCEF587 Free borb token  
 0xC9C9C9 Dice Points (white)  
 0x0E44BE Power Dice Points (blue)  
+
+BVBlockMythLeg: (Default) true  
+Prevents the borbventures farm from starting missions of Mythical or Legendary
+quality.
 
 QuarkFarmResetToBoss: (Default) 0  
 When you die in F9 quark mode, wait 10s to heal then go to this boss  
@@ -140,7 +144,24 @@ high end nuclear fuel set to quickly kill bosses/quark.
 
 F9UsesWobblyWings: (Default) false  
 Use WW on a split timer so that you can control due to slow time to spawn.
+Controls WW usage in secondary script, so functions where secondary script is
+used.  
+Required true for Hyacinth Boss Farming.
 
 WobblyWingsSleepAmount: (Default) 750  
 Timer for WW spam, much lower and you might skip bosses entirely, higher if
 you don't instantly kill.
+
+HyacinthUseSlot: (Default) All  
+Designate which slot or if all slots should be planted and harvested.
+All - Use all fields
+1-10 - Use only 1 field matching this number, ordered left to right 1-5 then
+second row 6-10.
+
+HyacinthFarmBoss: (Default) true  
+Use in combination with F9UsesWobblyWings set to true to allow WW boss farming
+in the background while farming Hyacinths.
+
+Debug: (Default) false  
+Extra debug logging and testing modes, not recommended for users due to large
+log usage, could cause file size issues.

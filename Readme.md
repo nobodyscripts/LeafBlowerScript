@@ -148,6 +148,10 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 Resolved false transparent panel detection caused by usage during early game.  
 New Home: Hyacinth farm (nature event) mode with WW boss.  
+Home: Added HyacinthUseSlot (All/1-10) select if all or one of the ten fields
+are used during Hyacinth farming mode.  
+Home: Added HyacinthFarmBoss (true/false) enable the use of F9 secondary during
+Hyacinth farming mode, requires F9UsesWobblyWings on as well to use.  
 F6: Added setting BVBlockMythLeg to block start of mythical and legendary BV.  
 F12: Updated font check images to resolve detection failure.  
 

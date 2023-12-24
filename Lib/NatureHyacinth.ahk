@@ -6,7 +6,7 @@ global HyacinthFarmBoss := true
 global F9UsesWobblyWings := true
 
 fFarmNormalBossAndNatureHyacinth() {
-    global F9UsesWobblyWings
+    global F9UsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot
     ToolTip()
     Killcount := 0
     GoToFarmField()

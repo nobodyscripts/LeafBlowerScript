@@ -21,7 +21,7 @@ global NavigateTime
 global DisableZoneChecks, DisableSettingsChecks
 global ArtifactSleepAmount
 global F9UsesWind, F9UsesWobblyWings, WobblyWingsSleepAmount
-
+global HyacinthUseSlot, HyacinthFarmBoss
 
 class cSettings {
     sFilename := A_ScriptDir "\UserSettings.ini"
@@ -54,15 +54,17 @@ class cSettings {
         GemFarmSleepAmount: 72,
         ClawCheckSizeOffset: 0,
         BVItemsArr: "0x018C9C, 0x01D814, 0x0F2A1D, 0x6CD820, 0xC9C9C9",
-        BVBlockMythLeg: "false",
+        BVBlockMythLeg: "true",
         QuarkFarmResetToBoss: 3,
         NavigateTime: 101,
         DisableZoneChecks: "false",
         DisableSettingsChecks: "false",
         ArtifactSleepAmount: 17,
         F9UsesWind: "true",
-        F9UsesWobblyWings: "false",
+        F9UsesWobblyWings: "true",
         WobblyWingsSleepAmount: 750,
+        HyacinthUseSlot: "All",
+        HyacinthFarmBoss: "true"
     }
     defaultSettings := {
         EnableLogging: "false",
@@ -100,6 +102,8 @@ class cSettings {
         F9UsesWind: "true",
         F9UsesWobblyWings: "false",
         WobblyWingsSleepAmount: 750,
+        HyacinthUseSlot: "All",
+        HyacinthFarmBoss: "true"
     }
     loadedSettings := {}
     /*
@@ -154,6 +158,8 @@ class cSettings {
         global DisableZoneChecks, DisableSettingsChecks
         global ArtifactSleepAmount
         global F9UsesWind, F9UsesWobblyWings, WobblyWingsSleepAmount
+        global HyacinthUseSlot, HyacinthFarmBoss
+
         try {
             EnableLogging := this.loadedSettings.EnableLogging :=
                 IniToVar(this.sFilename, this.sFileSection, "EnableLogging")
@@ -225,6 +231,10 @@ class cSettings {
                 IniToVar(this.sFilename, this.sFileSection, "F9UsesWobblyWings")
             WobblyWingsSleepAmount := this.loadedSettings.WobblyWingsSleepAmount :=
                 IniToVar(this.sFilename, this.sFileSection, "WobblyWingsSleepAmount")
+            HyacinthUseSlot := this.loadedSettings.HyacinthUseSlot :=
+                IniToVar(this.sFilename, this.sFileSection, "HyacinthUseSlot")
+            HyacinthFarmBoss := this.loadedSettings.HyacinthFarmBoss :=
+                IniToVar(this.sFilename, this.sFileSection, "HyacinthFarmBoss")
 
             Debug := IniToVar(this.sFilename, "Debug", "Debug")
         } catch as exc {
@@ -288,6 +298,8 @@ class cSettings {
             this.WriteToIni("F9UsesWind", this.defaultNobodySettings.F9UsesWind)
             this.WriteToIni("F9UsesWobblyWings", this.defaultNobodySettings.F9UsesWobblyWings)
             this.WriteToIni("WobblyWingsSleepAmount", this.defaultNobodySettings.WobblyWingsSleepAmount)
+            this.WriteToIni("HyacinthUseSlot", this.defaultNobodySettings.HyacinthUseSlot)
+            this.WriteToIni("HyacinthFarmBoss", this.defaultNobodySettings.HyacinthFarmBoss)
         } else {
             this.WriteToIni("EnableLogging", this.defaultSettings.EnableLogging)
             this.WriteToIni("HaveBorbDLC", this.defaultSettings.HaveBorbDLC)
@@ -324,7 +336,8 @@ class cSettings {
             this.WriteToIni("F9UsesWind", this.defaultSettings.F9UsesWind)
             this.WriteToIni("F9UsesWobblyWings", this.defaultSettings.F9UsesWobblyWings)
             this.WriteToIni("WobblyWingsSleepAmount", this.defaultSettings.WobblyWingsSleepAmount)
-
+            this.WriteToIni("HyacinthUseSlot", this.defaultSettings.HyacinthUseSlot)
+            this.WriteToIni("HyacinthFarmBoss", this.defaultSettings.HyacinthFarmBoss)
         }
         this.WriteToIni("Debug", BinaryToStr(Debug), "Debug")
     }
