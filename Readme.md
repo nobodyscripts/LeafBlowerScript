@@ -146,8 +146,10 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
-New Home: Hyacinth farm (nature event) mode with WW boss
-F6: Added setting BVBlockMythLeg to block start of mythical and legendary BV
+Resolved false transparent panel detection caused by usage during early game.  
+New Home: Hyacinth farm (nature event) mode with WW boss.  
+F6: Added setting BVBlockMythLeg to block start of mythical and legendary BV.  
+F12: Updated font check images to resolve detection failure.  
 
 ## TODO
 
@@ -205,6 +207,4 @@ F7: Will intentionally grab gems if no pumpkins are found
 F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
 F9: Albs can register as boss timer (kills due to white on the tools)  
-F9: When killed the transparent panel check may reoccur but without a panel
-   loaded, so fails.  
 F12: Afk mode interfering with alternative font?
