@@ -19,8 +19,8 @@ OpenAreasPanel(reset := true, extraDelay := 0) {
     OpenAreas() ; Open areas
     sleep(NavTime*2)
     i := 0
-    while (!IsButtonActive(WinRelPosW(520), WinRelPosH(564)) && i <= 4) {
-        Log("OpenAreasPanel: Retry")
+    while (!IsButtonActive(WinRelPosLargeW(300), WinRelPosLargeH(1180)) && i <= 4) {
+        Log("OpenAreasPanel: Retry, could not see active button.")
         OpenAreas() ; Open areas if it still hasn't opened
         sleep(NavTime)
         i++
