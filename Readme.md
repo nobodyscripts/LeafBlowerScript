@@ -2,8 +2,9 @@
 
 Support and news: <https://discord.gg/xu8fXw4CQ8>
 
-Autohotkey V2 script, install V2 of autohotkey and run the LeafBlowerV3.ahk
-file to load. Edit the ahk files with a text editor to configure.
+Autohotkey V2 script, install V2 of Autohotkey and run the LeafBlowerV3.ahk
+file to load. Edit the UserSettings.ini/Hotkeys.ahk files with a text editor to
+configure or the .md files for information.
 
 Same key toggles the feature off, if this toggle fails, F1 or F2 to abort.
 
@@ -183,6 +184,7 @@ F6: If item is not a valid target cancel borbv
 F6: If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
 F7: Needs to use artifact if need be / get replacement  
+F8: Review ending of gfssnoreset mode
 F10: Needs to use artifact if need be / get replacement  
 
 ## Known issues
