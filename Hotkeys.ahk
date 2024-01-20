@@ -34,6 +34,10 @@ OpenAlchemy() {
     ControlSend("{o}", , LBRWindowTitle) ; Letter O
 }
 
+TriggerBlazingSkull() {
+    ControlSend("{p}", , LBRWindowTitle)
+}
+
 TriggerGravity() {
     ControlSend("{]}", , LBRWindowTitle)
 }

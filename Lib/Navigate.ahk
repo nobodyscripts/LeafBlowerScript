@@ -898,6 +898,66 @@ BVResetScroll() {
     Sleep(72)
 }
 
+GoToLeafTower(){
+    OpenAreasPanel()
+    ScrollAmountDown(16) ; Scroll down for the zones
+    Sleep(101)
+
+    ; Look for colour of a segment of the rightmost tower leaf c5d8e0
+    try {
+        found := PixelSearch(&OutX, &OutY,
+            WinRelPosLargeW(1563), WinRelPosLargeH(430),
+            WinRelPosLargeW(1604), WinRelPosLargeH(964), "0xC5D8E0", 0)
+        ; Leaf pixel search
+        If (!found || OutX = 0) {
+            ; Not found
+            Log("TowerBoost: Could not find tower zone.")
+            return false
+        }
+    } catch as exc {
+        Log("Error 29: Tower leaf detection failed. Alignment1 - "
+            exc.Message)
+        MsgBox("Alignment issue 1, could not conduct the search due to the"
+            " following error:`n" exc.Message)
+    }
+    ; Found at 1595x778 (1440)
+    ; 1664 800 < tower floor zone Relative: 69 22
+    ; 2066 865 < Max floor button Relative: 471 87
+    ; 1664 646 < Leaksink Relative: 69 -132
+
+    ; Open leafsing harbor to allow max level reset
+    if (IsBackground(OutX + WinRelPosLargeW(69),
+        OutY - WinRelPosLargeH(132))) {
+            ; Background colour found
+            Log("Error 30: Tower alt area detection failed. Alignment2.")
+            return false
+    }
+    fCustomClick(OutX + WinRelPosLargeW(69),
+        OutY - WinRelPosLargeH(132), 101)
+    Sleep(101)
+
+    ; Max Tower level
+    if (!IsButtonActive(OutX + WinRelPosLargeW(471),
+        OutY + WinRelPosLargeH(67))) {
+            Log("Error 31: Tower max detection failed. Alignment3.")
+            return false
+    }
+    fCustomClick(OutX + WinRelPosLargeW(471),
+        OutY + WinRelPosLargeH(67), 101)
+    Sleep(101)
+
+    ; Select Tower area
+    if (!IsButtonActive(OutX + WinRelPosLargeW(69),
+        OutY + WinRelPosLargeH(5))) {
+            Log("Error 32: Tower area detection failed. Could not find "
+            " Leaf Tower Travel Button.")
+            return
+    }
+    fCustomClick(OutX + WinRelPosLargeW(69),
+        OutY + WinRelPosLargeH(5), 101)
+    Sleep(101)
+}
+
 IsAreaSampleColour(targetColour := "0xFFFFFF") {
     try {
         ; Have to sample the corner to get a reliable pixel colour

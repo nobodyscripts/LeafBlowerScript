@@ -19,6 +19,7 @@
 #Include Lib\GemFarm.ahk
 #Include Lib\NatureHyacinth.ahk
 #Include Lib\TowerTimeWarp.ahk
+#Include Lib\TowerFarmPassive.ahk
 
 DetectHiddenWindows(true)
 Persistent()  ; Prevent the script from exiting automatically.
@@ -321,7 +322,7 @@ Run this file to load script
             } else {
                 on9 := 0 ; Disabled
                 Log("F9: Resetting with cards disabled")
-                if(IsPanelActive()) {
+                if (IsPanelActive()) {
                     ClosePanel()
                 }
                 cReload()
@@ -336,7 +337,7 @@ Run this file to load script
             }
             Log("F9: Resetting")
             ResetModifierKeys() ; Cleanup incase needed
-            if(IsPanelActive()) {
+            if (IsPanelActive()) {
                 ClosePanel()
             }
             cReload()
@@ -347,7 +348,7 @@ Run this file to load script
                 cReload()
                 return
             }
-            if(IsPanelActive()) {
+            if (IsPanelActive()) {
                 ClosePanel()
             }
             Log("F9: Boss Farm Activated")
@@ -524,6 +525,37 @@ removeLastCheckTooltip() {
     }
 }
 
+*End:: {
+    ; Tower farm passive
+    Static on15 := false
+
+    Log("End: Pressed")
+    if (!InitGameWindow() && !on15) {
+        cReload()
+        return
+    }
+    if (!IsWindowActive()) {
+        cReload() ; Kill if no game
+        return
+    }
+    if (IsSpammerActive()) {
+        KillSpammer()
+    }
+    ResetModifierKeys() ; Cleanup incase needed
+    If (on15 := !on15) {
+        if (!CheckGameSettingsCorrect()) {
+            cReload()
+            return
+        }
+        Log("End: Tower Farm Passive Activated")
+        fTowerFarm()
+    } Else {
+        Log("End: Resetting")
+        cReload()
+        return
+    }
+}
+
 /* *Del:: {
      OpenAreasPanel()
     Sleep(1000)
@@ -544,7 +576,7 @@ removeLastCheckTooltip() {
     GoToSS()
     Sleep(1000)
     GoToShadowCavern()
-    Sleep(1000) 
+    Sleep(1000)
     GotoResetSS()
     Sleep(1000)
     ResetSS()
@@ -563,7 +595,7 @@ removeLastCheckTooltip() {
     Sleep(1000)
     GoToPlankScope()
     Sleep(1000)
-    GotoCardsFirstTab() 
+    GotoCardsFirstTab()
 } */
 
 ExitFunc(ExitReason, ExitCode) {

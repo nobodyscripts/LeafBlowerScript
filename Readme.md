@@ -153,6 +153,7 @@ Home: Added HyacinthUseSlot (All/1-10) select if all or one of the ten fields
 are used during Hyacinth farming mode.  
 Home: Added HyacinthFarmBoss (true/false) enable the use of F9 secondary during
 Hyacinth farming mode, requires F9UsesWobblyWings on as well to use.  
+New End: Added a passive tower farming mode, spams skulls and wind.  
 F6: Added setting BVBlockMythLeg to block start of mythical and legendary BV.  
 F12: Updated font check images to resolve detection failure.  
 
@@ -184,7 +185,7 @@ F6: If item is not a valid target cancel borbv
 F6: If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
 F7: Needs to use artifact if need be / get replacement  
-F8: Review ending of gfssnoreset mode
+F8: Review ending of gfssnoreset mode  
 F10: Needs to use artifact if need be / get replacement  
 
 ## Known issues
@@ -213,4 +214,4 @@ F7: Will intentionally grab gems if no pumpkins are found
 F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
 F9: Albs can register as boss timer (kills due to white on the tools)  
-F12: Afk mode interfering with alternative font?
+F12: Afk mode interfering with alternative font?  
