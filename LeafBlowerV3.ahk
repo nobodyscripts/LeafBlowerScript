@@ -550,6 +550,7 @@ removeLastCheckTooltip() {
         Log("End: Tower Farm Passive Activated")
         fTowerFarm()
     } Else {
+        ToolTip(,,,4)
         Log("End: Resetting")
         cReload()
         return

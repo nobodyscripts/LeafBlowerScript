@@ -86,6 +86,9 @@ to default loadout when canceled.
 Home: Hyacinth farming - Spam grows hyacinths to farm nature gems/exp. Can farm
 bosses with WW in the background.
 
+End: Passive Tower Farm - Spams wind and blazing skulls as fast as possible,
+resets player to tower if found in home garden.
+
 ## Notes
 
 Sleep times might need adjusting for your pc, so increase them as needed if
@@ -154,6 +157,7 @@ are used during Hyacinth farming mode.
 Home: Added HyacinthFarmBoss (true/false) enable the use of F9 secondary during
 Hyacinth farming mode, requires F9UsesWobblyWings on as well to use.  
 New End: Added a passive tower farming mode, spams skulls and wind.  
+End: Added hotkey to hotkey.ahk for Blazing Skulls (P)
 F6: Added setting BVBlockMythLeg to block start of mythical and legendary BV.  
 F12: Updated font check images to resolve detection failure.  
 

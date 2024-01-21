@@ -4,6 +4,7 @@ global ArtifactSleepAmount := 1
 
 fTowerFarm() {
     GoToLeafTower()
+    ToolTip("Tower Farm Passive Active", W/2, H/2, 4)
     loop {
         if (!IsWindowActive()) {
             Log("TowerFarm: Exiting as no game.")
@@ -18,4 +19,5 @@ fTowerFarm() {
             Sleep(ArtifactSleepAmount)
         }
     }
+    
 }
