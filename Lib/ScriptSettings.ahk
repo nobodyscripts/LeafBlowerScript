@@ -20,7 +20,7 @@ global QuarkFarmResetToBoss
 global NavigateTime
 global DisableZoneChecks, DisableSettingsChecks
 global ArtifactSleepAmount
-global F9UsesWind, F9UsesWobblyWings, WobblyWingsSleepAmount
+global BossFarmUsesWind, BossFarmUsesWobblyWings, WobblyWingsSleepAmount
 global HyacinthUseSlot, HyacinthFarmBoss
 
 global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit
@@ -64,8 +64,8 @@ class cSettings {
         DisableZoneChecks: "false",
         DisableSettingsChecks: "false",
         ArtifactSleepAmount: 17,
-        F9UsesWind: "true",
-        F9UsesWobblyWings: "true",
+        BossFarmUsesWind: "true",
+        BossFarmUsesWobblyWings: "true",
         WobblyWingsSleepAmount: 750,
         HyacinthUseSlot: "All",
         HyacinthFarmBoss: "true",
@@ -111,8 +111,8 @@ class cSettings {
         DisableZoneChecks: "false",
         DisableSettingsChecks: "false",
         ArtifactSleepAmount: 74,
-        F9UsesWind: "true",
-        F9UsesWobblyWings: "false",
+        BossFarmUsesWind: "true",
+        BossFarmUsesWobblyWings: "false",
         WobblyWingsSleepAmount: 750,
         HyacinthUseSlot: "All",
         HyacinthFarmBoss: "true",
@@ -177,7 +177,7 @@ class cSettings {
         global NavigateTime
         global DisableZoneChecks, DisableSettingsChecks
         global ArtifactSleepAmount
-        global F9UsesWind, F9UsesWobblyWings, WobblyWingsSleepAmount
+        global BossFarmUsesWind, BossFarmUsesWobblyWings, WobblyWingsSleepAmount
         global HyacinthUseSlot, HyacinthFarmBoss
         global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit
         global BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit
@@ -225,15 +225,15 @@ class cSettings {
             CardsBossFarmEnabled := this.loadedSettings.CardsBossFarmEnabled :=
                 IniToVar(this.sFilename, "Cards", "CardsBossFarmEnabled")
             GFToKillPerCycle := this.loadedSettings.GFToKillPerCycle :=
-                IniToVar(this.sFilename, "F8", "GFToKillPerCycle")
+                IniToVar(this.sFilename, "SSFarm", "GFToKillPerCycle")
             SSToKillPerCycle := this.loadedSettings.SSToKillPerCycle :=
-                IniToVar(this.sFilename, "F8", "SSToKillPerCycle")
+                IniToVar(this.sFilename, "SSFarm", "SSToKillPerCycle")
             GFSSNoReset := this.loadedSettings.GFSSNoReset :=
-                IniToVar(this.sFilename, "F8", "GFSSNoReset")
+                IniToVar(this.sFilename, "SSFarm", "GFSSNoReset")
             GemFarmSleepAmount := this.loadedSettings.GemFarmSleepAmount :=
-                IniToVar(this.sFilename, "F4", "GemFarmSleepAmount")
+                IniToVar(this.sFilename, "GemFarm", "GemFarmSleepAmount")
             ClawCheckSizeOffset := this.loadedSettings.ClawCheckSizeOffset :=
-                IniToVar(this.sFilename, this.sFileSection, "ClawCheckSizeOffset")
+                IniToVar(this.sFilename, "Claw", "ClawCheckSizeOffset")
             BVItemsArr := this.loadedSettings.BVItemsArr :=
                 StrSplit(IniToVar(this.sFilename, "Borbventures", "BVItemsArr"), " ", ",.")
             BVBlockMythLeg := this.loadedSettings.BVBlockMythLeg :=
@@ -247,13 +247,13 @@ class cSettings {
             DisableSettingsChecks := this.loadedSettings.DisableSettingsChecks :=
                 IniToVar(this.sFilename, this.sFileSection, "DisableSettingsChecks")
             ArtifactSleepAmount := this.loadedSettings.ArtifactSleepAmount :=
-                IniToVar(this.sFilename, this.sFileSection, "ArtifactSleepAmount")
-            F9UsesWind := this.loadedSettings.F9UsesWind :=
-                IniToVar(this.sFilename, this.sFileSection, "F9UsesWind")
-            F9UsesWobblyWings := this.loadedSettings.F9UsesWobblyWings :=
-                IniToVar(this.sFilename, this.sFileSection, "F9UsesWobblyWings")
+                IniToVar(this.sFilename, "BossFarm", "ArtifactSleepAmount")
+            BossFarmUsesWind := this.loadedSettings.BossFarmUsesWind :=
+                IniToVar(this.sFilename, "BossFarm", "BossFarmUsesWind")
+            BossFarmUsesWobblyWings := this.loadedSettings.BossFarmUsesWobblyWings :=
+                IniToVar(this.sFilename, "BossFarm", "BossFarmUsesWobblyWings")
             WobblyWingsSleepAmount := this.loadedSettings.WobblyWingsSleepAmount :=
-                IniToVar(this.sFilename, this.sFileSection, "WobblyWingsSleepAmount")
+                IniToVar(this.sFilename, "BossFarm", "WobblyWingsSleepAmount")
             HyacinthUseSlot := this.loadedSettings.HyacinthUseSlot :=
                 IniToVar(this.sFilename, "NatureFarm", "HyacinthUseSlot")
             HyacinthFarmBoss := this.loadedSettings.HyacinthFarmBoss :=
@@ -322,21 +322,21 @@ class cSettings {
             this.WriteToIni("CardsSleepBuyAmount", this.defaultNobodySettings.CardsSleepBuyAmount, "Cards")
             this.WriteToIni("CardsPermaLoop", this.defaultNobodySettings.CardsPermaLoop, "Cards")
             this.WriteToIni("CardsBossFarmEnabled", this.defaultNobodySettings.CardsBossFarmEnabled, "Cards")
-            this.WriteToIni("GFToKillPerCycle", this.defaultNobodySettings.GFToKillPerCycle, "F8")
-            this.WriteToIni("SSToKillPerCycle", this.defaultNobodySettings.SSToKillPerCycle, "F8")
-            this.WriteToIni("GFSSNoReset", this.defaultNobodySettings.GFSSNoReset, "F8")
-            this.WriteToIni("GemFarmSleepAmount", this.defaultNobodySettings.GemFarmSleepAmount, "F4")
-            this.WriteToIni("ClawCheckSizeOffset", this.defaultNobodySettings.ClawCheckSizeOffset)
+            this.WriteToIni("GFToKillPerCycle", this.defaultNobodySettings.GFToKillPerCycle, "SSFarm")
+            this.WriteToIni("SSToKillPerCycle", this.defaultNobodySettings.SSToKillPerCycle, "SSFarm")
+            this.WriteToIni("GFSSNoReset", this.defaultNobodySettings.GFSSNoReset, "SSFarm")
+            this.WriteToIni("GemFarmSleepAmount", this.defaultNobodySettings.GemFarmSleepAmount, "GemFarm")
+            this.WriteToIni("ClawCheckSizeOffset", this.defaultNobodySettings.ClawCheckSizeOffset, "Claw")
             this.WriteToIni("BVItemsArr", this.defaultNobodySettings.BVItemsArr, "Borbventures")
             this.WriteToIni("BVBlockMythLeg", this.defaultNobodySettings.BVBlockMythLeg, "Borbventures")
             this.WriteToIni("QuarkFarmResetToBoss", this.defaultNobodySettings.QuarkFarmResetToBoss, "Quark")
             this.WriteToIni("NavigateTime", this.defaultNobodySettings.NavigateTime)
             this.WriteToIni("DisableZoneChecks", this.defaultNobodySettings.DisableZoneChecks)
             this.WriteToIni("DisableSettingsChecks", this.defaultNobodySettings.DisableSettingsChecks)
-            this.WriteToIni("ArtifactSleepAmount", this.defaultNobodySettings.ArtifactSleepAmount)
-            this.WriteToIni("F9UsesWind", this.defaultNobodySettings.F9UsesWind)
-            this.WriteToIni("F9UsesWobblyWings", this.defaultNobodySettings.F9UsesWobblyWings)
-            this.WriteToIni("WobblyWingsSleepAmount", this.defaultNobodySettings.WobblyWingsSleepAmount)
+            this.WriteToIni("ArtifactSleepAmount", this.defaultNobodySettings.ArtifactSleepAmount, "BossFarm")
+            this.WriteToIni("BossFarmUsesWind", this.defaultNobodySettings.BossFarmUsesWind, "BossFarm")
+            this.WriteToIni("BossFarmUsesWobblyWings", this.defaultNobodySettings.BossFarmUsesWobblyWings, "BossFarm")
+            this.WriteToIni("WobblyWingsSleepAmount", this.defaultNobodySettings.WobblyWingsSleepAmount, "BossFarm")
             this.WriteToIni("HyacinthUseSlot", this.defaultNobodySettings.HyacinthUseSlot, "NatureFarm")
             this.WriteToIni("HyacinthFarmBoss", this.defaultNobodySettings.HyacinthFarmBoss, "NatureFarm")
             this.WriteToIni("BankEnableLGDeposit", this.defaultNobodySettings.BankEnableLGDeposit, "Bank")
@@ -368,21 +368,21 @@ class cSettings {
             this.WriteToIni("CardsSleepBuyAmount", this.defaultSettings.CardsSleepBuyAmount, "Cards")
             this.WriteToIni("CardsPermaLoop", this.defaultSettings.CardsPermaLoop, "Cards")
             this.WriteToIni("CardsBossFarmEnabled", this.defaultSettings.CardsBossFarmEnabled, "Cards")
-            this.WriteToIni("GFToKillPerCycle", this.defaultSettings.GFToKillPerCycle, "F8")
-            this.WriteToIni("SSToKillPerCycle", this.defaultSettings.SSToKillPerCycle, "F8")
-            this.WriteToIni("GFSSNoReset", this.defaultSettings.GFSSNoReset, "F8")
-            this.WriteToIni("GemFarmSleepAmount", this.defaultSettings.GemFarmSleepAmount, "F4")
-            this.WriteToIni("ClawCheckSizeOffset", this.defaultSettings.ClawCheckSizeOffset)
+            this.WriteToIni("GFToKillPerCycle", this.defaultSettings.GFToKillPerCycle, "SSFarm")
+            this.WriteToIni("SSToKillPerCycle", this.defaultSettings.SSToKillPerCycle, "SSFarm")
+            this.WriteToIni("GFSSNoReset", this.defaultSettings.GFSSNoReset, "SSFarm")
+            this.WriteToIni("GemFarmSleepAmount", this.defaultSettings.GemFarmSleepAmount, "GemFarm")
+            this.WriteToIni("ClawCheckSizeOffset", this.defaultSettings.ClawCheckSizeOffset, "Claw")
             this.WriteToIni("BVItemsArr", this.defaultSettings.BVItemsArr, "Borbventures")
             this.WriteToIni("BVBlockMythLeg", this.defaultSettings.BVBlockMythLeg, "Borbventures")
             this.WriteToIni("QuarkFarmResetToBoss", this.defaultSettings.QuarkFarmResetToBoss, "Quark")
             this.WriteToIni("NavigateTime", this.defaultSettings.NavigateTime)
             this.WriteToIni("DisableZoneChecks", this.defaultSettings.DisableZoneChecks)
             this.WriteToIni("DisableSettingsChecks", this.defaultSettings.DisableSettingsChecks)
-            this.WriteToIni("ArtifactSleepAmount", this.defaultSettings.ArtifactSleepAmount)
-            this.WriteToIni("F9UsesWind", this.defaultSettings.F9UsesWind)
-            this.WriteToIni("F9UsesWobblyWings", this.defaultSettings.F9UsesWobblyWings)
-            this.WriteToIni("WobblyWingsSleepAmount", this.defaultSettings.WobblyWingsSleepAmount)
+            this.WriteToIni("ArtifactSleepAmount", this.defaultSettings.ArtifactSleepAmount, "BossFarm")
+            this.WriteToIni("BossFarmUsesWind", this.defaultSettings.BossFarmUsesWind, "BossFarm")
+            this.WriteToIni("BossFarmUsesWobblyWings", this.defaultSettings.BossFarmUsesWobblyWings, "BossFarm")
+            this.WriteToIni("WobblyWingsSleepAmount", this.defaultSettings.WobblyWingsSleepAmount, "BossFarm")
             this.WriteToIni("HyacinthUseSlot", this.defaultSettings.HyacinthUseSlot, "NatureFarm")
             this.WriteToIni("HyacinthFarmBoss", this.defaultSettings.HyacinthFarmBoss, "NatureFarm")
             this.WriteToIni("BankEnableLGDeposit", this.defaultSettings.BankEnableLGDeposit, "Bank")

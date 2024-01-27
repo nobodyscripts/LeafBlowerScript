@@ -138,11 +138,11 @@ incorrect settings. So if things are not configured correctly they will break.
 ArtifactSleepAmount: (Default) 74  
 Time between artifact usage, can speed up or slow down to avoid wastage
 
-F9UsesWind: (Default) true  
+BossFarmUsesWind: (Default) true  
 Add Wind spam to the violin spammer, while boss is spawned, useful with
 high end nuclear fuel set to quickly kill bosses/quark.
 
-F9UsesWobblyWings: (Default) false  
+BossFarmUsesWobblyWings: (Default) false  
 Use WW on a split timer so that you can control due to slow time to spawn.
 Controls WW usage in secondary script, so functions where secondary script is
 used.  
@@ -159,8 +159,32 @@ All - Use all fields
 second row 6-10.
 
 HyacinthFarmBoss: (Default) true  
-Use in combination with F9UsesWobblyWings set to true to allow WW boss farming
+Use in combination with BossFarmUsesWobblyWings set to true to allow WW boss farming
 in the background while farming Hyacinths.
+
+BankEnableLGDeposit: (Default) true  
+Enables the auto deposit of RESS in the Leaf Galaxy bank tab.
+
+BankEnableSNDeposit: (Default) true  
+Enables the auto deposit of RESS in the Sacred Nebula bank tab.
+
+BankEnableEBDeposit: (Default) true  
+Enables the auto deposit of RESS in the Energy Belt bank tab.
+
+BankEnableFFDeposit: (Default) true  
+Enables the auto deposit of RESS in the Fire Fields bank tab.
+
+BankEnableSRDeposit: (Default) true  
+Enables the auto deposit of RESS in the Soul Realm bank tab.
+
+BankEnableQADeposit: (Default) true  
+Enables the auto deposit of RESS in the Quark Ambit bank tab.
+
+BankRunsSpammer: (Default) true  
+Enables the boss farmer background script while using bank maintainer.  
+
+BankCycleTime: (Default) true  
+Amount of time to wait between bank maintainer cycles (in seconds)
 
 Debug: (Default) false  
 Extra debug logging and testing modes, not recommended for users due to large

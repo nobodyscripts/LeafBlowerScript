@@ -3,10 +3,10 @@
 global SpammerPID := 0
 global HyacinthUseSlot := "All"
 global HyacinthFarmBoss := true
-global F9UsesWobblyWings := true
+global BossFarmUsesWobblyWings := true
 
 fFarmNormalBossAndNatureHyacinth() {
-    global F9UsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot
+    global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot
     ToolTip()
     Killcount := 0
     GoToFarmField()
@@ -45,7 +45,7 @@ fFarmNormalBossAndNatureHyacinth() {
     fSlowClickRelL(380, 600, NavigateTime) ; Hyacinth
     sleep(NavigateTime)
     IsPrevTimerLong := IsBossTimerLong()
-    if (HyacinthFarmBoss && F9UsesWobblyWings) {
+    if (HyacinthFarmBoss && BossFarmUsesWobblyWings) {
         bossfarm := true
         TriggerWobblyWings()
         Sleep(NavigateTime)
