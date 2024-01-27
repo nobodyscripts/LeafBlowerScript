@@ -33,14 +33,14 @@ fSlowClick(clickX, clickY, delay := 34) {
         return false
     }
     MouseClick("left", WinRelPosW(clickX), WinRelPosH(clickY), , , "D")
-    Sleep(delay) ; Must be higher than 16.67 which is a single frame of 60fps,
-    ; set to slightly higher than 2 frames for safety
-    ; If clicking isn't reliable increase this sleep value
+    Sleep(delay)
+    /* Must be higher than 16.67 which is a single frame of 60fps,
+    set to slightly higher than 2 frames for safety
+    If clicking isn't reliable increase this sleep value */
     MouseClick("left", WinRelPosW(clickX), WinRelPosH(clickY), , , "U")
 }
 
-; Custom clicking function, swap the above to this if you want static coords
-; that are more easily changed
+; Custom clicking function, uses 2160p relative coords
 fSlowClickRelL(clickX, clickY, delay := 34) {
     if (!IsWindowActive()) {
         Log("No window found while trying to Lclick at " clickX " * " clickY
@@ -50,15 +50,11 @@ fSlowClickRelL(clickX, clickY, delay := 34) {
     MouseClick("left", WinRelPosLargeW(clickX),
         WinRelPosLargeH(clickY), , , "D")
     Sleep(delay)
-    /* Must be higher than 16.67 which is a single frame of 60fps,
-    set to slightly higher than 2 frames for safety
-    If clicking isn't reliable increase this sleep value */
     MouseClick("left", WinRelPosLargeW(clickX),
         WinRelPosLargeH(clickY), , , "U")
 }
 
-; Custom clicking function, swap the above to this if you want static coords
-; that are more easily changed
+; Custom clicking function, uses given coords no relative correction
 fCustomClick(clickX, clickY, delay := 34) {
     if (!IsWindowActive()) {
         Log("No window found while trying to click at " clickX " * " clickY)
@@ -66,9 +62,6 @@ fCustomClick(clickX, clickY, delay := 34) {
     }
     MouseClick("left", clickX, clickY, , , "D")
     Sleep(delay)
-    /* Must be higher than 16.67 which is a single frame of 60fps,
-    set to slightly higher than 2 frames for safety
-    If clicking isn't reliable increase this sleep value */
     MouseClick("left", clickX, clickY, , , "U")
 }
 
@@ -229,7 +222,6 @@ IsBossTimerLong() {
     }
     return false
 }
-
 
 
 PixelSearchWrapper(x1, y1, x2, y2, colour) {

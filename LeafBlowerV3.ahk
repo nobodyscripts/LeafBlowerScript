@@ -8,6 +8,7 @@
 #Include Lib\Navigate.ahk
 #Include Lib\SettingsCheck.ahk
 
+#Include Lib\BankDeposit.ahk
 #Include Lib\Borbventure.ahk
 #Include Lib\Cards.ahk
 #Include Lib\CardsBuy.ahk
@@ -557,8 +558,40 @@ removeLastCheckTooltip() {
     }
 }
 
+*PgUp:: {
+    ; Bank maintainer
+    Static on16 := false
+
+    Log("PgUp: Pressed")
+    if (!InitGameWindow() && !on16) {
+        cReload()
+        return
+    }
+    if (!IsWindowActive()) {
+        cReload() ; Kill if no game
+        return
+    }
+    if (IsSpammerActive()) {
+        KillSpammer()
+    }
+    ResetModifierKeys() ; Cleanup incase needed
+    If (on16 := !on16) {
+        if (!CheckGameSettingsCorrect()) {
+            cReload()
+            return
+        }
+        Log("PgUp: Bank Maintainer Activated")
+        fBankAutoDeposit()
+    } Else {
+        ToolTip(,,,4)
+        Log("PgUp: Resetting")
+        cReload()
+        return
+    }
+}
+
 /* *Del:: {
-     OpenAreasPanel()
+    OpenAreasPanel()
     Sleep(1000)
     ResetAreaScroll()
     Sleep(1000)

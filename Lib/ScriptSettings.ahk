@@ -23,6 +23,10 @@ global ArtifactSleepAmount
 global F9UsesWind, F9UsesWobblyWings, WobblyWingsSleepAmount
 global HyacinthUseSlot, HyacinthFarmBoss
 
+global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit
+global BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit
+global BankRunsSpammer, BankCycleTime
+
 class cSettings {
     sFilename := A_ScriptDir "\UserSettings.ini"
     sFileSection := "Default"
@@ -64,7 +68,15 @@ class cSettings {
         F9UsesWobblyWings: "true",
         WobblyWingsSleepAmount: 750,
         HyacinthUseSlot: "All",
-        HyacinthFarmBoss: "true"
+        HyacinthFarmBoss: "true",
+        BankEnableLGDeposit: "true",
+        BankEnableSNDeposit: "true",
+        BankEnableEBDeposit: "true",
+        BankEnableFFDeposit: "true",
+        BankEnableSRDeposit: "true",
+        BankEnableQADeposit: "true",
+        BankRunsSpammer: "true",
+        BankCycleTime: "150"
     }
     defaultSettings := {
         EnableLogging: "false",
@@ -103,7 +115,15 @@ class cSettings {
         F9UsesWobblyWings: "false",
         WobblyWingsSleepAmount: 750,
         HyacinthUseSlot: "All",
-        HyacinthFarmBoss: "true"
+        HyacinthFarmBoss: "true",
+        BankEnableLGDeposit: "true",
+        BankEnableSNDeposit: "true",
+        BankEnableEBDeposit: "true",
+        BankEnableFFDeposit: "true",
+        BankEnableSRDeposit: "true",
+        BankEnableQADeposit: "true",
+        BankRunsSpammer: "true",
+        BankCycleTime: "150"
     }
     loadedSettings := {}
     /*
@@ -159,64 +179,67 @@ class cSettings {
         global ArtifactSleepAmount
         global F9UsesWind, F9UsesWobblyWings, WobblyWingsSleepAmount
         global HyacinthUseSlot, HyacinthFarmBoss
+        global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit
+        global BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit
+        global BankRunsSpammer, BankCycleTime
 
         try {
             EnableLogging := this.loadedSettings.EnableLogging :=
                 IniToVar(this.sFilename, this.sFileSection, "EnableLogging")
             HaveBorbDLC := this.loadedSettings.HaveBorbDLC :=
-                IniToVar(this.sFilename, this.sFileSection, "HaveBorbDLC")
+                IniToVar(this.sFilename, "Borbventures", "HaveBorbDLC")
             CardsCommonAmount := this.loadedSettings.CardsCommonAmount :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsCommonAmount")
+                IniToVar(this.sFilename, "Cards", "CardsCommonAmount")
             CardsRareAmount := this.loadedSettings.CardsRareAmount :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsRareAmount")
+                IniToVar(this.sFilename, "Cards", "CardsRareAmount")
             CardsLegendaryAmount := this.loadedSettings.CardsLegendaryAmount :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsLegendaryAmount")
+                IniToVar(this.sFilename, "Cards", "CardsLegendaryAmount")
             CardsDontOpenCommons := this.loadedSettings.CardsDontOpenCommons :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsDontOpenCommons")
+                IniToVar(this.sFilename, "Cards", "CardsDontOpenCommons")
             CardsDontOpenRare := this.loadedSettings.CardsDontOpenRare :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsDontOpenRare")
+                IniToVar(this.sFilename, "Cards", "CardsDontOpenRare")
             CardsDontOpenLegendary := this.loadedSettings.CardsDontOpenLegendary :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsDontOpenLegendary")
+                IniToVar(this.sFilename, "Cards", "CardsDontOpenLegendary")
             CardsSleepAmount := this.loadedSettings.CardsSleepAmount :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsSleepAmount")
+                IniToVar(this.sFilename, "Cards", "CardsSleepAmount")
             CardsBuyEnabled := this.loadedSettings.CardsBuyEnabled :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsBuyEnabled")
+                IniToVar(this.sFilename, "Cards", "CardsBuyEnabled")
             CardsBuyStyle := this.loadedSettings.CardsBuyStyle :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsBuyStyle")
+                IniToVar(this.sFilename, "Cards", "CardsBuyStyle")
             CardsCommonBuyAmount := this.loadedSettings.CardsCommonBuyAmount :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsCommonBuyAmount")
+                IniToVar(this.sFilename, "Cards", "CardsCommonBuyAmount")
             CardsRareBuyAmount := this.loadedSettings.CardsRareBuyAmount :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsRareBuyAmount")
+                IniToVar(this.sFilename, "Cards", "CardsRareBuyAmount")
             CardsLegBuyAmount := this.loadedSettings.CardsLegBuyAmount :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsLegBuyAmount")
+                IniToVar(this.sFilename, "Cards", "CardsLegBuyAmount")
             CardsDontBuyCommons := this.loadedSettings.CardsDontBuyCommons :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsDontBuyCommons")
+                IniToVar(this.sFilename, "Cards", "CardsDontBuyCommons")
             CardsDontBuyRare := this.loadedSettings.CardsDontBuyRare :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsDontBuyRare")
+                IniToVar(this.sFilename, "Cards", "CardsDontBuyRare")
             CardsDontBuyLeg := this.loadedSettings.CardsDontBuyLeg :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsDontBuyLeg")
+                IniToVar(this.sFilename, "Cards", "CardsDontBuyLeg")
             CardsSleepBuyAmount := this.loadedSettings.CardsSleepBuyAmount :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsSleepBuyAmount")
+                IniToVar(this.sFilename, "Cards", "CardsSleepBuyAmount")
             CardsPermaLoop := this.loadedSettings.CardsPermaLoop :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsPermaLoop")
+                IniToVar(this.sFilename, "Cards", "CardsPermaLoop")
             CardsBossFarmEnabled := this.loadedSettings.CardsBossFarmEnabled :=
-                IniToVar(this.sFilename, this.sFileSection, "CardsBossFarmEnabled")
+                IniToVar(this.sFilename, "Cards", "CardsBossFarmEnabled")
             GFToKillPerCycle := this.loadedSettings.GFToKillPerCycle :=
-                IniToVar(this.sFilename, this.sFileSection, "GFToKillPerCycle")
+                IniToVar(this.sFilename, "F8", "GFToKillPerCycle")
             SSToKillPerCycle := this.loadedSettings.SSToKillPerCycle :=
-                IniToVar(this.sFilename, this.sFileSection, "SSToKillPerCycle")
+                IniToVar(this.sFilename, "F8", "SSToKillPerCycle")
             GFSSNoReset := this.loadedSettings.GFSSNoReset :=
-                IniToVar(this.sFilename, this.sFileSection, "GFSSNoReset")
+                IniToVar(this.sFilename, "F8", "GFSSNoReset")
             GemFarmSleepAmount := this.loadedSettings.GemFarmSleepAmount :=
-                IniToVar(this.sFilename, this.sFileSection, "GemFarmSleepAmount")
+                IniToVar(this.sFilename, "F4", "GemFarmSleepAmount")
             ClawCheckSizeOffset := this.loadedSettings.ClawCheckSizeOffset :=
                 IniToVar(this.sFilename, this.sFileSection, "ClawCheckSizeOffset")
             BVItemsArr := this.loadedSettings.BVItemsArr :=
-                StrSplit(IniToVar(this.sFilename, this.sFileSection, "BVItemsArr"), " ", ",.")
+                StrSplit(IniToVar(this.sFilename, "Borbventures", "BVItemsArr"), " ", ",.")
             BVBlockMythLeg := this.loadedSettings.BVBlockMythLeg :=
-                IniToVar(this.sFilename, this.sFileSection, "BVBlockMythLeg")
+                IniToVar(this.sFilename, "Borbventures", "BVBlockMythLeg")
             QuarkFarmResetToBoss := this.loadedSettings.QuarkFarmResetToBoss :=
-                IniToVar(this.sFilename, this.sFileSection, "QuarkFarmResetToBoss")
+                IniToVar(this.sFilename, "Quark", "QuarkFarmResetToBoss")
             NavigateTime := this.loadedSettings.NavigateTime :=
                 IniToVar(this.sFilename, this.sFileSection, "NavigateTime")
             DisableZoneChecks := this.loadedSettings.DisableZoneChecks :=
@@ -232,9 +255,25 @@ class cSettings {
             WobblyWingsSleepAmount := this.loadedSettings.WobblyWingsSleepAmount :=
                 IniToVar(this.sFilename, this.sFileSection, "WobblyWingsSleepAmount")
             HyacinthUseSlot := this.loadedSettings.HyacinthUseSlot :=
-                IniToVar(this.sFilename, this.sFileSection, "HyacinthUseSlot")
+                IniToVar(this.sFilename, "NatureFarm", "HyacinthUseSlot")
             HyacinthFarmBoss := this.loadedSettings.HyacinthFarmBoss :=
-                IniToVar(this.sFilename, this.sFileSection, "HyacinthFarmBoss")
+                IniToVar(this.sFilename, "NatureFarm", "HyacinthFarmBoss")
+            BankEnableLGDeposit := this.loadedSettings.BankEnableLGDeposit :=
+                IniToVar(this.sFilename, "Bank", "BankEnableLGDeposit")
+            BankEnableSNDeposit := this.loadedSettings.BankEnableSNDeposit :=
+                IniToVar(this.sFilename, "Bank", "BankEnableSNDeposit")
+            BankEnableEBDeposit := this.loadedSettings.BankEnableEBDeposit :=
+                IniToVar(this.sFilename, "Bank", "BankEnableEBDeposit")
+            BankEnableFFDeposit := this.loadedSettings.BankEnableFFDeposit :=
+                IniToVar(this.sFilename, "Bank", "BankEnableFFDeposit")
+            BankEnableSRDeposit := this.loadedSettings.BankEnableSRDeposit :=
+                IniToVar(this.sFilename, "Bank", "BankEnableSRDeposit")
+            BankEnableQADeposit := this.loadedSettings.BankEnableQADeposit :=
+                IniToVar(this.sFilename, "Bank", "BankEnableQADeposit")
+            BankRunsSpammer := this.loadedSettings.BankRunsSpammer :=
+                IniToVar(this.sFilename, "Bank", "BankRunsSpammer")
+            BankCycleTime := this.loadedSettings.BankCycleTime :=
+                IniToVar(this.sFilename, "Bank", "BankCycleTime")
 
             Debug := IniToVar(this.sFilename, "Debug", "Debug")
         } catch as exc {
@@ -264,33 +303,33 @@ class cSettings {
         global Debug
         if (this.sUseNobody) {
             this.WriteToIni("EnableLogging", this.defaultNobodySettings.EnableLogging)
-            this.WriteToIni("HaveBorbDLC", this.defaultNobodySettings.HaveBorbDLC)
-            this.WriteToIni("CardsCommonAmount", this.defaultNobodySettings.CardsCommonAmount)
-            this.WriteToIni("CardsRareAmount", this.defaultNobodySettings.CardsRareAmount)
-            this.WriteToIni("CardsLegendaryAmount", this.defaultNobodySettings.CardsLegendaryAmount)
-            this.WriteToIni("CardsDontOpenCommons", this.defaultNobodySettings.CardsDontOpenCommons)
-            this.WriteToIni("CardsDontOpenRare", this.defaultNobodySettings.CardsDontOpenRare)
-            this.WriteToIni("CardsDontOpenLegendary", this.defaultNobodySettings.CardsDontOpenLegendary)
-            this.WriteToIni("CardsSleepAmount", this.defaultNobodySettings.CardsSleepAmount)
-            this.WriteToIni("CardsBuyEnabled", this.defaultNobodySettings.CardsBuyEnabled)
-            this.WriteToIni("CardsBuyStyle", this.defaultNobodySettings.CardsBuyStyle)
-            this.WriteToIni("CardsCommonBuyAmount", this.defaultNobodySettings.CardsCommonBuyAmount)
-            this.WriteToIni("CardsRareBuyAmount", this.defaultNobodySettings.CardsRareBuyAmount)
-            this.WriteToIni("CardsLegBuyAmount", this.defaultNobodySettings.CardsLegBuyAmount)
-            this.WriteToIni("CardsDontBuyCommons", this.defaultNobodySettings.CardsDontBuyCommons)
-            this.WriteToIni("CardsDontBuyRare", this.defaultNobodySettings.CardsDontBuyRare)
-            this.WriteToIni("CardsDontBuyLeg", this.defaultNobodySettings.CardsDontBuyLeg)
-            this.WriteToIni("CardsSleepBuyAmount", this.defaultNobodySettings.CardsSleepBuyAmount)
-            this.WriteToIni("CardsPermaLoop", this.defaultNobodySettings.CardsPermaLoop)
-            this.WriteToIni("CardsBossFarmEnabled", this.defaultNobodySettings.CardsBossFarmEnabled)
-            this.WriteToIni("GFToKillPerCycle", this.defaultNobodySettings.GFToKillPerCycle)
-            this.WriteToIni("SSToKillPerCycle", this.defaultNobodySettings.SSToKillPerCycle)
-            this.WriteToIni("GFSSNoReset", this.defaultNobodySettings.GFSSNoReset)
-            this.WriteToIni("GemFarmSleepAmount", this.defaultNobodySettings.GemFarmSleepAmount)
+            this.WriteToIni("HaveBorbDLC", this.defaultNobodySettings.HaveBorbDLC, "Borbventures")
+            this.WriteToIni("CardsCommonAmount", this.defaultNobodySettings.CardsCommonAmount, "Cards")
+            this.WriteToIni("CardsRareAmount", this.defaultNobodySettings.CardsRareAmount, "Cards")
+            this.WriteToIni("CardsLegendaryAmount", this.defaultNobodySettings.CardsLegendaryAmount, "Cards")
+            this.WriteToIni("CardsDontOpenCommons", this.defaultNobodySettings.CardsDontOpenCommons, "Cards")
+            this.WriteToIni("CardsDontOpenRare", this.defaultNobodySettings.CardsDontOpenRare, "Cards")
+            this.WriteToIni("CardsDontOpenLegendary", this.defaultNobodySettings.CardsDontOpenLegendary, "Cards")
+            this.WriteToIni("CardsSleepAmount", this.defaultNobodySettings.CardsSleepAmount, "Cards")
+            this.WriteToIni("CardsBuyEnabled", this.defaultNobodySettings.CardsBuyEnabled, "Cards")
+            this.WriteToIni("CardsBuyStyle", this.defaultNobodySettings.CardsBuyStyle, "Cards")
+            this.WriteToIni("CardsCommonBuyAmount", this.defaultNobodySettings.CardsCommonBuyAmount, "Cards")
+            this.WriteToIni("CardsRareBuyAmount", this.defaultNobodySettings.CardsRareBuyAmount, "Cards")
+            this.WriteToIni("CardsLegBuyAmount", this.defaultNobodySettings.CardsLegBuyAmount, "Cards")
+            this.WriteToIni("CardsDontBuyCommons", this.defaultNobodySettings.CardsDontBuyCommons, "Cards")
+            this.WriteToIni("CardsDontBuyRare", this.defaultNobodySettings.CardsDontBuyRare, "Cards")
+            this.WriteToIni("CardsDontBuyLeg", this.defaultNobodySettings.CardsDontBuyLeg, "Cards")
+            this.WriteToIni("CardsSleepBuyAmount", this.defaultNobodySettings.CardsSleepBuyAmount, "Cards")
+            this.WriteToIni("CardsPermaLoop", this.defaultNobodySettings.CardsPermaLoop, "Cards")
+            this.WriteToIni("CardsBossFarmEnabled", this.defaultNobodySettings.CardsBossFarmEnabled, "Cards")
+            this.WriteToIni("GFToKillPerCycle", this.defaultNobodySettings.GFToKillPerCycle, "F8")
+            this.WriteToIni("SSToKillPerCycle", this.defaultNobodySettings.SSToKillPerCycle, "F8")
+            this.WriteToIni("GFSSNoReset", this.defaultNobodySettings.GFSSNoReset, "F8")
+            this.WriteToIni("GemFarmSleepAmount", this.defaultNobodySettings.GemFarmSleepAmount, "F4")
             this.WriteToIni("ClawCheckSizeOffset", this.defaultNobodySettings.ClawCheckSizeOffset)
-            this.WriteToIni("BVItemsArr", this.defaultNobodySettings.BVItemsArr)
-            this.WriteToIni("BVBlockMythLeg", this.defaultNobodySettings.BVBlockMythLeg)
-            this.WriteToIni("QuarkFarmResetToBoss", this.defaultNobodySettings.QuarkFarmResetToBoss)
+            this.WriteToIni("BVItemsArr", this.defaultNobodySettings.BVItemsArr, "Borbventures")
+            this.WriteToIni("BVBlockMythLeg", this.defaultNobodySettings.BVBlockMythLeg, "Borbventures")
+            this.WriteToIni("QuarkFarmResetToBoss", this.defaultNobodySettings.QuarkFarmResetToBoss, "Quark")
             this.WriteToIni("NavigateTime", this.defaultNobodySettings.NavigateTime)
             this.WriteToIni("DisableZoneChecks", this.defaultNobodySettings.DisableZoneChecks)
             this.WriteToIni("DisableSettingsChecks", this.defaultNobodySettings.DisableSettingsChecks)
@@ -298,37 +337,45 @@ class cSettings {
             this.WriteToIni("F9UsesWind", this.defaultNobodySettings.F9UsesWind)
             this.WriteToIni("F9UsesWobblyWings", this.defaultNobodySettings.F9UsesWobblyWings)
             this.WriteToIni("WobblyWingsSleepAmount", this.defaultNobodySettings.WobblyWingsSleepAmount)
-            this.WriteToIni("HyacinthUseSlot", this.defaultNobodySettings.HyacinthUseSlot)
-            this.WriteToIni("HyacinthFarmBoss", this.defaultNobodySettings.HyacinthFarmBoss)
+            this.WriteToIni("HyacinthUseSlot", this.defaultNobodySettings.HyacinthUseSlot, "NatureFarm")
+            this.WriteToIni("HyacinthFarmBoss", this.defaultNobodySettings.HyacinthFarmBoss, "NatureFarm")
+            this.WriteToIni("BankEnableLGDeposit", this.defaultNobodySettings.BankEnableLGDeposit, "Bank")
+            this.WriteToIni("BankEnableSNDeposit", this.defaultNobodySettings.BankEnableSNDeposit, "Bank")
+            this.WriteToIni("BankEnableEBDeposit", this.defaultNobodySettings.BankEnableEBDeposit, "Bank")
+            this.WriteToIni("BankEnableFFDeposit", this.defaultNobodySettings.BankEnableFFDeposit, "Bank")
+            this.WriteToIni("BankEnableSRDeposit", this.defaultNobodySettings.BankEnableSRDeposit, "Bank")
+            this.WriteToIni("BankEnableQADeposit", this.defaultNobodySettings.BankEnableQADeposit, "Bank")
+            this.WriteToIni("BankRunsSpammer", this.defaultNobodySettings.BankRunsSpammer, "Bank")
+            this.WriteToIni("BankCycleTime", this.defaultNobodySettings.BankCycleTime, "Bank")
         } else {
             this.WriteToIni("EnableLogging", this.defaultSettings.EnableLogging)
-            this.WriteToIni("HaveBorbDLC", this.defaultSettings.HaveBorbDLC)
-            this.WriteToIni("CardsCommonAmount", this.defaultSettings.CardsCommonAmount)
-            this.WriteToIni("CardsRareAmount", this.defaultSettings.CardsRareAmount)
-            this.WriteToIni("CardsLegendaryAmount", this.defaultSettings.CardsLegendaryAmount)
-            this.WriteToIni("CardsDontOpenCommons", this.defaultSettings.CardsDontOpenCommons)
-            this.WriteToIni("CardsDontOpenRare", this.defaultSettings.CardsDontOpenRare)
-            this.WriteToIni("CardsDontOpenLegendary", this.defaultSettings.CardsDontOpenLegendary)
-            this.WriteToIni("CardsSleepAmount", this.defaultSettings.CardsSleepAmount)
-            this.WriteToIni("CardsBuyEnabled", this.defaultSettings.CardsBuyEnabled)
-            this.WriteToIni("CardsBuyStyle", this.defaultSettings.CardsBuyStyle)
-            this.WriteToIni("CardsCommonBuyAmount", this.defaultSettings.CardsCommonBuyAmount)
-            this.WriteToIni("CardsRareBuyAmount", this.defaultSettings.CardsRareBuyAmount)
-            this.WriteToIni("CardsLegBuyAmount", this.defaultSettings.CardsLegBuyAmount)
-            this.WriteToIni("CardsDontBuyCommons", this.defaultSettings.CardsDontBuyCommons)
-            this.WriteToIni("CardsDontBuyRare", this.defaultSettings.CardsDontBuyRare)
-            this.WriteToIni("CardsDontBuyLeg", this.defaultSettings.CardsDontBuyLeg)
-            this.WriteToIni("CardsSleepBuyAmount", this.defaultSettings.CardsSleepBuyAmount)
-            this.WriteToIni("CardsPermaLoop", this.defaultSettings.CardsPermaLoop)
-            this.WriteToIni("CardsBossFarmEnabled", this.defaultSettings.CardsBossFarmEnabled)
-            this.WriteToIni("GFToKillPerCycle", this.defaultSettings.GFToKillPerCycle)
-            this.WriteToIni("SSToKillPerCycle", this.defaultSettings.SSToKillPerCycle)
-            this.WriteToIni("GFSSNoReset", this.defaultSettings.GFSSNoReset)
-            this.WriteToIni("GemFarmSleepAmount", this.defaultSettings.GemFarmSleepAmount)
+            this.WriteToIni("HaveBorbDLC", this.defaultSettings.HaveBorbDLC, "Borbventures")
+            this.WriteToIni("CardsCommonAmount", this.defaultSettings.CardsCommonAmount, "Cards")
+            this.WriteToIni("CardsRareAmount", this.defaultSettings.CardsRareAmount, "Cards")
+            this.WriteToIni("CardsLegendaryAmount", this.defaultSettings.CardsLegendaryAmount, "Cards")
+            this.WriteToIni("CardsDontOpenCommons", this.defaultSettings.CardsDontOpenCommons, "Cards")
+            this.WriteToIni("CardsDontOpenRare", this.defaultSettings.CardsDontOpenRare, "Cards")
+            this.WriteToIni("CardsDontOpenLegendary", this.defaultSettings.CardsDontOpenLegendary, "Cards")
+            this.WriteToIni("CardsSleepAmount", this.defaultSettings.CardsSleepAmount, "Cards")
+            this.WriteToIni("CardsBuyEnabled", this.defaultSettings.CardsBuyEnabled, "Cards")
+            this.WriteToIni("CardsBuyStyle", this.defaultSettings.CardsBuyStyle, "Cards")
+            this.WriteToIni("CardsCommonBuyAmount", this.defaultSettings.CardsCommonBuyAmount, "Cards")
+            this.WriteToIni("CardsRareBuyAmount", this.defaultSettings.CardsRareBuyAmount, "Cards")
+            this.WriteToIni("CardsLegBuyAmount", this.defaultSettings.CardsLegBuyAmount, "Cards")
+            this.WriteToIni("CardsDontBuyCommons", this.defaultSettings.CardsDontBuyCommons, "Cards")
+            this.WriteToIni("CardsDontBuyRare", this.defaultSettings.CardsDontBuyRare, "Cards")
+            this.WriteToIni("CardsDontBuyLeg", this.defaultSettings.CardsDontBuyLeg, "Cards")
+            this.WriteToIni("CardsSleepBuyAmount", this.defaultSettings.CardsSleepBuyAmount, "Cards")
+            this.WriteToIni("CardsPermaLoop", this.defaultSettings.CardsPermaLoop, "Cards")
+            this.WriteToIni("CardsBossFarmEnabled", this.defaultSettings.CardsBossFarmEnabled, "Cards")
+            this.WriteToIni("GFToKillPerCycle", this.defaultSettings.GFToKillPerCycle, "F8")
+            this.WriteToIni("SSToKillPerCycle", this.defaultSettings.SSToKillPerCycle, "F8")
+            this.WriteToIni("GFSSNoReset", this.defaultSettings.GFSSNoReset, "F8")
+            this.WriteToIni("GemFarmSleepAmount", this.defaultSettings.GemFarmSleepAmount, "F4")
             this.WriteToIni("ClawCheckSizeOffset", this.defaultSettings.ClawCheckSizeOffset)
-            this.WriteToIni("BVItemsArr", this.defaultSettings.BVItemsArr)
-            this.WriteToIni("BVBlockMythLeg", this.defaultSettings.BVBlockMythLeg)
-            this.WriteToIni("QuarkFarmResetToBoss", this.defaultSettings.QuarkFarmResetToBoss)
+            this.WriteToIni("BVItemsArr", this.defaultSettings.BVItemsArr, "Borbventures")
+            this.WriteToIni("BVBlockMythLeg", this.defaultSettings.BVBlockMythLeg, "Borbventures")
+            this.WriteToIni("QuarkFarmResetToBoss", this.defaultSettings.QuarkFarmResetToBoss, "Quark")
             this.WriteToIni("NavigateTime", this.defaultSettings.NavigateTime)
             this.WriteToIni("DisableZoneChecks", this.defaultSettings.DisableZoneChecks)
             this.WriteToIni("DisableSettingsChecks", this.defaultSettings.DisableSettingsChecks)
@@ -336,8 +383,16 @@ class cSettings {
             this.WriteToIni("F9UsesWind", this.defaultSettings.F9UsesWind)
             this.WriteToIni("F9UsesWobblyWings", this.defaultSettings.F9UsesWobblyWings)
             this.WriteToIni("WobblyWingsSleepAmount", this.defaultSettings.WobblyWingsSleepAmount)
-            this.WriteToIni("HyacinthUseSlot", this.defaultSettings.HyacinthUseSlot)
-            this.WriteToIni("HyacinthFarmBoss", this.defaultSettings.HyacinthFarmBoss)
+            this.WriteToIni("HyacinthUseSlot", this.defaultSettings.HyacinthUseSlot, "NatureFarm")
+            this.WriteToIni("HyacinthFarmBoss", this.defaultSettings.HyacinthFarmBoss, "NatureFarm")
+            this.WriteToIni("BankEnableLGDeposit", this.defaultSettings.BankEnableLGDeposit, "Bank")
+            this.WriteToIni("BankEnableSNDeposit", this.defaultSettings.BankEnableSNDeposit, "Bank")
+            this.WriteToIni("BankEnableEBDeposit", this.defaultSettings.BankEnableEBDeposit, "Bank")
+            this.WriteToIni("BankEnableFFDeposit", this.defaultSettings.BankEnableFFDeposit, "Bank")
+            this.WriteToIni("BankEnableSRDeposit", this.defaultSettings.BankEnableSRDeposit, "Bank")
+            this.WriteToIni("BankEnableQADeposit", this.defaultSettings.BankEnableQADeposit, "Bank")
+            this.WriteToIni("BankRunsSpammer", this.defaultSettings.BankRunsSpammer, "Bank")
+            this.WriteToIni("BankCycleTime", this.defaultSettings.BankCycleTime, "Bank")
         }
         this.WriteToIni("Debug", BinaryToStr(Debug), "Debug")
     }

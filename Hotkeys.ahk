@@ -22,6 +22,10 @@ OpenPets() {
     ControlSend("{k}", , LBRWindowTitle)
 }
 
+OpenBank() {
+    ControlSend("{n}", , LBRWindowTitle)
+}
+
 OpenBorbVentures() {
     ControlSend("{j}", , LBRWindowTitle)
 }

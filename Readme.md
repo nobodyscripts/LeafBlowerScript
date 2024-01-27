@@ -134,7 +134,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 |                                                         |                                                                                                                               |
 |   Trees (OFF)                                           |  F12: Tests this setting and errors if on (Used for area travel).                                                             |
 |                                                         |                                                                                                                               |
-|   AFK Mode Lost Focus (OFF/ON)                                        |  Checks for and counters situations where this is active. Should be fine to use.                                              |
+|   AFK Mode Lost Focus (OFF/ON)                          |  Checks for and counters situations where this is active. Should be fine to use.                                              |
 |                                                         |                                                                                                                               |
 |   Display Reward Dialogs (OFF) (Gameplay tab)           |  Checked, will slow down opening.                                                                                             |
 |                                                         |                                                                                                                               |
@@ -151,13 +151,22 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 ## Changes
 
 Resolved false transparent panel detection caused by usage during early game.  
+Added categories to the UserSettings.ini, recommend you remove/rename old file
+before starting new version to avoid old entries remaining.  
+
 New Home: Hyacinth farm (nature event) mode with WW boss.  
 Home: Added HyacinthUseSlot (All/1-10) select if all or one of the ten fields
 are used during Hyacinth farming mode.  
 Home: Added HyacinthFarmBoss (true/false) enable the use of F9 secondary during
 Hyacinth farming mode, requires F9UsesWobblyWings on as well to use.  
+
 New End: Added a passive tower farming mode, spams skulls and wind.  
-End: Added hotkey to hotkey.ahk for Blazing Skulls (P)
+End: Added hotkey to hotkey.ahk for Blazing Skulls (P)  
+
+New PageUp: Bank maintainer, repeatedly deposits RESS to the bank on each tab,
+options to disable certain tabs, run the boss spammer in the background.  
+PageUp: Added hotkey to hotkey.ahk for Bank (N)  
+
 F6: Added setting BVBlockMythLeg to block start of mythical and legendary BV.  
 F12: Updated font check images to resolve detection failure.  
 
