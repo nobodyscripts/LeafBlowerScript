@@ -226,5 +226,6 @@ F6: Incorrect items can be started if manually refreshed while it scans
 F7: Will intentionally grab gems if no pumpkins are found  
 F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
+F7: Travel broken with font size 1  
 F9: Albs can register as boss timer (kills due to white on the tools)  
 F12: Afk mode interfering with alternative font?  
