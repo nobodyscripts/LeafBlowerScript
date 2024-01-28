@@ -153,6 +153,7 @@ fNormalBossFarmWithBorbs(modecheck) {
     global bvAutostartDisabled
     ToolTip()
     global on9
+    Killcount := 0
 
     if (!GotoBorbventuresFirstTab()) {
         Log("Borbv: Failed to travel, aborting.")
@@ -213,6 +214,7 @@ fNormalBossFarmWithCards(modecheck) {
     ToolTip(, , , 4)
     ToolTip()
     global HadToHideNotifs, W, H, X, Y, on9
+    Killcount := 0
 
     if (IsNotificationActive()) {
         Log("Card opening: Found notification covering button and hid"

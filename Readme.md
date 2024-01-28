@@ -158,7 +158,7 @@ New Home: Hyacinth farm (nature event) mode with WW boss.
 Home: Added HyacinthUseSlot (All/1-10) select if all or one of the ten fields
 are used during Hyacinth farming mode.  
 Home: Added HyacinthFarmBoss (true/false) enable the use of F9 secondary during
-Hyacinth farming mode, requires F9UsesWobblyWings on as well to use.  
+Hyacinth farming mode, requires BossFarmUsesWobblyWings on as well to use.  
 
 New End: Added a passive tower farming mode, spams skulls and wind.  
 End: Added hotkey to hotkey.ahk for Blazing Skulls (P)  
@@ -221,11 +221,17 @@ F4: Due to nature event pet slot if nature event artifact runs out bearo may not
    reapply after use, to avoid leave a slot free in default loadout (8/9)  
 F4: Will display failures to use suitcases before it runs out, this is due to
    the game not handling inputs every time.  
+F4: Travel and options buttons broken with font size 1  
+F5: Buttons broken with font size 1  
 F6: Still! starting borbventures with only 1 borb  
 F6: Incorrect items can be started if manually refreshed while it scans  
+F6: Broken with font size 1  
 F7: Will intentionally grab gems if no pumpkins are found  
 F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
 F7: Travel broken with font size 1  
+F8: Travel broken with font size 1  
 F9: Albs can register as boss timer (kills due to white on the tools)  
+F9: Brew mode broken with font size 1  
+F10: Travel broken with font size 1  
 F12: Afk mode interfering with alternative font?  

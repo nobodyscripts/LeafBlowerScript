@@ -112,7 +112,7 @@ fFarmNormalBossAndNatureHyacinth() {
                 W / 2 - WinRelPosLargeW(150),
                 H / 2 + WinRelPosLargeH(150), 1)
         } else {
-            ToolTip("Hyacinth on, F9UsesWobblyWings disabled.",
+            ToolTip("Hyacinth on, BossFarmUsesWobblyWings disabled.",
             W / 2 - WinRelPosLargeW(150),
             H / 2 + WinRelPosLargeH(150), 1)
         }

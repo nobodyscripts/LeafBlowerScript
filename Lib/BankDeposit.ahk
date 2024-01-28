@@ -32,7 +32,6 @@ fBankAutoDeposit() {
                         cBankDepositRESS().ClickOffset()
                         Sleep(NavigateTime)
                     } else {
-                        Log("Loop broken")
                         break
                     }
                 }
