@@ -22,8 +22,30 @@ Class RelCoord {
         return this
     }
 
-    IsCoordButtonActive() {
+    IsButton() {
+        if (IsButton(this.x, this.y)) {
+            return true
+        }
+        return false
+    }
+
+
+    IsButtonActive() {
         if (IsButtonActive(this.x, this.y)) {
+            return true
+        }
+        return false
+    }
+
+    IsButtonInactive() {
+        if (IsButtonInactive(this.x, this.y)) {
+            return true
+        }
+        return false
+    }
+
+    IsBackground() {
+        if (IsBackground(this.x, this.y)) {
             return true
         }
         return false

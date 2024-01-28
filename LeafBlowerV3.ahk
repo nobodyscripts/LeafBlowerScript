@@ -551,7 +551,7 @@ removeLastCheckTooltip() {
         Log("End: Tower Farm Passive Activated")
         fTowerFarm()
     } Else {
-        ToolTip(,,,4)
+        ToolTip(, , , 4)
         Log("End: Resetting")
         cReload()
         return
@@ -583,7 +583,7 @@ removeLastCheckTooltip() {
         Log("PgUp: Bank Maintainer Activated")
         fBankAutoDeposit()
     } Else {
-        ToolTip(,,,4)
+        ToolTip(, , , 4)
         Log("PgUp: Resetting")
         cReload()
         return

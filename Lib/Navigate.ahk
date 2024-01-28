@@ -10,14 +10,14 @@ global NavigateTime := 150
  */
 OpenAreasPanel(reset := true, extraDelay := 0) {
     NavTime := NavigateTime + extraDelay
-    if(NavigateTime < 72) {
+    if (NavigateTime < 72) {
         NavTime := 72 + extraDelay
     }
     OpenPets() ; Opens or closes another screen so that when areas
     ; is opened it doesn't close
     sleep(NavTime)
     OpenAreas() ; Open areas
-    sleep(NavTime*2)
+    sleep(NavTime * 2)
     i := 0
     while (!IsButtonActive(WinRelPosLargeW(300), WinRelPosLargeH(1180)) && i <= 4) {
         Log("OpenAreasPanel: Retry, could not see active button.")
@@ -36,7 +36,7 @@ OpenAreasPanel(reset := true, extraDelay := 0) {
  */
 ResetAreaScroll(extraDelay := 0) {
     NavTime := NavigateTime + extraDelay
-    if(NavigateTime < 72) {
+    if (NavigateTime < 72) {
         NavTime := 72 + extraDelay
     }
     fSlowClick(200, 574, NavTime) ; Click Favourites
@@ -44,16 +44,9 @@ ResetAreaScroll(extraDelay := 0) {
     fSlowClick(315, 574, NavTime)
     ; Click Back to default page to reset the scroll
     Sleep(NavTime)
-    i := 0
-    while (!IsAreaTabLeafGalaxy() && i <= 4) { ; If we havn't reset properly, loop till
-        Log("ResetAreaScroll: Retry")
-        fSlowClick(200, 574, NavTime) ; Click Favourites
-        Sleep(NavTime)
-        fSlowClick(315, 574, NavTime)
-        ; Click Back to default page to reset the scroll
-        Sleep(NavTime)
-        i++
-    }
+    fSlowClick(315, 574, NavTime)
+    ; Click Back to default page to reset the scroll
+    Sleep(NavTime)
 }
 
 /**
@@ -102,16 +95,8 @@ OpenEventsAreasPanel(extraDelay := 0) {
     Sleep(NavigateTime + extraDelay)
     fSlowClick(1049, 572, NavigateTime + extraDelay) ; Click the event tab
     sleep(NavigateTime + extraDelay)
-    i := 0
-    while (!IsAreaTabEvents() && i <= 4) { ; Loop till confirmed in events
-        Log("OpenEventsAreasPanel: Retry")
-        OpenAreasPanel(false, extraDelay)
-        fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
-        Sleep(NavigateTime + extraDelay)
-        fSlowClick(1049, 572, NavigateTime + extraDelay) ; Click the event tab
-        sleep(NavigateTime + extraDelay)
-        i++
-    }
+    fSlowClick(1049, 572, NavigateTime + extraDelay) ; Click the event tab
+    sleep(NavigateTime + extraDelay)
 }
 
 /**
@@ -122,17 +107,10 @@ OpenQuarkPanel(extraDelay := 0) {
     OpenAreasPanel(false, extraDelay)
     fSlowClickRelL(1780, 1180, NavigateTime + extraDelay) ; Quark tab
     Sleep(NavigateTime + extraDelay)
+    fSlowClickRelL(1780, 1180, NavigateTime + extraDelay) ; Quark tab
+    Sleep(NavigateTime + extraDelay)
     ScrollAmountUp(2)
     Sleep(NavigateTime + extraDelay)
-    i := 0
-    while (!IsAreaTabQuarkAmbit() && i <= 4) { ; Loop till confirmed in quark
-        Log("OpenQuarkPanel: Retry")
-        OpenAreasPanel(false, extraDelay)
-        fSlowClickRelL(1780, 1180, NavigateTime + extraDelay) ; Quark tab
-        Sleep(NavigateTime + extraDelay)
-        ScrollAmountUp(2)
-        Sleep(NavigateTime + extraDelay)
-    }
 }
 
 IsAreaResetToGarden() {
@@ -625,7 +603,7 @@ GoToAstralOasis() {
             Log("Traveling to Astral Oasis (Quark Boss 1)")
             OpenQuarkPanel()
             if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(643))) {
-                    fSlowClickRelL(1670, 643, NavigateTime)
+                fSlowClickRelL(1670, 643, NavigateTime)
             } else {
                 fSlowClickRelL(1670, 680, NavigateTime)
             }
@@ -643,7 +621,7 @@ GoToAstralOasis() {
             " with slowed times.")
         OpenQuarkPanel(200)
         if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(643))) {
-                fSlowClickRelL(1670, 643, NavigateTime + 200)
+            fSlowClickRelL(1670, 643, NavigateTime + 200)
         } else {
             fSlowClickRelL(1670, 680, NavigateTime + 200)
         }
@@ -681,7 +659,7 @@ GoToDimentionalTapestry() {
             Log("Traveling to Dimentional Tapestry (Quark Boss 2)")
             OpenQuarkPanel()
             if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(820))) {
-                    fSlowClickRelL(1670, 820, NavigateTime)
+                fSlowClickRelL(1670, 820, NavigateTime)
             } else {
                 fSlowClickRelL(1670, 860, NavigateTime)
             }
@@ -699,7 +677,7 @@ GoToDimentionalTapestry() {
             " blind travel with slowed times.")
         OpenQuarkPanel(200)
         if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(820))) {
-                fSlowClickRelL(1670, 820, NavigateTime + 200)
+            fSlowClickRelL(1670, 820, NavigateTime + 200)
         } else {
             fSlowClickRelL(1670, 860, NavigateTime + 200)
         }
@@ -737,7 +715,7 @@ GoToPlankScope() {
             Log("Traveling to Plank Scope (Quark Boss 3)")
             OpenQuarkPanel()
             if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(970))) {
-                    fSlowClickRelL(1670, 970, NavigateTime + 200)
+                fSlowClickRelL(1670, 970, NavigateTime + 200)
             } else {
                 fSlowClickRelL(1670, 1020, NavigateTime + 200)
             }
@@ -848,14 +826,8 @@ GoToAreaFireFieldsTab(extraDelay := 0) {
     Sleep(NavigateTime + extraDelay)
     fSlowClick(686, 574, NavigateTime + extraDelay) ; Open Fire Fields tab
     sleep(NavigateTime + extraDelay)
-    while (!IsAreaTabFireFields() && i <= 4) {
-        Log("GotoAreaFireFieldsTab: Retry")
-        fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
-        Sleep(NavigateTime + extraDelay)
-        fSlowClick(686, 574, NavigateTime + extraDelay) ; Open Fire Fields tab
-        sleep(NavigateTime + extraDelay)
-        i++
-    }
+    fSlowClick(686, 574, NavigateTime + extraDelay) ; Open Fire Fields tab
+    sleep(NavigateTime + extraDelay)
 }
 
 GotoBorbventuresFirstTab() {
@@ -898,7 +870,7 @@ BVResetScroll() {
     Sleep(72)
 }
 
-GoToLeafTower(){
+GoToLeafTower() {
     OpenAreasPanel()
     ScrollAmountDown(16) ; Scroll down for the zones
     Sleep(101)
@@ -950,7 +922,7 @@ GoToLeafTower(){
     if (!IsButtonActive(OutX + WinRelPosLargeW(69),
         OutY + WinRelPosLargeH(5))) {
             Log("Error 32: Tower area detection failed. Could not find "
-            " Leaf Tower Travel Button.")
+                " Leaf Tower Travel Button.")
             return
     }
     fCustomClick(OutX + WinRelPosLargeW(69),
@@ -1009,46 +981,6 @@ IsAreaGFOrSS() {
         return true
     }
     return false
-}
-
-IsAreaTabLeafGalaxy() {
-    if (IsButtonActive(WinRelPosLargeW(715), WinRelPosLargeH(1176)) ||
-        IsButtonInactive(WinRelPosLargeW(715), WinRelPosLargeH(1176))) {
-            return false
-    }
-    return true
-}
-
-IsAreaTabFireFields() {
-    if (IsButtonActive(WinRelPosLargeW(1445), WinRelPosLargeH(1176)) ||
-        IsButtonInactive(WinRelPosLargeW(1445), WinRelPosLargeH(1176))) {
-            return false
-    }
-    return true
-}
-
-IsAreaTabSoulRealm() {
-    if (IsButtonActive(WinRelPosLargeW(1695), WinRelPosLargeH(1176)) ||
-        IsButtonInactive(WinRelPosLargeW(1695), WinRelPosLargeH(1176))) {
-            return false
-    }
-    return true
-}
-
-IsAreaTabQuarkAmbit() {
-    if (IsButtonActive(WinRelPosLargeW(1950), WinRelPosLargeH(1176)) ||
-        IsButtonInactive(WinRelPosLargeW(1950), WinRelPosLargeH(1176))) {
-            return false
-    }
-    return true
-}
-
-IsAreaTabEvents() {
-    if (IsButtonActive(WinRelPosLargeW(2161), WinRelPosLargeH(1176)) ||
-        IsButtonInactive(WinRelPosLargeW(2161), WinRelPosLargeH(1176))) {
-            return false
-    }
-    return true
 }
 
 ; IsAreaSampleColour samples:

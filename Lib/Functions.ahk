@@ -74,8 +74,25 @@ ResetModifierKeys() {
     ControlSend("{Shift up}", , LBRWindowTitle)
 }
 
+IsButton(screenX, screenY) {
+    try {
+        targetColour := PixelGetColor(screenX, screenY)
+        ; Active, ActiveMouseOver, AfkActive, AfkActiveMouseover, Inactive
+        If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A" ||
+            targetColour = "0xB3A993" || targetColour = "0xB29361" ||
+            targetColour = "0xC8BDA5") {
+                return true
+        }
+
+    } catch as exc {
+        Log("Error 2: IsButton check failed - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
+            exc.Message)
+    }
+    return false
+}
+
 IsButtonActive(screenX, screenY) {
-    ; Position less important as just checking if not background X2120
     try {
         targetColour := PixelGetColor(screenX, screenY)
         ; Active, ActiveMouseOver, AfkActive, AfkActiveMouseover
@@ -83,7 +100,6 @@ IsButtonActive(screenX, screenY) {
             targetColour = "0xB3A993" || targetColour = "0xB29361") {
                 return true
         }
-
     } catch as exc {
         Log("Error 2: IsButtonActive check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -97,13 +113,7 @@ IsButtonInactive(screenX, screenY) {
         targetColour := PixelGetColor(screenX, screenY)
         If (targetColour = "0xC8BDA5") {
             ; Check button for non background colour
-            If (Debug) {
-                Log("IsButtonInactive() true: " targetColour " at " screenX "*" screenY)
-            }
             return true
-        }
-        If (Debug) {
-            Log("IsButtonInactive() false: " targetColour " at " screenX "*" screenY)
         }
     } catch as exc {
         Log("Error 3: IsButtonInactive check failed - " exc.Message)

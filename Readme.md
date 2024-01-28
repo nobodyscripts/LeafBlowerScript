@@ -153,6 +153,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 Resolved false transparent panel detection caused by usage during early game.  
 Added categories to the UserSettings.ini, recommend you remove/rename old file
 before starting new version to avoid old entries remaining.  
+Removed IsAreaTab* functions, font size 1 was causing misalignment, failing
+travel. Will result in less precise travel.  
 
 New Home: Hyacinth farm (nature event) mode with WW boss.  
 Home: Added HyacinthUseSlot (All/1-10) select if all or one of the ten fields
@@ -188,8 +190,6 @@ Halloween + Nature artifact secondary which pauses main functions.
 Adjust window resize based on delta from intended size, for non matching window
    dressing.  
 WW safety mode - Checks health bars for potential failure and changes level  
-Issue with IsAreaTab* functions with font 1 causing misalignment, causing travel
-retrying
 
 F3: Handle new multipliers, decreasing amounts, priorities. Will probably need
 to read save file, get caps, work out how much to open to avoid breaking auto
@@ -221,7 +221,7 @@ F4: Due to nature event pet slot if nature event artifact runs out bearo may not
    reapply after use, to avoid leave a slot free in default loadout (8/9)  
 F4: Will display failures to use suitcases before it runs out, this is due to
    the game not handling inputs every time.  
-F4: Travel and options buttons broken with font size 1  
+F4: Options buttons broken with font size 1  
 F5: Buttons broken with font size 1  
 F6: Still! starting borbventures with only 1 borb  
 F6: Incorrect items can be started if manually refreshed while it scans  
@@ -229,9 +229,6 @@ F6: Broken with font size 1
 F7: Will intentionally grab gems if no pumpkins are found  
 F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
-F7: Travel broken with font size 1  
-F8: Travel broken with font size 1  
 F9: Albs can register as boss timer (kills due to white on the tools)  
 F9: Brew mode broken with font size 1  
-F10: Travel broken with font size 1  
 F12: Afk mode interfering with alternative font?  

@@ -28,7 +28,7 @@ fBankAutoDeposit() {
                     Sleep(NavigateTime)
                 }
                 loop {
-                    if (cBankDepositRESS().IsCoordButtonActive()) {
+                    if (cBankDepositRESS().IsButtonActive()) {
                         cBankDepositRESS().ClickOffset()
                         Sleep(NavigateTime)
                     } else {
