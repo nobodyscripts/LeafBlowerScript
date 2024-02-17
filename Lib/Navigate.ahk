@@ -983,6 +983,14 @@ IsAreaGFOrSS() {
     return false
 }
 
+IsAreaBlack() {
+    local col := GetAreaSampleColour()
+    if (col = "0x000000") {
+        return true
+    }
+    return false
+}
+
 ; IsAreaSampleColour samples:
 /*
 0x4A9754 Home Garden (non unique)

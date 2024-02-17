@@ -114,3 +114,25 @@ cBankTabQA() {
     o.SetCoordRel(600, 635)
     return o
 }
+
+; ------------------ Leafton Coords -------------------
+
+cLeaftonCenter() {
+    o := RelCoord()
+    o.SetCoordRel(1270, 680)
+    return o
+}
+
+cLeaftonStart() {
+    o := RelCoord()
+    o.SetCoordRel(690, 370)
+    return o
+}
+
+; ------------------ Crafting Coords -------------------
+
+cCraftingStop() {
+    o := RelCoord()
+    o.SetCoordRel(675, 750)
+    return o
+}

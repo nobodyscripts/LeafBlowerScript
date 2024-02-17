@@ -21,6 +21,7 @@
 #Include Lib\NatureHyacinth.ahk
 #Include Lib\TowerTimeWarp.ahk
 #Include Lib\TowerFarmPassive.ahk
+#Include Lib\LeaftonTaxi.ahk
 
 DetectHiddenWindows(true)
 Persistent()  ; Prevent the script from exiting automatically.
@@ -585,6 +586,39 @@ removeLastCheckTooltip() {
     } Else {
         ToolTip(, , , 4)
         Log("PgUp: Resetting")
+        cReload()
+        return
+    }
+}
+
+
+*PgDn:: {
+    ; Leafton Autotaxi
+    Static on17 := false
+
+    Log("PgDn: Pressed")
+    if (!InitGameWindow() && !on17) {
+        cReload()
+        return
+    }
+    if (!IsWindowActive()) {
+        cReload() ; Kill if no game
+        return
+    }
+    if (IsSpammerActive()) {
+        KillSpammer()
+    }
+    ResetModifierKeys() ; Cleanup incase needed
+    If (on17 := !on17) {
+        if (!CheckGameSettingsCorrect()) {
+            cReload()
+            return
+        }
+        Log("PgDn: Leafton Autotaxi Activated")
+        fLeaftonTaxi()
+    } Else {
+        ToolTip(, , , 4)
+        Log("PgDn: Resetting")
         cReload()
         return
     }

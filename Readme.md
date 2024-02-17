@@ -169,6 +169,10 @@ New PageUp: Bank maintainer, repeatedly deposits RESS to the bank on each tab,
 options to disable certain tabs, run the boss spammer in the background.  
 PageUp: Added hotkey to hotkey.ahk for Bank (N)  
 
+New PageDown: Leafton autotravel and crafter, go to leafton area and it'll start
+levels automatically and craft while waiting to restart.  
+PageDown: Added hotkey to hotkey.ahk for Crafting (M)
+
 F6: Added setting BVBlockMythLeg to block start of mythical and legendary BV.  
 F12: Updated font check images to resolve detection failure.  
 
