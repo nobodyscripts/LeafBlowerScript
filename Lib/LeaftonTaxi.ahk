@@ -3,12 +3,14 @@
 #Include ../Lib/Coords.ahk
 
 global LeaftonCraftEnabled := true
+global LeaftonWindEnabled := true
 
 fLeaftonTaxi() {
     centerCoord := cLeaftonCenter()
     startCoord := cLeaftonStart()
     craftStopCoord := cCraftingStop()
-
+    ToolTip("Leafton Active", W / 2, 300, 4)
+    OpenPets()
     ClosePanel()
     loop {
         if (IsAreaBlack() && IsBossTimerActive()) {
@@ -20,11 +22,19 @@ fLeaftonTaxi() {
         } else {
             if (LeaftonCraftEnabled) {
                 OpenCrafting()
-                while (!IsBossTimerActive()) {
+            }
+            while (!IsBossTimerActive()) {
+
+                if (LeaftonCraftEnabled) {
                     craftStopCoord.Click(17)
                 }
+                TriggerWind()
+            }
+
+            if (LeaftonCraftEnabled) {
                 ClosePanel()
             }
+
         }
     }
 }
