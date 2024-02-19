@@ -19,6 +19,9 @@ fBankAutoDeposit() {
     OpenBank()
     ToolTip("Bank Maintainer Active", W / 2 - WinRelPosLargeW(100), H / 2, 4)
     loop {
+        if (!IsWindowActive()) {
+            break
+        }
         i := 0
         while (i < 6) {
             if (BankIsTabEnabled(i)) {

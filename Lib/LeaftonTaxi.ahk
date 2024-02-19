@@ -3,16 +3,46 @@
 #Include ../Lib/Coords.ahk
 
 global LeaftonCraftEnabled := true
-global LeaftonWindEnabled := true
+global LeaftonSpamsWind := true
+global LeaftonBanksEnabled := true
+global BankEnableLGDeposit := true
+global BankEnableSNDeposit := true
+global BankEnableEBDeposit := true
+global BankEnableFFDeposit := true
+global BankEnableSRDeposit := true
+global BankEnableQADeposit := true
+global BankCycleTime := 10
+global NavigateTime := 150
+global WindSpammerPID := 0
 
 fLeaftonTaxi() {
+    starttime := A_Now
+    if (LeaftonSpamsWind) {
+        SpamJustWind()
+    }
     centerCoord := cLeaftonCenter()
     startCoord := cLeaftonStart()
     craftStopCoord := cCraftingStop()
-    ToolTip("Leafton Active", W / 2, 300, 4)
     OpenPets()
-    ClosePanel()
+    Sleep(NavigateTime)
+    if (LeaftonBanksEnabled) {
+        BankLeaftonSinglePass()
+    }
+    if (IsPanelActive()) {
+        ClosePanel()
+        Sleep(NavigateTime)
+    }
     loop {
+        if (DateDiff(A_Now, starttime, "Seconds") >= BankCycleTime * 60 &&
+            LeaftonBanksEnabled) {
+                Log("Leafton: Bank Maintainer starting.")
+                BankLeaftonSinglePass()
+                starttime := A_Now
+        }
+        if (!IsWindowActive()) {
+            break
+        }
+        ToolTip("Leafton Active", W / 2, WinRelPosLargeH(200), 4)
         if (IsAreaBlack() && IsBossTimerActive()) {
             centerCoord.Click()
             Sleep(NavigateTime)
@@ -21,20 +51,99 @@ fLeaftonTaxi() {
             }
         } else {
             if (LeaftonCraftEnabled) {
+                Sleep(NavigateTime)
                 OpenCrafting()
+                Sleep(NavigateTime)
+                if (!IsPanelActive()) {
+                    OpenCrafting()
+                    Sleep(NavigateTime)
+                }
             }
             while (!IsBossTimerActive()) {
-
+                if (!IsWindowActive() ||
+                    DateDiff(A_Now, starttime, "Seconds") >= BankCycleTime * 60) {
+                        break
+                }
                 if (LeaftonCraftEnabled) {
                     craftStopCoord.Click(17)
                 }
-                TriggerWind()
             }
-
-            if (LeaftonCraftEnabled) {
+            if (LeaftonCraftEnabled && IsPanelActive()) {
                 ClosePanel()
+                Sleep(NavigateTime)
             }
-
         }
+        ToolTip(, , , 4)
+    }
+    KillWindSpammer()
+}
+
+BankLeaftonSinglePass() {
+    if (IsPanelActive()) {
+        ClosePanel()
+        Sleep(NavigateTime)
+    }
+    OpenBank()
+    ToolTip("Leafton Bank Maintainer Active", W / 2, WinRelPosLargeH(200), 4)
+    i := 0
+    while (i < 6) {
+        if (!IsWindowActive()) {
+            break
+        }
+        if (BankIsTabEnabled(i)) {
+            buttonTab := BankTabCoordByInd(i)
+            if (!IsOnBankTab(buttonTab)) {
+                BankTravelAreaByInd(i)
+                Sleep(NavigateTime)
+            }
+            loop {
+                if (!IsWindowActive()) {
+                    break
+                }
+                if (cBankDepositRESS().IsButtonActive()) {
+                    cBankDepositRESS().ClickOffset()
+                    Sleep(NavigateTime)
+                } else {
+                    break
+                }
+            }
+        }
+        i++
+    }
+    ToolTip(, , , 4)
+}
+
+
+SpamJustWind() {
+    global WindSpammerPID
+    if (IsWindowActive()) {
+        ;TriggerViolin()
+        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\JustWindSpammer.ahk"',
+            , , &OutPid)
+        WindSpammerPID := OutPid
+    }
+}
+
+IsWindSpammerActive() {
+    if ((WindSpammerPID && ProcessExist(WindSpammerPID)) ||
+        WinExist(A_ScriptDir "\Secondaries\JustWindSpammer.ahk ahk_class AutoHotkey")) {
+            return true
+    }
+    return false
+}
+
+KillWindSpammer() {
+    ;F:\Documents\AutoHotkey\LeafBlowerV3\Secondaries\JustWindSpammer.ahk - AutoHotkey v2.0.4
+    if (WindSpammerPID && ProcessExist(WindSpammerPID)) {
+        ProcessClose(WindSpammerPID)
+        Log("Closed JustWindSpammer.ahk using pid.")
+    } else {
+        if (WinExist(A_ScriptDir "\Secondaries\JustWindSpammer.ahk ahk_class AutoHotkey")) {
+            WinClose(A_ScriptDir "\Secondaries\JustWindSpammer.ahk ahk_class AutoHotkey")
+            Log("Closed JustWindSpammer.ahk using filename.")
+        }
+        /* if (WinExist("NormalBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")) {
+            WinClose("NormalBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")
+        } */
     }
 }
