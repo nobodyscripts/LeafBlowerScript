@@ -89,6 +89,11 @@ bosses with WW in the background.
 End: Passive Tower Farm - Spams wind and blazing skulls as fast as possible,
 resets player to tower if found in home garden.
 
+PageUp: Bank Maintainer - Every (10m by default) will refill RESS in bank.
+
+PageDown: Leafton mode, auto taxi that waits for energy to refill, while active
+will also do crafting, bank, wind for damage.
+
 ## Notes
 
 Sleep times might need adjusting for your pc, so increase them as needed if
@@ -171,7 +176,9 @@ PageUp: Added hotkey to hotkey.ahk for Bank (N)
 
 New PageDown: Leafton autotravel and crafter, go to leafton area and it'll start
 levels automatically and craft while waiting to restart.  
-PageDown: Added hotkey to hotkey.ahk for Crafting (M)
+PageDown: Added hotkey to hotkey.ahk for Crafting (M)  
+PageDown: Added bank maintainer on timer and wind spammer for increased damage.  
+PageDown: Added 3 settings to toggle crafting, bank, wind.  
 
 F6: Added setting BVBlockMythLeg to block start of mythical and legendary BV.  
 F12: Updated font check images to resolve detection failure.  

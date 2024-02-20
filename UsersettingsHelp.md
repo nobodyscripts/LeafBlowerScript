@@ -186,6 +186,17 @@ Enables the boss farmer background script while using bank maintainer.
 BankCycleTime: (Default) true  
 Amount of time to wait between bank maintainer cycles (in seconds)
 
+LeaftonCraftEnabled: (Default) true  
+Enable autoclicker on the stop button in the crafting window during Leafton
+mode.
+
+LeaftonSpamsWind: (Default) true  
+Enable spamming of wind for increased damage during Leafton mode.
+
+LeaftonBanksEnabled: (Default) true  
+Enable auto deposit to banks during Leafton mode, runs based on Bank settings
+and BankCycleTime.
+
 Debug: (Default) false  
 Extra debug logging and testing modes, not recommended for users due to large
 log usage, could cause file size issues.
