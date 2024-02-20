@@ -9,7 +9,7 @@ global BankEnableFFDeposit := true
 global BankEnableSRDeposit := true
 global BankEnableQADeposit := true
 global BankRunsSpammer := true
-global BankCycleTime := 10
+global BankDepositTime := 5
 global NavigateTime := 150
 
 fBankAutoDeposit() {
@@ -41,7 +41,7 @@ fBankAutoDeposit() {
             }
             i++
         }
-        Sleep(BankCycleTime * 1000)
+        Sleep(BankDepositTime * 60 * 1000)
     }
 
 }

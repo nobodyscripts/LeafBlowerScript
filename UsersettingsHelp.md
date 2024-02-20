@@ -183,8 +183,9 @@ Enables the auto deposit of RESS in the Quark Ambit bank tab.
 BankRunsSpammer: (Default) true  
 Enables the boss farmer background script while using bank maintainer.  
 
-BankCycleTime: (Default) true  
-Amount of time to wait between bank maintainer cycles (in seconds)
+BankDepositTime: (Default) 5  
+Amount of time to wait between bank maintainer cycles (in minutes), applies to
+Leafton mode as well.
 
 LeaftonCraftEnabled: (Default) true  
 Enable autoclicker on the stop button in the crafting window during Leafton
@@ -195,7 +196,10 @@ Enable spamming of wind for increased damage during Leafton mode.
 
 LeaftonBanksEnabled: (Default) true  
 Enable auto deposit to banks during Leafton mode, runs based on Bank settings
-and BankCycleTime.
+and BankDepositTime.
+
+LeaftonRunOnceEnable: (Default) false  
+Cycles through the floor of Leafton once, then exits, ideal for refreshing max.
 
 Debug: (Default) false  
 Extra debug logging and testing modes, not recommended for users due to large

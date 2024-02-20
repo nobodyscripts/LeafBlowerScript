@@ -25,8 +25,9 @@ global HyacinthUseSlot, HyacinthFarmBoss
 
 global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit
 global BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit
-global BankRunsSpammer, BankCycleTime
+global BankRunsSpammer, BankDepositTime
 global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled
+global LeaftonRunOnceEnabled
 
 class cSettings {
     sFilename := A_ScriptDir "\UserSettings.ini"
@@ -77,10 +78,11 @@ class cSettings {
         BankEnableSRDeposit: "true",
         BankEnableQADeposit: "true",
         BankRunsSpammer: "true",
-        BankCycleTime: "150",
+        BankDepositTime: "5",
         LeaftonCraftEnabled: "true",
         LeaftonSpamsWind: "true",
-        LeaftonBanksEnabled: "true"
+        LeaftonBanksEnabled: "true",
+        LeaftonRunOnceEnabled: "false"
     }
     defaultSettings := {
         EnableLogging: "false",
@@ -127,10 +129,11 @@ class cSettings {
         BankEnableSRDeposit: "true",
         BankEnableQADeposit: "true",
         BankRunsSpammer: "true",
-        BankCycleTime: "150",
+        BankDepositTime: "5",
         LeaftonCraftEnabled: "true",
         LeaftonSpamsWind: "true",
-        LeaftonBanksEnabled: "true"
+        LeaftonBanksEnabled: "true",
+        LeaftonRunOnceEnabled: "false"
     }
     loadedSettings := {}
     /*
@@ -188,8 +191,9 @@ class cSettings {
         global HyacinthUseSlot, HyacinthFarmBoss
         global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit
         global BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit
-        global BankRunsSpammer, BankCycleTime
+        global BankRunsSpammer, BankDepositTime
         global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled
+        global LeaftonRunOnceEnabled
 
         try {
             EnableLogging := this.loadedSettings.EnableLogging :=
@@ -280,14 +284,16 @@ class cSettings {
                 IniToVar(this.sFilename, "Bank", "BankEnableQADeposit")
             BankRunsSpammer := this.loadedSettings.BankRunsSpammer :=
                 IniToVar(this.sFilename, "Bank", "BankRunsSpammer")
-            BankCycleTime := this.loadedSettings.BankCycleTime :=
-                IniToVar(this.sFilename, "Bank", "BankCycleTime")
+            BankDepositTime := this.loadedSettings.BankDepositTime :=
+                IniToVar(this.sFilename, "Bank", "BankDepositTime")
             LeaftonCraftEnabled := this.loadedSettings.LeaftonCraftEnabled :=
                 IniToVar(this.sFilename, "Leafton", "LeaftonCraftEnabled")
             LeaftonSpamsWind := this.loadedSettings.LeaftonSpamsWind :=
                 IniToVar(this.sFilename, "Leafton", "LeaftonSpamsWind")
             LeaftonBanksEnabled := this.loadedSettings.LeaftonBanksEnabled :=
                 IniToVar(this.sFilename, "Leafton", "LeaftonBanksEnabled")
+            LeaftonRunOnceEnabled := this.loadedSettings.LeaftonRunOnceEnabled :=
+                IniToVar(this.sFilename, "Leafton", "LeaftonRunOnceEnabled")
 
 
             Debug := IniToVar(this.sFilename, "Debug", "Debug")
@@ -361,10 +367,11 @@ class cSettings {
             this.WriteToIni("BankEnableSRDeposit", this.defaultNobodySettings.BankEnableSRDeposit, "Bank")
             this.WriteToIni("BankEnableQADeposit", this.defaultNobodySettings.BankEnableQADeposit, "Bank")
             this.WriteToIni("BankRunsSpammer", this.defaultNobodySettings.BankRunsSpammer, "Bank")
-            this.WriteToIni("BankCycleTime", this.defaultNobodySettings.BankCycleTime, "Bank")
+            this.WriteToIni("BankDepositTime", this.defaultNobodySettings.BankDepositTime, "Bank")
             this.WriteToIni("LeaftonCraftEnabled", this.defaultNobodySettings.LeaftonCraftEnabled, "Leafton")
             this.WriteToIni("LeaftonSpamsWind", this.defaultNobodySettings.LeaftonSpamsWind, "Leafton")
             this.WriteToIni("LeaftonBanksEnabled", this.defaultNobodySettings.LeaftonBanksEnabled, "Leafton")
+            this.WriteToIni("LeaftonRunOnceEnabled", this.defaultNobodySettings.LeaftonRunOnceEnabled, "Leafton")
         } else {
             this.WriteToIni("EnableLogging", this.defaultSettings.EnableLogging)
             this.WriteToIni("HaveBorbDLC", this.defaultSettings.HaveBorbDLC, "Borbventures")
@@ -410,10 +417,11 @@ class cSettings {
             this.WriteToIni("BankEnableSRDeposit", this.defaultSettings.BankEnableSRDeposit, "Bank")
             this.WriteToIni("BankEnableQADeposit", this.defaultSettings.BankEnableQADeposit, "Bank")
             this.WriteToIni("BankRunsSpammer", this.defaultSettings.BankRunsSpammer, "Bank")
-            this.WriteToIni("BankCycleTime", this.defaultSettings.BankCycleTime, "Bank")
+            this.WriteToIni("BankDepositTime", this.defaultSettings.BankDepositTime, "Bank")
             this.WriteToIni("LeaftonCraftEnabled", this.defaultSettings.LeaftonCraftEnabled, "Leafton")
             this.WriteToIni("LeaftonSpamsWind", this.defaultSettings.LeaftonSpamsWind, "Leafton")
             this.WriteToIni("LeaftonBanksEnabled", this.defaultSettings.LeaftonBanksEnabled, "Leafton")
+            this.WriteToIni("LeaftonRunOnceEnabled", this.defaultSettings.LeaftonRunOnceEnabled, "Leafton")
         }
         this.WriteToIni("Debug", BinaryToStr(Debug), "Debug")
     }

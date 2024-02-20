@@ -173,12 +173,18 @@ End: Added hotkey to hotkey.ahk for Blazing Skulls (P)
 New PageUp: Bank maintainer, repeatedly deposits RESS to the bank on each tab,
 options to disable certain tabs, run the boss spammer in the background.  
 PageUp: Added hotkey to hotkey.ahk for Bank (N)  
+PageUp: Renamed BankCycleTime to BankDepositTime, needed to change default.  
 
 New PageDown: Leafton autotravel and crafter, go to leafton area and it'll start
 levels automatically and craft while waiting to restart.  
-PageDown: Added hotkey to hotkey.ahk for Crafting (M)  
+PageDown: Added hotkey to hotkey.ahk for Crafting (M).  
 PageDown: Added bank maintainer on timer and wind spammer for increased damage.  
 PageDown: Added 3 settings to toggle crafting, bank, wind.  
+PageDown: Added LeaftonRunOnceEnable to allow easier updating of single floors.  
+PageDown: Renamed BankCycleTime to BankDepositTime, needed to change default.  
+PageDown: Fixed bank timer conflict with PageUp.  
+PageDown: Crafting only clicks active buttons (incase you leave autocraft off).  
+PageDown: Autotaxi checks for active buttons to avoid extra mouse actions.  
 
 F6: Added setting BVBlockMythLeg to block start of mythical and legendary BV.  
 F12: Updated font check images to resolve detection failure.  

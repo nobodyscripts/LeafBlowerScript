@@ -39,7 +39,7 @@ OpenAlchemy() {
 }
 
 OpenCrafting() {
-    ControlSend("{m}", , LBRWindowTitle) ; Letter O
+    ControlSend("{m}", , LBRWindowTitle)
 }
 
 TriggerBlazingSkull() {

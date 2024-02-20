@@ -5,13 +5,14 @@
 global LeaftonCraftEnabled := true
 global LeaftonSpamsWind := true
 global LeaftonBanksEnabled := true
+global LeaftonRunOnceEnabled := false
 global BankEnableLGDeposit := true
 global BankEnableSNDeposit := true
 global BankEnableEBDeposit := true
 global BankEnableFFDeposit := true
 global BankEnableSRDeposit := true
 global BankEnableQADeposit := true
-global BankCycleTime := 10
+global BankDepositTime := 5
 global NavigateTime := 150
 global WindSpammerPID := 0
 
@@ -23,6 +24,8 @@ fLeaftonTaxi() {
     centerCoord := cLeaftonCenter()
     startCoord := cLeaftonStart()
     craftStopCoord := cCraftingStop()
+    HasRun := false
+    StopRunning := false
     OpenPets()
     Sleep(NavigateTime)
     if (LeaftonBanksEnabled) {
@@ -33,23 +36,29 @@ fLeaftonTaxi() {
         Sleep(NavigateTime)
     }
     loop {
-        if (DateDiff(A_Now, starttime, "Seconds") >= BankCycleTime * 60 &&
+        if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             LeaftonBanksEnabled) {
                 Log("Leafton: Bank Maintainer starting.")
                 BankLeaftonSinglePass()
                 starttime := A_Now
         }
-        if (!IsWindowActive()) {
+        if (!IsWindowActive() || StopRunning) {
             break
         }
         ToolTip("Leafton Active", W / 2, WinRelPosLargeH(200), 4)
         if (IsAreaBlack() && IsBossTimerActive()) {
-            centerCoord.Click()
+            if (!startCoord.IsBackground()) {
+                centerCoord.Click()
+            }
             Sleep(NavigateTime)
             if (startCoord.IsButtonActive()) {
                 startCoord.Click()
             }
+            HasRun := true
         } else {
+            if (LeaftonRunOnceEnabled && HasRun) {
+                StopRunning := true
+            }
             if (LeaftonCraftEnabled) {
                 Sleep(NavigateTime)
                 OpenCrafting()
@@ -61,11 +70,11 @@ fLeaftonTaxi() {
             }
             while (!IsBossTimerActive()) {
                 if (!IsWindowActive() ||
-                    DateDiff(A_Now, starttime, "Seconds") >= BankCycleTime * 60) {
+                    DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60) {
                         break
                 }
-                if (LeaftonCraftEnabled) {
-                    craftStopCoord.Click(17)
+                if (LeaftonCraftEnabled && craftStopCoord.IsButtonActive()) {
+                    craftStopCoord.ClickOffset(,,17)
                 }
             }
             if (LeaftonCraftEnabled && IsPanelActive()) {
