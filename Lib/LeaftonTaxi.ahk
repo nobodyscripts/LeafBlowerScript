@@ -74,7 +74,7 @@ fLeaftonTaxi() {
                         break
                 }
                 if (LeaftonCraftEnabled && craftStopCoord.IsButtonActive()) {
-                    craftStopCoord.ClickOffset(,,17)
+                    craftStopCoord.ClickOffset(, , 17)
                 }
             }
             if (LeaftonCraftEnabled && IsPanelActive()) {
@@ -85,6 +85,9 @@ fLeaftonTaxi() {
         ToolTip(, , , 4)
     }
     KillWindSpammer()
+    if (StopRunning) {
+        cReload()
+    }
 }
 
 BankLeaftonSinglePass() {
