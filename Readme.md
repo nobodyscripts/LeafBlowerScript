@@ -92,7 +92,8 @@ resets player to tower if found in home garden.
 PageUp: Bank Maintainer - Every (10m by default) will refill RESS in bank.
 
 PageDown: Leafton mode, auto taxi that waits for energy to refill, while active
-will also do crafting, bank, wind for damage.
+will also do crafting, bank, wind for damage. Runonce mode for sweeping floors
+to improve max for milestones (suggest bank and crafting off when using).
 
 ## Notes
 
