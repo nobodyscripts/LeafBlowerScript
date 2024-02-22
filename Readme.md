@@ -1,4 +1,4 @@
-# LBR Resolution independent scripts v3.0.13
+# LBR Resolution independent scripts v3.0.14
 
 Support and news: <https://discord.gg/xu8fXw4CQ8>
 
