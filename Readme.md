@@ -155,29 +155,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
-Resolved false transparent panel detection caused by usage during early game.  
-Added categories to the UserSettings.ini, recommend you remove/rename old file
-before starting new version to avoid old entries remaining.  
-Removed IsAreaTab* functions, font size 1 was causing misalignment, failing
-travel. Will result in less precise travel.  
-
-New Home: Hyacinth farm (nature event) mode with WW boss.  
-Home: Added HyacinthUseSlot (All/1-10) select if all or one of the ten fields
-are used during Hyacinth farming mode.  
-Home: Added HyacinthFarmBoss (true/false) enable the use of F9 secondary during
-Hyacinth farming mode, requires BossFarmUsesWobblyWings on as well to use.  
-
-New End: Added a passive tower farming mode, spams skulls and wind.  
-End: Added hotkey to hotkey.ahk for Blazing Skulls (P)  
-
-New PageUp: Bank maintainer, repeatedly deposits RESS to the bank on each tab,
-options to disable certain tabs, run the boss spammer in the background.  
-PageUp: Added hotkey to hotkey.ahk for Bank (N)  
 PageUp: Renamed BankCycleTime to BankDepositTime, needed to change default.  
 
-New PageDown: Leafton autotravel and crafter, go to leafton area and it'll start
-levels automatically and craft while waiting to restart.  
-PageDown: Added hotkey to hotkey.ahk for Crafting (M).  
 PageDown: Added bank maintainer on timer and wind spammer for increased damage.  
 PageDown: Added 3 settings to toggle crafting, bank, wind.  
 PageDown: Added LeaftonRunOnceEnable to allow easier updating of single floors.  
@@ -185,9 +164,6 @@ PageDown: Renamed BankCycleTime to BankDepositTime, needed to change default.
 PageDown: Fixed bank timer conflict with PageUp.  
 PageDown: Crafting only clicks active buttons (incase you leave autocraft off).  
 PageDown: Autotaxi checks for active buttons to avoid extra mouse actions.  
-
-F6: Added setting BVBlockMythLeg to block start of mythical and legendary BV.  
-F12: Updated font check images to resolve detection failure.  
 
 ## TODO
 
