@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
 
 #Include ../Lib/Coords.ahk
+#Include Spammers.ahk
 
 global LeaftonCraftEnabled := true
 global LeaftonSpamsWind := true
@@ -123,39 +124,4 @@ BankLeaftonSinglePass() {
         i++
     }
     ToolTip(, , , 4)
-}
-
-
-SpamJustWind() {
-    global WindSpammerPID
-    if (IsWindowActive()) {
-        ;TriggerViolin()
-        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\JustWindSpammer.ahk"',
-            , , &OutPid)
-        WindSpammerPID := OutPid
-    }
-}
-
-IsWindSpammerActive() {
-    if ((WindSpammerPID && ProcessExist(WindSpammerPID)) ||
-        WinExist(A_ScriptDir "\Secondaries\JustWindSpammer.ahk ahk_class AutoHotkey")) {
-            return true
-    }
-    return false
-}
-
-KillWindSpammer() {
-    ;F:\Documents\AutoHotkey\LeafBlowerV3\Secondaries\JustWindSpammer.ahk - AutoHotkey v2.0.4
-    if (WindSpammerPID && ProcessExist(WindSpammerPID)) {
-        ProcessClose(WindSpammerPID)
-        Log("Closed JustWindSpammer.ahk using pid.")
-    } else {
-        if (WinExist(A_ScriptDir "\Secondaries\JustWindSpammer.ahk ahk_class AutoHotkey")) {
-            WinClose(A_ScriptDir "\Secondaries\JustWindSpammer.ahk ahk_class AutoHotkey")
-            Log("Closed JustWindSpammer.ahk using filename.")
-        }
-        /* if (WinExist("NormalBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")) {
-            WinClose("NormalBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")
-        } */
-    }
 }

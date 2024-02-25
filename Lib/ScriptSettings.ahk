@@ -28,6 +28,7 @@ global BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit
 global BankRunsSpammer, BankDepositTime
 global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled
 global LeaftonRunOnceEnabled
+global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
 
 class cSettings {
     sFilename := A_ScriptDir "\UserSettings.ini"
@@ -82,7 +83,9 @@ class cSettings {
         LeaftonCraftEnabled: "true",
         LeaftonSpamsWind: "true",
         LeaftonBanksEnabled: "true",
-        LeaftonRunOnceEnabled: "false"
+        LeaftonRunOnceEnabled: "false",
+        TowerPassiveBanksEnabled: "true",
+        TowerPassiveCraftEnabled: "true"
     }
     defaultSettings := {
         EnableLogging: "false",
@@ -133,7 +136,9 @@ class cSettings {
         LeaftonCraftEnabled: "true",
         LeaftonSpamsWind: "true",
         LeaftonBanksEnabled: "true",
-        LeaftonRunOnceEnabled: "false"
+        LeaftonRunOnceEnabled: "false",
+        TowerPassiveBanksEnabled: "true",
+        TowerPassiveCraftEnabled: "true"
     }
     loadedSettings := {}
     /*
@@ -194,6 +199,7 @@ class cSettings {
         global BankRunsSpammer, BankDepositTime
         global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled
         global LeaftonRunOnceEnabled
+        global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
 
         try {
             EnableLogging := this.loadedSettings.EnableLogging :=
@@ -294,7 +300,10 @@ class cSettings {
                 IniToVar(this.sFilename, "Leafton", "LeaftonBanksEnabled")
             LeaftonRunOnceEnabled := this.loadedSettings.LeaftonRunOnceEnabled :=
                 IniToVar(this.sFilename, "Leafton", "LeaftonRunOnceEnabled")
-
+            TowerPassiveBanksEnabled := this.loadedSettings.TowerPassiveBanksEnabled :=
+                IniToVar(this.sFilename, "TowerPassive", "TowerPassiveBanksEnabled")
+            TowerPassiveCraftEnabled := this.loadedSettings.TowerPassiveCraftEnabled :=
+                IniToVar(this.sFilename, "TowerPassive", "TowerPassiveCraftEnabled")
 
             Debug := IniToVar(this.sFilename, "Debug", "Debug")
         } catch as exc {
@@ -372,6 +381,8 @@ class cSettings {
             this.WriteToIni("LeaftonSpamsWind", this.defaultNobodySettings.LeaftonSpamsWind, "Leafton")
             this.WriteToIni("LeaftonBanksEnabled", this.defaultNobodySettings.LeaftonBanksEnabled, "Leafton")
             this.WriteToIni("LeaftonRunOnceEnabled", this.defaultNobodySettings.LeaftonRunOnceEnabled, "Leafton")
+            this.WriteToIni("TowerPassiveBanksEnabled", this.defaultNobodySettings.TowerPassiveBanksEnabled, "TowerPassive")
+            this.WriteToIni("TowerPassiveCraftEnabled", this.defaultNobodySettings.TowerPassiveCraftEnabled, "TowerPassive")
         } else {
             this.WriteToIni("EnableLogging", this.defaultSettings.EnableLogging)
             this.WriteToIni("HaveBorbDLC", this.defaultSettings.HaveBorbDLC, "Borbventures")
@@ -422,6 +433,8 @@ class cSettings {
             this.WriteToIni("LeaftonSpamsWind", this.defaultSettings.LeaftonSpamsWind, "Leafton")
             this.WriteToIni("LeaftonBanksEnabled", this.defaultSettings.LeaftonBanksEnabled, "Leafton")
             this.WriteToIni("LeaftonRunOnceEnabled", this.defaultSettings.LeaftonRunOnceEnabled, "Leafton")
+            this.WriteToIni("TowerPassiveBanksEnabled", this.defaultSettings.TowerPassiveBanksEnabled, "TowerPassive")
+            this.WriteToIni("TowerPassiveCraftEnabled", this.defaultSettings.TowerPassiveCraftEnabled, "TowerPassive")
         }
         this.WriteToIni("Debug", BinaryToStr(Debug), "Debug")
     }

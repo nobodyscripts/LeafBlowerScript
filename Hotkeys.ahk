@@ -99,7 +99,7 @@ EquipDamageGearLoadout() {
     ControlSend("{Numpad2}", , LBRWindowTitle) ; Inactive
 }
 
-EquipBlowingGearLoadout() {
+EquipTroutLoadout() {
     ControlSend("{Numpad4}", , LBRWindowTitle) ; Inactive
 }
 
@@ -111,6 +111,6 @@ EquipPyramidGearLoadout() {
     ControlSend("{Numpad6}", , LBRWindowTitle) ; Inactive
 }
 
-EquipEightGearLoadout() {
+EquipPilingGearLoadout() {
     ControlSend("{Numpad8}", , LBRWindowTitle) ; Inactive
 }*/

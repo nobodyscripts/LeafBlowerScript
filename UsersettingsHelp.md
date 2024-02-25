@@ -204,3 +204,9 @@ Cycles through the floor of Leafton once, then exits, ideal for refreshing max.
 Debug: (Default) false  
 Extra debug logging and testing modes, not recommended for users due to large
 log usage, could cause file size issues.
+
+TowerPassiveBanksEnabled: (Default) true  
+Runs bank maintainer while using passive tower mode.
+
+TowerPassiveCraftEnabled: (Default) true  
+Runs crafting autoclicker while using passive tower mode

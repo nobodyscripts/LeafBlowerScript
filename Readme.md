@@ -156,15 +156,10 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
-PageUp: Renamed BankCycleTime to BankDepositTime, needed to change default.  
-
-PageDown: Added bank maintainer on timer and wind spammer for increased damage.  
-PageDown: Added 3 settings to toggle crafting, bank, wind.  
-PageDown: Added LeaftonRunOnceEnable to allow easier updating of single floors.  
-PageDown: Renamed BankCycleTime to BankDepositTime, needed to change default.  
-PageDown: Fixed bank timer conflict with PageUp.  
-PageDown: Crafting only clicks active buttons (incase you leave autocraft off).  
-PageDown: Autotaxi checks for active buttons to avoid extra mouse actions.  
+End: Added bank maintainer to passive tower mode with setting
+TowerPassiveBanksEnabled  
+End: Added crafting autoclicker to passive tower mode with setting
+TowerPassiveCraftEnabled  
 
 ## TODO
 
