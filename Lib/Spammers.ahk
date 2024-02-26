@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+global WindSpammerPID := 0
+global TowerPassiveSpammerPID := 0
 
 SpamJustWind() {
     global WindSpammerPID
@@ -32,16 +34,16 @@ KillWindSpammer() {
 }
 
 SpamTowerPassive() {
-    global WindSpammerPID
+    global TowerPassiveSpammerPID
     if (IsWindowActive()) {
         Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\TowerPassiveSpammer.ahk"',
             , , &OutPid)
-        WindSpammerPID := OutPid
+            TowerPassiveSpammerPID := OutPid
     }
 }
 
 IsTowerPassiveSpammerActive() {
-    if ((WindSpammerPID && ProcessExist(WindSpammerPID)) ||
+    if ((TowerPassiveSpammerPID && ProcessExist(TowerPassiveSpammerPID)) ||
         WinExist(A_ScriptDir "\Secondaries\TowerPassiveSpammer.ahk ahk_class AutoHotkey")) {
             return true
     }
@@ -50,8 +52,8 @@ IsTowerPassiveSpammerActive() {
 
 KillTowerPassiveSpammer() {
     ;F:\Documents\AutoHotkey\LeafBlowerV3\Secondaries\TowerPassiveSpammer.ahk - AutoHotkey v2.0.4
-    if (WindSpammerPID && ProcessExist(WindSpammerPID)) {
-        ProcessClose(WindSpammerPID)
+    if (TowerPassiveSpammerPID && ProcessExist(TowerPassiveSpammerPID)) {
+        ProcessClose(TowerPassiveSpammerPID)
         Log("Closed TowerPassiveSpammer.ahk using pid.")
     } else {
         if (WinExist(A_ScriptDir "\Secondaries\TowerPassiveSpammer.ahk ahk_class AutoHotkey")) {

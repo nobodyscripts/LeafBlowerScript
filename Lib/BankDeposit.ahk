@@ -24,6 +24,9 @@ fBankAutoDeposit() {
         }
         i := 0
         while (i < 6) {
+            if (!IsWindowActive()) {
+                break
+            }
             if (BankIsTabEnabled(i)) {
                 buttonTab := BankTabCoordByInd(i)
                 if (!IsOnBankTab(buttonTab)) {
@@ -44,6 +47,39 @@ fBankAutoDeposit() {
         Sleep(BankDepositTime * 60 * 1000)
     }
 
+}
+
+BankSinglePass() {
+    if (IsPanelActive()) {
+        ClosePanel()
+        Sleep(NavigateTime)
+    }
+    OpenBank()
+    i := 0
+    while (i < 6) {
+        if (!IsWindowActive()) {
+            break
+        }
+        if (BankIsTabEnabled(i)) {
+            buttonTab := BankTabCoordByInd(i)
+            if (!IsOnBankTab(buttonTab)) {
+                BankTravelAreaByInd(i)
+                Sleep(NavigateTime)
+            }
+            loop {
+                if (!IsWindowActive()) {
+                    break
+                }
+                if (cBankDepositRESS().IsButtonActive()) {
+                    cBankDepositRESS().ClickOffset()
+                    Sleep(NavigateTime)
+                } else {
+                    break
+                }
+            }
+        }
+        i++
+    }
 }
 
 BankTravelAreaByInd(index) {

@@ -69,6 +69,9 @@ Run this file to load script
     if (IsWindSpammerActive()) {
         KillWindSpammer()
     }
+    if (IsTowerPassiveSpammerActive()) {
+        KillTowerPassiveSpammer()
+    }
     Log("F1: Pressed")
     ; Wildcard shortcut * to allow functions to work while looping with
     ; modifiers held
@@ -85,6 +88,9 @@ Run this file to load script
     }
     if (IsWindSpammerActive()) {
         KillWindSpammer()
+    }
+    if (IsTowerPassiveSpammerActive()) {
+        KillTowerPassiveSpammer()
     }
     if (HadToHideNotifs) {
         Log("F2: Reenabling notifications.")
@@ -281,6 +287,9 @@ Run this file to load script
     if (IsWindSpammerActive()) {
         KillWindSpammer()
     }
+    if (IsTowerPassiveSpammerActive()) {
+        KillTowerPassiveSpammer()
+    }
     if (!InitGameWindow() && !on8) {
         return
     }
@@ -311,6 +320,9 @@ Run this file to load script
     }
     if (IsWindSpammerActive()) {
         KillWindSpammer()
+    }
+    if (IsTowerPassiveSpammerActive()) {
+        KillTowerPassiveSpammer()
     }
     Thread('Interrupt', 0)  ; Make all threads always-interruptible.
     ResetModifierKeys() ; Cleanup incase needed
@@ -526,6 +538,9 @@ removeLastCheckTooltip() {
     if (IsWindSpammerActive()) {
         KillWindSpammer()
     }
+    if (IsTowerPassiveSpammerActive()) {
+        KillTowerPassiveSpammer()
+    }
     ResetModifierKeys() ; Cleanup incase needed
     If (on14 := !on14) {
         if (!CheckGameSettingsCorrect()) {
@@ -560,6 +575,9 @@ removeLastCheckTooltip() {
     }
     if (IsWindSpammerActive()) {
         KillWindSpammer()
+    }
+    if (IsTowerPassiveSpammerActive()) {
+        KillTowerPassiveSpammer()
     }
     ResetModifierKeys() ; Cleanup incase needed
     If (on15 := !on15) {
@@ -596,6 +614,9 @@ removeLastCheckTooltip() {
     if (IsWindSpammerActive()) {
         KillWindSpammer()
     }
+    if (IsTowerPassiveSpammerActive()) {
+        KillTowerPassiveSpammer()
+    }
     ResetModifierKeys() ; Cleanup incase needed
     If (on16 := !on16) {
         if (!CheckGameSettingsCorrect()) {
@@ -631,6 +652,9 @@ removeLastCheckTooltip() {
     }
     if (IsWindSpammerActive()) {
         KillWindSpammer()
+    }
+    if (IsTowerPassiveSpammerActive()) {
+        KillTowerPassiveSpammer()
     }
     ResetModifierKeys() ; Cleanup incase needed
     If (on17 := !on17) {

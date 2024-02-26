@@ -15,7 +15,6 @@ global BankEnableSRDeposit := true
 global BankEnableQADeposit := true
 global BankDepositTime := 5
 global NavigateTime := 150
-global WindSpammerPID := 0
 
 fLeaftonTaxi() {
     starttime := A_Now
@@ -30,7 +29,7 @@ fLeaftonTaxi() {
     OpenPets()
     Sleep(NavigateTime)
     if (LeaftonBanksEnabled) {
-        BankLeaftonSinglePass()
+        BankSinglePass()
     }
     if (IsPanelActive()) {
         ClosePanel()
@@ -40,7 +39,10 @@ fLeaftonTaxi() {
         if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             LeaftonBanksEnabled) {
                 Log("Leafton: Bank Maintainer starting.")
-                BankLeaftonSinglePass()
+                ToolTip("Leafton Bank Maintainer Active", W / 2,
+                    WinRelPosLargeH(200), 4)
+                BankSinglePass()
+                ToolTip(, , , 4)
                 starttime := A_Now
         }
         if (!IsWindowActive() || StopRunning) {
@@ -89,39 +91,4 @@ fLeaftonTaxi() {
     if (StopRunning) {
         cReload()
     }
-}
-
-BankLeaftonSinglePass() {
-    if (IsPanelActive()) {
-        ClosePanel()
-        Sleep(NavigateTime)
-    }
-    OpenBank()
-    ToolTip("Leafton Bank Maintainer Active", W / 2, WinRelPosLargeH(200), 4)
-    i := 0
-    while (i < 6) {
-        if (!IsWindowActive()) {
-            break
-        }
-        if (BankIsTabEnabled(i)) {
-            buttonTab := BankTabCoordByInd(i)
-            if (!IsOnBankTab(buttonTab)) {
-                BankTravelAreaByInd(i)
-                Sleep(NavigateTime)
-            }
-            loop {
-                if (!IsWindowActive()) {
-                    break
-                }
-                if (cBankDepositRESS().IsButtonActive()) {
-                    cBankDepositRESS().ClickOffset()
-                    Sleep(NavigateTime)
-                } else {
-                    break
-                }
-            }
-        }
-        i++
-    }
-    ToolTip(, , , 4)
 }

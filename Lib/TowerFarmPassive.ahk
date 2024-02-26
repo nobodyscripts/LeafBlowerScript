@@ -13,33 +13,35 @@ global BankEnableSRDeposit := true
 global BankEnableQADeposit := true
 global BankDepositTime := 5
 global NavigateTime := 150
-global WindSpammerPID := 0
 
 global ArtifactSleepAmount := 1
 
 fTowerFarm() {
     GoToLeafTower()
     starttime := A_Now
-    centerCoord := cLeaftonCenter()
-    startCoord := cLeaftonStart()
     craftStopCoord := cCraftingStop()
     SpamTowerPassive()
     if (TowerPassiveBanksEnabled) {
         OpenPets()
         Sleep(NavigateTime)
-        BankLeaftonSinglePass()
+        ToolTip("Tower Passive, Bank Maintainer Active", W / 2,
+            WinRelPosLargeH(200), 4)
+        BankSinglePass()
+        ToolTip(, , , 4)
     }
     if (IsPanelActive()) {
         ClosePanel()
         Sleep(NavigateTime)
     }
-
-    ToolTip("Tower Farm Passive Active", W / 2, H / 2, 4)
+    ToolTip("Tower Farm Passive Active", W / 2, H / 2, 5)
     loop {
         if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             TowerPassiveBanksEnabled) {
                 Log("TowerPassive: Bank Maintainer starting.")
-                BankLeaftonSinglePass()
+                ToolTip("Tower Passive, Bank Maintainer Active", W / 2,
+                    WinRelPosLargeH(200), 4)
+                BankSinglePass()
+                ToolTip(, , , 4)
                 starttime := A_Now
         }
         if (!IsWindowActive()) {
@@ -55,11 +57,14 @@ fTowerFarm() {
             }
         }
         while (DateDiff(A_Now, starttime, "Seconds") < BankDepositTime * 60) {
+            if (!IsWindowActive()) {
+                break
+            }
             if (TowerPassiveCraftEnabled && craftStopCoord.IsButtonActive()) {
                 craftStopCoord.ClickOffset(, , 17)
             }
         }
     }
-    ToolTip(, , , 4)
+    ToolTip(, , , 5)
     KillTowerPassiveSpammer()
 }
