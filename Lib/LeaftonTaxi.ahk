@@ -31,10 +31,6 @@ fLeaftonTaxi() {
     if (LeaftonBanksEnabled) {
         BankSinglePass()
     }
-    if (IsPanelActive()) {
-        ClosePanel()
-        Sleep(NavigateTime)
-    }
     loop {
         if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             LeaftonBanksEnabled) {
@@ -62,19 +58,19 @@ fLeaftonTaxi() {
             if (LeaftonRunOnceEnabled && HasRun) {
                 StopRunning := true
             }
-            if (LeaftonCraftEnabled) {
-                Sleep(NavigateTime)
-                OpenCrafting()
-                Sleep(NavigateTime)
-                if (!IsPanelActive()) {
-                    OpenCrafting()
-                    Sleep(NavigateTime)
-                }
-            }
             while (!IsBossTimerActive()) {
                 if (!IsWindowActive() ||
                     DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60) {
                         break
+                }
+                if (LeaftonCraftEnabled && !IsPanelActive()) {
+                    Sleep(NavigateTime)
+                    OpenCrafting()
+                    Sleep(NavigateTime)
+                    if (!IsPanelActive()) {
+                        OpenCrafting()
+                        Sleep(NavigateTime)
+                    }
                 }
                 if (LeaftonCraftEnabled && craftStopCoord.IsButtonActive()) {
                     craftStopCoord.ClickOffset(, , 17)

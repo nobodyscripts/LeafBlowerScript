@@ -80,6 +80,10 @@ BankSinglePass() {
         }
         i++
     }
+    if (IsPanelActive()) {
+        ClosePanel()
+        Sleep(NavigateTime)
+    }
 }
 
 BankTravelAreaByInd(index) {
