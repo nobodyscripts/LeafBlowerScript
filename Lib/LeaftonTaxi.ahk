@@ -53,6 +53,10 @@ fLeaftonTaxi() {
             if (startCoord.IsButtonActive()) {
                 startCoord.Click()
             }
+            if (IsBossTimerActive() && IsPanelActive() && IsScrollAblePanel()) {
+                ; We're in bank screen still so close it
+                ClosePanel()
+            }
             HasRun := true
         } else {
             if (LeaftonRunOnceEnabled && HasRun) {

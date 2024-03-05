@@ -364,11 +364,18 @@ LineGetColourInstancesOffsetH(x1, y1, x2, y2, offset, colour) {
     PixelSearchWrapper(x1, y1, x2, y2, colour)
 }
 
-IsScrollAblePanelAtTop() {
+IsScrollAblePanel() {
     ; 2220 258 top scroll arrow button
-    ; 2220 320 scroll handle
     if (IsButtonActive(WinRelPosLargeW(2220), WinRelPosLargeH(258))) {
         ; Up Arrow exists, so scrolling is possible
+        return true
+    }
+    return false
+}
+
+IsScrollAblePanelAtTop() {
+    ; 2220 320 scroll handle
+    if (IsScrollAblePanel()) {
         if (IsButtonActive(WinRelPosLargeW(2220), WinRelPosLargeH(320))) {
             ; Is at top
             return true
