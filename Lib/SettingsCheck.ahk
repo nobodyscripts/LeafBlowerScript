@@ -75,7 +75,7 @@ CheckGameSettingsCorrectVerbose() {
     OpenAreasPanel(false)
     if (IsAspectRatioCorrectCheck()) {
         Log("Passed Verbose Render Mode check.")
-        ToolTip("Correct render mode detected, F2 to dismiss",
+        ToolTip("Good: Correct render mode detected, F2 to dismiss",
             W / 2 - WinRelPosW(200),
             H / 2, 1)
         SetTimer(ToolTip, -3000)
@@ -85,7 +85,7 @@ CheckGameSettingsCorrectVerbose() {
     }
     If (IsPanelTransparentCorrectCheck()) {
         Log("Passed Verbose Transparency check.")
-        ToolTip("No transparency detected, F2 to dismiss",
+        ToolTip("Good: No transparency detected, F2 to dismiss",
             W / 2 - WinRelPosW(200),
             H / 2 - WinRelPosW(20), 2)
         SetTimer(ToolTip, -3000)
@@ -94,7 +94,7 @@ CheckGameSettingsCorrectVerbose() {
     }
     If (IsPanelSmoothedCheck()) {
         Log("Passed Smooth Graphics check.")
-        ToolTip("No smooth graphics detected, F2 to dismiss",
+        ToolTip("Good: No smooth graphics detected, F2 to dismiss",
             W / 2 - WinRelPosW(200),
             H / 2 - WinRelPosW(40), 3)
         SetTimer(ToolTip, -3000)
@@ -103,7 +103,7 @@ CheckGameSettingsCorrectVerbose() {
     }
     If (IsDarkBackgroundCheck()) {
         Log("Passed Dark Dialog Background check.")
-        ToolTip("No Dark Dialog Background detected, F2 to dismiss",
+        ToolTip("Good: No Dark Dialog Background detected, F2 to dismiss",
             W / 2 - WinRelPosW(200),
             H / 2 - WinRelPosW(60), 4)
         SetTimer(ToolTip, -3000)
@@ -112,7 +112,7 @@ CheckGameSettingsCorrectVerbose() {
     }
     If (IsTreesSetCheck()) {
         Log("Passed Trees check.")
-        ToolTip("No Trees detected, F2 to dismiss",
+        ToolTip("Good: No Trees detected, F2 to dismiss",
             W / 2 - WinRelPosW(200),
             H / 2 - WinRelPosW(80), 5)
         SetTimer(ToolTip, -3000)

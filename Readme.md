@@ -188,6 +188,7 @@ F6: If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
 F7: Needs to use artifact if need be / get replacement  
 F8: Review ending of gfssnoreset mode  
+F9: Add banks during use.  
 F10: Needs to use artifact if need be / get replacement  
 
 ## Known issues
