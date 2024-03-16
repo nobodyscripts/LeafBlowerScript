@@ -87,7 +87,7 @@ Home: Hyacinth farming - Spam grows hyacinths to farm nature gems/exp. Can farm
 bosses with WW in the background.
 
 End: Passive Tower Farm - Spams wind and blazing skulls as fast as possible,
-resets player to tower if found in home garden.
+resets player to tower if found in home garden. Options for bank and crafting.
 
 PageUp: Bank Maintainer - Every (10m by default) will refill RESS in bank.
 
@@ -157,10 +157,13 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 ## Changes
 
 Adjusted the settings check tooltips to indicate good results.  
+Applied a new SendMode in LeafBlowerV3.ahk to allow for usage in VM.  
 End: Added bank maintainer to passive tower mode with setting
 TowerPassiveBanksEnabled  
 End: Added crafting autoclicker to passive tower mode with setting
 TowerPassiveCraftEnabled  
+Home: Fix an undeclared variable with boss farm/ww disabled.  
+
 
 ## TODO
 

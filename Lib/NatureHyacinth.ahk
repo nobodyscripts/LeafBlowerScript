@@ -45,6 +45,7 @@ fFarmNormalBossAndNatureHyacinth() {
     fSlowClickRelL(380, 600, NavigateTime) ; Hyacinth
     sleep(NavigateTime)
     IsPrevTimerLong := IsBossTimerLong()
+    bossfarm := false
     if (HyacinthFarmBoss && BossFarmUsesWobblyWings) {
         bossfarm := true
         TriggerWobblyWings()
