@@ -181,6 +181,15 @@ Select the flower to be used for farming, use slot id or name, possible values:
 15 / dames rocket
 16 / marigold
 
+HyacinthUseSpheres: (Default) false
+Use spheres between planting of flowers to speed up growth, will use all
+available spheres to instantly complete flowers. Suggest only using this on
+flowers with longer timers and turning off UseNextAvailableFlower to control.
+
+HyacinthUseNextAvailableFlower: (Default) false
+Moves up to the next flower type available, will rotate between all 16 types,
+use if you want to exaust all available flowers.
+
 BankEnableLGDeposit: (Default) true  
 Enables the auto deposit of RESS in the Leaf Galaxy bank tab.
 

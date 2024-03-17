@@ -165,6 +165,12 @@ TowerPassiveCraftEnabled
 Home: Fix an undeclared variable with boss farm/ww disabled.  
 Home: Add HyacinthUseFlower to hyacinth farm, letting you pick from list of
 flower names or id, see UserSettingsHelp.md for list.  
+Home: Added HyacinthUseSpheres setting, will use all available spheres to
+quickly farm selected flower type, use with flowers that make good use of the
+sphere time reduction.  
+Home: Added HyacinthUseNextAvailableFlower, selects the next available flower
+type when seeds are no longer available. Rotates between all 16 types before
+stopping.  
 
 ## TODO
 

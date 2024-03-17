@@ -136,3 +136,12 @@ cCraftingStop() {
     o.SetCoordRel(675, 750)
     return o
 }
+
+; ------------------ Hyacinth Coords -------------------
+
+cNatureFarmUseSphere() {
+    o := RelCoord()
+    o.SetCoordRel(1615, 420)
+    return o
+}
+

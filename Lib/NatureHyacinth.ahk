@@ -5,11 +5,17 @@ global HyacinthUseSlot := "All"
 global HyacinthFarmBoss := true
 global BossFarmUsesWobblyWings := true
 global HyacinthUseFlower := 1
+global HyacinthUseSpheres := true
+global HyacinthUseNextAvailableFlower := true
 
 fFarmNormalBossAndNatureHyacinth() {
     global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot
     ToolTip()
     Killcount := 0
+    bossfarm := false
+    flowerID := HyacinthUseFlower
+    flowerTypesUsed := 1
+
     GoToFarmField()
     sleep(NavigateTime)
     ClosePanel()
@@ -43,10 +49,12 @@ fFarmNormalBossAndNatureHyacinth() {
             fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
     }
     sleep(NavigateTime)
-    SelectFlower(FlowerToID(HyacinthUseFlower))
+    SelectFlower(FlowerToID(flowerID)) ; Select flower to use
     sleep(NavigateTime)
+
+    ; Boss timer stuff
     IsPrevTimerLong := IsBossTimerLong()
-    bossfarm := false
+
     if (HyacinthFarmBoss && BossFarmUsesWobblyWings) {
         bossfarm := true
         TriggerWobblyWings()
@@ -84,9 +92,20 @@ fFarmNormalBossAndNatureHyacinth() {
             ; If harvest button active
             fSlowClickRelL(HarvBX + 5, HarvBY, NavigateTime)
             Sleep(NavigateTime)
-            if (IsButtonActive(WinRelPosLargeW(PlantBX), WinRelPosLargeH(PlantBY))) {
-                ; If planting available
-                fSlowClickRelL(PlantBX + 5, PlantBY, NavigateTime)
+        }
+        if (IsButtonActive(WinRelPosLargeW(PlantBX), WinRelPosLargeH(PlantBY))) {
+            ; If planting available
+            fSlowClickRelL(PlantBX + 5, PlantBY, NavigateTime)
+            Sleep(NavigateTime)
+        } else {
+            if (HyacinthUseNextAvailableFlower && flowerTypesUsed < 16) {
+                ; If upgrading flower type and we've not gone through all 16
+                newFlowerID := FlowerToID(HyacinthUseFlower) + 1
+                if (newFlowerID > 16) {
+                    newFlowerID := 1
+                }
+                flowerTypesUsed := flowerTypesUsed++ 
+                flowerID := newFlowerID
             } else {
                 ; Run out of seeds so exiting
                 if (HyacinthFarmBoss) KillSpammer()
@@ -95,7 +114,11 @@ fFarmNormalBossAndNatureHyacinth() {
                     WinRelPosLargeH(50), 2)
                 SetTimer(ToolTip.Bind(, , , 2), -3000)
                 break
-            }
+            } 
+        }
+        if (HyacinthUseSpheres) {
+            ; Use spheres if we have got the option to do so
+            UseSphereLoop(HarvBX, HarvBY)
         }
         if (bossfarm) {
             IsTimerLong := IsBossTimerLong()
@@ -126,7 +149,8 @@ fFarmNormalBossAndNatureHyacinth() {
 }
 
 FlowerToID(flower) {
-    if (flower > 0 && flower < 17) {
+
+    if (IsNumber(flower) && flower > 0 && flower < 17) {
         ; If its already a number return the number
         return flower
     }
@@ -205,5 +229,21 @@ SelectFlower(flowerID) {
             fSlowClickRelL(1220, 700, NavigateTime) ; Marigold Slot 16
         default:
             fSlowClickRelL(380, 600, NavigateTime) ; Hyacinth
+    }
+}
+
+UseSphereLoop(HarvBX, HarvBY) {
+    ; Plant should be planted, use sphere then check for harvest
+    ; If no harvest button and sphere button active loop, else break
+    sphereButton := cNatureFarmUseSphere()
+    loop {
+        if (sphereButton.IsButtonActive() &&
+            !IsButtonActive(WinRelPosLargeW(HarvBX),
+                WinRelPosLargeH(HarvBY))) {
+                    sphereButton.ClickOffset()
+                    Sleep(NavigateTime + 50)
+        } else {
+            break
+        }
     }
 }
