@@ -130,6 +130,7 @@ FlowerToID(flower) {
         ; If its already a number return the number
         return flower
     }
+    flower := StrLower(flower)
     switch flower {
         case "hyacinth":
             return 1
