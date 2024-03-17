@@ -416,6 +416,69 @@ GoToNatureBoss() {
     }
 }
 
+
+GoToCheeseBoss() {
+    buttonX := 840
+    buttonY := 145
+    if (!IsWindowActive()) {
+        Log("No window found while trying to travel.")
+        return false
+    }
+    global DisableZoneChecks
+    i := 0
+    if (!DisableZoneChecks) {
+        while (!IsAreaSampleColour("0x150412") && i <= 4) {
+            if (!IsWindowActive()) {
+                Log("No window found while trying to travel.")
+                return false
+            }
+            Log("Traveling to Cursed Halloween")
+            OpenEventsAreasPanel()
+            Sleep(NavigateTime)
+            if (!IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
+                fSlowClick(buttonX, buttonY, NavigateTime) ; Open Cheese boss area
+            } else {
+                Log("Halloween event inactive, no button found.")
+                return false
+            }
+            Sleep(NavigateTime)
+            i++
+        }
+    }
+    if (IsAreaSampleColour("0x150412")) {
+        if (Debug) {
+            Log("Travel success to Cursed Halloween.")
+        }
+        return true
+    } else {
+        Log("Traveling to Cursed Halloween. Attempt to blind travel with slowed"
+            " times.")
+        OpenEventsAreasPanel(200)
+        Sleep(NavigateTime + 200)
+        if (!IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
+            fSlowClick(buttonX, buttonY, NavigateTime + 200) ; Open Cheese boss area
+        } else {
+            Log("Halloween event inactive, no button found.")
+            return false
+        }
+        Sleep(NavigateTime + 200)
+        if (DisableZoneChecks) {
+            ; Checks are disabled so blindly trust we reached zone
+            return true
+        }
+        if (IsAreaSampleColour("0x150412")) {
+            if (Debug) {
+                Log("Blind travel success to Cursed Halloween.")
+            }
+            return true
+        } else {
+            Log("Traveling to Cursed Halloween, colour found was "
+                GetAreaSampleColour())
+            return false
+        }
+    }
+}
+
 GoToFarmField() {
     buttonX := 840
     buttonY := 255

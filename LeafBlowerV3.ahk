@@ -23,6 +23,8 @@
 #Include Lib\TowerFarmPassive.ahk
 #Include Lib\LeaftonTaxi.ahk
 
+#Include LIb\CursedCheese.ahk
+
 SendMode("Input") ; Support for vm
 ; Can be Input, Event, Play, InputThenPlay if Input doesn't work for you
 
@@ -673,6 +675,10 @@ removeLastCheckTooltip() {
         cReload()
         return
     }
+}
+
+*Del:: {
+    fFarmCheeseBoss()
 }
 
 /* *Del:: {
