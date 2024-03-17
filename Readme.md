@@ -163,7 +163,8 @@ TowerPassiveBanksEnabled
 End: Added crafting autoclicker to passive tower mode with setting
 TowerPassiveCraftEnabled  
 Home: Fix an undeclared variable with boss farm/ww disabled.  
-
+Home: Add HyacinthUseFlower to hyacinth farm, letting you pick from list of
+flower names or id, see UserSettingsHelp.md for list.  
 
 ## TODO
 

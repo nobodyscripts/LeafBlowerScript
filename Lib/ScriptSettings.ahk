@@ -21,7 +21,7 @@ global NavigateTime
 global DisableZoneChecks, DisableSettingsChecks
 global ArtifactSleepAmount
 global BossFarmUsesWind, BossFarmUsesWobblyWings, WobblyWingsSleepAmount
-global HyacinthUseSlot, HyacinthFarmBoss
+global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower
 
 global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit
 global BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit
@@ -72,6 +72,7 @@ class cSettings {
         WobblyWingsSleepAmount: 750,
         HyacinthUseSlot: "All",
         HyacinthFarmBoss: "true",
+        HyacinthUseFlower: "hyacinth",
         BankEnableLGDeposit: "true",
         BankEnableSNDeposit: "true",
         BankEnableEBDeposit: "true",
@@ -125,6 +126,7 @@ class cSettings {
         WobblyWingsSleepAmount: 750,
         HyacinthUseSlot: "All",
         HyacinthFarmBoss: "true",
+        HyacinthUseFlower: "hyacinth",
         BankEnableLGDeposit: "true",
         BankEnableSNDeposit: "true",
         BankEnableEBDeposit: "true",
@@ -193,7 +195,7 @@ class cSettings {
         global DisableZoneChecks, DisableSettingsChecks
         global ArtifactSleepAmount
         global BossFarmUsesWind, BossFarmUsesWobblyWings, WobblyWingsSleepAmount
-        global HyacinthUseSlot, HyacinthFarmBoss
+        global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower
         global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit
         global BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit
         global BankRunsSpammer, BankDepositTime
@@ -276,6 +278,8 @@ class cSettings {
                 IniToVar(this.sFilename, "NatureFarm", "HyacinthUseSlot")
             HyacinthFarmBoss := this.loadedSettings.HyacinthFarmBoss :=
                 IniToVar(this.sFilename, "NatureFarm", "HyacinthFarmBoss")
+            HyacinthUseFlower := this.loadedSettings.HyacinthUseFlower :=
+                IniToVar(this.sFilename, "NatureFarm", "HyacinthUseFlower")
             BankEnableLGDeposit := this.loadedSettings.BankEnableLGDeposit :=
                 IniToVar(this.sFilename, "Bank", "BankEnableLGDeposit")
             BankEnableSNDeposit := this.loadedSettings.BankEnableSNDeposit :=
@@ -369,6 +373,7 @@ class cSettings {
             this.WriteToIni("WobblyWingsSleepAmount", this.defaultNobodySettings.WobblyWingsSleepAmount, "BossFarm")
             this.WriteToIni("HyacinthUseSlot", this.defaultNobodySettings.HyacinthUseSlot, "NatureFarm")
             this.WriteToIni("HyacinthFarmBoss", this.defaultNobodySettings.HyacinthFarmBoss, "NatureFarm")
+            this.WriteToIni("HyacinthUseFlower", this.defaultNobodySettings.HyacinthUseFlower, "NatureFarm")
             this.WriteToIni("BankEnableLGDeposit", this.defaultNobodySettings.BankEnableLGDeposit, "Bank")
             this.WriteToIni("BankEnableSNDeposit", this.defaultNobodySettings.BankEnableSNDeposit, "Bank")
             this.WriteToIni("BankEnableEBDeposit", this.defaultNobodySettings.BankEnableEBDeposit, "Bank")
@@ -421,6 +426,7 @@ class cSettings {
             this.WriteToIni("WobblyWingsSleepAmount", this.defaultSettings.WobblyWingsSleepAmount, "BossFarm")
             this.WriteToIni("HyacinthUseSlot", this.defaultSettings.HyacinthUseSlot, "NatureFarm")
             this.WriteToIni("HyacinthFarmBoss", this.defaultSettings.HyacinthFarmBoss, "NatureFarm")
+            this.WriteToIni("HyacinthUseFlower", this.defaultSettings.HyacinthUseFlower, "NatureFarm")
             this.WriteToIni("BankEnableLGDeposit", this.defaultSettings.BankEnableLGDeposit, "Bank")
             this.WriteToIni("BankEnableSNDeposit", this.defaultSettings.BankEnableSNDeposit, "Bank")
             this.WriteToIni("BankEnableEBDeposit", this.defaultSettings.BankEnableEBDeposit, "Bank")

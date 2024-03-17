@@ -4,6 +4,7 @@ global SpammerPID := 0
 global HyacinthUseSlot := "All"
 global HyacinthFarmBoss := true
 global BossFarmUsesWobblyWings := true
+global HyacinthUseFlower := 1
 
 fFarmNormalBossAndNatureHyacinth() {
     global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot
@@ -42,7 +43,7 @@ fFarmNormalBossAndNatureHyacinth() {
             fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
     }
     sleep(NavigateTime)
-    fSlowClickRelL(380, 600, NavigateTime) ; Hyacinth
+    SelectFlower(FlowerToID(HyacinthUseFlower))
     sleep(NavigateTime)
     IsPrevTimerLong := IsBossTimerLong()
     bossfarm := false
@@ -80,11 +81,14 @@ fFarmNormalBossAndNatureHyacinth() {
         }
 
         if (IsButtonActive(WinRelPosLargeW(HarvBX), WinRelPosLargeH(HarvBY))) {
+            ; If harvest button active
             fSlowClickRelL(HarvBX + 5, HarvBY, NavigateTime)
             Sleep(NavigateTime)
             if (IsButtonActive(WinRelPosLargeW(PlantBX), WinRelPosLargeH(PlantBY))) {
+                ; If planting available
                 fSlowClickRelL(PlantBX + 5, PlantBY, NavigateTime)
             } else {
+                ; Run out of seeds so exiting
                 if (HyacinthFarmBoss) KillSpammer()
                     Log("BossHyacinth: Plants exausted. Exiting.")
                 ToolTip("Plants exausted. Exiting.", W / 2, H / 2 +
@@ -114,9 +118,91 @@ fFarmNormalBossAndNatureHyacinth() {
                 H / 2 + WinRelPosLargeH(150), 1)
         } else {
             ToolTip("Hyacinth on, BossFarmUsesWobblyWings disabled.",
-            W / 2 - WinRelPosLargeW(150),
-            H / 2 + WinRelPosLargeH(150), 1)
+                W / 2 - WinRelPosLargeW(150),
+                H / 2 + WinRelPosLargeH(150), 1)
         }
     }
     ToolTip(, , , 1)
+}
+
+FlowerToID(flower) {
+    if (flower > 0 && flower < 17) {
+        ; If its already a number return the number
+        return flower
+    }
+    switch flower {
+        case "hyacinth":
+            return 1
+        case "pansy":
+            return 2
+        case "hibiscus":
+            return 3
+        case "rose":
+            return 4
+        case "poppy":
+            return 5
+        case "primula":
+            return 6
+        case "forget-me-not":
+            return 7
+        case "tulip":
+            return 8
+        case "camomile":
+            return 9
+        case "dandelion":
+            return 10
+        case "aster":
+            return 11
+        case "daffodil":
+            return 12
+        case "cornflower":
+            return 13
+        case "lily of the valley":
+            return 14
+        case "dames rocket":
+            return 15
+        case "marigold":
+            return 16
+        default:
+            return 1
+    }
+}
+
+SelectFlower(flowerID) {
+    switch flowerID {
+        case 1:
+            fSlowClickRelL(380, 600, NavigateTime) ; Hyacinth Slot 1
+        case 2:
+            fSlowClickRelL(500, 600, NavigateTime) ; Pansy Slot 2
+        case 3:
+            fSlowClickRelL(620, 600, NavigateTime) ; Hibiscus Slot 3
+        case 4:
+            fSlowClickRelL(740, 600, NavigateTime) ; Rose Slot 4
+        case 5:
+            fSlowClickRelL(860, 600, NavigateTime) ; Poppy Slot 5
+        case 6:
+            fSlowClickRelL(980, 600, NavigateTime) ; Primula Slot 6
+        case 7:
+            fSlowClickRelL(1100, 600, NavigateTime) ; Forget-me-not Slot 7
+        case 8:
+            fSlowClickRelL(1220, 600, NavigateTime) ; Tulip Slot 8
+        case 9:
+            fSlowClickRelL(380, 700, NavigateTime) ; Camomile Slot 9
+        case 10:
+            fSlowClickRelL(500, 700, NavigateTime) ; Dandelion Slot 10
+        case 11:
+            fSlowClickRelL(620, 700, NavigateTime) ; Aster Slot 11
+        case 12:
+            fSlowClickRelL(740, 700, NavigateTime) ; Daffodil Slot 12
+        case 13:
+            fSlowClickRelL(860, 700, NavigateTime) ; Cornflower Slot 13
+        case 14:
+            fSlowClickRelL(980, 700, NavigateTime) ; Lily of the Valley Slot 14
+        case 15:
+            fSlowClickRelL(1100, 700, NavigateTime) ; Dames Rocket Slot 15
+        case 16:
+            fSlowClickRelL(1220, 700, NavigateTime) ; Marigold Slot 16
+        default:
+            fSlowClickRelL(380, 600, NavigateTime) ; Hyacinth
+    }
 }

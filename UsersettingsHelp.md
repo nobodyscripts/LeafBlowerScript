@@ -162,6 +162,25 @@ HyacinthFarmBoss: (Default) true
 Use in combination with BossFarmUsesWobblyWings set to true to allow WW boss farming
 in the background while farming Hyacinths.
 
+HyacinthUseFlower: (Default) 1
+Select the flower to be used for farming, use slot id or name, possible values:
+1 / hyacinth
+2 / pansy
+3 / hibiscus
+4 / rose
+5 / poppy
+6 / primula
+7 / forget-me-not
+8 / tulip
+9 / camomile
+10 / dandelion
+11 / aster
+12 / daffodil
+13 / cornflower
+14 / lily of the valley
+15 / dames rocket
+16 / marigold
+
 BankEnableLGDeposit: (Default) true  
 Enables the auto deposit of RESS in the Leaf Galaxy bank tab.
 
