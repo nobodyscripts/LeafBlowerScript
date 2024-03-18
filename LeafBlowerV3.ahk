@@ -7,6 +7,7 @@
 #Include Lib\Functions.ahk
 #Include Lib\Navigate.ahk
 #Include Lib\SettingsCheck.ahk
+#Include Lib\Spammers.ahk
 
 #Include Lib\BankDeposit.ahk
 #Include Lib\Borbventure.ahk

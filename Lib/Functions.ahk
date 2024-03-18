@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+#Include Spammers.ahk
+
 ; ------------------- Functions -------------------
 
 ; Convert positions from 1278*664 client resolution to current resolution

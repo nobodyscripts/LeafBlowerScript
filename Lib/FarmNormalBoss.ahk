@@ -88,40 +88,6 @@ fFarmNormalBossAndBrew(modecheck) {
     ToolTip(, , , 1)
 }
 
-SpamViolins() {
-    global SpammerPID
-    if (IsWindowActive()) {
-        ;TriggerViolin()
-        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\NormalBoss.ahk"',
-            , , &OutPid)
-        SpammerPID := OutPid
-    }
-}
-
-IsSpammerActive() {
-    if ((SpammerPID && ProcessExist(SpammerPID)) ||
-        WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")) {
-            return true
-    }
-    return false
-}
-
-KillSpammer() {
-    ;F:\Documents\AutoHotkey\LeafBlowerV3\Secondaries\NormalBoss.ahk - AutoHotkey v2.0.4
-    if (SpammerPID && ProcessExist(SpammerPID)) {
-        ProcessClose(SpammerPID)
-        Log("Closed NormalBoss.ahk using pid.")
-    } else {
-        if (WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")) {
-            WinClose(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")
-            Log("Closed NormalBoss.ahk using filename.")
-        }
-        /* if (WinExist("NormalBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")) {
-            WinClose("NormalBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")
-        } */
-    }
-}
-
 SpamBrewButtons() {
     if (!IsPanelActive()) {
         Log("SpamBrewButtons: Did not find panel. Aborted.")

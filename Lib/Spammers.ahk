@@ -3,16 +3,38 @@
 global WindSpammerPID := 0
 global TowerPassiveSpammerPID := 0
 
-KillAllSpammers() {
-    if (IsSpammerActive()) {
-        KillSpammer()
+SpamViolins() {
+    global SpammerPID
+    if (IsWindowActive()) {
+        ;TriggerViolin()
+        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\NormalBoss.ahk"',
+            , , &OutPid)
+        SpammerPID := OutPid
     }
-    if (IsWindSpammerActive()) {
-        KillWindSpammer()
+}
+
+KillSpammer() {
+    ;F:\Documents\AutoHotkey\LeafBlowerV3\Secondaries\NormalBoss.ahk - AutoHotkey v2.0.4
+    if (SpammerPID && ProcessExist(SpammerPID)) {
+        ProcessClose(SpammerPID)
+        Log("Closed NormalBoss.ahk using pid.")
+    } else {
+        if (WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")) {
+            WinClose(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")
+            Log("Closed NormalBoss.ahk using filename.")
+        }
+        /* if (WinExist("NormalBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")) {
+            WinClose("NormalBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")
+        } */
     }
-    if (IsTowerPassiveSpammerActive()) {
-        KillTowerPassiveSpammer()
+}
+
+IsSpammerActive() {
+    if ((SpammerPID && ProcessExist(SpammerPID)) ||
+        WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")) {
+            return true
     }
+    return false
 }
 
 SpamJustWind() {
@@ -50,7 +72,7 @@ SpamTowerPassive() {
     if (IsWindowActive()) {
         Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\TowerPassiveSpammer.ahk"',
             , , &OutPid)
-            TowerPassiveSpammerPID := OutPid
+        TowerPassiveSpammerPID := OutPid
     }
 }
 
@@ -72,5 +94,17 @@ KillTowerPassiveSpammer() {
             WinClose(A_ScriptDir "\Secondaries\TowerPassiveSpammer.ahk ahk_class AutoHotkey")
             Log("Closed TowerPassiveSpammer.ahk using filename.")
         }
+    }
+}
+
+KillAllSpammers() {
+    if (IsSpammerActive()) {
+        KillSpammer()
+    }
+    if (IsWindSpammerActive()) {
+        KillWindSpammer()
+    }
+    if (IsTowerPassiveSpammerActive()) {
+        KillTowerPassiveSpammer()
     }
 }
