@@ -68,15 +68,7 @@ Run this file to load script
 
 #HotIf WinActive(LBRWindowTitle)
 *F1:: {
-    if (IsSpammerActive()) {
-        KillSpammer()
-    }
-    if (IsWindSpammerActive()) {
-        KillWindSpammer()
-    }
-    if (IsTowerPassiveSpammerActive()) {
-        KillTowerPassiveSpammer()
-    }
+    KillAllSpammers()
     Log("F1: Pressed")
     ; Wildcard shortcut * to allow functions to work while looping with
     ; modifiers held
@@ -88,15 +80,7 @@ Run this file to load script
     global HadToHideNotifs, HadToRemoveBearo, GemFarmActive, TowerFarmActive,
         QuarkFarmActive, bvAutostartDisabled
     ; Toggle notifs to handle multiple situations where its toggled
-    if (IsSpammerActive()) {
-        KillSpammer()
-    }
-    if (IsWindSpammerActive()) {
-        KillWindSpammer()
-    }
-    if (IsTowerPassiveSpammerActive()) {
-        KillTowerPassiveSpammer()
-    }
+    KillAllSpammers()
     if (HadToHideNotifs) {
         Log("F2: Reenabling notifications.")
         fSlowClick(32, 596, 101)
@@ -286,15 +270,7 @@ Run this file to load script
 *F8:: { ; Green Flame/Soulseeker farm
     Static on8 := False
     Log("F8: Pressed")
-    if (IsSpammerActive()) {
-        KillSpammer()
-    }
-    if (IsWindSpammerActive()) {
-        KillWindSpammer()
-    }
-    if (IsTowerPassiveSpammerActive()) {
-        KillTowerPassiveSpammer()
-    }
+    KillAllSpammers()
     if (!InitGameWindow() && !on8) {
         return
     }
@@ -320,15 +296,7 @@ Run this file to load script
         cReload() ; Kill if no game
         return
     }
-    if (IsSpammerActive()) {
-        KillSpammer()
-    }
-    if (IsWindSpammerActive()) {
-        KillWindSpammer()
-    }
-    if (IsTowerPassiveSpammerActive()) {
-        KillTowerPassiveSpammer()
-    }
+    KillAllSpammers()
     Thread('Interrupt', 0)  ; Make all threads always-interruptible.
     ResetModifierKeys() ; Cleanup incase needed
     switch on9 {
@@ -537,15 +505,7 @@ removeLastCheckTooltip() {
         cReload() ; Kill if no game
         return
     }
-    if (IsSpammerActive()) {
-        KillSpammer()
-    }
-    if (IsWindSpammerActive()) {
-        KillWindSpammer()
-    }
-    if (IsTowerPassiveSpammerActive()) {
-        KillTowerPassiveSpammer()
-    }
+    KillAllSpammers()
     ResetModifierKeys() ; Cleanup incase needed
     If (on14 := !on14) {
         if (!CheckGameSettingsCorrect()) {
@@ -575,15 +535,7 @@ removeLastCheckTooltip() {
         cReload() ; Kill if no game
         return
     }
-    if (IsSpammerActive()) {
-        KillSpammer()
-    }
-    if (IsWindSpammerActive()) {
-        KillWindSpammer()
-    }
-    if (IsTowerPassiveSpammerActive()) {
-        KillTowerPassiveSpammer()
-    }
+    KillAllSpammers()
     ResetModifierKeys() ; Cleanup incase needed
     If (on15 := !on15) {
         if (!CheckGameSettingsCorrect()) {
@@ -613,15 +565,7 @@ removeLastCheckTooltip() {
         cReload() ; Kill if no game
         return
     }
-    if (IsSpammerActive()) {
-        KillSpammer()
-    }
-    if (IsWindSpammerActive()) {
-        KillWindSpammer()
-    }
-    if (IsTowerPassiveSpammerActive()) {
-        KillTowerPassiveSpammer()
-    }
+    KillAllSpammers()
     ResetModifierKeys() ; Cleanup incase needed
     If (on16 := !on16) {
         if (!CheckGameSettingsCorrect()) {
@@ -652,15 +596,7 @@ removeLastCheckTooltip() {
         cReload() ; Kill if no game
         return
     }
-    if (IsSpammerActive()) {
-        KillSpammer()
-    }
-    if (IsWindSpammerActive()) {
-        KillWindSpammer()
-    }
-    if (IsTowerPassiveSpammerActive()) {
-        KillTowerPassiveSpammer()
-    }
+    KillAllSpammers()
     ResetModifierKeys() ; Cleanup incase needed
     If (on17 := !on17) {
         if (!CheckGameSettingsCorrect()) {
@@ -678,7 +614,33 @@ removeLastCheckTooltip() {
 }
 
 *Del:: {
-    fFarmCheeseBoss()
+    ; Cursed Cheese Farm
+    Static on18 := false
+
+    Log("Del: Pressed")
+    if (!InitGameWindow() && !on18) {
+        cReload()
+        return
+    }
+    if (!IsWindowActive()) {
+        cReload() ; Kill if no game
+        return
+    }
+    KillAllSpammers()
+    ResetModifierKeys() ; Cleanup incase needed
+    If (on18 := !on18) {
+        if (!CheckGameSettingsCorrect()) {
+            cReload()
+            return
+        }
+        Log("Del: Cursed Chees Activated")
+        fFarmCheeseBoss()
+    } Else {
+        ToolTip(, , , 4)
+        Log("Del: Resetting")
+        cReload()
+        return
+    }
 }
 
 /* *Del:: {

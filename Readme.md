@@ -158,6 +158,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 Adjusted the settings check tooltips to indicate good results.  
 Applied a new SendMode in LeafBlowerV3.ahk to allow for usage in VM.  
+Del: Added Cursed Cheese Farm mode, rough form unsure if its staying.  
 End: Added bank maintainer to passive tower mode with setting
 TowerPassiveBanksEnabled  
 End: Added crafting autoclicker to passive tower mode with setting

@@ -3,6 +3,18 @@
 global WindSpammerPID := 0
 global TowerPassiveSpammerPID := 0
 
+KillAllSpammers() {
+    if (IsSpammerActive()) {
+        KillSpammer()
+    }
+    if (IsWindSpammerActive()) {
+        KillWindSpammer()
+    }
+    if (IsTowerPassiveSpammerActive()) {
+        KillTowerPassiveSpammer()
+    }
+}
+
 SpamJustWind() {
     global WindSpammerPID
     if (IsWindowActive()) {
