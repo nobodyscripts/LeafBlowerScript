@@ -425,3 +425,16 @@ cReload() {
     } */
     Reload()
 }
+
+ReloadIfNoGame() {
+    if (!InitGameWindow() || !IsWindowActive()) {
+        cReload() ; Kill if no game
+        return
+    }
+}
+
+InitScriptHotKey() {
+    KillAllSpammers()
+    ReloadIfNoGame()
+    ResetModifierKeys() ; Cleanup incase needed
+}

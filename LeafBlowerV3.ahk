@@ -136,10 +136,7 @@ Run this file to load script
     global HadToHideNotifs
     Static on3 := False
     Log("F3: Pressed")
-    if (!InitGameWindow() && !on3) {
-        return
-    }
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     Sleep(34)
     ResetModifierKeys() ; Twice for good luck
     Sleep(34)
@@ -172,10 +169,7 @@ Run this file to load script
     global HadToRemoveBearo, GemFarmActive
     Static on4 := False
     Log("F4: Pressed")
-    if (!InitGameWindow() && !on4) {
-        return
-    }
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If on4 := !on4 {
         if (!CheckGameSettingsCorrect()) {
             cReload()
@@ -210,10 +204,7 @@ Run this file to load script
     TowerFarmActive := true
     Static on5 := False
     Log("F5: Pressed")
-    if (!InitGameWindow() && !on5) {
-        return
-    }
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If on5 := !on5 {
         if (!CheckGameSettingsCorrect()) {
             cReload()
@@ -232,10 +223,7 @@ Run this file to load script
     Static on6 := False
     global bvAutostartDisabled
     Log("F6: Pressed")
-    if (!InitGameWindow() && !on6) {
-        return
-    }
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If on6 := !on6 {
         if (!CheckGameSettingsCorrect()) {
             cReload()
@@ -254,10 +242,7 @@ Run this file to load script
 *F7:: { ; Claw pumpkin farm
     Static on7 := False
     Log("F7: Pressed")
-    if (!InitGameWindow() && !on7) {
-        return
-    }
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If on7 := !on7 {
         if (!CheckGameSettingsCorrect()) {
             cReload()
@@ -270,11 +255,7 @@ Run this file to load script
 *F8:: { ; Green Flame/Soulseeker farm
     Static on8 := False
     Log("F8: Pressed")
-    KillAllSpammers()
-    if (!InitGameWindow() && !on8) {
-        return
-    }
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If on8 := !on8 {
         if (!CheckGameSettingsCorrect()) {
             cReload()
@@ -288,17 +269,8 @@ Run this file to load script
 *F9:: { ; Farm bosses using violins
     global on9, HadToHideNotifsF9, bvAutostartDisabled
     Log("F9: Pressed")
-    if (!InitGameWindow() && !on9) {
-        cReload()
-        return
-    }
-    if (!IsWindowActive()) {
-        cReload() ; Kill if no game
-        return
-    }
-    KillAllSpammers()
+    InitScriptHotKey()
     Thread('Interrupt', 0)  ; Make all threads always-interruptible.
-    ResetModifierKeys() ; Cleanup incase needed
     switch on9 {
         case 1:
             on9 := 2 ; Brew and boss mode
@@ -358,10 +330,7 @@ Run this file to load script
 *F10:: { ; Farm nature boss using violins
     Static on10 := False
     Log("F10: Pressed")
-    if (!InitGameWindow() && !on10) {
-        return
-    }
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If (on10 := !on10) {
         if (!CheckGameSettingsCorrect()) {
             cReload()
@@ -465,15 +434,7 @@ removeLastCheckTooltip() {
     global QuarkFarmActive
     QuarkFarmActive := true
     Log("Insert: Pressed")
-    if (!InitGameWindow() && !on13) {
-        cReload()
-        return
-    }
-    if (!IsWindowActive()) {
-        cReload() ; Kill if no game
-        return
-    }
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If (on13 := !on13) {
         if (!CheckGameSettingsCorrect()) {
             cReload()
@@ -497,16 +458,7 @@ removeLastCheckTooltip() {
     global HyacinthFarmActive
     HyacinthFarmActive := true
     Log("Home: Pressed")
-    if (!InitGameWindow() && !on14) {
-        cReload()
-        return
-    }
-    if (!IsWindowActive()) {
-        cReload() ; Kill if no game
-        return
-    }
-    KillAllSpammers()
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If (on14 := !on14) {
         if (!CheckGameSettingsCorrect()) {
             cReload()
@@ -527,16 +479,7 @@ removeLastCheckTooltip() {
     Static on15 := false
 
     Log("End: Pressed")
-    if (!InitGameWindow() && !on15) {
-        cReload()
-        return
-    }
-    if (!IsWindowActive()) {
-        cReload() ; Kill if no game
-        return
-    }
-    KillAllSpammers()
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If (on15 := !on15) {
         if (!CheckGameSettingsCorrect()) {
             cReload()
@@ -557,16 +500,7 @@ removeLastCheckTooltip() {
     Static on16 := false
 
     Log("PgUp: Pressed")
-    if (!InitGameWindow() && !on16) {
-        cReload()
-        return
-    }
-    if (!IsWindowActive()) {
-        cReload() ; Kill if no game
-        return
-    }
-    KillAllSpammers()
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If (on16 := !on16) {
         if (!CheckGameSettingsCorrect()) {
             cReload()
@@ -588,16 +522,7 @@ removeLastCheckTooltip() {
     Static on17 := false
 
     Log("PgDn: Pressed")
-    if (!InitGameWindow() && !on17) {
-        cReload()
-        return
-    }
-    if (!IsWindowActive()) {
-        cReload() ; Kill if no game
-        return
-    }
-    KillAllSpammers()
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If (on17 := !on17) {
         if (!CheckGameSettingsCorrect()) {
             cReload()
@@ -618,16 +543,7 @@ removeLastCheckTooltip() {
     Static on18 := false
 
     Log("Del: Pressed")
-    if (!InitGameWindow() && !on18) {
-        cReload()
-        return
-    }
-    if (!IsWindowActive()) {
-        cReload() ; Kill if no game
-        return
-    }
-    KillAllSpammers()
-    ResetModifierKeys() ; Cleanup incase needed
+    InitScriptHotKey()
     If (on18 := !on18) {
         if (!CheckGameSettingsCorrect()) {
             cReload()
