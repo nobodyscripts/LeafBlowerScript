@@ -172,6 +172,8 @@ sphere time reduction.
 Home: Added HyacinthUseNextAvailableFlower, selects the next available flower
 type when seeds are no longer available. Rotates between all 16 types before
 stopping.  
+Home: Added HyacinthBanksEnabled, enables bank maintainer while using hyacinth
+farm mode.
 
 ## TODO
 

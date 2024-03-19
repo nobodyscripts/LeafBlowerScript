@@ -12,7 +12,7 @@ global BankDepositTime := 5
 
 fFarmNormalBossAndNatureHyacinth() {
     global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot,
-    BankDepositTime
+    BankDepositTime, HyacinthBanksEnabled
     ToolTip()
     Killcount := 0
     starttime := A_Now

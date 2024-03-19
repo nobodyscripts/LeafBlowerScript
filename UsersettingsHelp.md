@@ -190,6 +190,9 @@ HyacinthUseNextAvailableFlower: (Default) false
 Moves up to the next flower type available, will rotate between all 16 types,
 use if you want to exaust all available flowers.
 
+HyacinthBanksEnabled: (Default) true
+Enables banks maintainer during hyacinth farm mode.
+
 BankEnableLGDeposit: (Default) true  
 Enables the auto deposit of RESS in the Leaf Galaxy bank tab.
 
