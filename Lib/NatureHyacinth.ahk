@@ -7,50 +7,25 @@ global BossFarmUsesWobblyWings := true
 global HyacinthUseFlower := 1
 global HyacinthUseSpheres := true
 global HyacinthUseNextAvailableFlower := true
+global HyacinthBanksEnabled := true
+global BankDepositTime := 5
 
 fFarmNormalBossAndNatureHyacinth() {
-    global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot
+    global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot,
+    BankDepositTime
     ToolTip()
     Killcount := 0
+    starttime := A_Now
     bossfarm := false
     flowerID := HyacinthUseFlower
     flowerTypesUsed := 1
-
-    GoToFarmField()
-    sleep(NavigateTime)
-    ClosePanel()
-    sleep(NavigateTime)
-    switch HyacinthUseSlot {
-        case "All":
-            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
-        case "all":
-            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
-        case 1:
-            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
-        case 2:
-            fSlowClickRelL(745, 500, NavigateTime) ; Slot 2
-        case 3:
-            fSlowClickRelL(1120, 500, NavigateTime) ; Slot 3
-        case 4:
-            fSlowClickRelL(1490, 500, NavigateTime) ; Slot 4
-        case 5:
-            fSlowClickRelL(1870, 500, NavigateTime) ; Slot 5
-        case 6:
-            fSlowClickRelL(375, 865, NavigateTime) ; Slot 6
-        case 7:
-            fSlowClickRelL(745, 865, NavigateTime) ; Slot 7
-        case 8:
-            fSlowClickRelL(1120, 865, NavigateTime) ; Slot 8
-        case 9:
-            fSlowClickRelL(1490, 865, NavigateTime) ; Slot 9
-        case 10:
-            fSlowClickRelL(1870, 865, NavigateTime) ; Slot 10
-        default:
-            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
+    if (HyacinthBanksEnabled) {
+        OpenPets()
+        Sleep(NavigateTime)
+        BankSinglePass()
     }
-    sleep(NavigateTime)
-    SelectFlower(FlowerToID(flowerID)) ; Select flower to use
-    sleep(NavigateTime)
+
+    OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID)
 
     ; Boss timer stuff
     IsPrevTimerLong := IsBossTimerLong()
@@ -87,15 +62,35 @@ fFarmNormalBossAndNatureHyacinth() {
             Log("BossHyacinth: Did not find panel. Aborted farming. Violins active")
             break
         }
-
+        if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
+            HyacinthBanksEnabled) {
+                if (bossfarm) {
+                    KillSpammer() ; Need to halt any WW spam
+                }
+                Log("BossHyacinth: Bank Maintainer starting.")
+                ToolTip("BossHyacinth Bank Maintainer Active", W / 2,
+                    WinRelPosLargeH(200), 4)
+                BankSinglePass()
+                Sleep(NavigateTime)
+                ToolTip(, , , 4)
+                starttime := A_Now
+                OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID)
+                if (bossfarm) {
+                    SpamViolins() ; Restart spammer now we can travel
+                }
+                Sleep(NavigateTime)
+        }
         if (IsButtonActive(WinRelPosLargeW(HarvBX), WinRelPosLargeH(HarvBY))) {
             ; If harvest button active
             fSlowClickRelL(HarvBX + 5, HarvBY, NavigateTime)
             Sleep(NavigateTime)
         }
         if (IsButtonActive(WinRelPosLargeW(PlantBX), WinRelPosLargeH(PlantBY))) {
-            ; If planting available
-            fSlowClickRelL(PlantBX + 5, PlantBY, NavigateTime)
+            ; If plant all button available, we've not run out
+            if (IsButtonActive(WinRelPosLargeW(1380), WinRelPosLargeH(750))) {
+                ; If planting available via plant button, planting available
+                fSlowClickRelL(PlantBX + 5, PlantBY, NavigateTime)
+            }
             Sleep(NavigateTime)
         } else {
             if (HyacinthUseNextAvailableFlower && flowerTypesUsed < 16) {
@@ -104,7 +99,7 @@ fFarmNormalBossAndNatureHyacinth() {
                 if (newFlowerID > 16) {
                     newFlowerID := 1
                 }
-                flowerTypesUsed := flowerTypesUsed++ 
+                flowerTypesUsed := flowerTypesUsed++
                 flowerID := newFlowerID
             } else {
                 ; Run out of seeds so exiting
@@ -114,7 +109,7 @@ fFarmNormalBossAndNatureHyacinth() {
                     WinRelPosLargeH(50), 2)
                 SetTimer(ToolTip.Bind(, , , 2), -3000)
                 break
-            } 
+            }
         }
         if (HyacinthUseSpheres) {
             ; Use spheres if we have got the option to do so
@@ -146,6 +141,51 @@ fFarmNormalBossAndNatureHyacinth() {
         }
     }
     ToolTip(, , , 1)
+}
+
+OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID) {
+    if (IsPanelActive()) {
+        ClosePanel()
+    }
+    GoToFarmField()
+    sleep(NavigateTime)
+    ClosePanel()
+    sleep(NavigateTime)
+    ClickFarmSlot(HyacinthUseSlot)
+    sleep(NavigateTime)
+    SelectFlower(FlowerToID(flowerID)) ; Select flower to use
+    sleep(NavigateTime)
+}
+
+ClickFarmSlot(HyacinthUseSlot) {
+    switch HyacinthUseSlot {
+        case "All":
+            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
+        case "all":
+            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
+        case 1:
+            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
+        case 2:
+            fSlowClickRelL(745, 500, NavigateTime) ; Slot 2
+        case 3:
+            fSlowClickRelL(1120, 500, NavigateTime) ; Slot 3
+        case 4:
+            fSlowClickRelL(1490, 500, NavigateTime) ; Slot 4
+        case 5:
+            fSlowClickRelL(1870, 500, NavigateTime) ; Slot 5
+        case 6:
+            fSlowClickRelL(375, 865, NavigateTime) ; Slot 6
+        case 7:
+            fSlowClickRelL(745, 865, NavigateTime) ; Slot 7
+        case 8:
+            fSlowClickRelL(1120, 865, NavigateTime) ; Slot 8
+        case 9:
+            fSlowClickRelL(1490, 865, NavigateTime) ; Slot 9
+        case 10:
+            fSlowClickRelL(1870, 865, NavigateTime) ; Slot 10
+        default:
+            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
+    }
 }
 
 FlowerToID(flower) {
