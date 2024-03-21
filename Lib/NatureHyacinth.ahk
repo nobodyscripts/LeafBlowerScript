@@ -13,7 +13,7 @@ global NavigateTime := 150
 
 fFarmNormalBossAndNatureHyacinth() {
     global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot,
-    BankDepositTime, HyacinthBanksEnabled, NavigateTime
+        BankDepositTime, HyacinthBanksEnabled, NavigateTime
     ToolTip()
     Killcount := 0
     starttime := A_Now
@@ -145,14 +145,13 @@ fFarmNormalBossAndNatureHyacinth() {
 }
 
 OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID) {
+    sleep(NavigateTime)
+    GoToFarmField()
+    sleep(NavigateTime)
     if (IsPanelActive()) {
         ClosePanel()
         sleep(NavigateTime)
     }
-    GoToFarmField()
-    sleep(NavigateTime)
-    ClosePanel()
-    sleep(NavigateTime)
     ClickFarmSlot(HyacinthUseSlot)
     sleep(NavigateTime)
     SelectFlower(FlowerToID(flowerID)) ; Select flower to use
