@@ -173,7 +173,8 @@ Home: Added HyacinthUseNextAvailableFlower, selects the next available flower
 type when seeds are no longer available. Rotates between all 16 types before
 stopping.  
 Home: Added HyacinthBanksEnabled, enables bank maintainer while using hyacinth
-farm mode.
+farm mode.  
+Home: Fix for opening settings instead of plant panel.  
 
 ## TODO
 
@@ -204,6 +205,7 @@ F7: Needs to use artifact if need be / get replacement
 F8: Review ending of gfssnoreset mode  
 F9: Add banks during use.  
 F10: Needs to use artifact if need be / get replacement  
+PageDown: Needs better setup routine.  
 
 ## Known issues
 
