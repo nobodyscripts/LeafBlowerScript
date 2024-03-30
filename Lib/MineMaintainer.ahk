@@ -52,7 +52,12 @@ fMineMaintainer() {
         Sleep(NavigateTime)
     }
     OpenMining()
+    Sleep(NavigateTime)
     loop {
+        if (!IsPanelActive()) {
+            OpenMining()
+            Sleep(NavigateTime)
+        }
         if (MinerEnableVeins) {
             if (CurrentTab != 0) {
                 VeinsTab.Click()
@@ -119,27 +124,27 @@ EnhanceVeins() {
     slot4 := cMineEnhanceSlot4()
     slot5 := cMineEnhanceSlot5()
     slot6 := cMineEnhanceSlot6()
-    while (!slot1.IsBackground()) {
+    while (IsPanelActive() && !slot1.IsBackground()) {
         slot1.ClickOffset()
         Sleep(NavigateTime)
     }
-    while (!slot2.IsBackground()) {
+    while (IsPanelActive() && !slot2.IsBackground()) {
         slot2.ClickOffset()
         Sleep(NavigateTime)
     }
-    while (!slot3.IsBackground()) {
+    while (IsPanelActive() && !slot3.IsBackground()) {
         slot3.ClickOffset()
         Sleep(NavigateTime)
     }
-    while (!slot4.IsBackground()) {
+    while (IsPanelActive() && !slot4.IsBackground()) {
         slot4.ClickOffset()
         Sleep(NavigateTime)
     }
-    while (!slot5.IsBackground()) {
+    while (IsPanelActive() && !slot5.IsBackground()) {
         slot5.ClickOffset()
         Sleep(NavigateTime)
     }
-    while (!slot6.IsBackground()) {
+    while (IsPanelActive() && !slot6.IsBackground()) {
         slot6.ClickOffset()
         Sleep(NavigateTime)
     }
@@ -151,7 +156,7 @@ RemoveSingleMine() {
 
 TransmuteAllCoalBars() {
     TransmuteButton := cMineTransmuteButton()
-    if (TransmuteButton.IsButtonActive()) {
+    if (IsPanelActive() && TransmuteButton.IsButtonActive()) {
         TransmuteButton.ClickOffset()
         Sleep(NavigateTime)
     }
@@ -159,7 +164,7 @@ TransmuteAllCoalBars() {
 
 CollectFreeDrillFuel() {
     FuelButton := cMineFreeFuelButton()
-    if (FuelButton.IsButtonActive()) {
+    if (IsPanelActive() && FuelButton.IsButtonActive()) {
         FuelButton.ClickOffset()
         Sleep(NavigateTime)
     }
