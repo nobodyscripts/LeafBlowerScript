@@ -13,9 +13,22 @@ global MinerVeinsRemoveRare := false
 global MinerVeinsRemoveEpic := false
 global MinerVeinsRemoveMythical := false
 global MinerVeinsRemoveLegendary := false
+
+global MinerMineRemovalTimer := 1
+global MinerTransmuteTimer := 1
+global MinerRefuelTimer := 1
 global NavigateTime := 150
 
 fMineMaintainer() {
+    MineTime := A_Now
+    TransmuteTime := A_Now
+    RefuelTime := A_Now
+    VeinsTab := cMineTabVein()
+    MinesTab := cMineTabMines()
+    DrillTab := cMineTabDrill()
+    ShopTab := cMineTabShop()
+    TransmuteTab := cMineTabTransmute()
+    CurrentTab := 0
     if (IsPanelActive()) {
         ClosePanel()
         Sleep(NavigateTime)
@@ -23,16 +36,50 @@ fMineMaintainer() {
     OpenMining()
     loop {
         if (MinerEnableVeins) {
+            if (CurrentTab != 0) {
+                VeinsTab.Click()
+                CurrentTab := 0
+            }
+            Sleep(NavigateTime)
             EnhanceVeins()
         }
-        if (MinerEnableMineRemoval) {
-            
+/*         if (DateDiff(A_Now, MineTime, "Seconds") >= MinerMineRemovalTimer * 60 &&
+            MinerEnableMineRemoval) {
+                MineTime := A_Now
+                if (CurrentTab != 1) {
+                    MinesTab.Click()
+                    CurrentTab := 1
+                }
+                Sleep(NavigateTime)
+                RemoveSingleMine()
+                Log("Mine: Removed a mine entry")
+                Sleep(NavigateTime)
         }
-        if (MinerEnableTransmute) {
-            
+ */
+        if (DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
+            MinerEnableTransmute) {
+                TransmuteTime := A_Now
+                if (CurrentTab != 6) {
+                    TransmuteTab.Click()
+                    CurrentTab := 6
+                }
+                Sleep(NavigateTime)
+                TransmuteAllCoalBars()
+                Log("Mine: Transmuted all bars.")
+                Sleep(NavigateTime)
         }
-        if (MinerEnableFreeRefuel) {
-            
+
+        if (DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
+            MinerEnableFreeRefuel) {
+                RefuelTime := A_Now
+                if (CurrentTab != 4) {
+                    DrillTab.Click()
+                    CurrentTab := 4
+                }
+                Sleep(NavigateTime)
+                CollectFreeDrillFuel()
+                Log("Mine: Collected free fuel.")
+                Sleep(NavigateTime)
         }
     }
 }
@@ -75,9 +122,17 @@ RemoveSingleMine() {
 }
 
 TransmuteAllCoalBars() {
-
+    TransmuteButton := cMineTransmuteButton()
+    if (TransmuteButton.IsButtonActive()) {
+        TransmuteButton.ClickOffset()
+        Sleep(NavigateTime)
+    }
 }
 
 CollectFreeDrillFuel() {
-
+    FuelButton := cMineFreeFuelButton()
+    if (FuelButton.IsButtonActive()) {
+        FuelButton.ClickOffset()
+        Sleep(NavigateTime)
+    }
 }

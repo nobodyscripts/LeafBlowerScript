@@ -230,3 +230,48 @@ cMineColourSlot6() { ; Bottom right
     o.SetCoordRel(1368, 420)
     return o
 }
+
+cMineTabVein() { ; First tab
+    o := RelCoord()
+    o.SetCoordRel(526, 1180)
+    return o
+}
+
+cMineTabMines() { ; Mines tab
+    o := RelCoord()
+    o.SetCoordRel(760, 1180)
+    return o
+}
+
+cMineTabDrill() { ; Drill tab
+    o := RelCoord()
+    o.SetCoordRel(1320, 1180)
+    return o
+}
+
+cMineTabShop() { ; Shop tab
+    o := RelCoord()
+    o.SetCoordRel(1600, 1180)
+    return o
+}
+
+cMineTabTransmute() { ; Transmute tab
+    o := RelCoord()
+    o.SetCoordRel(1900, 1180)
+    return o
+}
+
+cMineFreeFuelButton() { ; Button for free fuel refill
+    o := RelCoord()
+    o.SetCoordRel(1220, 615)
+    return o
+}
+
+
+cMineTransmuteButton() { ; Button for Transmute all bars
+    o := RelCoord()
+    o.SetCoordRel(1080, 383)
+    return o
+}
+
+ 
