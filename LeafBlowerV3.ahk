@@ -23,6 +23,7 @@
 #Include Lib\TowerTimeWarp.ahk
 #Include Lib\TowerFarmPassive.ahk
 #Include Lib\LeaftonTaxi.ahk
+#Include Lib\MineMaintainer.ahk
 
 #Include LIb\CursedCheese.ahk
 
@@ -425,10 +426,10 @@ removeLastCheckTooltip() {
 }
 
 /**
- * Toggle the Quark Boss farm mode
+ * Toggle the Quark Boss farm mode (old)
  * @param ThisHotkey Insert
  * @returns {void} 
- */
+ 
 *Insert:: {
     ; Farm bosses using violins
     Static on13 := false
@@ -447,6 +448,29 @@ removeLastCheckTooltip() {
         QuarkFarmActive := false
         Log("Insert: Equipped Default Loadout")
         EquipDefaultGearLoadout()
+        Log("Insert: Resetting")
+        cReload()
+        return
+    }
+}*/
+
+/**
+ * Toggle the mine mantainer
+ * @param ThisHotkey Insert
+ * @returns {void} 
+ */
+*Insert:: {
+    Static on13 := false
+    Log("Insert: Pressed")
+    InitScriptHotKey()
+    If (on13 := !on13) {
+        if (!CheckGameSettingsCorrect()) {
+            cReload()
+            return
+        }
+        Log("Insert: Mine Mantainer Activated")
+        fMineMaintainer()
+    } Else {
         Log("Insert: Resetting")
         cReload()
         return

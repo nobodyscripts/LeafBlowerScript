@@ -145,3 +145,88 @@ cNatureFarmUseSphere() {
     return o
 }
 
+; ------------------- Mining Coords --------------------
+/*
+1036 575
+1036 720
+1036 870
+2000 575
+2000 720
+2000 870
+
+410 (Left row colour x)
+1368 (Right row colour x)
+*/
+cMineEnhanceSlot1() { ; Top left
+    o := RelCoord()
+    o.SetCoordRel(1036, 575)
+    return o
+}
+
+cMineEnhanceSlot2() { ; Mid left
+    o := RelCoord()
+    o.SetCoordRel(1036, 720)
+    return o
+}
+
+cMineEnhanceSlot3() { ; Bottom left
+    o := RelCoord()
+    o.SetCoordRel(1036, 870)
+    return o
+}
+
+cMineEnhanceSlot4() { ; Top right
+    o := RelCoord()
+    o.SetCoordRel(2000, 420)
+    return o
+}
+
+cMineEnhanceSlot5() { ; Mid right
+    o := RelCoord()
+    o.SetCoordRel(2000, 720)
+    return o
+}
+
+cMineEnhanceSlot6() { ; Bottom right
+    o := RelCoord()
+    o.SetCoordRel(2000, 870)
+    return o
+}
+
+; Vein rarity colours
+
+cMineColourSlot1() { ; Top left
+    o := RelCoord()
+    o.SetCoordRel(410, 575)
+    return o
+}
+
+cMinColourSlot2() { ; Mid left
+    o := RelCoord()
+    o.SetCoordRel(410, 720)
+    return o
+}
+
+cMineColourSlot3() { ; Bottom left
+    o := RelCoord()
+    o.SetCoordRel(410, 870)
+    return o
+}
+
+cMineColourSlot4() { ; Top right
+    o := RelCoord()
+    o.SetCoordRel(1368, 420)
+    return o
+}
+
+cMineColourSlot5() { ; Mid right
+    o := RelCoord()
+    o.SetCoordRel(1368, 420)
+    return o
+}
+
+cMineColourSlot6() { ; Bottom right
+    o := RelCoord()
+    o.SetCoordRel(1368, 420)
+    return o
+}

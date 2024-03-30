@@ -42,6 +42,10 @@ OpenCrafting() {
     ControlSend("{m}", , LBRWindowTitle)
 }
 
+OpenMining() {
+    ControlSend("{l}", , LBRWindowTitle)
+}
+
 TriggerBlazingSkull() {
     ControlSend("{p}", , LBRWindowTitle)
 }
