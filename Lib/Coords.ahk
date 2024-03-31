@@ -177,7 +177,7 @@ cMineEnhanceSlot3() { ; Bottom left
 
 cMineEnhanceSlot4() { ; Top right
     o := RelCoord()
-    o.SetCoordRel(2000, 420)
+    o.SetCoordRel(2000, 575)
     return o
 }
 
@@ -215,19 +215,19 @@ cMineColourSlot3() { ; Bottom left
 
 cMineColourSlot4() { ; Top right
     o := RelCoord()
-    o.SetCoordRel(1368, 420)
+    o.SetCoordRel(1368, 575)
     return o
 }
 
 cMineColourSlot5() { ; Mid right
     o := RelCoord()
-    o.SetCoordRel(1368, 420)
+    o.SetCoordRel(1368, 720)
     return o
 }
 
 cMineColourSlot6() { ; Bottom right
     o := RelCoord()
-    o.SetCoordRel(1368, 420)
+    o.SetCoordRel(1368, 870)
     return o
 }
 
@@ -266,7 +266,6 @@ cMineFreeFuelButton() { ; Button for free fuel refill
     o.SetCoordRel(1220, 615)
     return o
 }
-
 
 cMineTransmuteButton() { ; Button for Transmute all bars
     o := RelCoord()
