@@ -7,6 +7,8 @@ global MinerEnableVeins := true
 global MinerEnableMineRemoval := true
 global MinerEnableTransmute := true
 global MinerEnableFreeRefuel := true
+global MinerEnableBanks := true
+global MinerEnableSpammer := true
 global MinerVeinsRemoveCommon := false
 global MinerVeinsRemoveUncommon := false
 global MinerVeinsRemoveRare := false
@@ -15,10 +17,8 @@ global MinerVeinsRemoveMythical := false
 global MinerVeinsRemoveLegendary := false
 
 global MinerMineRemovalTimer := 1
-global MinerTransmuteTimer := 1
+global MinerTransmuteTimer := 0.5
 global MinerRefuelTimer := 1
-global MinerSpammer := true
-global MinerBanksEnabled := true
 global NavigateTime := 150
 
 global BankEnableLGDeposit := true
@@ -30,6 +30,7 @@ global BankEnableQADeposit := true
 global BankDepositTime := 5
 
 fMineMaintainer() {
+    Firstpass := true
     MineTime := A_Now
     TransmuteTime := A_Now
     RefuelTime := A_Now
@@ -40,12 +41,10 @@ fMineMaintainer() {
     ShopTab := cMineTabShop()
     TransmuteTab := cMineTabTransmute()
     CurrentTab := 0
-    if (MinerSpammer) {
+    ToolTip("Mine Maintainer Active", W / 2,
+        WinRelPosLargeH(200), 4)
+    if (MinerEnableSpammer) {
         SpamViolins()
-    }
-    if (MinerBanksEnabled) {
-        BankSinglePass()
-        Sleep(NavigateTime)
     }
     if (IsPanelActive()) {
         ClosePanel()
@@ -54,6 +53,7 @@ fMineMaintainer() {
     OpenMining()
     Sleep(NavigateTime)
     loop {
+
         if (!IsPanelActive()) {
             OpenMining()
             Sleep(NavigateTime)
@@ -61,9 +61,11 @@ fMineMaintainer() {
         if (MinerEnableVeins) {
             if (CurrentTab != 0) {
                 VeinsTab.Click()
+                Sleep(NavigateTime)
+                VeinsTab.Click()
+                Sleep(NavigateTime)
                 CurrentTab := 0
             }
-            Sleep(NavigateTime)
             EnhanceVeins()
         }
         /*         if (DateDiff(A_Now, MineTime, "Seconds") >= MinerMineRemovalTimer * 60 &&
@@ -79,40 +81,52 @@ fMineMaintainer() {
                         Sleep(NavigateTime)
                 }
         */
-        if (DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
-            MinerEnableTransmute) {
+        if (Firstpass || (DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
+            MinerEnableTransmute)) {
                 TransmuteTime := A_Now
                 if (CurrentTab != 6) {
                     TransmuteTab.Click()
+                    Sleep(NavigateTime)
+                    TransmuteTab.Click()
+                    Sleep(NavigateTime)
                     CurrentTab := 6
                 }
-                Sleep(NavigateTime)
                 TransmuteAllCoalBars()
                 Log("Mine: Transmuted all bars.")
                 Sleep(NavigateTime)
         }
 
-        if (DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
-            MinerEnableFreeRefuel) {
+        if (Firstpass || (DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
+            MinerEnableFreeRefuel)) {
                 RefuelTime := A_Now
                 if (CurrentTab != 4) {
                     DrillTab.Click()
+                    Sleep(NavigateTime)
+                    DrillTab.Click()
+                    Sleep(NavigateTime)
                     CurrentTab := 4
                 }
-                Sleep(NavigateTime)
                 CollectFreeDrillFuel()
                 Log("Mine: Collected free fuel.")
                 Sleep(NavigateTime)
         }
-        if (DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
-            LeaftonBanksEnabled) {
+        if (Firstpass || (DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
+            MinerEnableBanks)) {
+                ToolTip(, , , 4)
                 Log("Mine: Bank Maintainer starting.")
                 ToolTip("Mine Bank Maintainer Active", W / 2,
                     WinRelPosLargeH(200), 4)
+                Sleep(NavigateTime)
                 BankSinglePass()
                 ToolTip(, , , 4)
+                ToolTip("Mine Maintainer Active", W / 2,
+                    WinRelPosLargeH(200), 4)
                 BankTime := A_Now
+                Sleep(NavigateTime)
+                OpenMining()
+                Sleep(NavigateTime)
         }
+        Firstpass := false
     }
     KillSpammer()
 }

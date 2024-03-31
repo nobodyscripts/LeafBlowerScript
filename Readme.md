@@ -1,4 +1,4 @@
-# LBR Resolution independent scripts v3.0.14
+# LBR Resolution independent scripts v3.0.15
 
 Support and news: <https://discord.gg/xu8fXw4CQ8>
 
@@ -176,6 +176,17 @@ Home: Added HyacinthBanksEnabled, enables bank maintainer while using hyacinth
 farm mode.  
 Home: Fix for opening settings instead of plant panel.  
 
+Insert: Replaced quark farm with Mine Maintainer.  
+Insert: Uses new hotkey L for Mine screen.  
+Insert: Added auto enhance, auto transmute, free fuel collection, bank and ww
+spammer.  
+Insert: Added bunch of settings to control different aspects. See
+UserSettings.ini or UsersettingsHelp.md  
+Insert: Removal of mine instance and removal of veins by quality not implimented
+yet.  
+
+Del: Quick cursed cheese farm mode, left in incase anyone else needs.
+
 ## TODO
 
 Rethink F8, F9, Insert, Home  
@@ -203,7 +214,6 @@ F6: If white pixels in area next to normal text display, cancel borbv as
    inventory is blocked  
 F7: Needs to use artifact if need be / get replacement  
 F8: Review ending of gfssnoreset mode  
-F9: Add banks during use.  
 F10: Needs to use artifact if need be / get replacement  
 PageDown: Needs better setup routine.  
 

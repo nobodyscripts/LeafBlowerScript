@@ -55,6 +55,11 @@ BankSinglePass() {
         Sleep(NavigateTime)
     }
     OpenBank()
+    Sleep(NavigateTime + 100)
+    if (!IsPanelActive()) {
+        OpenBank()
+        Sleep(NavigateTime)
+    }
     i := 0
     while (i < 6) {
         if (!IsWindowActive()) {

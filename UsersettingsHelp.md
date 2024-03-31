@@ -232,12 +232,44 @@ and BankDepositTime.
 LeaftonRunOnceEnable: (Default) false  
 Cycles through the floor of Leafton once, then exits, ideal for refreshing max.
 
-Debug: (Default) false  
-Extra debug logging and testing modes, not recommended for users due to large
-log usage, could cause file size issues.
-
 TowerPassiveBanksEnabled: (Default) true  
 Runs bank maintainer while using passive tower mode.
 
 TowerPassiveCraftEnabled: (Default) true  
-Runs crafting autoclicker while using passive tower mode
+Runs crafting autoclicker while using passive tower mode.
+
+MinerEnableVeins: (Default) true  
+Enable auto enhance of vein jobs in Coal Vein tab.
+
+MinerEnableMineRemoval: (Default) true {inactive}  
+Enable auto removal of mine jobs in Mines tab.
+
+MinerMineRemovalTimer: (Default) 5  
+Time period in minutes between mine removal using setting above.
+
+MinerEnableTransmute: (Default) true  
+Enable auto transmute of all coal bars in Transmute tab.
+
+MinerTransmuteTimer: (Default) 1  
+Time period in minutes between Transmute using setting above.
+
+MinerEnableFreeRefuel: (Default) true  
+Enable auto collection of the Drills free fuel.
+
+MinerRefuelTimer: (Default) 1  
+Time period in minutes between fuel collection using setting above.
+
+MinerEnableSpammer: (Default) true  
+Enable the WW spammer used elsewhere to run in the background.
+
+MinerEnableBanks: (Default) true  
+Enable the bank maintainer to run using the timeperiod set in BankDepositTime.
+
+MinerVeinsRemoveCommon, MinerVeinsRemoveUncommon, MinerVeinsRemoveRare,
+MinerVeinsRemoveEpic, MinerVeinsRemoveMythical, MinerVeinsRemoveLegendary:
+(Default) false {inactive}  
+Remove vein jobs based on quality
+
+Debug: (Default) false  
+Extra debug logging and testing modes, not recommended for users due to large
+log usage, could cause file size issues.
