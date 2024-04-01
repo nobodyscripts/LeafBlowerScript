@@ -184,11 +184,16 @@ Insert: Added bunch of settings to control different aspects. See
 UserSettings.ini or UsersettingsHelp.md  
 Insert: Removal of mine instance and removal of veins by quality not implimented
 yet.  
+Insert: Added MinerEnableVeinUpgrade to auto purchase vein upgrade levels when
+available, off by default.  
 
 Del: Quick cursed cheese farm mode, left in incase anyone else needs.
 
 ## TODO
 
+Insert: Auto remove lowest quality coal bar vein if all slots filled to allow
+quicker diamond spawns.  
+Insert: Auto upgrade
 Rethink F8, F9, Insert, Home  
 Devoption: Window check, keybinds and active checks designed around dev.
    F12 Test mode, edit save file to incorrect settings and test each

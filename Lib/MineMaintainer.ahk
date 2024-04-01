@@ -9,6 +9,7 @@ global MinerEnableTransmute := true
 global MinerEnableFreeRefuel := true
 global MinerEnableBanks := true
 global MinerEnableSpammer := true
+global MinerEnableVeinUpgrade := false
 global MinerVeinsRemoveCommon := false
 global MinerVeinsRemoveUncommon := false
 global MinerVeinsRemoveRare := false
@@ -29,6 +30,13 @@ global BankEnableSRDeposit := true
 global BankEnableQADeposit := true
 global BankDepositTime := 5
 
+global MinerColourCodeCommon := "0xA0A0A2"
+global MinerColourCodeUncommon := "0x336AAA"
+global MinerColourCodeRare := "0xD5C53E"
+global MinerColourCodeEpic := "0xB3260B"
+global MinerColourCodeMythical := "0x9E10C1"
+global MinerColourCodeLegendary := "0xD96500"
+
 fMineMaintainer() {
     Firstpass := true
     MineTime := A_Now
@@ -40,6 +48,7 @@ fMineMaintainer() {
     DrillTab := cMineTabDrill()
     ShopTab := cMineTabShop()
     TransmuteTab := cMineTabTransmute()
+    VeinUpgradeButton := cMineVeinUpgradeButton()
     CurrentTab := 0
     ToolTip("Mine Maintainer Active", W / 2,
         WinRelPosLargeH(200), 4)
@@ -53,12 +62,14 @@ fMineMaintainer() {
     OpenMining()
     Sleep(NavigateTime)
     loop {
-
-        if (!IsPanelActive()) {
+        /* if (IsWindowActive()) {
+            break
+        } */
+        if (IsWindowActive() && !IsPanelActive()) {
             OpenMining()
             Sleep(NavigateTime)
         }
-        if (MinerEnableVeins) {
+        if (IsWindowActive() && MinerEnableVeins) {
             if (CurrentTab != 0) {
                 VeinsTab.Click()
                 Sleep(NavigateTime)
@@ -81,7 +92,7 @@ fMineMaintainer() {
                         Sleep(NavigateTime)
                 }
         */
-        if (Firstpass || (DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
+        if (Firstpass || (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
             MinerEnableTransmute)) {
                 TransmuteTime := A_Now
                 if (CurrentTab != 6) {
@@ -96,7 +107,7 @@ fMineMaintainer() {
                 Sleep(NavigateTime)
         }
 
-        if (Firstpass || (DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
+        if (Firstpass || (IsWindowActive() && DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
             MinerEnableFreeRefuel)) {
                 RefuelTime := A_Now
                 if (CurrentTab != 4) {
@@ -110,7 +121,7 @@ fMineMaintainer() {
                 Log("Mine: Collected free fuel.")
                 Sleep(NavigateTime)
         }
-        if (Firstpass || (DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
+        if (Firstpass || (IsWindowActive() && DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
             MinerEnableBanks)) {
                 ToolTip(, , , 4)
                 Log("Mine: Bank Maintainer starting.")
@@ -126,6 +137,10 @@ fMineMaintainer() {
                 OpenMining()
                 Sleep(NavigateTime)
         }
+        if (IsWindowActive() && CurrentTab = 0 &&
+             VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
+            VeinUpgradeButton.ClickOffset()
+        }
         Firstpass := false
     }
     KillSpammer()
@@ -138,27 +153,27 @@ EnhanceVeins() {
     slot4 := cMineEnhanceSlot4()
     slot5 := cMineEnhanceSlot5()
     slot6 := cMineEnhanceSlot6()
-    while (IsPanelActive() && !slot1.IsBackground()) {
+    while (IsWindowActive() && IsPanelActive() && !slot1.IsBackground()) {
         slot1.ClickOffset()
         Sleep(NavigateTime)
     }
-    while (IsPanelActive() && !slot2.IsBackground()) {
+    while (IsWindowActive() && IsPanelActive() && !slot2.IsBackground()) {
         slot2.ClickOffset()
         Sleep(NavigateTime)
     }
-    while (IsPanelActive() && !slot3.IsBackground()) {
+    while (IsWindowActive() && IsPanelActive() && !slot3.IsBackground()) {
         slot3.ClickOffset()
         Sleep(NavigateTime)
     }
-    while (IsPanelActive() && !slot4.IsBackground()) {
+    while (IsWindowActive() && IsPanelActive() && !slot4.IsBackground()) {
         slot4.ClickOffset()
         Sleep(NavigateTime)
     }
-    while (IsPanelActive() && !slot5.IsBackground()) {
+    while (IsWindowActive() && IsPanelActive() && !slot5.IsBackground()) {
         slot5.ClickOffset()
         Sleep(NavigateTime)
     }
-    while (IsPanelActive() && !slot6.IsBackground()) {
+    while (IsWindowActive() && IsPanelActive() && !slot6.IsBackground()) {
         slot6.ClickOffset()
         Sleep(NavigateTime)
     }
@@ -170,7 +185,7 @@ RemoveSingleMine() {
 
 TransmuteAllCoalBars() {
     TransmuteButton := cMineTransmuteButton()
-    if (IsPanelActive() && TransmuteButton.IsButtonActive()) {
+    if (IsWindowActive() && IsPanelActive() && TransmuteButton.IsButtonActive()) {
         TransmuteButton.ClickOffset()
         Sleep(NavigateTime)
     }
@@ -178,8 +193,13 @@ TransmuteAllCoalBars() {
 
 CollectFreeDrillFuel() {
     FuelButton := cMineFreeFuelButton()
-    if (IsPanelActive() && FuelButton.IsButtonActive()) {
+    if (IsWindowActive() && IsPanelActive() && FuelButton.IsButtonActive()) {
         FuelButton.ClickOffset()
         Sleep(NavigateTime)
     }
+}
+
+FindVeinsWithBars() {
+    results := [false, false, false, false, false, false]
+
 }

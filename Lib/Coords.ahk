@@ -273,4 +273,43 @@ cMineTransmuteButton() { ; Button for Transmute all bars
     return o
 }
 
- 
+cMineVeinUpgradeButton() { ; Button for upgrading vein level
+    o := RelCoord()
+    o.SetCoordRel(840, 370)
+    return o
+}
+
+; ----- Mine vein icons -----
+
+/* 
+-8 -31
+
+TL
+827 582 6d758d
+ML
+827 731
+BL
+827 881
+TR
+1787 582
+MR
+1787 731
+BR
+1787 881
+
+Cancels
+TL
+1140 582
+ML
+1140 731
+BL
+1140 881
+TR
+2100 582
+MR
+2100 731
+BR
+2100 881
+
+
+ */

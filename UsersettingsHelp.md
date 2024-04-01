@@ -265,6 +265,9 @@ Enable the WW spammer used elsewhere to run in the background.
 MinerEnableBanks: (Default) true  
 Enable the bank maintainer to run using the timeperiod set in BankDepositTime.
 
+MinerEnableVeinUpgrade: (Default) false  
+Enable the automatic purchase of the coal vein level upgrade when available.
+
 MinerVeinsRemoveCommon, MinerVeinsRemoveUncommon, MinerVeinsRemoveRare,
 MinerVeinsRemoveEpic, MinerVeinsRemoveMythical, MinerVeinsRemoveLegendary:
 (Default) false {inactive}  

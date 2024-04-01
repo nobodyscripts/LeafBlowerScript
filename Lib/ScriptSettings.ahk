@@ -41,8 +41,8 @@ global MinerEnableVeins, MinerEnableMineRemoval, MinerEnableTransmute,
     MinerEnableFreeRefuel, MinerVeinsRemoveCommon, MinerVeinsRemoveUncommon,
     MinerVeinsRemoveRare, MinerVeinsRemoveEpic, MinerVeinsRemoveMythical,
     MinerVeinsRemoveLegendary, MinerMineRemovalTimer, MinerTransmuteTimer,
-    MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks
-
+    MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
+    MinerEnableVeinUpgrade
 
 class cSettings {
     sFilename := A_ScriptDir "\UserSettings.ini"
@@ -110,6 +110,7 @@ class cSettings {
         MinerEnableFreeRefuel: "true",
         MinerEnableBanks: "true",
         MinerEnableSpammer: "true",
+        MinerEnableVeinUpgrade: "false",
         MinerVeinsRemoveCommon: "false",
         MinerVeinsRemoveUncommon: "false",
         MinerVeinsRemoveRare: "false",
@@ -182,6 +183,7 @@ class cSettings {
         MinerEnableFreeRefuel: "true",
         MinerEnableBanks: "true",
         MinerEnableSpammer: "true",
+        MinerEnableVeinUpgrade: "false",
         MinerVeinsRemoveCommon: "false",
         MinerVeinsRemoveUncommon: "false",
         MinerVeinsRemoveRare: "false",
@@ -260,7 +262,8 @@ class cSettings {
             MinerEnableFreeRefuel, MinerVeinsRemoveCommon, MinerVeinsRemoveUncommon,
             MinerVeinsRemoveRare, MinerVeinsRemoveEpic, MinerVeinsRemoveMythical,
             MinerVeinsRemoveLegendary, MinerMineRemovalTimer, MinerTransmuteTimer,
-            MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks
+            MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
+            MinerEnableVeinUpgrade
 
         try {
             EnableLogging := this.loadedSettings.EnableLogging :=
@@ -385,6 +388,8 @@ class cSettings {
                 IniToVar(this.sFilename, "Miner", "MinerEnableBanks")
             MinerEnableSpammer := this.loadedSettings.MinerEnableSpammer :=
                 IniToVar(this.sFilename, "Miner", "MinerEnableSpammer")
+            MinerEnableVeinUpgrade := this.loadedSettings.MinerEnableVeinUpgrade :=
+                IniToVar(this.sFilename, "Miner", "MinerEnableVeinUpgrade")
             MinerVeinsRemoveCommon := this.loadedSettings.MinerVeinsRemoveCommon :=
                 IniToVar(this.sFilename, "Miner", "MinerVeinsRemoveCommon")
             MinerVeinsRemoveUncommon := this.loadedSettings.MinerVeinsRemoveUncommon :=
@@ -492,6 +497,7 @@ class cSettings {
             this.WriteToIni("MinerEnableFreeRefuel", this.defaultNobodySettings.MinerEnableFreeRefuel, "Miner")
             this.WriteToIni("MinerEnableBanks", this.defaultNobodySettings.MinerEnableBanks, "Miner")
             this.WriteToIni("MinerEnableSpammer", this.defaultNobodySettings.MinerEnableSpammer, "Miner")
+            this.WriteToIni("MinerEnableVeinUpgrade", this.defaultNobodySettings.MinerEnableVeinUpgrade, "Miner")
             this.WriteToIni("MinerVeinsRemoveCommon", this.defaultNobodySettings.MinerVeinsRemoveCommon, "Miner")
             this.WriteToIni("MinerVeinsRemoveUncommon", this.defaultNobodySettings.MinerVeinsRemoveUncommon, "Miner")
             this.WriteToIni("MinerVeinsRemoveRare", this.defaultNobodySettings.MinerVeinsRemoveRare, "Miner")
@@ -563,6 +569,7 @@ class cSettings {
             this.WriteToIni("MinerEnableFreeRefuel", this.defaultSettings.MinerEnableFreeRefuel, "Miner")
             this.WriteToIni("MinerEnableBanks", this.defaultSettings.MinerEnableBanks, "Miner")
             this.WriteToIni("MinerEnableSpammer", this.defaultSettings.MinerEnableSpammer, "Miner")
+            this.WriteToIni("MinerEnableVeinUpgrade", this.defaultSettings.MinerEnableVeinUpgrade, "Miner")
             this.WriteToIni("MinerVeinsRemoveCommon", this.defaultSettings.MinerVeinsRemoveCommon, "Miner")
             this.WriteToIni("MinerVeinsRemoveUncommon", this.defaultSettings.MinerVeinsRemoveUncommon, "Miner")
             this.WriteToIni("MinerVeinsRemoveRare", this.defaultSettings.MinerVeinsRemoveRare, "Miner")
