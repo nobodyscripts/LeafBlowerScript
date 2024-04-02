@@ -4,6 +4,7 @@
 #Include Spammers.ahk
 
 global MinerEnableVeins := true
+global MinerEnableVeinRemoval := true
 global MinerEnableMineRemoval := true
 global MinerEnableTransmute := true
 global MinerEnableFreeRefuel := true
@@ -77,6 +78,9 @@ fMineMaintainer() {
                 Sleep(NavigateTime)
                 CurrentTab := 0
             }
+            if (MinerEnableVeinRemoval) {
+                RemoveSingleVein()
+            }
             EnhanceVeins()
         }
         /*         if (DateDiff(A_Now, MineTime, "Seconds") >= MinerMineRemovalTimer * 60 &&
@@ -138,8 +142,8 @@ fMineMaintainer() {
                 Sleep(NavigateTime)
         }
         if (IsWindowActive() && CurrentTab = 0 &&
-             VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
-            VeinUpgradeButton.ClickOffset()
+            VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
+                VeinUpgradeButton.ClickOffset()
         }
         Firstpass := false
     }
@@ -199,7 +203,167 @@ CollectFreeDrillFuel() {
     }
 }
 
-FindVeinsWithBars() {
-    results := [false, false, false, false, false, false]
+RemoveSingleVein() {
+    Cancel1 := cMineVeinCancelSlot1()
+    Cancel2 := cMineVeinCancelSlot2()
+    Cancel3 := cMineVeinCancelSlot3()
+    Cancel4 := cMineVeinCancelSlot4()
+    Cancel5 := cMineVeinCancelSlot5()
+    Cancel6 := cMineVeinCancelSlot6()
 
+    VeinTotalCount := FindVeinsCount()
+    PotentialVeins := FindVeinsWithBars()
+
+    if (VeinTotalCount = 6 && PotentialVeins[1].Active = true) {
+        Log("Removing slot 1")
+        Cancel1.ClickOffset()
+        Sleep(NavigateTime)
+        VeinCancelConfirm()
+        VeinTotalCount := FindVeinsCount()
+        return true
+    }
+    if (VeinTotalCount = 6 && PotentialVeins[2].Active = true) {
+        Log("Removing slot 2")
+        Cancel2.ClickOffset()
+        Sleep(NavigateTime)
+        VeinCancelConfirm()
+        VeinTotalCount := FindVeinsCount()
+        return true
+    }
+    if (VeinTotalCount = 6 && PotentialVeins[3].Active = true) {
+        Log("Removing slot 3")
+        Cancel3.ClickOffset()
+        Sleep(NavigateTime)
+        VeinCancelConfirm()
+        VeinTotalCount := FindVeinsCount()
+        return true
+    }
+    if (VeinTotalCount = 6 && PotentialVeins[4].Active = true) {
+        Log("Removing slot 4")
+        Cancel4.ClickOffset()
+        Sleep(NavigateTime)
+        VeinCancelConfirm()
+        VeinTotalCount := FindVeinsCount()
+        return true
+    }
+    if (VeinTotalCount = 6 && PotentialVeins[5].Active = true) {
+        Log("Removing slot 5")
+        Cancel5.ClickOffset()
+        Sleep(NavigateTime)
+        VeinCancelConfirm()
+        VeinTotalCount := FindVeinsCount()
+        return true
+    }
+    if (VeinTotalCount = 6 && PotentialVeins[6].Active = true) {
+        Log("Removing slot 6")
+        Cancel6.ClickOffset()
+        Sleep(NavigateTime)
+        VeinCancelConfirm()
+        VeinTotalCount := FindVeinsCount()
+        return true
+    }
+    return false
+
+}
+
+VeinCancelConfirm() {
+    CancelConfirm := cMineVeinCancelConfirmButton()
+    CancelConfirm.ClickOffset()
+    Sleep(NavigateTime)
+    if (CancelConfirm.IsButtonActive()) {
+        CancelConfirm.ClickOffset()
+        Sleep(NavigateTime)
+    }
+}
+
+FindVeinsWithBars() {
+    SampleSlot1 := cMineVeinIconSlot1()
+    SampleSlot2 := cMineVeinIconSlot2()
+    SampleSlot3 := cMineVeinIconSlot3()
+    SampleSlot4 := cMineVeinIconSlot4()
+    SampleSlot5 := cMineVeinIconSlot5()
+    SampleSlot6 := cMineVeinIconSlot6()
+    QualitySlot1 := cMineColourSlot1()
+    QualitySlot2 := cMineColourSlot2()
+    QualitySlot3 := cMineColourSlot3()
+    QualitySlot4 := cMineColourSlot4()
+    QualitySlot5 := cMineColourSlot5()
+    QualitySlot6 := cMineColourSlot6()
+
+    results := [{ Active: false, Quality: "common" }, { Active: false, Quality: "common" }, { Active: false, Quality: "common" }, { Active: false, Quality: "common" }, { Active: false, Quality: "common" }, { Active: false, Quality: "common" }
+    ]
+    if (SampleSlot1.GetColour() = "0x6D758D") {
+        qualityText := VeinQualityColourToText(QualitySlot1.GetColour())
+        results[1] := { Active: true, Quality: qualityText }
+    }
+    if (SampleSlot2.GetColour() = "0x6D758D") {
+        qualityText := VeinQualityColourToText(QualitySlot2.GetColour())
+        results[2] := { Active: true, Quality: qualityText }
+    }
+    if (SampleSlot3.GetColour() = "0x6D758D") {
+        qualityText := VeinQualityColourToText(QualitySlot3.GetColour())
+        results[3] := { Active: true, Quality: qualityText }
+    }
+    if (SampleSlot4.GetColour() = "0x6D758D") {
+        qualityText := VeinQualityColourToText(QualitySlot4.GetColour())
+        results[4] := { Active: true, Quality: qualityText }
+    }
+    if (SampleSlot5.GetColour() = "0x6D758D") {
+        qualityText := VeinQualityColourToText(QualitySlot5.GetColour())
+        results[5] := { Active: true, Quality: qualityText }
+    }
+    if (SampleSlot6.GetColour() = "0x6D758D") {
+        qualityText := VeinQualityColourToText(QualitySlot6.GetColour())
+        results[6] := { Active: true, Quality: qualityText }
+    }
+    return results
+}
+
+FindVeinsCount() {
+    results := 0
+    Cancel1 := cMineVeinCancelSlot1()
+    Cancel2 := cMineVeinCancelSlot2()
+    Cancel3 := cMineVeinCancelSlot3()
+    Cancel4 := cMineVeinCancelSlot4()
+    Cancel5 := cMineVeinCancelSlot5()
+    Cancel6 := cMineVeinCancelSlot6()
+    if (Cancel1.IsButtonActive()) {
+        results++
+    }
+    if (Cancel2.IsButtonActive()) {
+        results++
+    }
+    if (Cancel3.IsButtonActive()) {
+        results++
+    }
+    if (Cancel4.IsButtonActive()) {
+        results++
+    }
+    if (Cancel5.IsButtonActive()) {
+        results++
+    }
+    if (Cancel6.IsButtonActive()) {
+        results++
+    }
+    Log("Findveinscount: " results)
+    return results
+}
+
+VeinQualityColourToText(value) {
+    switch value {
+        case MinerColourCodeCommon:
+            return "common"
+        case MinerColourCodeUncommon:
+            return "uncommon"
+        case MinerColourCodeRare:
+            return "rare"
+        case MinerColourCodeEpic:
+            return "epic"
+        case MinerColourCodeMythical:
+            return "mythical"
+        case MinerColourCodeLegendary:
+            return "legendary"
+        default:
+            return "common"
+    }
 }

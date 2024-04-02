@@ -241,6 +241,11 @@ Runs crafting autoclicker while using passive tower mode.
 MinerEnableVeins: (Default) true  
 Enable auto enhance of vein jobs in Coal Vein tab.
 
+MinerEnableVeinRemoval: (Default) false
+Auto removes one of the coal bar veins if you have 6 active, letting one refresh
+to get non coal bar veins quicker. Use if you prioritize diamonds/fuel and have
+all 6 slots.
+
 MinerEnableMineRemoval: (Default) true {inactive}  
 Enable auto removal of mine jobs in Mines tab.
 

@@ -63,6 +63,17 @@ Class RelCoord {
         return "X: " this.x " Y: " this.y
     }
 
+    GetColour() {
+        try {
+            colour := PixelGetColor(this.x, this.y)
+        } catch as exc {
+            Log("Error 36: GetColour check failed - " exc.Message)
+            MsgBox("Could not conduct the search due to the following error:`n"
+                exc.Message)
+        }
+        return colour
+    }
+
 }
 
 CardPacksOddButton() {
@@ -146,44 +157,34 @@ cNatureFarmUseSphere() {
 }
 
 ; ------------------- Mining Coords --------------------
-/*
-1036 575
-1036 720
-1036 870
-2000 575
-2000 720
-2000 870
 
-410 (Left row colour x)
-1368 (Right row colour x)
-*/
 cMineEnhanceSlot1() { ; Top left
     o := RelCoord()
     o.SetCoordRel(1036, 575)
     return o
 }
 
-cMineEnhanceSlot2() { ; Mid left
-    o := RelCoord()
-    o.SetCoordRel(1036, 720)
-    return o
-}
-
-cMineEnhanceSlot3() { ; Bottom left
-    o := RelCoord()
-    o.SetCoordRel(1036, 870)
-    return o
-}
-
-cMineEnhanceSlot4() { ; Top right
+cMineEnhanceSlot2() { ; Top right
     o := RelCoord()
     o.SetCoordRel(2000, 575)
     return o
 }
 
-cMineEnhanceSlot5() { ; Mid right
+cMineEnhanceSlot3() { ; Mid left
+    o := RelCoord()
+    o.SetCoordRel(1036, 720)
+    return o
+}
+
+cMineEnhanceSlot4() { ; Mid right
     o := RelCoord()
     o.SetCoordRel(2000, 720)
+    return o
+}
+
+cMineEnhanceSlot5() { ; Bottom left
+    o := RelCoord()
+    o.SetCoordRel(1036, 870)
     return o
 }
 
@@ -201,27 +202,27 @@ cMineColourSlot1() { ; Top left
     return o
 }
 
-cMinColourSlot2() { ; Mid left
-    o := RelCoord()
-    o.SetCoordRel(410, 720)
-    return o
-}
-
-cMineColourSlot3() { ; Bottom left
-    o := RelCoord()
-    o.SetCoordRel(410, 870)
-    return o
-}
-
-cMineColourSlot4() { ; Top right
+cMineColourSlot2() { ; Top right
     o := RelCoord()
     o.SetCoordRel(1368, 575)
     return o
 }
 
-cMineColourSlot5() { ; Mid right
+cMineColourSlot3() { ; Mid left
+    o := RelCoord()
+    o.SetCoordRel(410, 720)
+    return o
+}
+
+cMineColourSlot4() { ; Mid right
     o := RelCoord()
     o.SetCoordRel(1368, 720)
+    return o
+}
+
+cMineColourSlot5() { ; Bottom left
+    o := RelCoord()
+    o.SetCoordRel(410, 870)
     return o
 }
 
@@ -230,6 +231,84 @@ cMineColourSlot6() { ; Bottom right
     o.SetCoordRel(1368, 870)
     return o
 }
+
+; Vein type icon locations
+
+cMineVeinIconSlot1() { ; Top left
+    o := RelCoord()
+    o.SetCoordRel(829, 561)
+    return o
+}
+
+cMineVeinIconSlot2() { ; Top right
+    o := RelCoord()
+    o.SetCoordRel(1789, 561)
+    return o
+}
+
+cMineVeinIconSlot3() { ; Mid left
+    o := RelCoord()
+    o.SetCoordRel(829, 711)
+    return o
+}
+
+cMineVeinIconSlot4() { ; Mid right
+    o := RelCoord()
+    o.SetCoordRel(1789, 711)
+    return o
+}
+
+cMineVeinIconSlot5() { ; Bottom left
+    o := RelCoord()
+    o.SetCoordRel(829, 860)
+    return o
+}
+
+cMineVeinIconSlot6() { ; Bottom right
+    o := RelCoord()
+    o.SetCoordRel(1789, 860)
+    return o
+}
+
+; Vein cancel button locations
+
+cMineVeinCancelSlot1() { ; Top left
+    o := RelCoord()
+    o.SetCoordRel(1140, 575)
+    return o
+}
+
+cMineVeinCancelSlot2() { ; Top right
+    o := RelCoord()
+    o.SetCoordRel(2100, 575)
+    return o
+}
+
+cMineVeinCancelSlot3() { ; Mid left
+    o := RelCoord()
+    o.SetCoordRel(1140, 723)
+    return o
+}
+
+cMineVeinCancelSlot4() { ; Mid right
+    o := RelCoord()
+    o.SetCoordRel(2100, 723)
+    return o
+}
+
+cMineVeinCancelSlot5() { ; Bottom left
+    o := RelCoord()
+    o.SetCoordRel(1140, 874)
+    return o
+}
+
+cMineVeinCancelSlot6() { ; Bottom right
+    o := RelCoord()
+    o.SetCoordRel(2100, 874)
+    return o
+}
+
+; Mine navigate tabs
 
 cMineTabVein() { ; First tab
     o := RelCoord()
@@ -279,37 +358,8 @@ cMineVeinUpgradeButton() { ; Button for upgrading vein level
     return o
 }
 
-; ----- Mine vein icons -----
-
-/* 
--8 -31
-
-TL
-827 582 6d758d
-ML
-827 731
-BL
-827 881
-TR
-1787 582
-MR
-1787 731
-BR
-1787 881
-
-Cancels
-TL
-1140 582
-ML
-1140 731
-BL
-1140 881
-TR
-2100 582
-MR
-2100 731
-BR
-2100 881
-
-
- */
+cMineVeinCancelConfirmButton() { ; Button for upgrading vein level
+    o := RelCoord()
+    o.SetCoordRel(1247, 527)
+    return o
+}

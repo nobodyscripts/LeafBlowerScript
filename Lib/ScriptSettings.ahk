@@ -42,7 +42,7 @@ global MinerEnableVeins, MinerEnableMineRemoval, MinerEnableTransmute,
     MinerVeinsRemoveRare, MinerVeinsRemoveEpic, MinerVeinsRemoveMythical,
     MinerVeinsRemoveLegendary, MinerMineRemovalTimer, MinerTransmuteTimer,
     MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
-    MinerEnableVeinUpgrade
+    MinerEnableVeinUpgrade, MinerEnableVeinRemoval
 
 class cSettings {
     sFilename := A_ScriptDir "\UserSettings.ini"
@@ -111,6 +111,7 @@ class cSettings {
         MinerEnableBanks: "true",
         MinerEnableSpammer: "true",
         MinerEnableVeinUpgrade: "false",
+        MinerEnableVeinRemoval: "false",
         MinerVeinsRemoveCommon: "false",
         MinerVeinsRemoveUncommon: "false",
         MinerVeinsRemoveRare: "false",
@@ -184,6 +185,7 @@ class cSettings {
         MinerEnableBanks: "true",
         MinerEnableSpammer: "true",
         MinerEnableVeinUpgrade: "false",
+        MinerEnableVeinRemoval: "false",
         MinerVeinsRemoveCommon: "false",
         MinerVeinsRemoveUncommon: "false",
         MinerVeinsRemoveRare: "false",
@@ -263,7 +265,7 @@ class cSettings {
             MinerVeinsRemoveRare, MinerVeinsRemoveEpic, MinerVeinsRemoveMythical,
             MinerVeinsRemoveLegendary, MinerMineRemovalTimer, MinerTransmuteTimer,
             MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
-            MinerEnableVeinUpgrade
+            MinerEnableVeinUpgrade, MinerEnableVeinRemoval
 
         try {
             EnableLogging := this.loadedSettings.EnableLogging :=
@@ -378,6 +380,8 @@ class cSettings {
                 IniToVar(this.sFilename, "TowerPassive", "TowerPassiveCraftEnabled")
             MinerEnableVeins := this.loadedSettings.MinerEnableVeins :=
                 IniToVar(this.sFilename, "Miner", "MinerEnableVeins")
+            MinerEnableVeinRemoval := this.loadedSettings.MinerEnableVeinRemoval :=
+                IniToVar(this.sFilename, "Miner", "MinerEnableVeinRemoval")
             MinerEnableMineRemoval := this.loadedSettings.MinerEnableMineRemoval :=
                 IniToVar(this.sFilename, "Miner", "MinerEnableMineRemoval")
             MinerEnableTransmute := this.loadedSettings.MinerEnableTransmute :=
@@ -492,6 +496,7 @@ class cSettings {
             this.WriteToIni("TowerPassiveBanksEnabled", this.defaultNobodySettings.TowerPassiveBanksEnabled, "TowerPassive")
             this.WriteToIni("TowerPassiveCraftEnabled", this.defaultNobodySettings.TowerPassiveCraftEnabled, "TowerPassive")
             this.WriteToIni("MinerEnableVeins", this.defaultNobodySettings.MinerEnableVeins, "Miner")
+            this.WriteToIni("MinerEnableVeinRemoval", this.defaultNobodySettings.MinerEnableVeinRemoval, "Miner")
             this.WriteToIni("MinerEnableMineRemoval", this.defaultNobodySettings.MinerEnableMineRemoval, "Miner")
             this.WriteToIni("MinerEnableTransmute", this.defaultNobodySettings.MinerEnableTransmute, "Miner")
             this.WriteToIni("MinerEnableFreeRefuel", this.defaultNobodySettings.MinerEnableFreeRefuel, "Miner")
@@ -564,6 +569,7 @@ class cSettings {
             this.WriteToIni("TowerPassiveBanksEnabled", this.defaultSettings.TowerPassiveBanksEnabled, "TowerPassive")
             this.WriteToIni("TowerPassiveCraftEnabled", this.defaultSettings.TowerPassiveCraftEnabled, "TowerPassive")
             this.WriteToIni("MinerEnableVeins", this.defaultSettings.MinerEnableVeins, "Miner")
+            this.WriteToIni("MinerEnableVeinRemoval", this.defaultSettings.MinerEnableVeinRemoval, "Miner")
             this.WriteToIni("MinerEnableMineRemoval", this.defaultSettings.MinerEnableMineRemoval, "Miner")
             this.WriteToIni("MinerEnableTransmute", this.defaultSettings.MinerEnableTransmute, "Miner")
             this.WriteToIni("MinerEnableFreeRefuel", this.defaultSettings.MinerEnableFreeRefuel, "Miner")

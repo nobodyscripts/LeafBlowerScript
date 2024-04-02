@@ -186,6 +186,8 @@ Insert: Removal of mine instance and removal of veins by quality not implimented
 yet.  
 Insert: Added MinerEnableVeinUpgrade to auto purchase vein upgrade levels when
 available, off by default.  
+Insert: Added MinerEnableVeinRemoval to remove coal bar veins to leave one slot
+free to spawn new non coal bar veins quicker.  
 
 Del: Quick cursed cheese farm mode, left in incase anyone else needs.
 
