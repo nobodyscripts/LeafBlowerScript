@@ -158,27 +158,27 @@ EnhanceVeins() {
     slot5 := cMineEnhanceSlot5()
     slot6 := cMineEnhanceSlot6()
     while (IsWindowActive() && IsPanelActive() && !slot1.IsBackground()) {
-        slot1.ClickOffset()
+        slot1.ClickOffset(5, 5, 34)
         Sleep(NavigateTime)
     }
     while (IsWindowActive() && IsPanelActive() && !slot2.IsBackground()) {
-        slot2.ClickOffset()
+        slot2.ClickOffset(5, 5, 34)
         Sleep(NavigateTime)
     }
     while (IsWindowActive() && IsPanelActive() && !slot3.IsBackground()) {
-        slot3.ClickOffset()
+        slot3.ClickOffset(5, 5, 34)
         Sleep(NavigateTime)
     }
     while (IsWindowActive() && IsPanelActive() && !slot4.IsBackground()) {
-        slot4.ClickOffset()
+        slot4.ClickOffset(5, 5, 34)
         Sleep(NavigateTime)
     }
     while (IsWindowActive() && IsPanelActive() && !slot5.IsBackground()) {
-        slot5.ClickOffset()
+        slot5.ClickOffset(5, 5, 34)
         Sleep(NavigateTime)
     }
     while (IsWindowActive() && IsPanelActive() && !slot6.IsBackground()) {
-        slot6.ClickOffset()
+        slot6.ClickOffset(5, 5, 34)
         Sleep(NavigateTime)
     }
 }

@@ -193,9 +193,6 @@ Del: Quick cursed cheese farm mode, left in incase anyone else needs.
 
 ## TODO
 
-Insert: Auto remove lowest quality coal bar vein if all slots filled to allow
-quicker diamond spawns.  
-Insert: Auto upgrade
 Rethink F8, F9, Insert, Home  
 Devoption: Window check, keybinds and active checks designed around dev.
    F12 Test mode, edit save file to incorrect settings and test each
