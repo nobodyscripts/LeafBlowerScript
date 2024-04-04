@@ -188,6 +188,7 @@ Insert: Added MinerEnableVeinUpgrade to auto purchase vein upgrade levels when
 available, off by default.  
 Insert: Added MinerEnableVeinRemoval to remove coal bar veins to leave one slot
 free to spawn new non coal bar veins quicker.  
+Insert: Fix for v2.24.2 transmute button moving.  
 
 Del: Quick cursed cheese farm mode, left in incase anyone else needs.
 
