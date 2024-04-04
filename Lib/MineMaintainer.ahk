@@ -50,6 +50,7 @@ fMineMaintainer() {
     ShopTab := cMineTabShop()
     TransmuteTab := cMineTabTransmute()
     VeinUpgradeButton := cMineVeinUpgradeButton()
+    CancelConfirm := cMineVeinCancelConfirmButton()
     CurrentTab := 0
     ToolTip("Mine Maintainer Active", W / 2,
         WinRelPosLargeH(200), 4)
@@ -82,6 +83,9 @@ fMineMaintainer() {
                 RemoveSingleVein()
             }
             EnhanceVeins()
+        }
+        if (IsWindowActive() && CancelConfirm.IsButtonActive()) {
+            VeinCancelConfirm()
         }
         /*         if (DateDiff(A_Now, MineTime, "Seconds") >= MinerMineRemovalTimer * 60 &&
                     MinerEnableMineRemoval) {
@@ -274,7 +278,7 @@ VeinCancelConfirm() {
     l := 0
     while (!CancelConfirm.IsBackground() && l < 10 && IsWindowActive()) {
         CancelConfirm.ClickOffset()
-        Sleep(NavigateTime)
+        Sleep(NavigateTime + 50)
         l++
     }
 }
