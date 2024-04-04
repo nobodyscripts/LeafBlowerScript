@@ -190,6 +190,7 @@ Insert: Added MinerEnableVeinRemoval to remove coal bar veins to leave one slot
 free to spawn new non coal bar veins quicker.  
 Insert: Fix for v2.24.2 transmute button moving.  
 Insert: Fix for features enabled on firstpass when disabled.  
+Insert: Fix vein removal confirmation getting stuck, added loop.  
 
 Del: Quick cursed cheese farm mode, left in incase anyone else needs.
 

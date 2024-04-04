@@ -97,35 +97,35 @@ fMineMaintainer() {
                 }
         */
         if ((Firstpass && MinerEnableTransmute) ||
-             (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
-            MinerEnableTransmute)) {
-                TransmuteTime := A_Now
-                if (CurrentTab != 6) {
-                    TransmuteTab.Click()
+            (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
+                MinerEnableTransmute)) {
+                    TransmuteTime := A_Now
+                    if (CurrentTab != 6) {
+                        TransmuteTab.Click()
+                        Sleep(NavigateTime)
+                        TransmuteTab.Click()
+                        Sleep(NavigateTime)
+                        CurrentTab := 6
+                    }
+                    TransmuteAllCoalBars()
+                    Log("Mine: Transmuted all bars.")
                     Sleep(NavigateTime)
-                    TransmuteTab.Click()
-                    Sleep(NavigateTime)
-                    CurrentTab := 6
-                }
-                TransmuteAllCoalBars()
-                Log("Mine: Transmuted all bars.")
-                Sleep(NavigateTime)
         }
 
         if ((Firstpass && MinerEnableFreeRefuel) ||
-             (IsWindowActive() && DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
-            MinerEnableFreeRefuel)) {
-                RefuelTime := A_Now
-                if (CurrentTab != 4) {
-                    DrillTab.Click()
+            (IsWindowActive() && DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
+                MinerEnableFreeRefuel)) {
+                    RefuelTime := A_Now
+                    if (CurrentTab != 4) {
+                        DrillTab.Click()
+                        Sleep(NavigateTime)
+                        DrillTab.Click()
+                        Sleep(NavigateTime)
+                        CurrentTab := 4
+                    }
+                    CollectFreeDrillFuel()
+                    Log("Mine: Collected free fuel.")
                     Sleep(NavigateTime)
-                    DrillTab.Click()
-                    Sleep(NavigateTime)
-                    CurrentTab := 4
-                }
-                CollectFreeDrillFuel()
-                Log("Mine: Collected free fuel.")
-                Sleep(NavigateTime)
         }
         if ((Firstpass && MinerEnableBanks) ||
             (IsWindowActive() && DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
@@ -271,11 +271,11 @@ RemoveSingleVein() {
 
 VeinCancelConfirm() {
     CancelConfirm := cMineVeinCancelConfirmButton()
-    CancelConfirm.ClickOffset()
-    Sleep(NavigateTime)
-    if (CancelConfirm.IsButtonActive()) {
+    l := 0
+    while (CancelConfirm.IsButtonActive() && l < 10) {
         CancelConfirm.ClickOffset()
         Sleep(NavigateTime)
+        l++
     }
 }
 
