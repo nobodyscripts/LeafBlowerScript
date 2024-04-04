@@ -272,7 +272,7 @@ RemoveSingleVein() {
 VeinCancelConfirm() {
     CancelConfirm := cMineVeinCancelConfirmButton()
     l := 0
-    while (CancelConfirm.IsButtonActive() && l < 10) {
+    while (!CancelConfirm.IsBackground() && l < 10 && IsWindowActive()) {
         CancelConfirm.ClickOffset()
         Sleep(NavigateTime)
         l++

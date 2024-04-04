@@ -360,6 +360,6 @@ cMineVeinUpgradeButton() { ; Button for upgrading vein level
 
 cMineVeinCancelConfirmButton() { ; Button for upgrading vein level
     o := RelCoord()
-    o.SetCoordRel(1247, 527)
+    o.SetCoordRel(1063, 505) ; Formerly 1247 527
     return o
 }
