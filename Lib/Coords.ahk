@@ -348,7 +348,7 @@ cMineFreeFuelButton() { ; Button for free fuel refill
 
 cMineTransmuteButton() { ; Button for Transmute all bars
     o := RelCoord()
-    o.SetCoordRel(695, 383)
+    o.SetCoordRel(718, 390)
     return o
 }
 
