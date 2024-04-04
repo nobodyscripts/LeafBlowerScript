@@ -84,9 +84,6 @@ EquipTowerGearLoadout() {
     ControlSend("{Numpad3}", , LBRWindowTitle)
 }
 
-EquipQuarkGearLoadout() {
-    ControlSend("{Numpad7}", , LBRWindowTitle)
-}
 
 ClosePanel() {
     ControlSend("{Esc}", , LBRWindowTitle)
@@ -97,6 +94,10 @@ ClosePanel() {
 
 OpenTools() {
     ControlSend("{1}", , LBRWindowTitle) ; Inactive
+}
+
+EquipQuarkGearLoadout() {
+    ControlSend("{Numpad7}", , LBRWindowTitle)
 }
 
 EquipDamageGearLoadout() {

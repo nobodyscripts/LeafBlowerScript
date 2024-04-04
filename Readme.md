@@ -78,10 +78,9 @@ need tweaking if not) This is intended to be optional, but you can use this if
 things break for you. And to test if settings are working. Does not currently
 test for alb settings, may break if window title bar/borders are different.
 
-Insert: Quark boss farmer - Spams violins when on cd, wind when not, has an
-option in config to return to one of the three bosses on death (with 10s wait).
-If set takes you to the boss when run. Equips a loadout for nuclear fuel, resets
-to default loadout when canceled.
+Insert: Mine maintainer - Automatic enhance, vein removal (to quickly refresh),
+Transmute max coal bars to coal diamonds on timer, free drill fuel collection on
+a timer. Bank and WW spammer supported.
 
 Home: Hyacinth farming - Spam grows hyacinths to farm nature gems/exp. Can farm
 bosses with WW in the background.

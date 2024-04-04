@@ -18,7 +18,6 @@ global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
 global GemFarmSleepAmount
 global ClawCheckSizeOffset
 global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
-global QuarkFarmResetToBoss
 global NavigateTime
 global DisableZoneChecks, DisableSettingsChecks
 global ArtifactSleepAmount
@@ -38,9 +37,7 @@ global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
 global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
 
 global MinerEnableVeins, MinerEnableMineRemoval, MinerEnableTransmute,
-    MinerEnableFreeRefuel, MinerVeinsRemoveCommon, MinerVeinsRemoveUncommon,
-    MinerVeinsRemoveRare, MinerVeinsRemoveEpic, MinerVeinsRemoveMythical,
-    MinerVeinsRemoveLegendary, MinerMineRemovalTimer, MinerTransmuteTimer,
+    MinerEnableFreeRefuel, MinerMineRemovalTimer, MinerTransmuteTimer,
     MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
     MinerEnableVeinUpgrade, MinerEnableVeinRemoval
 
@@ -76,7 +73,6 @@ class cSettings {
         ClawCheckSizeOffset: 0,
         BVItemsArr: "0x018C9C, 0x01D814, 0x0F2A1D, 0x6CD820, 0xC9C9C9",
         BVBlockMythLeg: "true",
-        QuarkFarmResetToBoss: 3,
         NavigateTime: 101,
         DisableZoneChecks: "false",
         DisableSettingsChecks: "false",
@@ -112,12 +108,6 @@ class cSettings {
         MinerEnableSpammer: "true",
         MinerEnableVeinUpgrade: "false",
         MinerEnableVeinRemoval: "false",
-        MinerVeinsRemoveCommon: "false",
-        MinerVeinsRemoveUncommon: "false",
-        MinerVeinsRemoveRare: "false",
-        MinerVeinsRemoveEpic: "false",
-        MinerVeinsRemoveMythical: "false",
-        MinerVeinsRemoveLegendary: "false",
         MinerMineRemovalTimer: 5,
         MinerTransmuteTimer: 1,
         MinerRefuelTimer: 1
@@ -150,7 +140,6 @@ class cSettings {
         ClawCheckSizeOffset: 0,
         BVItemsArr: "0x01D814, 0xC9C9C9, 0xF91FF6",
         BVBlockMythLeg: "false",
-        QuarkFarmResetToBoss: 0,
         NavigateTime: 101,
         DisableZoneChecks: "false",
         DisableSettingsChecks: "false",
@@ -186,12 +175,6 @@ class cSettings {
         MinerEnableSpammer: "true",
         MinerEnableVeinUpgrade: "false",
         MinerEnableVeinRemoval: "false",
-        MinerVeinsRemoveCommon: "false",
-        MinerVeinsRemoveUncommon: "false",
-        MinerVeinsRemoveRare: "false",
-        MinerVeinsRemoveEpic: "false",
-        MinerVeinsRemoveMythical: "false",
-        MinerVeinsRemoveLegendary: "false",
         MinerMineRemovalTimer: 5,
         MinerTransmuteTimer: 1,
         MinerRefuelTimer: 1
@@ -244,7 +227,6 @@ class cSettings {
         global GemFarmSleepAmount
         global ClawCheckSizeOffset
         global BVItemsArr, BVBlockMythLeg
-        global QuarkFarmResetToBoss
         global NavigateTime
         global DisableZoneChecks, DisableSettingsChecks
         global ArtifactSleepAmount
@@ -261,9 +243,7 @@ class cSettings {
         global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
 
         global MinerEnableVeins, MinerEnableMineRemoval, MinerEnableTransmute,
-            MinerEnableFreeRefuel, MinerVeinsRemoveCommon, MinerVeinsRemoveUncommon,
-            MinerVeinsRemoveRare, MinerVeinsRemoveEpic, MinerVeinsRemoveMythical,
-            MinerVeinsRemoveLegendary, MinerMineRemovalTimer, MinerTransmuteTimer,
+            MinerEnableFreeRefuel, MinerMineRemovalTimer, MinerTransmuteTimer,
             MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
             MinerEnableVeinUpgrade, MinerEnableVeinRemoval
 
@@ -322,8 +302,6 @@ class cSettings {
                 StrSplit(IniToVar(this.sFilename, "Borbventures", "BVItemsArr"), " ", ",.")
             BVBlockMythLeg := this.loadedSettings.BVBlockMythLeg :=
                 IniToVar(this.sFilename, "Borbventures", "BVBlockMythLeg")
-            QuarkFarmResetToBoss := this.loadedSettings.QuarkFarmResetToBoss :=
-                IniToVar(this.sFilename, "Quark", "QuarkFarmResetToBoss")
             NavigateTime := this.loadedSettings.NavigateTime :=
                 IniToVar(this.sFilename, this.sFileSection, "NavigateTime")
             DisableZoneChecks := this.loadedSettings.DisableZoneChecks :=
@@ -394,18 +372,6 @@ class cSettings {
                 IniToVar(this.sFilename, "Miner", "MinerEnableSpammer")
             MinerEnableVeinUpgrade := this.loadedSettings.MinerEnableVeinUpgrade :=
                 IniToVar(this.sFilename, "Miner", "MinerEnableVeinUpgrade")
-            MinerVeinsRemoveCommon := this.loadedSettings.MinerVeinsRemoveCommon :=
-                IniToVar(this.sFilename, "Miner", "MinerVeinsRemoveCommon")
-            MinerVeinsRemoveUncommon := this.loadedSettings.MinerVeinsRemoveUncommon :=
-                IniToVar(this.sFilename, "Miner", "MinerVeinsRemoveUncommon")
-            MinerVeinsRemoveRare := this.loadedSettings.MinerVeinsRemoveRare :=
-                IniToVar(this.sFilename, "Miner", "MinerVeinsRemoveRare")
-            MinerVeinsRemoveEpic := this.loadedSettings.MinerVeinsRemoveEpic :=
-                IniToVar(this.sFilename, "Miner", "MinerVeinsRemoveEpic")
-            MinerVeinsRemoveMythical := this.loadedSettings.MinerVeinsRemoveMythical :=
-                IniToVar(this.sFilename, "Miner", "MinerVeinsRemoveMythical")
-            MinerVeinsRemoveLegendary := this.loadedSettings.MinerVeinsRemoveLegendary :=
-                IniToVar(this.sFilename, "Miner", "MinerVeinsRemoveLegendary")
             MinerMineRemovalTimer := this.loadedSettings.MinerMineRemovalTimer :=
                 IniToVar(this.sFilename, "Miner", "MinerMineRemovalTimer")
             MinerTransmuteTimer := this.loadedSettings.MinerTransmuteTimer :=
@@ -467,7 +433,6 @@ class cSettings {
             this.WriteToIni("ClawCheckSizeOffset", this.defaultNobodySettings.ClawCheckSizeOffset, "Claw")
             this.WriteToIni("BVItemsArr", this.defaultNobodySettings.BVItemsArr, "Borbventures")
             this.WriteToIni("BVBlockMythLeg", this.defaultNobodySettings.BVBlockMythLeg, "Borbventures")
-            this.WriteToIni("QuarkFarmResetToBoss", this.defaultNobodySettings.QuarkFarmResetToBoss, "Quark")
             this.WriteToIni("NavigateTime", this.defaultNobodySettings.NavigateTime)
             this.WriteToIni("DisableZoneChecks", this.defaultNobodySettings.DisableZoneChecks)
             this.WriteToIni("DisableSettingsChecks", this.defaultNobodySettings.DisableSettingsChecks)
@@ -503,12 +468,6 @@ class cSettings {
             this.WriteToIni("MinerEnableBanks", this.defaultNobodySettings.MinerEnableBanks, "Miner")
             this.WriteToIni("MinerEnableSpammer", this.defaultNobodySettings.MinerEnableSpammer, "Miner")
             this.WriteToIni("MinerEnableVeinUpgrade", this.defaultNobodySettings.MinerEnableVeinUpgrade, "Miner")
-            this.WriteToIni("MinerVeinsRemoveCommon", this.defaultNobodySettings.MinerVeinsRemoveCommon, "Miner")
-            this.WriteToIni("MinerVeinsRemoveUncommon", this.defaultNobodySettings.MinerVeinsRemoveUncommon, "Miner")
-            this.WriteToIni("MinerVeinsRemoveRare", this.defaultNobodySettings.MinerVeinsRemoveRare, "Miner")
-            this.WriteToIni("MinerVeinsRemoveEpic", this.defaultNobodySettings.MinerVeinsRemoveEpic, "Miner")
-            this.WriteToIni("MinerVeinsRemoveMythical", this.defaultNobodySettings.MinerVeinsRemoveMythical, "Miner")
-            this.WriteToIni("MinerVeinsRemoveLegendary", this.defaultNobodySettings.MinerVeinsRemoveLegendary, "Miner")
             this.WriteToIni("MinerMineRemovalTimer", this.defaultNobodySettings.MinerMineRemovalTimer, "Miner")
             this.WriteToIni("MinerTransmuteTimer", this.defaultNobodySettings.MinerTransmuteTimer, "Miner")
             this.WriteToIni("MinerRefuelTimer", this.defaultNobodySettings.MinerRefuelTimer, "Miner")
@@ -540,7 +499,6 @@ class cSettings {
             this.WriteToIni("ClawCheckSizeOffset", this.defaultSettings.ClawCheckSizeOffset, "Claw")
             this.WriteToIni("BVItemsArr", this.defaultSettings.BVItemsArr, "Borbventures")
             this.WriteToIni("BVBlockMythLeg", this.defaultSettings.BVBlockMythLeg, "Borbventures")
-            this.WriteToIni("QuarkFarmResetToBoss", this.defaultSettings.QuarkFarmResetToBoss, "Quark")
             this.WriteToIni("NavigateTime", this.defaultSettings.NavigateTime)
             this.WriteToIni("DisableZoneChecks", this.defaultSettings.DisableZoneChecks)
             this.WriteToIni("DisableSettingsChecks", this.defaultSettings.DisableSettingsChecks)
@@ -576,12 +534,6 @@ class cSettings {
             this.WriteToIni("MinerEnableBanks", this.defaultSettings.MinerEnableBanks, "Miner")
             this.WriteToIni("MinerEnableSpammer", this.defaultSettings.MinerEnableSpammer, "Miner")
             this.WriteToIni("MinerEnableVeinUpgrade", this.defaultSettings.MinerEnableVeinUpgrade, "Miner")
-            this.WriteToIni("MinerVeinsRemoveCommon", this.defaultSettings.MinerVeinsRemoveCommon, "Miner")
-            this.WriteToIni("MinerVeinsRemoveUncommon", this.defaultSettings.MinerVeinsRemoveUncommon, "Miner")
-            this.WriteToIni("MinerVeinsRemoveRare", this.defaultSettings.MinerVeinsRemoveRare, "Miner")
-            this.WriteToIni("MinerVeinsRemoveEpic", this.defaultSettings.MinerVeinsRemoveEpic, "Miner")
-            this.WriteToIni("MinerVeinsRemoveMythical", this.defaultSettings.MinerVeinsRemoveMythical, "Miner")
-            this.WriteToIni("MinerVeinsRemoveLegendary", this.defaultSettings.MinerVeinsRemoveLegendary, "Miner")
             this.WriteToIni("MinerMineRemovalTimer", this.defaultSettings.MinerMineRemovalTimer, "Miner")
             this.WriteToIni("MinerTransmuteTimer", this.defaultSettings.MinerTransmuteTimer, "Miner")
             this.WriteToIni("MinerRefuelTimer", this.defaultSettings.MinerRefuelTimer, "Miner")

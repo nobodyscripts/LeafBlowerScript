@@ -111,14 +111,6 @@ BVBlockMythLeg: (Default) true
 Prevents the borbventures farm from starting missions of Mythical or Legendary
 quality.
 
-QuarkFarmResetToBoss: (Default) 0  
-When you die in F9 quark mode, wait 10s to heal then go to this boss  
-0 Disabled (manual travel only)  
-1 Atomic Arbiter  
-2 Cosmic Dragon  
-3 Quantum Artificer  
-(You are able to manually swap bosses as required regardless of this setting)
-
 NavigateTime: (Default) 101  
 Delay between actions while trying to travel, if experiencing retry loops
 increasing this may help. In ms, default 101
@@ -140,7 +132,7 @@ Time between artifact usage, can speed up or slow down to avoid wastage
 
 BossFarmUsesWind: (Default) true  
 Add Wind spam to the violin spammer, while boss is spawned, useful with
-high end nuclear fuel set to quickly kill bosses/quark.
+high end nuclear fuel set to quickly kill bosses.
 
 BossFarmUsesWobblyWings: (Default) false  
 Use WW on a split timer so that you can control due to slow time to spawn.

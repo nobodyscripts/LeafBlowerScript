@@ -17,7 +17,6 @@
 #Include Lib\FarmGFSS.ahk
 #Include Lib\FarmNatureBoss.ahk
 #Include Lib\FarmNormalBoss.ahk
-#Include Lib\FarmQuarkBoss.ahk
 #Include Lib\GemFarm.ahk
 #Include Lib\NatureHyacinth.ahk
 #Include Lib\TowerTimeWarp.ahk
@@ -80,7 +79,7 @@ Run this file to load script
 }
 *F2:: {
     global HadToHideNotifs, HadToRemoveBearo, GemFarmActive, TowerFarmActive,
-        QuarkFarmActive, bvAutostartDisabled
+        bvAutostartDisabled
     ; Toggle notifs to handle multiple situations where its toggled
     KillAllSpammers()
     if (HadToHideNotifs) {
@@ -116,13 +115,6 @@ Run this file to load script
     if (TowerFarmActive) {
         TowerFarmActive := false
         Log("F2: Equiping default loadout.")
-        EquipDefaultGearLoadout()
-        cReload()
-        return
-    }
-    if (QuarkFarmActive) {
-        QuarkFarmActive := false
-        Log("F2: Equipped Default Loadout")
         EquipDefaultGearLoadout()
         cReload()
         return
@@ -426,35 +418,6 @@ removeLastCheckTooltip() {
 }
 
 /**
- * Toggle the Quark Boss farm mode (old)
- * @param ThisHotkey Insert
- * @returns {void} 
- 
-*Insert:: {
-    ; Farm bosses using violins
-    Static on13 := false
-    global QuarkFarmActive
-    QuarkFarmActive := true
-    Log("Insert: Pressed")
-    InitScriptHotKey()
-    If (on13 := !on13) {
-        if (!CheckGameSettingsCorrect()) {
-            cReload()
-            return
-        }
-        Log("Insert: Quark Boss Activated")
-        fFarmNormalBossQuark()
-    } Else {
-        QuarkFarmActive := false
-        Log("Insert: Equipped Default Loadout")
-        EquipDefaultGearLoadout()
-        Log("Insert: Resetting")
-        cReload()
-        return
-    }
-}*/
-
-/**
  * Toggle the mine mantainer
  * @param ThisHotkey Insert
  * @returns {void} 
@@ -594,8 +557,6 @@ removeLastCheckTooltip() {
     ScrollAmountUp(10)
     Sleep(1000)
     OpenEventsAreasPanel()
-    Sleep(1000)
-    OpenQuarkPanel()
     Sleep(1000)
     GoToHomeGarden()
     Sleep(1000)
