@@ -96,7 +96,8 @@ fMineMaintainer() {
                         Sleep(NavigateTime)
                 }
         */
-        if (Firstpass || (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
+        if ((Firstpass && MinerEnableTransmute) ||
+             (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
             MinerEnableTransmute)) {
                 TransmuteTime := A_Now
                 if (CurrentTab != 6) {
@@ -111,7 +112,8 @@ fMineMaintainer() {
                 Sleep(NavigateTime)
         }
 
-        if (Firstpass || (IsWindowActive() && DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
+        if ((Firstpass && MinerEnableFreeRefuel) ||
+             (IsWindowActive() && DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
             MinerEnableFreeRefuel)) {
                 RefuelTime := A_Now
                 if (CurrentTab != 4) {
@@ -125,21 +127,22 @@ fMineMaintainer() {
                 Log("Mine: Collected free fuel.")
                 Sleep(NavigateTime)
         }
-        if (Firstpass || (IsWindowActive() && DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
-            MinerEnableBanks)) {
-                ToolTip(, , , 4)
-                Log("Mine: Bank Maintainer starting.")
-                ToolTip("Mine Bank Maintainer Active", W / 2,
-                    WinRelPosLargeH(200), 4)
-                Sleep(NavigateTime)
-                BankSinglePass()
-                ToolTip(, , , 4)
-                ToolTip("Mine Maintainer Active", W / 2,
-                    WinRelPosLargeH(200), 4)
-                BankTime := A_Now
-                Sleep(NavigateTime)
-                OpenMining()
-                Sleep(NavigateTime)
+        if ((Firstpass && MinerEnableBanks) ||
+            (IsWindowActive() && DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
+                MinerEnableBanks)) {
+                    ToolTip(, , , 4)
+                    Log("Mine: Bank Maintainer starting.")
+                    ToolTip("Mine Bank Maintainer Active", W / 2,
+                        WinRelPosLargeH(200), 4)
+                    Sleep(NavigateTime)
+                    BankSinglePass()
+                    ToolTip(, , , 4)
+                    ToolTip("Mine Maintainer Active", W / 2,
+                        WinRelPosLargeH(200), 4)
+                    BankTime := A_Now
+                    Sleep(NavigateTime)
+                    OpenMining()
+                    Sleep(NavigateTime)
         }
         if (IsWindowActive() && CurrentTab = 0 &&
             VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
