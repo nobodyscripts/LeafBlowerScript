@@ -23,21 +23,21 @@ fGemFarmSuitcase() {
     if (IsWindowActive() && IsNotificationActive()) {
         Log("GemFarm: Found notifications on and toggled off.")
         ; Notifications were blocking, close notifications
-        fSlowClick(32, 596, 72)
-        Sleep(101)
+        fSlowClick(32, 596, NavigateTime)
+        Sleep(NavigateTime)
         HadToHideNotifs := true
     }
 
     ; Removes bearo from your pet team if its active
     RemoveBearo()
-    sleep(150)
+    sleep(NavigateTime)
     if (!IsWindowActive()) {
         Log("GemFarm: Exiting as no game.")
         return
     } else {
         ; We need the trade window now the Bearo and traveling is done
         OpenTrades()
-        sleep(150)
+        sleep(NavigateTime)
         RefreshTrades()
         ; Need to refresh once otherwise there might be blank trade screen
     }
@@ -53,27 +53,27 @@ fGemFarmSuitcase() {
     if (HadToHideNotifs && IsWindowActive()) {
         Log("GemFarm: Reenabling notifications.")
         ; Notification button
-        fSlowClick(32, 596, 72)
-        sleep(72)
+        fSlowClick(32, 596, NavigateTime)
+        sleep(NavigateTime)
         HadToHideNotifs := false
         ; Return to trades as it'll close
         if (!IsPanelActive()) {
             OpenTrades()
-            sleep(72)
+            sleep(NavigateTime)
         }
     }
     if (!IsPanelActive()) {
         OpenTrades()
-        sleep(72)
+        sleep(NavigateTime)
     }
     ScrollAmountUp(6)
-    sleep(50)
+    sleep(NavigateTime)
     ; Detailed mode check, we need it off for alignment of fill trades
     TradesDetailedModeOldState := IsTradeDetailedModeOn()
     If (IsWindowActive() && IsPanelActive() && IsTradeDetailedModeOn()) {
         Log("GemFarm: Detailed mode found on. Toggled off.")
         ; Disable detailed mode if its on based on gap between blue arrows
-        fCustomClick(WinRelPosLargeW(1357), WinRelPosLargeH(1100), 101)
+        fCustomClick(WinRelPosLargeW(1357), WinRelPosLargeH(1100), NavigateTime)
         ToolTip("Toggled off details", W / 2 - WinRelPosLargeW(50),
             H / 2 + WinRelPosLargeH(20), 3)
         SetTimer(ToolTip.Bind(, , , 3), -1000)
@@ -83,10 +83,10 @@ fGemFarmSuitcase() {
         return
     } else {
         ; Cancel first trade, so that the first slot cannot be filled
-        fCustomClick(WinRelPosLargeW(1920), WinRelPosLargeH(400), 101)
-        sleep(50)
+        fCustomClick(WinRelPosLargeW(1920), WinRelPosLargeH(400), NavigateTime)
+        sleep(NavigateTime)
         ; Collect first trade
-        fCustomClick(WinRelPosLargeW(1990), WinRelPosLargeH(400), 101)
+        fCustomClick(WinRelPosLargeW(1990), WinRelPosLargeH(400), NavigateTime)
         RefreshTrades()
         ; Leaves the first slot free to use suitcase on
     }
@@ -100,7 +100,7 @@ fGemFarmSuitcase() {
         SetTimer(ToolTip.Bind(, , , 5), -1000)
         return
     }
-    MouseMove(W/2, WinRelPosH(400))
+    MouseMove(W / 2, WinRelPosH(400))
     sCount := 0
     fCount := 0
     GemFarmActive := true
@@ -133,14 +133,14 @@ fGemFarmSuitcase() {
                 If (colour = "0xFF0044") {
                     ; Double check to try and avoid false usage
                     TriggerSuitcase()
-                    Sleep(GemFarmSleepAmount)
+                    Sleep(NavigateTime)
                     if (HasSuitCaseBeenUsed()) {
                         sCount++
                     } else {
                         fCount++
                     }
                     ToolTip("Used suitcases " sCount " times.`n"
-                    "Failed to use suitcases " fCount " times.",
+                        "Failed to use suitcases " fCount " times.",
                         W / 2 - WinRelPosLargeW(100), H / 2, 15)
 
                 }
@@ -160,7 +160,7 @@ fGemFarmSuitcase() {
 RemoveBearo() {
     global HadToHideNotifs, HadToRemoveBearo
     OpenPets()
-    Sleep(101)
+    Sleep(NavigateTime)
     OutX := 0
     OutY := 0
     try {
@@ -175,9 +175,9 @@ RemoveBearo() {
                 W / 2 - WinRelPosW(50), H / 2 - WinRelPosH(70), 16)
             SetTimer(Tooltip.Bind(, , , 16), -1000)
             HadToRemoveBearo := true
-            Sleep(72)
-            fCustomClick(OutX, OutY, 72)
-            Sleep(72)
+            Sleep(NavigateTime)
+            fCustomClick(OutX + 1, OutY + 1, NavigateTime)
+            Sleep(NavigateTime)
             return true
         }
     } catch as exc {
