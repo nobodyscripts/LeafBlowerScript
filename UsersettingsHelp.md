@@ -233,16 +233,22 @@ Runs crafting autoclicker while using passive tower mode.
 MinerEnableVeins: (Default) true  
 Enable auto enhance of vein jobs in Coal Vein tab.
 
-MinerEnableVeinRemoval: (Default) false
+MinerEnableVeinRemoval: (Default) false  
 Auto removes one of the coal bar veins if you have 6 active, letting one refresh
 to get non coal bar veins quicker. Use if you prioritize diamonds/fuel and have
 all 6 slots.
 
-MinerEnableMineRemoval: (Default) true {inactive}  
-Enable auto removal of mine jobs in Mines tab.
+MinerEnableSphereUse: (Default) false  
+Enable use of drill spheres on timer, either use all or use an amount.
 
-MinerMineRemovalTimer: (Default) 5  
-Time period in minutes between mine removal using setting above.
+MinerSphereDelay: (Default) 1000  
+Delay between spheres in ms (1000 = 1s) to allow stats to settle.
+
+MinerSphereAmount: (Default) 0  
+Amount of spheres to use in one pass, 0 = infinite, 1+ = fixed amount.
+
+MinerSphereTimer: (Default) 1  
+Time between sphere usage in minutes.
 
 MinerEnableTransmute: (Default) true  
 Enable auto transmute of all coal bars in Transmute tab.
@@ -264,11 +270,6 @@ Enable the bank maintainer to run using the timeperiod set in BankDepositTime.
 
 MinerEnableVeinUpgrade: (Default) false  
 Enable the automatic purchase of the coal vein level upgrade when available.
-
-MinerVeinsRemoveCommon, MinerVeinsRemoveUncommon, MinerVeinsRemoveRare,
-MinerVeinsRemoveEpic, MinerVeinsRemoveMythical, MinerVeinsRemoveLegendary:
-(Default) false {inactive}  
-Remove vein jobs based on quality
 
 Debug: (Default) false  
 Extra debug logging and testing modes, not recommended for users due to large

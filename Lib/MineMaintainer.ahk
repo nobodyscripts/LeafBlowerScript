@@ -5,20 +5,17 @@
 
 global MinerEnableVeins := true
 global MinerEnableVeinRemoval := true
-global MinerEnableMineRemoval := true
 global MinerEnableTransmute := true
 global MinerEnableFreeRefuel := true
 global MinerEnableBanks := true
 global MinerEnableSpammer := true
 global MinerEnableVeinUpgrade := false
-global MinerVeinsRemoveCommon := false
-global MinerVeinsRemoveUncommon := false
-global MinerVeinsRemoveRare := false
-global MinerVeinsRemoveEpic := false
-global MinerVeinsRemoveMythical := false
-global MinerVeinsRemoveLegendary := false
 
-global MinerMineRemovalTimer := 1
+global MinerEnableSphereUse := false
+global MinerSphereDelay := 1000
+global MinerSphereAmount := 0
+global MinerSphereTimer := 1
+
 global MinerTransmuteTimer := 0.5
 global MinerRefuelTimer := 1
 global NavigateTime := 150
@@ -44,6 +41,7 @@ fMineMaintainer() {
     TransmuteTime := A_Now
     RefuelTime := A_Now
     BankTime := A_Now
+    SphereTime := A_Now
     VeinsTab := cMineTabVein()
     MinesTab := cMineTabMines()
     DrillTab := cMineTabDrill()
@@ -87,19 +85,6 @@ fMineMaintainer() {
         if (IsWindowActive() && CancelConfirm.IsButtonActive()) {
             VeinCancelConfirm()
         }
-        /*         if (DateDiff(A_Now, MineTime, "Seconds") >= MinerMineRemovalTimer * 60 &&
-                    MinerEnableMineRemoval) {
-                        MineTime := A_Now
-                        if (CurrentTab != 1) {
-                            MinesTab.Click()
-                            CurrentTab := 1
-                        }
-                        Sleep(NavigateTime)
-                        RemoveSingleMine()
-                        Log("Mine: Removed a mine entry")
-                        Sleep(NavigateTime)
-                }
-        */
         if ((Firstpass && MinerEnableTransmute) ||
             (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
                 MinerEnableTransmute)) {
@@ -129,6 +114,23 @@ fMineMaintainer() {
                     }
                     CollectFreeDrillFuel()
                     Log("Mine: Collected free fuel.")
+                    Sleep(NavigateTime)
+        }
+
+        if ((Firstpass && MinerEnableSphereUse) ||
+            (IsWindowActive() && DateDiff(A_Now, SphereTime, "Seconds") >= MinerSphereTimer * 60 &&
+                MinerEnableSphereUse)) {
+                    SphereTime := A_Now
+                    if (CurrentTab != 4) {
+                        DrillTab.Click()
+                        Sleep(NavigateTime)
+                        DrillTab.Click()
+                        Sleep(NavigateTime)
+                        CurrentTab := 4
+                    }
+                    Sleep(NavigateTime)
+                    Log("Mine: Using spheres.")
+                    UseDrillSphereLoop()
                     Sleep(NavigateTime)
         }
         if ((Firstpass && MinerEnableBanks) ||
@@ -190,10 +192,6 @@ EnhanceVeins() {
     }
 }
 
-RemoveSingleMine() {
-
-}
-
 TransmuteAllCoalBars() {
     TransmuteButton := cMineTransmuteButton()
     if (IsWindowActive() && IsPanelActive() && TransmuteButton.IsButtonActive()) {
@@ -209,6 +207,36 @@ CollectFreeDrillFuel() {
         Sleep(NavigateTime)
     }
 }
+
+UseDrillSphereLoop() {
+    SphereButton := cMineDrillSphereButton()
+    tempAmount := MinerSphereAmount
+
+    if (MinerSphereAmount > 0) {
+        ;Log(SphereButton.IsButtonActive())
+        ;Log(SphereButton.GetColour())
+        ;SphereButton.ToolTipAtCoord()
+        ;return
+        while (IsWindowActive() && IsPanelActive() &&
+            SphereButton.IsButtonActive() && tempAmount > 0) {
+
+                SphereButton.ClickOffset()
+                Sleep(MinerSphereDelay)
+                tempAmount--
+
+        }
+    } else {
+        while (IsWindowActive() && IsPanelActive() &&
+            SphereButton.IsButtonActive()) {
+
+                SphereButton.ClickOffset()
+                Sleep(MinerSphereDelay)
+                tempAmount--
+
+        }
+    }
+}
+
 
 RemoveSingleVein() {
     Cancel1 := cMineVeinCancelSlot1()

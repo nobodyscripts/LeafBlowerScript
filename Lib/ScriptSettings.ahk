@@ -36,10 +36,12 @@ global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
 
 global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
 
-global MinerEnableVeins, MinerEnableMineRemoval, MinerEnableTransmute,
-    MinerEnableFreeRefuel, MinerMineRemovalTimer, MinerTransmuteTimer,
+global MinerEnableVeins, MinerEnableTransmute,
+    MinerEnableFreeRefuel, MinerTransmuteTimer,
     MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
     MinerEnableVeinUpgrade, MinerEnableVeinRemoval
+global MinerEnableSphereUse, MinerSphereDelay, MinerSphereAmount,
+    MinerSphereTimer
 
 class cSettings {
     sFilename := A_ScriptDir "\UserSettings.ini"
@@ -101,14 +103,16 @@ class cSettings {
         TowerPassiveBanksEnabled: "true",
         TowerPassiveCraftEnabled: "true",
         MinerEnableVeins: "true",
-        MinerEnableMineRemoval: "true",
         MinerEnableTransmute: "true",
         MinerEnableFreeRefuel: "true",
         MinerEnableBanks: "true",
         MinerEnableSpammer: "true",
         MinerEnableVeinUpgrade: "false",
         MinerEnableVeinRemoval: "false",
-        MinerMineRemovalTimer: 5,
+        MinerEnableSphereUse: "false",
+        MinerSphereDelay: 1000,
+        MinerSphereAmount: 0,
+        MinerSphereTimer: 1,
         MinerTransmuteTimer: 1,
         MinerRefuelTimer: 1
     }
@@ -168,14 +172,16 @@ class cSettings {
         TowerPassiveBanksEnabled: "true",
         TowerPassiveCraftEnabled: "true",
         MinerEnableVeins: "true",
-        MinerEnableMineRemoval: "true",
         MinerEnableTransmute: "true",
         MinerEnableFreeRefuel: "true",
         MinerEnableBanks: "true",
         MinerEnableSpammer: "true",
         MinerEnableVeinUpgrade: "false",
         MinerEnableVeinRemoval: "false",
-        MinerMineRemovalTimer: 5,
+        MinerEnableSphereUse: "false",
+        MinerSphereDelay: 1000,
+        MinerSphereAmount: 0,
+        MinerSphereTimer: 1,
         MinerTransmuteTimer: 1,
         MinerRefuelTimer: 1
     }
@@ -242,10 +248,12 @@ class cSettings {
         global LeaftonRunOnceEnabled
         global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
 
-        global MinerEnableVeins, MinerEnableMineRemoval, MinerEnableTransmute,
-            MinerEnableFreeRefuel, MinerMineRemovalTimer, MinerTransmuteTimer,
+        global MinerEnableVeins, MinerEnableTransmute,
+            MinerEnableFreeRefuel, MinerTransmuteTimer,
             MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
             MinerEnableVeinUpgrade, MinerEnableVeinRemoval
+        global MinerEnableSphereUse, MinerSphereDelay,
+            MinerSphereAmount, MinerSphereTimer
 
         try {
             EnableLogging := this.loadedSettings.EnableLogging :=
@@ -360,8 +368,6 @@ class cSettings {
                 IniToVar(this.sFilename, "Miner", "MinerEnableVeins")
             MinerEnableVeinRemoval := this.loadedSettings.MinerEnableVeinRemoval :=
                 IniToVar(this.sFilename, "Miner", "MinerEnableVeinRemoval")
-            MinerEnableMineRemoval := this.loadedSettings.MinerEnableMineRemoval :=
-                IniToVar(this.sFilename, "Miner", "MinerEnableMineRemoval")
             MinerEnableTransmute := this.loadedSettings.MinerEnableTransmute :=
                 IniToVar(this.sFilename, "Miner", "MinerEnableTransmute")
             MinerEnableFreeRefuel := this.loadedSettings.MinerEnableFreeRefuel :=
@@ -372,12 +378,18 @@ class cSettings {
                 IniToVar(this.sFilename, "Miner", "MinerEnableSpammer")
             MinerEnableVeinUpgrade := this.loadedSettings.MinerEnableVeinUpgrade :=
                 IniToVar(this.sFilename, "Miner", "MinerEnableVeinUpgrade")
-            MinerMineRemovalTimer := this.loadedSettings.MinerMineRemovalTimer :=
-                IniToVar(this.sFilename, "Miner", "MinerMineRemovalTimer")
             MinerTransmuteTimer := this.loadedSettings.MinerTransmuteTimer :=
                 IniToVar(this.sFilename, "Miner", "MinerTransmuteTimer")
             MinerRefuelTimer := this.loadedSettings.MinerRefuelTimer :=
                 IniToVar(this.sFilename, "Miner", "MinerRefuelTimer")
+            MinerEnableSphereUse := this.loadedSettings.MinerEnableSphereUse :=
+                IniToVar(this.sFilename, "Miner", "MinerEnableSphereUse")
+            MinerSphereDelay := this.loadedSettings.MinerSphereDelay :=
+                IniToVar(this.sFilename, "Miner", "MinerSphereDelay")
+            MinerSphereAmount := this.loadedSettings.MinerSphereAmount :=
+                IniToVar(this.sFilename, "Miner", "MinerSphereAmount")
+            MinerSphereTimer := this.loadedSettings.MinerSphereTimer :=
+                IniToVar(this.sFilename, "Miner", "MinerSphereTimer")
 
             Debug := IniToVar(this.sFilename, "Debug", "Debug")
         } catch as exc {
@@ -462,13 +474,15 @@ class cSettings {
             this.WriteToIni("TowerPassiveCraftEnabled", this.defaultNobodySettings.TowerPassiveCraftEnabled, "TowerPassive")
             this.WriteToIni("MinerEnableVeins", this.defaultNobodySettings.MinerEnableVeins, "Miner")
             this.WriteToIni("MinerEnableVeinRemoval", this.defaultNobodySettings.MinerEnableVeinRemoval, "Miner")
-            this.WriteToIni("MinerEnableMineRemoval", this.defaultNobodySettings.MinerEnableMineRemoval, "Miner")
             this.WriteToIni("MinerEnableTransmute", this.defaultNobodySettings.MinerEnableTransmute, "Miner")
             this.WriteToIni("MinerEnableFreeRefuel", this.defaultNobodySettings.MinerEnableFreeRefuel, "Miner")
             this.WriteToIni("MinerEnableBanks", this.defaultNobodySettings.MinerEnableBanks, "Miner")
             this.WriteToIni("MinerEnableSpammer", this.defaultNobodySettings.MinerEnableSpammer, "Miner")
             this.WriteToIni("MinerEnableVeinUpgrade", this.defaultNobodySettings.MinerEnableVeinUpgrade, "Miner")
-            this.WriteToIni("MinerMineRemovalTimer", this.defaultNobodySettings.MinerMineRemovalTimer, "Miner")
+            this.WriteToIni("MinerEnableSphereUse", this.defaultNobodySettings.MinerEnableSphereUse, "Miner")
+            this.WriteToIni("MinerSphereDelay", this.defaultNobodySettings.MinerSphereDelay, "Miner")
+            this.WriteToIni("MinerSphereAmount", this.defaultNobodySettings.MinerSphereAmount, "Miner")
+            this.WriteToIni("MinerSphereTimer", this.defaultNobodySettings.MinerSphereTimer, "Miner")
             this.WriteToIni("MinerTransmuteTimer", this.defaultNobodySettings.MinerTransmuteTimer, "Miner")
             this.WriteToIni("MinerRefuelTimer", this.defaultNobodySettings.MinerRefuelTimer, "Miner")
         } else {
@@ -528,13 +542,15 @@ class cSettings {
             this.WriteToIni("TowerPassiveCraftEnabled", this.defaultSettings.TowerPassiveCraftEnabled, "TowerPassive")
             this.WriteToIni("MinerEnableVeins", this.defaultSettings.MinerEnableVeins, "Miner")
             this.WriteToIni("MinerEnableVeinRemoval", this.defaultSettings.MinerEnableVeinRemoval, "Miner")
-            this.WriteToIni("MinerEnableMineRemoval", this.defaultSettings.MinerEnableMineRemoval, "Miner")
             this.WriteToIni("MinerEnableTransmute", this.defaultSettings.MinerEnableTransmute, "Miner")
             this.WriteToIni("MinerEnableFreeRefuel", this.defaultSettings.MinerEnableFreeRefuel, "Miner")
             this.WriteToIni("MinerEnableBanks", this.defaultSettings.MinerEnableBanks, "Miner")
             this.WriteToIni("MinerEnableSpammer", this.defaultSettings.MinerEnableSpammer, "Miner")
             this.WriteToIni("MinerEnableVeinUpgrade", this.defaultSettings.MinerEnableVeinUpgrade, "Miner")
-            this.WriteToIni("MinerMineRemovalTimer", this.defaultSettings.MinerMineRemovalTimer, "Miner")
+            this.WriteToIni("MinerEnableSphereUse", this.defaultSettings.MinerEnableSphereUse, "Miner")
+            this.WriteToIni("MinerSphereDelay", this.defaultSettings.MinerSphereDelay, "Miner")
+            this.WriteToIni("MinerSphereAmount", this.defaultSettings.MinerSphereAmount, "Miner")
+            this.WriteToIni("MinerSphereTimer", this.defaultSettings.MinerSphereTimer, "Miner")
             this.WriteToIni("MinerTransmuteTimer", this.defaultSettings.MinerTransmuteTimer, "Miner")
             this.WriteToIni("MinerRefuelTimer", this.defaultSettings.MinerRefuelTimer, "Miner")
         }

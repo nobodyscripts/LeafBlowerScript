@@ -181,8 +181,6 @@ Insert: Added auto enhance, auto transmute, free fuel collection, bank and ww
 spammer.  
 Insert: Added bunch of settings to control different aspects. See
 UserSettings.ini or UsersettingsHelp.md  
-Insert: Removal of mine instance and removal of veins by quality not implimented
-yet.  
 Insert: Added MinerEnableVeinUpgrade to auto purchase vein upgrade levels when
 available, off by default.  
 Insert: Added MinerEnableVeinRemoval to remove coal bar veins to leave one slot
@@ -190,6 +188,10 @@ free to spawn new non coal bar veins quicker.
 Insert: Fix for v2.24.2 transmute button moving.  
 Insert: Fix for features enabled on firstpass when disabled.  
 Insert: Fix vein removal confirmation getting stuck, added loop.  
+Insert: Added sphere usage, MinerEnableSphereUse, MinerSphereDelay,
+MinerSphereAmount, MinerSphereTimer to control, use amount 0 for infinite, delay
+is in ms, timer is in minutes.  
+Insert: Removed the mine removal and vein quality settings.  
 
 Del: Quick cursed cheese farm mode, left in incase anyone else needs.
 

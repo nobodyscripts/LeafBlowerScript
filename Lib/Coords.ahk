@@ -74,6 +74,9 @@ Class RelCoord {
         return colour
     }
 
+    ToolTipAtCoord() {
+        ToolTip(" ", this.x, this.y, 15)
+    }
 }
 
 CardPacksOddButton() {
@@ -343,6 +346,12 @@ cMineTabTransmute() { ; Transmute tab
 cMineFreeFuelButton() { ; Button for free fuel refill
     o := RelCoord()
     o.SetCoordRel(1220, 615)
+    return o
+}
+
+cMineDrillSphereButton() { ; Button for sphere use
+    o := RelCoord()
+    o.SetCoordRel(1260, 445)
     return o
 }
 
