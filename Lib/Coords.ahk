@@ -172,7 +172,7 @@ cMineEnhanceSlot2() { ; Top right
 
 cMineEnhanceSlot3() { ; Mid left
     o := RelCoord()
-    o.SetCoordRel(1036, 720)
+    o.SetCoordRel(1017, 719)
     return o
 }
 
