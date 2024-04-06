@@ -137,7 +137,13 @@ fGemFarmSuitcase() {
                     if (HasSuitCaseBeenUsed()) {
                         sCount++
                     } else {
-                        fCount++
+                        TriggerSuitcase()
+                        Sleep(NavigateTime)
+                        if (HasSuitCaseBeenUsed()) {
+                            sCount++
+                        } else {
+                            fCount++
+                        }
                     }
                     ToolTip("Used suitcases " sCount " times.`n"
                         "Failed to use suitcases " fCount " times.",
