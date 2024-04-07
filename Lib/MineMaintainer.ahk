@@ -28,12 +28,12 @@ global BankEnableSRDeposit := true
 global BankEnableQADeposit := true
 global BankDepositTime := 5
 
-global MinerColourCodeCommon := "0xA0A0A2"
-global MinerColourCodeUncommon := "0x336AAA"
-global MinerColourCodeRare := "0xD5C53E"
-global MinerColourCodeEpic := "0xB3260B"
+global MinerColourCodeCommon := "0xA0A0A0"
+global MinerColourCodeUncommon := "0x326DAB"
+global MinerColourCodeRare := "0xD3C33F"
+global MinerColourCodeEpic := "0xB3260A"
 global MinerColourCodeMythical := "0x9E10C1"
-global MinerColourCodeLegendary := "0xD96500"
+global MinerColourCodeLegendary := "0xE1661A"
 
 fMineMaintainer() {
     Firstpass := true
@@ -213,26 +213,18 @@ UseDrillSphereLoop() {
     tempAmount := MinerSphereAmount
 
     if (MinerSphereAmount > 0) {
-        ;Log(SphereButton.IsButtonActive())
-        ;Log(SphereButton.GetColour())
-        ;SphereButton.ToolTipAtCoord()
-        ;return
         while (IsWindowActive() && IsPanelActive() &&
             SphereButton.IsButtonActive() && tempAmount > 0) {
-
                 SphereButton.ClickOffset()
                 Sleep(MinerSphereDelay)
                 tempAmount--
-
         }
     } else {
         while (IsWindowActive() && IsPanelActive() &&
             SphereButton.IsButtonActive()) {
-
                 SphereButton.ClickOffset()
                 Sleep(MinerSphereDelay)
                 tempAmount--
-
         }
     }
 }
@@ -247,9 +239,20 @@ RemoveSingleVein() {
     Cancel6 := cMineVeinCancelSlot6()
 
     VeinTotalCount := FindVeinsCount()
+    if (VeinTotalCount < 6) {
+        return
+    }
     PotentialVeins := FindVeinsWithBars()
+    if (Debug) {
+        Log("Found the following veins:")
+        ArrDebug(PotentialVeins)
+    }
+    LowestPrioritySlot := FindVeinsLowestPriority(PotentialVeins)
+    if (LowestPrioritySlot = 0) {
+        return
+    }
 
-    if (VeinTotalCount = 6 && PotentialVeins[1].Active = true) {
+    if (VeinTotalCount = 6 && PotentialVeins[1].Active = true && LowestPrioritySlot = 1) {
         Log("Removing slot 1")
         Cancel1.ClickOffset()
         Sleep(NavigateTime)
@@ -257,7 +260,7 @@ RemoveSingleVein() {
         VeinTotalCount := FindVeinsCount()
         return true
     }
-    if (VeinTotalCount = 6 && PotentialVeins[2].Active = true) {
+    if (VeinTotalCount = 6 && PotentialVeins[2].Active = true && LowestPrioritySlot = 2) {
         Log("Removing slot 2")
         Cancel2.ClickOffset()
         Sleep(NavigateTime)
@@ -265,7 +268,7 @@ RemoveSingleVein() {
         VeinTotalCount := FindVeinsCount()
         return true
     }
-    if (VeinTotalCount = 6 && PotentialVeins[3].Active = true) {
+    if (VeinTotalCount = 6 && PotentialVeins[3].Active = true && LowestPrioritySlot = 3) {
         Log("Removing slot 3")
         Cancel3.ClickOffset()
         Sleep(NavigateTime)
@@ -273,7 +276,7 @@ RemoveSingleVein() {
         VeinTotalCount := FindVeinsCount()
         return true
     }
-    if (VeinTotalCount = 6 && PotentialVeins[4].Active = true) {
+    if (VeinTotalCount = 6 && PotentialVeins[4].Active = true && LowestPrioritySlot = 4) {
         Log("Removing slot 4")
         Cancel4.ClickOffset()
         Sleep(NavigateTime)
@@ -281,7 +284,7 @@ RemoveSingleVein() {
         VeinTotalCount := FindVeinsCount()
         return true
     }
-    if (VeinTotalCount = 6 && PotentialVeins[5].Active = true) {
+    if (VeinTotalCount = 6 && PotentialVeins[5].Active = true && LowestPrioritySlot = 5) {
         Log("Removing slot 5")
         Cancel5.ClickOffset()
         Sleep(NavigateTime)
@@ -289,7 +292,7 @@ RemoveSingleVein() {
         VeinTotalCount := FindVeinsCount()
         return true
     }
-    if (VeinTotalCount = 6 && PotentialVeins[6].Active = true) {
+    if (VeinTotalCount = 6 && PotentialVeins[6].Active = true && LowestPrioritySlot = 6) {
         Log("Removing slot 6")
         Cancel6.ClickOffset()
         Sleep(NavigateTime)
@@ -325,31 +328,65 @@ FindVeinsWithBars() {
     QualitySlot5 := cMineColourSlot5()
     QualitySlot6 := cMineColourSlot6()
 
-    results := [{ Active: false, Quality: "common" }, { Active: false, Quality: "common" }, { Active: false, Quality: "common" }, { Active: false, Quality: "common" }, { Active: false, Quality: "common" }, { Active: false, Quality: "common" }
+    results := [{ Active: false, Quality: "ignored", Priority: 9999 },
+        ;
+        { Active: false, Quality: "ignored", Priority: 9999 },
+        ;
+        { Active: false, Quality: "ignored", Priority: 9999 },
+        ;
+        { Active: false, Quality: "ignored", Priority: 9999 },
+        ;
+        { Active: false, Quality: "ignored", Priority: 9999 },
+        ;
+        { Active: false, Quality: "ignored", Priority: 9999 }
     ]
     if (SampleSlot1.GetColour() = "0x6D758D") {
-        qualityText := VeinQualityColourToText(QualitySlot1.GetColour())
-        results[1] := { Active: true, Quality: qualityText }
+        qualityText1 := VeinQualityColourToText(QualitySlot1.GetColour())
+        results[1] := {
+            Active: true,
+            Quality: qualityText1,
+            Priority: VeinQualityToPriority(qualityText1) - 3
+        }
     }
     if (SampleSlot2.GetColour() = "0x6D758D") {
-        qualityText := VeinQualityColourToText(QualitySlot2.GetColour())
-        results[2] := { Active: true, Quality: qualityText }
+        qualityText2 := VeinQualityColourToText(QualitySlot2.GetColour())
+        results[2] := {
+            Active: true,
+            Quality: qualityText2,
+            Priority: VeinQualityToPriority(qualityText2) - 2
+        }
     }
     if (SampleSlot3.GetColour() = "0x6D758D") {
-        qualityText := VeinQualityColourToText(QualitySlot3.GetColour())
-        results[3] := { Active: true, Quality: qualityText }
+        qualityText3 := VeinQualityColourToText(QualitySlot3.GetColour())
+        results[3] := {
+            Active: true,
+            Quality: qualityText3,
+            Priority: VeinQualityToPriority(qualityText3) - 1
+        }
     }
     if (SampleSlot4.GetColour() = "0x6D758D") {
-        qualityText := VeinQualityColourToText(QualitySlot4.GetColour())
-        results[4] := { Active: true, Quality: qualityText }
+        qualityText4 := VeinQualityColourToText(QualitySlot4.GetColour())
+        results[4] := {
+            Active: true,
+            Quality: qualityText4,
+            Priority: VeinQualityToPriority(qualityText4)
+        }
     }
     if (SampleSlot5.GetColour() = "0x6D758D") {
-        qualityText := VeinQualityColourToText(QualitySlot5.GetColour())
-        results[5] := { Active: true, Quality: qualityText }
+        qualityText5 := VeinQualityColourToText(QualitySlot5.GetColour())
+        results[5] := {
+            Active: true,
+            Quality: qualityText5,
+            Priority: VeinQualityToPriority(qualityText5)
+        }
     }
     if (SampleSlot6.GetColour() = "0x6D758D") {
-        qualityText := VeinQualityColourToText(QualitySlot6.GetColour())
-        results[6] := { Active: true, Quality: qualityText }
+        qualityText6 := VeinQualityColourToText(QualitySlot6.GetColour())
+        results[6] := {
+            Active: true,
+            Quality: qualityText6,
+            Priority: VeinQualityToPriority(qualityText6)
+        }
     }
     return results
 }
@@ -380,7 +417,7 @@ FindVeinsCount() {
     if (Cancel6.IsButtonActive()) {
         results++
     }
-    Log("Findveinscount: " results)
+    ;Log("Findveinscount: " results)
     return results
 }
 
@@ -399,6 +436,53 @@ VeinQualityColourToText(value) {
         case MinerColourCodeLegendary:
             return "legendary"
         default:
-            return "common"
+            return "special"
+    }
+}
+
+VeinQualityToPriority(value) {
+    switch value {
+        case "common":
+            return 1
+        case "uncommon":
+            return 2
+        case "rare":
+            return 3
+        case "epic":
+            return 4
+        case "mythical":
+            return 5
+        case "legendary":
+            return 6
+        default:
+            return 9999
+    }
+}
+
+FindVeinsLowestPriority(StatusArray) {
+    slotId := 0
+    lowestValue := 99999
+
+    ; We need to check through the array in reverse order, so that if value
+    ; matches, we remove the oldest
+    k := StatusArray.Length
+    while (k > 0) {
+        if (StatusArray[k].Priority <= lowestValue && StatusArray[k].Active) {
+            slotId := k
+            lowestValue := StatusArray[k].Priority
+        }
+        k--
+    }
+    if (Debug) {
+        Log("Slot " slotId " value " lowestValue " picked.")
+    }
+    return slotId
+}
+
+ArrDebug(arr) {
+    i := 1
+    while (i <= arr.Length) {
+        Log(i " Active " arr[i].Active " Quality " arr[i].Quality " Priority " arr[i].Priority)
+        i++
     }
 }
