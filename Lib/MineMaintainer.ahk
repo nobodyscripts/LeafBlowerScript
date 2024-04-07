@@ -79,11 +79,12 @@ fMineMaintainer() {
             }
             if (MinerEnableVeinRemoval) {
                 RemoveSingleVein()
+                Sleep(NavigateTime)
+                if (CancelConfirm.IsButtonActive()) {
+                    VeinCancelConfirm()
+                }
             }
             EnhanceVeins()
-        }
-        if (IsWindowActive() && CancelConfirm.IsButtonActive()) {
-            VeinCancelConfirm()
         }
         if ((Firstpass && MinerEnableTransmute) ||
             (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
@@ -249,7 +250,7 @@ RemoveSingleVein() {
     }
     LowestPrioritySlot := FindVeinsLowestPriority(PotentialVeins)
     if (LowestPrioritySlot = 0) {
-        return
+        return false
     }
 
     if (VeinTotalCount = 6 && PotentialVeins[1].Active = true && LowestPrioritySlot = 1) {
