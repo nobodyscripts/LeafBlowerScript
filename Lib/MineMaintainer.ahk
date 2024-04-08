@@ -346,7 +346,7 @@ FindVeinsWithBars() {
         results[1] := {
             Active: true,
             Quality: qualityText1,
-            Priority: VeinQualityToPriority(qualityText1) - 3
+            Priority: VeinQualityToPriority(qualityText1) - 4
         }
     }
     if (SampleSlot2.GetColour() = "0x6D758D") {
