@@ -29,7 +29,7 @@ global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower,
 
 global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit,
     BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit,
-    BankRunsSpammer, BankDepositTime
+    BankRunsSpammer, BankDepositTime, BankEnableStorageUpgrade
 
 global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
     LeaftonRunOnceEnabled
@@ -94,6 +94,7 @@ class cSettings {
         BankEnableFFDeposit: "true",
         BankEnableSRDeposit: "true",
         BankEnableQADeposit: "true",
+        BankEnableStorageUpgrade: "false",
         BankRunsSpammer: "true",
         BankDepositTime: "5",
         LeaftonCraftEnabled: "true",
@@ -163,6 +164,7 @@ class cSettings {
         BankEnableFFDeposit: "true",
         BankEnableSRDeposit: "true",
         BankEnableQADeposit: "true",
+        BankEnableStorageUpgrade: "false",
         BankRunsSpammer: "true",
         BankDepositTime: "5",
         LeaftonCraftEnabled: "true",
@@ -243,7 +245,7 @@ class cSettings {
 
         global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit
         global BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit
-        global BankRunsSpammer, BankDepositTime
+        global BankRunsSpammer, BankDepositTime, BankEnableStorageUpgrade
         global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled
         global LeaftonRunOnceEnabled
         global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
@@ -348,6 +350,8 @@ class cSettings {
                 IniToVar(this.sFilename, "Bank", "BankEnableSRDeposit")
             BankEnableQADeposit := this.loadedSettings.BankEnableQADeposit :=
                 IniToVar(this.sFilename, "Bank", "BankEnableQADeposit")
+            BankEnableStorageUpgrade := this.loadedSettings.BankEnableStorageUpgrade :=
+                IniToVar(this.sFilename, "Bank", "BankEnableStorageUpgrade")
             BankRunsSpammer := this.loadedSettings.BankRunsSpammer :=
                 IniToVar(this.sFilename, "Bank", "BankRunsSpammer")
             BankDepositTime := this.loadedSettings.BankDepositTime :=
@@ -464,6 +468,7 @@ class cSettings {
             this.WriteToIni("BankEnableFFDeposit", this.defaultNobodySettings.BankEnableFFDeposit, "Bank")
             this.WriteToIni("BankEnableSRDeposit", this.defaultNobodySettings.BankEnableSRDeposit, "Bank")
             this.WriteToIni("BankEnableQADeposit", this.defaultNobodySettings.BankEnableQADeposit, "Bank")
+            this.WriteToIni("BankEnableStorageUpgrade", this.defaultNobodySettings.BankEnableStorageUpgrade, "Bank")
             this.WriteToIni("BankRunsSpammer", this.defaultNobodySettings.BankRunsSpammer, "Bank")
             this.WriteToIni("BankDepositTime", this.defaultNobodySettings.BankDepositTime, "Bank")
             this.WriteToIni("LeaftonCraftEnabled", this.defaultNobodySettings.LeaftonCraftEnabled, "Leafton")
@@ -532,6 +537,7 @@ class cSettings {
             this.WriteToIni("BankEnableFFDeposit", this.defaultSettings.BankEnableFFDeposit, "Bank")
             this.WriteToIni("BankEnableSRDeposit", this.defaultSettings.BankEnableSRDeposit, "Bank")
             this.WriteToIni("BankEnableQADeposit", this.defaultSettings.BankEnableQADeposit, "Bank")
+            this.WriteToIni("BankEnableStorageUpgrade", this.defaultSettings.BankEnableStorageUpgrade, "Bank")
             this.WriteToIni("BankRunsSpammer", this.defaultSettings.BankRunsSpammer, "Bank")
             this.WriteToIni("BankDepositTime", this.defaultSettings.BankDepositTime, "Bank")
             this.WriteToIni("LeaftonCraftEnabled", this.defaultSettings.LeaftonCraftEnabled, "Leafton")

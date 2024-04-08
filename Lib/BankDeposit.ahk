@@ -8,6 +8,7 @@ global BankEnableEBDeposit := true
 global BankEnableFFDeposit := true
 global BankEnableSRDeposit := true
 global BankEnableQADeposit := true
+global BankEnableStorageUpgrade := true
 global BankRunsSpammer := true
 global BankDepositTime := 5
 global NavigateTime := 150
@@ -39,6 +40,16 @@ fBankAutoDeposit() {
                         Sleep(NavigateTime)
                     } else {
                         break
+                    }
+                }
+                if (BankEnableStorageUpgrade) {
+                    loop {
+                        if (cBankUpgradeStorage().IsButtonActive()) {
+                            cBankUpgradeStorage().ClickOffset()
+                            Sleep(NavigateTime)
+                        } else {
+                            break
+                        }
                     }
                 }
             }
@@ -80,6 +91,16 @@ BankSinglePass() {
                     Sleep(NavigateTime)
                 } else {
                     break
+                }
+            }
+            if (BankEnableStorageUpgrade) {
+                loop {
+                    if (cBankUpgradeStorage().IsButtonActive()) {
+                        cBankUpgradeStorage().ClickOffset()
+                        Sleep(NavigateTime)
+                    } else {
+                        break
+                    }
                 }
             }
         }

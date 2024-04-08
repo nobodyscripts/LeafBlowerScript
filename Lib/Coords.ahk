@@ -93,6 +93,12 @@ cBankDepositRESS() {
     return o
 }
 
+cBankUpgradeStorage() {
+    o := RelCoord()
+    o.SetCoordRel(2140, 575)
+    return o
+}
+
 cBankTabLG() {
     o := RelCoord()
     o.SetCoordRel(600, 315)
