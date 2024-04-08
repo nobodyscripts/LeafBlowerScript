@@ -16,7 +16,7 @@ global MinerSphereDelay := 1000
 global MinerSphereAmount := 0
 global MinerSphereTimer := 1
 
-global MinerTransmuteTimer := 0.5
+global MinerTransmuteTimer := 60
 global MinerRefuelTimer := 1
 global NavigateTime := 150
 
@@ -87,7 +87,7 @@ fMineMaintainer() {
             EnhanceVeins()
         }
         if ((Firstpass && MinerEnableTransmute) ||
-            (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer * 60 &&
+            (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer &&
                 MinerEnableTransmute)) {
                     TransmuteTime := A_Now
                     if (CurrentTab != 6) {
@@ -486,4 +486,9 @@ ArrDebug(arr) {
         Log(i " Active " arr[i].Active " Quality " arr[i].Quality " Priority " arr[i].Priority)
         i++
     }
+}
+
+
+IsOnMineCoalVeinTab() {
+    return false
 }

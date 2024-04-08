@@ -203,8 +203,11 @@ Enables the auto deposit of RESS in the Soul Realm bank tab.
 BankEnableQADeposit: (Default) true  
 Enables the auto deposit of RESS in the Quark Ambit bank tab.
 
+BankEnableStorageUpgrade: (Default) false  
+Purchases available storage upgrade levels during the bank processes.
+
 BankRunsSpammer: (Default) true  
-Enables the boss farmer background script while using bank maintainer.  
+Enables the boss farmer background script while using bank maintainer.
 
 BankDepositTime: (Default) 5  
 Amount of time to wait between bank maintainer cycles (in minutes), applies to
@@ -253,8 +256,8 @@ Time between sphere usage in minutes.
 MinerEnableTransmute: (Default) true  
 Enable auto transmute of all coal bars in Transmute tab.
 
-MinerTransmuteTimer: (Default) 1  
-Time period in minutes between Transmute using setting above.
+MinerTransmuteTimer: (Default) 60  
+Time period in seconds between Transmute using setting above.
 
 MinerEnableFreeRefuel: (Default) true  
 Enable auto collection of the Drills free fuel.

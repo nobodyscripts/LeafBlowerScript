@@ -157,6 +157,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 Adjusted the settings check tooltips to indicate good results.  
 Applied a new SendMode in LeafBlowerV3.ahk to allow for usage in VM.  
+Bank modes: Added auto purchase of storage upgrades option, off by default.  
 Del: Added Cursed Cheese Farm mode, rough form unsure if its staying.  
 End: Added bank maintainer to passive tower mode with setting
 TowerPassiveBanksEnabled  
@@ -192,6 +193,9 @@ Insert: Added sphere usage, MinerEnableSphereUse, MinerSphereDelay,
 MinerSphereAmount, MinerSphereTimer to control, use amount 0 for infinite, delay
 is in ms, timer is in minutes.  
 Insert: Removed the mine removal and vein quality settings.  
+Insert: Added vein removal quality calculations, prioritises removal of veins
+that are close to slot 1 and have lower rarity.  
+Insert: Changed transmute timer to seconds from minutes to allow better control.  
 
 Del: Quick cursed cheese farm mode, left in incase anyone else needs.
 
