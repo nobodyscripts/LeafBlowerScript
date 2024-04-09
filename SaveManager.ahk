@@ -26,5 +26,5 @@ global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe
 
         FileCopy(ActiveSavePath, NewBackupSavePath)
     }
-    MsgBox("Have backed up save to:\n" NewBackupSavePath)
+    MsgBox("Have backed up save to:`n" NewBackupSavePath)
 }

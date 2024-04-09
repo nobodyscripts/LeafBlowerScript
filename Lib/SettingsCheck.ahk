@@ -12,10 +12,17 @@ MakeWindowActive() {
     return true
 }
 
+global LastWindowNotActiveTimer := A_Now
+
 IsWindowActive() {
+    global LastWindowNotActiveTimer
     if (!WinExist(LBRWindowTitle) ||
         !WinActive(LBRWindowTitle)) {
-            Log("Error 1: Window not active or doesn't exist.")
+            ; Because this can be spammed lets limit rate the error log
+            if (DateDiff(A_Now, LastWindowNotActiveTimer, "Seconds") >= 10) {
+                Log("Error 1: Window not active or doesn't exist.")
+                LastWindowNotActiveTimer := A_Now
+            }
             return false
     }
     return true

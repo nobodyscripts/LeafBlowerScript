@@ -230,7 +230,6 @@ UseDrillSphereLoop() {
     }
 }
 
-
 RemoveSingleVein() {
     Cancel1 := cMineVeinCancelSlot1()
     Cancel2 := cMineVeinCancelSlot2()
@@ -244,10 +243,10 @@ RemoveSingleVein() {
         return
     }
     PotentialVeins := FindVeinsWithBars()
-    if (Debug) {
+    /* if (Debug) {
         Log("Found the following veins:")
         ArrDebug(PotentialVeins)
-    }
+    } */
     LowestPrioritySlot := FindVeinsLowestPriority(PotentialVeins)
     if (LowestPrioritySlot = 0) {
         return false
