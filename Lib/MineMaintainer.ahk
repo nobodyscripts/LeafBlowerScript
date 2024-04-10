@@ -168,52 +168,28 @@ EnhanceVeins() {
     slot5 := cMineEnhanceSlot5()
     slot6 := cMineEnhanceSlot6()
     while (IsWindowActive() && IsPanelActive() && !slot1.IsBackground()) {
-        colour := slot1.GetColour()
-        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
-            colour = "0xFFF719" || colour = "0xFDD28A") {
-                slot1.ClickOffset(5, 5, 34)
-                Sleep(NavigateTime)
-        }
+        slot1.ClickOffset(5, 5, 34)
+        Sleep(NavigateTime)
     }
     while (IsWindowActive() && IsPanelActive() && !slot2.IsBackground()) {
-        colour := slot2.GetColour()
-        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
-            colour = "0xFFF719" || colour = "0xFDD28A") {
-            slot2.ClickOffset(5, 5, 34)
-            Sleep(NavigateTime)
-        }
+        slot2.ClickOffset(5, 5, 34)
+        Sleep(NavigateTime)
     }
     while (IsWindowActive() && IsPanelActive() && !slot3.IsBackground()) {
-        colour := slot3.GetColour()
-        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
-            colour = "0xFFF719" || colour = "0xFDD28A") {
-            slot3.ClickOffset(5, 5, 34)
-            Sleep(NavigateTime)
-        }
+        slot3.ClickOffset(5, 5, 34)
+        Sleep(NavigateTime)
     }
     while (IsWindowActive() && IsPanelActive() && !slot4.IsBackground()) {
-        colour := slot4.GetColour()
-        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
-            colour = "0xFFF719" || colour = "0xFDD28A") {
-            slot4.ClickOffset(5, 5, 34)
-            Sleep(NavigateTime)
-        }
+        slot4.ClickOffset(5, 5, 34)
+        Sleep(NavigateTime)
     }
     while (IsWindowActive() && IsPanelActive() && !slot5.IsBackground()) {
-        colour := slot5.GetColour()
-        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
-            colour = "0xFFF719" || colour = "0xFDD28A") {
-            slot5.ClickOffset(5, 5, 34)
-            Sleep(NavigateTime)
-        }
+        slot5.ClickOffset(5, 5, 34)
+        Sleep(NavigateTime)
     }
     while (IsWindowActive() && IsPanelActive() && !slot6.IsBackground()) {
-        colour := slot6.GetColour()
-        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
-            colour = "0xFFF719" || colour = "0xFDD28A") {
-            slot6.ClickOffset(5, 5, 34)
-            Sleep(NavigateTime)
-        }
+        slot6.ClickOffset(5, 5, 34)
+        Sleep(NavigateTime)
     }
 }
 
