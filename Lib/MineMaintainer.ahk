@@ -168,36 +168,62 @@ EnhanceVeins() {
     slot5 := cMineEnhanceSlot5()
     slot6 := cMineEnhanceSlot6()
     while (IsWindowActive() && IsPanelActive() && !slot1.IsBackground()) {
-        slot1.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        colour := slot1.GetColour()
+        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
+            colour = "0xFFF719" || colour = "0xFDD28A") {
+                slot1.ClickOffset(5, 5, 34)
+                Sleep(NavigateTime)
+        }
     }
     while (IsWindowActive() && IsPanelActive() && !slot2.IsBackground()) {
-        slot2.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        colour := slot2.GetColour()
+        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
+            colour = "0xFFF719" || colour = "0xFDD28A") {
+            slot2.ClickOffset(5, 5, 34)
+            Sleep(NavigateTime)
+        }
     }
     while (IsWindowActive() && IsPanelActive() && !slot3.IsBackground()) {
-        slot3.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        colour := slot3.GetColour()
+        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
+            colour = "0xFFF719" || colour = "0xFDD28A") {
+            slot3.ClickOffset(5, 5, 34)
+            Sleep(NavigateTime)
+        }
     }
     while (IsWindowActive() && IsPanelActive() && !slot4.IsBackground()) {
-        slot4.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        colour := slot4.GetColour()
+        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
+            colour = "0xFFF719" || colour = "0xFDD28A") {
+            slot4.ClickOffset(5, 5, 34)
+            Sleep(NavigateTime)
+        }
     }
     while (IsWindowActive() && IsPanelActive() && !slot5.IsBackground()) {
-        slot5.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        colour := slot5.GetColour()
+        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
+            colour = "0xFFF719" || colour = "0xFDD28A") {
+            slot5.ClickOffset(5, 5, 34)
+            Sleep(NavigateTime)
+        }
     }
     while (IsWindowActive() && IsPanelActive() && !slot6.IsBackground()) {
-        slot6.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        colour := slot6.GetColour()
+        If (colour = "0xFFF1D2" || colour = "0xFDFCE1" ||
+            colour = "0xFFF719" || colour = "0xFDD28A") {
+            slot6.ClickOffset(5, 5, 34)
+            Sleep(NavigateTime)
+        }
     }
 }
 
 TransmuteAllCoalBars() {
     TransmuteButton := cMineTransmuteButton()
-    if (IsWindowActive() && IsPanelActive() && TransmuteButton.IsButtonActive()) {
-        TransmuteButton.ClickOffset()
-        Sleep(NavigateTime)
+    while (IsWindowActive() && IsPanelActive() &&
+        TransmuteButton.IsButtonActive() &&
+        TransmuteButton.GetColour() != "0xC8BDA5") {
+            TransmuteButton.ClickOffset()
+            Sleep(NavigateTime)
     }
 }
 
