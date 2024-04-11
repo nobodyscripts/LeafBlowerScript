@@ -187,7 +187,7 @@ Button_Click_GeneralSettings(thisGui, info) {
         settingsGUI.Add("CheckBox", "vLogging ccfcfcf", "Enable Logging")
     }
 
-    settingsGUI.Add("Text", "ccfcfcf", "Event Items Amount:")
+    settingsGUI.Add("Text", "ccfcfcf", "Navigate Time Delay:")
     settingsGUI.AddEdit()
     If (IsInteger(NavigateTime) && NavigateTime > 0) {
         settingsGUI.Add("UpDown", "vNavigateTime Range1-9999", NavigateTime)
