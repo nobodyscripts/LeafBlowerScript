@@ -8,10 +8,6 @@ Button_Click_Reload(thisGui, info) {
     fReloadApp()
 }
 
-Button_Click_Resize(thisGui, info) {
-    fGameResize()
-}
-
 Button_Click_Cards(thisGui, info) {
     WinActivate(LBRWindowTitle)
     fCardsStart()
@@ -51,6 +47,11 @@ Button_Click_BossFarm(thisGui, info) {
 Button_Click_NatureBoss(thisGui, info) {
     WinActivate(LBRWindowTitle)
     fNatureBossStart()
+}
+
+Button_Click_Resize(thisGui, info) {
+    WinActivate(LBRWindowTitle)
+    fGameResize()
 }
 
 Button_Click_Mine(thisGui, info) {
