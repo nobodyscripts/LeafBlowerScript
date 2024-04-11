@@ -27,6 +27,7 @@ InitGameWindow()
 fNormalBoss()
 
 fNormalBoss() {
+    startTime := A_Now
     if (BossFarmUsesWobblyWings && IsWindowActive() && IsBossTimerActive()) {
         SetTimer(UseWings, WobblyWingsSleepAmount)
         ; Use it once to avoid getting stuck
@@ -37,9 +38,11 @@ fNormalBoss() {
             Log("NormBoss: Exiting as no game.")
             return
         }
-        if (IsWindowActive() && IsBossTimerActive()) {
+        if ((IsWindowActive() && IsBossTimerActive()) || 
+            (IsWindowActive() && DateDiff(A_Now, startTime, "Seconds") >= 30)) {
             TriggerViolin()
             Sleep(ArtifactSleepAmount)
+            startTime := A_Now
         }
         if (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
             if (IsAreaGFOrSS()) {

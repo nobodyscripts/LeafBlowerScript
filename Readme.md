@@ -156,6 +156,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 ## Changes
 
 First pass GUI.  
+Use WW if not used for 30seconds while spammer is running, incase stuck.  
 
 ## TODO
 
