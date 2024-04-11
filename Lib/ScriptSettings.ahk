@@ -114,7 +114,7 @@ class cSettings {
         MinerSphereDelay: 1000,
         MinerSphereAmount: 0,
         MinerSphereTimer: 1,
-        MinerTransmuteTimer: 60,
+        MinerTransmuteTimer: 10,
         MinerRefuelTimer: 1
     }
     defaultSettings := {
@@ -184,7 +184,7 @@ class cSettings {
         MinerSphereDelay: 1000,
         MinerSphereAmount: 0,
         MinerSphereTimer: 1,
-        MinerTransmuteTimer: 60,
+        MinerTransmuteTimer: 10,
         MinerRefuelTimer: 1
     }
     loadedSettings := {}

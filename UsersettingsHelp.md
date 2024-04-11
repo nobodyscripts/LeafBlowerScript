@@ -256,7 +256,7 @@ Time between sphere usage in minutes.
 MinerEnableTransmute: (Default) true  
 Enable auto transmute of all coal bars in Transmute tab.
 
-MinerTransmuteTimer: (Default) 60  
+MinerTransmuteTimer: (Default) 10  
 Time period in seconds between Transmute using setting above.
 
 MinerEnableFreeRefuel: (Default) true  

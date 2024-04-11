@@ -16,7 +16,7 @@ global MinerSphereDelay := 1000
 global MinerSphereAmount := 0
 global MinerSphereTimer := 1
 
-global MinerTransmuteTimer := 60
+global MinerTransmuteTimer := 10
 global MinerRefuelTimer := 1
 global NavigateTime := 150
 
