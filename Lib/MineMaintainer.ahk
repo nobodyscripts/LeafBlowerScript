@@ -168,36 +168,47 @@ EnhanceVeins() {
     slot5 := cMineEnhanceSlot5()
     slot6 := cMineEnhanceSlot6()
     while (IsWindowActive() && IsPanelActive() && !slot1.IsBackground()) {
-        slot1.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        if (slot1.IsButtonClickable()) {
+            slot1.ClickOffset(5, 5, 34)
+            Sleep(NavigateTime)
+        }
     }
     while (IsWindowActive() && IsPanelActive() && !slot2.IsBackground()) {
-        slot2.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        if (slot2.IsButtonClickable()) {
+            slot2.ClickOffset(5, 5, 34)
+            Sleep(NavigateTime)
+        }
     }
     while (IsWindowActive() && IsPanelActive() && !slot3.IsBackground()) {
-        slot3.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        if (slot3.IsButtonClickable()) {
+            slot3.ClickOffset(5, 5, 34)
+            Sleep(NavigateTime)
+        }
     }
     while (IsWindowActive() && IsPanelActive() && !slot4.IsBackground()) {
-        slot4.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        if (slot4.IsButtonClickable()) {
+            slot4.ClickOffset(5, 5, 34)
+            Sleep(NavigateTime)
+        }
     }
     while (IsWindowActive() && IsPanelActive() && !slot5.IsBackground()) {
-        slot5.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        if (slot5.IsButtonClickable()) {
+            slot5.ClickOffset(5, 5, 34)
+            Sleep(NavigateTime)
+        }
     }
     while (IsWindowActive() && IsPanelActive() && !slot6.IsBackground()) {
-        slot6.ClickOffset(5, 5, 34)
-        Sleep(NavigateTime)
+        if (slot6.IsButtonClickable()) {
+            slot6.ClickOffset(5, 5, 34)
+            Sleep(NavigateTime)
+        }
     }
 }
 
 TransmuteAllCoalBars() {
     TransmuteButton := cMineTransmuteButton()
     while (IsWindowActive() && IsPanelActive() &&
-        TransmuteButton.IsButtonActive() &&
-        TransmuteButton.GetColour() != "0xC8BDA5") {
+        TransmuteButton.IsButtonClickable()) {
             TransmuteButton.ClickOffset()
             Sleep(NavigateTime)
     }
@@ -205,9 +216,10 @@ TransmuteAllCoalBars() {
 
 CollectFreeDrillFuel() {
     FuelButton := cMineFreeFuelButton()
-    if (IsWindowActive() && IsPanelActive() && FuelButton.IsButtonActive()) {
-        FuelButton.ClickOffset()
-        Sleep(NavigateTime)
+    while (IsWindowActive() && IsPanelActive() &&
+        FuelButton.IsButtonClickable()) {
+            FuelButton.ClickOffset()
+            Sleep(NavigateTime)
     }
 }
 
@@ -489,7 +501,10 @@ ArrDebug(arr) {
     }
 }
 
-
 IsOnMineCoalVeinTab() {
+    return false
+}
+
+IsOnMineTransmuteTab() {
     return false
 }

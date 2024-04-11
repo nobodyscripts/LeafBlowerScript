@@ -110,6 +110,21 @@ IsButtonActive(screenX, screenY) {
     return false
 }
 
+IsButtonClickable(screenX, screenY) {
+    try {
+        targetColour := PixelGetColor(screenX, screenY)
+        ; Active, ActiveMouseOver, AfkActive, AfkActiveMouseover
+        If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A") {
+                return true
+        }
+    } catch as exc {
+        Log("Error 2: IsButtonClickable check failed - " exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n"
+            exc.Message)
+    }
+    return false
+}
+
 IsButtonInactive(screenX, screenY) {
     try {
         targetColour := PixelGetColor(screenX, screenY)

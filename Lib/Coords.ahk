@@ -37,6 +37,13 @@ Class RelCoord {
         return false
     }
 
+    IsButtonClickable() {
+        if (IsButtonClickable(this.x, this.y)) {
+            return true
+        }
+        return false
+    }
+
     IsButtonInactive() {
         if (IsButtonInactive(this.x, this.y)) {
             return true
@@ -74,8 +81,58 @@ Class RelCoord {
         return colour
     }
 
-    ToolTipAtCoord() {
-        ToolTip(" ", this.x, this.y, 15)
+    ToolTipAtCoord(id := 15) {
+        ToolTip(" ", this.x, this.y, id)
+    }
+
+    ClickOffsetWhileColour(colour, maxLoops := 20, offsetX := 1, offsetY := 1, delay := 54, interval := 50) {
+        i := maxLoops
+        while (IsWindowActive() && this.GetColour() = colour) {
+            this.ClickOffset(offsetX, offsetY, delay)
+            Sleep(interval)
+            i--
+            if (i = 0) {
+                return false
+            }
+        }
+        return true
+    }
+    
+    ClickOffsetUntilColour(colour, maxLoops := 20, offsetX := 1, offsetY := 1, delay := 54, interval := 50) {
+        i := maxLoops
+        while (IsWindowActive() && this.GetColour() != colour) {
+            this.ClickOffset(offsetX, offsetY, delay)
+            Sleep(interval)
+            i--
+            if (i = 0) {
+                return false
+            }
+        }
+        return true
+    }
+
+    WaitWhileColour(colour, maxLoops := 20, interval := 50) {
+        i := maxLoops
+        while (IsWindowActive() && this.GetColour() = colour) {
+            Sleep(interval)
+            i--
+            if (i = 0) {
+                return false
+            }
+        }
+        return true
+    }
+
+    WaitUntilColour(colour, maxLoops := 20, interval := 50) {
+        i := maxLoops
+        while (IsWindowActive() && this.GetColour() != colour) {
+            Sleep(interval)
+            i--
+            if (i = 0) {
+                return false
+            }
+        }
+        return true
     }
 }
 
@@ -169,37 +226,37 @@ cNatureFarmUseSphere() {
 
 cMineEnhanceSlot1() { ; Top left
     o := RelCoord()
-    o.SetCoordRel(1036, 575)
+    o.SetCoordRel(1016, 575)
     return o
 }
 
 cMineEnhanceSlot2() { ; Top right
     o := RelCoord()
-    o.SetCoordRel(2000, 575)
+    o.SetCoordRel(1980, 575)
     return o
 }
 
 cMineEnhanceSlot3() { ; Mid left
     o := RelCoord()
-    o.SetCoordRel(1017, 719)
+    o.SetCoordRel(1016, 725)
     return o
 }
 
 cMineEnhanceSlot4() { ; Mid right
     o := RelCoord()
-    o.SetCoordRel(2000, 720)
+    o.SetCoordRel(1980, 725)
     return o
 }
 
 cMineEnhanceSlot5() { ; Bottom left
     o := RelCoord()
-    o.SetCoordRel(1036, 870)
+    o.SetCoordRel(1016, 870)
     return o
 }
 
 cMineEnhanceSlot6() { ; Bottom right
     o := RelCoord()
-    o.SetCoordRel(2000, 870)
+    o.SetCoordRel(1980, 870)
     return o
 }
 
@@ -363,7 +420,7 @@ cMineDrillSphereButton() { ; Button for sphere use
 
 cMineTransmuteButton() { ; Button for Transmute all bars
     o := RelCoord()
-    o.SetCoordRel(718, 390)
+    o.SetCoordRel(703, 385)
     return o
 }
 
@@ -378,3 +435,46 @@ cMineVeinCancelConfirmButton() { ; Button for upgrading vein level
     o.SetCoordRel(1190, 520) ; Formerly 1247 527, 1063, 505
     return o
 }
+/* 
+*Up:: {
+
+ cMineEnhanceSlot1().ToolTipAtCoord(1)
+cMineEnhanceSlot2().ToolTipAtCoord(2)
+cMineEnhanceSlot3().ToolTipAtCoord(3)
+cMineEnhanceSlot4().ToolTipAtCoord(4)
+cMineEnhanceSlot5().ToolTipAtCoord(5)
+cMineEnhanceSlot6().ToolTipAtCoord(6)
+; Vein rarity colours
+cMineColourSlot1().ToolTipAtCoord(7)
+cMineColourSlot2().ToolTipAtCoord(8)
+cMineColourSlot3().ToolTipAtCoord(9)
+cMineColourSlot4().ToolTipAtCoord(10)
+cMineColourSlot5().ToolTipAtCoord(11)
+cMineColourSlot6().ToolTipAtCoord(12)
+; Vein type icon locations
+cMineVeinIconSlot1().ToolTipAtCoord(13)
+cMineVeinIconSlot2().ToolTipAtCoord(14)
+cMineVeinIconSlot3().ToolTipAtCoord(15)
+cMineVeinIconSlot4().ToolTipAtCoord(16)
+cMineVeinIconSlot5().ToolTipAtCoord(17)
+cMineVeinIconSlot6().ToolTipAtCoord(18) 
+; Vein cancel button locations
+cMineVeinCancelSlot1().ToolTipAtCoord(1)
+cMineVeinCancelSlot2().ToolTipAtCoord(2)
+cMineVeinCancelSlot3().ToolTipAtCoord(3)
+cMineVeinCancelSlot4().ToolTipAtCoord(4)
+cMineVeinCancelSlot5().ToolTipAtCoord(5)
+cMineVeinCancelSlot6().ToolTipAtCoord(6)
+; Mine navigate tabs
+cMineTabVein().ToolTipAtCoord(7)
+cMineTabMines().ToolTipAtCoord(8)
+cMineTabDrill().ToolTipAtCoord(9)
+cMineTabShop().ToolTipAtCoord(10)
+cMineTabTransmute().ToolTipAtCoord(11)
+cMineFreeFuelButton().ToolTipAtCoord(12)
+cMineDrillSphereButton().ToolTipAtCoord(13)
+cMineTransmuteButton().ToolTipAtCoord(14)
+cMineVeinUpgradeButton().ToolTipAtCoord(15)
+cMineVeinCancelConfirmButton().ToolTipAtCoord(16) 
+
+} */
