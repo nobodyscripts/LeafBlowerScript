@@ -562,6 +562,79 @@ class cSettings {
         }
         this.WriteToIni("Debug", BinaryToStr(Debug), "Debug")
     }
+
+    SaveCurrentSettings() {
+        global Debug
+        this.WriteToIni("EnableLogging", EnableLogging)
+        this.WriteToIni("HaveBorbDLC", HaveBorbDLC, "Borbventures")
+        this.WriteToIni("CardsCommonAmount", CardsCommonAmount, "Cards")
+        this.WriteToIni("CardsRareAmount", CardsRareAmount, "Cards")
+        this.WriteToIni("CardsLegendaryAmount", CardsLegendaryAmount, "Cards")
+        this.WriteToIni("CardsDontOpenCommons", CardsDontOpenCommons, "Cards")
+        this.WriteToIni("CardsDontOpenRare", CardsDontOpenRare, "Cards")
+        this.WriteToIni("CardsDontOpenLegendary", CardsDontOpenLegendary, "Cards")
+        this.WriteToIni("CardsSleepAmount", CardsSleepAmount, "Cards")
+        this.WriteToIni("CardsBuyEnabled", CardsBuyEnabled, "CardsBuy")
+        this.WriteToIni("CardsBuyStyle", CardsBuyStyle, "CardsBuy")
+        this.WriteToIni("CardsCommonBuyAmount", CardsCommonBuyAmount, "CardsBuy")
+        this.WriteToIni("CardsRareBuyAmount", CardsRareBuyAmount, "CardsBuy")
+        this.WriteToIni("CardsLegBuyAmount", CardsLegBuyAmount, "CardsBuy")
+        this.WriteToIni("CardsDontBuyCommons", CardsDontBuyCommons, "CardsBuy")
+        this.WriteToIni("CardsDontBuyRare", CardsDontBuyRare, "CardsBuy")
+        this.WriteToIni("CardsDontBuyLeg", CardsDontBuyLeg, "CardsBuy")
+        this.WriteToIni("CardsSleepBuyAmount", CardsSleepBuyAmount, "CardsBuy")
+        this.WriteToIni("CardsPermaLoop", CardsPermaLoop, "Cards")
+        this.WriteToIni("CardsBossFarmEnabled", CardsBossFarmEnabled, "Cards")
+        this.WriteToIni("GFToKillPerCycle", GFToKillPerCycle, "SSFarm")
+        this.WriteToIni("SSToKillPerCycle", SSToKillPerCycle, "SSFarm")
+        this.WriteToIni("GFSSNoReset", GFSSNoReset, "SSFarm")
+        this.WriteToIni("GemFarmSleepAmount", GemFarmSleepAmount, "GemFarm")
+        this.WriteToIni("ClawCheckSizeOffset", ClawCheckSizeOffset, "Claw")
+        this.WriteToIni("BVItemsArr", ArrToCommaDelimStr(BVItemsArr), "Borbventures")
+        this.WriteToIni("BVBlockMythLeg", BVBlockMythLeg, "Borbventures")
+        this.WriteToIni("NavigateTime", NavigateTime)
+        this.WriteToIni("DisableZoneChecks", DisableZoneChecks)
+        this.WriteToIni("DisableSettingsChecks", DisableSettingsChecks)
+        this.WriteToIni("ArtifactSleepAmount", ArtifactSleepAmount, "BossFarm")
+        this.WriteToIni("BossFarmUsesWind", BossFarmUsesWind, "BossFarm")
+        this.WriteToIni("BossFarmUsesWobblyWings", BossFarmUsesWobblyWings, "BossFarm")
+        this.WriteToIni("WobblyWingsSleepAmount", WobblyWingsSleepAmount, "BossFarm")
+        this.WriteToIni("HyacinthUseSlot", HyacinthUseSlot, "NatureFarm")
+        this.WriteToIni("HyacinthFarmBoss", HyacinthFarmBoss, "NatureFarm")
+        this.WriteToIni("HyacinthUseFlower", HyacinthUseFlower, "NatureFarm")
+        this.WriteToIni("HyacinthUseSpheres", HyacinthUseSpheres, "NatureFarm")
+        this.WriteToIni("HyacinthUseNextAvailableFlower", HyacinthUseNextAvailableFlower, "NatureFarm")
+        this.WriteToIni("HyacinthBanksEnabled", HyacinthBanksEnabled, "NatureFarm")
+        this.WriteToIni("BankEnableLGDeposit", BankEnableLGDeposit, "Bank")
+        this.WriteToIni("BankEnableSNDeposit", BankEnableSNDeposit, "Bank")
+        this.WriteToIni("BankEnableEBDeposit", BankEnableEBDeposit, "Bank")
+        this.WriteToIni("BankEnableFFDeposit", BankEnableFFDeposit, "Bank")
+        this.WriteToIni("BankEnableSRDeposit", BankEnableSRDeposit, "Bank")
+        this.WriteToIni("BankEnableQADeposit", BankEnableQADeposit, "Bank")
+        this.WriteToIni("BankEnableStorageUpgrade", BankEnableStorageUpgrade, "Bank")
+        this.WriteToIni("BankRunsSpammer", BankRunsSpammer, "Bank")
+        this.WriteToIni("BankDepositTime", BankDepositTime, "Bank")
+        this.WriteToIni("LeaftonCraftEnabled", LeaftonCraftEnabled, "Leafton")
+        this.WriteToIni("LeaftonSpamsWind", LeaftonSpamsWind, "Leafton")
+        this.WriteToIni("LeaftonBanksEnabled", LeaftonBanksEnabled, "Leafton")
+        this.WriteToIni("LeaftonRunOnceEnabled", LeaftonRunOnceEnabled, "Leafton")
+        this.WriteToIni("TowerPassiveBanksEnabled", TowerPassiveBanksEnabled, "TowerPassive")
+        this.WriteToIni("TowerPassiveCraftEnabled", TowerPassiveCraftEnabled, "TowerPassive")
+        this.WriteToIni("MinerEnableVeins", MinerEnableVeins, "Miner")
+        this.WriteToIni("MinerEnableVeinRemoval", MinerEnableVeinRemoval, "Miner")
+        this.WriteToIni("MinerEnableTransmute", MinerEnableTransmute, "Miner")
+        this.WriteToIni("MinerEnableFreeRefuel", MinerEnableFreeRefuel, "Miner")
+        this.WriteToIni("MinerEnableBanks", MinerEnableBanks, "Miner")
+        this.WriteToIni("MinerEnableSpammer", MinerEnableSpammer, "Miner")
+        this.WriteToIni("MinerEnableVeinUpgrade", MinerEnableVeinUpgrade, "Miner")
+        this.WriteToIni("MinerEnableSphereUse", MinerEnableSphereUse, "Miner")
+        this.WriteToIni("MinerSphereDelay", MinerSphereDelay, "Miner")
+        this.WriteToIni("MinerSphereAmount", MinerSphereAmount, "Miner")
+        this.WriteToIni("MinerSphereTimer", MinerSphereTimer, "Miner")
+        this.WriteToIni("MinerTransmuteTimer", MinerTransmuteTimer, "Miner")
+        this.WriteToIni("MinerRefuelTimer", MinerRefuelTimer, "Miner")
+        this.WriteToIni("Debug", BinaryToStr(Debug), "Debug")
+    }
 }
 
 IniToVar(file, section, name) {
@@ -581,4 +654,19 @@ BinaryToStr(var) {
         return "true"
     }
     return "false"
+}
+
+ArrToCommaDelimStr(var) {
+    output := ""
+    if (var.Length > 1) {
+        for text in var {
+            if (output != "") {
+                output := output ", " text
+            } else {
+                output := text
+            }
+        }
+    } else {
+        return false
+    }
 }

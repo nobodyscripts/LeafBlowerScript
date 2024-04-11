@@ -83,7 +83,7 @@ Button_Click_CursedCheese(thisGui, info) {
     WinActivate(LBRWindowTitle)
     fCursedCheeseStart()
 }
-/* 
+/*
 Button_Click_Hyacinth(thisGui, info) {
     WinActivate(LBRWindowTitle)
     fHyacinthStart()
@@ -133,7 +133,7 @@ RunGui() {
 
     MyGui.Add("Text", "ccfcfcf", "F10")
     MyBtn := MyGui.Add("Button", "Default w120", "Nature Boss")
-    MyBtn.OnEvent("Click", Button_Click_NatureBoss) 
+    MyBtn.OnEvent("Click", Button_Click_NatureBoss)
 
     MyGui.Add("Text", "ccfcfcf", "F11 Autoclicker")
 
@@ -165,9 +165,68 @@ RunGui() {
     MyBtn := MyGui.Add("Button", "Default w120", "Leafton Mode")
     MyBtn.OnEvent("Click", Button_Click_Leafton)
 
-    
-    
+    MyGui.Add("Text", "ccfcfcf", "General Settings")
+    MyBtn := MyGui.Add("Button", "Default w120", "Settings")
+    MyBtn.OnEvent("Click", Button_Click_GeneralSettings)
+
+
     MyGui.Show()
+}
+
+
+Button_Click_GeneralSettings(thisGui, info) {
+    global EnableLogging, NavigateTime, DisableZoneChecks, DisableSettingsChecks
+
+    settingsGUI := GUI(, "General Settings")
+    settingsGUI.Opt("+Owner +MinSize +MinSize500x")
+    settingsGUI.BackColor := "0c0018"
+
+    if (EnableLogging = true) {
+        settingsGUI.Add("CheckBox", "vLogging ccfcfcf checked", "Enable Logging")
+    } else {
+        settingsGUI.Add("CheckBox", "vLogging ccfcfcf", "Enable Logging")
+    }
+
+    settingsGUI.Add("Text", "ccfcfcf", "Event Items Amount:")
+    settingsGUI.AddEdit()
+    If (IsInteger(NavigateTime) && NavigateTime > 0) {
+        settingsGUI.Add("UpDown", "vNavigateTime Range1-9999", NavigateTime)
+    } else {
+        if (settings.sUseNobody) {
+            settingsGUI.Add("UpDown", "vNavigateTime Range1-12", settings.defaultNobodySettings.NavigateTime)
+        } else {
+            settingsGUI.Add("UpDown", "vNavigateTime Range1-12", settings.defaultSettings.NavigateTime)
+        }
+    }
+
+    if (DisableZoneChecks = true) {
+        settingsGUI.Add("CheckBox", "vDisableZoneChecks ccfcfcf checked", "Disable Zone Checks")
+    } else {
+        settingsGUI.Add("CheckBox", "vDisableZoneChecks ccfcfcf", "Disable Zone Checks")
+    }
+
+
+    if (DisableSettingsChecks = true) {
+        settingsGUI.Add("CheckBox", "vDisableSettingsChecks ccfcfcf checked", "Disable Game Settings Checks")
+    } else {
+        settingsGUI.Add("CheckBox", "vDisableSettingsChecks ccfcfcf", "Disable Game Settings Checks")
+    }
+    settingsGUI.Add("Button", "default", "Apply").OnEvent("Click", ProcessUserEventItemsSettings)
+    ;settingsGUI.OnEvent("Close", ProcessUserEventItemsSettings)
+    
+    settingsGUI.Show("w300")
+
+    ProcessUserEventItemsSettings(*) {
+        global EnableLogging, NavigateTime, DisableZoneChecks, DisableSettingsChecks
+        values := settingsGUI.Submit()
+        Log("Event Items: Logging " values.Logging " NavigateTime " values.NavigateTime
+            "`nDisableZoneChecks " values.DisableZoneChecks " DisableSettingsChecks " values.DisableSettingsChecks)
+        EnableLogging := values.Logging
+        NavigateTime := values.NavigateTime
+        DisableZoneChecks := values.DisableZoneChecks
+        DisableSettingsChecks := values.DisableSettingsChecks
+        settings.SaveCurrentSettings()
+    }
 }
 
 /* Button_Click_EventItem(*) {
