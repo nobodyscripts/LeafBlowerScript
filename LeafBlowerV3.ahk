@@ -9,22 +9,21 @@
 #Include Lib\SettingsCheck.ahk
 #Include Lib\Spammers.ahk
 
-#Include Lib\BankDeposit.ahk
-#Include Lib\Borbventure.ahk
-#Include Lib\Cards.ahk
-#Include Lib\CardsBuy.ahk
-#Include Lib\Claw.ahk
-#Include Lib\FarmGFSS.ahk
-#Include Lib\FarmNatureBoss.ahk
-#Include Lib\FarmNormalBoss.ahk
-#Include Lib\GemFarm.ahk
-#Include Lib\NatureHyacinth.ahk
-#Include Lib\TowerTimeWarp.ahk
-#Include Lib\TowerFarmPassive.ahk
-#Include Lib\LeaftonTaxi.ahk
-#Include Lib\MineMaintainer.ahk
-
-#Include LIb\CursedCheese.ahk
+#Include Modules\BankDeposit.ahk
+#Include Modules\Borbventure.ahk
+#Include Modules\Cards.ahk
+#Include Modules\CardsBuy.ahk
+#Include Modules\Claw.ahk
+#Include Modules\CursedCheese.ahk
+#Include Modules\FarmGFSS.ahk
+#Include Modules\FarmNatureBoss.ahk
+#Include Modules\FarmNormalBoss.ahk
+#Include Modules\GemFarm.ahk
+#Include Modules\NatureHyacinth.ahk
+#Include Modules\TowerTimeWarp.ahk
+#Include Modules\TowerFarmPassive.ahk
+#Include Modules\LeaftonTaxi.ahk
+#Include Modules\MineMaintainer.ahk
 
 SendMode("Input") ; Support for vm
 ; Can be Input, Event, Play, InputThenPlay if Input doesn't work for you

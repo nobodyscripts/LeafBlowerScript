@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 #Include ../Lib/Coords.ahk
-#Include Spammers.ahk
+#Include ../Lib/Spammers.ahk
 
 global LeaftonCraftEnabled := true
 global LeaftonSpamsWind := true
