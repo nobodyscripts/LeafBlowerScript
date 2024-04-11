@@ -3,6 +3,8 @@
 #SingleInstance Force
 #Include Hotkeys.ahk
 
+#Include Gui\MainGUI.ahk
+
 #Include Lib\ScriptSettings.ahk
 #Include Lib\Functions.ahk
 #Include Lib\Navigate.ahk
@@ -56,7 +58,7 @@ if (WinExist(LBRWindowTitle)) {
     WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
 }
 Log("Script loaded")
-
+RunGui()
 
 ; ------------------- Readme -------------------
 /*
@@ -68,6 +70,10 @@ Run this file to load script
 
 #HotIf WinActive(LBRWindowTitle)
 *F1:: {
+    fExitApp()
+}
+
+fExitApp() {
     KillAllSpammers()
     Log("F1: Pressed")
     ; Wildcard shortcut * to allow functions to work while looping with
@@ -76,7 +82,12 @@ Run this file to load script
     ResetModifierKeys() ; Twice for good luck
     ExitApp()
 }
+
 *F2:: {
+    fReloadApp()
+}
+
+fReloadApp() {
     global HadToHideNotifs, HadToRemoveBearo, GemFarmActive, TowerFarmActive,
         bvAutostartDisabled
     ; Toggle notifs to handle multiple situations where its toggled
@@ -125,7 +136,11 @@ Run this file to load script
     cReload()
 }
 
-*F3:: { ; Open cards clicker
+*F3:: {
+    fCardsStart()
+}
+
+fCardsStart() { ; Open cards clicker
     global HadToHideNotifs
     Static on3 := False
     Log("F3: Pressed")
@@ -158,7 +173,11 @@ Run this file to load script
     Sleep(34)
 }
 
-*F4:: { ; Gem farm using suitcase
+*F4:: {
+    fGemFarmStart()
+}
+
+fGemFarmStart() { ; Gem farm using suitcase
     global HadToRemoveBearo, GemFarmActive
     Static on4 := False
     Log("F4: Pressed")
@@ -192,7 +211,11 @@ Run this file to load script
     }
 }
 
-*F5:: { ; Tower 72hr boost loop
+*F5:: {
+    fTowerBoostStart()
+}
+
+fTowerBoostStart() { ; Tower 72hr boost loop
     global TowerFarmActive
     TowerFarmActive := true
     Static on5 := False
@@ -212,7 +235,11 @@ Run this file to load script
     }
 }
 
-*F6:: { ; Borb pink juice farm in borbventures
+*F6:: {
+    fBorbvStart()
+}
+
+fBorbvStart() { ; Borb pink juice farm in borbventures
     Static on6 := False
     global bvAutostartDisabled
     Log("F6: Pressed")
@@ -232,7 +259,11 @@ Run this file to load script
     }
 }
 
-*F7:: { ; Claw pumpkin farm
+*F7:: {
+    fClawStart()
+}
+
+fClawStart() { ; Claw pumpkin farm
     Static on7 := False
     Log("F7: Pressed")
     InitScriptHotKey()
@@ -245,7 +276,11 @@ Run this file to load script
     } Else cReload()
 }
 
-*F8:: { ; Green Flame/Soulseeker farm
+*F8:: {
+    fGFSSStart()
+}
+
+fGFSSStart() { ; Green Flame/Soulseeker farm
     Static on8 := False
     Log("F8: Pressed")
     InitScriptHotKey()
@@ -259,7 +294,11 @@ Run this file to load script
 }
 
 
-*F9:: { ; Farm bosses using violins
+*F9:: {
+    fBossFarmStart()
+}
+
+fBossFarmStart() { ; Farm bosses using violins
     global on9, HadToHideNotifsF9, bvAutostartDisabled
     Log("F9: Pressed")
     InitScriptHotKey()
@@ -320,7 +359,11 @@ Run this file to load script
     }
 }
 
-*F10:: { ; Farm nature boss using violins
+*F10:: {
+    fNatureBossStart()
+}
+
+fNatureBossStart() { ; Farm nature boss using violins
     Static on10 := False
     Log("F10: Pressed")
     InitScriptHotKey()
@@ -359,6 +402,10 @@ Run this file to load script
 
 #HotIf WinActive(LBRWindowTitle)
 *F12:: {
+    fGameResize()
+}
+
+fGameResize() {
     global X, Y, W, H, DisableSettingsChecks
     Log("F12: Pressed")
     if (!InitGameWindow()) {
@@ -422,6 +469,10 @@ removeLastCheckTooltip() {
  * @returns {void} 
  */
 *Insert:: {
+    fMineStart()
+}
+
+fMineStart() {
     Static on13 := false
     Log("Insert: Pressed")
     InitScriptHotKey()
@@ -439,7 +490,14 @@ removeLastCheckTooltip() {
     }
 }
 
+/**
+ * Hyacinth Farm mode
+ */
 *Home:: {
+    fHyacinthStart()
+}
+
+fHyacinthStart() {
     ; Farm bosses while farming Hyacinths
     Static on14 := false
     global HyacinthFarmActive
@@ -461,31 +519,15 @@ removeLastCheckTooltip() {
     }
 }
 
-*End:: {
-    ; Tower farm passive
-    Static on15 := false
-
-    Log("End: Pressed")
-    InitScriptHotKey()
-    If (on15 := !on15) {
-        if (!CheckGameSettingsCorrect()) {
-            cReload()
-            return
-        }
-        Log("End: Tower Farm Passive Activated")
-        fTowerFarm()
-    } Else {
-        ToolTip(, , , 4)
-        Log("End: Resetting")
-        cReload()
-        return
-    }
+/**
+ * Bank maintainer mode
+ */
+*PgUp:: {
+    fBankStart()
 }
 
-*PgUp:: {
-    ; Bank maintainer
+fBankStart() {
     Static on16 := false
-
     Log("PgUp: Pressed")
     InitScriptHotKey()
     If (on16 := !on16) {
@@ -503,29 +545,14 @@ removeLastCheckTooltip() {
     }
 }
 
-
-*PgDn:: {
-    ; Leafton Autotaxi
-    Static on17 := false
-
-    Log("PgDn: Pressed")
-    InitScriptHotKey()
-    If (on17 := !on17) {
-        if (!CheckGameSettingsCorrect()) {
-            cReload()
-            return
-        }
-        Log("PgDn: Leafton Autotaxi Activated")
-        fLeaftonTaxi()
-    } Else {
-        ToolTip(, , , 4)
-        Log("PgDn: Resetting")
-        cReload()
-        return
-    }
+/**
+ * Cursed Cheese mode
+ */
+*Del:: {
+    fCursedCheeseStart()
 }
 
-*Del:: {
+fCursedCheeseStart() {
     ; Cursed Cheese Farm
     Static on18 := false
 
@@ -546,44 +573,61 @@ removeLastCheckTooltip() {
     }
 }
 
-/* *Del:: {
-    OpenAreasPanel()
-    Sleep(1000)
-    ResetAreaScroll()
-    Sleep(1000)
-    ScrollAmountDown(10)
-    Sleep(1000)
-    ScrollAmountUp(10)
-    Sleep(1000)
-    OpenEventsAreasPanel()
-    Sleep(1000)
-    GoToHomeGarden()
-    Sleep(1000)
-    GoToGF()
-    Sleep(1000)
-    GoToSS()
-    Sleep(1000)
-    GoToShadowCavern()
-    Sleep(1000)
-    GotoResetSS()
-    Sleep(1000)
-    ResetSS()
-    Sleep(1000)
-    ResetGF()
-    Sleep(1000)
-    GoToNatureBoss()
-    Sleep(1000)
-    GoToFarmField()
-    Sleep(1000)
-    GoToDesert()
-    Sleep(1000)
-    GoToAstralOasis()
-    Sleep(1000)
-    GoToDimentionalTapestry()
-    Sleep(1000)
-    GoToPlankScope()
-    Sleep(1000)
-    GotoCardsFirstTab()
+/**
+ * Tower farm passive mode
+ */
+*End:: {
+    fTowerPassiveStart()
+}
+
+fTowerPassiveStart() {
+    Static on15 := false
+
+    Log("End: Pressed")
+    InitScriptHotKey()
+    If (on15 := !on15) {
+        if (!CheckGameSettingsCorrect()) {
+            cReload()
+            return
+        }
+        Log("End: Tower Farm Passive Activated")
+        fTowerFarm()
+    } Else {
+        ToolTip(, , , 4)
+        Log("End: Resetting")
+        cReload()
+        return
+    }
+}
+
+/**
+ * Leafton mode
+ */
+*PgDn:: {
+    fLeaftonStart()
+}
+
+fLeaftonStart() {
+    Static on17 := false
+    Log("PgDn: Pressed")
+    InitScriptHotKey()
+    If (on17 := !on17) {
+        if (!CheckGameSettingsCorrect()) {
+            cReload()
+            return
+        }
+        Log("PgDn: Leafton Autotaxi Activated")
+        fLeaftonTaxi()
+    } Else {
+        ToolTip(, , , 4)
+        Log("PgDn: Resetting")
+        cReload()
+        return
+    }
+}
+
+
+/* *End:: {
 } */
 
 ExitFunc(ExitReason, ExitCode) {

@@ -1,4 +1,4 @@
-# LBR Resolution independent scripts v3.0.15
+# LBR Resolution independent scripts v3.1.1
 
 Support and news: <https://discord.gg/xu8fXw4CQ8>
 
@@ -155,49 +155,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
-Adjusted the settings check tooltips to indicate good results.  
-Applied a new SendMode in LeafBlowerV3.ahk to allow for usage in VM.  
-Bank modes: Added auto purchase of storage upgrades option, off by default.  
-Del: Added Cursed Cheese Farm mode, rough form unsure if its staying.  
-End: Added bank maintainer to passive tower mode with setting
-TowerPassiveBanksEnabled  
-End: Added crafting autoclicker to passive tower mode with setting
-TowerPassiveCraftEnabled  
-Home: Fix an undeclared variable with boss farm/ww disabled.  
-Home: Add HyacinthUseFlower to hyacinth farm, letting you pick from list of
-flower names or id, see UserSettingsHelp.md for list.  
-Home: Added HyacinthUseSpheres setting, will use all available spheres to
-quickly farm selected flower type, use with flowers that make good use of the
-sphere time reduction.  
-Home: Added HyacinthUseNextAvailableFlower, selects the next available flower
-type when seeds are no longer available. Rotates between all 16 types before
-stopping.  
-Home: Added HyacinthBanksEnabled, enables bank maintainer while using hyacinth
-farm mode.  
-Home: Fix for opening settings instead of plant panel.  
-
-Insert: Replaced quark farm with Mine Maintainer.  
-Insert: Uses new hotkey L for Mine screen.  
-Insert: Added auto enhance, auto transmute, free fuel collection, bank and ww
-spammer.  
-Insert: Added bunch of settings to control different aspects. See
-UserSettings.ini or UsersettingsHelp.md  
-Insert: Added MinerEnableVeinUpgrade to auto purchase vein upgrade levels when
-available, off by default.  
-Insert: Added MinerEnableVeinRemoval to remove coal bar veins to leave one slot
-free to spawn new non coal bar veins quicker.  
-Insert: Fix for v2.24.2 transmute button moving.  
-Insert: Fix for features enabled on firstpass when disabled.  
-Insert: Fix vein removal confirmation getting stuck, added loop.  
-Insert: Added sphere usage, MinerEnableSphereUse, MinerSphereDelay,
-MinerSphereAmount, MinerSphereTimer to control, use amount 0 for infinite, delay
-is in ms, timer is in minutes.  
-Insert: Removed the mine removal and vein quality settings.  
-Insert: Added vein removal quality calculations, prioritises removal of veins
-that are close to slot 1 and have lower rarity.  
-Insert: Changed transmute timer to seconds from minutes to allow better control.  
-
-Del: Quick cursed cheese farm mode, left in incase anyone else needs.
+First pass GUI.  
 
 ## TODO
 
