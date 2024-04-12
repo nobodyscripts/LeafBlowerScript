@@ -4,7 +4,7 @@ Button_Click_BossFarm(thisGui, info) {
     global settings, BossFarmUsesWind, BossFarmUsesWobblyWings,
         ArtifactSleepAmount, WobblyWingsSleepAmount
 
-    optionsGUI := Gui(, "Tower Passive Mode Settings")
+    optionsGUI := Gui(, "Boss Farm Mode Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
