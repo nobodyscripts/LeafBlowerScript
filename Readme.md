@@ -160,33 +160,23 @@ Use WW if not used for 30seconds while spammer is running, incase stuck.
 
 ## TODO
 
-Rethink F8, F9, Insert, Home  
 Devoption: Window check, keybinds and active checks designed around dev.
    F12 Test mode, edit save file to incorrect settings and test each
    mode detects, verbose debug on pixel checks.  
 Cleanup card purchase orders into a more generic func.  
-Break up monolithic funcs to logical parts.  
 Check for alb.  
 Investigate fullscreen (it breaks fullscreen).  
-Investigate a gui to replace function keys.  
 Move keybinds to UserSettings.ini.  
 Trade farming for non gems/non suitcase version.  
 Brew + cards rotation mode.  
 Halloween + Nature artifact secondary which pauses main functions.  
 Adjust window resize based on delta from intended size, for non matching window
    dressing.  
-WW safety mode - Checks health bars for potential failure and changes level  
 
-F3: Handle new multipliers, decreasing amounts, priorities. Will probably need
-to read save file, get caps, work out how much to open to avoid breaking auto
-transcend limits, then ocr the buttons and openall the right amount.  
-F6: If item is not a valid target cancel borbv  
-F6: If white pixels in area next to normal text display, cancel borbv as
-   inventory is blocked  
 F7: Needs to use artifact if need be / get replacement  
 F8: Review ending of gfssnoreset mode  
 F10: Needs to use artifact if need be / get replacement  
-PageDown: Needs better setup routine.  
+PageDown: Leafton needs better setup routine. Travel to zone.  
 
 ## Known issues
 
@@ -196,26 +186,15 @@ digital vibrancy, hdr or similar).
 
 Some keys don't 'untoggle' properly when the scripts exit due to failures.  
 F3: If exited early, may toggle notifications to incorrect state  
-F3: If it looks like the buttons are going wild, its because its checking each
-   button with its own modifiers to see if each one is available (intended)  
-F3: Can still get ctrl/alt/shift stuck on (just press them to unstick)  
 F3: Ignores new multipliers, you can manually set them before or during.  
-F4: Toggling notification when starting with on left trade window closed.  
 F4: If exited early, may toggle notifications/auto refresh/details to incorrect
    state. Wait till a suitcase has been used to avoid.  
 F4: Can sometimes miss bearo, if you see trade start buttons appearing, retry  
 F4: Due to nature event pet slot if nature event artifact runs out bearo may not
-   reapply after use, to avoid leave a slot free in default loadout (8/9)  
-F4: Will display failures to use suitcases before it runs out, this is due to
-   the game not handling inputs every time.  
-F4: Options buttons broken with font size 1  
-F5: Buttons broken with font size 1  
-F6: Still! starting borbventures with only 1 borb  
-F6: Incorrect items can be started if manually refreshed while it scans  
-F6: Broken with font size 1  
+   reapply after use, to avoid leave a slot free in default loadout  
+F4: Will display failures to use suitcases, this is either due to lack of
+artifacts or a bad detection.  
 F7: Will intentionally grab gems if no pumpkins are found  
 F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
 F9: Albs can register as boss timer (kills due to white on the tools)  
-F9: Brew mode broken with font size 1  
-F12: Afk mode interfering with alternative font?  
