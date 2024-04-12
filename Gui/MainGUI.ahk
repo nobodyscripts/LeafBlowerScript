@@ -6,6 +6,7 @@
 #Include BossFarmGUI.ahk
 #Include ClawGUI.ahk
 #Include GemFarmGUI.ahk
+#Include GFSSFarmGUI.ahk
 #Include LeaftonGUI.ahk
 #Include MineGUI.ahk
 #Include TowerPassiveGUI.ahk
@@ -33,13 +34,6 @@ Button_Click_BorbVenture(thisGui, info) {
     WinActivate(LBRWindowTitle)
     fBorbvStart()
 }
-
-
-Button_Click_GFSS(thisGui, info) {
-    WinActivate(LBRWindowTitle)
-    fGFSSStart()
-}
-
 
 Button_Click_NatureBoss(thisGui, info) {
     WinActivate(LBRWindowTitle)

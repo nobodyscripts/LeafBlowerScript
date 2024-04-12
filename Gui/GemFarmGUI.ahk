@@ -7,6 +7,7 @@ Button_Click_GemFarm(thisGui, info) {
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
+
     optionsGUI.Add("Text", "ccfcfcf", "Delay between refreshes (ms):")
     optionsGUI.AddEdit()
     If (IsInteger(GemFarmSleepAmount) && GemFarmSleepAmount > 0) {
@@ -38,7 +39,6 @@ Button_Click_GemFarm(thisGui, info) {
         optionsGUI.Hide()
         WinActivate(LBRWindowTitle)
         fGemFarmStart()
-        optionsGUI.Hide()
     }
 
     CloseGemFarmSettings(*) {
