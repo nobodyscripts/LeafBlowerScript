@@ -17,6 +17,11 @@ global NavigateTime := 150
 global ArtifactSleepAmount := 1
 
 fTowerFarm() {
+    global BankDepositTime
+    ; If user set 0 in gui without adding a fraction, make at least 1 second
+    if (BankDepositTime = 0) {
+        BankDepositTime := 0.017
+    }
     GoToLeafTower()
     starttime := A_Now
     craftStopCoord := cCraftingStop()

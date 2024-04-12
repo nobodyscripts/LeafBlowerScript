@@ -16,17 +16,17 @@ Button_Click_Bank(thisGui, info) {
         optionsGUI.Add("CheckBox", "vBankEnableStorageUpgrade ccfcfcf", "Enable Storage Upgrade")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Bank Deposit Timer (m)")
+    optionsGUI.Add("Text", "ccfcfcf", "Bank Deposit Timer (m):")
     optionsGUI.AddEdit()
-    If (IsInteger(BankDepositTime) && BankDepositTime > 0) {
-        optionsGUI.Add("UpDown", "vBankDepositTime Range1-9999",
+    If (IsFloat(BankDepositTime)) {
+        optionsGUI.Add("UpDown", "vBankDepositTime Range0-9999",
         BankDepositTime)
     } else {
         if (settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vBankDepositTime Range1-9999",
+            optionsGUI.Add("UpDown", "vBankDepositTime Range0-9999",
                 settings.defaultNobodySettings.BankDepositTime)
         } else {
-            optionsGUI.Add("UpDown", "vBankDepositTime Range1-9999",
+            optionsGUI.Add("UpDown", "vBankDepositTime Range0-9999",
                 settings.defaultSettings.BankDepositTime)
         }
     }

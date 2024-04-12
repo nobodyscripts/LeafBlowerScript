@@ -14,6 +14,11 @@ global NavigateTime := 150
 fFarmNormalBossAndNatureHyacinth() {
     global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot,
         BankDepositTime, HyacinthBanksEnabled, NavigateTime
+        
+    ; If user set 0 in gui without adding a fraction, make at least 1 second
+    if (BankDepositTime = 0) {
+        BankDepositTime := 0.017
+    }
     ToolTip()
     Killcount := 0
     starttime := A_Now

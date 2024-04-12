@@ -41,7 +41,7 @@ Button_Click_Mine(thisGui, info) {
         optionsGUI.Add("CheckBox", "vMinerEnableSpammer ccfcfcf", "Enable Boss Spammer")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Auto Bars Transmute Timer (s)")
+    optionsGUI.Add("Text", "ccfcfcf", "Auto Bars Transmute Timer (s):")
     optionsGUI.AddEdit()
     If (IsInteger(MinerTransmuteTimer) && MinerTransmuteTimer > 0) {
         optionsGUI.Add("UpDown", "vMinerTransmuteTimer Range1-9999",
@@ -56,17 +56,17 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Fuel Collection Timer (m)")
+    optionsGUI.Add("Text", "ccfcfcf", "Fuel Collection Timer (m):")
     optionsGUI.AddEdit()
-    If (IsInteger(MinerRefuelTimer) && MinerRefuelTimer > 0) {
-        optionsGUI.Add("UpDown", "vMinerRefuelTimer Range1-9999",
+    If (IsFloat(MinerRefuelTimer) && MinerRefuelTimer > 0.15) {
+        optionsGUI.Add("UpDown", "vMinerRefuelTimer Range0-9999",
             MinerRefuelTimer)
     } else {
         if (settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vMinerRefuelTimer Range1-9999",
+            optionsGUI.Add("UpDown", "vMinerRefuelTimer Range0-9999",
                 settings.defaultNobodySettings.MinerRefuelTimer)
         } else {
-            optionsGUI.Add("UpDown", "vMinerRefuelTimer Range1-9999",
+            optionsGUI.Add("UpDown", "vMinerRefuelTimer Range0-9999",
                 settings.defaultSettings.MinerRefuelTimer)
         }
     }
@@ -89,7 +89,7 @@ Button_Click_Mine(thisGui, info) {
         optionsGUI.Add("CheckBox", "vMinerEnableSphereUse ccfcfcf", "Enable Drill Sphere Use")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Use Delay (ms)")
+    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Use Delay (ms):")
     optionsGUI.AddEdit()
     If (IsInteger(MinerSphereDelay) && MinerSphereDelay > 0) {
         optionsGUI.Add("UpDown", "vMinerSphereDelay Range1-9999",
@@ -104,9 +104,9 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Amount, 0 (infinite)")
+    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Amount, 0 (infinite):")
     optionsGUI.AddEdit()
-    If (IsInteger(MinerSphereAmount) && MinerSphereAmount > 0) {
+    If (IsInteger(MinerSphereAmount)) {
         optionsGUI.Add("UpDown", "vMinerSphereAmount Range0-99999",
         MinerSphereAmount)
     } else {
@@ -119,17 +119,17 @@ Button_Click_Mine(thisGui, info) {
         }
     }
     
-    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Cycle Timer (m)")
+    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Cycle Timer (m):")
     optionsGUI.AddEdit()
-    If (IsInteger(MinerSphereTimer) && MinerSphereTimer > 0) {
-        optionsGUI.Add("UpDown", "vMinerSphereTimer Range1-9999",
+    If (IsFloat(MinerSphereTimer) && MinerSphereTimer > 0.15) {
+        optionsGUI.Add("UpDown", "vMinerSphereTimer Range0-9999",
         MinerSphereTimer)
     } else {
         if (settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vMinerSphereTimer Range1-9999",
+            optionsGUI.Add("UpDown", "vMinerSphereTimer Range0-9999",
                 settings.defaultNobodySettings.MinerSphereTimer)
         } else {
-            optionsGUI.Add("UpDown", "vMinerSphereTimer Range1-9999",
+            optionsGUI.Add("UpDown", "vMinerSphereTimer Range0-9999",
                 settings.defaultSettings.MinerSphereTimer)
         }
     }

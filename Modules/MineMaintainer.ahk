@@ -36,6 +36,16 @@ global MinerColourCodeMythical := "0x9E10C1"
 global MinerColourCodeLegendary := "0xE1661A"
 
 fMineMaintainer() {
+    global MinerRefuelTimer, MinerSphereTimer, BankDepositTime
+    if (MinerRefuelTimer = 0) { ; If user set 0 in gui without adding a fraction, make at least 1 second
+        MinerRefuelTimer := 0.017
+    }
+    if (MinerSphereTimer = 0) {
+        MinerSphereTimer := 0.017
+    }
+    if (BankDepositTime = 0) {
+        BankDepositTime := 0.017
+    }
     Firstpass := true
     MineTime := A_Now
     TransmuteTime := A_Now

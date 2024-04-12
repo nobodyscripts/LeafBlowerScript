@@ -20,7 +20,7 @@ Button_Click_BossFarm(thisGui, info) {
         optionsGUI.Add("CheckBox", "vBossFarmUsesWobblyWings ccfcfcf", "Enable Wobbly Wings Artifact")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Delay between artifact use (ms)")
+    optionsGUI.Add("Text", "ccfcfcf", "Delay between artifact use (ms):")
     optionsGUI.AddEdit()
     If (IsInteger(ArtifactSleepAmount) && ArtifactSleepAmount > 0) {
         optionsGUI.Add("UpDown", "vArtifactSleepAmount Range1-9999",
@@ -35,7 +35,7 @@ Button_Click_BossFarm(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Delay between Wobbly Wings use (ms)")
+    optionsGUI.Add("Text", "ccfcfcf", "Delay between Wobbly Wings use (ms):")
     optionsGUI.AddEdit()
     If (IsInteger(WobblyWingsSleepAmount) && WobblyWingsSleepAmount > 0) {
         optionsGUI.Add("UpDown", "vWobblyWingsSleepAmount Range1-9999",
@@ -49,13 +49,13 @@ Button_Click_BossFarm(thisGui, info) {
                 settings.defaultSettings.WobblyWingsSleepAmount)
         }
     }
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunTowerPassive)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessTowerPassiveSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseTowerPassiveSettings)
+    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunBossFarm)
+    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessBossFarmSettings)
+    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseBossFarmSettings)
 
     optionsGUI.Show("w300")
 
-    ProcessTowerPassiveSettings(*) {
+    ProcessBossFarmSettings(*) {
         values := optionsGUI.Submit()
         BossFarmUsesWind := values.BossFarmUsesWind
         BossFarmUsesWobblyWings := values.BossFarmUsesWobblyWings
@@ -64,13 +64,13 @@ Button_Click_BossFarm(thisGui, info) {
         settings.SaveCurrentSettings()
     }
 
-    RunTowerPassive(*) {
+    RunBossFarm(*) {
         optionsGUI.Hide()
         WinActivate(LBRWindowTitle)
         fBossFarmStart()
     }
 
-    CloseTowerPassiveSettings(*) {
+    CloseBossFarmSettings(*) {
         optionsGUI.Hide()
     }
 }

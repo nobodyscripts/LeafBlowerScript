@@ -4,6 +4,7 @@
 
 #Include BankGUI.ahk
 #Include BossFarmGUI.ahk
+#Include ClawGUI.ahk
 #Include LeaftonGUI.ahk
 #Include MineGUI.ahk
 #Include TowerPassiveGUI.ahk
@@ -37,10 +38,6 @@ Button_Click_BorbVenture(thisGui, info) {
     fBorbvStart()
 }
 
-Button_Click_Claw(thisGui, info) {
-    WinActivate(LBRWindowTitle)
-    fClawStart()
-}
 
 Button_Click_GFSS(thisGui, info) {
     WinActivate(LBRWindowTitle)
