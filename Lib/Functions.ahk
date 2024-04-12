@@ -70,10 +70,11 @@ fCustomClick(clickX, clickY, delay := 34) {
 ResetModifierKeys() {
     ; Cleanup incase still held, ahk cannot tell if the key has been sent as up
     ; getkeystate reports the key, not what lbr has been given
-
-    ControlSend("{Control up}", , LBRWindowTitle)
-    ControlSend("{Alt up}", , LBRWindowTitle)
-    ControlSend("{Shift up}", , LBRWindowTitle)
+    if (IsWindowActive()) {
+        ControlSend("{Control up}", , LBRWindowTitle)
+        ControlSend("{Alt up}", , LBRWindowTitle)
+        ControlSend("{Shift up}", , LBRWindowTitle)
+    }
 }
 
 IsButton(screenX, screenY) {
@@ -115,7 +116,7 @@ IsButtonClickable(screenX, screenY) {
         targetColour := PixelGetColor(screenX, screenY)
         ; Active, ActiveMouseOver, AfkActive, AfkActiveMouseover
         If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A") {
-                return true
+            return true
         }
     } catch as exc {
         Log("Error 2: IsButtonClickable check failed - " exc.Message)
