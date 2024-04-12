@@ -21,7 +21,8 @@ global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
 global NavigateTime
 global DisableZoneChecks, DisableSettingsChecks
 global ArtifactSleepAmount
-global BossFarmUsesWind, BossFarmUsesWobblyWings, WobblyWingsSleepAmount
+global BossFarmUsesWind, BossFarmUsesWobblyWings, WobblyWingsSleepAmount,
+    BossFarmUsesSeeds
 
 global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower,
     HyacinthUseSpheres, HyacinthUseNextAvailableFlower,
@@ -81,6 +82,7 @@ class cSettings {
         ArtifactSleepAmount: 17,
         BossFarmUsesWind: "true",
         BossFarmUsesWobblyWings: "true",
+        BossFarmUsesSeeds: "true",
         WobblyWingsSleepAmount: 750,
         HyacinthUseSlot: "All",
         HyacinthFarmBoss: "true",
@@ -151,6 +153,7 @@ class cSettings {
         ArtifactSleepAmount: 74,
         BossFarmUsesWind: "true",
         BossFarmUsesWobblyWings: "false",
+        BossFarmUsesSeeds: "false",
         WobblyWingsSleepAmount: 750,
         HyacinthUseSlot: "All",
         HyacinthFarmBoss: "true",
@@ -238,7 +241,8 @@ class cSettings {
         global NavigateTime
         global DisableZoneChecks, DisableSettingsChecks
         global ArtifactSleepAmount
-        global BossFarmUsesWind, BossFarmUsesWobblyWings, WobblyWingsSleepAmount
+        global BossFarmUsesWind, BossFarmUsesWobblyWings, WobblyWingsSleepAmount,
+            BossFarmUsesSeeds
         global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower,
             HyacinthUseSpheres, HyacinthUseNextAvailableFlower,
             HyacinthBanksEnabled
@@ -324,6 +328,8 @@ class cSettings {
                 IniToVar(this.sFilename, "BossFarm", "BossFarmUsesWind")
             BossFarmUsesWobblyWings := this.loadedSettings.BossFarmUsesWobblyWings :=
                 IniToVar(this.sFilename, "BossFarm", "BossFarmUsesWobblyWings")
+            BossFarmUsesSeeds := this.loadedSettings.BossFarmUsesSeeds :=
+                IniToVar(this.sFilename, "BossFarm", "BossFarmUsesSeeds")
             WobblyWingsSleepAmount := this.loadedSettings.WobblyWingsSleepAmount :=
                 IniToVar(this.sFilename, "BossFarm", "WobblyWingsSleepAmount")
             HyacinthUseSlot := this.loadedSettings.HyacinthUseSlot :=
@@ -455,6 +461,7 @@ class cSettings {
             this.WriteToIni("ArtifactSleepAmount", this.defaultNobodySettings.ArtifactSleepAmount, "BossFarm")
             this.WriteToIni("BossFarmUsesWind", this.defaultNobodySettings.BossFarmUsesWind, "BossFarm")
             this.WriteToIni("BossFarmUsesWobblyWings", this.defaultNobodySettings.BossFarmUsesWobblyWings, "BossFarm")
+            this.WriteToIni("BossFarmUsesSeeds", this.defaultNobodySettings.BossFarmUsesSeeds, "BossFarm")
             this.WriteToIni("WobblyWingsSleepAmount", this.defaultNobodySettings.WobblyWingsSleepAmount, "BossFarm")
             this.WriteToIni("HyacinthUseSlot", this.defaultNobodySettings.HyacinthUseSlot, "NatureFarm")
             this.WriteToIni("HyacinthFarmBoss", this.defaultNobodySettings.HyacinthFarmBoss, "NatureFarm")
@@ -524,6 +531,7 @@ class cSettings {
             this.WriteToIni("ArtifactSleepAmount", this.defaultSettings.ArtifactSleepAmount, "BossFarm")
             this.WriteToIni("BossFarmUsesWind", this.defaultSettings.BossFarmUsesWind, "BossFarm")
             this.WriteToIni("BossFarmUsesWobblyWings", this.defaultSettings.BossFarmUsesWobblyWings, "BossFarm")
+            this.WriteToIni("BossFarmUsesSeeds", this.defaultSettings.BossFarmUsesSeeds, "BossFarm")
             this.WriteToIni("WobblyWingsSleepAmount", this.defaultSettings.WobblyWingsSleepAmount, "BossFarm")
             this.WriteToIni("HyacinthUseSlot", this.defaultSettings.HyacinthUseSlot, "NatureFarm")
             this.WriteToIni("HyacinthFarmBoss", this.defaultSettings.HyacinthFarmBoss, "NatureFarm")
@@ -598,6 +606,7 @@ class cSettings {
         this.WriteToIni("ArtifactSleepAmount", ArtifactSleepAmount, "BossFarm")
         this.WriteToIni("BossFarmUsesWind", BinaryToStr(BossFarmUsesWind), "BossFarm")
         this.WriteToIni("BossFarmUsesWobblyWings", BinaryToStr(BossFarmUsesWobblyWings), "BossFarm")
+        this.WriteToIni("BossFarmUsesSeeds", BinaryToStr(BossFarmUsesSeeds), "BossFarm")
         this.WriteToIni("WobblyWingsSleepAmount", WobblyWingsSleepAmount, "BossFarm")
         this.WriteToIni("HyacinthUseSlot", HyacinthUseSlot, "NatureFarm")
         this.WriteToIni("HyacinthFarmBoss", BinaryToStr(HyacinthFarmBoss), "NatureFarm")

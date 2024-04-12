@@ -70,6 +70,10 @@ TriggerWobblyWings() {
     ControlSend("{#}", , LBRWindowTitle)
 }
 
+TriggerSeeds() {
+    ControlSend("{h}", , LBRWindowTitle)
+}
+
 RefreshTrades() {
     ControlSend("{Space}", , LBRWindowTitle)
 }

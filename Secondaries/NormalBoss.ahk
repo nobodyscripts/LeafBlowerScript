@@ -14,6 +14,7 @@ global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
 global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
 global BossFarmUsesWobblyWings := false
 global BossFarmUsesWind := false
+global BossFarmUsesSeeds := false
 global WobblyWingsSleepAmount := 1
 global ArtifactSleepAmount := 1
 global settings := cSettings()
@@ -45,6 +46,9 @@ fNormalBoss() {
             startTime := A_Now
         }
         if (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
+            if (BossFarmUsesSeeds) {
+                TriggerSeeds()
+            }
             if (IsAreaGFOrSS()) {
                 TriggerGravity()
                 TriggerWind()

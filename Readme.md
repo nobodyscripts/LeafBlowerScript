@@ -159,6 +159,9 @@ User interface added, "Run" starts the script but does not save settings. Save
 with "Apply" if you wish to change from your stored settings.  
 Use WW if not used for 30seconds while spammer is running, incase stuck.  
 
+F9: BossFarmUsesSeeds added to spam seeds during boss farm and secondary usage.  
+F9: Hotkey added H for seed bag use.  
+
 ## TODO
 
 Claw offset doesn't save negative numbers.  

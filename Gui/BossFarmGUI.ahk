@@ -2,7 +2,7 @@
 
 Button_Click_BossFarm(thisGui, info) {
     global settings, BossFarmUsesWind, BossFarmUsesWobblyWings,
-        ArtifactSleepAmount, WobblyWingsSleepAmount
+        ArtifactSleepAmount, WobblyWingsSleepAmount, BossFarmUsesSeeds
 
     optionsGUI := Gui(, "Boss Farm Mode Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -20,6 +20,12 @@ Button_Click_BossFarm(thisGui, info) {
         optionsGUI.Add("CheckBox", "vBossFarmUsesWobblyWings ccfcfcf", "Enable Wobbly Wings Artifact")
     }
 
+    if (BossFarmUsesSeeds = true) {
+        optionsGUI.Add("CheckBox", "vBossFarmUsesSeeds ccfcfcf checked", "Enable Seed Bag Artifact")
+    } else {
+        optionsGUI.Add("CheckBox", "vBossFarmUsesSeeds ccfcfcf", "Enable Seed Bag Artifact")
+    }
+    
     optionsGUI.Add("Text", "ccfcfcf", "Delay between artifact use (ms):")
     optionsGUI.AddEdit()
     If (IsInteger(ArtifactSleepAmount) && ArtifactSleepAmount > 0) {
@@ -61,6 +67,7 @@ Button_Click_BossFarm(thisGui, info) {
         BossFarmUsesWobblyWings := values.BossFarmUsesWobblyWings
         ArtifactSleepAmount := values.ArtifactSleepAmount
         WobblyWingsSleepAmount := values.WobblyWingsSleepAmount
+        BossFarmUsesSeeds := values.BossFarmUsesSeeds
         settings.SaveCurrentSettings()
     }
 

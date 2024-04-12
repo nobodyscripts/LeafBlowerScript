@@ -140,6 +140,9 @@ Controls WW usage in secondary script, so functions where secondary script is
 used.  
 Required true for Hyacinth Boss Farming.
 
+BossFarmUsesSeeds: (Default) false  
+Spams seeds during bossfarm mode and where boss farm is run as secondary.
+
 WobblyWingsSleepAmount: (Default) 750  
 Timer for WW spam, much lower and you might skip bosses entirely, higher if
 you don't instantly kill.
