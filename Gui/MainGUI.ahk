@@ -7,6 +7,7 @@
 #Include ClawGUI.ahk
 #Include GemFarmGUI.ahk
 #Include GFSSFarmGUI.ahk
+#Include HyacinthFarmGUI.ahk
 #Include LeaftonGUI.ahk
 #Include MineGUI.ahk
 #Include TowerPassiveGUI.ahk
@@ -43,12 +44,6 @@ Button_Click_NatureBoss(thisGui, info) {
 Button_Click_Resize(thisGui, info) {
     WinActivate(LBRWindowTitle)
     fGameResize()
-}
-
-
-Button_Click_Hyacinth(thisGui, info) {
-    WinActivate(LBRWindowTitle)
-    fHyacinthStart()
 }
 
 Button_Click_CursedCheese(thisGui, info) {
