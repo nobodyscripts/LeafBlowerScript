@@ -5,6 +5,7 @@
 #Include BankGUI.ahk
 #Include LeaftonGUI.ahk
 #Include MineGUI.ahk
+#Include TowerPassiveGUI.ahk
 
 Button_Click_Exit(thisGui, info) {
     fExitApp()
@@ -64,11 +65,6 @@ Button_Click_Resize(thisGui, info) {
 Button_Click_Hyacinth(thisGui, info) {
     WinActivate(LBRWindowTitle)
     fHyacinthStart()
-}
-
-Button_Click_TowerPassive(thisGui, info) {
-    WinActivate(LBRWindowTitle)
-    fTowerPassiveStart()
 }
 
 Button_Click_CursedCheese(thisGui, info) {
