@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.0
 
-/* GFToKillPerCycle=2
-SSToKillPerCycle=1
-GFSSNoReset=false */
-
 Button_Click_GFSS(thisGui, info) {
     global Settings, GFToKillPerCycle, SSToKillPerCycle,
     GFSSNoReset
@@ -49,13 +45,13 @@ Button_Click_GFSS(thisGui, info) {
     }
 
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunMine)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessMineSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseMineSettings)
+    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunGFSS)
+    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessGFSSSettings)
+    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseGFSSSettings)
 
     optionsGUI.Show("w300")
 
-    ProcessMineSettings(*) {
+    ProcessGFSSSettings(*) {
         values := optionsGUI.Submit()
         GFToKillPerCycle := values.GFToKillPerCycle
         SSToKillPerCycle := values.SSToKillPerCycle
@@ -64,13 +60,13 @@ Button_Click_GFSS(thisGui, info) {
         settings.SaveCurrentSettings()
     }
 
-    RunMine(*) {
+    RunGFSS(*) {
         optionsGUI.Hide()
         WinActivate(LBRWindowTitle)
         fGFSSStart()
     }
 
-    CloseMineSettings(*) {
+    CloseGFSSSettings(*) {
         optionsGUI.Hide()
     }
 }
