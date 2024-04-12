@@ -155,7 +155,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
-First pass GUI.  
+User interface added, "Run" starts the script but does not save settings. Save
+with "Apply" if you wish to change from your stored settings.  
 Use WW if not used for 30seconds while spammer is running, incase stuck.  
 
 ## TODO

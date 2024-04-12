@@ -5,6 +5,7 @@
 #Include BankGUI.ahk
 #Include BorbVenturesGUI.ahk
 #Include BossFarmGUI.ahk
+#Include CardsGUI.ahk
 #Include ClawGUI.ahk
 #Include GemFarmGUI.ahk
 #Include GFSSFarmGUI.ahk
@@ -21,17 +22,10 @@ Button_Click_Reload(thisGui, info) {
     fReloadApp()
 }
 
-Button_Click_Cards(thisGui, info) {
-    WinActivate(LBRWindowTitle)
-    fCardsStart()
-
-}
-
 Button_Click_TowerBoost(thisGui, info) {
     WinActivate(LBRWindowTitle)
     fTowerBoostStart()
 }
-
 
 Button_Click_NatureBoss(thisGui, info) {
     WinActivate(LBRWindowTitle)
