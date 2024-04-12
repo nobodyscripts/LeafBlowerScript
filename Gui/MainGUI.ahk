@@ -3,6 +3,7 @@
 #Include GeneralSettingsGUI.ahk
 
 #Include BankGUI.ahk
+#Include BossFarmGUI.ahk
 #Include LeaftonGUI.ahk
 #Include MineGUI.ahk
 #Include TowerPassiveGUI.ahk
@@ -46,10 +47,6 @@ Button_Click_GFSS(thisGui, info) {
     fGFSSStart()
 }
 
-Button_Click_BossFarm(thisGui, info) {
-    WinActivate(LBRWindowTitle)
-    fBossFarmStart()
-}
 
 Button_Click_NatureBoss(thisGui, info) {
     WinActivate(LBRWindowTitle)
