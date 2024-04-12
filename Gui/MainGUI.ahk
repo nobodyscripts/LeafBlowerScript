@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0
 
 #Include GeneralSettingsGUI.ahk
-#Include MineGUI.ahk
+
+#Include BankGUI.ahk
 #Include LeaftonGUI.ahk
+#Include MineGUI.ahk
 
 Button_Click_Exit(thisGui, info) {
     fExitApp()
@@ -69,28 +71,15 @@ Button_Click_TowerPassive(thisGui, info) {
     fTowerPassiveStart()
 }
 
-Button_Click_Bank(thisGui, info) {
-    WinActivate(LBRWindowTitle)
-    fBankStart()
-}
-
-
-
 Button_Click_CursedCheese(thisGui, info) {
     WinActivate(LBRWindowTitle)
     fCursedCheeseStart()
 }
-/*
-Button_Click_Hyacinth(thisGui, info) {
-    WinActivate(LBRWindowTitle)
-    fHyacinthStart()
-} */
 
 RunGui() {
     MyGui := Gui(, "LBR NobodyScript")
     MyGui.Opt("-SysMenu")
     MyGui.BackColor := "0c0018"
-
 
     MyGui.Add("Text", "ccfcfcf", "F1")
     MyBtn := MyGui.Add("Button", "Default w80", "Exit")
@@ -165,7 +154,6 @@ RunGui() {
     MyGui.Add("Text", "ccfcfcf", "General Settings")
     MyBtn := MyGui.Add("Button", "Default w120", "Settings")
     MyBtn.OnEvent("Click", Button_Click_GeneralSettings)
-
 
     MyGui.Show()
 }
