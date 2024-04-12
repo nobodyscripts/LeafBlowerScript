@@ -36,6 +36,7 @@ Button_Click_Hyacinth(thisGui, info) {
             optionsGUI.Add("DropDownList", "vHyacinthUseSlot Choose1", ["All", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])
     }
 
+    optionsGUI.Add("Text", "ccfcfcf", "Which Flower To Use:")
     switch HyacinthUseFlower {
         case "hyacinth":
             optionsGUI.Add("DropDownList", "vHyacinthUseFlower Choose1", ["hyacinth", "pansy", "hibiscus", "rose", "poppy", "primula", "forget-me-not", "tulip", "camomile", "dandelion", "aster", "daffodil", "cornflower", "lily of the valley", "dames rocket", "marigold"])

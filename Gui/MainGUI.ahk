@@ -3,6 +3,7 @@
 #Include GeneralSettingsGUI.ahk
 
 #Include BankGUI.ahk
+#Include BorbVenturesGUI.ahk
 #Include BossFarmGUI.ahk
 #Include ClawGUI.ahk
 #Include GemFarmGUI.ahk
@@ -31,10 +32,6 @@ Button_Click_TowerBoost(thisGui, info) {
     fTowerBoostStart()
 }
 
-Button_Click_BorbVenture(thisGui, info) {
-    WinActivate(LBRWindowTitle)
-    fBorbvStart()
-}
 
 Button_Click_NatureBoss(thisGui, info) {
     WinActivate(LBRWindowTitle)

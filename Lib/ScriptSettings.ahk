@@ -671,3 +671,7 @@ ArrToCommaDelimStr(var) {
         return false
     }
 }
+
+CommaDelimStrToArr(var) {
+    return StrSplit(var, " ", ",.")
+}
