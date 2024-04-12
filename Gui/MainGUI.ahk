@@ -5,6 +5,7 @@
 #Include BankGUI.ahk
 #Include BossFarmGUI.ahk
 #Include ClawGUI.ahk
+#Include GemFarmGUI.ahk
 #Include LeaftonGUI.ahk
 #Include MineGUI.ahk
 #Include TowerPassiveGUI.ahk
@@ -21,11 +22,6 @@ Button_Click_Cards(thisGui, info) {
     WinActivate(LBRWindowTitle)
     fCardsStart()
 
-}
-
-Button_Click_GemFarm(thisGui, info) {
-    WinActivate(LBRWindowTitle)
-    fGemFarmStart()
 }
 
 Button_Click_TowerBoost(thisGui, info) {

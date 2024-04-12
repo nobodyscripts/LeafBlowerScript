@@ -160,6 +160,7 @@ Use WW if not used for 30seconds while spammer is running, incase stuck.
 
 ## TODO
 
+Claw offset doesn't save negative numbers.  
 Devoption: Window check, keybinds and active checks designed around dev.
    F12 Test mode, edit save file to incorrect settings and test each
    mode detects, verbose debug on pixel checks.  
