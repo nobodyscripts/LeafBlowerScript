@@ -2,6 +2,7 @@
 
 #Include GeneralSettingsGUI.ahk
 #Include MineGUI.ahk
+#Include LeaftonGUI.ahk
 
 Button_Click_Exit(thisGui, info) {
     fExitApp()
@@ -73,10 +74,7 @@ Button_Click_Bank(thisGui, info) {
     fBankStart()
 }
 
-Button_Click_Leafton(thisGui, info) {
-    WinActivate(LBRWindowTitle)
-    fLeaftonStart()
-}
+
 
 Button_Click_CursedCheese(thisGui, info) {
     WinActivate(LBRWindowTitle)
