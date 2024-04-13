@@ -42,6 +42,11 @@ Button_Click_CursedCheese(thisGui, info) {
     fCursedCheeseStart()
 }
 
+Button_Click_SuitcaseSpam(thisGui, info) {
+    WinActivate(LBRWindowTitle)
+    fSuitcaseSpam()
+}
+
 RunGui() {
     MyGui := Gui(, "LBR NobodyScript")
     MyGui.Opt("-SysMenu")
@@ -116,6 +121,10 @@ RunGui() {
     MyGui.Add("Text", "ccfcfcf", "PageDown")
     MyBtn := MyGui.Add("Button", "Default w120", "Leafton Mode")
     MyBtn.OnEvent("Click", Button_Click_Leafton)
+
+    MyGui.Add("Text", "ccfcfcf", "Test (no keybind)")
+    MyBtn := MyGui.Add("Button", "Default w120", "SuitcaseSpam Test")
+    MyBtn.OnEvent("Click", Button_Click_SuitcaseSpam)
 
     MyGui.Add("Text", "ccfcfcf", "General Settings")
     MyBtn := MyGui.Add("Button", "Default w120", "Settings")
