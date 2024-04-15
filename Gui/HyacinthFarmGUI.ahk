@@ -115,7 +115,7 @@ Button_Click_Hyacinth(thisGui, info) {
         fHyacinthStart()
     }
 
-    RunSaveHyacinth() {
+    RunSaveHyacinth(*) {
         HyacinthSave()
         optionsGUI.Hide()
         WinActivate(LBRWindowTitle)

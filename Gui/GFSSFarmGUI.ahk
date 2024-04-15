@@ -62,7 +62,7 @@ Button_Click_GFSS(thisGui, info) {
         fGFSSStart()
     }
 
-    RunSaveGFSS() {
+    RunSaveGFSS(*) {
         GFSSSave()
         optionsGUI.Hide()
         WinActivate(LBRWindowTitle)
