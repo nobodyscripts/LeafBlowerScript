@@ -210,3 +210,6 @@ F7: Will intentionally grab gems if no pumpkins are found
 F7: Will go for pumpkins that are blocked by other items, its going for the
    highest one  
 F9: Albs can register as boss timer (kills due to white on the tools)  
+Insert: Mine caves option requires a small area of text to work, so your
+experience may vary, if it fails to detect drills being off, then use a higher
+resolution. It is dependant on alt font and font size 0 to work.
