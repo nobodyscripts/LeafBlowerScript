@@ -14,7 +14,7 @@
 #Include MineGUI.ahk
 #Include TowerPassiveGUI.ahk
 
-Button_Click_Exit(thisGui, info) {
+Button_Click_Exit(*) {
     fExitApp()
 }
 
@@ -49,7 +49,7 @@ Button_Click_SuitcaseSpam(thisGui, info) {
 
 RunGui() {
     MyGui := Gui(, "LBR NobodyScript")
-    MyGui.Opt("-SysMenu")
+    ;MyGui.Opt("-SysMenu")
     MyGui.BackColor := "0c0018"
 
     MyGui.Add("Text", "ccfcfcf", "F1")
@@ -131,4 +131,6 @@ RunGui() {
     MyBtn.OnEvent("Click", Button_Click_GeneralSettings)
 
     MyGui.Show()
+    
+    MyGui.OnEvent("Close", Button_Click_Exit)
 }

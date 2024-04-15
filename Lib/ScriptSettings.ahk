@@ -40,7 +40,8 @@ global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
 global MinerEnableVeins, MinerEnableTransmute,
     MinerEnableFreeRefuel, MinerTransmuteTimer,
     MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
-    MinerEnableVeinUpgrade, MinerEnableVeinRemoval
+    MinerEnableVeinUpgrade, MinerEnableVeinRemoval,
+    MinerEnableCaves, MinerCaveTimer
 global MinerEnableSphereUse, MinerSphereDelay, MinerSphereAmount,
     MinerSphereTimer
 
@@ -113,11 +114,13 @@ class cSettings {
         MinerEnableVeinUpgrade: "false",
         MinerEnableVeinRemoval: "false",
         MinerEnableSphereUse: "false",
+        MinerEnableCaves: "true",
         MinerSphereDelay: 1000,
         MinerSphereAmount: 0,
         MinerSphereTimer: 1,
         MinerTransmuteTimer: 10,
-        MinerRefuelTimer: 1
+        MinerRefuelTimer: 1,
+        MinerCaveTimer: 5
     }
     defaultSettings := {
         EnableLogging: "false",
@@ -184,11 +187,13 @@ class cSettings {
         MinerEnableVeinUpgrade: "false",
         MinerEnableVeinRemoval: "false",
         MinerEnableSphereUse: "false",
+        MinerEnableCaves: "true",
         MinerSphereDelay: 1000,
         MinerSphereAmount: 0,
         MinerSphereTimer: 1,
         MinerTransmuteTimer: 10,
-        MinerRefuelTimer: 1
+        MinerRefuelTimer: 1,
+        MinerCaveTimer: 5
     }
     loadedSettings := {}
     /*
@@ -259,7 +264,8 @@ class cSettings {
             MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
             MinerEnableVeinUpgrade, MinerEnableVeinRemoval
         global MinerEnableSphereUse, MinerSphereDelay,
-            MinerSphereAmount, MinerSphereTimer
+            MinerSphereAmount, MinerSphereTimer,
+            MinerEnableCaves, MinerCaveTimer
 
         try {
             EnableLogging := this.loadedSettings.EnableLogging :=
@@ -400,6 +406,10 @@ class cSettings {
                 IniToVar(this.sFilename, "Miner", "MinerSphereAmount")
             MinerSphereTimer := this.loadedSettings.MinerSphereTimer :=
                 IniToVar(this.sFilename, "Miner", "MinerSphereTimer")
+            MinerEnableCaves := this.loadedSettings.MinerEnableCaves :=
+                IniToVar(this.sFilename, "Miner", "MinerEnableCaves")
+            MinerCaveTimer := this.loadedSettings.MinerCaveTimer :=
+                IniToVar(this.sFilename, "Miner", "MinerCaveTimer")
 
             Debug := IniToVar(this.sFilename, "Debug", "Debug")
         } catch as exc {
@@ -497,6 +507,8 @@ class cSettings {
             this.WriteToIni("MinerSphereTimer", this.defaultNobodySettings.MinerSphereTimer, "Miner")
             this.WriteToIni("MinerTransmuteTimer", this.defaultNobodySettings.MinerTransmuteTimer, "Miner")
             this.WriteToIni("MinerRefuelTimer", this.defaultNobodySettings.MinerRefuelTimer, "Miner")
+            this.WriteToIni("MinerEnableCaves", this.defaultNobodySettings.MinerEnableCaves, "Miner")
+            this.WriteToIni("MinerCaveTimer", this.defaultNobodySettings.MinerCaveTimer, "Miner")            
         } else {
             this.WriteToIni("EnableLogging", this.defaultSettings.EnableLogging)
             this.WriteToIni("HaveBorbDLC", this.defaultSettings.HaveBorbDLC, "Borbventures")
@@ -567,6 +579,8 @@ class cSettings {
             this.WriteToIni("MinerSphereTimer", this.defaultSettings.MinerSphereTimer, "Miner")
             this.WriteToIni("MinerTransmuteTimer", this.defaultSettings.MinerTransmuteTimer, "Miner")
             this.WriteToIni("MinerRefuelTimer", this.defaultSettings.MinerRefuelTimer, "Miner")
+            this.WriteToIni("MinerEnableCaves", this.defaultSettings.MinerEnableCaves, "Miner")
+            this.WriteToIni("MinerCaveTimer", this.defaultSettings.MinerCaveTimer, "Miner")
         }
         this.WriteToIni("Debug", BinaryToStr(Debug), "Debug")
     }
@@ -642,6 +656,8 @@ class cSettings {
         this.WriteToIni("MinerSphereTimer", MinerSphereTimer, "Miner")
         this.WriteToIni("MinerTransmuteTimer", MinerTransmuteTimer, "Miner")
         this.WriteToIni("MinerRefuelTimer", MinerRefuelTimer, "Miner")
+        this.WriteToIni("MinerEnableCaves", MinerEnableCaves, "Miner")
+        this.WriteToIni("MinerCaveTimer", MinerCaveTimer, "Miner")
         this.WriteToIni("Debug", BinaryToStr(Debug), "Debug")
     }
 }

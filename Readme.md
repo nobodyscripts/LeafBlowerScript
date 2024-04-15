@@ -160,9 +160,14 @@ with "Apply" if you wish to change from your stored settings.
 Use WW if not used for 30seconds while spammer is running, incase stuck.  
 Added a quick test mode for spamming suitcases to max leaves to e300 quickly.
 Button added but no keybind as its a test.  
+Fix some settings loading in gui as defaults even with saved settings.  
 
 F9: BossFarmUsesSeeds added to spam seeds during boss farm and secondary usage.  
 F9: Hotkey added H for seed bag use.  
+
+Insert: Added Mine Caves diamond drill starter, MinerEnableCaves,
+MinerCaveTimer (m), default 5 minute timer. Enables drills for all caves with
+shiny diamonds available if disabled.
 
 ## TODO
 

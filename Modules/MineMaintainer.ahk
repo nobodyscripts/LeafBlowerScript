@@ -2,6 +2,7 @@
 
 #Include ../Lib/Coords.ahk
 #Include ../Lib/Spammers.ahk
+#Include MineMaintainerCaves.ahk
 
 global MinerEnableVeins := true
 global MinerEnableVeinRemoval := true
@@ -10,11 +11,13 @@ global MinerEnableFreeRefuel := true
 global MinerEnableBanks := true
 global MinerEnableSpammer := true
 global MinerEnableVeinUpgrade := false
+global MinerEnableCaves := true
 
 global MinerEnableSphereUse := false
 global MinerSphereDelay := 1000
 global MinerSphereAmount := 0
 global MinerSphereTimer := 1
+global MinerCaveTimer := 5
 
 global MinerTransmuteTimer := 10
 global MinerRefuelTimer := 1
@@ -52,6 +55,7 @@ fMineMaintainer() {
     RefuelTime := A_Now
     BankTime := A_Now
     SphereTime := A_Now
+    CavesTime := A_Now
     VeinsTab := cMineTabVein()
     MinesTab := cMineTabMines()
     DrillTab := cMineTabDrill()
@@ -159,6 +163,23 @@ fMineMaintainer() {
                     BankTime := A_Now
                     Sleep(NavigateTime)
                     OpenMining()
+                    Sleep(NavigateTime)
+        }
+
+        if ((Firstpass && MinerEnableCaves) ||
+            (IsWindowActive() && DateDiff(A_Now, CavesTime, "Seconds") >= MinerCaveTimer * 60 &&
+                MinerEnableCaves)) {
+                    if (CurrentTab != 2) {
+                        MinesTab.Click()
+                        Sleep(NavigateTime)
+                        MinesTab.Click()
+                        Sleep(NavigateTime)
+                        CurrentTab := 2
+                    }
+                    Log("Mine: Cave Maintainer starting.")
+                    Sleep(NavigateTime)
+                    CavesSinglePass()
+                    CavesTime := A_Now
                     Sleep(NavigateTime)
         }
         if (IsWindowActive() && CurrentTab = 0 &&

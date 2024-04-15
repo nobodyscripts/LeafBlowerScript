@@ -18,7 +18,7 @@ Button_Click_Bank(thisGui, info) {
 
     optionsGUI.Add("Text", "ccfcfcf", "Bank Deposit Timer (m):")
     optionsGUI.AddEdit()
-    If (IsFloat(BankDepositTime)) {
+    If (IsInteger(BankDepositTime) || IsFloat(BankDepositTime)) {
         optionsGUI.Add("UpDown", "vBankDepositTime Range0-9999",
         BankDepositTime)
     } else {

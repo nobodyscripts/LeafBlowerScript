@@ -5,7 +5,8 @@ Button_Click_Mine(thisGui, info) {
     global Settings, MinerEnableVeins, MinerEnableTransmute, MinerEnableFreeRefuel,
         MinerEnableBanks, MinerEnableSpammer, MinerTransmuteTimer, MinerRefuelTimer,
         MinerEnableVeinUpgrade, MinerEnableVeinRemoval, MinerEnableSphereUse,
-        MinerSphereDelay, MinerSphereAmount, MinerSphereTimer
+        MinerSphereDelay, MinerSphereAmount, MinerSphereTimer,
+        MinerEnableCaves, MinerCaveTimer
 
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -58,7 +59,7 @@ Button_Click_Mine(thisGui, info) {
 
     optionsGUI.Add("Text", "ccfcfcf", "Fuel Collection Timer (m):")
     optionsGUI.AddEdit()
-    If (IsFloat(MinerRefuelTimer) && MinerRefuelTimer > 0.15) {
+    If ((IsInteger(MinerRefuelTimer) || IsFloat(MinerRefuelTimer)) && MinerRefuelTimer > 0.15) {
         optionsGUI.Add("UpDown", "vMinerRefuelTimer Range0-9999",
             MinerRefuelTimer)
     } else {
@@ -108,7 +109,7 @@ Button_Click_Mine(thisGui, info) {
     optionsGUI.AddEdit()
     If (IsInteger(MinerSphereAmount)) {
         optionsGUI.Add("UpDown", "vMinerSphereAmount Range0-99999",
-        MinerSphereAmount)
+            MinerSphereAmount)
     } else {
         if (settings.sUseNobody) {
             optionsGUI.Add("UpDown", "vMinerSphereAmount Range0-99999",
@@ -118,12 +119,12 @@ Button_Click_Mine(thisGui, info) {
                 settings.defaultSettings.MinerSphereAmount)
         }
     }
-    
+
     optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Cycle Timer (m):")
     optionsGUI.AddEdit()
-    If (IsFloat(MinerSphereTimer) && MinerSphereTimer > 0.15) {
+    If ((IsInteger(MinerSphereTimer) || IsFloat(MinerSphereTimer)) && MinerSphereTimer > 0.15) {
         optionsGUI.Add("UpDown", "vMinerSphereTimer Range0-9999",
-        MinerSphereTimer)
+            MinerSphereTimer)
     } else {
         if (settings.sUseNobody) {
             optionsGUI.Add("UpDown", "vMinerSphereTimer Range0-9999",
@@ -134,7 +135,30 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
+    if (MinerEnableCaves = true) {
+        optionsGUI.Add("CheckBox", "vMinerEnableCaves ccfcfcf checked", "Enable Cave Diamond Drills")
+    } else {
+        optionsGUI.Add("CheckBox", "vMinerEnableCaves ccfcfcf", "Enable Cave Diamond Drills")
+    }
+
+    optionsGUI.Add("Text", "ccfcfcf", "Cave Drills Cycle Timer (m):")
+    optionsGUI.AddEdit()
+    If ((IsInteger(MinerCaveTimer) || IsFloat(MinerCaveTimer)) && MinerCaveTimer > 0.15) {
+        optionsGUI.Add("UpDown", "vMinerCaveTimer Range0-9999",
+            MinerCaveTimer)
+    } else {
+        if (settings.sUseNobody) {
+            optionsGUI.Add("UpDown", "vMinerCaveTimer Range0-9999",
+                settings.defaultNobodySettings.MinerCaveTimer)
+        } else {
+            optionsGUI.Add("UpDown", "vMinerCaveTimer Range0-9999",
+                settings.defaultSettings.MinerCaveTimer)
+        }
+    }
+
+
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunMine)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveMine)
     optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessMineSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseMineSettings)
 
@@ -155,10 +179,35 @@ Button_Click_Mine(thisGui, info) {
         MinerSphereDelay := values.MinerSphereDelay
         MinerSphereAmount := values.MinerSphereAmount
         MinerSphereTimer := values.MinerSphereTimer
+        MinerEnableCaves := values.MinerEnableCaves
+        MinerCaveTimer := values.MinerCaveTimer
         settings.SaveCurrentSettings()
     }
 
     RunMine(*) {
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fMineStart()
+    }
+    
+    RunSaveMine(*) {
+        values := optionsGUI.Submit()
+        MinerEnableVeins := values.MinerEnableVeins
+        MinerEnableTransmute := values.MinerEnableTransmute
+        MinerEnableFreeRefuel := values.MinerEnableFreeRefuel
+        MinerEnableBanks := values.MinerEnableBanks
+        MinerEnableSpammer := values.MinerEnableSpammer
+        MinerTransmuteTimer := values.MinerTransmuteTimer
+        MinerRefuelTimer := values.MinerRefuelTimer
+        MinerEnableVeinUpgrade := values.MinerEnableVeinUpgrade
+        MinerEnableVeinRemoval := values.MinerEnableVeinRemoval
+        MinerEnableSphereUse := values.MinerEnableSphereUse
+        MinerSphereDelay := values.MinerSphereDelay
+        MinerSphereAmount := values.MinerSphereAmount
+        MinerSphereTimer := values.MinerSphereTimer
+        MinerEnableCaves := values.MinerEnableCaves
+        MinerCaveTimer := values.MinerCaveTimer
+        settings.SaveCurrentSettings()
         optionsGUI.Hide()
         WinActivate(LBRWindowTitle)
         fMineStart()

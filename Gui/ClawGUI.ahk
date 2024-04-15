@@ -9,7 +9,7 @@ Button_Click_Claw(thisGui, info) {
 
     optionsGUI.Add("Text", "ccfcfcf", "Claw Area Check Size Offset (px):")
     optionsGUI.AddEdit()
-    If (IsFloat(ClawCheckSizeOffset)) {
+    If (IsInteger(ClawCheckSizeOffset) || IsFloat(ClawCheckSizeOffset)) {
         optionsGUI.Add("UpDown", "vClawCheckSizeOffset Range-999-999",
         ClawCheckSizeOffset)
     } else {

@@ -277,6 +277,12 @@ Enable the bank maintainer to run using the timeperiod set in BankDepositTime.
 MinerEnableVeinUpgrade: (Default) false  
 Enable the automatic purchase of the coal vein level upgrade when available.
 
+MinerEnableCaves: (Default) true  
+Enable checking caves for any shiny diamond caves and starting drills.
+
+MinerCaveTimer: (Default) 1  
+Time between cave drill checks in minutes.
+
 Debug: (Default) false  
 Extra debug logging and testing modes, not recommended for users due to large
 log usage, could cause file size issues.
