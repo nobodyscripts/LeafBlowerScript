@@ -135,12 +135,14 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
+    optionsGUI.Add("Text", "ccfcfcf", "")
     if (MinerEnableCaves = true) {
         optionsGUI.Add("CheckBox", "vMinerEnableCaves ccfcfcf checked", "Enable Cave Diamond Drills")
     } else {
         optionsGUI.Add("CheckBox", "vMinerEnableCaves ccfcfcf", "Enable Cave Diamond Drills")
     }
 
+    optionsGUI.Add("Text", "cdd1c1c", "Cave Drills unstable at lower resolutions.")
     optionsGUI.Add("Text", "ccfcfcf", "Cave Drills Cycle Timer (m):")
     optionsGUI.AddEdit()
     If ((IsInteger(MinerCaveTimer) || IsFloat(MinerCaveTimer)) && MinerCaveTimer > 0.15) {

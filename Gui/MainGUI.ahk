@@ -57,7 +57,7 @@ RunGui() {
     MyBtn.OnEvent("Click", Button_Click_Exit)
 
     MyGui.Add("Text", "ccfcfcf", "F2")
-    MyBtn := MyGui.Add("Button", "Default w80", "Reload")
+    MyBtn := MyGui.Add("Button", "Default w80", "Reload/End")
     MyBtn.OnEvent("Click", Button_Click_Reload)
 
     MyGui.Add("Text", "ccfcfcf", "F3")
@@ -69,7 +69,7 @@ RunGui() {
     MyBtn.OnEvent("Click", Button_Click_GemFarm)
 
     MyGui.Add("Text", "ccfcfcf", "F5")
-    MyBtn := MyGui.Add("Button", "Default w120", "Tower Boost Usage")
+    MyBtn := MyGui.Add("Button", "Default w120", "Tower Boost Usage`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_TowerBoost)
 
     MyGui.Add("Text", "ccfcfcf", "F6")
@@ -89,13 +89,13 @@ RunGui() {
     MyBtn.OnEvent("Click", Button_Click_BossFarm)
 
     MyGui.Add("Text", "ccfcfcf", "F10")
-    MyBtn := MyGui.Add("Button", "Default w120", "Nature Boss")
+    MyBtn := MyGui.Add("Button", "Default w120", "Nature Boss`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_NatureBoss)
 
     MyGui.Add("Text", "ccfcfcf", "F11 Autoclicker")
 
     MyGui.Add("Text", "ccfcfcf", "F12")
-    MyBtn := MyGui.Add("Button", "Default w120", "Resize Game")
+    MyBtn := MyGui.Add("Button", "Default w120", "Resize Game`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_Resize)
 
     MyGui.Add("Text", "ys ccfcfcf", "Insert")
@@ -111,7 +111,7 @@ RunGui() {
     MyBtn.OnEvent("Click", Button_Click_Bank)
 
     MyGui.Add("Text", "ccfcfcf", "Del")
-    MyBtn := MyGui.Add("Button", "Default w120", "Cursed Cheese Mode")
+    MyBtn := MyGui.Add("Button", "Default w120", "Cursed Cheese Mode`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_CursedCheese)
 
     MyGui.Add("Text", "ccfcfcf", "End")
@@ -123,7 +123,7 @@ RunGui() {
     MyBtn.OnEvent("Click", Button_Click_Leafton)
 
     MyGui.Add("Text", "ccfcfcf", "Test (no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "SuitcaseSpam Test")
+    MyBtn := MyGui.Add("Button", "Default w120", "SuitcaseSpam Test`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_SuitcaseSpam)
 
     MyGui.Add("Text", "ccfcfcf", "General Settings")
