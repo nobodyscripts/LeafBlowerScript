@@ -2,7 +2,7 @@
 
 Button_Click_GFSS(thisGui, info) {
     global Settings, GFToKillPerCycle, SSToKillPerCycle,
-    GFSSNoReset
+        GFSSNoReset
 
     optionsGUI := Gui(, "GF/SS Bossfarm Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -12,7 +12,7 @@ Button_Click_GFSS(thisGui, info) {
     optionsGUI.AddEdit()
     If (IsInteger(GFToKillPerCycle) && GFToKillPerCycle > 0) {
         optionsGUI.Add("UpDown", "vGFToKillPerCycle Range1-9999",
-        GFToKillPerCycle)
+            GFToKillPerCycle)
     } else {
         if (settings.sUseNobody) {
             optionsGUI.Add("UpDown", "vGFToKillPerCycle Range1-9999",
@@ -27,7 +27,7 @@ Button_Click_GFSS(thisGui, info) {
     optionsGUI.AddEdit()
     If (IsInteger(SSToKillPerCycle) && SSToKillPerCycle > 0) {
         optionsGUI.Add("UpDown", "vSSToKillPerCycle Range0-9999",
-        SSToKillPerCycle)
+            SSToKillPerCycle)
     } else {
         if (settings.sUseNobody) {
             optionsGUI.Add("UpDown", "vSSToKillPerCycle Range0-9999",
@@ -46,18 +46,14 @@ Button_Click_GFSS(thisGui, info) {
 
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunGFSS)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveGFSS)
     optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessGFSSSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseGFSSSettings)
 
     optionsGUI.Show("w300")
 
     ProcessGFSSSettings(*) {
-        values := optionsGUI.Submit()
-        GFToKillPerCycle := values.GFToKillPerCycle
-        SSToKillPerCycle := values.SSToKillPerCycle
-        GFSSNoReset := values.GFSSNoReset
-  
-        settings.SaveCurrentSettings()
+        GFSSSave()
     }
 
     RunGFSS(*) {
@@ -66,7 +62,23 @@ Button_Click_GFSS(thisGui, info) {
         fGFSSStart()
     }
 
+    RunSaveGFSS() {
+        GFSSSave()
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fGFSSStart()
+    }
+
     CloseGFSSSettings(*) {
         optionsGUI.Hide()
+    }
+
+    GFSSSave() {
+        values := optionsGUI.Submit()
+        GFToKillPerCycle := values.GFToKillPerCycle
+        SSToKillPerCycle := values.SSToKillPerCycle
+        GFSSNoReset := values.GFSSNoReset
+
+        settings.SaveCurrentSettings()
     }
 }

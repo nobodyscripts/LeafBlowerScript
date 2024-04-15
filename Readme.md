@@ -161,6 +161,8 @@ Use WW if not used for 30seconds while spammer is running, incase stuck.
 Added a quick test mode for spamming suitcases to max leaves to e300 quickly.
 Button added but no keybind as its a test.  
 Fix some settings loading in gui as defaults even with saved settings.  
+"Save and run" buttons added to let you activate and save new settings without
+having to return to main menu.  
 
 F9: BossFarmUsesSeeds added to spam seeds during boss farm and secondary usage.  
 F9: Hotkey added H for seed bag use.  

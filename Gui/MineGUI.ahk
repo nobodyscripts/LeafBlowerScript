@@ -165,23 +165,7 @@ Button_Click_Mine(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessMineSettings(*) {
-        values := optionsGUI.Submit()
-        MinerEnableVeins := values.MinerEnableVeins
-        MinerEnableTransmute := values.MinerEnableTransmute
-        MinerEnableFreeRefuel := values.MinerEnableFreeRefuel
-        MinerEnableBanks := values.MinerEnableBanks
-        MinerEnableSpammer := values.MinerEnableSpammer
-        MinerTransmuteTimer := values.MinerTransmuteTimer
-        MinerRefuelTimer := values.MinerRefuelTimer
-        MinerEnableVeinUpgrade := values.MinerEnableVeinUpgrade
-        MinerEnableVeinRemoval := values.MinerEnableVeinRemoval
-        MinerEnableSphereUse := values.MinerEnableSphereUse
-        MinerSphereDelay := values.MinerSphereDelay
-        MinerSphereAmount := values.MinerSphereAmount
-        MinerSphereTimer := values.MinerSphereTimer
-        MinerEnableCaves := values.MinerEnableCaves
-        MinerCaveTimer := values.MinerCaveTimer
-        settings.SaveCurrentSettings()
+        MineSave()
     }
 
     RunMine(*) {
@@ -191,6 +175,17 @@ Button_Click_Mine(thisGui, info) {
     }
     
     RunSaveMine(*) {
+        MineSave()
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fMineStart()
+    }
+
+    CloseMineSettings(*) {
+        optionsGUI.Hide()
+    }
+
+    MineSave() {
         values := optionsGUI.Submit()
         MinerEnableVeins := values.MinerEnableVeins
         MinerEnableTransmute := values.MinerEnableTransmute
@@ -208,12 +203,5 @@ Button_Click_Mine(thisGui, info) {
         MinerEnableCaves := values.MinerEnableCaves
         MinerCaveTimer := values.MinerCaveTimer
         settings.SaveCurrentSettings()
-        optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
-        fMineStart()
-    }
-
-    CloseMineSettings(*) {
-        optionsGUI.Hide()
     }
 }

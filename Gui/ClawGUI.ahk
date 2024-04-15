@@ -23,15 +23,14 @@ Button_Click_Claw(thisGui, info) {
     }
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunClaw)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveClaw)
     optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessClawSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseClawSettings)
 
     optionsGUI.Show("w300")
 
     ProcessClawSettings(*) {
-        values := optionsGUI.Submit()
-        ClawCheckSizeOffset := values.ClawCheckSizeOffset
-        settings.SaveCurrentSettings()
+        ClawSave()
     }
 
     RunClaw(*) {
@@ -40,7 +39,20 @@ Button_Click_Claw(thisGui, info) {
         fClawStart()
     }
 
+    RunSaveClaw(*) {
+        ClawSave()
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fClawStart()
+    }
+
     CloseClawSettings(*) {
         optionsGUI.Hide()
+    }
+
+    ClawSave() {
+        values := optionsGUI.Submit()
+        ClawCheckSizeOffset := values.ClawCheckSizeOffset
+        settings.SaveCurrentSettings()
     }
 }

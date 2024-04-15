@@ -56,19 +56,14 @@ Button_Click_BossFarm(thisGui, info) {
         }
     }
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunBossFarm)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveBossFarm)
     optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessBossFarmSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseBossFarmSettings)
 
     optionsGUI.Show("w300")
 
     ProcessBossFarmSettings(*) {
-        values := optionsGUI.Submit()
-        BossFarmUsesWind := values.BossFarmUsesWind
-        BossFarmUsesWobblyWings := values.BossFarmUsesWobblyWings
-        ArtifactSleepAmount := values.ArtifactSleepAmount
-        WobblyWingsSleepAmount := values.WobblyWingsSleepAmount
-        BossFarmUsesSeeds := values.BossFarmUsesSeeds
-        settings.SaveCurrentSettings()
+        BossFarmSave()
     }
 
     RunBossFarm(*) {
@@ -77,7 +72,25 @@ Button_Click_BossFarm(thisGui, info) {
         fBossFarmStart()
     }
 
+
+    RunSaveBossFarm(*) {
+        BossFarmSave()
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fBossFarmStart()
+    }
+
     CloseBossFarmSettings(*) {
         optionsGUI.Hide()
+    }
+
+    BossFarmSave() {
+        values := optionsGUI.Submit()
+        BossFarmUsesWind := values.BossFarmUsesWind
+        BossFarmUsesWobblyWings := values.BossFarmUsesWobblyWings
+        ArtifactSleepAmount := values.ArtifactSleepAmount
+        WobblyWingsSleepAmount := values.WobblyWingsSleepAmount
+        BossFarmUsesSeeds := values.BossFarmUsesSeeds
+        settings.SaveCurrentSettings()
     }
 }

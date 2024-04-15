@@ -74,13 +74,35 @@ Button_Click_Bank(thisGui, info) {
     }
 
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunMine)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessMineSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseMineSettings)
+    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunBank)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveBank)
+    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessBankSettings)
+    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseBankSettings)
 
     optionsGUI.Show("w300")
 
-    ProcessMineSettings(*) {
+    ProcessBankSettings(*) {
+        SaveBank()
+    }
+
+    RunSaveBank(*) {
+        SaveBank()
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fBankStart()
+    }
+
+    RunBank(*) {
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fBankStart()
+    }
+
+    CloseBankSettings(*) {
+        optionsGUI.Hide()
+    }
+
+    SaveBank() {
         values := optionsGUI.Submit()
         BankEnableStorageUpgrade := values.BankEnableStorageUpgrade
         BankDepositTime := values.BankDepositTime
@@ -94,13 +116,4 @@ Button_Click_Bank(thisGui, info) {
         settings.SaveCurrentSettings()
     }
 
-    RunMine(*) {
-        optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
-        fBankStart()
-    }
-
-    CloseMineSettings(*) {
-        optionsGUI.Hide()
-    }
 }

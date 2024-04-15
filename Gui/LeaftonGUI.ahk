@@ -37,18 +37,14 @@ Button_Click_Leafton(thisGui, info) {
     }
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunLeafton)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveLeafton)
     optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessLeaftonSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseLeaftonSettings)
 
     optionsGUI.Show("w300")
 
     ProcessLeaftonSettings(*) {
-        values := optionsGUI.Submit()
-        LeaftonCraftEnabled := values.LeaftonCraftEnabled
-        LeaftonSpamsWind := values.LeaftonSpamsWind
-        LeaftonBanksEnabled := values.LeaftonBanksEnabled
-        LeaftonRunOnceEnabled := values.LeaftonRunOnceEnabled
-        settings.SaveCurrentSettings()
+        LeaftonSave()
     }
 
     RunLeafton(*) {
@@ -57,7 +53,23 @@ Button_Click_Leafton(thisGui, info) {
         fLeaftonStart()
     }
 
+    RunSaveLeafton(*) {
+        LeaftonSave()
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fLeaftonStart()
+    }
+
     CloseLeaftonSettings(*) {
         optionsGUI.Hide()
+    }
+
+    LeaftonSave() {
+        values := optionsGUI.Submit()
+        LeaftonCraftEnabled := values.LeaftonCraftEnabled
+        LeaftonSpamsWind := values.LeaftonSpamsWind
+        LeaftonBanksEnabled := values.LeaftonBanksEnabled
+        LeaftonRunOnceEnabled := values.LeaftonRunOnceEnabled
+        settings.SaveCurrentSettings()
     }
 }

@@ -276,12 +276,34 @@ Button_Click_Cards(thisGui, info) {
     
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunCards)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveCards)
     optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessCardsSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseCardsSettings)
 
     optionsGUI.Show("w300")
 
     ProcessCardsSettings(*) {
+        CardsSave()
+    }
+
+    RunCards(*) {
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fCardsStart()
+    }
+
+    RunSaveCards(*) {
+        CardsSave()
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fCardsStart()
+    }
+
+    CloseCardsSettings(*) {
+        optionsGUI.Hide()
+    }
+
+    CardsSave() {
         values := optionsGUI.Submit()
         CardsCommonAmount := values.CardsCommonAmount
         CardsRareAmount := values.CardsRareAmount
@@ -303,15 +325,5 @@ Button_Click_Cards(thisGui, info) {
         CardsSleepBuyAmount := values.CardsSleepBuyAmount
 
         settings.SaveCurrentSettings()
-    }
-
-    RunCards(*) {
-        optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
-        fCardsStart()
-    }
-
-    CloseCardsSettings(*) {
-        optionsGUI.Hide()
     }
 }

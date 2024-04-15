@@ -73,7 +73,7 @@ Button_Click_Hyacinth(thisGui, info) {
         default:
             optionsGUI.Add("DropDownList", "vHyacinthUseFlower Choose1", ["hyacinth", "pansy", "hibiscus", "rose", "poppy", "primula", "forget-me-not", "tulip", "camomile", "dandelion", "aster", "daffodil", "cornflower", "lily of the valley", "dames rocket", "marigold"])
     }
-    
+
     if (HyacinthFarmBoss = true) {
         optionsGUI.Add("CheckBox", "vHyacinthFarmBoss ccfcfcf checked", "Enable Boss Spammer")
     } else {
@@ -99,21 +99,14 @@ Button_Click_Hyacinth(thisGui, info) {
     }
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunHyacinth)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveHyacinth)
     optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessHyacinthSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseHyacinthSettings)
 
     optionsGUI.Show("w300")
 
     ProcessHyacinthSettings(*) {
-        values := optionsGUI.Submit()
-        HyacinthFarmBoss := values.HyacinthFarmBoss
-        HyacinthUseSpheres := values.HyacinthUseSpheres
-        HyacinthUseNextAvailableFlower := values.HyacinthUseNextAvailableFlower
-        HyacinthBanksEnabled := values.HyacinthBanksEnabled
-        HyacinthUseSlot := values.HyacinthUseSlot
-        HyacinthUseFlower := values.HyacinthUseFlower
-
-        settings.SaveCurrentSettings()
+        HyacinthSave()
     }
 
     RunHyacinth(*) {
@@ -122,7 +115,25 @@ Button_Click_Hyacinth(thisGui, info) {
         fHyacinthStart()
     }
 
+    RunSaveHyacinth() {
+        HyacinthSave()
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fHyacinthStart()
+    }
+
     CloseHyacinthSettings(*) {
         optionsGUI.Hide()
+    }
+
+    HyacinthSave() {
+        values := optionsGUI.Submit()
+        HyacinthFarmBoss := values.HyacinthFarmBoss
+        HyacinthUseSpheres := values.HyacinthUseSpheres
+        HyacinthUseNextAvailableFlower := values.HyacinthUseNextAvailableFlower
+        HyacinthBanksEnabled := values.HyacinthBanksEnabled
+        HyacinthUseSlot := values.HyacinthUseSlot
+        HyacinthUseFlower := values.HyacinthUseFlower
+        settings.SaveCurrentSettings()
     }
 }

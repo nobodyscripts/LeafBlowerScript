@@ -38,17 +38,14 @@ Button_Click_BorbVenture(thisGui, info) {
         "0x0E44BE Power Dice Points (blue)")
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunBorbv)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveBorbv)
     optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessBorbvSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseBorbvSettings)
 
     optionsGUI.Show("w300")
 
     ProcessBorbvSettings(*) {
-        values := optionsGUI.Submit()
-        HaveBorbDLC := values.HaveBorbDLC
-        BVBlockMythLeg := values.BVBlockMythLeg
-        BVItemsArr := CommaDelimStrToArr(values.BVItemsArr)
-        settings.SaveCurrentSettings()
+        BorbvSave()
     }
 
     RunBorbv(*) {
@@ -57,7 +54,22 @@ Button_Click_BorbVenture(thisGui, info) {
         fBorbvStart()
     }
 
+    RunSaveBorbv(*) {
+        BorbvSave()
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fBorbvStart()
+    }
+
     CloseBorbvSettings(*) {
         optionsGUI.Hide()
+    }
+
+    BorbvSave() {
+        values := optionsGUI.Submit()
+        HaveBorbDLC := values.HaveBorbDLC
+        BVBlockMythLeg := values.BVBlockMythLeg
+        BVItemsArr := CommaDelimStrToArr(values.BVItemsArr)
+        settings.SaveCurrentSettings()
     }
 }

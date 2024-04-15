@@ -40,6 +40,7 @@ Button_Click_GeneralSettings(thisGui, info) {
     } else {
         settingsGUI.Add("CheckBox", "vDisableSettingsChecks ccfcfcf", "Disable Game Settings Checks")
     }
+
     settingsGUI.Add("Button", "default", "Save").OnEvent("Click", ProcessUserGeneralSettings)
     settingsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseUserGeneralSettings)
 
@@ -49,8 +50,6 @@ Button_Click_GeneralSettings(thisGui, info) {
         global EnableLogging, NavigateTime, DisableZoneChecks, DisableSettingsChecks,
             settings
         values := settingsGUI.Submit()
-        Log("Event Items: Logging " values.Logging " NavigateTime " values.NavigateTime
-            "`nDisableZoneChecks " values.DisableZoneChecks " DisableSettingsChecks " values.DisableSettingsChecks)
         EnableLogging := values.Logging
         NavigateTime := values.NavigateTime
         DisableZoneChecks := values.DisableZoneChecks

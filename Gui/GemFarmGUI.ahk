@@ -12,7 +12,7 @@ Button_Click_GemFarm(thisGui, info) {
     optionsGUI.AddEdit()
     If (IsInteger(GemFarmSleepAmount) && GemFarmSleepAmount > 0) {
         optionsGUI.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
-        GemFarmSleepAmount)
+            GemFarmSleepAmount)
     } else {
         if (settings.sUseNobody) {
             optionsGUI.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
@@ -24,15 +24,14 @@ Button_Click_GemFarm(thisGui, info) {
     }
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunGemFarm)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveGemFarm)
     optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessGemFarmSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseGemFarmSettings)
 
     optionsGUI.Show("w300")
 
     ProcessGemFarmSettings(*) {
-        values := optionsGUI.Submit()
-        GemFarmSleepAmount := values.GemFarmSleepAmount
-        settings.SaveCurrentSettings()
+        GemFarmSave()
     }
 
     RunGemFarm(*) {
@@ -41,7 +40,20 @@ Button_Click_GemFarm(thisGui, info) {
         fGemFarmStart()
     }
 
+    RunSaveGemFarm(*) {
+        GemFarmSave()
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fGemFarmStart()
+    }
+
     CloseGemFarmSettings(*) {
         optionsGUI.Hide()
+    }
+
+    GemFarmSave() {
+        values := optionsGUI.Submit()
+        GemFarmSleepAmount := values.GemFarmSleepAmount
+        settings.SaveCurrentSettings()
     }
 }
