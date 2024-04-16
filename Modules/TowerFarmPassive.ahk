@@ -25,7 +25,7 @@ fTowerFarm() {
     GoToLeafTower()
     starttime := A_Now
     craftStopCoord := cCraftingStop()
-    SpamTowerPassive()
+    TowerPassiveSpammerStart()
     if (TowerPassiveBanksEnabled) {
         OpenPets()
         Sleep(NavigateTime)

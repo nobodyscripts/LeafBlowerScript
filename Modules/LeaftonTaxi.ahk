@@ -24,7 +24,7 @@ fLeaftonTaxi() {
     }
     starttime := A_Now
     if (LeaftonSpamsWind) {
-        SpamJustWind()
+        LeaftonSpammerStart()
     }
     centerCoord := cLeaftonCenter()
     startCoord := cLeaftonStart()
@@ -92,7 +92,7 @@ fLeaftonTaxi() {
         }
         ToolTip(, , , 4)
     }
-    KillWindSpammer()
+    KillLeaftonSpammer()
     if (StopRunning) {
         cReload()
     }

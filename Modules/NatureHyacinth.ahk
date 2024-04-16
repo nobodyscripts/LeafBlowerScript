@@ -40,7 +40,7 @@ fFarmNormalBossAndNatureHyacinth() {
         bossfarm := true
         TriggerWobblyWings()
         Sleep(NavigateTime)
-        SpamViolins()
+        NormalBossSpammerStart()
     }
     ; works for font 0 and font 1
     ; 530 425 harvest
@@ -82,7 +82,7 @@ fFarmNormalBossAndNatureHyacinth() {
                 starttime := A_Now
                 OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID)
                 if (bossfarm) {
-                    SpamViolins() ; Restart spammer now we can travel
+                    NormalBossSpammerStart() ; Restart spammer now we can travel
                 }
                 Sleep(NavigateTime)
         }

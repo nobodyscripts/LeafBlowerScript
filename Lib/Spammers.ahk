@@ -3,7 +3,7 @@
 global WindSpammerPID := 0
 global TowerPassiveSpammerPID := 0
 
-SpamViolins() {
+NormalBossSpammerStart() {
     global SpammerPID
     if (IsWindowActive()) {
         ;TriggerViolin()
@@ -11,6 +11,14 @@ SpamViolins() {
             , , &OutPid)
         SpammerPID := OutPid
     }
+}
+
+IsSpammerActive() {
+    if ((SpammerPID && ProcessExist(SpammerPID)) ||
+        WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")) {
+            return true
+    }
+    return false
 }
 
 KillSpammer() {
@@ -29,45 +37,37 @@ KillSpammer() {
     }
 }
 
-IsSpammerActive() {
-    if ((SpammerPID && ProcessExist(SpammerPID)) ||
-        WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")) {
-            return true
-    }
-    return false
-}
-
-SpamJustWind() {
+LeaftonSpammerStart() {
     global WindSpammerPID
     if (IsWindowActive()) {
-        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\JustWindSpammer.ahk"',
+        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\LeaftonSpammer.ahk"',
             , , &OutPid)
         WindSpammerPID := OutPid
     }
 }
 
-IsWindSpammerActive() {
+IsLeaftonSpammerActive() {
     if ((WindSpammerPID && ProcessExist(WindSpammerPID)) ||
-        WinExist(A_ScriptDir "\Secondaries\JustWindSpammer.ahk ahk_class AutoHotkey")) {
+        WinExist(A_ScriptDir "\Secondaries\LeaftonSpammer.ahk ahk_class AutoHotkey")) {
             return true
     }
     return false
 }
 
-KillWindSpammer() {
+KillLeaftonSpammer() {
     ;F:\Documents\AutoHotkey\LeafBlowerV3\Secondaries\JustWindSpammer.ahk - AutoHotkey v2.0.4
     if (WindSpammerPID && ProcessExist(WindSpammerPID)) {
         ProcessClose(WindSpammerPID)
         Log("Closed JustWindSpammer.ahk using pid.")
     } else {
-        if (WinExist(A_ScriptDir "\Secondaries\JustWindSpammer.ahk ahk_class AutoHotkey")) {
-            WinClose(A_ScriptDir "\Secondaries\JustWindSpammer.ahk ahk_class AutoHotkey")
+        if (WinExist(A_ScriptDir "\Secondaries\LeaftonSpammer.ahk ahk_class AutoHotkey")) {
+            WinClose(A_ScriptDir "\Secondaries\LeaftonSpammer.ahk ahk_class AutoHotkey")
             Log("Closed JustWindSpammer.ahk using filename.")
         }
     }
 }
 
-SpamTowerPassive() {
+TowerPassiveSpammerStart() {
     global TowerPassiveSpammerPID
     if (IsWindowActive()) {
         Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\TowerPassiveSpammer.ahk"',
@@ -101,8 +101,8 @@ KillAllSpammers() {
     if (IsSpammerActive()) {
         KillSpammer()
     }
-    if (IsWindSpammerActive()) {
-        KillWindSpammer()
+    if (IsLeaftonSpammerActive()) {
+        KillLeaftonSpammer()
     }
     if (IsTowerPassiveSpammerActive()) {
         KillTowerPassiveSpammer()

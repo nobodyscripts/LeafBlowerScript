@@ -7,7 +7,7 @@ fFarmNormalBoss(modecheck) {
     global on9
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
-    SpamViolins()
+    NormalBossSpammerStart()
     loop {
         If (on9 != modecheck) {
             return
@@ -51,7 +51,7 @@ fFarmNormalBossAndBrew(modecheck) {
     fSlowClickRelL(512, 1181)
     sleep(150)
     IsPrevTimerLong := IsBossTimerLong()
-    SpamViolins()
+    NormalBossSpammerStart()
     loop {
         If (on9 != modecheck) {
             break
@@ -129,7 +129,7 @@ fNormalBossFarmWithBorbs(modecheck) {
         return
     }
 
-    SpamViolins()
+    NormalBossSpammerStart()
     bvAutostartDisabled := false
     if (IsBVAutoStartOn()) {
         fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
@@ -195,7 +195,7 @@ fNormalBossFarmWithCards(modecheck) {
         return
     }
 
-    SpamViolins()
+    NormalBossSpammerStart()
     IsPrevTimerLong := IsBossTimerLong()
     loop {
         If (on9 != modecheck) {

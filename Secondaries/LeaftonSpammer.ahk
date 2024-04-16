@@ -28,8 +28,11 @@ fWindSpammer() {
             return
         }
         if (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
-                TriggerWind()
-                Sleep(ArtifactSleepAmount)
+            TriggerWind()
+            if (BossFarmUsesSeeds) {
+                TriggerSeeds()
+            }
+            Sleep(ArtifactSleepAmount)
         }
     }
 }

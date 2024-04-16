@@ -20,7 +20,7 @@ fBankAutoDeposit() {
         BankDepositTime := 0.017
     }
     if (BankRunsSpammer) {
-        SpamViolins()
+        NormalBossSpammerStart()
     }
     OpenBank()
     ToolTip("Bank Maintainer Active", W / 2 - WinRelPosLargeW(100), H / 2, 4)

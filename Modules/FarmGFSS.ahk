@@ -7,7 +7,7 @@ global SSToKillPerCycle := 1
 fFarmGFSS() {
     ResettingGF := false
     global GFSSNoReset
-    SpamViolins()
+    NormalBossSpammerStart()
     loop {
         if (!IsWindowActive()) {
             break ; Kill if no game

@@ -69,7 +69,7 @@ fMineMaintainer() {
     ToolTip("Mine Maintainer Active", W / 2,
         WinRelPosLargeH(200), 4)
     if (MinerEnableSpammer) {
-        SpamViolins()
+        NormalBossSpammerStart()
     }
     if (IsPanelActive()) {
         ClosePanel()
