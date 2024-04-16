@@ -33,6 +33,7 @@ fBankAutoDeposit() {
             if (!IsWindowActive()) {
                 break
             }
+            ResetBankScroll()
             if (BankIsTabEnabled(i)) {
                 buttonTab := BankTabCoordByInd(i)
                 if (!IsOnBankTab(buttonTab)) {
@@ -81,6 +82,7 @@ BankSinglePass() {
         if (!IsWindowActive()) {
             break
         }
+        ResetBankScroll()
         if (BankIsTabEnabled(i)) {
             buttonTab := BankTabCoordByInd(i)
             if (!IsOnBankTab(buttonTab)) {
@@ -192,4 +194,16 @@ IsOnBankTab(buttonTab) {
         return true
     }
     return false
+}
+
+ResetBankScroll() {
+    maxiter := 20
+    while ((!cBankDepositRESS().IsButtonActive() && !cBankDepositRESS().IsButtonInactive()) &&
+        (!cBankUpgradeStorage().IsButtonActive() && !cBankUpgradeStorage().IsButtonInactive())) {
+            if (!IsWindowActive() || !IsPanelActive() || maxiter <= 1) {
+                return
+            }
+            ScrollAmountUp(1)
+            maxiter--
+    }
 }
