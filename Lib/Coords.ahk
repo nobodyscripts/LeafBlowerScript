@@ -139,6 +139,10 @@ Class RelCoord {
 
     GreedyModifierUsageClick(delay := 54) {
         AmountArr := ["25000", "2500", "1000", "250", "100", "25", "10", "1"]
+        if (!IsWindowActive() || !IsPanelActive() ||
+            !this.IsButtonClickable()) {
+                return
+        }
         for Amount in AmountArr {
             AmountToModifier(Amount)
             Sleep(delay)
