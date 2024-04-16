@@ -113,6 +113,9 @@ AmountToModifier(num) {
             ControlSend("{Alt down}", , LBRWindowTitle)
             ControlSend("{Shift down}", , LBRWindowTitle)
         default:
+            ControlSend("{Control up}", , LBRWindowTitle)
+            ControlSend("{Alt up}", , LBRWindowTitle)
+            ControlSend("{Shift up}", , LBRWindowTitle)
     }
 }
 
