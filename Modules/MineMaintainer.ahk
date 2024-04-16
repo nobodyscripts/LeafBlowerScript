@@ -38,6 +38,8 @@ global MinerColourCodeEpic := "0xB3260A"
 global MinerColourCodeMythical := "0x9E10C1"
 global MinerColourCodeLegendary := "0xE1661A"
 
+Global MinerSphereGreedyUse := true
+
 fMineMaintainer() {
     global MinerRefuelTimer, MinerSphereTimer, BankDepositTime
     if (MinerRefuelTimer = 0) { ; If user set 0 in gui without adding a fraction, make at least 1 second
@@ -266,11 +268,16 @@ UseDrillSphereLoop() {
                 tempAmount--
         }
     } else {
-        while (IsWindowActive() && IsPanelActive() &&
-            SphereButton.IsButtonActive()) {
-                SphereButton.ClickOffset()
-                Sleep(MinerSphereDelay)
-                tempAmount--
+        if (!MinerSphereGreedyUse) {
+            while (IsWindowActive() && IsPanelActive() &&
+                SphereButton.IsButtonActive()) {
+                    SphereButton.ClickOffset()
+                    Sleep(MinerSphereDelay)
+                    tempAmount--
+            }
+        } else {
+            SphereButton.GreedyModifierUsageClick(MinerSphereDelay)
+            Sleep(MinerSphereDelay)
         }
     }
 }

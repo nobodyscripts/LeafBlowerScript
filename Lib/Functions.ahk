@@ -77,6 +77,45 @@ ResetModifierKeys() {
     }
 }
 
+AmountToModifier(num) {
+    /*
+    shift 10
+    ctrl 25
+    alt 100
+    */
+    switch num {
+        case 10:
+            ControlSend("{Control up}", , LBRWindowTitle)
+            ControlSend("{Alt up}", , LBRWindowTitle)
+            ControlSend("{Shift down}", , LBRWindowTitle)
+        case 25:
+            ControlSend("{Control down}", , LBRWindowTitle)
+            ControlSend("{Alt up}", , LBRWindowTitle)
+            ControlSend("{Shift up}", , LBRWindowTitle)
+        case 100:
+            ControlSend("{Control up}", , LBRWindowTitle)
+            ControlSend("{Alt down}", , LBRWindowTitle)
+            ControlSend("{Shift up}", , LBRWindowTitle)
+        case 250:
+            ControlSend("{Control down}", , LBRWindowTitle)
+            ControlSend("{Alt up}", , LBRWindowTitle)
+            ControlSend("{Shift down}", , LBRWindowTitle)
+        case 1000:
+            ControlSend("{Control up}", , LBRWindowTitle)
+            ControlSend("{Alt down}", , LBRWindowTitle)
+            ControlSend("{Shift down}", , LBRWindowTitle)
+        case 2500:
+            ControlSend("{Control down}", , LBRWindowTitle)
+            ControlSend("{Alt down}", , LBRWindowTitle)
+            ControlSend("{Shift up}", , LBRWindowTitle)
+        case 25000:
+            ControlSend("{Control down}", , LBRWindowTitle)
+            ControlSend("{Alt down}", , LBRWindowTitle)
+            ControlSend("{Shift down}", , LBRWindowTitle)
+        default:
+    }
+}
+
 IsButton(screenX, screenY) {
     try {
         targetColour := PixelGetColor(screenX, screenY)

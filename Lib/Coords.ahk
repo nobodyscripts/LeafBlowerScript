@@ -99,7 +99,7 @@ Class RelCoord {
         }
         return true
     }
-    
+
     ClickOffsetUntilColour(colour, maxLoops := 20, offsetX := 1, offsetY := 1, delay := 54, interval := 50) {
         i := maxLoops
         while (IsWindowActive() && this.GetColour() != colour) {
@@ -135,6 +135,19 @@ Class RelCoord {
             }
         }
         return true
+    }
+
+    GreedyModifierUsageClick(delay := 54) {
+        AmountArr := ["25000", "2500", "1000", "250", "100", "25", "10", "1"]
+        for Amount in AmountArr {
+            AmountToModifier(Amount)
+            Sleep(delay)
+            while (IsWindowActive() && IsPanelActive() &&
+                this.IsButtonClickable()) {
+                    this.ClickOffset()
+                    Sleep(delay)
+            }
+        }
     }
 }
 

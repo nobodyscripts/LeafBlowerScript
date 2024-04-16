@@ -6,7 +6,7 @@ Button_Click_Mine(thisGui, info) {
         MinerEnableBanks, MinerEnableSpammer, MinerTransmuteTimer, MinerRefuelTimer,
         MinerEnableVeinUpgrade, MinerEnableVeinRemoval, MinerEnableSphereUse,
         MinerSphereDelay, MinerSphereAmount, MinerSphereTimer,
-        MinerEnableCaves, MinerCaveTimer
+        MinerEnableCaves, MinerCaveTimer, MinerSphereGreedyUse
 
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -88,6 +88,12 @@ Button_Click_Mine(thisGui, info) {
         optionsGUI.Add("CheckBox", "vMinerEnableSphereUse ccfcfcf checked", "Enable Drill Sphere Use")
     } else {
         optionsGUI.Add("CheckBox", "vMinerEnableSphereUse ccfcfcf", "Enable Drill Sphere Use")
+    }
+
+    if (MinerSphereGreedyUse = true) {
+        optionsGUI.Add("CheckBox", "vMinerSphereGreedyUse ccfcfcf checked", "Enable Greedy Sphere Use")
+    } else {
+        optionsGUI.Add("CheckBox", "vMinerSphereGreedyUse ccfcfcf", "Enable Greedy Sphere Use")
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Use Delay (ms):")
@@ -204,6 +210,7 @@ Button_Click_Mine(thisGui, info) {
         MinerSphereTimer := values.MinerSphereTimer
         MinerEnableCaves := values.MinerEnableCaves
         MinerCaveTimer := values.MinerCaveTimer
+        MinerSphereGreedyUse := values.MinerSphereGreedyUse
         settings.SaveCurrentSettings()
     }
 }

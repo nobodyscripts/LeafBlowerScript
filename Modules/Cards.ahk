@@ -152,53 +152,13 @@ CardsOpenSinglePass() {
     return true
 }
 
-CardNumberToModifier(num) {
-    /*
-    shift 10
-    ctrl 25
-    alt 100
-    */
-    switch num {
-        case 10:
-            ControlSend("{Control up}", , LBRWindowTitle)
-            ControlSend("{Alt up}", , LBRWindowTitle)
-            ControlSend("{Shift down}", , LBRWindowTitle)
-        case 25:
-            ControlSend("{Control down}", , LBRWindowTitle)
-            ControlSend("{Alt up}", , LBRWindowTitle)
-            ControlSend("{Shift up}", , LBRWindowTitle)
-        case 100:
-            ControlSend("{Control up}", , LBRWindowTitle)
-            ControlSend("{Alt down}", , LBRWindowTitle)
-            ControlSend("{Shift up}", , LBRWindowTitle)
-        case 250:
-            ControlSend("{Control down}", , LBRWindowTitle)
-            ControlSend("{Alt up}", , LBRWindowTitle)
-            ControlSend("{Shift down}", , LBRWindowTitle)
-        case 1000:
-            ControlSend("{Control up}", , LBRWindowTitle)
-            ControlSend("{Alt down}", , LBRWindowTitle)
-            ControlSend("{Shift down}", , LBRWindowTitle)
-        case 2500:
-            ControlSend("{Control down}", , LBRWindowTitle)
-            ControlSend("{Alt down}", , LBRWindowTitle)
-            ControlSend("{Shift up}", , LBRWindowTitle)
-        case 25000:
-            ControlSend("{Control down}", , LBRWindowTitle)
-            ControlSend("{Alt down}", , LBRWindowTitle)
-            ControlSend("{Shift down}", , LBRWindowTitle)
-        default:
-
-    }
-}
-
 CardOpenerRel(xin, yin, offset, amount) {
     global HaveWarnedDisplayRewards, Debug
     posx := WinRelPosLargeW(xin)
     posy := WinRelPosLargeH(yin)
     offset := WinRelPosLargeH(offset)
     ; Check if button is active, if not we can skip
-    CardNumberToModifier(amount)
+    AmountToModifier(amount)
     Sleep(72)
     if (IsButtonActive(posx, posy) && IsWindowActive()) {
         fCustomClick(posx, posy + offset, 72)
@@ -242,7 +202,7 @@ CardBuyerRel(posx, posy, offset, amount) {
         Log("Card Buy: at " posx "*" (posy + offset) " x " amount)
     }
     ; Check if button is active, if not we can skip
-    CardNumberToModifier(amount)
+    AmountToModifier(amount)
     sleep(CardsSleepBuyAmount)
     if (!IsButtonInactive(posx, posy) && IsWindowActive()) {
         fCustomClick(posx, posy + offset, CardsSleepBuyAmount)
@@ -261,38 +221,38 @@ CardBuyerRel(posx, posy, offset, amount) {
 }
 
 CardButtonsActive() {
-    CardNumberToModifier(CardsCommonAmount)
+    AmountToModifier(CardsCommonAmount)
     Sleep(72)
     if (IsButtonActive(WinRelPosLargeW(cardOpenCommonButtonX),
         WinRelPosLargeH(cardOpenCommonButtonY))) {
             return true
     }
-    CardNumberToModifier(CardsRareAmount)
+    AmountToModifier(CardsRareAmount)
     Sleep(72)
     if (IsButtonActive(WinRelPosLargeW(cardOpenRareButtonX),
         WinRelPosLargeH(cardOpenRareButtonY))) {
             return true
     }
-    CardNumberToModifier(CardsLegendaryAmount)
+    AmountToModifier(CardsLegendaryAmount)
     Sleep(72)
     if (IsButtonActive(WinRelPosLargeW(cardOpenLegButtonX),
         WinRelPosLargeH(cardOpenLegButtonY))) {
             return true
     }
     if (CardsBuyEnabled) {
-        CardNumberToModifier(CardsCommonBuyAmount)
+        AmountToModifier(CardsCommonBuyAmount)
         Sleep(72)
         if (IsButtonActive(WinRelPosLargeW(cardBuyCommonButtonX),
             WinRelPosLargeH(cardBuyCommonButtonY))) {
                 return true
         }
-        CardNumberToModifier(CardsRareBuyAmount)
+        AmountToModifier(CardsRareBuyAmount)
         Sleep(72)
         if (IsButtonActive(WinRelPosLargeW(cardBuyRareButtonX),
             WinRelPosLargeH(cardBuyRareButtonY))) {
                 return true
         }
-        CardNumberToModifier(CardsLegBuyAmount)
+        AmountToModifier(CardsLegBuyAmount)
         Sleep(72)
         if (IsButtonActive(WinRelPosLargeW(cardBuyLegButtonX),
             WinRelPosLargeH(cardBuyLegButtonY))) {

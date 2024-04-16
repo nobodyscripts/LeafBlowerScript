@@ -43,7 +43,7 @@ global MinerEnableVeins, MinerEnableTransmute,
     MinerEnableVeinUpgrade, MinerEnableVeinRemoval,
     MinerEnableCaves, MinerCaveTimer
 global MinerEnableSphereUse, MinerSphereDelay, MinerSphereAmount,
-    MinerSphereTimer
+    MinerSphereTimer, MinerSphereGreedyUse
 
 class cSettings {
     sFilename := A_ScriptDir "\UserSettings.ini"
@@ -115,6 +115,7 @@ class cSettings {
         MinerEnableVeinRemoval: "false",
         MinerEnableSphereUse: "false",
         MinerEnableCaves: "true",
+        MinerSphereGreedyUse: "true",
         MinerSphereDelay: 1000,
         MinerSphereAmount: 0,
         MinerSphereTimer: 1,
@@ -188,6 +189,7 @@ class cSettings {
         MinerEnableVeinRemoval: "false",
         MinerEnableSphereUse: "false",
         MinerEnableCaves: "true",
+        MinerSphereGreedyUse: "true",
         MinerSphereDelay: 1000,
         MinerSphereAmount: 0,
         MinerSphereTimer: 1,
@@ -265,7 +267,7 @@ class cSettings {
             MinerEnableVeinUpgrade, MinerEnableVeinRemoval
         global MinerEnableSphereUse, MinerSphereDelay,
             MinerSphereAmount, MinerSphereTimer,
-            MinerEnableCaves, MinerCaveTimer
+            MinerEnableCaves, MinerCaveTimer, MinerSphereGreedyUse
 
         try {
             EnableLogging := this.loadedSettings.EnableLogging :=
@@ -400,6 +402,8 @@ class cSettings {
                 IniToVar(this.sFilename, "Miner", "MinerRefuelTimer")
             MinerEnableSphereUse := this.loadedSettings.MinerEnableSphereUse :=
                 IniToVar(this.sFilename, "Miner", "MinerEnableSphereUse")
+            MinerSphereGreedyUse := this.loadedSettings.MinerSphereGreedyUse :=
+                IniToVar(this.sFilename, "Miner", "MinerSphereGreedyUse")
             MinerSphereDelay := this.loadedSettings.MinerSphereDelay :=
                 IniToVar(this.sFilename, "Miner", "MinerSphereDelay")
             MinerSphereAmount := this.loadedSettings.MinerSphereAmount :=
@@ -502,13 +506,14 @@ class cSettings {
             this.WriteToIni("MinerEnableSpammer", this.defaultNobodySettings.MinerEnableSpammer, "Miner")
             this.WriteToIni("MinerEnableVeinUpgrade", this.defaultNobodySettings.MinerEnableVeinUpgrade, "Miner")
             this.WriteToIni("MinerEnableSphereUse", this.defaultNobodySettings.MinerEnableSphereUse, "Miner")
+            this.WriteToIni("MinerSphereGreedyUse", this.defaultNobodySettings.MinerSphereGreedyUse, "Miner")
             this.WriteToIni("MinerSphereDelay", this.defaultNobodySettings.MinerSphereDelay, "Miner")
             this.WriteToIni("MinerSphereAmount", this.defaultNobodySettings.MinerSphereAmount, "Miner")
             this.WriteToIni("MinerSphereTimer", this.defaultNobodySettings.MinerSphereTimer, "Miner")
             this.WriteToIni("MinerTransmuteTimer", this.defaultNobodySettings.MinerTransmuteTimer, "Miner")
             this.WriteToIni("MinerRefuelTimer", this.defaultNobodySettings.MinerRefuelTimer, "Miner")
             this.WriteToIni("MinerEnableCaves", this.defaultNobodySettings.MinerEnableCaves, "Miner")
-            this.WriteToIni("MinerCaveTimer", this.defaultNobodySettings.MinerCaveTimer, "Miner")            
+            this.WriteToIni("MinerCaveTimer", this.defaultNobodySettings.MinerCaveTimer, "Miner")
         } else {
             this.WriteToIni("EnableLogging", this.defaultSettings.EnableLogging)
             this.WriteToIni("HaveBorbDLC", this.defaultSettings.HaveBorbDLC, "Borbventures")
@@ -574,6 +579,7 @@ class cSettings {
             this.WriteToIni("MinerEnableSpammer", this.defaultSettings.MinerEnableSpammer, "Miner")
             this.WriteToIni("MinerEnableVeinUpgrade", this.defaultSettings.MinerEnableVeinUpgrade, "Miner")
             this.WriteToIni("MinerEnableSphereUse", this.defaultSettings.MinerEnableSphereUse, "Miner")
+            this.WriteToIni("MinerSphereGreedyUse", this.defaultSettings.MinerSphereGreedyUse, "Miner")
             this.WriteToIni("MinerSphereDelay", this.defaultSettings.MinerSphereDelay, "Miner")
             this.WriteToIni("MinerSphereAmount", this.defaultSettings.MinerSphereAmount, "Miner")
             this.WriteToIni("MinerSphereTimer", this.defaultSettings.MinerSphereTimer, "Miner")
@@ -650,13 +656,14 @@ class cSettings {
         this.WriteToIni("MinerEnableBanks", BinaryToStr(MinerEnableBanks), "Miner")
         this.WriteToIni("MinerEnableSpammer", BinaryToStr(MinerEnableSpammer), "Miner")
         this.WriteToIni("MinerEnableVeinUpgrade", BinaryToStr(MinerEnableVeinUpgrade), "Miner")
+        this.WriteToIni("MinerEnableCaves", BinaryToStr(MinerEnableCaves), "Miner")
         this.WriteToIni("MinerEnableSphereUse", BinaryToStr(MinerEnableSphereUse), "Miner")
+        this.WriteToIni("MinerSphereGreedyUse", BinaryToStr(MinerSphereGreedyUse), "Miner")
         this.WriteToIni("MinerSphereDelay", MinerSphereDelay, "Miner")
         this.WriteToIni("MinerSphereAmount", MinerSphereAmount, "Miner")
         this.WriteToIni("MinerSphereTimer", MinerSphereTimer, "Miner")
         this.WriteToIni("MinerTransmuteTimer", MinerTransmuteTimer, "Miner")
         this.WriteToIni("MinerRefuelTimer", MinerRefuelTimer, "Miner")
-        this.WriteToIni("MinerEnableCaves", MinerEnableCaves, "Miner")
         this.WriteToIni("MinerCaveTimer", MinerCaveTimer, "Miner")
         this.WriteToIni("Debug", BinaryToStr(Debug), "Debug")
     }
