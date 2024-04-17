@@ -819,6 +819,69 @@ GoToPlankScope() {
     }
 }
 
+SingleAnteLeaftonTravel(extradelay := 0) {
+    if (!IsWindowActive()) {
+        Log("No window found while trying to travel.")
+        return false
+    }
+    Log("Traveling to Ante Leafton")
+    if (IsPanelActive()) {
+        ClosePanel()
+        Sleep(NavigateTime)
+    }
+    OpenQuarkPanel(extradelay)
+    ScrollAmountDown(2)
+    if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(970))) {
+        fSlowClickRelL(1670, 970, NavigateTime + extradelay)
+    } else {
+        fSlowClickRelL(1670, 1020, NavigateTime + extradelay)
+    }
+    Sleep(NavigateTime)
+}
+
+GoToAnteLeafton() {
+    if (!IsWindowActive()) {
+        Log("No window found while trying to travel.")
+        return false
+    }
+    global DisableZoneChecks
+    i := 0
+    if (!DisableZoneChecks) {
+        while (!IsAreaBlack() || !IsBossTimerActive() && i <= 4) {
+            if (!SingleAnteLeaftonTravel()) {
+                return false
+            }
+            i++
+        }
+        if (IsAreaBlack() && IsBossTimerActive()) {
+            if (Debug) {
+                Log("Travel success to Ante Leafton.")
+            }
+            return true
+        }
+    }
+    if (!IsAreaBlack() || !IsBossTimerActive()) {
+        Log("Traveling to Ante Leafton. Attempt to blind travel"
+            " with slowed times.")
+        SingleAnteLeaftonTravel(200)
+        if (DisableZoneChecks) {
+            ; Checks are disabled so blindly trust we reached zone
+            return true
+        }
+        if (IsAreaSampleColour("0x000000")) {
+            if (Debug) {
+                Log("Blind travel success to Ante Leafton.")
+            }
+            return true
+        } else {
+            Log("Traveling to Ante Leafton failed, colour"
+                " found was " GetAreaSampleColour())
+            return false
+        }
+    }
+}
+
+
 GotoCardsFirstTab() {
     if (!IsWindowActive()) {
         Log("No window found while trying to travel.")

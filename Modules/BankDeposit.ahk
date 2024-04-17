@@ -63,7 +63,6 @@ fBankAutoDeposit() {
         }
         Sleep(BankDepositTime * 60 * 1000)
     }
-
 }
 
 BankSinglePass() {

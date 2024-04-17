@@ -240,3 +240,11 @@ cNatureFarmUseSphere() {
     o.SetCoordRel(1615, 420)
     return o
 }
+
+; ------------------ Crafting Coords -------------------
+
+cCraftingTab1() {
+    o := RelCoord()
+    o.SetCoordRel(500, 1180)
+    return o
+}

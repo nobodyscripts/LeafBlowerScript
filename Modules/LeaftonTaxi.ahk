@@ -22,6 +22,7 @@ fLeaftonTaxi() {
     if (BankDepositTime = 0) {
         BankDepositTime := 0.017
     }
+    GoToAnteLeafton()
     starttime := A_Now
     if (LeaftonSpamsWind) {
         LeaftonSpammerStart()
@@ -46,7 +47,8 @@ fLeaftonTaxi() {
                 ToolTip(, , , 4)
                 starttime := A_Now
         }
-        if (!IsWindowActive() || StopRunning) {
+        if (!IsWindowActive() ||  StopRunning) {
+            Log("No window or stop called.")
             break
         }
         ToolTip("Leafton Active", W / 2, WinRelPosLargeH(200), 4)
@@ -76,8 +78,12 @@ fLeaftonTaxi() {
                     Sleep(NavigateTime)
                     OpenCrafting()
                     Sleep(NavigateTime)
+                    cCraftingTab1().ClickOffset()
+                    Sleep(NavigateTime)
                     if (!IsPanelActive()) {
                         OpenCrafting()
+                        Sleep(NavigateTime)
+                        cCraftingTab1().ClickOffset()
                         Sleep(NavigateTime)
                     }
                 }
