@@ -167,6 +167,8 @@ having to return to main menu.
 F9: BossFarmUsesSeeds added to spam seeds during boss farm and secondary usage.  
 F9: Hotkey added H for seed bag use.  
 
+PgDown: Added travel to leafton, click first crafting tab if crafting.
+
 Insert: Added Mine Caves diamond drill starter, MinerEnableCaves,
 MinerCaveTimer (m), default 5 minute timer. Enables drills for all caves with
 shiny diamonds available if disabled.
