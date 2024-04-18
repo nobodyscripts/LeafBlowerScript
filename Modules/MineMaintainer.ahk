@@ -93,7 +93,7 @@ fMineMaintainer() {
                 Sleep(NavigateTime)
                 CurrentTab := 0
             }
-            if (MinerEnableVeinRemoval) {
+            if (MinerEnableVeinRemoval && !IsOnMineTransmuteTab()) {
                 RemoveSingleVein()
                 Sleep(NavigateTime)
                 if (CancelConfirm.IsButtonActive()) {
@@ -106,16 +106,20 @@ fMineMaintainer() {
             (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer &&
                 MinerEnableTransmute)) {
                     TransmuteTime := A_Now
-                    if (CurrentTab != 6) {
+                    if (CurrentTab != 6 || !IsOnMineTransmuteTab()) {
                         TransmuteTab.Click()
                         Sleep(NavigateTime)
                         TransmuteTab.Click()
                         Sleep(NavigateTime)
                         CurrentTab := 6
                     }
-                    TransmuteAllCoalBars()
-                    Log("Mine: Transmuted all bars.")
-                    Sleep(NavigateTime)
+                    if (!IsOnMineTransmuteTab()) {
+                        Log("Mine: Transmute tab click failed")
+                    } else {
+                        TransmuteAllCoalBars()
+                        Log("Mine: Transmuted all bars.")
+                        Sleep(NavigateTime)
+                    }
         }
 
         if ((Firstpass && MinerEnableFreeRefuel) ||
@@ -129,9 +133,11 @@ fMineMaintainer() {
                         Sleep(NavigateTime)
                         CurrentTab := 4
                     }
-                    CollectFreeDrillFuel()
-                    Log("Mine: Collected free fuel.")
-                    Sleep(NavigateTime)
+                    if (!IsOnMineTransmuteTab()) {
+                        CollectFreeDrillFuel()
+                        Log("Mine: Collected free fuel.")
+                        Sleep(NavigateTime)
+                    }
         }
 
         if ((Firstpass && MinerEnableSphereUse) ||
@@ -145,10 +151,12 @@ fMineMaintainer() {
                         Sleep(NavigateTime)
                         CurrentTab := 4
                     }
-                    Sleep(NavigateTime)
-                    Log("Mine: Using spheres.")
-                    UseDrillSphereLoop()
-                    Sleep(NavigateTime)
+                    if (!IsOnMineTransmuteTab()) {
+                        Sleep(NavigateTime)
+                        Log("Mine: Using spheres.")
+                        UseDrillSphereLoop()
+                        Sleep(NavigateTime)
+                    }
         }
         if ((Firstpass && MinerEnableBanks) ||
             (IsWindowActive() && DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
@@ -178,14 +186,17 @@ fMineMaintainer() {
                         Sleep(NavigateTime)
                         CurrentTab := 2
                     }
-                    Log("Mine: Cave Maintainer starting.")
-                    Sleep(NavigateTime)
-                    CavesSinglePass()
-                    CavesTime := A_Now
-                    Sleep(NavigateTime)
+                    if (!IsOnMineTransmuteTab()) {
+                        Log("Mine: Cave Maintainer starting.")
+                        Sleep(NavigateTime)
+                        CavesSinglePass()
+                        CavesTime := A_Now
+                        Sleep(NavigateTime)
+                    }
         }
         if (IsWindowActive() && CurrentTab = 0 &&
             VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
+                Log("Upgrading vein")
                 VeinUpgradeButton.ClickOffset()
         }
         Firstpass := false
@@ -241,7 +252,8 @@ EnhanceVeins() {
 TransmuteAllCoalBars() {
     TransmuteButton := cMineTransmuteButton()
     while (IsWindowActive() && IsPanelActive() &&
-        TransmuteButton.IsButtonClickable()) {
+        TransmuteButton.IsButtonClickable() &&
+        IsOnMineTransmuteTab()) {
             TransmuteButton.ClickOffset()
             Sleep(NavigateTime)
     }
@@ -544,5 +556,21 @@ IsOnMineCoalVeinTab() {
 }
 
 IsOnMineTransmuteTab() {
+    if (
+        !cMineTransmuteSingleCBar().IsBackground() &&
+        !cMineTransmuteSingleSdia().IsBackground() &&
+        !cMineTransmuteSingleFuel().IsBackground() &&
+        !cMineTransmuteSingleSphere().IsBackground() &&
+        !cMineTransmuteMaxCBar().IsBackground() &&
+        !cMineTransmuteMaxSdia().IsBackground() &&
+        !cMineTransmuteMaxFuel().IsBackground() &&
+        !cMineTransmuteMaxSphere().IsBackground() &&
+        !cMineTransmuteAutoCBar().IsBackground() &&
+        !cMineTransmuteAutoSdia().IsBackground() &&
+        !cMineTransmuteAutoFuel().IsBackground() &&
+        !cMineTransmuteAutoSphere().IsBackground()
+    ) {
+        return true
+    }
     return false
 }
