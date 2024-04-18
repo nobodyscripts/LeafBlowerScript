@@ -145,7 +145,7 @@ Class RelCoord {
         }
         for Amount in AmountArr {
             AmountToModifier(Amount)
-            Sleep(delay)
+            Sleep(NavigateTime)
             while (IsWindowActive() && IsPanelActive() &&
                 this.IsButtonClickable()) {
                     this.ClickOffset()
