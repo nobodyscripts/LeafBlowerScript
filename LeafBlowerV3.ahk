@@ -69,6 +69,22 @@ Run this file to load script
 
 ; ------------------- Script Triggers -------------------
 
+/* Numpad1:: {
+    screenx := screeny := windowx := windowy := clientx := clienty := 0
+    CoordMode("Mouse", "Screen")
+    MouseGetPos(&screenx, &screeny)
+    CoordMode("Mouse", "Window")
+    MouseGetPos(&windowx, &windowy)
+    CoordMode("Mouse", "Client")
+    MouseGetPos(&clientx, &clienty)
+    Log(
+        "Screen:`t" screenx ", " screeny "`n"
+        "Window:`t" windowx ", " windowy "`n"
+        "Client:`t" clientx ", " clienty "`n"
+        "Color:`t#" SubStr(PixelGetColor(screenx, screeny), 3)
+    )
+} */
+
 #HotIf WinActive(LBRWindowTitle)
 *F1:: {
     fExitApp()
