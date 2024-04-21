@@ -3,9 +3,8 @@
 ; ------------------- Settings -------------------
 ; Loads UserSettings.ini values for the rest of the script to use
 
-global EnableLogging := false
-global Debug := false
-global DisableZoneChecks, DisableSettingsChecks
+global EnableLogging := Debug := false
+global DisableZoneChecks := DisableSettingsChecks := false
 
 global BossFarmUsesWind := BossFarmUsesWobblyWings := BossFarmUsesSeeds := false
 global ArtifactSleepAmount := WobblyWingsSleepAmount := 1

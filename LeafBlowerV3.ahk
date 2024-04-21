@@ -39,7 +39,6 @@ global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
 global on9 := 0
 global HadToHideNotifsF9 := false
 global CardsBossFarmEnabled := false
-global DisableSettingsChecks := false
 global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
 global X, Y, W, H
 global settings := cSettings()
