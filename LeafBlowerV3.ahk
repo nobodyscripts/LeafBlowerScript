@@ -85,6 +85,13 @@ Run this file to load script
     )
 } */
 
+/* Numpad2:: {
+    testArea := RelSampleArea()
+    testArea.SetCoordRel(470, 290, 819, 448)
+    results := testArea.OCRArea()
+    MsgBox(results.Text)
+} */
+
 #HotIf WinActive(LBRWindowTitle)
 *F1:: {
     fExitApp()
