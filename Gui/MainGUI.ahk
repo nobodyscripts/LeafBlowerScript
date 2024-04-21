@@ -48,7 +48,11 @@ Button_Click_SuitcaseSpam(thisGui, info) {
 }
 
 RunGui() {
-    MyGui := Gui(, "LBR NobodyScript")
+    if (!Debug) {
+        MyGui := Gui(, "LBR NobodyScript")
+    } else {
+        MyGui := Gui(, "LBR TEST")
+    }
     ;MyGui.Opt("-SysMenu")
     MyGui.BackColor := "0c0018"
 
@@ -131,6 +135,6 @@ RunGui() {
     MyBtn.OnEvent("Click", Button_Click_GeneralSettings)
 
     MyGui.Show()
-    
+
     MyGui.OnEvent("Close", Button_Click_Exit)
 }
