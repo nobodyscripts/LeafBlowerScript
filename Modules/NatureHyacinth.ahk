@@ -3,6 +3,7 @@
 global SpammerPID := 0
 global HyacinthUseSlot := "All"
 global HyacinthFarmBoss := true
+global BossFarmUsesWobblyWings := true
 global HyacinthUseFlower := 1
 global HyacinthUseSpheres := true
 global HyacinthUseNextAvailableFlower := true
