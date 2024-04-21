@@ -14,8 +14,6 @@ global BankEnableQADeposit := true
 global BankDepositTime := 5
 global NavigateTime := 150
 
-global ArtifactSleepAmount := 1
-
 fTowerFarm() {
     global BankDepositTime
     ; If user set 0 in gui without adding a fraction, make at least 1 second
