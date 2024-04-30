@@ -47,6 +47,12 @@ Button_Click_SuitcaseSpam(thisGui, info) {
     fSuitcaseSpam()
 }
 
+Button_Click_PrestigeSpammer(thisGui, info) {
+    WinActivate(LBRWindowTitle)
+    fPrestigeSpammer()
+}
+
+
 RunGui() {
     if (!Debug) {
         MyGui := Gui(, "LBR NobodyScript")
@@ -130,6 +136,10 @@ RunGui() {
     MyBtn := MyGui.Add("Button", "Default w120", "SuitcaseSpam Test`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_SuitcaseSpam)
 
+    MyGui.Add("Text", "ccfcfcf", "Test (no keybind)")
+    MyBtn := MyGui.Add("Button", "Default w120", "Gold Prestige Spam`n(Run)")
+    MyBtn.OnEvent("Click", Button_Click_PrestigeSpammer)
+    
     MyGui.Add("Text", "ccfcfcf", "General Settings")
     MyBtn := MyGui.Add("Button", "Default w120", "Settings")
     MyBtn.OnEvent("Click", Button_Click_GeneralSettings)

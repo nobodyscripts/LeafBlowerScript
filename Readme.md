@@ -163,6 +163,9 @@ Button added but no keybind as its a test.
 Fix some settings loading in gui as defaults even with saved settings.  
 "Save and run" buttons added to let you activate and save new settings without
 having to return to main menu.  
+Added gold prestige spammer, loops through using original prestige.  
+
+F6: Fix save manager change breaking array setting loading.  
 
 F9: BossFarmUsesSeeds added to spam seeds during boss farm and secondary usage.  
 F9: Hotkey added H for seed bag use.  

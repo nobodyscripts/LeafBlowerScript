@@ -46,6 +46,10 @@ OpenMining() {
     ControlSend("{l}", , LBRWindowTitle)
 }
 
+OpenGoldPortal() {
+    ControlSend("{x}", , LBRWindowTitle)
+}
+
 TriggerBlazingSkull() {
     ControlSend("{p}", , LBRWindowTitle)
 }

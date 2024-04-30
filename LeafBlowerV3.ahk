@@ -27,6 +27,7 @@
 #Include Modules\LeaftonTaxi.ahk
 #Include Modules\MineMaintainer.ahk
 #Include Modules\SuitcaseSpam.ahk
+#Include Modules\QuickPrestige.ahk
 
 SendMode("Input") ; Support for vm
 ; Can be Input, Event, Play, InputThenPlay if Input doesn't work for you
