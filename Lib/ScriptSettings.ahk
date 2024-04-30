@@ -66,7 +66,7 @@ class singleSetting {
         switch (StrLower(this.DataType)) {
             case "bool":
                 return BinaryToStr(value)
-            case "arrBorbv":
+            case "arrborbv":
                 return ArrToCommaDelimStr(value)
             default:
                 return value
@@ -236,8 +236,18 @@ class cSettings {
             MinerSphereTimer, MinerSphereGreedyUse
         for (setting in this.Map) {
             try {
-                %this.Map[setting].Name% :=
-                    IniToVar(this.sFilename, this.Map[setting].Category, this.Map[setting].Name)
+                if (this.Map[setting].Name != "BVItemsArr") {
+                    %this.Map[setting].Name% :=
+                        IniToVar(this.sFilename, this.Map[setting].Category,
+                            this.Map[setting].Name)
+                } else {
+                    ; special handling for the bv array
+                    %this.Map[setting].Name% :=
+                        CommaDelimStrToArr(
+                            IniToVar(this.sFilename, this.Map[setting].Category,
+                                this.Map[setting].Name)
+                        )
+                }
             } catch as exc {
                 if (exc.Extra) {
                     Log("Error 35: LoadSettings failed - " exc.Message "`n" exc.Extra)
