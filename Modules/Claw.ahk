@@ -1,8 +1,10 @@
 ﻿#Requires AutoHotkey v2.0
 
 global ClawCheckSizeOffset := 0
+global ClawFindAny := false
 
 fClawFarm() {
+    global ClawFindAny
     If (!IsHalloweenEventActive()) {
         Log("Claw: Halloween inactive.")
         ToolTip("Halloween inactive`nPlease use the artifact to enable"
@@ -41,15 +43,28 @@ fClawFarm() {
             Log("Claw: Did not find panel. Aborted. ")
             return
         }
-        TargetX := ClawGetPumpkinLocation()
+        TargetX := ClawGetLocation("0x505558")
+        ; Pumpkin stem colour 0x6CD820 (old) 0x505558 (new)
         if (TargetX = 0) {
             ; If no pumpkin try gems
-            TargetX := ClawGetGemLocation()
+            TargetX := ClawGetLocation("0xFF0044")
             if (TargetX = 0) {
-                ; Still nothing just reset
-                Sleep(101)
-                RefreshTrades()
-                sleep(50)
+                ; If no pumpkin try gems
+                if (ClawFindAny) {
+                    TargetX := ClawGetLocation("0xFFFFFF")
+                    if (TargetX = 0) {
+                        ; Still nothing just reset
+                        Sleep(101)
+                        RefreshTrades()
+                        sleep(50)
+                    }
+                } else {
+                    ; Still nothing just reset
+                    Sleep(101)
+                    RefreshTrades()
+                    sleep(50)
+                }
+
             }
         }
         ; Version 3
@@ -60,41 +75,19 @@ fClawFarm() {
     }
 }
 
-ClawGetPumpkinLocation() {
+ClawGetLocation(col) {
     try {
-        ; Pumpkin stem colour 0x6CD820 (old) 0x505558 (new)
         ; 406 672 top left pickup area 1440 res
         ; 2070 920 bottom right  pickup area
         found := PixelSearch(&OutX, &OutY,
             WinRelPosLargeW(406), WinRelPosLargeH(672),
-            WinRelPosLargeW(2070), WinRelPosLargeH(970), "0x505558", 0)
+            WinRelPosLargeW(2070), WinRelPosLargeH(970), col, 0)
         ; Pumpkin stem pixel search
         If (found and OutX != 0) {
             return OutX ; Found colour
         }
     } catch as exc {
-        Log("Claw: ClawGetPumpkinLocation search failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
-    }
-    return 0
-}
-
-
-ClawGetGemLocation() {
-    try {
-        ; Gem colour 0xFF0044
-        ; 406 672 top left pickup area 1440 res
-        ; 2070 920 bottom right  pickup area
-        found := PixelSearch(&OutX, &OutY,
-            WinRelPosLargeW(406), WinRelPosLargeH(672),
-            WinRelPosLargeW(2070), WinRelPosLargeH(970), "0xFF0044", 0)
-        ; Gem pixel search
-        If (found and OutX != 0) {
-            return OutX ; Found colour
-        }
-    } catch as exc {
-        Log("Claw: ClawGetGemLocation search failed - " exc.Message)
+        Log("Claw: ClawGetLocation search failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
@@ -142,11 +135,11 @@ IsClawAboveLocation(ScreenX) {
 ClawCheck(TargetX, offset := 0, delay := 0) {
     if (IsClawAboveLocation(TargetX - WinRelPosLargeW(offset)) &&
         TargetX != 0) {
-            Sleep(delay)
-            RefreshTrades()
-            Log("Trying to catch, Offset " offset " Delay " delay " X "
-                TargetX - WinRelPosLargeW(offset))
-            return true
+        Sleep(delay)
+        RefreshTrades()
+        Log("Trying to catch, Offset " offset " Delay " delay " X "
+            TargetX - WinRelPosLargeW(offset))
+        return true
     }
     return false
 }

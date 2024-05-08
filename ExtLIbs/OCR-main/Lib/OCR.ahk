@@ -214,9 +214,9 @@ class OCR {
             x += this.Relative.%mode%.x, y += this.Relative.%mode%.y
         }
         oldCoordMode := A_CoordModeMouse
-        CoordMode "Mouse", mode
+        CoordMode( "Mouse", mode)
         Click(x+w//2, y+h//2, WhichButton?, ClickCount?, DownOrUp?)
-        CoordMode "Mouse", oldCoordMode
+        CoordMode( "Mouse", oldCoordMode)
     }
 
     /**
@@ -618,7 +618,7 @@ class OCR {
             oldStyle := WinGetExStyle(hwnd), i := 0
             WinSetTransparent(255, hwnd)
             While (WinGetTransparent(hwnd) != 255 && ++i < 30)
-                Sleep 100
+                Sleep( 100)
         }
         if IsObject(onlyClientArea) {
             if !onlyClientArea.HasOwnProp("onlyClientArea") 
@@ -1023,7 +1023,7 @@ class OCR {
         , hPic := gImage.Add("Text", "0xE w" W " h" H)
         SendMessage(0x172, 0, hBitmap,, hPic.Hwnd)
         gImage.Show()
-        WinWaitClose gImage
+        WinWaitClose( gImage)
     }
 
     static CreateClass(str, interface?) {
@@ -1061,7 +1061,7 @@ class OCR {
                 }
              break
           }
-          Sleep 10
+          Sleep( 10)
         }
         ComCall(8, obj, "ptr*", ObjectResult:=this.IBase())   ; GetResults
         obj := ObjectResult

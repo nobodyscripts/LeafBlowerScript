@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 Button_Click_Claw(thisGui, info) {
-    global settings, ClawCheckSizeOffset
+    global settings, ClawCheckSizeOffset, ClawFindAny
 
     optionsGUI := Gui(, "Claw Farm Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -11,7 +11,7 @@ Button_Click_Claw(thisGui, info) {
     optionsGUI.AddEdit()
     If (IsInteger(ClawCheckSizeOffset) || IsFloat(ClawCheckSizeOffset)) {
         optionsGUI.Add("UpDown", "vClawCheckSizeOffset Range-999-999",
-        ClawCheckSizeOffset)
+            ClawCheckSizeOffset)
     } else {
         if (settings.sUseNobody) {
             optionsGUI.Add("UpDown", "vClawCheckSizeOffset Range-999-9999",
@@ -20,6 +20,12 @@ Button_Click_Claw(thisGui, info) {
             optionsGUI.Add("UpDown", "vClawCheckSizeOffset Range-999-9999",
                 settings.defaultSettings.ClawCheckSizeOffset)
         }
+    }
+
+    if (ClawFindAny = true) {
+        optionsGUI.Add("CheckBox", "vClawFindAny ccfcfcf checked", "Enable Find any fallback")
+    } else {
+        optionsGUI.Add("CheckBox", "vClawFindAny ccfcfcf", "Enable Find any fallback")
     }
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunClaw)
@@ -53,6 +59,7 @@ Button_Click_Claw(thisGui, info) {
     ClawSave() {
         values := optionsGUI.Submit()
         ClawCheckSizeOffset := values.ClawCheckSizeOffset
+        ClawFindAny := values.ClawFindAny
         settings.SaveCurrentSettings()
     }
 }

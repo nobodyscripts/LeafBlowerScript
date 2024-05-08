@@ -19,7 +19,7 @@ global CardsCommonAmount, CardsRareAmount, CardsLegendaryAmount,
 
 global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
 global GemFarmSleepAmount
-global ClawCheckSizeOffset
+global ClawCheckSizeOffset, ClawFindAny
 global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
 global NavigateTime
 
@@ -117,9 +117,10 @@ class cSettings {
         this.Map["CardsSleepBuyAmount"] := singleSetting().Create("CardsSleepBuyAmount", 17, 17, "int", "CardsBuy")
         this.Map["GFToKillPerCycle"] := singleSetting().Create("GFToKillPerCycle", 8, 1, "int", "SSFarm")
         this.Map["SSToKillPerCycle"] := singleSetting().Create("SSToKillPerCycle", 1, 1, "int", "SSFarm")
-        this.Map["GFSSNoReset"] := singleSetting().Create("GFSSNoReset", false, false, "bool", "CardsBuy")
+        this.Map["GFSSNoReset"] := singleSetting().Create("GFSSNoReset", false, false, "bool", "SSFarm")
         this.Map["GemFarmSleepAmount"] := singleSetting().Create("GemFarmSleepAmount", 17, 17, "int", "GemFarm")
-        this.Map["ClawCheckSizeOffset"] := singleSetting().Create("ClawCheckSizeOffset", 0, 0, "int", "GemFarm")
+        this.Map["ClawCheckSizeOffset"] := singleSetting().Create("ClawCheckSizeOffset", 0, 0, "int", "Claw")
+        this.Map["ClawFindAny"] := singleSetting().Create("ClawFindAny", false, false, "bool", "Claw")
         this.Map["ArtifactSleepAmount"] := singleSetting().Create("ArtifactSleepAmount", 17, 17, "int", "BossFarm")
         this.Map["BossFarmUsesWind"] := singleSetting().Create("BossFarmUsesWind", true, true, "bool", "BossFarm")
         this.Map["BossFarmUsesWobblyWings"] := singleSetting().Create("BossFarmUsesWobblyWings", true, true, "bool", "BossFarm")
@@ -206,7 +207,7 @@ class cSettings {
 
         global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
         global GemFarmSleepAmount
-        global ClawCheckSizeOffset
+        global ClawCheckSizeOffset, ClawFindAny
         global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
         global NavigateTime
         global DisableZoneChecks, DisableSettingsChecks
@@ -318,6 +319,12 @@ BinaryToStr(var) {
 
 ArrToCommaDelimStr(var) {
     output := ""
+    if (Type(var) = "String") {
+        if (var = "") {
+            return false
+        }
+        return var
+    }
     if (var.Length > 1) {
         for text in var {
             if (output != "") {
