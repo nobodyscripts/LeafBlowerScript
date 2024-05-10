@@ -90,6 +90,8 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         jsonData['window_data']['value']['y'] := A_ScreenHeight / 4
         jsonData['window_data']['value']['height'] := A_ScreenHeight / 2
         jsonData['window_data']['value']['width'] := A_ScreenWidth / 2
+        MsgBox("Game window size being reset due to being in fullscreen.`r`n"
+        "Adjust as needed.")
     }
     jsonData['afk_mode_lost_focus']['value'] := 0
     jsonData['alb_visible']['value'] := 80.0
