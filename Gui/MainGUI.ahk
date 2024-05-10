@@ -139,6 +139,11 @@ RunGui() {
     MyGui.Add("Text", "ccfcfcf", "Test (no keybind)")
     MyBtn := MyGui.Add("Button", "Default w120", "Gold Prestige Spam`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_PrestigeSpammer)
+
+    MyGui.Add("Text", "ccfcfcf", "Test (no keybind)")
+    MyBtn := MyGui.Add("Button", "Default w120", "Update game settings`n" 
+        "For script use")
+    MyBtn.OnEvent("Click", fGameSettings)
     
     MyGui.Add("Text", "ccfcfcf", "General Settings")
     MyBtn := MyGui.Add("Button", "Default w120", "Settings")

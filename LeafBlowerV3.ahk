@@ -20,6 +20,7 @@
 #Include Modules\FarmGFSS.ahk
 #Include Modules\FarmNatureBoss.ahk
 #Include Modules\FarmNormalBoss.ahk
+#Include Modules\GameSettings.ahk
 #Include Modules\GemFarm.ahk
 #Include Modules\NatureHyacinth.ahk
 #Include Modules\TowerTimeWarp.ahk
@@ -37,6 +38,9 @@ Persistent()  ; Prevent the script from exiting automatically.
 OnExit(ExitFunc)
 
 global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
+global GameSaveDir := A_AppData "\..\Local\blow_the_leaves_away\"
+global ActiveSavePath := GameSaveDir "save.dat"
+global ActiveGameSettingsPath := GameSaveDir "options.dat"
 global on9 := 0
 global HadToHideNotifsF9 := false
 global CardsBossFarmEnabled := false

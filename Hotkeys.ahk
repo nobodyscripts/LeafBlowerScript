@@ -92,7 +92,6 @@ EquipTowerGearLoadout() {
     ControlSend("{Numpad3}", , LBRWindowTitle)
 }
 
-
 ClosePanel() {
     ControlSend("{Esc}", , LBRWindowTitle)
 }

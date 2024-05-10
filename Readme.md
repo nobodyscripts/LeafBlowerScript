@@ -165,6 +165,8 @@ Fix some settings loading in gui as defaults even with saved settings.
 having to return to main menu.  
 Added gold prestige spammer, loops through using original prestige.  
 Fix incorrect categories on a few settings.  
+Added button to apply required settings to game options.dat allowing quicker
+setup of the script.
 
 F6: Fix save manager change breaking array setting loading.  
 
