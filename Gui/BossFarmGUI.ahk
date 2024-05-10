@@ -55,9 +55,24 @@ Button_Click_BossFarm(thisGui, info) {
                 settings.defaultSettings.WobblyWingsSleepAmount)
         }
     }
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunBossFarm)
+    optionsGUI.Add("Text", "ccfcfcf x10", "Normal boss farm:")
+    optionsGUI.Add("Button", "default x15", "Run").OnEvent("Click", RunBossFarm)
     optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveBossFarm)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessBossFarmSettings)
+    
+    optionsGUI.Add("Text", "ccfcfcf x10", "With brew mode:")
+    optionsGUI.Add("Button", "default x15", "Run").OnEvent("Click", RunBossFarmBrew)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveBossFarmBrew)
+    
+    optionsGUI.Add("Text", "ccfcfcf x10", "With borbs mode:")
+    optionsGUI.Add("Button", "default x15", "Run").OnEvent("Click", RunBossFarmBorbs)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveBossFarmBorbs)
+    
+    optionsGUI.Add("Text", "ccfcfcf x10", "With cards mode:")
+    optionsGUI.Add("Button", "default x15", "Run").OnEvent("Click", RunBossFarmCards)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveBossFarmCards)
+
+    optionsGUI.Add("Text", "ccfcfcf x10", "General:")
+    optionsGUI.Add("Button", "default x15", "Save").OnEvent("Click", ProcessBossFarmSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseBossFarmSettings)
 
     optionsGUI.Show("w300")
@@ -69,15 +84,45 @@ Button_Click_BossFarm(thisGui, info) {
     RunBossFarm(*) {
         optionsGUI.Hide()
         WinActivate(LBRWindowTitle)
-        fBossFarmStart()
+        fBossFarmStart(0)
     }
-
 
     RunSaveBossFarm(*) {
         BossFarmSave()
+        RunBossFarm()
+    }
+
+    RunBossFarmBrew(*) {
         optionsGUI.Hide()
         WinActivate(LBRWindowTitle)
-        fBossFarmStart()
+        fBossFarmStart(1)
+    }
+
+    RunSaveBossFarmBrew(*) {
+        BossFarmSave()
+        RunBossFarmBrew()
+    }
+
+    RunBossFarmBorbs(*) {
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fBossFarmStart(2)
+    }
+
+    RunSaveBossFarmBorbs(*) {
+        BossFarmSave()
+        RunBossFarmBorbs()
+    }
+
+    RunBossFarmCards(*) {
+        optionsGUI.Hide()
+        WinActivate(LBRWindowTitle)
+        fBossFarmStart(3)
+    }
+
+    RunSaveBossFarmCards(*) {
+        BossFarmSave()
+        RunBossFarmCards()
     }
 
     CloseBossFarmSettings(*) {

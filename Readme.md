@@ -219,6 +219,7 @@ any available.
 
 F9: BossFarmUsesSeeds added to spam seeds during boss farm and secondary usage.  
 F9: Hotkey added H for seed bag use.  
+F9: Added gui buttons to start each mode directly.  
 
 PgDown: Added travel to leafton, click first crafting tab if crafting.
 

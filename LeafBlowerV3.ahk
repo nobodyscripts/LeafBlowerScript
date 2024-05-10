@@ -326,11 +326,14 @@ fGFSSStart() { ; Green Flame/Soulseeker farm
     fBossFarmStart()
 }
 
-fBossFarmStart() { ; Farm bosses using violins
+fBossFarmStart(GUIMode := -1) { ; Farm bosses using violins
     global on9, HadToHideNotifsF9, bvAutostartDisabled
     Log("F9: Pressed")
     InitScriptHotKey()
     Thread('Interrupt', 0)  ; Make all threads always-interruptible.
+    if (GUIMode != -1) {
+        on9 := GUIMode
+    }
     switch on9 {
         case 1:
             on9 := 2 ; Brew and boss mode
@@ -347,7 +350,7 @@ fBossFarmStart() { ; Farm bosses using violins
                 }
             }
             on9 := 4 ; Boss mode with cards
-            if (CardsBossFarmEnabled) {
+            if (CardsBossFarmEnabled || GUIMode != -1) {
                 Log("F9: Cards and Boss Activated")
                 fNormalBossFarmWithCards(on9)
             } else {
