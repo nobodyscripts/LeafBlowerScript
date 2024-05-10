@@ -68,6 +68,14 @@ CardsSleepAmount: (Default) 860
 Amount of time to wait between opens, in ms, if lagging increase this amount.
 860 accounts for the time for clicking as well to be over 1s
 
+CardsPermaLoop: (Default) false  
+Don't check for the buttons being done, stay in the loop till stopped
+
+CardsBossFarmEnabled: (Default) true  
+This disables the card mode on the F9 key rotation
+
+## Cards Buying
+
 CardsBuyEnabled: (Default) false  
 WARNING: Will allow purchase of cards. Enables the card purchasing loop on the
 cards features in F3 and F9. Ensure the settings are how you want them before
@@ -104,12 +112,6 @@ CardsSleepBuyAmount: (Default) 72
 Default 72, amount of time to wait between purchases, can lower down to at
 minimum 17ms or raise if not smoothly purchasing
 
-CardsPermaLoop: (Default) false  
-Don't check for the buttons being done, stay in the loop till stopped
-
-CardsBossFarmEnabled: (Default) true  
-This disables the card mode on the F9 key rotation
-
 ## GFSS Farm
 
 GFToKillPerCycle: (Default) 8  
@@ -125,7 +127,7 @@ to clear SS 50, set SSToKillPerCycle to 50 and set GFSSNoReset to true.
 
 ## Gem Suitcase Farm
 
-GemFarmSleepAmount: (Default) 101  
+GemFarmSleepAmount: (Default) 17  
 Adds 1ms to the timers in gem farm for every 1 added here. 10=10ms slower.
 Increase this if you are skipping gems while you have plenty of suitcases.
 It will skip if you run out of suitcases, so be sure you have some.
@@ -138,6 +140,10 @@ ClawCheckSizeOffset: (Default) 0
 This increases the area that is checked for the claw, if it is not trying to
 pick things up you can increase this value at the potential cost of accuracy.
 Try 5 if needed.
+
+ClawFindAny: (Default) false  
+By default claw looks for Borb O' Lantern, then Gems, and then aborts. This
+changes the abort to find any available item.
 
 ## Boss Farm
 
@@ -279,6 +285,10 @@ Amount of spheres to use in one pass, 0 = infinite, 1+ = fixed amount.
 
 MinerSphereTimer: (Default) 1  
 Time between sphere usage in minutes.
+
+MinerSphereGreedyUse: (Default) true  
+Attempts to use 25000, then 2500, 1000, 250, 100, 25, 10, 1 downgrading the
+amount when the button is inactive so that all spheres are used.
 
 MinerEnableTransmute: (Default) true  
 Enable auto transmute of all coal bars in Transmute tab.
