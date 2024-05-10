@@ -2,9 +2,7 @@
 
 Support and news: <https://discord.gg/xu8fXw4CQ8>
 
-Autohotkey V2 script, install V2 of Autohotkey and run the LeafBlowerV3.ahk
-file to load. Edit the UserSettings.ini/Hotkeys.ahk files with a text editor to
-configure or the .md files for information.
+Autohotkey V2 script, see Setup Guide below for installation help.
 
 Same key toggles the feature off, if this toggle fails, F1 or F2 to abort.
 
@@ -111,11 +109,57 @@ windows taking focus, and should cancel in such cases. Functions will try to
 setup the area and windows correctly for you so you can stop one and start
 another quickly.
 
-## Settings you need
+## Setup Guide
+
+### 1. Extract Files
+
+Install Autohotkey V2 latest version (must be V2). <https://www.autohotkey.com/>
+
+Download the version of the script you need, either latest build:
+<https://github.com/nobodyscripts/LeafBlowerScript/archive/refs/heads/main.zip>
+Or from releases page:
+<https://github.com/nobodyscripts/LeafBlowerScript/releases>
+
+Extract the zip where you want to keep the files, something like:
+Documents/LeafBlowerScript/<files>
+
+### 2. GUI Assisted Config
+
+With the game *not* running run LeafBlowerV3.ahk, then click the "Update game
+settings for script use" button. This will automatically apply the required
+settings to the game and may resize the game if fullscreen was active. (You can
+resize the windowed game freely after this.)
+
+Run the game and continue configuring the script via the gui.
+
+### 2. Manual Config (Alternative)
+
+Open the hotkeys.ahk file with a text editor, any should do, vscode or even
+notepad. Match the hotkeys in this file to the ones you use in game, or change
+the ones in game to match the file. (Save the changes if made).
+
+Open UserSettings.ini with a text editor and configure as you require, if you
+need explanations of what settings do you can open UsersettingsHelp.md with a
+text editor for help.
+
+Check below for the in game settings required, the script will try to check the
+settings are correct for you and will try to warn you if incorrect.
+
+With the game running, run the LeafBlowerV3.ahk file to load the script. Check
+the readme.md or main page above for controls.
+
+If you have problems, try using F12 (with logs enabled), it will check your
+settings and report back if it finds issues.
+
+## Hyper-V Setup
+
+See discord server #info channel for details on running in a vm.
+
+## Settings You Need
 
 Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
-|   Set to this                                           |  What might happen without it                                                                                                 |
+|   Set game to this                                      |  What might happen without it                                                                                                 |
 |---------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
 |   Windowed mode                                         |  Broken (fullscreen takes you to desktop).                                                                                    |
 |                                                         |                                                                                                                               |
