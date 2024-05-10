@@ -3,11 +3,56 @@
 
 Make sure to reload() (F2) if you change these while running
 
+## General
+
 EnableLogging: (Default) false  
 true/false, Useful for debugging issues, disable if you don't need it
 
+NavigateTime: (Default) 101  
+Delay between actions while trying to travel, if experiencing retry loops
+increasing this may help. In ms, default 101
+
+DisableZoneChecks: (Default) false  
+Disables the background checking to ensure we traveled zone and goes back to
+using guesswork and timing. Use this if travel is failing a lot and
+NavigateTime isn't giving you stable enough travels to zones. Still uses
+NavigateTime for timing, blind travel adds 200ms so you may want to
+reduce NavigateTime to between 0-100 to avoid slow travel times.
+
+DisableSettingsChecks: (Default) false  
+WARNING: This will stop the script checking for badly configured settings, if
+you want to accept the risk, change to true. Disables all handling of
+incorrect settings. So if things are not configured correctly they will break.
+
+## Borbventures
+
 HaveBorbDLC: (Default) false  
 Set this true to fill the first two slots with full teams
+
+BVItemsArr: (Default) 0x01D814, 0xC9C9C9, 0xF91FF6  
+This is the list of colours to check for in borbventures to farm those items.
+Add/Remove to this array of colours to include the items you want to farm.
+(Space character is required between each colour, no "" around text)  
+0xF91FF6 Borb ascention juice (purple default)  
+0x70F928 Borb juice (green)  
+0x0F2A1D Nature time sphere  
+0x55B409 Borb rune (green)  
+0x018C9C Magic mulch  
+0x01D814 Nature gem  
+0xAB5A53 Random item box (all types)  
+0x98125F Borb rune (purple)  
+0xC1C1C1 Candy  
+0x6CD820 Both clovers (uses same colours)  
+0x6BEA15 Borb token  
+0xCEF587 Free borb token  
+0xC9C9C9 Dice Points (white)  
+0x0E44BE Power Dice Points (blue)  
+
+BVBlockMythLeg: (Default) true  
+Prevents the borbventures farm from starting missions of Mythical or Legendary
+quality.
+
+## Cards
 
 CardsCommonAmount: (Default) 25000  
 CardsRareAmount: (Default) 25000  
@@ -65,6 +110,8 @@ Don't check for the buttons being done, stay in the loop till stopped
 CardsBossFarmEnabled: (Default) true  
 This disables the card mode on the F9 key rotation
 
+## GFSS Farm
+
 GFToKillPerCycle: (Default) 8  
 F8 How many gf to kill before attempting SS
 
@@ -76,6 +123,8 @@ F8 Disables the reset of kill counts, useful for farming milestones. To use
 this setting, set GFToKillPerCycle to as many kills as required
 to clear SS 50, set SSToKillPerCycle to 50 and set GFSSNoReset to true.
 
+## Gem Suitcase Farm
+
 GemFarmSleepAmount: (Default) 101  
 Adds 1ms to the timers in gem farm for every 1 added here. 10=10ms slower.
 Increase this if you are skipping gems while you have plenty of suitcases.
@@ -83,49 +132,14 @@ It will skip if you run out of suitcases, so be sure you have some.
 100-150ms should be very safe for most people, increase/decrease till you
 find your sweet spot
 
+## Claw Farm
+
 ClawCheckSizeOffset: (Default) 0  
 This increases the area that is checked for the claw, if it is not trying to
 pick things up you can increase this value at the potential cost of accuracy.
 Try 5 if needed.
 
-BVItemsArr: (Default) 0x01D814, 0xC9C9C9, 0xF91FF6  
-This is the list of colours to check for in borbventures to farm those items.
-Add/Remove to this array of colours to include the items you want to farm.
-(Space character is required between each colour, no "" around text)  
-0xF91FF6 Borb ascention juice (purple default)  
-0x70F928 Borb juice (green)  
-0x0F2A1D Nature time sphere  
-0x55B409 Borb rune (green)  
-0x018C9C Magic mulch  
-0x01D814 Nature gem  
-0xAB5A53 Random item box (all types)  
-0x98125F Borb rune (purple)  
-0xC1C1C1 Candy  
-0x6CD820 Both clovers (uses same colours)  
-0x6BEA15 Borb token  
-0xCEF587 Free borb token  
-0xC9C9C9 Dice Points (white)  
-0x0E44BE Power Dice Points (blue)  
-
-BVBlockMythLeg: (Default) true  
-Prevents the borbventures farm from starting missions of Mythical or Legendary
-quality.
-
-NavigateTime: (Default) 101  
-Delay between actions while trying to travel, if experiencing retry loops
-increasing this may help. In ms, default 101
-
-DisableZoneChecks: (Default) false  
-Disables the background checking to ensure we traveled zone and goes back to
-using guesswork and timing. Use this if travel is failing a lot and
-NavigateTime isn't giving you stable enough travels to zones. Still uses
-NavigateTime for timing, blind travel adds 200ms so you may want to
-reduce NavigateTime to between 0-100 to avoid slow travel times.
-
-DisableSettingsChecks: (Default) false  
-WARNING: This will stop the script checking for badly configured settings, if
-you want to accept the risk, change to true. Disables all handling of
-incorrect settings. So if things are not configured correctly they will break.
+## Boss Farm
 
 ArtifactSleepAmount: (Default) 74  
 Time between artifact usage, can speed up or slow down to avoid wastage
@@ -146,6 +160,8 @@ Spams seeds during bossfarm mode and where boss farm is run as secondary.
 WobblyWingsSleepAmount: (Default) 750  
 Timer for WW spam, much lower and you might skip bosses entirely, higher if
 you don't instantly kill.
+
+## Hyacinth Farm
 
 HyacinthUseSlot: (Default) All  
 Designate which slot or if all slots should be planted and harvested.
@@ -188,6 +204,8 @@ use if you want to exaust all available flowers.
 HyacinthBanksEnabled: (Default) true
 Enables banks maintainer during hyacinth farm mode.
 
+## Bank Maintainer
+
 BankEnableLGDeposit: (Default) true  
 Enables the auto deposit of RESS in the Leaf Galaxy bank tab.
 
@@ -216,6 +234,8 @@ BankDepositTime: (Default) 5
 Amount of time to wait between bank maintainer cycles (in minutes), applies to
 Leafton mode as well.
 
+## Leafton Mode
+
 LeaftonCraftEnabled: (Default) true  
 Enable autoclicker on the stop button in the crafting window during Leafton
 mode.
@@ -230,11 +250,15 @@ and BankDepositTime.
 LeaftonRunOnceEnable: (Default) false  
 Cycles through the floor of Leafton once, then exits, ideal for refreshing max.
 
+## Tower Mode Passive
+
 TowerPassiveBanksEnabled: (Default) true  
 Runs bank maintainer while using passive tower mode.
 
 TowerPassiveCraftEnabled: (Default) true  
 Runs crafting autoclicker while using passive tower mode.
+
+## Mine Maintainer
 
 MinerEnableVeins: (Default) true  
 Enable auto enhance of vein jobs in Coal Vein tab.
@@ -282,6 +306,8 @@ Enable checking caves for any shiny diamond caves and starting drills.
 
 MinerCaveTimer: (Default) 1  
 Time between cave drill checks in minutes.
+
+## Debug
 
 Debug: (Default) false  
 Extra debug logging and testing modes, not recommended for users due to large
