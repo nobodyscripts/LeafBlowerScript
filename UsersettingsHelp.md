@@ -297,16 +297,16 @@ Works with greedy turned off.
 MinerEnableTransmute: (Default) true  
 Enable auto transmute of all Coal Bars to Coal Diamonds in Transmute tab.
 
-MinerEnableTransmuteSdia: (Default) true  
+MinerEnableTransmuteSdia: (Default) false  
 Enable auto transmute of all Coal Diamonds to Shiny Diamonds in Transmute tab.
 
-MinerEnableTransmuteFuel: (Default) true  
+MinerEnableTransmuteFuel: (Default) false  
 Enable auto transmute of all Coal Diamonds to Fuel in Transmute tab.
 
-MinerEnableTransmuteSphere: (Default) true  
+MinerEnableTransmuteSphere: (Default) false  
 Enable auto transmute of all Coal Diamonds to Spheres in Transmute tab.
 
-MinerEnableTransmuteSdiaToCB: (Default) true  
+MinerEnableTransmuteSdiaToCB: (Default) false  
 Enable auto transmute of all Shiny Diamonds to Coal Diamonds in Transmute tab.
 
 MinerTransmuteTimer: (Default) 10  
