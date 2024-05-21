@@ -267,6 +267,12 @@ cMineTransmuteMaxSphere() {
     return o
 }
 
+cMineTransmuteMaxSdiaToCB() { 
+    o := RelCoord()
+    o.SetCoordRel(1750, 512)
+    return o
+}
+
 cMineTransmuteAutoCBar() { 
     o := RelCoord()
     o.SetCoordRel(1082, 384)

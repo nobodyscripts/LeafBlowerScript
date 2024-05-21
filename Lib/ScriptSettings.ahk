@@ -43,7 +43,8 @@ global MinerEnableVeins, MinerEnableTransmute,
     MinerEnableCaves, MinerCaveTimer
 global MinerEnableSphereUse, MinerSphereDelay, MinerSphereAmount,
     MinerSphereTimer, MinerSphereGreedyUse,
-    MinerSphereModifier
+    MinerSphereModifier, MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
+    MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCB
 
 class singleSetting {
     Name := ""
@@ -150,6 +151,10 @@ class cSettings {
         this.Map["TowerPassiveCraftEnabled"] := singleSetting().Create("TowerPassiveCraftEnabled", true, true, "bool", "TowerPassive")
         this.Map["MinerEnableVeins"] := singleSetting().Create("MinerEnableVeins", true, true, "bool", "Miner")
         this.Map["MinerEnableTransmute"] := singleSetting().Create("MinerEnableTransmute", true, true, "bool", "Miner")
+        this.Map["MinerEnableTransmuteSdia"] := singleSetting().Create("MinerEnableTransmuteSdia", false, false, "bool", "Miner")
+        this.Map["MinerEnableTransmuteFuel"] := singleSetting().Create("MinerEnableTransmuteFuel", false, false, "bool", "Miner")
+        this.Map["MinerEnableTransmuteSphere"] := singleSetting().Create("MinerEnableTransmuteSphere", false, false, "bool", "Miner")
+        this.Map["MinerEnableTransmuteSdiaToCB"] := singleSetting().Create("MinerEnableTransmuteSdiaToCB", false, false, "bool", "Miner")
         this.Map["MinerEnableFreeRefuel"] := singleSetting().Create("MinerEnableFreeRefuel", true, true, "bool", "Miner")
         this.Map["MinerEnableBanks"] := singleSetting().Create("MinerEnableBanks", true, true, "bool", "Miner")
         this.Map["MinerEnableSpammer"] := singleSetting().Create("MinerEnableSpammer", true, true, "bool", "Miner")
@@ -236,7 +241,9 @@ class cSettings {
             MinerEnableVeinUpgrade, MinerEnableVeinRemoval,
             MinerEnableCaves, MinerCaveTimer
         global MinerEnableSphereUse, MinerSphereDelay, MinerSphereAmount,
-            MinerSphereTimer, MinerSphereGreedyUse, MinerSphereModifier
+            MinerSphereTimer, MinerSphereGreedyUse, MinerSphereModifier,
+            MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
+            MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCB
         for (setting in this.Map) {
             try {
                 if (this.Map[setting].Name != "BVItemsArr") {

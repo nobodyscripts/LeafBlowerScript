@@ -295,7 +295,19 @@ Amount to use per click (no limit) 1, 10, 25, 100, 250, 1000, 2500, 25000
 Works with greedy turned off.  
 
 MinerEnableTransmute: (Default) true  
-Enable auto transmute of all coal bars in Transmute tab.
+Enable auto transmute of all Coal Bars to Coal Diamonds in Transmute tab.
+
+MinerEnableTransmuteSdia: (Default) true  
+Enable auto transmute of all Coal Diamonds to Shiny Diamonds in Transmute tab.
+
+MinerEnableTransmuteFuel: (Default) true  
+Enable auto transmute of all Coal Diamonds to Fuel in Transmute tab.
+
+MinerEnableTransmuteSphere: (Default) true  
+Enable auto transmute of all Coal Diamonds to Spheres in Transmute tab.
+
+MinerEnableTransmuteSdiaToCB: (Default) true  
+Enable auto transmute of all Shiny Diamonds to Coal Diamonds in Transmute tab.
 
 MinerTransmuteTimer: (Default) 10  
 Time period in seconds between Transmute using setting above.

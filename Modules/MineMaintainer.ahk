@@ -7,6 +7,10 @@
 global MinerEnableVeins := true
 global MinerEnableVeinRemoval := true
 global MinerEnableTransmute := true
+global MinerEnableTransmuteSdia := false
+global MinerEnableTransmuteFuel := false
+global MinerEnableTransmuteSphere := false
+global MinerEnableTransmuteSdiaToCB := false
 global MinerEnableFreeRefuel := true
 global MinerEnableBanks := true
 global MinerEnableSpammer := true
@@ -103,9 +107,14 @@ fMineMaintainer() {
             }
             EnhanceVeins()
         }
-        if ((Firstpass && MinerEnableTransmute) ||
-            (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer &&
-                MinerEnableTransmute)) {
+        if ((Firstpass && (MinerEnableTransmute || MinerEnableTransmuteSdia ||
+            MinerEnableTransmuteFuel || MinerEnableTransmuteSphere ||
+            MinerEnableTransmuteSdiaToCB)) ||
+            (IsWindowActive() &&
+             DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer && (
+                MinerEnableTransmute ||
+                MinerEnableTransmuteSdia || MinerEnableTransmuteFuel ||
+                MinerEnableTransmuteSphere || MinerEnableTransmuteSdiaToCB))) {
             TransmuteTime := A_Now
             if (CurrentTab != 6 || !IsOnMineTransmuteTab()) {
                 TransmuteTab.Click()
@@ -252,12 +261,50 @@ EnhanceVeins() {
 }
 
 TransmuteAllCoalBars() {
-    TransmuteButton := cMineTransmuteButton()
-    while (IsWindowActive() && IsPanelActive() &&
-        TransmuteButton.IsButtonClickable() &&
-        IsOnMineTransmuteTab()) {
-        TransmuteButton.ClickOffset()
-        Sleep(NavigateTime)
+    if (MinerEnableTransmute) {
+        TransmuteButton := cMineTransmuteButton()
+        while (IsWindowActive() && IsPanelActive() &&
+            TransmuteButton.IsButtonClickable() &&
+            IsOnMineTransmuteTab()) {
+            TransmuteButton.ClickOffset()
+            Sleep(NavigateTime)
+        }
+    }
+    if (MinerEnableTransmuteSdia) {
+        SdiaTransmuteButton := cMineTransmuteMaxSdia()
+        while (IsWindowActive() && IsPanelActive() &&
+            SdiaTransmuteButton.IsButtonClickable() &&
+            IsOnMineTransmuteTab()) {
+            SdiaTransmuteButton.ClickOffset()
+            Sleep(NavigateTime)
+        }
+    }
+    if (MinerEnableTransmuteFuel) {
+        FuelTransmuteButton := cMineTransmuteMaxFuel()
+        while (IsWindowActive() && IsPanelActive() &&
+            FuelTransmuteButton.IsButtonClickable() &&
+            IsOnMineTransmuteTab()) {
+            FuelTransmuteButton.ClickOffset()
+            Sleep(NavigateTime)
+        }
+    }
+    if (MinerEnableTransmuteSphere) {
+        SphereTransmuteButton := cMineTransmuteMaxSphere()
+        while (IsWindowActive() && IsPanelActive() &&
+            SphereTransmuteButton.IsButtonClickable() &&
+            IsOnMineTransmuteTab()) {
+            SphereTransmuteButton.ClickOffset()
+            Sleep(NavigateTime)
+        }
+    }
+    if (MinerEnableTransmuteSdiaToCB) {
+        SdiaToCBTransmuteButton := cMineTransmuteMaxSdiaToCB()
+        while (IsWindowActive() && IsPanelActive() &&
+            SdiaToCBTransmuteButton.IsButtonClickable() &&
+            IsOnMineTransmuteTab()) {
+            SdiaToCBTransmuteButton.ClickOffset()
+            Sleep(NavigateTime)
+        }
     }
 }
 

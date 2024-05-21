@@ -7,7 +7,8 @@ Button_Click_Mine(thisGui, info) {
         MinerEnableVeinUpgrade, MinerEnableVeinRemoval, MinerEnableSphereUse,
         MinerSphereDelay, MinerSphereAmount, MinerSphereTimer,
         MinerEnableCaves, MinerCaveTimer, MinerSphereGreedyUse,
-        MinerSphereModifier
+        MinerSphereModifier, MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
+        MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCB
 
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -17,12 +18,6 @@ Button_Click_Mine(thisGui, info) {
         optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf checked", "Enable Coal Veins")
     } else {
         optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf", "Enable Coal Veins")
-    }
-
-    if (MinerEnableTransmute = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmute ccfcfcf checked", "Enable Bar Transmute")
-    } else {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmute ccfcfcf", "Enable Bar Transmute")
     }
 
     if (MinerEnableFreeRefuel = true) {
@@ -41,6 +36,36 @@ Button_Click_Mine(thisGui, info) {
         optionsGUI.Add("CheckBox", "vMinerEnableSpammer ccfcfcf checked", "Enable Boss Spammer")
     } else {
         optionsGUI.Add("CheckBox", "vMinerEnableSpammer ccfcfcf", "Enable Boss Spammer")
+    }
+
+    if (MinerEnableTransmute = true) {
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmute ccfcfcf checked", "Enable Coal Bar To Coal Dia Transmute")
+    } else {
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmute ccfcfcf", "Enable Coal Bar To Coal Dia Transmute")
+    }
+
+    if (MinerEnableTransmuteSdia = true) {
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdia cff8800 checked", "Enable Coal Dia To Shiny Dia Transmute")
+    } else {
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdia cff8800", "Enable Coal Dia To Shiny Dia Transmute")
+    }
+
+    if (MinerEnableTransmuteFuel = true) {
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteFuel ccfcfcf checked", "Enable Coal Dia To Fuel Transmute")
+    } else {
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteFuel ccfcfcf", "Enable Coal Dia To Fuel Transmute")
+    }
+
+    if (MinerEnableTransmuteSphere = true) {
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSphere ccfcfcf checked", "Enable Coal Dia To Sphere Transmute")
+    } else {
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSphere ccfcfcf", "Enable Coal Dia To Sphere Transmute")
+    }
+
+    if (MinerEnableTransmuteSdiaToCB = true) {
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdiaToCB cff8800 checked", "Enable Shiny Dia To Coal Bar Transmute")
+    } else {
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdiaToCB cff8800", "Enable Shiny Dia To Coal Bar Transmute")
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Auto Bars Transmute Timer (s):")
@@ -126,7 +151,7 @@ Button_Click_Mine(thisGui, info) {
                 settings.defaultSettings.MinerSphereAmount)
         }
     }
-    
+
     optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Usage Modifier:")
     switch MinerSphereModifier {
         case 1:
@@ -148,7 +173,7 @@ Button_Click_Mine(thisGui, info) {
         default:
             optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose1", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
     }
-    
+
 
     optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Cycle Timer (m):")
     optionsGUI.AddEdit()
@@ -205,7 +230,7 @@ Button_Click_Mine(thisGui, info) {
         WinActivate(LBRWindowTitle)
         fMineStart()
     }
-    
+
     RunSaveMine(*) {
         MineSave()
         optionsGUI.Hide()
@@ -236,6 +261,10 @@ Button_Click_Mine(thisGui, info) {
         MinerCaveTimer := values.MinerCaveTimer
         MinerSphereGreedyUse := values.MinerSphereGreedyUse
         MinerSphereModifier := values.MinerSphereModifier
+        MinerEnableTransmuteSdia := values.MinerEnableTransmuteSdia
+        MinerEnableTransmuteFuel := values.MinerEnableTransmuteFuel
+        MinerEnableTransmuteSphere := values.MinerEnableTransmuteSphere
+        MinerEnableTransmuteSdiaToCB := values.MinerEnableTransmuteSdiaToCB
         settings.SaveCurrentSettings()
     }
 }

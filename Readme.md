@@ -1,4 +1,4 @@
-# LBR Resolution independent scripts v3.1.1
+# LBR Resolution independent scripts v3.1.2
 
 Support and news: <https://discord.gg/xu8fXw4CQ8>
 
@@ -201,6 +201,15 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 Insert: Added MinerSphereModifier setting, custom amount to use per click when
 greedy mode is turned off. Added to GUI.  
+
+Insert: Added MinerEnableTransmuteSdia setting, transmutes max Coal Bars to
+Shiny Diamonds. Added to GUI.  
+Insert: Added MinerEnableTransmuteFuel setting, transmutes max Coal Diamonds to
+Fuel. Added to GUI.  
+Insert: Added MinerEnableTransmuteSphere setting, transmutes max Coal Diamonds
+to Spheres. Added to GUI.  
+Insert: Added MinerEnableTransmuteSdiaToCB setting, transmutes max Shiny
+Diamonds to Coal Diamonds. Added to GUI.  
 
 ## TODO
 
