@@ -290,6 +290,10 @@ MinerSphereGreedyUse: (Default) true
 Attempts to use 25000, then 2500, 1000, 250, 100, 25, 10, 1 downgrading the
 amount when the button is inactive so that all spheres are used.
 
+MinerSphereModifier: (Default) 1
+Amount to use per click (no limit) 1, 10, 25, 100, 250, 1000, 2500, 25000  
+Works with greedy turned off.  
+
 MinerEnableTransmute: (Default) true  
 Enable auto transmute of all coal bars in Transmute tab.
 

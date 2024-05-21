@@ -199,33 +199,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
-User interface added, "Run" starts the script but does not save settings. Save
-with "Apply" if you wish to change from your stored settings.  
-Use WW if not used for 30seconds while spammer is running, incase stuck.  
-Added a quick test mode for spamming suitcases to max leaves to e300 quickly.
-Button added but no keybind as its a test.  
-Fix some settings loading in gui as defaults even with saved settings.  
-"Save and run" buttons added to let you activate and save new settings without
-having to return to main menu.  
-Added gold prestige spammer, loops through using original prestige.  
-Fix incorrect categories on a few settings.  
-Added button to apply required settings to game options.dat allowing quicker
-setup of the script.
-
-F6: Fix save manager change breaking array setting loading.  
-
-F7: Added ClawFindAny fallback option, if no gem or borb o' lantern found get
-any available.  
-
-F9: BossFarmUsesSeeds added to spam seeds during boss farm and secondary usage.  
-F9: Hotkey added H for seed bag use.  
-F9: Added gui buttons to start each mode directly.  
-
-PgDown: Added travel to leafton, click first crafting tab if crafting.
-
-Insert: Added Mine Caves diamond drill starter, MinerEnableCaves,
-MinerCaveTimer (m), default 5 minute timer. Enables drills for all caves with
-shiny diamonds available if disabled.
+Insert: Added MinerSphereModifier setting, custom amount to use per click when
+greedy mode is turned off. Added to GUI.  
 
 ## TODO
 

@@ -17,6 +17,7 @@ global MinerEnableSphereUse := false
 global MinerSphereDelay := 1000
 global MinerSphereAmount := 0
 global MinerSphereTimer := 1
+global MinerSphereModifier := 1
 global MinerCaveTimer := 5
 
 global MinerTransmuteTimer := 10
@@ -105,99 +106,100 @@ fMineMaintainer() {
         if ((Firstpass && MinerEnableTransmute) ||
             (IsWindowActive() && DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer &&
                 MinerEnableTransmute)) {
-                    TransmuteTime := A_Now
-                    if (CurrentTab != 6 || !IsOnMineTransmuteTab()) {
-                        TransmuteTab.Click()
-                        Sleep(NavigateTime)
-                        TransmuteTab.Click()
-                        Sleep(NavigateTime)
-                        CurrentTab := 6
-                    }
-                    if (!IsOnMineTransmuteTab()) {
-                        Log("Mine: Transmute tab click failed")
-                    } else {
-                        TransmuteAllCoalBars()
-                        Log("Mine: Transmuted all bars.")
-                        Sleep(NavigateTime)
-                    }
+            TransmuteTime := A_Now
+            if (CurrentTab != 6 || !IsOnMineTransmuteTab()) {
+                TransmuteTab.Click()
+                Sleep(NavigateTime)
+                TransmuteTab.Click()
+                Sleep(NavigateTime)
+                CurrentTab := 6
+            }
+            if (!IsOnMineTransmuteTab()) {
+                Log("Mine: Transmute tab click failed")
+            } else {
+                TransmuteAllCoalBars()
+                Log("Mine: Transmuted all bars.")
+                Sleep(NavigateTime)
+            }
         }
 
         if ((Firstpass && MinerEnableFreeRefuel) ||
             (IsWindowActive() && DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
                 MinerEnableFreeRefuel)) {
-                    RefuelTime := A_Now
-                    if (CurrentTab != 4) {
-                        DrillTab.Click()
-                        Sleep(NavigateTime)
-                        DrillTab.Click()
-                        Sleep(NavigateTime)
-                        CurrentTab := 4
-                    }
-                    if (!IsOnMineTransmuteTab()) {
-                        CollectFreeDrillFuel()
-                        Log("Mine: Collected free fuel.")
-                        Sleep(NavigateTime)
-                    }
+            RefuelTime := A_Now
+            if (CurrentTab != 4) {
+                DrillTab.Click()
+                Sleep(NavigateTime)
+                DrillTab.Click()
+                Sleep(NavigateTime)
+                CurrentTab := 4
+            }
+            if (!IsOnMineTransmuteTab()) {
+                CollectFreeDrillFuel()
+                Log("Mine: Collected free fuel.")
+                Sleep(NavigateTime)
+            }
         }
 
         if ((Firstpass && MinerEnableSphereUse) ||
             (IsWindowActive() && DateDiff(A_Now, SphereTime, "Seconds") >= MinerSphereTimer * 60 &&
                 MinerEnableSphereUse)) {
-                    SphereTime := A_Now
-                    if (CurrentTab != 4) {
-                        DrillTab.Click()
-                        Sleep(NavigateTime)
-                        DrillTab.Click()
-                        Sleep(NavigateTime)
-                        CurrentTab := 4
-                    }
-                    if (!IsOnMineTransmuteTab()) {
-                        Sleep(NavigateTime)
-                        Log("Mine: Using spheres.")
-                        UseDrillSphereLoop()
-                        Sleep(NavigateTime)
-                    }
+            SphereTime := A_Now
+            if (CurrentTab != 4) {
+                DrillTab.Click()
+                Sleep(NavigateTime)
+                DrillTab.Click()
+                Sleep(NavigateTime)
+                CurrentTab := 4
+            }
+            if (!IsOnMineTransmuteTab()) {
+                Sleep(NavigateTime)
+                Log("Mine: Using spheres.")
+                UseDrillSphereLoop()
+                Sleep(NavigateTime)
+                ResetModifierKeys()
+            }
         }
         if ((Firstpass && MinerEnableBanks) ||
             (IsWindowActive() && DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
                 MinerEnableBanks)) {
-                    ToolTip(, , , 4)
-                    Log("Mine: Bank Maintainer starting.")
-                    ToolTip("Mine Bank Maintainer Active", W / 2,
-                        WinRelPosLargeH(200), 4)
-                    Sleep(NavigateTime)
-                    BankSinglePass()
-                    ToolTip(, , , 4)
-                    ToolTip("Mine Maintainer Active", W / 2,
-                        WinRelPosLargeH(200), 4)
-                    BankTime := A_Now
-                    Sleep(NavigateTime)
-                    OpenMining()
-                    Sleep(NavigateTime)
+            ToolTip(, , , 4)
+            Log("Mine: Bank Maintainer starting.")
+            ToolTip("Mine Bank Maintainer Active", W / 2,
+                WinRelPosLargeH(200), 4)
+            Sleep(NavigateTime)
+            BankSinglePass()
+            ToolTip(, , , 4)
+            ToolTip("Mine Maintainer Active", W / 2,
+                WinRelPosLargeH(200), 4)
+            BankTime := A_Now
+            Sleep(NavigateTime)
+            OpenMining()
+            Sleep(NavigateTime)
         }
 
         if ((Firstpass && MinerEnableCaves) ||
             (IsWindowActive() && DateDiff(A_Now, CavesTime, "Seconds") >= MinerCaveTimer * 60 &&
                 MinerEnableCaves)) {
-                    if (CurrentTab != 2) {
-                        MinesTab.Click()
-                        Sleep(NavigateTime)
-                        MinesTab.Click()
-                        Sleep(NavigateTime)
-                        CurrentTab := 2
-                    }
-                    if (!IsOnMineTransmuteTab()) {
-                        Log("Mine: Cave Maintainer starting.")
-                        Sleep(NavigateTime)
-                        CavesSinglePass()
-                        CavesTime := A_Now
-                        Sleep(NavigateTime)
-                    }
+            if (CurrentTab != 2) {
+                MinesTab.Click()
+                Sleep(NavigateTime)
+                MinesTab.Click()
+                Sleep(NavigateTime)
+                CurrentTab := 2
+            }
+            if (!IsOnMineTransmuteTab()) {
+                Log("Mine: Cave Maintainer starting.")
+                Sleep(NavigateTime)
+                CavesSinglePass()
+                CavesTime := A_Now
+                Sleep(NavigateTime)
+            }
         }
         if (IsWindowActive() && CurrentTab = 0 &&
             VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
-                Log("Upgrading vein")
-                VeinUpgradeButton.ClickOffset()
+            Log("Upgrading vein")
+            VeinUpgradeButton.ClickOffset()
         }
         Firstpass := false
     }
@@ -254,8 +256,8 @@ TransmuteAllCoalBars() {
     while (IsWindowActive() && IsPanelActive() &&
         TransmuteButton.IsButtonClickable() &&
         IsOnMineTransmuteTab()) {
-            TransmuteButton.ClickOffset()
-            Sleep(NavigateTime)
+        TransmuteButton.ClickOffset()
+        Sleep(NavigateTime)
     }
 }
 
@@ -263,8 +265,8 @@ CollectFreeDrillFuel() {
     FuelButton := cMineFreeFuelButton()
     while (IsWindowActive() && IsPanelActive() &&
         FuelButton.IsButtonClickable()) {
-            FuelButton.ClickOffset()
-            Sleep(NavigateTime)
+        FuelButton.ClickOffset()
+        Sleep(NavigateTime)
     }
 }
 
@@ -275,17 +277,31 @@ UseDrillSphereLoop() {
     if (MinerSphereAmount > 0) {
         while (IsWindowActive() && IsPanelActive() &&
             SphereButton.IsButtonActive() && tempAmount > 0) {
+            if (MinerSphereModifier > 1) {
+                AmountToModifier(MinerSphereModifier)
+                Sleep(34)
                 SphereButton.ClickOffset()
                 Sleep(MinerSphereDelay)
-                tempAmount--
+            } else {
+                SphereButton.ClickOffset()
+                Sleep(MinerSphereDelay)
+            }
+            tempAmount--
         }
     } else {
         if (!MinerSphereGreedyUse) {
             while (IsWindowActive() && IsPanelActive() &&
                 SphereButton.IsButtonActive()) {
+                if (MinerSphereModifier > 1) {
+                    AmountToModifier(MinerSphereModifier)
+                    Sleep(34)
                     SphereButton.ClickOffset()
                     Sleep(MinerSphereDelay)
-                    tempAmount--
+                } else {
+                    SphereButton.ClickOffset()
+                    Sleep(MinerSphereDelay)
+                }
+                tempAmount--
             }
         } else {
             SphereButton.GreedyModifierUsageClick(MinerSphereDelay)
@@ -395,14 +411,14 @@ FindVeinsWithBars() {
     results := [{ Active: false, Quality: "ignored", Priority: 9999 },
         ;
         { Active: false, Quality: "ignored", Priority: 9999 },
-        ;
-        { Active: false, Quality: "ignored", Priority: 9999 },
-        ;
-        { Active: false, Quality: "ignored", Priority: 9999 },
-        ;
-        { Active: false, Quality: "ignored", Priority: 9999 },
-        ;
-        { Active: false, Quality: "ignored", Priority: 9999 }
+            ;
+            { Active: false, Quality: "ignored", Priority: 9999 },
+            ;
+            { Active: false, Quality: "ignored", Priority: 9999 },
+            ;
+            { Active: false, Quality: "ignored", Priority: 9999 },
+            ;
+            { Active: false, Quality: "ignored", Priority: 9999 }
     ]
     if (SampleSlot1.GetColour() = "0x6D758D") {
         qualityText1 := VeinQualityColourToText(QualitySlot1.GetColour())

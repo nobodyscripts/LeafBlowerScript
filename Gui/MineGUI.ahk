@@ -6,7 +6,8 @@ Button_Click_Mine(thisGui, info) {
         MinerEnableBanks, MinerEnableSpammer, MinerTransmuteTimer, MinerRefuelTimer,
         MinerEnableVeinUpgrade, MinerEnableVeinRemoval, MinerEnableSphereUse,
         MinerSphereDelay, MinerSphereAmount, MinerSphereTimer,
-        MinerEnableCaves, MinerCaveTimer, MinerSphereGreedyUse
+        MinerEnableCaves, MinerCaveTimer, MinerSphereGreedyUse,
+        MinerSphereModifier
 
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -125,6 +126,29 @@ Button_Click_Mine(thisGui, info) {
                 settings.defaultSettings.MinerSphereAmount)
         }
     }
+    
+    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Usage Modifier:")
+    switch MinerSphereModifier {
+        case 1:
+            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose1", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
+        case 10:
+            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose2", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
+        case 25:
+            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose3", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
+        case 100:
+            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose4", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
+        case 250:
+            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose5", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
+        case 1000:
+            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose6", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
+        case 2500:
+            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose7", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
+        case 25000:
+            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose8", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
+        default:
+            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose1", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
+    }
+    
 
     optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Cycle Timer (m):")
     optionsGUI.AddEdit()
@@ -211,6 +235,7 @@ Button_Click_Mine(thisGui, info) {
         MinerEnableCaves := values.MinerEnableCaves
         MinerCaveTimer := values.MinerCaveTimer
         MinerSphereGreedyUse := values.MinerSphereGreedyUse
+        MinerSphereModifier := values.MinerSphereModifier
         settings.SaveCurrentSettings()
     }
 }

@@ -42,7 +42,8 @@ global MinerEnableVeins, MinerEnableTransmute,
     MinerEnableVeinUpgrade, MinerEnableVeinRemoval,
     MinerEnableCaves, MinerCaveTimer
 global MinerEnableSphereUse, MinerSphereDelay, MinerSphereAmount,
-    MinerSphereTimer, MinerSphereGreedyUse
+    MinerSphereTimer, MinerSphereGreedyUse,
+    MinerSphereModifier
 
 class singleSetting {
     Name := ""
@@ -54,12 +55,12 @@ class singleSetting {
 
     Create(iName, iDefaultValue := 0, iNobodyDefaultValue := 0,
         iDataType := "bool", iCategory := "Default") {
-            this.Name := iName
-            this.DefaultValue := iDefaultValue
-            this.NobodyDefaultValue := iNobodyDefaultValue
-            this.DataType := iDataType
-            this.Category := iCategory
-            return this
+        this.Name := iName
+        this.DefaultValue := iDefaultValue
+        this.NobodyDefaultValue := iNobodyDefaultValue
+        this.DataType := iDataType
+        this.Category := iCategory
+        return this
     }
 
     ValueToString(value := %this.Name%) {
@@ -160,6 +161,7 @@ class cSettings {
         this.Map["MinerSphereDelay"] := singleSetting().Create("MinerSphereDelay", 1000, 1000, "int", "Miner")
         this.Map["MinerSphereAmount"] := singleSetting().Create("MinerSphereAmount", 0, 0, "int", "Miner")
         this.Map["MinerSphereTimer"] := singleSetting().Create("MinerSphereTimer", 1, 1, "int", "Miner")
+        this.Map["MinerSphereModifier"] := singleSetting().Create("MinerSphereModifier", 1, 1, "int", "Miner")
         this.Map["MinerTransmuteTimer"] := singleSetting().Create("MinerTransmuteTimer", 10, 10, "int", "Miner")
         this.Map["MinerRefuelTimer"] := singleSetting().Create("MinerRefuelTimer", 1, 1, "int", "Miner")
         this.Map["MinerCaveTimer"] := singleSetting().Create("MinerCaveTimer", 5, 5, "int", "Miner")
@@ -234,7 +236,7 @@ class cSettings {
             MinerEnableVeinUpgrade, MinerEnableVeinRemoval,
             MinerEnableCaves, MinerCaveTimer
         global MinerEnableSphereUse, MinerSphereDelay, MinerSphereAmount,
-            MinerSphereTimer, MinerSphereGreedyUse
+            MinerSphereTimer, MinerSphereGreedyUse, MinerSphereModifier
         for (setting in this.Map) {
             try {
                 if (this.Map[setting].Name != "BVItemsArr") {
