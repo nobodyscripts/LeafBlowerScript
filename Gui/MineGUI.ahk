@@ -5,7 +5,7 @@ Button_Click_Mine(thisGui, info) {
     global Settings, MinerEnableVeins, MinerEnableTransmute, MinerEnableFreeRefuel,
         MinerEnableBanks, MinerEnableSpammer, MinerTransmuteTimer, MinerRefuelTimer,
         MinerEnableVeinUpgrade, MinerEnableVeinRemoval, MinerEnableSphereUse,
-        MinerSphereDelay, MinerSphereAmount, MinerSphereTimer,
+        MinerSphereDelay, MinerSphereCount, MinerSphereTimer,
         MinerEnableCaves, MinerCaveTimer, MinerSphereGreedyUse,
         MinerSphereModifier, MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
         MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCB
@@ -137,22 +137,22 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Amount, 0 (infinite):")
+    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Use Count, 0 (infinite):")
     optionsGUI.AddEdit()
-    If (IsInteger(MinerSphereAmount)) {
-        optionsGUI.Add("UpDown", "vMinerSphereAmount Range0-99999",
-            MinerSphereAmount)
+    If (IsInteger(MinerSphereCount)) {
+        optionsGUI.Add("UpDown", "vMinerSphereCount Range0-99999",
+            MinerSphereCount)
     } else {
         if (settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vMinerSphereAmount Range0-99999",
-                settings.defaultNobodySettings.MinerSphereAmount)
+            optionsGUI.Add("UpDown", "vMinerSphereCount Range0-99999",
+                settings.defaultNobodySettings.MinerSphereCount)
         } else {
-            optionsGUI.Add("UpDown", "vMinerSphereAmount Range0-99999",
-                settings.defaultSettings.MinerSphereAmount)
+            optionsGUI.Add("UpDown", "vMinerSphereCount Range0-99999",
+                settings.defaultSettings.MinerSphereCount)
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Usage Modifier:")
+    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Usage Amount Modifier:")
     switch MinerSphereModifier {
         case 1:
             optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose1", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
@@ -255,7 +255,7 @@ Button_Click_Mine(thisGui, info) {
         MinerEnableVeinRemoval := values.MinerEnableVeinRemoval
         MinerEnableSphereUse := values.MinerEnableSphereUse
         MinerSphereDelay := values.MinerSphereDelay
-        MinerSphereAmount := values.MinerSphereAmount
+        MinerSphereCount := values.MinerSphereCount
         MinerSphereTimer := values.MinerSphereTimer
         MinerEnableCaves := values.MinerEnableCaves
         MinerCaveTimer := values.MinerCaveTimer

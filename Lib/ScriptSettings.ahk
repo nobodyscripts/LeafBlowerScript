@@ -41,7 +41,7 @@ global MinerEnableVeins, MinerEnableTransmute,
     MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
     MinerEnableVeinUpgrade, MinerEnableVeinRemoval,
     MinerEnableCaves, MinerCaveTimer
-global MinerEnableSphereUse, MinerSphereDelay, MinerSphereAmount,
+global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
     MinerSphereTimer, MinerSphereGreedyUse,
     MinerSphereModifier, MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
     MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCB
@@ -164,7 +164,7 @@ class cSettings {
         this.Map["MinerEnableCaves"] := singleSetting().Create("MinerEnableCaves", true, true, "bool", "Miner")
         this.Map["MinerSphereGreedyUse"] := singleSetting().Create("MinerSphereGreedyUse", true, true, "bool", "Miner")
         this.Map["MinerSphereDelay"] := singleSetting().Create("MinerSphereDelay", 1000, 1000, "int", "Miner")
-        this.Map["MinerSphereAmount"] := singleSetting().Create("MinerSphereAmount", 0, 0, "int", "Miner")
+        this.Map["MinerSphereCount"] := singleSetting().Create("MinerSphereCount", 0, 0, "int", "Miner")
         this.Map["MinerSphereTimer"] := singleSetting().Create("MinerSphereTimer", 1, 1, "int", "Miner")
         this.Map["MinerSphereModifier"] := singleSetting().Create("MinerSphereModifier", 1, 1, "int", "Miner")
         this.Map["MinerTransmuteTimer"] := singleSetting().Create("MinerTransmuteTimer", 10, 10, "int", "Miner")
@@ -240,7 +240,7 @@ class cSettings {
             MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
             MinerEnableVeinUpgrade, MinerEnableVeinRemoval,
             MinerEnableCaves, MinerCaveTimer
-        global MinerEnableSphereUse, MinerSphereDelay, MinerSphereAmount,
+        global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
             MinerSphereTimer, MinerSphereGreedyUse, MinerSphereModifier,
             MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
             MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCB

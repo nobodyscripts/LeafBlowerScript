@@ -280,7 +280,7 @@ Enable use of drill spheres on timer, either use all or use an amount.
 MinerSphereDelay: (Default) 1000  
 Delay between spheres in ms (1000 = 1s) to allow stats to settle.
 
-MinerSphereAmount: (Default) 0  
+MinerSphereCount: (Default) 0  
 Amount of spheres to use in one pass, 0 = infinite, 1+ = fixed amount.
 
 MinerSphereTimer: (Default) 1  

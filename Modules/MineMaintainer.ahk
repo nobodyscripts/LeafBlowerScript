@@ -19,7 +19,7 @@ global MinerEnableCaves := true
 
 global MinerEnableSphereUse := false
 global MinerSphereDelay := 1000
-global MinerSphereAmount := 0
+global MinerSphereCount := 0
 global MinerSphereTimer := 1
 global MinerSphereModifier := 1
 global MinerCaveTimer := 5
@@ -111,10 +111,10 @@ fMineMaintainer() {
             MinerEnableTransmuteFuel || MinerEnableTransmuteSphere ||
             MinerEnableTransmuteSdiaToCB)) ||
             (IsWindowActive() &&
-             DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer && (
-                MinerEnableTransmute ||
-                MinerEnableTransmuteSdia || MinerEnableTransmuteFuel ||
-                MinerEnableTransmuteSphere || MinerEnableTransmuteSdiaToCB))) {
+                DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer && (
+                    MinerEnableTransmute ||
+                    MinerEnableTransmuteSdia || MinerEnableTransmuteFuel ||
+                    MinerEnableTransmuteSphere || MinerEnableTransmuteSdiaToCB))) {
             TransmuteTime := A_Now
             if (CurrentTab != 6 || !IsOnMineTransmuteTab()) {
                 TransmuteTab.Click()
@@ -319,11 +319,11 @@ CollectFreeDrillFuel() {
 
 UseDrillSphereLoop() {
     SphereButton := cMineDrillSphereButton()
-    tempAmount := MinerSphereAmount
+    tempCount := MinerSphereCount
 
-    if (MinerSphereAmount > 0) {
+    if (MinerSphereCount > 0) {
         while (IsWindowActive() && IsPanelActive() &&
-            SphereButton.IsButtonActive() && tempAmount > 0) {
+            SphereButton.IsButtonActive() && tempCount > 0) {
             if (MinerSphereModifier > 1) {
                 AmountToModifier(MinerSphereModifier)
                 Sleep(34)
@@ -333,7 +333,7 @@ UseDrillSphereLoop() {
                 SphereButton.ClickOffset()
                 Sleep(MinerSphereDelay)
             }
-            tempAmount--
+            tempCount--
         }
     } else {
         if (!MinerSphereGreedyUse) {
@@ -348,7 +348,6 @@ UseDrillSphereLoop() {
                     SphereButton.ClickOffset()
                     Sleep(MinerSphereDelay)
                 }
-                tempAmount--
             }
         } else {
             SphereButton.GreedyModifierUsageClick(MinerSphereDelay)
