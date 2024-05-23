@@ -213,7 +213,6 @@ Diamonds to Coal Diamonds. Added to GUI.
 
 ## TODO
 
-Claw offset doesn't save negative numbers.  
 Devoption: Window check, keybinds and active checks designed around dev.
    F12 Test mode, edit save file to incorrect settings and test each
    mode detects, verbose debug on pixel checks.  
@@ -231,6 +230,11 @@ F7: Needs to use artifact if need be / get replacement
 F8: Review ending of gfssnoreset mode  
 F10: Needs to use artifact if need be / get replacement  
 PageDown: Leafton needs better setup routine. Travel to zone.  
+
+Hotkeys international support  
+Script Hotkeys  
+Mines stuck on wrong page  
+Mines modifier amount incorrect.  
 
 ## Known issues
 
