@@ -199,6 +199,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
+GUI: Disabled Mine Sphere Count and Modifier if Greedy is enabled to be clear,
+the options conflict. Also renamed Amount > Count for clarity.
+
 Insert: Added MinerSphereModifier setting, custom amount to use per click when
 greedy mode is turned off. Added to GUI.  
 
@@ -234,7 +237,6 @@ PageDown: Leafton needs better setup routine. Travel to zone.
 Hotkeys international support  
 Script Hotkeys  
 Mines stuck on wrong page  
-Mines modifier amount incorrect.  
 
 ## Known issues
 
