@@ -107,14 +107,9 @@ fMineMaintainer() {
             }
             EnhanceVeins()
         }
-        if ((Firstpass && (MinerEnableTransmute || MinerEnableTransmuteSdia ||
-            MinerEnableTransmuteFuel || MinerEnableTransmuteSphere ||
-            MinerEnableTransmuteSdiaToCB)) ||
-            (IsWindowActive() &&
-                DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer && (
-                    MinerEnableTransmute ||
-                    MinerEnableTransmuteSdia || MinerEnableTransmuteFuel ||
-                    MinerEnableTransmuteSphere || MinerEnableTransmuteSdiaToCB))) {
+        if ((Firstpass && isAnyTransmuteEnabled()) ||
+            (IsWindowActive() && isAnyTransmuteEnabled() &&
+                DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer)) {
             TransmuteTime := A_Now
             if (CurrentTab != 6 || !IsOnMineTransmuteTab()) {
                 TransmuteTab.Click()
@@ -213,6 +208,12 @@ fMineMaintainer() {
         Firstpass := false
     }
     KillSpammer()
+}
+
+isAnyTransmuteEnabled() {
+    return MinerEnableTransmute || MinerEnableTransmuteSdia ||
+        MinerEnableTransmuteFuel || MinerEnableTransmuteSphere ||
+        MinerEnableTransmuteSdiaToCB
 }
 
 EnhanceVeins() {
