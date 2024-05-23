@@ -162,7 +162,7 @@ class cSettings {
         this.Map["MinerEnableVeinRemoval"] := singleSetting().Create("MinerEnableVeinRemoval", false, false, "bool", "Miner")
         this.Map["MinerEnableSphereUse"] := singleSetting().Create("MinerEnableSphereUse", false, false, "bool", "Miner")
         this.Map["MinerEnableCaves"] := singleSetting().Create("MinerEnableCaves", true, true, "bool", "Miner")
-        this.Map["MinerSphereGreedyUse"] := singleSetting().Create("MinerSphereGreedyUse", true, true, "bool", "Miner")
+        this.Map["MinerSphereGreedyUse"] := singleSetting().Create("MinerSphereGreedyUse", false, false, "bool", "Miner")
         this.Map["MinerSphereDelay"] := singleSetting().Create("MinerSphereDelay", 1000, 1000, "int", "Miner")
         this.Map["MinerSphereCount"] := singleSetting().Create("MinerSphereCount", 0, 0, "int", "Miner")
         this.Map["MinerSphereTimer"] := singleSetting().Create("MinerSphereTimer", 1, 1, "int", "Miner")
