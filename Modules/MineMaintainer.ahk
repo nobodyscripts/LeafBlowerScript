@@ -325,11 +325,13 @@ UseDrillSphereLoop() {
         while (IsWindowActive() && IsPanelActive() &&
             SphereButton.IsButtonActive() && tempCount > 0) {
             if (MinerSphereModifier > 1) {
+                ; limited count, with modifier
                 AmountToModifier(MinerSphereModifier)
                 Sleep(34)
                 SphereButton.ClickOffset()
                 Sleep(MinerSphereDelay)
             } else {
+                ; limited count
                 SphereButton.ClickOffset()
                 Sleep(MinerSphereDelay)
             }
@@ -337,6 +339,7 @@ UseDrillSphereLoop() {
         }
     } else {
         if (!MinerSphereGreedyUse) {
+            ; Inf use, no greedy
             while (IsWindowActive() && IsPanelActive() &&
                 SphereButton.IsButtonActive()) {
                 if (MinerSphereModifier > 1) {
@@ -350,6 +353,7 @@ UseDrillSphereLoop() {
                 }
             }
         } else {
+            ; Greedy
             SphereButton.GreedyModifierUsageClick(MinerSphereDelay)
             Sleep(MinerSphereDelay)
         }

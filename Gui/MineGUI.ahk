@@ -45,9 +45,9 @@ Button_Click_Mine(thisGui, info) {
     }
 
     if (MinerEnableTransmuteSdia = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdia cff8800 checked", "Enable Coal Dia To Shiny Dia Transmute")
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdia ccfaf21 checked", "Enable Coal Dia To Shiny Dia Transmute")
     } else {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdia cff8800", "Enable Coal Dia To Shiny Dia Transmute")
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdia ccfaf21", "Enable Coal Dia To Shiny Dia Transmute")
     }
 
     if (MinerEnableTransmuteFuel = true) {
@@ -63,9 +63,9 @@ Button_Click_Mine(thisGui, info) {
     }
 
     if (MinerEnableTransmuteSdiaToCB = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdiaToCB cff8800 checked", "Enable Shiny Dia To Coal Bar Transmute")
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdiaToCB ccfaf21 checked", "Enable Shiny Dia To Coal Bar Transmute")
     } else {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdiaToCB cff8800", "Enable Shiny Dia To Coal Bar Transmute")
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdiaToCB ccfaf21", "Enable Shiny Dia To Coal Bar Transmute")
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Auto Bars Transmute Timer (s):")
@@ -117,12 +117,12 @@ Button_Click_Mine(thisGui, info) {
     }
 
     if (MinerSphereGreedyUse = true) {
-        optionsGUI.Add("CheckBox", "vMinerSphereGreedyUse ccfcfcf checked", "Enable Greedy Sphere Use")
+        optionsGUI.Add("CheckBox", "vMinerSphereGreedyUse ccfcfcf checked", "Enable Greedy Sphere Use").OnEvent("Click", HandleGreedy)
     } else {
-        optionsGUI.Add("CheckBox", "vMinerSphereGreedyUse ccfcfcf", "Enable Greedy Sphere Use")
+        optionsGUI.Add("CheckBox", "vMinerSphereGreedyUse ccfcfcf", "Enable Greedy Sphere Use").OnEvent("Click", HandleGreedy)
     }
-
-    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Use Delay (ms):")
+    optionsGUI.Add("Text", "ccfaf21", "Greedy disables sphere count and sphere modifier")
+    optionsGUI.Add("Text", "ccfcfcf YP+25", "Drill Sphere Use Delay (ms):")
     optionsGUI.AddEdit()
     If (IsInteger(MinerSphereDelay) && MinerSphereDelay > 0) {
         optionsGUI.Add("UpDown", "vMinerSphereDelay Range1-9999",
@@ -137,8 +137,8 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Use Count, 0 (infinite):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "ccfcfcf vMinerSphereCountLabel", "Drill Sphere Use Count, 0 (infinite):")
+    optionsGUI.AddEdit("vMinerSphereCountEdit")
     If (IsInteger(MinerSphereCount)) {
         optionsGUI.Add("UpDown", "vMinerSphereCount Range0-99999",
             MinerSphereCount)
@@ -152,7 +152,7 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Usage Amount Modifier:")
+    optionsGUI.Add("Text", "ccfcfcf vMinerSphereModifierLabel", "Drill Sphere Usage Amount Modifier:")
     switch MinerSphereModifier {
         case 1:
             optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose1", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
@@ -190,14 +190,13 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "")
     if (MinerEnableCaves = true) {
         optionsGUI.Add("CheckBox", "vMinerEnableCaves ccfcfcf checked", "Enable Cave Diamond Drills")
     } else {
         optionsGUI.Add("CheckBox", "vMinerEnableCaves ccfcfcf", "Enable Cave Diamond Drills")
     }
 
-    optionsGUI.Add("Text", "cdd1c1c", "Cave Drills unstable at lower resolutions.")
+    optionsGUI.Add("Text", "ccfaf21", "Cave Drills unstable at lower resolutions.")
     optionsGUI.Add("Text", "ccfcfcf", "Cave Drills Cycle Timer (m):")
     optionsGUI.AddEdit()
     If ((IsInteger(MinerCaveTimer) || IsFloat(MinerCaveTimer)) && MinerCaveTimer > 0.15) {
@@ -213,11 +212,20 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunMine)
     optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveMine)
     optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessMineSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseMineSettings)
+
+    if (MinerSphereGreedyUse) {
+        optionsGUI["MinerSphereModifier"].Opt("+Disabled")
+        optionsGUI["MinerSphereCount"].Opt("+Disabled")
+        optionsGUI["MinerSphereCountEdit"].Opt("+Readonly")
+        optionsGUI["MinerSphereCountLabel"].Text := "Disabled with Greedy ON"
+        optionsGUI["MinerSphereModifierLabel"].Text := "Disabled with Greedy ON"
+        optionsGUI["MinerSphereCountLabel"].Opt("ccfaf21")
+        optionsGUI["MinerSphereModifierLabel"].Opt("ccfaf21")
+    }
 
     optionsGUI.Show("w300")
 
@@ -266,5 +274,34 @@ Button_Click_Mine(thisGui, info) {
         MinerEnableTransmuteSphere := values.MinerEnableTransmuteSphere
         MinerEnableTransmuteSdiaToCB := values.MinerEnableTransmuteSdiaToCB
         settings.SaveCurrentSettings()
+    }
+
+    HandleGreedy(guiControlObj, info) {
+        guiObj := guiControlObj.gui
+        if (guiControlObj.Value) {
+            guiObj["MinerSphereModifier"].Opt("+Disabled")
+            guiObj["MinerSphereModifier"].Redraw()
+            guiObj["MinerSphereCountEdit"].Opt("+Readonly")
+            guiObj["MinerSphereCountEdit"].Redraw()
+            guiObj["MinerSphereCount"].Opt("+Disabled")
+            guiObj["MinerSphereCount"].Redraw()
+            guiObj["MinerSphereCountLabel"].Text := "Disabled with Greedy ON"
+            guiObj["MinerSphereModifierLabel"].Text := "Disabled with Greedy ON"
+            guiObj["MinerSphereCountLabel"].Opt("ccfaf21")
+            guiObj["MinerSphereModifierLabel"].Opt("ccfaf21")
+            Log("Clicked while ticked")
+        } else {
+            guiObj["MinerSphereModifier"].Opt("-Disabled")
+            guiObj["MinerSphereModifier"].Redraw()
+            guiObj["MinerSphereCountEdit"].Opt("-Readonly")
+            guiObj["MinerSphereCountEdit"].Redraw()
+            guiObj["MinerSphereCount"].Opt("-Disabled")
+            guiObj["MinerSphereCount"].Redraw()
+            guiObj["MinerSphereCountLabel"].Text := "Drill Sphere Use Count, 0 (infinite):"
+            guiObj["MinerSphereModifierLabel"].Text := "Drill Sphere Usage Amount Modifier:"
+            guiObj["MinerSphereCountLabel"].Opt("ccfcfcf")
+            guiObj["MinerSphereModifierLabel"].Opt("ccfcfcf")
+            Log("Clicked while unticked")
+        }
     }
 }
