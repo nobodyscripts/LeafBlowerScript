@@ -2,6 +2,7 @@
 
 global DisableZoneChecks := false
 global NavigateTime := 150
+global LBRWindowTitle
 
 /**
  * Open the areas panel

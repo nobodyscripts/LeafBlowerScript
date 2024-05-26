@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+global LBRWindowTitle
+global LastWindowNotActiveTimer := A_Now
 
 MakeWindowActive() {
     if (!WinExist(LBRWindowTitle)) {
@@ -11,8 +13,6 @@ MakeWindowActive() {
     }
     return true
 }
-
-global LastWindowNotActiveTimer := A_Now
 
 IsWindowActive() {
     global LastWindowNotActiveTimer

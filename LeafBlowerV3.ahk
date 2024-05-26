@@ -1,15 +1,23 @@
 ﻿#Requires AutoHotkey v2.0
 #MaxThreadsPerHotkey 8
 #SingleInstance Force
-#Include Hotkeys.ahk
+
+global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
+global EnableLogging := true
+global IsSecondary := false
 
 #Include Gui\MainGUI.ahk
+
 
 #Include Lib\ScriptSettings.ahk
 #Include Lib\Functions.ahk
 #Include Lib\Navigate.ahk
 #Include Lib\SettingsCheck.ahk
 #Include Lib\Spammers.ahk
+
+#Include Lib\GameHotkeys.ahk
+#Include Lib\ScriptHotkeys.ahk
+#Include Lib\GameSettings.ahk
 
 #Include Modules\BankDeposit.ahk
 #Include Modules\Borbventure.ahk
@@ -20,7 +28,6 @@
 #Include Modules\FarmGFSS.ahk
 #Include Modules\FarmNatureBoss.ahk
 #Include Modules\FarmNormalBoss.ahk
-#Include Modules\GameSettings.ahk
 #Include Modules\GemFarm.ahk
 #Include Modules\NatureHyacinth.ahk
 #Include Modules\TowerTimeWarp.ahk
@@ -37,7 +44,6 @@ DetectHiddenWindows(true)
 Persistent()  ; Prevent the script from exiting automatically.
 OnExit(ExitFunc)
 
-global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
 global GameSaveDir := A_AppData "\..\Local\blow_the_leaves_away\"
 global ActiveSavePath := GameSaveDir "save.dat"
 global ActiveGameSettingsPath := GameSaveDir "options.dat"
@@ -64,6 +70,8 @@ if (WinExist(LBRWindowTitle)) {
 }
 Log("Script loaded")
 RunGui()
+
+Log(GetKeyVK("Esc"))
 
 ; ------------------- Readme -------------------
 /*
@@ -95,13 +103,31 @@ Run this file to load script
     results := testArea.OCRArea()
     MsgBox(results.Text)
 } */
+CreateScriptHotkeys()
 
-#HotIf WinActive(LBRWindowTitle)
-*F1:: {
-    fExitApp()
+CreateScriptHotkeys() {
+    Hotkey("*" Scriptkeys.GetHotkey("AutoClicker"), fAutoClicker)
+    HotIfWinActive(LBRWindowTitle)
+    Hotkey("*" Scriptkeys.GetHotkey("Exit"), fExitApp)
+    Hotkey("*" Scriptkeys.GetHotkey("Reload"), fReloadApp)
+    Hotkey("*" Scriptkeys.GetHotkey("Cards"), fCardsStart)
+    Hotkey("*" Scriptkeys.GetHotkey("GemFarm"), fGemFarmStart)
+    Hotkey("*" Scriptkeys.GetHotkey("TowerBoost"), fTowerBoostStart)
+    Hotkey("*" Scriptkeys.GetHotkey("Borbv"), fBorbvStart)
+    Hotkey("*" Scriptkeys.GetHotkey("Claw"), fClawStart)
+    Hotkey("*" Scriptkeys.GetHotkey("GFSS"), fGFSSStart)
+    Hotkey("*" Scriptkeys.GetHotkey("BossFarm"), fBossFarmStart)
+    Hotkey("*" Scriptkeys.GetHotkey("NatureBoss"), fNatureBossStart)
+    Hotkey("*" Scriptkeys.GetHotkey("GameResize"), fGameResize)
+    Hotkey("*" Scriptkeys.GetHotkey("MineMaintain"), fMineStart)
+    Hotkey("*" Scriptkeys.GetHotkey("HyacinthFarm"), fHyacinthStart)
+    Hotkey("*" Scriptkeys.GetHotkey("Bank"), fBankStart)
+    Hotkey("*" Scriptkeys.GetHotkey("CursedCheese"), fCursedCheeseStart)
+    Hotkey("*" Scriptkeys.GetHotkey("TowerPassive"), fTowerPassiveStart)
+    Hotkey("*" Scriptkeys.GetHotkey("Leafton"), fLeaftonStart)
 }
 
-fExitApp() {
+fExitApp(*) {
     KillAllSpammers()
     Log("F1: Pressed")
     ; Wildcard shortcut * to allow functions to work while looping with
@@ -111,11 +137,7 @@ fExitApp() {
     ExitApp()
 }
 
-*F2:: {
-    fReloadApp()
-}
-
-fReloadApp() {
+fReloadApp(*) {
     global HadToHideNotifs, HadToRemoveBearo, GemFarmActive, TowerFarmActive,
         bvAutostartDisabled
     ; Toggle notifs to handle multiple situations where its toggled
@@ -164,11 +186,7 @@ fReloadApp() {
     cReload()
 }
 
-*F3:: {
-    fCardsStart()
-}
-
-fCardsStart() { ; Open cards clicker
+fCardsStart(*) { ; Open cards clicker
     global HadToHideNotifs
     Static on3 := False
     Log("F3: Pressed")
@@ -201,11 +219,7 @@ fCardsStart() { ; Open cards clicker
     Sleep(34)
 }
 
-*F4:: {
-    fGemFarmStart()
-}
-
-fGemFarmStart() { ; Gem farm using suitcase
+fGemFarmStart(*) { ; Gem farm using suitcase
     global HadToRemoveBearo, GemFarmActive
     Static on4 := False
     Log("F4: Pressed")
@@ -239,11 +253,7 @@ fGemFarmStart() { ; Gem farm using suitcase
     }
 }
 
-*F5:: {
-    fTowerBoostStart()
-}
-
-fTowerBoostStart() { ; Tower 72hr boost loop
+fTowerBoostStart(*) { ; Tower 72hr boost loop
     global TowerFarmActive
     TowerFarmActive := true
     Static on5 := False
@@ -263,11 +273,7 @@ fTowerBoostStart() { ; Tower 72hr boost loop
     }
 }
 
-*F6:: {
-    fBorbvStart()
-}
-
-fBorbvStart() { ; Borb pink juice farm in borbventures
+fBorbvStart(*) { ; Borb pink juice farm in borbventures
     Static on6 := False
     global bvAutostartDisabled
     Log("F6: Pressed")
@@ -287,11 +293,7 @@ fBorbvStart() { ; Borb pink juice farm in borbventures
     }
 }
 
-*F7:: {
-    fClawStart()
-}
-
-fClawStart() { ; Claw pumpkin farm
+fClawStart(*) { ; Claw pumpkin farm
     Static on7 := False
     Log("F7: Pressed")
     InitScriptHotKey()
@@ -304,11 +306,7 @@ fClawStart() { ; Claw pumpkin farm
     } Else cReload()
 }
 
-*F8:: {
-    fGFSSStart()
-}
-
-fGFSSStart() { ; Green Flame/Soulseeker farm
+fGFSSStart(*) { ; Green Flame/Soulseeker farm
     Static on8 := False
     Log("F8: Pressed")
     InitScriptHotKey()
@@ -321,12 +319,7 @@ fGFSSStart() { ; Green Flame/Soulseeker farm
     } Else reload()
 }
 
-
-*F9:: {
-    fBossFarmStart()
-}
-
-fBossFarmStart(GUIMode := -1) { ; Farm bosses using violins
+fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
     global on9, HadToHideNotifsF9, bvAutostartDisabled
     Log("F9: Pressed")
     InitScriptHotKey()
@@ -390,11 +383,7 @@ fBossFarmStart(GUIMode := -1) { ; Farm bosses using violins
     }
 }
 
-*F10:: {
-    fNatureBossStart()
-}
-
-fNatureBossStart() { ; Farm nature boss using violins
+fNatureBossStart(*) { ; Farm nature boss using violins
     Static on10 := False
     Log("F10: Pressed")
     InitScriptHotKey()
@@ -407,9 +396,7 @@ fNatureBossStart() { ; Farm nature boss using violins
     } Else reload()
 }
 
-;Allow autoclicker outside game
-#HotIf
-*F11:: { ; Autoclicker non game specific
+fAutoClicker(*) {
     Static on11 := False
     Log("F11: Pressed")
     ;InitGameWindow()
@@ -431,12 +418,7 @@ fNatureBossStart() { ; Farm nature boss using violins
     }
 }
 
-#HotIf WinActive(LBRWindowTitle)
-*F12:: {
-    fGameResize()
-}
-
-fGameResize() {
+fGameResize(*) {
     global X, Y, W, H, DisableSettingsChecks
     Log("F12: Pressed")
     if (!InitGameWindow()) {
@@ -494,16 +476,7 @@ removeLastCheckTooltip() {
     ToolTip(, , , 10)
 }
 
-/**
- * Toggle the mine mantainer
- * @param ThisHotkey Insert
- * @returns {void} 
- */
-*Insert:: {
-    fMineStart()
-}
-
-fMineStart() {
+fMineStart(*) {
     Static on13 := false
     Log("Insert: Pressed")
     InitScriptHotKey()
@@ -521,14 +494,7 @@ fMineStart() {
     }
 }
 
-/**
- * Hyacinth Farm mode
- */
-*Home:: {
-    fHyacinthStart()
-}
-
-fHyacinthStart() {
+fHyacinthStart(*) {
     ; Farm bosses while farming Hyacinths
     Static on14 := false
     global HyacinthFarmActive
@@ -550,14 +516,7 @@ fHyacinthStart() {
     }
 }
 
-/**
- * Bank maintainer mode
- */
-*PgUp:: {
-    fBankStart()
-}
-
-fBankStart() {
+fBankStart(*) {
     Static on16 := false
     Log("PgUp: Pressed")
     InitScriptHotKey()
@@ -576,14 +535,7 @@ fBankStart() {
     }
 }
 
-/**
- * Cursed Cheese mode
- */
-*Del:: {
-    fCursedCheeseStart()
-}
-
-fCursedCheeseStart() {
+fCursedCheeseStart(*) {
     ; Cursed Cheese Farm
     Static on18 := false
 
@@ -604,14 +556,7 @@ fCursedCheeseStart() {
     }
 }
 
-/**
- * Tower farm passive mode
- */
-*End:: {
-    fTowerPassiveStart()
-}
-
-fTowerPassiveStart() {
+fTowerPassiveStart(*) {
     Static on15 := false
 
     Log("End: Pressed")
@@ -631,14 +576,7 @@ fTowerPassiveStart() {
     }
 }
 
-/**
- * Leafton mode
- */
-*PgDn:: {
-    fLeaftonStart()
-}
-
-fLeaftonStart() {
+fLeaftonStart(*) {
     Static on17 := false
     Log("PgDn: Pressed")
     InitScriptHotKey()
@@ -656,10 +594,6 @@ fLeaftonStart() {
         return
     }
 }
-
-
-/* *End:: {
-} */
 
 ExitFunc(ExitReason, ExitCode) {
     Log("Script exiting. Due to " ExitReason ".")

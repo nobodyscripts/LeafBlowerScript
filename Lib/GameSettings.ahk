@@ -83,6 +83,7 @@ SetGameSettings(filename, data, backupName) {
 }
 
 ApplyScriptDefaultsOnGameSettings(jsonData) {
+    KeyCodeArray := []
     ; if fullscreen was on, first thing we need to do is reset 'window' to a
     ; usable size otherwise we accidentally windowed borderless fullscreen
     if (jsonData['fullscreen']['value'] > 0) {
@@ -91,7 +92,7 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         jsonData['window_data']['value']['height'] := A_ScreenHeight / 2
         jsonData['window_data']['value']['width'] := A_ScreenWidth / 2
         MsgBox("Game window size being reset due to being in fullscreen.`r`n"
-        "Adjust as needed.")
+            "Adjust as needed.")
     }
     jsonData['afk_mode_lost_focus']['value'] := 0
     jsonData['alb_visible']['value'] := 80.0
@@ -112,27 +113,28 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
     jsonData['disable_app_surface']['value'] := 1 ; This is alt rendering
 
     ; Need to check the following hotkeys don't conflict with other keybinds
-    jsonData['hotkey_areas']['value'] := 86.0
-    jsonData['hotkey_artifact_blazing_skull']['value'] := 80.0
-    jsonData['hotkey_artifact_gold_suitcase']['value'] := 188.0
-    jsonData['hotkey_artifact_gravity_ball']['value'] := 221.0
-    jsonData['hotkey_artifact_seed_bag']['value'] := 72.0
-    jsonData['hotkey_artifact_vital_violin']['value'] := 191.0
-    jsonData['hotkey_artifact_wind']['value'] := 219.0
-    jsonData['hotkey_artifact_wings']['value'] := 222.0
-    jsonData['hotkey_alchemy']['value'] := 79.0
-    jsonData['hotkey_banks']['value'] := 78.0
-    jsonData['hotkey_borbventures']['value'] := 74.0
-    jsonData['hotkey_cards']['value'] := 73.0
-    jsonData['hotkey_crafting']['value'] := 77.0
-    jsonData['hotkey_load_loadout_0']['value'] := 97.0
-    jsonData['hotkey_load_loadout_2']['value'] := 99.0
-    jsonData['hotkey_mines']['value'] := 76.0
-    jsonData['hotkey_pets']['value'] := 75.0
-    jsonData['hotkey_prestige']['value'] := 88.0
-    jsonData['hotkey_refresh_trades']['value'] := 32.0
-    jsonData['hotkey_shop_gems']['value'] := 190.0
-    jsonData['hotkey_trading']['value'] := 89.0
+    ; Also need to check if they are 27, so that users don't rebind ESC
+    jsonData['hotkey_areas']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenAreas") . ".0")
+    jsonData['hotkey_artifact_blazing_skull']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerBlazingSkull") . ".0")
+    jsonData['hotkey_artifact_gold_suitcase']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerSuitcase") . ".0")
+    jsonData['hotkey_artifact_gravity_ball']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerGravity") . ".0")
+    jsonData['hotkey_artifact_seed_bag']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerSeeds") . ".0")
+    jsonData['hotkey_artifact_vital_violin']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerViolin") . ".0")
+    jsonData['hotkey_artifact_wind']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerWind") . ".0")
+    jsonData['hotkey_artifact_wings']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerWobblyWings") . ".0")
+    jsonData['hotkey_alchemy']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenAlchemy") . ".0")
+    jsonData['hotkey_banks']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenBank") . ".0")
+    jsonData['hotkey_borbventures']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenBorbVentures") . ".0")
+    jsonData['hotkey_cards']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenCards") . ".0")
+    jsonData['hotkey_crafting']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenCrafting") . ".0")
+    jsonData['hotkey_load_loadout_0']['value'] := CheckVK(GameKeys.GetHotkeyVK("EquipDefaultGearLoadout") . ".0")
+    jsonData['hotkey_load_loadout_2']['value'] := CheckVK(GameKeys.GetHotkeyVK("EquipTowerGearLoadout") . ".0")
+    jsonData['hotkey_mines']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenMining") . ".0")
+    jsonData['hotkey_pets']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenPets") . ".0")
+    jsonData['hotkey_prestige']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenGoldPortal") . ".0")
+    jsonData['hotkey_refresh_trades']['value'] := CheckVK(GameKeys.GetHotkeyVK("RefreshTrades") . ".0")
+    jsonData['hotkey_shop_gems']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenGemShop") . ".0")
+    jsonData['hotkey_trading']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenTrades") . ".0")
 
     ; These keybinds are unused, so check they are not set to used values,
     ; preventing two keys using the same keybind
@@ -250,13 +252,42 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
 }
 
 ResetIncorrectHotkey(var) {
-    aInUse := [32.0, 72.0, 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0,
-        86.0, 88.0, 89.0, 97.0, 99.0, 188.0, 190.0, 191.0, 219.0, 221.0, 222.0]
+    aInUse := []
+    ; Need closepanel in this to avoid user binding to Esc
+    aInUse.Push(GameKeys.GetHotkeyVK("ClosePanel") . ".0")
 
+    aInUse.Push(GameKeys.GetHotkeyVK("OpenAreas") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("TriggerBlazingSkull") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("TriggerSuitcase") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("TriggerGravity") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("TriggerSeeds") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("TriggerViolin") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("TriggerWind") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("TriggerWobblyWings") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("OpenAlchemy") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("OpenBank") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("OpenBorbVentures") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("OpenCards") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("OpenCrafting") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("EquipDefaultGearLoadout") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("EquipTowerGearLoadout") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("OpenMining") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("OpenPets") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("OpenGoldPortal") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("RefreshTrades") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("OpenGemShop") . ".0")
+    aInUse.Push(GameKeys.GetHotkeyVK("OpenTrades") . ".0")
     for (key in aInUse) {
         if (var = key) {
             var := -1.0
         }
     }
     return var
+}
+
+CheckVK(var) {
+    if (var = 27.0 || var = 27) {
+        return -1.0
+    }
+    return var + 0.0
 }

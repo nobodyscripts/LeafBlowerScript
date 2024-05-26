@@ -1,4 +1,4 @@
-# LBR Resolution independent scripts v3.1.2
+# LBR Resolution independent scripts v3.1.2-Alpha
 
 Support and news: <https://discord.gg/xu8fXw4CQ8>
 
@@ -199,20 +199,27 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
+Hotkeys: Added new systems to handle both the hotkeys for ingame and the script.
+
+GUI: Reflects custom hotkeys.
+
 GUI: Disabled Mine Sphere Count and Modifier if Greedy is enabled to be clear,
 the options conflict. Also renamed Amount > Count for clarity.
 
 Insert: Added MinerSphereModifier setting, custom amount to use per click when
-greedy mode is turned off. Added to GUI.  
+greedy mode is turned off. Added to GUI.
 
 Insert: Added MinerEnableTransmuteSdia setting, transmutes max Coal Bars to
-Shiny Diamonds. Added to GUI.  
+Shiny Diamonds. Added to GUI.
+
 Insert: Added MinerEnableTransmuteFuel setting, transmutes max Coal Diamonds to
-Fuel. Added to GUI.  
+Fuel. Added to GUI.
+
 Insert: Added MinerEnableTransmuteSphere setting, transmutes max Coal Diamonds
-to Spheres. Added to GUI.  
+to Spheres. Added to GUI.
+
 Insert: Added MinerEnableTransmuteSdiaToCB setting, transmutes max Shiny
-Diamonds to Coal Diamonds. Added to GUI.  
+Diamonds to Coal Diamonds. Added to GUI.
 
 ## TODO
 
@@ -222,18 +229,21 @@ Devoption: Window check, keybinds and active checks designed around dev.
 Cleanup card purchase orders into a more generic func.  
 Check for alb.  
 Investigate fullscreen (it breaks fullscreen).  
-Move keybinds to UserSettings.ini.  
+
 Trade farming for non gems/non suitcase version.  
 Brew + cards rotation mode.  
 Halloween + Nature artifact secondary which pauses main functions.  
 Adjust window resize based on delta from intended size, for non matching window
    dressing.  
 
+F6: Load dlc purchase state from save file and remove setting.  
 F7: Needs to use artifact if need be / get replacement  
-F8: Review ending of gfssnoreset mode  
+F8: Alignment is off, refresh entire function.  
+F8: Review ending of gfssnoreset mode.  
 F10: Needs to use artifact if need be / get replacement  
 PageDown: Leafton needs better setup routine. Travel to zone.  
 
+Move keybinds to UserSettings.ini.  
 Hotkeys international support  
 Script Hotkeys  
 Mines stuck on wrong page  

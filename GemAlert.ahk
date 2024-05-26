@@ -5,7 +5,6 @@
 #Include Lib/Navigate.ahk
 #Include Lib/ScriptSettings.ahk
 #Include Lib/SettingsCheck.ahk
-#Include Hotkeys.ahk
 
 global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
 global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
@@ -24,9 +23,6 @@ if (IsPanelActive()) {
 OpenMining()
 Sleep(NavigateTime)
 loop {
-    /* if (IsWindowActive()) {
-        break
-    } */
     if (IsWindowActive() && !IsPanelActive()) {
         OpenMining()
         Sleep(NavigateTime)
@@ -59,8 +55,16 @@ FindVeinsWithBars2() {
     if (SampleSlot4.GetColour() != "0x6D758D" ||
         SampleSlot5.GetColour() != "0x6D758D" ||
         SampleSlot6.GetColour() != "0x6D758D") {
-            SoundBeep()
-            Sleep(1000 * 30)
+        SoundBeep()
+        Sleep(1000 * 30)
     }
     return
+}
+
+OpenMining() {
+    ControlSend("{l}", , LBRWindowTitle)
+}
+
+ClosePanel() {
+    ControlSend("{Esc}", , LBRWindowTitle)
 }

@@ -17,7 +17,7 @@ fPrestigeSpammer() {
             break
         }
         if (IsWindowActive() && !IsPanelActive()) {
-            ControlSend("{x}", , LBRWindowTitle)
+            OpenGoldPortal()
             Sleep(NavigateTime)
         }
         if (IsWindowActive() && IsPanelActive()) {

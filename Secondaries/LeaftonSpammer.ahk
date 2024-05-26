@@ -2,11 +2,15 @@
 
 #MaxThreadsPerHotkey 8
 #SingleInstance Force
+
+global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
+global IsSecondary := true
+
 #Include '../Lib/ScriptSettings.ahk'
 #Include '../Lib/Functions.ahk'
 #Include '../Lib/SettingsCheck.ahk'
 #Include '../Lib/Navigate.ahk'
-#Include '../Hotkeys.ahk'
+#Include ..\Lib\GameHotkeys.ahk
 
 global X, Y, W, H
 X := Y := W := H := 0
