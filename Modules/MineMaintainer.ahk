@@ -3,6 +3,7 @@
 #Include ../Lib/Coords.ahk
 #Include ../Lib/Spammers.ahk
 #Include MineMaintainerCaves.ahk
+#Include ../Navigate/Mines/Travel.ahk
 
 global MinerEnableVeins := true
 global MinerEnableVeinRemoval := true
@@ -91,21 +92,25 @@ fMineMaintainer() {
             Sleep(NavigateTime)
         }
         if (IsWindowActive() && MinerEnableVeins) {
-            if (CurrentTab != 0) {
+            if (CurrentTab != 0 || !IsOnMineCoalVeinTab()) {
                 VeinsTab.Click()
                 Sleep(NavigateTime)
                 VeinsTab.Click()
                 Sleep(NavigateTime)
                 CurrentTab := 0
             }
-            if (MinerEnableVeinRemoval && !IsOnMineTransmuteTab()) {
-                RemoveSingleVein()
-                Sleep(NavigateTime)
-                if (CancelConfirm.IsButtonActive()) {
-                    VeinCancelConfirm()
+            if (IsOnMineCoalVeinTab()) {
+                if (MinerEnableVeinRemoval) {
+                    RemoveSingleVein()
+                    Sleep(NavigateTime)
+                    if (CancelConfirm.IsButtonActive()) {
+                        VeinCancelConfirm()
+                    }
                 }
+                EnhanceVeins()
+            } else {
+                Log("Mine: Vein tab click failed")
             }
-            EnhanceVeins()
         }
         if ((Firstpass && isAnyTransmuteEnabled()) ||
             (IsWindowActive() && isAnyTransmuteEnabled() &&
@@ -131,17 +136,19 @@ fMineMaintainer() {
             (IsWindowActive() && DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
                 MinerEnableFreeRefuel)) {
             RefuelTime := A_Now
-            if (CurrentTab != 4) {
+            if (CurrentTab != 4 || !IsOnMineDrillTab()) {
                 DrillTab.Click()
                 Sleep(NavigateTime)
                 DrillTab.Click()
                 Sleep(NavigateTime)
                 CurrentTab := 4
             }
-            if (!IsOnMineTransmuteTab()) {
+            if (IsOnMineDrillTab()) {
                 CollectFreeDrillFuel()
                 Log("Mine: Collected free fuel.")
                 Sleep(NavigateTime)
+            } else {
+                Log("Mine: Drill tab click failed")
             }
         }
 
@@ -149,19 +156,21 @@ fMineMaintainer() {
             (IsWindowActive() && DateDiff(A_Now, SphereTime, "Seconds") >= MinerSphereTimer * 60 &&
                 MinerEnableSphereUse)) {
             SphereTime := A_Now
-            if (CurrentTab != 4) {
+            if (CurrentTab != 4 || !IsOnMineDrillTab()) {
                 DrillTab.Click()
                 Sleep(NavigateTime)
                 DrillTab.Click()
                 Sleep(NavigateTime)
                 CurrentTab := 4
             }
-            if (!IsOnMineTransmuteTab()) {
+            if (IsOnMineDrillTab()) {
                 Sleep(NavigateTime)
                 Log("Mine: Using spheres.")
                 UseDrillSphereLoop()
                 Sleep(NavigateTime)
                 ResetModifierKeys()
+            } else {
+                Log("Mine: Drill tab click failed")
             }
         }
         if ((Firstpass && MinerEnableBanks) ||
@@ -192,15 +201,17 @@ fMineMaintainer() {
                 Sleep(NavigateTime)
                 CurrentTab := 2
             }
-            if (!IsOnMineTransmuteTab()) {
+            if (IsOnMineCavesTab()) {
                 Log("Mine: Cave Maintainer starting.")
                 Sleep(NavigateTime)
                 CavesSinglePass()
                 CavesTime := A_Now
                 Sleep(NavigateTime)
+            } else {
+                Log("Mine: Cave tab click failed")
             }
         }
-        if (IsWindowActive() && CurrentTab = 0 &&
+        if (IsWindowActive() && IsOnMineCoalVeinTab() &&
             VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
             Log("Upgrading vein")
             VeinUpgradeButton.ClickOffset()
@@ -616,28 +627,4 @@ ArrDebug(arr) {
         Log(i " Active " arr[i].Active " Quality " arr[i].Quality " Priority " arr[i].Priority)
         i++
     }
-}
-
-IsOnMineCoalVeinTab() {
-    return false
-}
-
-IsOnMineTransmuteTab() {
-    if (
-        !cMineTransmuteSingleCBar().IsBackground() &&
-        !cMineTransmuteSingleSdia().IsBackground() &&
-        !cMineTransmuteSingleFuel().IsBackground() &&
-        !cMineTransmuteSingleSphere().IsBackground() &&
-        !cMineTransmuteMaxCBar().IsBackground() &&
-        !cMineTransmuteMaxSdia().IsBackground() &&
-        !cMineTransmuteMaxFuel().IsBackground() &&
-        !cMineTransmuteMaxSphere().IsBackground() &&
-        !cMineTransmuteAutoCBar().IsBackground() &&
-        !cMineTransmuteAutoSdia().IsBackground() &&
-        !cMineTransmuteAutoFuel().IsBackground() &&
-        !cMineTransmuteAutoSphere().IsBackground()
-    ) {
-        return true
-    }
-    return false
 }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0
 
 #Include Functions.ahk
-#Include ../Coords/MineCaveSampleAreas.ahk
 
 /*
 Defines the locations resolution independant for area colour checks

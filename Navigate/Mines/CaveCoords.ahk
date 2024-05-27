@@ -46,3 +46,9 @@
         return o
     }
     
+    cMineCaveAutoSearchButton() {
+        o := RelCoord()
+        o.SetCoordRel(768, 288)
+        return o
+    }
+    

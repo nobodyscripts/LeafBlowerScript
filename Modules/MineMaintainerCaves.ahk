@@ -10,6 +10,9 @@ CavesSinglePass() {
     if (!IsPanelActive()) {
         return
     }
+    if (!cMineCaveSelectButton1().IsButton()) {
+        return
+    }
     for button in Buttons {
         while (!IsCaveSelected(id)) {
             ; until the caves selected redundantly click

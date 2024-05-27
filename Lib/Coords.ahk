@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0
 
 #Include Functions.ahk
-#Include ..\Coords\MineCoords.ahk
-#Include ..\Coords\MineCaveCoords.ahk
 
 /*
 Defines the locations resolution independant for pixel checks

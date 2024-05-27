@@ -221,6 +221,8 @@ to Spheres. Added to GUI.
 Insert: Added MinerEnableTransmuteSdiaToCB setting, transmutes max Shiny
 Diamonds to Coal Diamonds. Added to GUI.
 
+Insert: Improved checks for which tab is active to avoid script getting stuck.  
+
 ## TODO
 
 Devoption: Window check, keybinds and active checks designed around dev.
@@ -242,11 +244,6 @@ F8: Alignment is off, refresh entire function.
 F8: Review ending of gfssnoreset mode.  
 F10: Needs to use artifact if need be / get replacement  
 PageDown: Leafton needs better setup routine. Travel to zone.  
-
-Move keybinds to UserSettings.ini.  
-Hotkeys international support  
-Script Hotkeys  
-Mines stuck on wrong page  
 
 ## Known issues
 
