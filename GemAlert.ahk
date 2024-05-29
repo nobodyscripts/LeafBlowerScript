@@ -5,6 +5,7 @@
 #Include Lib/Navigate.ahk
 #Include Lib/ScriptSettings.ahk
 #Include Lib/SettingsCheck.ahk
+#Include Navigate\Mines\Travel.ahk
 
 global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
 global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
