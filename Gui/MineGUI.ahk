@@ -5,7 +5,7 @@ Button_Click_Mine(thisGui, info) {
     global Settings, MinerEnableVeins, MinerEnableTransmute, MinerEnableFreeRefuel,
         MinerEnableBanks, MinerEnableSpammer, MinerTransmuteTimer, MinerRefuelTimer,
         MinerEnableVeinUpgrade, MinerEnableVeinRemoval, MinerEnableSphereUse,
-        MinerSphereDelay, MinerSphereCount, MinerSphereTimer,
+        MinerSphereDelay, MinerSphereCount, MinerSphereTimer, MinerEnableLeafton,
         MinerEnableCaves, MinerCaveTimer, MinerSphereGreedyUse,
         MinerSphereModifier, MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
         MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCB
@@ -32,10 +32,23 @@ Button_Click_Mine(thisGui, info) {
         optionsGUI.Add("CheckBox", "vMinerEnableBanks ccfcfcf", "Enable Banks")
     }
 
-    if (MinerEnableSpammer = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableSpammer ccfcfcf checked", "Enable Boss Spammer")
+    if (MinerEnableLeafton) {
+        bgMode := 1
+    } else if (MinerEnableSpammer) {
+        bgMode := 2
     } else {
-        optionsGUI.Add("CheckBox", "vMinerEnableSpammer ccfcfcf", "Enable Boss Spammer")
+        bgMode := 0
+    }
+    optionsGUI.Add("Text", "ccfcfcf vMinerBackgroundLabel", "Background process:")
+    switch bgMode {
+        case 1:
+            optionsGUI.Add("DropDownList", "vMinerBackground Choose1", ["Leafton Taxi", "Boss Spammer", "Off"])
+        case 2:
+            optionsGUI.Add("DropDownList", "vMinerBackground Choose2", ["Leafton Taxi", "Boss Spammer", "Off"])
+        case 0:
+            optionsGUI.Add("DropDownList", "vMinerBackground Choose3", ["Leafton Taxi", "Boss Spammer", "Off"])
+        default:
+            optionsGUI.Add("DropDownList", "vMinerBackground Choose3", ["Leafton Taxi", "Boss Spammer", "Off"])
     }
 
     if (MinerEnableTransmute = true) {
@@ -252,11 +265,21 @@ Button_Click_Mine(thisGui, info) {
 
     MineSave() {
         values := optionsGUI.Submit()
+        switch values.MinerBackground {
+            case "Leafton Taxi":
+                MinerEnableLeafton := true
+                MinerEnableSpammer := false
+            case "Boss Spammer":
+                MinerEnableLeafton := false
+                MinerEnableSpammer := true
+            default:
+                MinerEnableLeafton := false
+                MinerEnableSpammer := false
+        }
         MinerEnableVeins := values.MinerEnableVeins
         MinerEnableTransmute := values.MinerEnableTransmute
         MinerEnableFreeRefuel := values.MinerEnableFreeRefuel
         MinerEnableBanks := values.MinerEnableBanks
-        MinerEnableSpammer := values.MinerEnableSpammer
         MinerTransmuteTimer := values.MinerTransmuteTimer
         MinerRefuelTimer := values.MinerRefuelTimer
         MinerEnableVeinUpgrade := values.MinerEnableVeinUpgrade
@@ -289,7 +312,6 @@ Button_Click_Mine(thisGui, info) {
             guiObj["MinerSphereModifierLabel"].Text := "Disabled with Greedy ON"
             guiObj["MinerSphereCountLabel"].Opt("ccfaf21")
             guiObj["MinerSphereModifierLabel"].Opt("ccfaf21")
-            Log("Clicked while ticked")
         } else {
             guiObj["MinerSphereModifier"].Opt("-Disabled")
             guiObj["MinerSphereModifier"].Redraw()
@@ -301,7 +323,6 @@ Button_Click_Mine(thisGui, info) {
             guiObj["MinerSphereModifierLabel"].Text := "Drill Sphere Usage Amount Modifier:"
             guiObj["MinerSphereCountLabel"].Opt("ccfcfcf")
             guiObj["MinerSphereModifierLabel"].Opt("ccfcfcf")
-            Log("Clicked while unticked")
         }
     }
 }

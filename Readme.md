@@ -223,6 +223,10 @@ Diamonds to Coal Diamonds. Added to GUI.
 
 Insert: Improved checks for which tab is active to avoid script getting stuck.  
 
+Insert: Adapted background boss spammer into two seperate modes, boss and
+Leafton Pit. These options conflict with Leafton taking priority, added setting
+MinerEnableLeafton. Boss mode enabled by default.
+
 ## TODO
 
 Devoption: Window check, keybinds and active checks designed around dev.

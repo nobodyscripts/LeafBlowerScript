@@ -17,6 +17,7 @@ global MinerEnableBanks := true
 global MinerEnableSpammer := true
 global MinerEnableVeinUpgrade := false
 global MinerEnableCaves := true
+global MinerEnableLeafton := true
 
 global MinerEnableSphereUse := false
 global MinerSphereDelay := 1000
@@ -74,7 +75,9 @@ fMineMaintainer() {
     CurrentTab := 0
     ToolTip("Mine Maintainer Active", W / 2,
         WinRelPosLargeH(200), 4)
-    if (MinerEnableSpammer) {
+    if (MinerEnableLeafton) {
+        LeaftonTaxiSinglePassStart()
+    } else if (MinerEnableSpammer) {
         NormalBossSpammerStart()
     }
     if (IsPanelActive()) {
@@ -84,9 +87,9 @@ fMineMaintainer() {
     OpenMining()
     Sleep(NavigateTime)
     loop {
-        /* if (IsWindowActive()) {
-            break
-        } */
+        if (IsWindowActive() && MinerEnableLeafton) {
+            LeaftonTaxiSinglePass()
+        }
         if (IsWindowActive() && !IsPanelActive()) {
             OpenMining()
             Sleep(NavigateTime)
@@ -218,7 +221,11 @@ fMineMaintainer() {
         }
         Firstpass := false
     }
-    KillSpammer()
+    if (MinerEnableLeafton) {
+        LeaftonTaxiSinglePassEnd()
+    } else if (MinerEnableSpammer) {
+        KillSpammer()
+    }
 }
 
 isAnyTransmuteEnabled() {

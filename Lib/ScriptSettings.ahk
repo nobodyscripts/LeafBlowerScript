@@ -40,7 +40,7 @@ global MinerEnableVeins, MinerEnableTransmute,
     MinerEnableFreeRefuel, MinerTransmuteTimer,
     MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
     MinerEnableVeinUpgrade, MinerEnableVeinRemoval,
-    MinerEnableCaves, MinerCaveTimer
+    MinerEnableCaves, MinerCaveTimer, MinerEnableLeafton
 global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
     MinerSphereTimer, MinerSphereGreedyUse,
     MinerSphereModifier, MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
@@ -158,6 +158,7 @@ class cSettings {
         this.Map["MinerEnableFreeRefuel"] := singleSetting().Create("MinerEnableFreeRefuel", true, true, "bool", "Miner")
         this.Map["MinerEnableBanks"] := singleSetting().Create("MinerEnableBanks", true, true, "bool", "Miner")
         this.Map["MinerEnableSpammer"] := singleSetting().Create("MinerEnableSpammer", true, true, "bool", "Miner")
+        this.Map["MinerEnableLeafton"] := singleSetting().Create("MinerEnableLeafton", false, false, "bool", "Miner")
         this.Map["MinerEnableVeinUpgrade"] := singleSetting().Create("MinerEnableVeinUpgrade", false, false, "bool", "Miner")
         this.Map["MinerEnableVeinRemoval"] := singleSetting().Create("MinerEnableVeinRemoval", false, false, "bool", "Miner")
         this.Map["MinerEnableSphereUse"] := singleSetting().Create("MinerEnableSphereUse", false, false, "bool", "Miner")
@@ -175,11 +176,9 @@ class cSettings {
             if (FileExist(A_ScriptDir "\IsNobody")) {
                 this.sUseNobody := true
                 Debug := true
-                OutputDebug("Settings: Using Nobody Defaults.`r`n")
                 Log("Settings: Using Nobody Defaults")
             }
             if (!FileExist(this.sFilename)) {
-                OutputDebug("No UserSettings.ini found, writing default file.`r`n")
                 Log("No UserSettings.ini found, writing default file.")
                 this.WriteDefaults(this.sUseNobody)
             }
@@ -239,7 +238,7 @@ class cSettings {
             MinerEnableFreeRefuel, MinerTransmuteTimer,
             MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
             MinerEnableVeinUpgrade, MinerEnableVeinRemoval,
-            MinerEnableCaves, MinerCaveTimer
+            MinerEnableCaves, MinerCaveTimer, MinerEnableLeafton
         global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
             MinerSphereTimer, MinerSphereGreedyUse, MinerSphereModifier,
             MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,

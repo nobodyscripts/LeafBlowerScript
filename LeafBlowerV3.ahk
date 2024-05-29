@@ -71,8 +71,6 @@ if (WinExist(LBRWindowTitle)) {
 Log("Script loaded")
 RunGui()
 
-Log(GetKeyVK("Esc"))
-
 ; ------------------- Readme -------------------
 /*
 See Readme.md for readme

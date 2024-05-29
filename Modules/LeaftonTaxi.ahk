@@ -40,14 +40,14 @@ fLeaftonTaxi() {
     loop {
         if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             LeaftonBanksEnabled) {
-                Log("Leafton: Bank Maintainer starting.")
-                ToolTip("Leafton Bank Maintainer Active", W / 2,
-                    WinRelPosLargeH(200), 4)
-                BankSinglePass()
-                ToolTip(, , , 4)
-                starttime := A_Now
+            Log("Leafton: Bank Maintainer starting.")
+            ToolTip("Leafton Bank Maintainer Active", W / 2,
+                WinRelPosLargeH(200), 4)
+            BankSinglePass()
+            ToolTip(, , , 4)
+            starttime := A_Now
         }
-        if (!IsWindowActive() ||  StopRunning) {
+        if (!IsWindowActive() || StopRunning) {
             Log("No window or stop called.")
             break
         }
@@ -72,7 +72,7 @@ fLeaftonTaxi() {
             while (!IsBossTimerActive()) {
                 if (!IsWindowActive() ||
                     DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60) {
-                        break
+                    break
                 }
                 if (LeaftonCraftEnabled && !IsPanelActive()) {
                     Sleep(NavigateTime)
@@ -101,5 +101,43 @@ fLeaftonTaxi() {
     KillLeaftonSpammer()
     if (StopRunning) {
         cReload()
+    }
+}
+
+LeaftonTaxiSinglePassStart() {
+    GoToAnteLeafton()
+    if (LeaftonSpamsWind) {
+        LeaftonSpammerStart()
+    }
+    OpenPets()
+    Sleep(NavigateTime)
+}
+
+LeaftonTaxiSinglePassEnd() {
+    KillLeaftonSpammer()
+}
+
+LeaftonTaxiSinglePass() {
+    centerCoord := cLeaftonCenter()
+    startCoord := cLeaftonStart()
+    craftStopCoord := cCraftingStop()
+    if (!IsWindowActive()) {
+        return false
+    }
+
+    if (IsAreaBlack() && IsBossTimerActive()) {
+        if (IsPanelActive()) {
+            ClosePanel()
+            Sleep(NavigateTime)
+        }
+        if (!startCoord.IsBackground()) {
+            centerCoord.Click()
+        }
+        Sleep(NavigateTime)
+        if (startCoord.IsButtonActive()) {
+            Log("Starting Leafton Pit")
+            startCoord.Click()
+            Sleep(NavigateTime)
+        }
     }
 }
