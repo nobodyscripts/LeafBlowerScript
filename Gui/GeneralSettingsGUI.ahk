@@ -46,13 +46,13 @@ Button_Click_GeneralSettings(thisGui, info) {
     } else {
         settingsGUI.Add("CheckBox", "vCheckForUpdatesEnable ccfcfcf", "Enable Check For Updates")
     }
-    
+
     if (CheckForUpdatesReleaseOnly = true) {
         settingsGUI.Add("CheckBox", "vCheckForUpdatesReleaseOnly ccfcfcf checked", "Enable Check For Releases Only")
     } else {
         settingsGUI.Add("CheckBox", "vCheckForUpdatesReleaseOnly ccfcfcf", "Enable Check For Releases Only")
     }
-    
+
     settingsGUI.Add("Button", "default", "Save").OnEvent("Click", ProcessUserGeneralSettings)
     settingsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseUserGeneralSettings)
 
@@ -60,12 +60,14 @@ Button_Click_GeneralSettings(thisGui, info) {
 
     ProcessUserGeneralSettings(*) {
         global EnableLogging, NavigateTime, DisableZoneChecks, DisableSettingsChecks,
-            settings
+            settings, CheckForUpdatesEnable, CheckForUpdatesReleaseOnly
         values := settingsGUI.Submit()
         EnableLogging := values.Logging
         NavigateTime := values.NavigateTime
         DisableZoneChecks := values.DisableZoneChecks
         DisableSettingsChecks := values.DisableSettingsChecks
+        CheckForUpdatesEnable := values.CheckForUpdatesEnable
+        CheckForUpdatesReleaseOnly := values.CheckForUpdatesReleaseOnly
         settings.SaveCurrentSettings()
     }
 
