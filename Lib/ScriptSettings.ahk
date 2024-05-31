@@ -9,6 +9,10 @@ global DisableZoneChecks := DisableSettingsChecks := false
 global BossFarmUsesWind := BossFarmUsesWobblyWings := BossFarmUsesSeeds := false
 global ArtifactSleepAmount := WobblyWingsSleepAmount := 1
 
+global CheckForUpdatesEnable := true
+global CheckForUpdatesReleaseOnly := true
+global CheckForUpdatesLastCheck := 0
+
 global CardsCommonAmount, CardsRareAmount, CardsLegendaryAmount,
     CardsDontOpenCommons, CardsDontOpenRare, CardsDontOpenLegendary,
     CardsSleepAmount, CardsBuyEnabled, CardsBuyStyle,
@@ -93,6 +97,9 @@ class cSettings {
         this.Map["EnableLogging"] := singleSetting().Create("EnableLogging", false, true, "bool", "Default")
         this.Map["DisableZoneChecks"] := singleSetting().Create("DisableZoneChecks", false, false, "bool", "Default")
         this.Map["DisableSettingsChecks"] := singleSetting().Create("DisableSettingsChecks", false, false, "bool", "Default")
+        this.Map["CheckForUpdatesEnable"] := singleSetting().Create("CheckForUpdatesEnable", true, true, "bool", "Updates")
+        this.Map["CheckForUpdatesReleaseOnly"] := singleSetting().Create("CheckForUpdatesReleaseOnly", true, true, "bool", "Updates")
+        this.Map["CheckForUpdatesLastCheck"] := singleSetting().Create("CheckForUpdatesLastCheck", 0, 0, "int", "Updates")
         this.Map["Debug"] := singleSetting().Create("Debug", false, true, "bool", "Debug")
         this.Map["NavigateTime"] := singleSetting().Create("NavigateTime", 101, 101, "int", "Default")
         this.Map["HaveBorbDLC"] := singleSetting().Create("HaveBorbDLC", false, false, "bool", "Borbventures")
@@ -202,6 +209,9 @@ class cSettings {
     loadSettings() {
         global EnableLogging := false
         global Debug := false
+
+        global CheckForUpdatesEnable, CheckForUpdatesReleaseOnly,
+            CheckForUpdatesLastCheck
 
         global CardsCommonAmount, CardsRareAmount, CardsLegendaryAmount,
             CardsDontOpenCommons, CardsDontOpenRare, CardsDontOpenLegendary,

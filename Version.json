@@ -2,5 +2,9 @@
     "Name": "LeafBlowerScript",
     "Author": "Nobody",
     "Version": "3.1.2-Alpha",
-    "Build": "243"
+    "Major": 3,
+    "Minor": 1,
+    "Patch": 2,
+    "Release": "Alpha",
+    "Build": 244
 }

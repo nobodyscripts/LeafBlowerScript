@@ -24,6 +24,18 @@ WARNING: This will stop the script checking for badly configured settings, if
 you want to accept the risk, change to true. Disables all handling of
 incorrect settings. So if things are not configured correctly they will break.
 
+## Check For Updates
+
+CheckForUpdatesEnable: (Default) true  
+Enable/Disable checking for updates at the top of the main gui on load.
+
+CheckForUpdatesReleaseOnly: (Default) true  
+Check for releases only and ignore any updates flagged Alpha/Beta/Testing
+
+CheckForUpdatesLastCheck: (Default) 0  
+This setting shouldn't be manually changed, it stores the last time the script
+checked for updates.
+
 ## Borbventures
 
 HaveBorbDLC: (Default) false  

@@ -41,6 +41,18 @@ Button_Click_GeneralSettings(thisGui, info) {
         settingsGUI.Add("CheckBox", "vDisableSettingsChecks ccfcfcf", "Disable Game Settings Checks")
     }
 
+    if (CheckForUpdatesEnable = true) {
+        settingsGUI.Add("CheckBox", "vCheckForUpdatesEnable ccfcfcf checked", "Enable Check For Updates")
+    } else {
+        settingsGUI.Add("CheckBox", "vCheckForUpdatesEnable ccfcfcf", "Enable Check For Updates")
+    }
+    
+    if (CheckForUpdatesReleaseOnly = true) {
+        settingsGUI.Add("CheckBox", "vCheckForUpdatesReleaseOnly ccfcfcf checked", "Enable Check For Releases Only")
+    } else {
+        settingsGUI.Add("CheckBox", "vCheckForUpdatesReleaseOnly ccfcfcf", "Enable Check For Releases Only")
+    }
+    
     settingsGUI.Add("Button", "default", "Save").OnEvent("Click", ProcessUserGeneralSettings)
     settingsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseUserGeneralSettings)
 

@@ -199,6 +199,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
+Check for updates added to gui, will check against the website once per day.
+Settings added to General Settings and 3 settings added to ini.
+
 Hotkeys: Added new systems to handle both the hotkeys for ingame and the script.
 
 GUI: Reflects custom hotkeys.

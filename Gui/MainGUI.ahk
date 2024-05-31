@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+#Include ..\Lib\CheckForUpdates.ahk
+
 #Include GeneralSettingsGUI.ahk
 
 #Include BankGUI.ahk
@@ -56,15 +58,24 @@ Button_Click_PrestigeSpammer(thisGui, info) {
 
 
 RunGui() {
+    global Updater
     if (!Debug) {
         MyGui := Gui(, "LBR NobodyScript")
     } else {
         MyGui := Gui(, "LBR TEST")
     }
+    Updater.Init()
+    Updater.Check()
+    if (Updater.IsNewRelease) {
+        MyGui.AddLink("ccfcfcf", "New Release Available, <a href=`"https://github.com/nobodyscripts/LeafBlowerScript`">Open Main Page</a> or <a href=`"https://github.com/nobodyscripts/LeafBlowerScript/releases`">Releases</a>")
+    }
+    if (Updater.IsNewBeta) {
+        MyGui.AddLink("ccfcfcf", "New Update Available, <a href=`"https://github.com/nobodyscripts/LeafBlowerScript'>Open Main Page</a> or <a href=`"https://github.com/nobodyscripts/LeafBlowerScript/archive/refs/heads/main.zip`">Direct Download</a>")
+    }
     ;MyGui.Opt("-SysMenu")
     MyGui.BackColor := "0c0018"
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("Exit"))
+    MyGui.Add("Text", "ccfcfcf section", Scriptkeys.GetHotkey("Exit"))
     MyBtn := MyGui.Add("Button", "Default w80", "Exit")
     MyBtn.OnEvent("Click", Button_Click_Exit)
 
