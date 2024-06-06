@@ -36,6 +36,10 @@ class ScriptVersion {
     Release := ""
     Build := 0
 
+    /**
+     * 
+     * @param {string} var Json string of format 
+     */
     SetByJson(var) {
         if (!var.Has("Major")) {
             split := StrSplit(var["Version"], ".", "vV") ; "3.1.2-Alpha"

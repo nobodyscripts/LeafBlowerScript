@@ -18,14 +18,14 @@ if (WinExist(LBRWindowTitle)) {
 }
 
 if (IsPanelActive()) {
-    ClosePanel()
+    localClosePanel()
     Sleep(NavigateTime)
 }
-OpenMining()
+localOpenMining()
 Sleep(NavigateTime)
 loop {
     if (IsWindowActive() && !IsPanelActive()) {
-        OpenMining()
+        localOpenMining()
         Sleep(NavigateTime)
     }
     if (IsWindowActive() && IsPanelActive()) {
@@ -38,7 +38,7 @@ loop {
         Sleep(NavigateTime)
 
         if (!IsPanelActive()) {
-            OpenMining()
+            localOpenMining()
             Sleep(NavigateTime)
         }
         if (IsPanelActive()) {
@@ -62,10 +62,10 @@ FindVeinsWithBars2() {
     return
 }
 
-OpenMining() {
+localOpenMining() {
     ControlSend("{l}", , LBRWindowTitle)
 }
 
-ClosePanel() {
+localClosePanel() {
     ControlSend("{Esc}", , LBRWindowTitle)
 }

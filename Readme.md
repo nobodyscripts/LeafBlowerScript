@@ -151,6 +151,12 @@ the readme.md or main page above for controls.
 If you have problems, try using F12 (with logs enabled), it will check your
 settings and report back if it finds issues.
 
+### 3. In game setup
+
+The script uses two loadouts (1/3) to change gear/pets for GemFarm and Tower
+Boost modes, 1 being a 'Default' set which reapplies Bearo, 3 having a crafted
+set for sharded MTF. These must be setup manually to work.
+
 ## Hyper-V Setup
 
 See discord server #info channel for details on running in a vm.
