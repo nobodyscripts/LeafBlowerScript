@@ -134,7 +134,7 @@ Run the game and continue configuring the script via the gui.
 
 ### 2. Manual Config (Alternative)
 
-Open the hotkeys.ahk file with a text editor, any should do, vscode or even
+Open the UserHotkeys.ini file with a text editor, any should do, vscode or even
 notepad. Match the hotkeys in this file to the ones you use in game, or change
 the ones in game to match the file. (Save the changes if made).
 
@@ -251,12 +251,16 @@ Halloween + Nature artifact secondary which pauses main functions.
 Adjust window resize based on delta from intended size, for non matching window
    dressing.  
 
+Automated challenges (early game scripts)
+
+F3: Greedy card purchasing
 F6: Load dlc purchase state from save file and remove setting.  
 F7: Needs to use artifact if need be / get replacement  
 F8: Alignment is off, refresh entire function.  
 F8: Review ending of gfssnoreset mode.  
 F10: Needs to use artifact if need be / get replacement  
 PageDown: Leafton needs better setup routine. Travel to zone.  
+Insert: Add brewing somehow
 
 ## Known issues
 
