@@ -180,11 +180,15 @@ CardOpenerRel(xin, yin, offset, amount) {
             i++
         }
         if (Debug) {
-            Log("Attempted to open card at " posx "*" (posy + offset))
+            tempX := Format("{1:.1f}", posx)
+            tempY := Format("{1:.1f}", (posy + offset))
+            Log("Attempted to open card at " tempX "*" tempY)
         }
     } else {
         if (Debug) {
-            Log("Could not open card at " posx "*" (posy + offset))
+            tempX := Format("{1:.1f}", posx)
+            tempY := Format("{1:.1f}", (posy + offset))
+            Log("Could not open card at " tempX "*" tempY)
         }
     }
     ; Deliberate second check to return new state
@@ -199,7 +203,9 @@ CardBuyerRel(posx, posy, offset, amount) {
     offset := WinRelPosLargeH(offset)
 
     if (Debug) {
-        Log("Card Buy: at " posx "*" (posy + offset) " x " amount)
+        tempX := Format("{1:.1f}", posx)
+        tempY := Format("{1:.1f}", (posy + offset))
+        Log("Card Buy: at " tempX "*" tempY " x " amount)
     }
     ; Check if button is active, if not we can skip
     AmountToModifier(amount)
@@ -209,12 +215,16 @@ CardBuyerRel(posx, posy, offset, amount) {
         ; Legendary pack open
         Sleep(CardsSleepBuyAmount)
         if (Debug) {
-            Log("Attempted to buy card at " posx "*" (posy + offset))
+            tempX := Format("{1:.1f}", posx)
+            tempY := Format("{1:.1f}", (posy + offset))
+            Log("Attempted to buy card at " tempX "*" tempY)
         }
         return true
     } else {
         if (Debug) {
-            Log("Could not buy card at " posx "*" (posy + offset))
+            tempX := Format("{1:.1f}", posx)
+            tempY := Format("{1:.1f}", (posy + offset))
+            Log("Could not buy card at " tempX "*" tempY)
         }
         return false
     }

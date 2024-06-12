@@ -111,6 +111,9 @@ fGemFarmSuitcase() {
 
         if (!IsWindowActive()) {
             ToolTip(, , , 15)
+            if (Debug) {
+                MsgBox("GemFarm: Exiting as no game.")
+            }
             Log("GemFarm: Exiting as no game.")
             cReload() ; Kill the loop if the window closes
             return
@@ -118,6 +121,9 @@ fGemFarmSuitcase() {
 
         if (!IsPanelActive()) {
             ToolTip(, , , 15)
+            if (Debug) {
+                MsgBox("GemFarm: Did not find panel. Aborted.")
+            }
             Log("GemFarm: Did not find panel. Aborted.")
             break
         }
@@ -253,7 +259,7 @@ FillTradeSlots() {
 HasSuitCaseBeenUsed() {
     if (IsBackground(WinRelPosW(960), WinRelPosH(195)) &&
         IsBackground(WinRelPosW(997), WinRelPosH(195))) {
-            return false
+        return false
     }
     return true
 }
