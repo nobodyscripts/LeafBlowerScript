@@ -12,6 +12,9 @@ fGemFarmSuitcase() {
     global GemFarmSleepAmount, HadToHideNotifs, GemFarmActive
     global X, Y, W, H
     if (!GoToDesert()) {
+        if (Debug) {
+            MsgBox("GemFarm: Could not find desert area. Aborted travel.")
+        }
         Log("GemFarm: Could not find desert area. Aborted travel.")
         ToolTip("Could not find desert area`nUse F4 to finish",
             W / 2 - WinRelPosW(50),
@@ -32,6 +35,9 @@ fGemFarmSuitcase() {
     RemoveBearo()
     sleep(NavigateTime)
     if (!IsWindowActive()) {
+        if (Debug) {
+            MsgBox("GemFarm: Exiting as no game.")
+        }
         Log("GemFarm: Exiting as no game.")
         return
     } else {
@@ -79,6 +85,9 @@ fGemFarmSuitcase() {
         SetTimer(ToolTip.Bind(, , , 3), -1000)
     }
     if (!IsWindowActive()) {
+        if (Debug) {
+            MsgBox("GemFarm: Exiting as no game.")
+        }
         Log("GemFarm: Exiting as no game.")
         return
     } else {
@@ -93,6 +102,9 @@ fGemFarmSuitcase() {
 
     ; We try to fill trades, if that returns false exit out
     if (IsWindowActive() && IsPanelActive() && !FillTradeSlots()) {
+        if (Debug) {
+            MsgBox("GemFarm: Failed to fill trade slots. Exited.")
+        }
         Log("GemFarm: Failed to fill trade slots. Exited.")
         ToolTip("Failed to fill trade slots, exiting.`nPress F4 to close and "
             "then retry GemFarm.",
@@ -123,6 +135,7 @@ fGemFarmSuitcase() {
             ToolTip(, , , 15)
             if (Debug) {
                 MsgBox("GemFarm: Did not find panel. Aborted.")
+                MakeWindowActive()
             }
             Log("GemFarm: Did not find panel. Aborted.")
             break
