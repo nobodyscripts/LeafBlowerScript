@@ -134,9 +134,12 @@ Run the game and continue configuring the script via the gui.
 
 ### 2. Manual Config (Alternative)
 
-Open the UserHotkeys.ini file with a text editor, any should do, vscode or even
-notepad. Match the hotkeys in this file to the ones you use in game, or change
-the ones in game to match the file. (Save the changes if made).
+Open the UserHotkeys.ini file with a text editor (if configs do not exist run
+the script and close it), any should do, vscode or even notepad. Match the
+hotkeys in this file to the ones you use in game, or change
+the ones in game to match the file. (Save the changes if made). Note: The keys
+may not visually match ingame in hotkeys but should function when pressed
+without modifiers E.G. "\" on US keyboards works but displays as "^"
 
 Open UserSettings.ini with a text editor and configure as you require, if you
 need explanations of what settings do you can open UsersettingsHelp.md with a
@@ -209,6 +212,8 @@ Check for updates added to gui, will check against the website once per day.
 Settings added to General Settings and 3 settings added to ini.
 
 Hotkeys: Added new systems to handle both the hotkeys for ingame and the script.
+
+Hotkeys: Potential fixes for hotkey settings being added to game not working.
 
 GUI: Reflects custom hotkeys.
 

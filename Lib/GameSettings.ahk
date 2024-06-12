@@ -114,31 +114,31 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
 
     ; Need to check the following hotkeys don't conflict with other keybinds
     ; Also need to check if they are 27, so that users don't rebind ESC
-    jsonData['hotkey_areas']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenAreas") . ".0")
-    jsonData['hotkey_artifact_blazing_skull']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerBlazingSkull") . ".0")
-    jsonData['hotkey_artifact_gold_suitcase']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerSuitcase") . ".0")
-    jsonData['hotkey_artifact_gravity_ball']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerGravity") . ".0")
-    jsonData['hotkey_artifact_seed_bag']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerSeeds") . ".0")
-    jsonData['hotkey_artifact_vital_violin']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerViolin") . ".0")
-    jsonData['hotkey_artifact_wind']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerWind") . ".0")
-    jsonData['hotkey_artifact_wings']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerWobblyWings") . ".0")
-    jsonData['hotkey_alchemy']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenAlchemy") . ".0")
-    jsonData['hotkey_banks']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenBank") . ".0")
-    jsonData['hotkey_borbventures']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenBorbVentures") . ".0")
-    jsonData['hotkey_cards']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenCards") . ".0")
-    jsonData['hotkey_crafting']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenCrafting") . ".0")
-    jsonData['hotkey_load_loadout_0']['value'] := CheckVK(GameKeys.GetHotkeyVK("EquipDefaultGearLoadout") . ".0")
-    jsonData['hotkey_load_loadout_2']['value'] := CheckVK(GameKeys.GetHotkeyVK("EquipTowerGearLoadout") . ".0")
-    jsonData['hotkey_mines']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenMining") . ".0")
-    jsonData['hotkey_pets']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenPets") . ".0")
-    jsonData['hotkey_prestige']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenGoldPortal") . ".0")
-    jsonData['hotkey_refresh_trades']['value'] := CheckVK(GameKeys.GetHotkeyVK("RefreshTrades") . ".0")
-    jsonData['hotkey_shop_gems']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenGemShop") . ".0")
-    jsonData['hotkey_trading']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenTrades") . ".0")
+    jsonData['hotkey_areas']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenAreas") + 0.0)
+    jsonData['hotkey_artifact_blazing_skull']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerBlazingSkull") + 0.0)
+    jsonData['hotkey_artifact_gold_suitcase']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerSuitcase") + 0.0)
+    jsonData['hotkey_artifact_gravity_ball']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerGravity") + 0.0)
+    jsonData['hotkey_artifact_seed_bag']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerSeeds") + 0.0)
+    jsonData['hotkey_artifact_vital_violin']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerViolin") + 0.0)
+    jsonData['hotkey_artifact_wind']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerWind") + 0.0)
+    jsonData['hotkey_artifact_wings']['value'] := CheckVK(GameKeys.GetHotkeyVK("TriggerWobblyWings") + 0.0)
+    jsonData['hotkey_alchemy']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenAlchemy") + 0.0)
+    jsonData['hotkey_banks']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenBank") + 0.0)
+    jsonData['hotkey_borbventures']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenBorbVentures") + 0.0)
+    jsonData['hotkey_cards']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenCards") + 0.0)
+    jsonData['hotkey_crafting']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenCrafting") + 0.0)
+    jsonData['hotkey_load_loadout_0']['value'] := CheckVK(GameKeys.GetHotkeyVK("EquipDefaultGearLoadout") + 0.0)
+    jsonData['hotkey_load_loadout_2']['value'] := CheckVK(GameKeys.GetHotkeyVK("EquipTowerGearLoadout") + 0.0)
+    jsonData['hotkey_mines']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenMining") + 0.0)
+    jsonData['hotkey_pets']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenPets") + 0.0)
+    jsonData['hotkey_prestige']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenGoldPortal") + 0.0)
+    jsonData['hotkey_refresh_trades']['value'] := CheckVK(GameKeys.GetHotkeyVK("RefreshTrades") + 0.0)
+    jsonData['hotkey_shop_gems']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenGemShop") + 0.0)
+    jsonData['hotkey_trading']['value'] := CheckVK(GameKeys.GetHotkeyVK("OpenTrades") + 0.0)
 
     ; These keybinds are unused, so check they are not set to used values,
     ; preventing two keys using the same keybind
-    gamesettingshotkeys := [
+    notRequiredHotkeys := [
         ; direct use hotkeys
         'hotkey_afk_mode',
         'hotkey_resource_draw_selection', ; Changes the stat display on the right
@@ -245,40 +245,52 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         'hotkey_dice',
         'hotkey_quarks',
         'hotkey_event_shop']
-    for (key in gamesettingshotkeys) {
-        jsonData[key]['value'] := ResetIncorrectHotkey(jsonData[key]['value'])
+    aInUse := [
+        ; Need closepanel in this to avoid user binding to Esc
+        GameKeys.GetHotkeyVK("ClosePanel") + 0.0,
+        GameKeys.GetHotkeyVK("OpenAreas") + 0.0,
+        GameKeys.GetHotkeyVK("TriggerBlazingSkull") + 0.0,
+        GameKeys.GetHotkeyVK("TriggerSuitcase") + 0.0,
+        GameKeys.GetHotkeyVK("TriggerGravity") + 0.0,
+        GameKeys.GetHotkeyVK("TriggerSeeds") + 0.0,
+        GameKeys.GetHotkeyVK("TriggerViolin") + 0.0,
+        GameKeys.GetHotkeyVK("TriggerWind") + 0.0,
+        GameKeys.GetHotkeyVK("TriggerWobblyWings") + 0.0,
+        GameKeys.GetHotkeyVK("OpenAlchemy") + 0.0,
+        GameKeys.GetHotkeyVK("OpenBank") + 0.0,
+        GameKeys.GetHotkeyVK("OpenBorbVentures") + 0.0,
+        GameKeys.GetHotkeyVK("OpenCards") + 0.0,
+        GameKeys.GetHotkeyVK("OpenCrafting") + 0.0,
+        GameKeys.GetHotkeyVK("EquipDefaultGearLoadout") + 0.0,
+        GameKeys.GetHotkeyVK("EquipTowerGearLoadout") + 0.0,
+        GameKeys.GetHotkeyVK("OpenMining") + 0.0,
+        GameKeys.GetHotkeyVK("OpenPets") + 0.0,
+        GameKeys.GetHotkeyVK("OpenGoldPortal") + 0.0,
+        GameKeys.GetHotkeyVK("RefreshTrades") + 0.0,
+        GameKeys.GetHotkeyVK("OpenGemShop") + 0.0,
+        GameKeys.GetHotkeyVK("OpenTrades") + 0.0]
+        
+    if (Debug) {
+        Log("Script keys set to: " ArrToCommaDelimStr(aInUse))
+    }
+    for (key in notRequiredHotkeys) {
+        jsonData[key]['value'] := ResetIncorrectHotkey(jsonData[key]['value'], aInUse)
     }
     return jsonData
 }
 
-ResetIncorrectHotkey(var) {
-    aInUse := []
-    ; Need closepanel in this to avoid user binding to Esc
-    aInUse.Push(GameKeys.GetHotkeyVK("ClosePanel") . ".0")
-
-    aInUse.Push(GameKeys.GetHotkeyVK("OpenAreas") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("TriggerBlazingSkull") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("TriggerSuitcase") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("TriggerGravity") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("TriggerSeeds") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("TriggerViolin") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("TriggerWind") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("TriggerWobblyWings") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("OpenAlchemy") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("OpenBank") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("OpenBorbVentures") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("OpenCards") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("OpenCrafting") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("EquipDefaultGearLoadout") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("EquipTowerGearLoadout") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("OpenMining") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("OpenPets") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("OpenGoldPortal") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("RefreshTrades") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("OpenGemShop") . ".0")
-    aInUse.Push(GameKeys.GetHotkeyVK("OpenTrades") . ".0")
+ResetIncorrectHotkey(var, aInUse) {
+    if (var = -1.0) {
+        return -1.0
+    }
+    if (Debug && var != "") {
+        Log("Checking key " var ": " GetKeyName(Format("vk{:X}", var)))
+    }
     for (key in aInUse) {
         if (var = key) {
+            if (Debug && var != "") {
+                Log("Had to reset keybind " var ": " GetKeyName(Format("vk{:X}", var)))
+            }
             var := -1.0
         }
     }
