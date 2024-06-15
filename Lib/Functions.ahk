@@ -193,6 +193,10 @@ IsBackground(screenX, screenY) {
             ; Found background colour
             return true
         }
+        if (targetColour = "0x97714B") {
+            Log("Spotify colour warp detected, please avoid using spotify desktop.")
+            return true
+        }
     } catch as exc {
         Log("Error 3: IsBackground check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"

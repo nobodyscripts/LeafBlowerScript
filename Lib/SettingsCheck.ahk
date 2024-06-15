@@ -18,12 +18,12 @@ IsWindowActive() {
     global LastWindowNotActiveTimer
     if (!WinExist(LBRWindowTitle) ||
         !WinActive(LBRWindowTitle)) {
-            ; Because this can be spammed lets limit rate the error log
-            if (DateDiff(A_Now, LastWindowNotActiveTimer, "Seconds") >= 10) {
-                Log("Error 1: Window not active or doesn't exist.")
-                LastWindowNotActiveTimer := A_Now
-            }
-            return false
+        ; Because this can be spammed lets limit rate the error log
+        if (DateDiff(A_Now, LastWindowNotActiveTimer, "Seconds") >= 10) {
+            Log("Error 1: Window not active or doesn't exist.")
+            LastWindowNotActiveTimer := A_Now
+        }
+        return false
     }
     return true
 }
@@ -150,6 +150,10 @@ IsPanelTransparent() {
             ; Found panel background colour
             return false
         }
+        if (targetColour = "0x97714B") {
+            Log("Spotify colour warp detected, please avoid using spotify desktop.")
+            return false
+        }
     } catch as exc {
         Log("Error 19: Panel transparency check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -199,7 +203,7 @@ IsAspectRatioCorrect() {
             sampleColour = "0xB3A993" || ; Afk mode normal
             sampleColour = "0xB29361" &&  ; Afk mode mouseover
             sampleColour = sampleColour2) {
-                return true
+            return true
         }
     } catch as exc {
         Log("Error 20: Render Mode check failed - " exc.Message)
@@ -367,9 +371,9 @@ IsDarkBackgroundOn() {
             WinRelPosLargeH(51))
         If (sampleColour = "0x837C6C" || sampleColour2 = "0x837C6C" ||
             sampleColour = "0x826C47" || sampleColour2 = "0x826C47") {
-                Log("Corner buttons found with Dark Dialog Background on.")
-                ; Found dark mode
-                return true
+            Log("Corner buttons found with Dark Dialog Background on.")
+            ; Found dark mode
+            return true
         }
     } catch as exc {
         Log("Error 6: Dark Dialog Background check failed - " exc.Message)
