@@ -159,7 +159,9 @@ IsPanelTransparent() {
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
-    Log("Panel transparency check found " targetColour " instead of 0x97714A")
+    if (Debug) {
+        Log("Panel transparency check found " targetColour " instead of 0x97714A")
+    }
     return true
 }
 
@@ -210,7 +212,9 @@ IsAspectRatioCorrect() {
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
-    Log("Aspect ratio check found unknown colour " sampleColour)
+    if (Debug) {
+        Log("Aspect ratio check found unknown colour " sampleColour)
+    }
     return false
 }
 
@@ -269,8 +273,10 @@ WhatFont() {
                 WinRelPosLargeW(1461), WinRelPosLargeH(260),
                 WinRelPosLargeW(1732), WinRelPosLargeH(1080), image)
             If (found && OutX > 0) {
-                Log("Settings: Found user is using alternative font size "
-                    (i - 1))
+                if (Debug) {
+                    Log("Settings: Found user is using alternative font size "
+                        (i - 1))
+                }
                 return i
             }
             i++
@@ -328,7 +334,9 @@ IsPanelSmoothed() {
         sampleColour := PixelGetColor(WinRelPosW(1095), WinRelPosH(94))
         sampleColour2 := PixelGetColor(WinRelPosW(1095), WinRelPosH(90))
         If (sampleColour != sampleColour2) {
-            Log("Smoothed graphics check found " sampleColour " " sampleColour2)
+            if (Debug) {
+                Log("Smoothed graphics check found " sampleColour " " sampleColour2)
+            }
             ; Found smoothing
             return true
         }
@@ -371,7 +379,9 @@ IsDarkBackgroundOn() {
             WinRelPosLargeH(51))
         If (sampleColour = "0x837C6C" || sampleColour2 = "0x837C6C" ||
             sampleColour = "0x826C47" || sampleColour2 = "0x826C47") {
-            Log("Corner buttons found with Dark Dialog Background on.")
+            if (Debug) {
+                Log("Corner buttons found with Dark Dialog Background on.")
+            }
             ; Found dark mode
             return true
         }
@@ -446,7 +456,9 @@ IsAFKOn() {
             sampleColour2 = "0xB3A993" || ; Afk mode normal
             sampleColour2 = "0xB29361"  ; Afk mode mouseover
         ) {
-            Log("IsAFKOn: Corner buttons found with AFK on.")
+            if (Debug) {
+                Log("IsAFKOn: Corner buttons found with AFK on.")
+            }
             ; Found dark mode
             return true
         }

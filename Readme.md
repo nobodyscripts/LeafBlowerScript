@@ -243,11 +243,8 @@ MinerEnableLeafton. Boss mode enabled by default.
 
 ## TODO
 
-Devoption: Window check, keybinds and active checks designed around dev.
-   F12 Test mode, edit save file to incorrect settings and test each
-   mode detects, verbose debug on pixel checks.  
+Check settings from options.dat as bootup tests
 Cleanup card purchase orders into a more generic func.  
-Check for alb.  
 Investigate fullscreen (it breaks fullscreen).  
 
 Trade farming for non gems/non suitcase version.  

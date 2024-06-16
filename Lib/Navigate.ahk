@@ -123,6 +123,9 @@ IsAreaResetToGarden() {
         If (found and OutX != 0) {
             return true ; Found colour
         }
+        if (Debug) {
+            Log("IsAreaResetToGarden false - Remove IsAreaResetToGarden")
+        }
     } catch as exc {
         Log("Error 10: IsAreaResetToGarden check failed - " exc.Message "`n"
             exc.Extra)

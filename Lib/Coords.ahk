@@ -72,13 +72,27 @@ Class RelCoord {
 
     GetColour() {
         try {
-            colour := PixelGetColor(this.x, this.y)
+            fetchedColour := PixelGetColor(this.x, this.y)
         } catch as exc {
             Log("Error 36: GetColour check failed - " exc.Message)
             MsgBox("Could not conduct the search due to the following error:`n"
                 exc.Message)
         }
-        return colour
+        return fetchedColour
+    }
+
+    IsColour(colour) {
+        try {
+            fetchedColour := PixelGetColor(this.x, this.y)
+        } catch as exc {
+            Log("Error 36: GetColour check failed - " exc.Message)
+            MsgBox("Could not conduct the search due to the following error:`n"
+                exc.Message)
+        }
+        if (colour = fetchedColour) {
+            return true
+        }
+        return false
     }
 
     ToolTipAtCoord(id := 15) {
@@ -87,7 +101,7 @@ Class RelCoord {
 
     ClickOffsetWhileColour(colour, maxLoops := 20, offsetX := 1, offsetY := 1, delay := 54, interval := 50) {
         i := maxLoops
-        while (IsWindowActive() && this.GetColour() = colour) {
+        while (IsWindowActive() && this.IsColour(colour)) {
             this.ClickOffset(offsetX, offsetY, delay)
             Sleep(interval)
             i--
@@ -95,16 +109,22 @@ Class RelCoord {
                 return false
             }
         }
+        if (Debug) {
+            Log("ClickOffsetWhileColour: " this.x "x" this.y " is now " this.GetColour())
+        }
         return true
     }
 
     ClickOffsetUntilColour(colour, maxLoops := 20, offsetX := 1, offsetY := 1, delay := 54, interval := 50) {
         i := maxLoops
-        while (IsWindowActive() && this.GetColour() != colour) {
+        while (IsWindowActive() && !this.IsColour(colour)) {
             this.ClickOffset(offsetX, offsetY, delay)
             Sleep(interval)
             i--
             if (i = 0) {
+                if (Debug) {
+                    Log("ClickOffsetUntilColour: Hit max clicks " this.x "x" this.y " is now " this.GetColour())
+                }
                 return false
             }
         }
@@ -117,8 +137,14 @@ Class RelCoord {
             Sleep(interval)
             i--
             if (i = 0) {
+                if (Debug) {
+                    Log("WaitWhileColour: Hit max wait " this.x "x" this.y " is now " colour)
+                }
                 return false
             }
+        }
+        if (Debug) {
+            Log("WaitWhileColour: " this.x "x" this.y " is now " colour)
         }
         return true
     }
@@ -129,8 +155,14 @@ Class RelCoord {
             Sleep(interval)
             i--
             if (i = 0) {
+                if (Debug) {
+                    Log("WaitUntilColour: Hit max " this.x "x" this.y " is now " colour)
+                }
                 return false
             }
+        }
+        if (Debug) {
+            Log("WaitUntilColour: " this.x "x" this.y " is now " colour)
         }
         return true
     }
@@ -139,15 +171,34 @@ Class RelCoord {
         AmountArr := ["25000", "2500", "1000", "250", "100", "25", "10", "1"]
         if (!IsWindowActive() || !IsPanelActive() ||
             !this.IsButtonClickable()) {
-                return
+            return
         }
         for Amount in AmountArr {
             AmountToModifier(Amount)
             Sleep(NavigateTime)
             while (IsWindowActive() && IsPanelActive() &&
                 this.IsButtonClickable()) {
+                this.ClickOffset()
+                Sleep(delay)
+            }
+        }
+    }
+
+    GreedyCappedModifierUsageClick(startAt := 25000, delay := 54) {
+        AmountArr := ["25000", "2500", "1000", "250", "100", "25", "10", "1"]
+        if (!IsWindowActive() || !IsPanelActive() ||
+            !this.IsButtonClickable()) {
+            return
+        }
+        for Amount in AmountArr {
+            if (startAt <= Amount) {
+                AmountToModifier(Amount)
+                Sleep(NavigateTime)
+                while (IsWindowActive() && IsPanelActive() &&
+                    this.IsButtonClickable()) {
                     this.ClickOffset()
                     Sleep(delay)
+                }
             }
         }
     }

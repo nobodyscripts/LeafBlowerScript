@@ -131,7 +131,9 @@ IsButton(screenX, screenY) {
             targetColour = "0xC8BDA5") {
                 return true
         }
-
+        if (Debug) {
+            Log("IsButton: " screenX "x" screenY " is now " targetColour " `nRemove IsButton")
+        }
     } catch as exc {
         Log("Error 2: IsButton check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -148,6 +150,9 @@ IsButtonActive(screenX, screenY) {
             targetColour = "0xB3A993" || targetColour = "0xB29361") {
                 return true
         }
+        if (Debug) {
+            Log("IsButtonActive: " screenX "x" screenY " is now " targetColour " `nRemove IsButtonActive")
+        }
     } catch as exc {
         Log("Error 2: IsButtonActive check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -163,6 +168,9 @@ IsButtonClickable(screenX, screenY) {
         If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A") {
             return true
         }
+        if (Debug) {
+            Log("IsButtonClickable: " screenX "x" screenY " is now " targetColour " `nRemove IsButtonClickable")
+        }
     } catch as exc {
         Log("Error 2: IsButtonClickable check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -177,6 +185,9 @@ IsButtonInactive(screenX, screenY) {
         If (targetColour = "0xC8BDA5") {
             ; Check button for non background colour
             return true
+        }
+        if (Debug) {
+            Log("IsButtonInactive: " screenX "x" screenY " is now " targetColour " `nRemove IsButtonInactive")
         }
     } catch as exc {
         Log("Error 3: IsButtonInactive check failed - " exc.Message)
@@ -197,6 +208,9 @@ IsBackground(screenX, screenY) {
             Log("Spotify colour warp detected, please avoid using spotify desktop.")
             return true
         }
+        if (Debug) {
+            Log("IsBackground: " screenX "x" screenY " is now " targetColour " `nRemove IsBackground")
+        }
     } catch as exc {
         Log("Error 3: IsBackground check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -216,6 +230,9 @@ IsCoveredByNotification(ScreenX, ScreenY) {
                 ; Check cancel button for non background colour
                 return false
         }
+        if (Debug) {
+            Log("IsCoveredByNotification: " screenX "x" screenY " is now " targetColour " `nRemove IsCoveredByNotification")
+        }
     } catch as exc {
         Log("Error 4: IsCoveredByNotification check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -234,7 +251,9 @@ IsNonPanelButtonActive(screenX, screenY) {
             targetColour = "0x837C6C" || targetColour = "0x826C47") {
                 return true
         }
-
+        if (Debug) {
+            Log("IsNonPanelButtonActive: " screenX "x" screenY " is now " targetColour " `nRemove IsNonPanelButtonActive")
+        }
     } catch as exc {
         Log("Error 5: IsButtonActive check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -261,6 +280,9 @@ IsBossTimerActive() {
         found := PixelSearch(&OutX, &OutY,
             WinRelPosLargeW(1240), WinRelPosLargeH(5),
             WinRelPosLargeW(1280), WinRelPosLargeH(40), "0xFFFFFF", 0)
+        if (Debug) {
+            Log("IsBossTimerActive - Remove IsBossTimerActive")
+        }
         ; Timer pixel search
         If (found and OutX != 0) {
             /* if (Debug) {
@@ -285,6 +307,9 @@ IsBossTimerLong() {
         found := PixelSearch(&OutX, &OutY,
             WinRelPosLargeW(1050), WinRelPosLargeH(5),
             WinRelPosLargeW(1100), WinRelPosLargeH(40), "0xFFFFFF", 0)
+        if (Debug) {
+            Log("IsBossTimerLong - Remove IsBossTimerLong")
+        }
         ; Timer pixel search
         If (found and OutX != 0) {
             /* if (Debug) {
@@ -306,6 +331,9 @@ PixelSearchWrapper(x1, y1, x2, y2, colour) {
         found := PixelSearch(&OutX, &OutY,
             x1, y1,
             x2, y2, colour, 0)
+        if (Debug) {
+            Log("PixelSearchWrapper - Remove PixelSearchWrapper")
+        }
         If (!found || OutX = 0) {
             return false
         }

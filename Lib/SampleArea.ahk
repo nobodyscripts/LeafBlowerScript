@@ -48,7 +48,7 @@ Class RelSampleArea {
 
     toString() {
         return ("X1: " this.x1 " Y1: " this.y1 " X2: " this.x2 " Y2: "
-        this.y2 "`nW: " this.w " H: " this.h)
+            this.y2 "`nW: " this.w " H: " this.h)
     }
 
     ToolTipAtCoord(id1 := 14, id2 := 15) {
@@ -56,13 +56,16 @@ Class RelSampleArea {
         ToolTip(" ", this.x2, this.y2, id2)
     }
 
-    AreaPixelSearch(colour := "0xFFFFFF") {
+    AreaPixelSearch(colour := "0xFFFFFF", variation := 0) {
         try {
             found := PixelSearch(&OutX, &OutY,
                 this.x1, this.y1,
-                this.x2, this.y2, colour, 0)
+                this.x2, this.y2, colour, variation)
             If (found and OutX != 0) {
                 return [OutX, OutY] ; Found colour
+            }
+            if (Debug) {
+                Log("AreaPixelSearch false: " colour " not found")
             }
         } catch as exc {
             Log("Error 8: AreaPixelSearch search failed - " exc.Message)

@@ -192,6 +192,9 @@ IsOnBankTab(buttonTab) {
     if (colour = "0x82805D" || colour = "0xA8EC7F") {
         return true
     }
+    if (Debug) {
+        Log("IsOnBankTab false: found " colour)
+    }
     return false
 }
 
@@ -199,10 +202,10 @@ ResetBankScroll() {
     maxiter := 20
     while ((!cBankDepositRESS().IsButtonActive() && !cBankDepositRESS().IsButtonInactive()) &&
         (!cBankUpgradeStorage().IsButtonActive() && !cBankUpgradeStorage().IsButtonInactive())) {
-            if (!IsWindowActive() || !IsPanelActive() || maxiter <= 1) {
-                return
-            }
-            ScrollAmountUp(1)
-            maxiter--
+        if (!IsWindowActive() || !IsPanelActive() || maxiter <= 1) {
+            return
+        }
+        ScrollAmountUp(1)
+        maxiter--
     }
 }
