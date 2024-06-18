@@ -144,11 +144,11 @@ fGemFarmSuitcase() {
             ; PixelSearch resolution independant function based on higher
             ; resolution to increase accuracy, using lower res resulted in
             ; drift when scaled up.
-            colour := PixelGetColor(WinRelPosLargeW(1252), WinRelPosLargeH(397))
+            Icon1 := Points.GemFarm.Icon1
+            colour := Icon1.GetColour()
             If (colour = "0xFF0044") {
                 Sleep(GemFarmSleepAmount)
-                colour := PixelGetColor(WinRelPosLargeW(1252),
-                    WinRelPosLargeH(397))
+                colour := Icon1.GetColour()
                 If (colour = "0xFF0044") {
                     ; Double check to try and avoid false usage
                     TriggerSuitcase()
@@ -186,32 +186,21 @@ RemoveBearo() {
     global HadToHideNotifs, HadToRemoveBearo
     OpenPets()
     Sleep(NavigateTime)
-    OutX := 0
-    OutY := 0
-    try {
-        X1 := WinRelPosLargeW(675)
-        Y1 := WinRelPosLargeH(1070)
-        X2 := WinRelPosLargeW(1494)
-        Y2 := WinRelPosLargeH(1138)
-        found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, "0x64747A")
-        If (found and OutX != 0) {
-            Log("GemFarm: Bearo found and removed.")
-            ToolTip("Bearo found and removed",
-                W / 2 - WinRelPosW(50), H / 2 - WinRelPosH(70), 16)
-            SetTimer(Tooltip.Bind(, , , 16), -1000)
-            HadToRemoveBearo := true
-            Sleep(NavigateTime)
-            fCustomClick(OutX + 1, OutY + 1, NavigateTime)
-            Sleep(NavigateTime)
-            return true
-        }
-    } catch as exc {
-        Log("GemFarm: Searching for Bearo failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+    coord := Areas.GemFarm.BearoSearch.PixelSearch("0x64747A")
+    if (coord) {
+        Log("GemFarm: Bearo found and removed.")
+        ToolTip("Bearo found and removed",
+            W / 2 - WinRelPosW(50), H / 2 - WinRelPosH(70), 16)
+        SetTimer(Tooltip.Bind(, , , 16), -1000)
+        HadToRemoveBearo := true
+        Sleep(NavigateTime)
+        fCustomClick(coord[1] + 1, coord[2] + 1, NavigateTime)
+        Sleep(NavigateTime)
+        return true
+    } else {
+        Log("GemFarm: Bearo not found.")
+        return false
     }
-    Log("GemFarm: Bearo not found.")
-    return false
 }
 
 FillTradeSlots() {

@@ -16,6 +16,7 @@ global Areas := cAreas()
 Class cAreas {
     AreasPanel := cAreasPanelAreas()
     Borbventures := cBorbventuresAreas()
+    GemFarm := cGemFarmAreas()
     Misc := cMiscAreas()
     Mine := cMineAreas()
     Mine.Cave := cCaveAreas()
