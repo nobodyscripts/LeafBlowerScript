@@ -10,11 +10,14 @@ global LBRWindowTitle
 ; ------------------- Functions -------------------
 
 ; Convert positions from 1278*664 client resolution to current resolution
+; DEPRECATED
 WinRelPosW(PosW) {
     global W
     return PosW / 1278 * W
 }
 
+; Convert positions from 1278*664 client resolution to current resolution
+; DEPRECATED
 WinRelPosH(PosH) {
     global H
     return PosH / 664 * H
@@ -27,12 +30,14 @@ WinRelPosLargeW(PosW2) {
     return PosW2 / 2560 * W
 }
 
+; Convert positions from 2560*1396 client resolution to current resolution to
+; allow higher accuracy
 WinRelPosLargeH(PosH2) {
     global H
     return PosH2 / 1369 * H
 }
 
-; Default clicking function, uses relative locations
+; Default clicking function, uses relative locations (DEPRECATED 1278*664)
 fSlowClick(clickX, clickY, delay := 34) {
     if (!IsWindowActive()) {
         Log("No window found while trying to Sclick at " clickX " * " clickY
@@ -47,7 +52,7 @@ fSlowClick(clickX, clickY, delay := 34) {
     MouseClick("left", WinRelPosW(clickX), WinRelPosH(clickY), , , "U")
 }
 
-; Custom clicking function, uses 2160p relative coords
+; Custom clicking function, uses 2560*1396 relative coords
 fSlowClickRelL(clickX, clickY, delay := 34) {
     if (!IsWindowActive()) {
         Log("No window found while trying to Lclick at " clickX " * " clickY
@@ -124,6 +129,7 @@ AmountToModifier(num) {
     }
 }
 
+; DEPRECATED
 IsButton(screenX, screenY) {
     try {
         targetColour := PixelGetColor(screenX, screenY)
@@ -142,6 +148,7 @@ IsButton(screenX, screenY) {
     return false
 }
 
+; DEPRECATED
 IsButtonActive(screenX, screenY) {
     try {
         targetColour := PixelGetColor(screenX, screenY)
@@ -159,6 +166,7 @@ IsButtonActive(screenX, screenY) {
     return false
 }
 
+; DEPRECATED
 IsButtonInactive(screenX, screenY) {
     try {
         targetColour := PixelGetColor(screenX, screenY)
@@ -175,6 +183,7 @@ IsButtonInactive(screenX, screenY) {
     return false
 }
 
+; DEPRECATED
 IsBackground(screenX, screenY) {
     try {
         targetColour := PixelGetColor(screenX, screenY)
@@ -215,6 +224,7 @@ IsCoveredByNotification(ScreenX, ScreenY) {
     return true
 }
 
+; DEPRECATED
 IsNonPanelButtonActive(screenX, screenY) {
     try {
         targetColour := PixelGetColor(screenX, screenY)
@@ -255,6 +265,7 @@ IsBossTimerLong() {
     return true
 }
 
+; DEPRECATED
 PixelSearchWrapper(x1, y1, x2, y2, colour) {
     try {
         found := PixelSearch(&OutX, &OutY,
@@ -274,7 +285,7 @@ PixelSearchWrapper(x1, y1, x2, y2, colour) {
 }
 
 /**
- * Search area for first instance of colour found from top left
+ * Search area for first instance of colour found from top left (DEPRECATED)
  * @param x1 Top left Coordinate (relative 1440)
  * @param y1 Top left Coordinate (relative 1440)
  * @param x2 Bottom Right Coordinate (relative 1440)
