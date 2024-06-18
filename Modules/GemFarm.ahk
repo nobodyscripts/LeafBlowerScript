@@ -194,7 +194,7 @@ RemoveBearo() {
         SetTimer(Tooltip.Bind(, , , 16), -1000)
         HadToRemoveBearo := true
         Sleep(NavigateTime)
-        fCustomClick(coord[1] + 1, coord[2] + 1, NavigateTime)
+        cPoint(coord[1], coord[2], false).ClickOffset(1, 1, NavigateTime)
         Sleep(NavigateTime)
         return true
     } else {
@@ -225,11 +225,11 @@ FillTradeSlots() {
             return false
         }
         ; If we see background instead of a start button we are full
-        if (!IsBackground(WinRelPosW(1040), WinRelPosH(227))) {
+        if (!Points.GemFarm.StartCheck1.IsBackground()) {
             ; If the button isn't active, ignore it and don't count it
-            If (!IsButtonInactive(WinRelPosW(1040), WinRelPosH(222))) {
+            If (!Points.GemFarm.StartCheck2.IsButtonInactive()) {
                 sleep(50)
-                fSlowClick(1040, 230)
+                Points.GemFarm.StartCheck1.ClickOffset(0, 3)
                 sleep(50)
                 i--
             }
@@ -246,7 +246,7 @@ FillTradeSlots() {
             RefreshTrades()
             Sleep(72)
             ; Is there any button in the start position
-            if (IsBackground(WinRelPosW(1040), WinRelPosH(227))) {
+            if (Points.GemFarm.StartCheck1.IsBackground()) {
                 i := 0
             } else {
                 ; Try again
@@ -259,8 +259,8 @@ FillTradeSlots() {
 }
 
 HasSuitCaseBeenUsed() {
-    if (IsBackground(WinRelPosW(960), WinRelPosH(195)) &&
-        IsBackground(WinRelPosW(997), WinRelPosH(195))) {
+    if (Points.GemFarm.SuitcaseCheck1.IsBackground() &&
+        Points.GemFarm.SuitcaseCheck2.IsBackground()) {
         return false
     }
     return true
@@ -268,27 +268,16 @@ HasSuitCaseBeenUsed() {
 
 IsTradeAutoRefreshOn() {
     ; if white is in this area, timer active so it is on
-    ; 615 292
-    ; 698 326
-    try {
-        found := PixelSearch(&OutX, &OutY,
-            WinRelPosLargeW(615), WinRelPosLargeH(292),
-            WinRelPosLargeW(698), WinRelPosLargeH(326), "0xFFFFFF", 0)
-        ; Timer pixel search
-        If (found and OutX != 0) {
-            return true ; Found colour
-        }
-    } catch as exc {
-        Log("GemFarm: Searching for Auto Refresh state failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+    result := Areas.GemFarm.AutoRefreshTimer.PixelSearch()
+    ; Timer pixel search
+    If (result) {
+        return true ; Found colour
     }
-
     return false
 }
 
 IsTradeDetailedModeOn() {
-    If (IsBackground(WinRelPosLargeW(1186), WinRelPosLargeH(456))) {
+    If (Points.GemFarm.Detailed.IsBackground()) {
         return true ; Found colour
     }
     return false
@@ -300,8 +289,8 @@ ToggleAutoRefresh() {
     Sleep(101)
     OpenTrades()
     Sleep(101)
-    ; Disable auto refresh if its on based on timer at top of panel
-    fCustomClick(WinRelPosLargeW(1000), WinRelPosLargeH(1100), 101)
+    ; Disable auto refresh if its on
+    Points.GemFarm.AutoRefreshToggle.Click(101)
     sleep(50)
     TradesAutoRefreshOldState := IsTradeAutoRefreshOn()
 }
@@ -312,8 +301,8 @@ ToggleDetailedMode() {
     Sleep(101)
     OpenTrades()
     Sleep(101)
-    ; Disable auto refresh if its on based on timer at top of panel
-    fCustomClick(WinRelPosLargeW(1357), WinRelPosLargeH(1100), 101)
+    ; Disable detailed mode if its on
+    Points.GemFarm.DetailedToggle.Click(101)
     sleep(50)
     TradesDetailedModeOldState := IsTradeDetailedModeOn()
 }
