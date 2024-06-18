@@ -5,6 +5,7 @@
 /**
  * GemFarm points for buttons
  * @property {cPoint} GemFarm GemFarm button in GemFarm panel
+ * @memberof module:cPoints
  */
 Class cGemFarmPoints {
     FirstSlotSamplePoint := cPoint(1252, 397)

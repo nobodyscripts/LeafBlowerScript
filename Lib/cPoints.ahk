@@ -7,6 +7,7 @@
 global Points := cPoints()
 
 /**
+ * @module cPoints
  * @property {cAreasPanelPoints} AreasPanel
  * @property {cBankPoints} Bank
  * @property {cBorbventuresPoints} Borbventures

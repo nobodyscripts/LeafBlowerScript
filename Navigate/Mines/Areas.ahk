@@ -4,6 +4,7 @@
 
 /**
  * Mine pixel areas
+ * @memberof module:cAreas
  * @property {cArea} PanelTabs Panel main tabs area (for testing ocr)
  */
 Class cMineAreas {

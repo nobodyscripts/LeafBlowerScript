@@ -4,6 +4,7 @@
 
 /**
  * Mine Vein points for buttons
+ * @memberof module:cPoints
  * @property {cPoint} Search Mine Vein search button
  * @property {cPoint} AutoMine Mine Vein Auto Mine button
  * @property {cPoint} Upgrade Mine Vein Upgrade button

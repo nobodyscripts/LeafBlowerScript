@@ -4,6 +4,7 @@
 
 /**
 * Borbventures points for buttons
+ * @memberof module:cPoints
 * @property {cPoint} AutoStartFont0 Point for checking autostart status
 * with font size 0
 * @property {cPoint} AutoStartFont1 Point for checking autostart status

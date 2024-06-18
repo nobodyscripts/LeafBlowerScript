@@ -5,8 +5,10 @@
 global Areas := cAreas()
 
 /**
+ * @module cAreas
  * @property {cAreasPanelAreas} AreasPanel
  * @property {cBorbventuresAreas} Borbventures
+ * @property {cGemFarmAreas} GemFarm
  * @property {cMiscAreas} Misc
  * @property {cMineAreas} Mine
  * @property {cCaveAreas} Mine.Cave

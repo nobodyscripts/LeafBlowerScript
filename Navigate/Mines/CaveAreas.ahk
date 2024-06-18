@@ -4,6 +4,7 @@
 
 /**
  * Cave pixel areas
+ * @memberof module:cAreas
  * @property {cArea} DiamondIcon Cave area for diamond icon in rewards next to 
  * drilling
  * @property {cArea} DrillStatus Cave area to the right of drill (On) text

@@ -5,6 +5,7 @@
 
 /**
  * Misc points for buttons
+ * @memberof module:cPoints
  * @property {cPoint} ScrollArrow Top scroll arrow in a scrollable panel
  * @property {cPoint} ScrollHandle Scroll handle in a scrollable panel
  * @property {cPoint} NotifArrow Notification arrow, left point of 
@@ -18,6 +19,7 @@ Class cMiscPoints {
 
 /**
  * Misc areas
+ * @memberof module:cAreas
  * @property {cArea} BossTimer Area boss timer text is displayed
  * @property {cArea} BossTimerLong Area extended boss timer text is 
  * displayed

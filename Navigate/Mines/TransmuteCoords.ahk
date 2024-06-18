@@ -4,6 +4,7 @@
 
 /**
  * Mine Transmute points for buttons
+ * @memberof module:cPoints
  * @property {cPoint} SingleCBarToCDia Button for Transmute CBar to CDia once
  * @property {cPoint} SingleCDiaToSDia Button for Transmute CDia to SDia once
  * @property {cPoint} SingleCDiaToFuel Button for Transmute CDia to Fuel once

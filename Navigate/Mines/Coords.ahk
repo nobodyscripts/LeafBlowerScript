@@ -4,6 +4,7 @@
 
 /**
  * Mine points for buttons
+ * @memberof module:cPoints
  * @property {cPoint} FreeFuel Mine (tab4) free fuel button
  * @property {cPoint} CoalSphere Mine (tab4) coal sphere button
  * @property {cPoint} Tab1Vein Mine navigate tab Vein

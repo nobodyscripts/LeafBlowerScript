@@ -6,6 +6,7 @@
 /**
  * AreasPanel points for buttons
  * This is for areas panel stuff which unfortunately has the same name as my rect class
+ * @memberof module:cPoints
  * @property {cPoint} Tab1 Tab for areas panel (Favourites)
  * @property {cPoint} Tab2 Tab for areas panel (Leaf Galaxy)
  * @property {cPoint} Tab7 Tab for areas panel (Quark Ambit)

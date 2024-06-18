@@ -5,6 +5,7 @@
 ; 
 /**
  * Bank points for buttons
+ * @memberof module:cPoints
  * @property {cPoint} DepositRESS Point for depositing refined soul 
  * stone button
  * @property {cPoint} UpgradeStorage Point for Upgrade Storage button

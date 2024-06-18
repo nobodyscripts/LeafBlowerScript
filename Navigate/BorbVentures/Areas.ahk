@@ -4,6 +4,7 @@
 
 /**
  * Borbventures areas
+ * @memberof module:cAreas
  * @property {cArea} FinishButtonCol Area boss timer text is displayed
  */
 Class cBorbventuresAreas {

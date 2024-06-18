@@ -4,6 +4,7 @@
 
 /**
  * Leafton points for buttons
+ * @memberof module:cPoints
  * @property {cPoint} Center Center of the screen for clicking the 
  * background object
  * @property {cPoint} Start Start button

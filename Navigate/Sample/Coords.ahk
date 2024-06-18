@@ -4,6 +4,7 @@
 
 /**
  * Sample points for buttons
+ * @memberof module:cPoints
  * @property {cPoint} Sample Sample button in Sample panel
  */
 Class cSamplePoints {

@@ -4,6 +4,7 @@
 
 /**
  * Sample pixel areas
+ * @memberof module:cAreas
  * @property {cArea} Sample Sample area
  */
 Class cSampleAreas {

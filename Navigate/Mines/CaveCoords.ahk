@@ -5,6 +5,7 @@
 /**
  * Cave points for buttons
  * 78d063 (Some colour that was left in old file)
+ * @memberof module:cPoints
  * @property {cPoint} DrillToggle Button for toggling drill on/off
  * @property {cPoint} AutoSearch Button for toggling auto search on/off
  * @property {cPoint} Select1 Button for selecting which cave to show

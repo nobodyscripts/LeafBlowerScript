@@ -3,10 +3,11 @@
 #Include ..\..\Lib\cPoints.ahk
 
 /**
-* Card points for buttons
-* @property {cPoint} FirstTab Point for first panel tab
-* @property {cPoint} PacksOddButton Unknown
-*/
+ * Card points for buttons
+ * @memberof module:cPoints
+ * @property {cPoint} FirstTab Point for first panel tab
+ * @property {cPoint} PacksOddButton Unknown
+ */
 Class cCardPoints {
     FirstTab := cPoint(526, 1180)
 

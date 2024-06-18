@@ -4,6 +4,7 @@
 
 /**
  * Hyacinth points for buttons
+ * @memberof module:cPoints
  * @property {cPoint} UseSphere Hyacinth sphere button
  */
 Class cHyacinthPoints {
