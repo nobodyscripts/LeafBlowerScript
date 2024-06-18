@@ -9,6 +9,8 @@
  * 1
  * @property {cPoint} StartCheck1 Check for start button existing
  * @property {cPoint} StartCheck2 Check for start button active
+ * @property {cPoint} FirstTradeCancel Cancel first trade point
+ * @property {cPoint} FirstTradeCollect Collect first trade point
  * @property {cPoint} SuitcaseCheck1 Check for buttons moving up when suitcase 
  * used
  * @property {cPoint} SuitcaseCheck2 Check for buttons moving up when suitcase 
@@ -24,6 +26,10 @@ Class cGemFarmPoints {
     StartCheck1 := cPoint(1040, 227)
     ; Check for start button active
     StartCheck2 := cPoint(1040, 222)
+    ; Cancel first trade point
+    FirstTradeCancel := cPoint(1920, 400)
+    ; Collect first trade point
+    FirstTradeCollect := cPoint(1990, 400)
     ; Check for buttons moving up when suitcase used
     SuitcaseCheck1 := cPoint(960, 195)
     ; Check for buttons moving up when suitcase used

@@ -13,6 +13,10 @@ fGemFarmSuitcase() {
     global TradesDetailedModeOldState
     global GemFarmSleepAmount, HadToHideNotifs, GemFarmActive
     global X, Y, W, H
+    DetailedToggle := Points.GemFarm.DetailedToggle
+    NotifArrow := Points.Misc.NotifArrow
+    AutoRefreshToggle := Points.GemFarm.AutoRefreshToggle
+
     if (!Travel().Desert.GoTo()) {
         if (Debug) {
             MsgBox("GemFarm: Could not find desert area. Aborted travel.")
@@ -28,7 +32,7 @@ fGemFarmSuitcase() {
     if (IsWindowActive() && IsNotificationActive()) {
         Log("GemFarm: Found notifications on and toggled off.")
         ; Notifications were blocking, close notifications
-        fSlowClick(32, 596, NavigateTime)
+        NotifArrow.Click(NavigateTime)
         Sleep(NavigateTime)
         HadToHideNotifs := true
     }
@@ -55,13 +59,13 @@ fGemFarmSuitcase() {
     If (TradesAutoRefreshOldState && IsWindowActive() && IsPanelActive()) {
         Log("GemFarm: Auto refresh found on. Toggled off.")
         ; Auto refresh button
-        fCustomClick(WinRelPosLargeW(1000), WinRelPosLargeH(1100), 101)
+        AutoRefreshToggle.Click(101)
     }
     ; Notifications are ok now
     if (HadToHideNotifs && IsWindowActive()) {
         Log("GemFarm: Reenabling notifications.")
         ; Notification button
-        fSlowClick(32, 596, NavigateTime)
+        NotifArrow.Click(NavigateTime)
         sleep(NavigateTime)
         HadToHideNotifs := false
         ; Return to trades as it'll close
@@ -81,7 +85,8 @@ fGemFarmSuitcase() {
     If (IsWindowActive() && IsPanelActive() && IsTradeDetailedModeOn()) {
         Log("GemFarm: Detailed mode found on. Toggled off.")
         ; Disable detailed mode if its on based on gap between blue arrows
-        fCustomClick(WinRelPosLargeW(1357), WinRelPosLargeH(1100), NavigateTime)
+        VerboseLog("DetailedToggle")
+        DetailedToggle.Click(NavigateTime)
         ToolTip("Toggled off details", W / 2 - WinRelPosLargeW(50),
             H / 2 + WinRelPosLargeH(20), 3)
         SetTimer(ToolTip.Bind(, , , 3), -1000)
@@ -94,10 +99,12 @@ fGemFarmSuitcase() {
         return
     } else {
         ; Cancel first trade, so that the first slot cannot be filled
-        fCustomClick(WinRelPosLargeW(1920), WinRelPosLargeH(400), NavigateTime)
+        VerboseLog("FirstTradeCancel")
+        Points.GemFarm.FirstTradeCancel.Click(NavigateTime)
         sleep(NavigateTime)
         ; Collect first trade
-        fCustomClick(WinRelPosLargeW(1990), WinRelPosLargeH(400), NavigateTime)
+        VerboseLog("FirstTradeCollect")
+        Points.GemFarm.FirstTradeCollect.Click(NavigateTime)
         RefreshTrades()
         ; Leaves the first slot free to use suitcase on
     }
