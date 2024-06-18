@@ -95,7 +95,6 @@ class cHotkeys {
     Hotkeys := Map()
 
     initHotkeys(secondary := false) {
-
         if (!secondary) {
             if (!FileExist(this.sFilename)) {
                 OutputDebug("No UserHotkeys.ini found, writing default file.`r`n")

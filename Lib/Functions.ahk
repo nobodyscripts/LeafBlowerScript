@@ -2,6 +2,8 @@
 
 #Include Logging.ahk
 #Include Spammers.ahk
+#Include cPoints.ahk
+#Include cAreas.ahk
 
 global LBRWindowTitle
 
@@ -129,11 +131,9 @@ IsButton(screenX, screenY) {
         If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A" ||
             targetColour = "0xB3A993" || targetColour = "0xB29361" ||
             targetColour = "0xC8BDA5") {
-                return true
+            return true
         }
-        if (Debug) {
-            Log("IsButton: " screenX "x" screenY " is now " targetColour " `nRemove IsButton")
-        }
+        VerboseLog("IsButton: " screenX "*" screenY " is now " targetColour " `nRemove IsButton")
     } catch as exc {
         Log("Error 2: IsButton check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -148,31 +148,11 @@ IsButtonActive(screenX, screenY) {
         ; Active, ActiveMouseOver, AfkActive, AfkActiveMouseover
         If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A" ||
             targetColour = "0xB3A993" || targetColour = "0xB29361") {
-                return true
-        }
-        if (Debug) {
-            Log("IsButtonActive: " screenX "x" screenY " is now " targetColour " `nRemove IsButtonActive")
-        }
-    } catch as exc {
-        Log("Error 2: IsButtonActive check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
-    }
-    return false
-}
-
-IsButtonClickable(screenX, screenY) {
-    try {
-        targetColour := PixelGetColor(screenX, screenY)
-        ; Active, ActiveMouseOver, AfkActive, AfkActiveMouseover
-        If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A") {
             return true
         }
-        if (Debug) {
-            Log("IsButtonClickable: " screenX "x" screenY " is now " targetColour " `nRemove IsButtonClickable")
-        }
+        VerboseLog("IsButtonActive: " screenX "*" screenY " is now " targetColour " `nRemove IsButtonActive")
     } catch as exc {
-        Log("Error 2: IsButtonClickable check failed - " exc.Message)
+        Log("Error 2: IsButtonActive check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
@@ -186,9 +166,7 @@ IsButtonInactive(screenX, screenY) {
             ; Check button for non background colour
             return true
         }
-        if (Debug) {
-            Log("IsButtonInactive: " screenX "x" screenY " is now " targetColour " `nRemove IsButtonInactive")
-        }
+        VerboseLog("IsButtonInactive: " screenX "*" screenY " is now " targetColour " `nRemove IsButtonInactive")
     } catch as exc {
         Log("Error 3: IsButtonInactive check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -208,9 +186,7 @@ IsBackground(screenX, screenY) {
             Log("Spotify colour warp detected, please avoid using spotify desktop.")
             return true
         }
-        if (Debug) {
-            Log("IsBackground: " screenX "x" screenY " is now " targetColour " `nRemove IsBackground")
-        }
+        VerboseLog("IsBackground: " screenX "*" screenY " is now " targetColour " `nRemove IsBackground")
     } catch as exc {
         Log("Error 3: IsBackground check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -227,12 +203,10 @@ IsCoveredByNotification(ScreenX, ScreenY) {
         ;ToolTip(targetColour, screenX, screenY)
         If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A" ||
             targetColour = "0x97714A" || targetColour = "0xC8BDA5") {
-                ; Check cancel button for non background colour
-                return false
+            ; Check cancel button for non background colour
+            return false
         }
-        if (Debug) {
-            Log("IsCoveredByNotification: " screenX "x" screenY " is now " targetColour " `nRemove IsCoveredByNotification")
-        }
+        VerboseLog("IsCoveredByNotification: " screenX "*" screenY " is now " targetColour " `nRemove IsCoveredByNotification")
     } catch as exc {
         Log("Error 4: IsCoveredByNotification check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -249,11 +223,9 @@ IsNonPanelButtonActive(screenX, screenY) {
         If (targetColour = "0xFFF1D2" || targetColour = "0xFDD28A" ||
             targetColour = "0xB3A993" || targetColour = "0xB29361" ||
             targetColour = "0x837C6C" || targetColour = "0x826C47") {
-                return true
+            return true
         }
-        if (Debug) {
-            Log("IsNonPanelButtonActive: " screenX "x" screenY " is now " targetColour " `nRemove IsNonPanelButtonActive")
-        }
+        VerboseLog("IsNonPanelButtonActive: " screenX "*" screenY " is now " targetColour " `nRemove IsNonPanelButtonActive")
     } catch as exc {
         Log("Error 5: IsButtonActive check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n"
@@ -262,78 +234,34 @@ IsNonPanelButtonActive(screenX, screenY) {
     return false
 }
 
-
 IsNotificationActive() {
-    if (!IsNonPanelButtonActive(WinRelPosLargeW(69),
-        WinRelPosLargeH(1212))) {
-            return true
+    if (!Points.Misc.NotifArrow.IsButtonOffPanel()) {
+        return true
     }
     return false
 }
 
 IsBossTimerActive() {
-    ; if white is in this area, timer active (hopefully no zones have white bg
-    ; and text is pure white)
-    ; 1240 5
-    ; 1280 40
-    try {
-        found := PixelSearch(&OutX, &OutY,
-            WinRelPosLargeW(1240), WinRelPosLargeH(5),
-            WinRelPosLargeW(1280), WinRelPosLargeH(40), "0xFFFFFF", 0)
-        if (Debug) {
-            Log("IsBossTimerActive - Remove IsBossTimerActive")
-        }
-        ; Timer pixel search
-        If (found and OutX != 0) {
-            /* if (Debug) {
-                Log("Found bosstimer")
-            } */
-            return true ; Found colour
-        }
-    } catch as exc {
-        Log("Error 7: IsBossTimerActive check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+    if (!Areas.Misc.BossTimer.PixelSearch()) {
+        return false
     }
-    return false
+    return true
 }
 
 IsBossTimerLong() {
-    ; if white is in this area, timer active (hopefully no zones have white bg
-    ; and text is pure white)
-    ; 1240 5
-    ; 1280 40
-    try {
-        found := PixelSearch(&OutX, &OutY,
-            WinRelPosLargeW(1050), WinRelPosLargeH(5),
-            WinRelPosLargeW(1100), WinRelPosLargeH(40), "0xFFFFFF", 0)
-        if (Debug) {
-            Log("IsBossTimerLong - Remove IsBossTimerLong")
-        }
-        ; Timer pixel search
-        If (found and OutX != 0) {
-            /* if (Debug) {
-                Log("Found long bosstimer")
-            } */
-            return true ; Found colour
-        }
-    } catch as exc {
-        Log("Error 7: IsBossTimerLong check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+    if (!Areas.Misc.BossTimerLong.PixelSearch()) {
+        return false
     }
-    return false
+    return true
 }
-
 
 PixelSearchWrapper(x1, y1, x2, y2, colour) {
     try {
         found := PixelSearch(&OutX, &OutY,
             x1, y1,
             x2, y2, colour, 0)
-        if (Debug) {
-            Log("PixelSearchWrapper - Remove PixelSearchWrapper")
-        }
+        VerboseLog("PixelSearchWrapper - Remove PixelSearchWrapper")
+
         If (!found || OutX = 0) {
             return false
         }
@@ -353,21 +281,11 @@ PixelSearchWrapper(x1, y1, x2, y2, colour) {
  * @param y2 Bottom Right Coordinate (relative 1440)
  * @returns {array|number} returns array of [ x, y ] or false
  */
+
 PixelSearchWrapperRel(x1, y1, x2, y2, colour) {
-    /*try {
-        found := PixelSearch(&OutX, &OutY,
-            WinRelPosLargeW(x1), WinRelPosLargeH(y1),
-            WinRelPosLargeW(x2), WinRelPosLargeH(y2), colour, 0)
-        If (!found || OutX = 0) {
-            return false
-        }
-    } catch as exc {
-        Log("Error: PixelSearchWrapperRel check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
-    }*/
-    return PixelSearchWrapper(WinRelPosLargeW(x1), WinRelPosLargeH(y1),
-        WinRelPosLargeW(x2), WinRelPosLargeH(y2), colour)
+    Log("Remove this usage of PixelSearchWrapperRel")
+    tempArea := cArea(x1, y1, x2, y2)
+    return tempArea.PixelSearch(colour)
 }
 
 /**
@@ -441,9 +359,7 @@ LineGetColourInstancesOffsetV(x, y1, y2, colour, splitCount := 20) {
         yBot := y1 + ((splitCur + 1) * splitSize)
         result := PixelSearchWrapperRel(x, yTop, x, yBot, colour)
         if (result) {
-            if (Debug) {
-                ; Log("Found in segment " splitCur " at " result[1] " by " result[2])
-            }
+            ; DebugLog("Found in segment " splitCur " at " result[1] " by " result[2])
             found++
             foundArr.Push(result[2])
         }
@@ -455,13 +371,8 @@ LineGetColourInstancesOffsetV(x, y1, y2, colour, splitCount := 20) {
     return false
 }
 
-LineGetColourInstancesOffsetH(x1, y1, x2, y2, offset, colour) {
-    PixelSearchWrapper(x1, y1, x2, y2, colour)
-}
-
 IsScrollAblePanel() {
-    ; 2220 258 top scroll arrow button
-    if (IsButtonActive(WinRelPosLargeW(2220), WinRelPosLargeH(258))) {
+    if (Points.Misc.ScrollArrow.IsButtonActive()) {
         ; Up Arrow exists, so scrolling is possible
         return true
     }
@@ -471,7 +382,7 @@ IsScrollAblePanel() {
 IsScrollAblePanelAtTop() {
     ; 2220 320 scroll handle
     if (IsScrollAblePanel()) {
-        if (IsButtonActive(WinRelPosLargeW(2220), WinRelPosLargeH(320))) {
+        if (Points.Misc.ScrollHandle.IsButtonActive()) {
             ; Is at top
             return true
         }
@@ -479,10 +390,22 @@ IsScrollAblePanelAtTop() {
     return false
 }
 
+IsBVScrollAblePanelAtTop() {
+    ; 2220 258 top scroll arrow button
+    ; 2220 320 scroll handle
+    if (Points.Misc.ScrollArrow.IsButtonActive()) {
+        ; Up Arrow exists, so scrolling is possible
+        if (Points.Misc.ScrollHandle.IsButtonActive()) {
+            ; Is at top
+            return true
+        } else {
+            return false
+        }
+    }
+    return true
+}
+
 cReload() {
-    /* if (Debug){
-        ExitApp()
-    } */
     Reload()
 }
 

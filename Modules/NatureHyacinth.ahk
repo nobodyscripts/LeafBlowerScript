@@ -13,7 +13,7 @@ global NavigateTime := 150
 fFarmNormalBossAndNatureHyacinth() {
     global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot,
         BankDepositTime, HyacinthBanksEnabled, NavigateTime
-        
+
     ; If user set 0 in gui without adding a fraction, make at least 1 second
     if (BankDepositTime = 0) {
         BankDepositTime := 0.017
@@ -69,21 +69,21 @@ fFarmNormalBossAndNatureHyacinth() {
         }
         if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             HyacinthBanksEnabled) {
-                if (bossfarm) {
-                    KillSpammer() ; Need to halt any WW spam
-                }
-                Log("BossHyacinth: Bank Maintainer starting.")
-                ToolTip("BossHyacinth Bank Maintainer Active", W / 2,
-                    WinRelPosLargeH(200), 4)
-                BankSinglePass()
-                Sleep(NavigateTime)
-                ToolTip(, , , 4)
-                starttime := A_Now
-                OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID)
-                if (bossfarm) {
-                    NormalBossSpammerStart() ; Restart spammer now we can travel
-                }
-                Sleep(NavigateTime)
+            if (bossfarm) {
+                KillSpammer() ; Need to halt any WW spam
+            }
+            Log("BossHyacinth: Bank Maintainer starting.")
+            ToolTip("BossHyacinth Bank Maintainer Active", W / 2,
+                WinRelPosLargeH(200), 4)
+            BankSinglePass()
+            Sleep(NavigateTime)
+            ToolTip(, , , 4)
+            starttime := A_Now
+            OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID)
+            if (bossfarm) {
+                NormalBossSpammerStart() ; Restart spammer now we can travel
+            }
+            Sleep(NavigateTime)
         }
         if (IsButtonActive(WinRelPosLargeW(HarvBX), WinRelPosLargeH(HarvBY))) {
             ; If harvest button active
@@ -280,13 +280,11 @@ SelectFlower(flowerID) {
 UseSphereLoop(HarvBX, HarvBY) {
     ; Plant should be planted, use sphere then check for harvest
     ; If no harvest button and sphere button active loop, else break
-    sphereButton := cNatureFarmUseSphere()
+    sphereButton := Points.Hyacinth.UseSphere
     loop {
-        if (sphereButton.IsButtonActive() &&
-            !IsButtonActive(WinRelPosLargeW(HarvBX),
-                WinRelPosLargeH(HarvBY))) {
-                    sphereButton.ClickOffset()
-                    Sleep(NavigateTime + 50)
+        if (sphereButton.IsButtonActive() && !cPoint(HarvBX, HarvBY).IsButtonActive()) {
+            sphereButton.ClickOffset()
+            Sleep(NavigateTime + 50)
         } else {
             break
         }

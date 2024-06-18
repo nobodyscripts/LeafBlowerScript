@@ -1,7 +1,29 @@
 #Requires AutoHotkey v2.0
 
+#Include Navigate.ahk
+
 global LBRWindowTitle
 global LastWindowNotActiveTimer := A_Now
+
+InitSettingsCheck()
+
+InitSettingsCheck() {
+    global LBRWindowTitle, DisableSettingsChecks, ScriptsLogFile
+    global X, Y, W, H
+    if (!IsSet(LBRWindowTitle)) {
+        LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
+    }
+    if (!IsSet(DisableSettingsChecks)) {
+        DisableSettingsChecks := false
+    }
+    if (!isset(W)) {
+        if (WinExist(LBRWindowTitle)) {
+            WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
+        } else {
+            X := Y := W := H := 0
+        }
+    }
+}
 
 MakeWindowActive() {
     if (!WinExist(LBRWindowTitle)) {
@@ -334,9 +356,7 @@ IsPanelSmoothed() {
         sampleColour := PixelGetColor(WinRelPosW(1095), WinRelPosH(94))
         sampleColour2 := PixelGetColor(WinRelPosW(1095), WinRelPosH(90))
         If (sampleColour != sampleColour2) {
-            if (Debug) {
-                Log("Smoothed graphics check found " sampleColour " " sampleColour2)
-            }
+            DebugLog("Smoothed graphics check found " sampleColour " " sampleColour2)
             ; Found smoothing
             return true
         }
@@ -379,9 +399,7 @@ IsDarkBackgroundOn() {
             WinRelPosLargeH(51))
         If (sampleColour = "0x837C6C" || sampleColour2 = "0x837C6C" ||
             sampleColour = "0x826C47" || sampleColour2 = "0x826C47") {
-            if (Debug) {
-                Log("Corner buttons found with Dark Dialog Background on.")
-            }
+            DebugLog("Corner buttons found with Dark Dialog Background on.")
             ; Found dark mode
             return true
         }
@@ -456,9 +474,7 @@ IsAFKOn() {
             sampleColour2 = "0xB3A993" || ; Afk mode normal
             sampleColour2 = "0xB29361"  ; Afk mode mouseover
         ) {
-            if (Debug) {
-                Log("IsAFKOn: Corner buttons found with AFK on.")
-            }
+            DebugLog("IsAFKOn: Corner buttons found with AFK on.")
             ; Found dark mode
             return true
         }

@@ -8,7 +8,6 @@ global IsSecondary := false
 
 #Include Gui\MainGUI.ahk
 
-
 #Include Lib\ScriptSettings.ahk
 #Include Lib\Functions.ahk
 #Include Lib\Navigate.ahk
@@ -18,6 +17,8 @@ global IsSecondary := false
 #Include Lib\GameHotkeys.ahk
 #Include Lib\ScriptHotkeys.ahk
 #Include Lib\GameSettings.ahk
+
+#Include Navigate\Header.ahk
 
 #Include Modules\BankDeposit.ahk
 #Include Modules\Borbventure.ahk

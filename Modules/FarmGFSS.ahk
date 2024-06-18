@@ -44,15 +44,14 @@ fFarmGFSS() {
                 IsTimerLong := IsBossTimerLong()
                 ; if state of timer has changed and is now off, we killed
                 if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
-                        ; If the timer is longer, killed too quick to get a gap
-                        GFKills++
-                        Log("GFKill marked")
+                    ; If the timer is longer, killed too quick to get a gap
+                    GFKills++
+                    Log("GFKill marked")
                 }
-                /* if (Debug) {
-                    Log("GFKill timerlast " TimerLastCheckStatus " timer cur "
-                        TimerCurrentState " waslong " IsPrevTimerLong
-                        " islong " IsTimerLong)
-                } */
+                /* DebugLog("GFKill timerlast " TimerLastCheckStatus " timer 
+                cur " TimerCurrentState " waslong " IsPrevTimerLong " islong "
+                IsTimerLong)
+                 */
                 IsPrevTimerLong := IsTimerLong
                 ; If boss killed us at gf assume we're weak and reset gf
                 ; If user set gf kills too high it'll hit this
@@ -87,16 +86,15 @@ fFarmGFSS() {
             IsTimerLong := IsBossTimerLong()
             ; if state of timer has changed and is now off, we killed
             if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
-                    ; If the timer is longer, killed too quick to get a gap
-                    SSKills++
-                    GFKills := 0
-                    Log("SSKill marked")
+                ; If the timer is longer, killed too quick to get a gap
+                SSKills++
+                GFKills := 0
+                Log("SSKill marked")
             }
-            /* if (Debug) {
-                Log("SSKill timerlast " TimerLastCheckStatus " timer cur "
+            /* DebugLog("SSKill timerlast " TimerLastCheckStatus " timer cur "
                     TimerCurrentState " waslong " IsPrevTimerLong
                     " islong " IsTimerLong)
-            } */
+             */
             IsPrevTimerLong := IsTimerLong
             ; if boss killed us exit this loop, then let the master loop
             ; reset

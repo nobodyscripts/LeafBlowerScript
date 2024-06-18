@@ -211,6 +211,12 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 Check for updates added to gui, will check against the website once per day.
 Settings added to General Settings and 3 settings added to ini.
 
+Replaced old coords system with new classes; cPoint, cArea, cColour etc
+
+Added DebugLog and VerboseLog
+
+Added some checks on libs when loaded in a secondary script
+
 Hotkeys: Added new systems to handle both the hotkeys for ingame and the script.
 
 Hotkeys: Potential fixes for hotkey settings being added to game not working.
@@ -255,14 +261,16 @@ Adjust window resize based on delta from intended size, for non matching window
 
 Automated challenges (early game scripts)
 
-F3: Greedy card purchasing
+F3: Greedy card purchasing.  
+F4: Add mouse movement patterns to collect artifacts in the background.  
 F6: Load dlc purchase state from save file and remove setting.  
-F7: Needs to use artifact if need be / get replacement  
+F7: Needs to use artifact if need be / get replacement.  
 F8: Alignment is off, refresh entire function.  
 F8: Review ending of gfssnoreset mode.  
-F10: Needs to use artifact if need be / get replacement  
+F10: Needs to use artifact if need be / get replacement.  
+F12: Replace all checks with options.dat lookup.  
 PageDown: Leafton needs better setup routine. Travel to zone.  
-Insert: Add brewing somehow
+Insert: Add brewing somehow.
 
 ## Known issues
 

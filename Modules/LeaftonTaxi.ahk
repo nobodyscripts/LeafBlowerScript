@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-#Include ../Lib/Coords.ahk
+#Include ../Lib/cPoints.ahk
 #Include ../Lib/Spammers.ahk
 
 global LeaftonCraftEnabled := true
@@ -27,9 +27,9 @@ fLeaftonTaxi() {
     if (LeaftonSpamsWind) {
         LeaftonSpammerStart()
     }
-    centerCoord := cLeaftonCenter()
-    startCoord := cLeaftonStart()
-    craftStopCoord := cCraftingStop()
+    centerCoord := Points.Leafton.Center
+    startCoord := Points.Leafton.Start
+    craftStopCoord := Points.Crafting.Stop
     HasRun := false
     StopRunning := false
     OpenPets()
@@ -78,12 +78,12 @@ fLeaftonTaxi() {
                     Sleep(NavigateTime)
                     OpenCrafting()
                     Sleep(NavigateTime)
-                    cCraftingTab1().ClickOffset()
+                    Points.Crafting.Tab1.ClickOffset()
                     Sleep(NavigateTime)
                     if (!IsPanelActive()) {
                         OpenCrafting()
                         Sleep(NavigateTime)
-                        cCraftingTab1().ClickOffset()
+                        Points.Crafting.Tab1.ClickOffset()
                         Sleep(NavigateTime)
                     }
                 }
@@ -118,9 +118,8 @@ LeaftonTaxiSinglePassEnd() {
 }
 
 LeaftonTaxiSinglePass() {
-    centerCoord := cLeaftonCenter()
-    startCoord := cLeaftonStart()
-    craftStopCoord := cCraftingStop()
+    centerCoord := Points.Leafton.Center
+    startCoord := Points.Leafton.Start
     if (!IsWindowActive()) {
         return false
     }

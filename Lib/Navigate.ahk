@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+#Include GameHotkeys.ahk
+
 global DisableZoneChecks := false
 global NavigateTime := 150
 global LBRWindowTitle
@@ -20,7 +22,7 @@ OpenAreasPanel(reset := true, extraDelay := 0) {
     OpenAreas() ; Open areas
     sleep(NavTime * 2)
     i := 0
-    while (!IsButtonActive(WinRelPosLargeW(300), WinRelPosLargeH(1180)) && i <= 4) {
+    while (!Points.AreasPanel.Tab1.IsButtonActive() && i <= 4) {
         Log("OpenAreasPanel: Retry, could not see active button.")
         OpenAreas() ; Open areas if it still hasn't opened
         sleep(NavTime)
@@ -40,13 +42,16 @@ ResetAreaScroll(extraDelay := 0) {
     if (NavigateTime < 72) {
         NavTime := 72 + extraDelay
     }
-    fSlowClick(200, 574, NavTime) ; Click Favourites
+    ; Click Favourites
+    Points.AreasPanel.Tab1.ClickOffset(, , NavTime)
     Sleep(NavTime)
-    fSlowClick(315, 574, NavTime)
+
     ; Click Back to default page to reset the scroll
+    Points.AreasPanel.Tab2.ClickOffset(, , NavTime)
     Sleep(NavTime)
-    fSlowClick(315, 574, NavTime)
-    ; Click Back to default page to reset the scroll
+
+    ; Double click for redundancy
+    Points.AreasPanel.Tab2.ClickOffset(, , NavTime)
     Sleep(NavTime)
 }
 
@@ -92,11 +97,16 @@ ScrollAmountUp(amount := 1, extraDelay := 0) {
  */
 OpenEventsAreasPanel(extraDelay := 0) {
     OpenAreasPanel(false, extraDelay)
-    fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
+    ; Click Favourites
+    Points.AreasPanel.Tab1.ClickOffset(, , NavigateTime + extraDelay)
     Sleep(NavigateTime + extraDelay)
-    fSlowClick(1049, 572, NavigateTime + extraDelay) ; Click the event tab
+
+    ; Click the event tab
+    Points.AreasPanel.Tab8.ClickOffset(, , NavigateTime + extraDelay)
     sleep(NavigateTime + extraDelay)
-    fSlowClick(1049, 572, NavigateTime + extraDelay) ; Click the event tab
+
+    ; Redundant click
+    Points.AreasPanel.Tab8.ClickOffset(, , NavigateTime + extraDelay)
     sleep(NavigateTime + extraDelay)
 }
 
@@ -106,33 +116,24 @@ OpenEventsAreasPanel(extraDelay := 0) {
  */
 OpenQuarkPanel(extraDelay := 0) {
     OpenAreasPanel(false, extraDelay)
-    fSlowClickRelL(1780, 1180, NavigateTime + extraDelay) ; Quark tab
+
+    ; Quark tab
+    Points.AreasPanel.Tab7.ClickOffset(, , NavigateTime + extraDelay)
     Sleep(NavigateTime + extraDelay)
-    fSlowClickRelL(1780, 1180, NavigateTime + extraDelay) ; Quark tab
+
+    ; Redundant click
+    Points.AreasPanel.Tab7.ClickOffset(, , NavigateTime + extraDelay)
     Sleep(NavigateTime + extraDelay)
+
     ScrollAmountUp(2)
     Sleep(NavigateTime + extraDelay)
 }
 
 IsAreaResetToGarden() {
-    try {
-        found := PixelSearch(&OutX, &OutY,
-            WinRelPosLargeW(1240), WinRelPosLargeH(5),
-            WinRelPosLargeW(1280), WinRelPosLargeH(40), "0x4A9754", 0)
-        ; Timer pixel search
-        If (found and OutX != 0) {
-            return true ; Found colour
-        }
-        if (Debug) {
-            Log("IsAreaResetToGarden false - Remove IsAreaResetToGarden")
-        }
-    } catch as exc {
-        Log("Error 10: IsAreaResetToGarden check failed - " exc.Message "`n"
-            exc.Extra)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+    if (!Areas.AreasPanel.GardenReset.PixelSearch("0x4A9754")) {
+        return false
     }
-    return false
+    return true
 }
 
 GoToHomeGarden() {
@@ -144,7 +145,6 @@ GoToHomeGarden() {
     i := 0
     if (!DisableZoneChecks) {
         while (!IsAreaSampleColour("0x4A9754") && i <= 4) {
-
             Log("Traveling to Home Garden")
             OpenAreasPanel()
             fSlowClick(830, 158, NavigateTime) ; Click Home Garden button
@@ -153,9 +153,7 @@ GoToHomeGarden() {
         }
     }
     if (IsAreaSampleColour("0x4A9754")) {
-        if (Debug) {
-            Log("Travel success to Home Garden.")
-        }
+        DebugLog("Travel success to Home Garden.")
         return true
     } else {
         Log("Traveling to Home Garden. Attempt to blind travel with"
@@ -168,9 +166,7 @@ GoToHomeGarden() {
             return true
         }
         if (IsAreaSampleColour("0x4A9754")) {
-            if (Debug) {
-                Log("Blind travel success to Home Garden.")
-            }
+            DebugLog("Blind travel success to Home Garden.")
             return true
         } else {
             Log("Traveling to Home Garden failed, colour found was "
@@ -205,9 +201,7 @@ GoToGF() {
         }
     }
     if (IsAreaSampleColour("0x121328")) {
-        if (Debug) {
-            Log("Travel success to Flame Brazier (Green Flame).")
-        }
+        DebugLog("Travel success to Flame Brazier (Green Flame).")
         return true
     } else {
         Log("Traveling to Flame Brazier (Green Flame). Attempt to blind travel"
@@ -220,9 +214,7 @@ GoToGF() {
             return true
         }
         if (IsAreaSampleColour("0x121328")) {
-            if (Debug) {
-                Log("Blind travel success to Flame Brazier (Green Flame).")
-            }
+            DebugLog("Blind travel success to Flame Brazier (Green Flame).")
             return true
         } else {
             Log("Traveling to Flame Brazier (Green Flame) failed,"
@@ -257,9 +249,7 @@ GoToSS() {
         }
     }
     if (IsAreaSampleColour("0x17190F")) {
-        if (Debug) {
-            Log("Travel success to Flame Universe (Soulseeker).")
-        }
+        DebugLog("Travel success to Flame Universe (Soulseeker).")
         return true
     } else {
         Log("Traveling to Flame Universe (Soulseeker). Attempt to blind travel"
@@ -272,9 +262,7 @@ GoToSS() {
             return true
         }
         if (IsAreaSampleColour("0x17190F")) {
-            if (Debug) {
-                Log("Blind travel success to Flame Universe (Soulseeker).")
-            }
+            DebugLog("Blind travel success to Flame Universe (Soulseeker).")
             return true
         } else {
             Log("Traveling to Flame Universe (Soulseeker) failed,"
@@ -309,9 +297,7 @@ GoToShadowCavern() {
         }
     }
     if (IsAreaSampleColour("0x260000")) {
-        if (Debug) {
-            Log("Travel success to shadow cavern.")
-        }
+        DebugLog("Travel success to shadow cavern.")
         return true
     } else {
         Log("Traveling to Shadow Cavern. Attempt to blind travel with slowed"
@@ -324,9 +310,7 @@ GoToShadowCavern() {
             return true
         }
         if (IsAreaSampleColour("0x260000")) {
-            if (Debug) {
-                Log("Blind travel success to shadow cavern.")
-            }
+            DebugLog("Blind travel success to shadow cavern.")
             return true
         } else {
             Log("Traveling to Shadow Cavern failed, colour found was "
@@ -376,8 +360,9 @@ GoToNatureBoss() {
             Log("Traveling to The Doomed Tree")
             OpenEventsAreasPanel()
             Sleep(NavigateTime)
-            if (!IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
-                fSlowClick(buttonX, buttonY, NavigateTime) ; Open nature boss area
+            if (!cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
+                ; Open nature boss area
+                fSlowClick(buttonX, buttonY, NavigateTime)
             } else {
                 Log("Nature event inactive, no button found.")
                 return false
@@ -387,16 +372,14 @@ GoToNatureBoss() {
         }
     }
     if (IsAreaSampleColour("0x090B10")) {
-        if (Debug) {
-            Log("Travel success to The Doomed Tree.")
-        }
+        DebugLog("Travel success to The Doomed Tree.")
         return true
     } else {
         Log("Traveling to The Doomed Tree. Attempt to blind travel with slowed"
             " times.")
         OpenEventsAreasPanel(200)
         Sleep(NavigateTime + 200)
-        if (!IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
+        if (!cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
             fSlowClick(buttonX, buttonY, NavigateTime + 200) ; Open nature boss area
         } else {
             Log("Nature event inactive, no button found.")
@@ -408,9 +391,7 @@ GoToNatureBoss() {
             return true
         }
         if (IsAreaSampleColour("0x090B10")) {
-            if (Debug) {
-                Log("Blind travel success to The Doomed Tree.")
-            }
+            DebugLog("Blind travel success to The Doomed Tree.")
             return true
         } else {
             Log("Traveling to The Doomed Tree failed, colour found was "
@@ -439,7 +420,7 @@ GoToCheeseBoss() {
             Log("Traveling to Cursed Halloween")
             OpenEventsAreasPanel()
             Sleep(NavigateTime)
-            if (!IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
+            if (!cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
                 fSlowClick(buttonX, buttonY, NavigateTime) ; Open Cheese boss area
             } else {
                 Log("Halloween event inactive, no button found.")
@@ -450,16 +431,14 @@ GoToCheeseBoss() {
         }
     }
     if (IsAreaSampleColour("0x150412")) {
-        if (Debug) {
-            Log("Travel success to Cursed Halloween.")
-        }
+        DebugLog("Travel success to Cursed Halloween.")
         return true
     } else {
         Log("Traveling to Cursed Halloween. Attempt to blind travel with slowed"
             " times.")
         OpenEventsAreasPanel(200)
         Sleep(NavigateTime + 200)
-        if (!IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
+        if (!cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
             fSlowClick(buttonX, buttonY, NavigateTime + 200) ; Open Cheese boss area
         } else {
             Log("Halloween event inactive, no button found.")
@@ -471,9 +450,7 @@ GoToCheeseBoss() {
             return true
         }
         if (IsAreaSampleColour("0x150412")) {
-            if (Debug) {
-                Log("Blind travel success to Cursed Halloween.")
-            }
+            DebugLog("Blind travel success to Cursed Halloween.")
             return true
         } else {
             Log("Traveling to Cursed Halloween, colour found was "
@@ -505,22 +482,22 @@ GoToFarmField() {
         ; breaking
         while ((IsAreaSampleColour("0x4A9754") && !IsBossTimerActive())
             && i <= 4) {
-                if (!IsWindowActive()) {
-                    Log("No window found while trying to travel.")
-                    return false
-                }
-                OpenEventsAreasPanel()
-                if (IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
-                    return false
-                }
-                fSlowClick(buttonX, buttonY, NavigateTime) ; Open farm field
-                Sleep(NavigateTime)
-                i++
+            if (!IsWindowActive()) {
+                Log("No window found while trying to travel.")
+                return false
+            }
+            OpenEventsAreasPanel()
+            if (cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
+                return false
+            }
+            fSlowClick(buttonX, buttonY, NavigateTime) ; Open farm field
+            Sleep(NavigateTime)
+            i++
         }
         ; If we were not at home garden or now farm field, try travel
         while (!IsAreaSampleColour("0x4A9754") && i <= 4) {
             OpenEventsAreasPanel()
-            if (IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
+            if (cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
                 return false
             }
             fSlowClick(buttonX, buttonY, NavigateTime) ; Open farm field
@@ -529,15 +506,13 @@ GoToFarmField() {
         }
     }
     if (IsAreaSampleColour("0x4A9754") && IsBossTimerActive()) {
-        if (Debug) {
-            Log("Travel success to Farm Field.")
-        }
+        DebugLog("Travel success to Farm Field.")
         return true
     } else {
         Log("Traveling to Farm Field. Attempt to blind travel with slowed"
             " times.")
         OpenEventsAreasPanel(200)
-        if (IsBackground(WinRelPosW(buttonX), WinRelPosH(buttonY))) {
+        if (cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
             return false
         }
         fSlowClick(buttonX, buttonY, NavigateTime + 200) ; Open farm field
@@ -547,9 +522,7 @@ GoToFarmField() {
             return true
         }
         if (IsAreaSampleColour("0x4A9754")) {
-            if (Debug) {
-                Log("Blind travel success to Farm Field.")
-            }
+            DebugLog("Blind travel success to Farm Field.")
             return true
         } else {
             Log("Traveling to Farm Field failed, colour found was "
@@ -591,33 +564,31 @@ GoToDesert() {
         ; there and can recheck if travels failed
         while (!IsAreaSampleColour("0xAC816B") && !IsBossTimerActive() &&
             i <= 4) {
-                if (!IsWindowActive()) {
-                    Log("No window found while trying to travel.")
-                    return false
+            if (!IsWindowActive()) {
+                Log("No window found while trying to travel.")
+                return false
+            }
+            OpenAreasPanel(true)
+            ScrollAmountDown(23) ; Scroll down for the zones 0xAC816B
+            Sleep(NavigateTime)
+            local DesertLeaf := FindDesertZone()
+            if (DesertLeaf) {
+                ButtonX := DesertLeaf[1] + WinRelPosLargeW(225)
+                ButtonY := DesertLeaf[2] + WinRelPosLargeH(5)
+                if (!cPoint(ButtonX, ButtonY, true).IsBackground()) {
+                    fCustomClick(ButtonX, ButtonY, NavigateTime)
+                    ; Set zone to The Infernal Desert
                 }
-                OpenAreasPanel(true)
-                ScrollAmountDown(23) ; Scroll down for the zones 0xAC816B
-                Sleep(NavigateTime)
-                local DesertLeaf := FindDesertZone()
-                if (DesertLeaf) {
-                    ButtonX := DesertLeaf[1] + WinRelPosLargeW(225)
-                    ButtonY := DesertLeaf[2] + WinRelPosLargeH(5)
-                    if (!IsBackground(ButtonX, ButtonY)) {
-                        fCustomClick(ButtonX, ButtonY, NavigateTime)
-                        ; Set zone to The Infernal Desert
-                    }
-                } else {
-                    Log("Desert leaf not found while trying to travel.")
-                }
-                Sleep(NavigateTime)
-                ; Delay to allow the map to change, otherwise we travel twice
-                i++
+            } else {
+                Log("Desert leaf not found while trying to travel.")
+            }
+            Sleep(NavigateTime)
+            ; Delay to allow the map to change, otherwise we travel twice
+            i++
         }
     }
     if (IsAreaSampleColour("0xAC816B")) {
-        if (Debug) {
-            Log("Travel success to The Infernal Desert.")
-        }
+        DebugLog("Travel success to The Infernal Desert.")
         return true
     } else {
         Log("Traveling to The Infernal Desert. Attempt to blind travel with"
@@ -629,7 +600,7 @@ GoToDesert() {
         if (DesertLeaf) {
             ButtonX := DesertLeaf[1] + WinRelPosLargeW(225)
             ButtonY := DesertLeaf[2] + WinRelPosLargeH(5)
-            if (!IsBackground(ButtonX, ButtonY)) {
+            if (!cPoint(ButtonX, ButtonY, true).IsBackground()) {
                 fCustomClick(ButtonX, ButtonY, NavigateTime + 200)
             } else {
                 Log("Desert travel: Button not found.")
@@ -642,9 +613,7 @@ GoToDesert() {
             return true
         }
         if (IsAreaSampleColour("0xAC816B")) {
-            if (Debug) {
-                Log("Blind travel success to The Infernal Desert.")
-            }
+            DebugLog("Blind travel success to The Infernal Desert.")
             return true
         } else {
             Log("Traveling to The Infernal Desert failed, colour found was "
@@ -661,6 +630,7 @@ GoToAstralOasis() {
     }
     global DisableZoneChecks
     i := 0
+    button := cPoint(1665, 643)
     if (!DisableZoneChecks) {
         while (!IsAreaSampleColour("0x000108") && i <= 4) {
             if (!IsWindowActive()) {
@@ -669,28 +639,26 @@ GoToAstralOasis() {
             }
             Log("Traveling to Astral Oasis (Quark Boss 1)")
             OpenQuarkPanel()
-            if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(643))) {
-                fSlowClickRelL(1670, 643, NavigateTime)
+            if (!button.IsBackground()) {
+                button.ClickOffset(5, 0, NavigateTime)
             } else {
-                fSlowClickRelL(1670, 680, NavigateTime)
+                button.ClickOffset(5, 37, NavigateTime)
             }
             Sleep(NavigateTime)
             i++
         }
     }
     if (IsAreaSampleColour("0x000108")) {
-        if (Debug) {
-            Log("Blind travel success to Astral Oasis (Quark Boss 1).")
-        }
+        DebugLog("Blind travel success to Astral Oasis (Quark Boss 1).")
         return true
     } else {
         Log("Traveling to Astral Oasis (Quark Boss 1). Attempt to blind travel"
             " with slowed times.")
         OpenQuarkPanel(200)
-        if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(643))) {
-            fSlowClickRelL(1670, 643, NavigateTime + 200)
+        if (!button.IsBackground()) {
+            button.ClickOffset(5, 0, NavigateTime + 200)
         } else {
-            fSlowClickRelL(1670, 680, NavigateTime + 200)
+            button.ClickOffset(5, 37, NavigateTime + 200)
         }
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
@@ -698,9 +666,7 @@ GoToAstralOasis() {
             return true
         }
         if (IsAreaSampleColour("0x000108")) {
-            if (Debug) {
-                Log("Blind travel success to Astral Oasis (Quark Boss 1).")
-            }
+            DebugLog("Blind travel success to Astral Oasis (Quark Boss 1).")
             return true
         } else {
             Log("Traveling to Astral Oasis (Quark Boss 1) failed, colour"
@@ -717,6 +683,7 @@ GoToDimentionalTapestry() {
     }
     global DisableZoneChecks
     i := 0
+    button := cPoint(1665, 820)
     if (!DisableZoneChecks) {
         while (!IsAreaSampleColour("0x37356B") && i <= 4) {
             if (!IsWindowActive()) {
@@ -725,28 +692,26 @@ GoToDimentionalTapestry() {
             }
             Log("Traveling to Dimentional Tapestry (Quark Boss 2)")
             OpenQuarkPanel()
-            if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(820))) {
-                fSlowClickRelL(1670, 820, NavigateTime)
+            if (!button.IsBackground()) {
+                button.ClickOffset(5, 0, NavigateTime)
             } else {
-                fSlowClickRelL(1670, 860, NavigateTime)
+                button.ClickOffset(5, 40, NavigateTime)
             }
             Sleep(NavigateTime)
             i++
         }
     }
     if (IsAreaSampleColour("0x37356B")) {
-        if (Debug) {
-            Log("Travel success to Dimentional Tapestry (Quark Boss 2).")
-        }
+        DebugLog("Travel success to Dimentional Tapestry (Quark Boss 2).")
         return true
     } else {
         Log("Traveling to Dimentional Tapestry (Quark Boss 2). Attempt to"
             " blind travel with slowed times.")
         OpenQuarkPanel(200)
-        if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(820))) {
-            fSlowClickRelL(1670, 820, NavigateTime + 200)
+        if (!button.IsBackground()) {
+            button.ClickOffset(5, 0, NavigateTime + 200)
         } else {
-            fSlowClickRelL(1670, 860, NavigateTime + 200)
+            button.ClickOffset(5, 40, NavigateTime + 200)
         }
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
@@ -754,9 +719,7 @@ GoToDimentionalTapestry() {
             return true
         }
         if (IsAreaSampleColour("0x37356B")) {
-            if (Debug) {
-                Log("Blind travel success to Dimentional Tapestry (Quark Boss 2).")
-            }
+            DebugLog("Blind travel success to Dimentional Tapestry (Quark Boss 2).")
             return true
         } else {
             Log("Traveling to Dimentional Tapestry (Quark Boss 2) failed,"
@@ -781,9 +744,12 @@ GoToPlankScope() {
             }
             Log("Traveling to Plank Scope (Quark Boss 3)")
             OpenQuarkPanel()
-            if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(970))) {
+            button := cPoint(1665, 970)
+            if (!button.IsBackground()) {
+                button.ClickOffset(5, 0, NavigateTime)
                 fSlowClickRelL(1670, 970, NavigateTime + 200)
             } else {
+                button.ClickOffset(5, 50, NavigateTime)
                 fSlowClickRelL(1670, 1020, NavigateTime + 200)
             }
             Sleep(NavigateTime)
@@ -791,19 +757,16 @@ GoToPlankScope() {
         }
     }
     if (IsAreaSampleColour("0x0B1E32")) {
-        if (Debug) {
-            Log("Travel success to Plank Scope (Quark Boss 3).")
-        }
+        DebugLog("Travel success to Plank Scope (Quark Boss 3).")
         return true
     } else {
         Log("Traveling to Plank Scope (Quark Boss 3). Attempt to blind travel"
             " with slowed times.")
         OpenQuarkPanel(200)
-        if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(970))) {
-            fSlowClickRelL(1670, 965, NavigateTime + 200)
-        } else if (!IsBackground(WinRelPosLargeW(1665),
-            WinRelPosLargeH(1020))) {
-                fSlowClickRelL(1670, 1020, NavigateTime + 200)
+        if (!button.IsBackground()) {
+            button.ClickOffset(5, 0, NavigateTime + 200)
+        } else if (!cPoint(1665, 1020).IsBackground()) {
+            button.ClickOffset(5, 50, NavigateTime + 200)
         }
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
@@ -811,9 +774,7 @@ GoToPlankScope() {
             return true
         }
         if (IsAreaSampleColour("0x0B1E32")) {
-            if (Debug) {
-                Log("Blind travel success to Plank Scope (Quark Boss 3).")
-            }
+            DebugLog("Blind travel success to Plank Scope (Quark Boss 3).")
             return true
         } else {
             Log("Traveling to Plank Scope (Quark Boss 3) failed, colour"
@@ -835,10 +796,11 @@ SingleAnteLeaftonTravel(extradelay := 0) {
     }
     OpenQuarkPanel(extradelay)
     ScrollAmountDown(2)
-    if (!IsBackground(WinRelPosLargeW(1665), WinRelPosLargeH(970))) {
-        fSlowClickRelL(1670, 970, NavigateTime + extradelay)
+    button := cPoint(1665, 970)
+    if (!button.IsBackground()) {
+        button.ClickOffset(5, 0, NavigateTime + extradelay)
     } else {
-        fSlowClickRelL(1670, 1020, NavigateTime + extradelay)
+        button.ClickOffset(5, 50, NavigateTime + extradelay)
     }
     Sleep(NavigateTime)
 }
@@ -858,9 +820,7 @@ GoToAnteLeafton() {
             i++
         }
         if (IsAreaBlack() && IsBossTimerActive()) {
-            if (Debug) {
-                Log("Travel success to Ante Leafton.")
-            }
+            DebugLog("Travel success to Ante Leafton.")
             return true
         }
     }
@@ -873,9 +833,7 @@ GoToAnteLeafton() {
             return true
         }
         if (IsAreaSampleColour("0x000000")) {
-            if (Debug) {
-                Log("Blind travel success to Ante Leafton.")
-            }
+            DebugLog("Blind travel success to Ante Leafton.")
             return true
         } else {
             Log("Traveling to Ante Leafton failed, colour"
@@ -911,9 +869,7 @@ GotoCardsFirstTab() {
         }
     }
     if (IsOnCardsFirstPanel()) {
-        if (Debug) {
-            Log("Travel success to Cards First Tab.")
-        }
+        DebugLog("Travel success to Cards First Tab.")
         return true
     } else {
         ; Attempt to blind travel with slowed times
@@ -931,9 +887,7 @@ GotoCardsFirstTab() {
             return true
         }
         if (IsOnCardsFirstPanel()) {
-            if (Debug) {
-                Log("Blind travel success to Cards First Tab.")
-            }
+            DebugLog("Blind travel success to Cards First Tab.")
             return true
         } else {
             Log("GotoCardsFirstTab: Not at cards first tab")
@@ -943,7 +897,7 @@ GotoCardsFirstTab() {
 }
 
 IsOnCardsFirstPanel() {
-    if (IsButtonActive(WinRelPosLargeW(2129), WinRelPosLargeH(420))) {
+    if (cPoint(2129, 420).IsButtonActive()) {
         return true
     }
     return false
@@ -971,20 +925,18 @@ GotoBorbventuresFirstTab() {
     while (!IsButtonActive(WinRelPosLargeW(1100), WinRelPosLargeH(314)) &&
         !IsButtonActive(WinRelPosLargeW(1574), WinRelPosLargeH(314)) &&
         i <= 4) {
-            OpenPets() ; Opens or closes another screen so that when areas is opened it
-            ; doesn't close
-            Sleep(101)
-            OpenBorbVentures() ; Open BV
-            Sleep(101)
-            BVResetScroll()
-            i++
+        OpenPets() ; Opens or closes another screen so that when areas is opened it
+        ; doesn't close
+        Sleep(101)
+        OpenBorbVentures() ; Open BV
+        Sleep(101)
+        BVResetScroll()
+        i++
     }
     if (IsButtonActive(WinRelPosLargeW(1100), WinRelPosLargeH(314)) &&
         IsButtonActive(WinRelPosLargeW(1574), WinRelPosLargeH(314))) {
-            if (Debug) {
-                Log("Travel success to Borbventures First Tab.")
-            }
-            return true
+        DebugLog("Travel success to Borbventures First Tab.")
+        return true
     }
     Log("Failed to travel to borbventures first tab")
     return false
@@ -1030,30 +982,30 @@ GoToLeafTower() {
     ; Open leafsing harbor to allow max level reset
     if (IsBackground(OutX + WinRelPosLargeW(69),
         OutY - WinRelPosLargeH(132))) {
-            ; Background colour found
-            Log("Error 30: Tower alt area detection failed. Alignment2.")
-            return false
+        ; Background colour found
+        Log("Error 30: Tower alt area detection failed. Alignment2.")
+        return false
     }
     fCustomClick(OutX + WinRelPosLargeW(69),
         OutY - WinRelPosLargeH(132), 101)
     Sleep(101)
 
     ; Max Tower level
-    if (!IsButtonActive(OutX + WinRelPosLargeW(471),
-        OutY + WinRelPosLargeH(67))) {
-            Log("Error 31: Tower max detection failed. Alignment3.")
-            return false
+    if (!cPoint(OutX + WinRelPosLargeW(471),
+        OutY + WinRelPosLargeH(67), true).IsButtonActive()) {
+        Log("Error 31: Tower max detection failed. Alignment3.")
+        return false
     }
     fCustomClick(OutX + WinRelPosLargeW(471),
         OutY + WinRelPosLargeH(67), 101)
     Sleep(101)
 
     ; Select Tower area
-    if (!IsButtonActive(OutX + WinRelPosLargeW(69),
-        OutY + WinRelPosLargeH(5))) {
-            Log("Error 32: Tower area detection failed. Could not find "
-                " Leaf Tower Travel Button.")
-            return
+    if (!cPoint(OutX + WinRelPosLargeW(69),
+        OutY + WinRelPosLargeH(5), true).IsButtonActive()) {
+        Log("Error 32: Tower area detection failed. Could not find "
+            " Leaf Tower Travel Button.")
+        return
     }
     fCustomClick(OutX + WinRelPosLargeW(69),
         OutY + WinRelPosLargeH(5), 101)

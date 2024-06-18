@@ -269,10 +269,8 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         GameKeys.GetHotkeyVK("RefreshTrades") + 0.0,
         GameKeys.GetHotkeyVK("OpenGemShop") + 0.0,
         GameKeys.GetHotkeyVK("OpenTrades") + 0.0]
-        
-    if (Debug) {
-        Log("Script keys set to: " ArrToCommaDelimStr(aInUse))
-    }
+
+    VerboseLog("Script keys set to: " ArrToCommaDelimStr(aInUse))
     for (key in notRequiredHotkeys) {
         jsonData[key]['value'] := ResetIncorrectHotkey(jsonData[key]['value'], aInUse)
     }
@@ -283,13 +281,13 @@ ResetIncorrectHotkey(var, aInUse) {
     if (var = -1.0) {
         return -1.0
     }
-    if (Debug && var != "") {
-        Log("Checking key " var ": " GetKeyName(Format("vk{:X}", var)))
+    if (var != "") {
+        VerboseLog("Checking key " var ": " GetKeyName(Format("vk{:X}", var)))
     }
     for (key in aInUse) {
         if (var = key) {
-            if (Debug && var != "") {
-                Log("Had to reset keybind " var ": " GetKeyName(Format("vk{:X}", var)))
+            if (var != "") {
+                DebugLog("Had to reset keybind " var ": " GetKeyName(Format("vk{:X}", var)))
             }
             var := -1.0
         }

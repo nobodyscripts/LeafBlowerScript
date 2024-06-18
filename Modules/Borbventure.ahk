@@ -63,22 +63,23 @@ BVMainLoop() {
         if (arrowY && IsWindowActive()) {
             arrowCount++
             ; If slot is active, we don't care what it is
-            if (IsBackground(WinRelPosLargeW(1855), arrowY) &&
-                !IsBackground(WinRelPosLargeW(2100), arrowY)) {
-                    ; If slots cancel button exists, assume active. This lets us
-                    ; pause refreshing until something new happens to avoid wastage
-                    activeSlots++
+            StartButton := cPoint(WinRelPosLargeW(1855), arrowY, true)
+            CancelButton := cPoint(WinRelPosLargeW(2100), arrowY, true)
+            if (StartButton.IsBackground() && !CancelButton.IsBackground()) {
+                ; If slots cancel button exists, assume active. This lets us
+                ; pause refreshing until something new happens to avoid wastage
+                activeSlots++
             } else {
                 if ((BVScanSlotRarity(arrowY) != "0x9E10C1" &&
                     BVScanSlotRarity(arrowY) != "0xE1661A") || !BVBlockMythLeg) {
-                        ; If slot has an item we want add it to the target list
-                        IsUsefulItem := BVScanSlotItem(WinRelPosLargeW(1313),
-                            arrowY - WinRelPosLargeH(17),
-                            WinRelPosLargeW(1347),
-                            arrowY + WinRelPosLargeH(20))
-                        if (IsUsefulItem) {
-                            targetItemsYArray.Push(arrowY)
-                        }
+                    ; If slot has an item we want add it to the target list
+                    IsUsefulItem := BVScanSlotItem(WinRelPosLargeW(1313),
+                        arrowY - WinRelPosLargeH(17),
+                        WinRelPosLargeW(1347),
+                        arrowY + WinRelPosLargeH(20))
+                    if (IsUsefulItem) {
+                        targetItemsYArray.Push(arrowY)
+                    }
                 }
             }
         }
@@ -129,60 +130,59 @@ AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started) {
         (detailedMode && !HaveBorbDLC && activeSlots + started < 5) ||
         (!detailedMode && HaveBorbDLC && activeSlots + started < 4) ||
         (detailedMode && HaveBorbDLC && activeSlots + started < 6)) {
-            return true
+        return true
     }
     return false
 }
 
 BVStartItemFromSlot(SlotY) {
-    if (SlotY != 0 && IsWindowActive() &&
-        IsButtonInactive(WinRelPosLargeW(1864), SlotY)) {
-            ; Don't try to start more if we're full even if another is
-            ; detected
-            ; If slots inactive, its ready to start,
-            ; use its y to align clicks
-            ; Click team slot 1
-            bvSleepTime := 72
-            fCustomClick(WinRelPosLargeW(1610), SlotY, bvSleepTime)
+    StartButton := cPoint(WinRelPosLargeW(1864), SlotY, true)
+    if (SlotY != 0 && IsWindowActive() && StartButton.IsButtonInactive()) {
+        ; Don't try to start more if we're full even if another is
+        ; detected
+        ; If slots inactive, its ready to start,
+        ; use its y to align clicks
+        ; Click team slot 1
+        bvSleepTime := 72
+
+        BorbSlot1 := cPoint(WinRelPosLargeW(1608), SlotY, true)
+        BorbSlot1.ClickOffset(2, 0, bvSleepTime)
+        Sleep(bvSleepTime)
+        a := b := c := 0
+        while (BorbSlot1.IsButtonActive() && a < 2) {
+            BorbSlot1.ClickOffset(2, 0, bvSleepTime)
+            a++
             Sleep(bvSleepTime)
-            a := b := c := 0
-            while (IsButtonActive(WinRelPosLargeW(1608), SlotY) &&
-                a < 2) {
-                    fCustomClick(WinRelPosLargeW(1610), SlotY, bvSleepTime)
-                    a++
-                    Sleep(bvSleepTime)
-            }
-            ; Click team slot 2
-            fCustomClick(WinRelPosLargeW(1730), SlotY, bvSleepTime)
+        }
+        ; Click team slot 2
+        BorbSlot2 := cPoint(WinRelPosLargeW(1728), SlotY, true)
+        BorbSlot2.ClickOffset(2, 0, bvSleepTime)
+        Sleep(bvSleepTime)
+        while (BorbSlot2.IsButtonActive() && b < 2) {
+            BorbSlot2.ClickOffset(2, 0, bvSleepTime)
+            b++
             Sleep(bvSleepTime)
-            while (IsButtonActive(WinRelPosLargeW(1728), SlotY) &&
-                b < 2) {
-                    fCustomClick(WinRelPosLargeW(1730), SlotY, bvSleepTime)
-                    b++
-                    Sleep(bvSleepTime)
-            }
-            ; Click Start
-            fCustomClick(WinRelPosLargeW(1911), SlotY, bvSleepTime)
+        }
+        ; Click Start
+        StartButton2 := cPoint(WinRelPosLargeW(1850), SlotY, true)
+        StartButton2.ClickOffset(61, 0, bvSleepTime)
+        Sleep(bvSleepTime)
+        while (StartButton2.IsButtonActive() && c < 2) {
+            StartButton2.ClickOffset(61, 0, bvSleepTime)
+            c++
             Sleep(bvSleepTime)
-            while (IsButtonActive(WinRelPosLargeW(1850), SlotY) &&
-                c < 2) {
-                    fCustomClick(WinRelPosLargeW(1911), SlotY, bvSleepTime)
-                    c++
-                    Sleep(bvSleepTime)
-            }
-            return true
+        }
+        return true
     }
     return false
 }
 
 BVGetFinishButtonLocation() {
-    ; 1855 276 top left 1440 res
-    ; 1855 1073 bottom right
-    col1 := PixelSearchWrapperRel(1855, 352, 1855, 1073, "0xFFF1D2")
+    col1 := Areas.Borbventures.FinishButtonCol.PixelSearch("0xFFF1D2")
     if (col1 != false) {
         return col1
     }
-    col2 := PixelSearchWrapperRel(1855, 352, 1855, 1073, "0xFDD28A")
+    col2 := Areas.Borbventures.FinishButtonCol.PixelSearch("0xFDD28A")
     if (col2 != false) {
         return col2
     }
@@ -222,44 +222,6 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
     return 0
 }
 
-/**
- * Looks for user selected colour in designated box and returns height
- * @param x1 Top left Coordinate (relative 1440)
- * @param y1 Top left Coordinate (relative 1440)
- * @param x2 Bottom Right Coordinate (relative 1440)
- * @param y2 Bottom Right Coordinate (relative 1440)
- * @returns {number} 0 if nothing, Y if found, nonrel coord
- */
-BVScanSlotItemRel(X1, Y1, X2, Y2) {
-    global BVItemsArr
-
-    if (!BVItemsArr.Length) {
-        BVItemsArr := ["0xF91FF6"]
-        ; If no items selected default to purple juice
-    }
-    ; This is the check for the items colours, if you want to scan
-    ; for something else. Change this colour to something unique to that
-    ; type, or add more checks if you want several.
-
-    try {
-        for colour in BVItemsArr {
-            found := PixelSearch(&OutX, &OutY,
-                WinRelPosLargeW(X1), WinRelPosLargeH(Y1),
-                WinRelPosLargeW(X2), WinRelPosLargeH(Y2),
-                colour, 0)
-            If (found and OutX != 0) {
-                ; Log("Borbv: Found " BVColourToItem(colour) " at " OutX
-                ;    " x " OutY)
-                return OutY ; Found item row
-            }
-        }
-    } catch as exc {
-        Log("Borbv: ScanSlotItemRel failed to scan - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
-    }
-    return 0
-}
 BVColourToItem(colour) {
     switch colour {
         case "0xF91FF6": return "Borb ascention juice (purple default)"
@@ -290,24 +252,9 @@ BVScanSlotRarity(arrowY) {
     return PixelGetColor(WinRelPosLargeW(331), arrowY)
 }
 
-IsBVScrollAblePanelAtTop() {
-    ; 2220 258 top scroll arrow button
-    ; 2220 320 scroll handle
-    if (IsButtonActive(WinRelPosLargeW(2220), WinRelPosLargeH(258))) {
-        ; Up Arrow exists, so scrolling is possible
-        if (IsButtonActive(WinRelPosLargeW(2220), WinRelPosLargeH(320))) {
-            ; Is at top
-            return true
-        } else {
-            return false
-        }
-    }
-    return true
-}
-
 IsBVAutoStartOn() {
-    font0 := !IsButtonActive(WinRelPosLargeW(586), WinRelPosLargeH(1097))
-    font1 := !IsButtonActive(WinRelPosLargeW(597), WinRelPosLargeH(1097))
+    font0 := !Points.Borbventures.AutoStartFont0.IsButtonActive()
+    font1 := !Points.Borbventures.AutoStartFont1.IsButtonActive()
     if (Debug) {
         Log("BVAutostart: Font 0 check " BinaryToStr(font0)
             ", Font 1 check " BinaryToStr(font1))
@@ -329,7 +276,7 @@ BVCachedArrowsLocations() {
             PixelGetColor(WinRelPosLargeW(1280), locations[4]) = "0x1989B8" &&
             PixelGetColor(WinRelPosLargeW(1280), locations[5]) = "0x1989B8" &&
             PixelGetColor(WinRelPosLargeW(1280), locations[6]) = "0x1989B8") {
-                return locations
+            return locations
         }
 
     }

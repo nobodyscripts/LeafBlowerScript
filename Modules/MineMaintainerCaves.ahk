@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0
 
-#Include ../Lib/Coords.ahk
-#Include ../Lib/SampleArea.ahk
+#Include ../Lib/cPoints.ahk
+#Include ../Lib/cArea.ahk
 
 CavesSinglePass() {
     id := 1
-    Buttons := [cMineCaveSelectButton1(), cMineCaveSelectButton2(),
-        cMineCaveSelectButton3(), cMineCaveSelectButton4(), cMineCaveSelectButton5()]
+    Buttons := GetCaveTabButtons()
     if (!IsPanelActive()) {
         return
     }
-    if (!cMineCaveSelectButton1().IsButton()) {
+    if (!Points.Mine.Cave.Select1.IsButton()) {
         return
     }
     for button in Buttons {
@@ -35,27 +34,28 @@ CavesSingleCheck() {
             " Selected " BinaryToStr(IsCaveSelected(id)))
     }
     if (id = 0) {
-        if (Debug) {
-            Log("Didn't find a selected cave")
-        }
+        DebugLog("Didn't find a selected cave")
         return
     }
     if (IsCaveDiamond() && !IsCaveDrilling()) {
-        cMineCaveDrillButton().ClickOffset()
+        Points.Mine.Cave.DrillToggle.ClickOffset()
     }
 }
 
 IsCaveDrilling() {
-    if (cMineCaveIsDrillOff().AreaPixelSearch("0xFFFFFF")) {
+    if (Areas.Mine.Cave.DrillStatus.PixelSearch("0xFFFFFF")) {
         return false
     }
     return true
 }
 
 IsCaveLocked(id) {
-    Areas := [cMineCaveLockInd1(), cMineCaveLockInd2(),
-        cMineCaveLockInd3(), cMineCaveLockInd4(), cMineCaveLockInd5()]
-    if (!Areas[id].AreaPixelSearch("0xFFFF79")) {
+    LockAreas := [Areas.Mine.Cave.LockInd1,
+        Areas.Mine.Cave.LockInd2,
+        Areas.Mine.Cave.LockInd3,
+        Areas.Mine.Cave.LockInd4,
+        Areas.Mine.Cave.LockInd5]
+    if (!LockAreas[id].PixelSearch("0xFFFF79")) {
         return false
     }
     return true
@@ -63,8 +63,7 @@ IsCaveLocked(id) {
 
 
 IsCaveSelected(id) {
-    Buttons := [cMineCaveSelectButton1(), cMineCaveSelectButton2(),
-        cMineCaveSelectButton3(), cMineCaveSelectButton4(), cMineCaveSelectButton5()]
+    Buttons := GetCaveTabButtons()
     colour := Buttons[id].GetColour()
     ; Green mouseover colour 0x78D063 clicked 0xA0EC84
     if (colour = "0x78D063" || colour = "0xA0EC84") {
@@ -74,15 +73,14 @@ IsCaveSelected(id) {
 }
 
 IsCaveDiamond() {
-    if (!cMineCaveDiamondIcon().AreaPixelSearch("0x3210B0")) {
+    if (!Areas.Mine.Cave.DiamondIcon.PixelSearch("0x3210B0")) {
         return false
     }
     return true
 }
 
 GetCurrentCave() {
-    Buttons := [cMineCaveSelectButton1(), cMineCaveSelectButton2(),
-        cMineCaveSelectButton3(), cMineCaveSelectButton4(), cMineCaveSelectButton5()]
+    Buttons := GetCaveTabButtons()
     id := 1
     for button in Buttons {
         colour := button.GetColour()
@@ -92,4 +90,12 @@ GetCurrentCave() {
         id++
     }
     return 0
+}
+
+GetCaveTabButtons() {
+    return [Points.Mine.Cave.Select1,
+        Points.Mine.Cave.Select2,
+        Points.Mine.Cave.Select3,
+        Points.Mine.Cave.Select4,
+        Points.Mine.Cave.Select5]
 }

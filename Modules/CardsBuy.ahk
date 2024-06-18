@@ -156,7 +156,7 @@ CardBuyRoundRobin() {
 
     If (!CommonButtonActive && !RareButtonActive &&
         !LegButtonActive) {
-            return false
+        return false
     }
     return true
 }
@@ -192,7 +192,7 @@ CardBuyRoundRobin2() {
     }
     If (!CommonButtonActive && !RareButtonActive &&
         !LegButtonActive) {
-            return false
+        return false
     }
     return true
 }
@@ -206,9 +206,7 @@ CardBuyLegFirst() {
             cardBuyOffset, CardsLegBuyAmount)
     } else {
         ; If disabled mark inactive
-        if (Debug) {
-            Log("Leg Disabled")
-        }
+        DebugLog("Leg Disabled")
         LegButtonActive := false
     }
     ; Rare
@@ -218,9 +216,7 @@ CardBuyLegFirst() {
             cardBuyOffset, CardsRareBuyAmount)
     } else {
         ; If disabled mark inactive
-        if (Debug) {
-            Log("Rare Disabled")
-        }
+        DebugLog("Rare Disabled")
         RareButtonActive := false
     }
     ; Common
@@ -230,18 +226,14 @@ CardBuyLegFirst() {
             cardBuyOffset, CardsCommonBuyAmount)
     } else {
         ; If disabled mark inactive
-        if (Debug) {
-            Log("Commons Disabled")
-        }
+        DebugLog("Commons Disabled")
         CommonButtonActive := false
     }
 
     If (!CommonButtonActive && !RareButtonActive &&
         !LegButtonActive) {
-            if (Debug) {
-                Log("All inactive")
-            }
-            return false
+        DebugLog("All inactive")
+        return false
     }
     return true
 }
@@ -278,7 +270,7 @@ CardBuyRareFirst() {
 
     If (!CommonButtonActive && !RareButtonActive &&
         !LegButtonActive) {
-            return false
+        return false
     }
     return true
 }
@@ -315,7 +307,7 @@ CardBuyRare2First() {
 
     If (!CommonButtonActive && !RareButtonActive &&
         !LegButtonActive) {
-            return false
+        return false
     }
     return true
 }
@@ -352,7 +344,7 @@ CardBuyCommonFirst() {
 
     If (!CommonButtonActive && !RareButtonActive &&
         !LegButtonActive) {
-            return false
+        return false
     }
     return true
 }

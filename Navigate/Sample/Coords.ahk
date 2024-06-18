@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Coords.ahk
+#Include ..\..\Lib\cPoints.ahk
 
-cSampleButton() { ; Button for sphere use
-    o := RelCoord()
-    o.SetCoordRel(1, 1)
-    return o
+/**
+ * Sample points for buttons
+ * @property {cPoint} Sample Sample button in Sample panel
+ */
+Class cSamplePoints {
+    Sample := cPoint(675, 750)
 }

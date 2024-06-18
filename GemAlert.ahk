@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-#Include Lib/Coords.ahk
+#Include Lib/cPoints.ahk
 #Include Lib/Functions.ahk
 #Include Lib/Navigate.ahk
 #Include Lib/ScriptSettings.ahk
@@ -50,9 +50,9 @@ loop {
 
 FindVeinsWithBars2() {
 
-    SampleSlot4 := cMineVeinIconSlot4()
-    SampleSlot5 := cMineVeinIconSlot5()
-    SampleSlot6 := cMineVeinIconSlot6()
+    SampleSlot4 := Points.Mine.Vein.Slot4.Icon 
+    SampleSlot5 := Points.Mine.Vein.Slot5.Icon
+    SampleSlot6 := Points.Mine.Vein.Slot6.Icon
     if (SampleSlot4.GetColour() != "0x6D758D" ||
         SampleSlot5.GetColour() != "0x6D758D" ||
         SampleSlot6.GetColour() != "0x6D758D") {

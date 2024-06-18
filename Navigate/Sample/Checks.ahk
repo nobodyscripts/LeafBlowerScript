@@ -2,6 +2,9 @@
 
 #Include ..\..\Lib\Functions.ahk
 
+/**
+ * 
+ */
 IsOnPanelSample() {
     
 }

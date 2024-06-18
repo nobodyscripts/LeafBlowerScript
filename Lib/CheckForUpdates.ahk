@@ -60,8 +60,6 @@ class ScriptVersion {
         this.Build := var["Build"]
     }
 
-    
-
     ReleaseToVal(var := this.Release) {
         switch var {
             case "Test":

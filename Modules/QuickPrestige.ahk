@@ -1,10 +1,8 @@
 #Requires AutoHotkey v2.0
 
 fPrestigeSpammer() {
-    prestigeButton := RelCoord()
-    prestigeButton.SetCoordRel(1456, 430)
-    prestigeConfirmButton := RelCoord()
-    prestigeConfirmButton.SetCoordRel(1456, 525)
+    prestigeButton := cPoint(1456, 430)
+    prestigeConfirmButton := cPoint(1456, 525)
     if (IsPanelActive()) {
         ClosePanel()
         Sleep(NavigateTime)

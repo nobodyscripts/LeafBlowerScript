@@ -206,6 +206,11 @@ GameKeys.Hotkeys["EquipTowerGearLoadout"] := singleHotkey().Create(
     ),
     "Loadouts")
 
+; If its not set then assume its a temp script
+if (!isset(IsSecondary)) {
+    IsSecondary := true
+}
+
 GameKeys.initHotkeys(IsSecondary)
 
 OpenAreas() {

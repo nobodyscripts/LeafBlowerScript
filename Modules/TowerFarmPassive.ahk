@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-#Include ../Lib/Coords.ahk
+#Include ../Lib/cPoints.ahk
 #Include ../Lib/Spammers.ahk
 
 global TowerPassiveCraftEnabled := true
@@ -22,7 +22,7 @@ fTowerFarm() {
     }
     GoToLeafTower()
     starttime := A_Now
-    craftStopCoord := cCraftingStop()
+    craftStopCoord := Points.Crafting.Stop
     TowerPassiveSpammerStart()
     if (TowerPassiveBanksEnabled) {
         OpenPets()
@@ -40,12 +40,12 @@ fTowerFarm() {
     loop {
         if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             TowerPassiveBanksEnabled) {
-                Log("TowerPassive: Bank Maintainer starting.")
-                ToolTip("Tower Passive, Bank Maintainer Active", W / 2,
-                    WinRelPosLargeH(200), 4)
-                BankSinglePass()
-                ToolTip(, , , 4)
-                starttime := A_Now
+            Log("TowerPassive: Bank Maintainer starting.")
+            ToolTip("Tower Passive, Bank Maintainer Active", W / 2,
+                WinRelPosLargeH(200), 4)
+            BankSinglePass()
+            ToolTip(, , , 4)
+            starttime := A_Now
         }
         if (!IsWindowActive()) {
             break

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
 
 global ScriptsLogFile, EnableLogging
+global Verbose := false
 
 /**
  * Logger, user disable possible, debugout regardless of setting to vscode.
@@ -12,10 +13,9 @@ global ScriptsLogFile, EnableLogging
  */
 Log(logmessage, logfile := "") {
     global EnableLogging, ScriptsLogFile
-    if (!logfile) {
+    if (!logfile && IsSet(ScriptsLogFile)) {
         logfile := ScriptsLogFile
-    }
-    if (!logfile && !ScriptsLogFile) {
+    } else if (!logfile) {
         logfile := A_ScriptDir "\LeafBlowerV3.Log"
     }
     if (!IsSet(EnableLogging)) {
@@ -45,4 +45,28 @@ Log(logmessage, logfile := "") {
         FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
             "LogError: Error writing to log - " exc.Message '`r`n', logfile)
     }
+}
+
+/**
+ * Logging locked behind debug flag
+ * @param logmessage 
+ */
+DebugLog(logmessage) {
+    if (!Debug) {
+        Return
+    }
+    Log("Debug: " logmessage)
+}
+
+/**
+ * Logging for very frequent log entries, does not write to file only 
+ * Locked behind verbose set in logging.ahk
+ * OutputDebug
+ * @param logmessage 
+ */
+VerboseLog(logmessage) {
+    if (!Verbose) {
+        Return
+    }
+    OutputDebug("Verbose: " logmessage)
 }

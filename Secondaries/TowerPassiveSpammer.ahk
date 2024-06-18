@@ -14,7 +14,6 @@ global IsSecondary := true
 
 global X, Y, W, H
 X := Y := W := H := 0
-global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
 global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
 global ArtifactSleepAmount := 1
 global settings := cSettings()

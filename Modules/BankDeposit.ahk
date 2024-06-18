@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-#Include ../Lib/Coords.ahk
+#Include ../Lib/cPoints.ahk
 
 global BankEnableLGDeposit := true
 global BankEnableSNDeposit := true
@@ -15,6 +15,8 @@ global NavigateTime := 150
 
 fBankAutoDeposit() {
     global BankDepositTime
+    DepositRESS := Points.Bank.DepositRESS
+    UpgradeButton := Points.Bank.UpgradeStorage
     ; If user set 0 in gui without adding a fraction, make at least 1 second
     if (BankDepositTime = 0) {
         BankDepositTime := 0.017
@@ -41,8 +43,11 @@ fBankAutoDeposit() {
                     Sleep(NavigateTime)
                 }
                 loop {
-                    if (cBankDepositRESS().IsButtonActive()) {
-                        cBankDepositRESS().ClickOffset()
+                    if (!IsWindowActive()) {
+                        break
+                    }
+                    if (DepositRESS.IsButtonActive()) {
+                        DepositRESS.ClickOffset(5, 5)
                         Sleep(NavigateTime)
                     } else {
                         break
@@ -50,8 +55,11 @@ fBankAutoDeposit() {
                 }
                 if (BankEnableStorageUpgrade) {
                     loop {
-                        if (cBankUpgradeStorage().IsButtonActive()) {
-                            cBankUpgradeStorage().ClickOffset()
+                        if (!IsWindowActive()) {
+                            break
+                        }
+                        if (UpgradeButton.IsButtonActive()) {
+                            UpgradeButton.ClickOffset(5, 5)
                             Sleep(NavigateTime)
                         } else {
                             break
@@ -66,6 +74,8 @@ fBankAutoDeposit() {
 }
 
 BankSinglePass() {
+    DepositRESS := Points.Bank.DepositRESS
+    UpgradeButton := Points.Bank.UpgradeStorage
     if (IsPanelActive()) {
         ClosePanel()
         Sleep(NavigateTime)
@@ -92,8 +102,8 @@ BankSinglePass() {
                 if (!IsWindowActive()) {
                     break
                 }
-                if (cBankDepositRESS().IsButtonActive()) {
-                    cBankDepositRESS().ClickOffset()
+                if (DepositRESS.IsButtonActive()) {
+                    DepositRESS.ClickOffset(5, 5)
                     Sleep(NavigateTime)
                 } else {
                     break
@@ -101,8 +111,11 @@ BankSinglePass() {
             }
             if (BankEnableStorageUpgrade) {
                 loop {
-                    if (cBankUpgradeStorage().IsButtonActive()) {
-                        cBankUpgradeStorage().ClickOffset()
+                    if (!IsWindowActive()) {
+                        break
+                    }
+                    if (UpgradeButton.IsButtonActive()) {
+                        UpgradeButton.ClickOffset(5, 5)
                         Sleep(NavigateTime)
                     } else {
                         break
@@ -121,39 +134,43 @@ BankSinglePass() {
 BankTravelAreaByInd(index) {
     switch index {
         case 0:
-            cBankTabQA().Click()
+            Points.Bank.TabQA.Click()
         case 1:
-            cBankTabSR().Click()
+            Points.Bank.TabSR.Click()
         case 2:
-            cBankTabFF().Click()
+            Points.Bank.TabFF.Click()
         case 3:
-            cBankTabEB().Click()
+            Points.Bank.TabEB.Click()
         case 4:
-            cBankTabSN().Click()
+            Points.Bank.TabSN.Click()
         case 5:
-            cBankTabLG().Click()
+            Points.Bank.TabLG.Click()
         default:
 
     }
     Sleep(NavigateTime)
 }
 
+/**
+ * Get bank tab cPoint by index
+ * @param index 
+ * @returns {cPoint} | null
+ */
 BankTabCoordByInd(index) {
     switch index {
         case 0:
-            return cBankTabQA()
+            return Points.Bank.TabQA
         case 1:
-            return cBankTabSR()
+            return Points.Bank.TabSR
         case 2:
-            return cBankTabFF()
+            return Points.Bank.TabFF
         case 3:
-            return cBankTabEB()
+            return Points.Bank.TabEB
         case 4:
-            return cBankTabSN()
+            return Points.Bank.TabSN
         case 5:
-            return cBankTabLG()
+            return Points.Bank.TabLG
         default:
-
     }
 }
 BankIsTabEnabled(index) {
@@ -178,17 +195,15 @@ BankIsTabEnabled(index) {
     return false
 }
 
+/**
+ * If bank tab open button should be green
+ * @param {cPoint} buttonTab 
+ * @returns {Integer} 
+ */
 IsOnBankTab(buttonTab) {
     ; 82805D mouseoff green active button
     ; A8EC7F mouseover green active button (no mousedown, same as this)
-    try {
-        colour := PixelGetColor(buttonTab.x, buttonTab.y)
-    } catch as exc {
-        Log("IsOnBankTab: Check failed with error - "
-            exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
-    }
+    colour := buttonTab.GetColour()
     if (colour = "0x82805D" || colour = "0xA8EC7F") {
         return true
     }
@@ -199,13 +214,14 @@ IsOnBankTab(buttonTab) {
 }
 
 ResetBankScroll() {
-    maxiter := 20
-    while ((!cBankDepositRESS().IsButtonActive() && !cBankDepositRESS().IsButtonInactive()) &&
-        (!cBankUpgradeStorage().IsButtonActive() && !cBankUpgradeStorage().IsButtonInactive())) {
-        if (!IsWindowActive() || !IsPanelActive() || maxiter <= 1) {
+    maxIter := 20
+    Deposit := Points.Bank.DepositRESS
+    UpgStorage := Points.Bank.UpgradeStorage
+    while (!Deposit.IsButton() && !UpgStorage.IsButton()) {
+        if (!IsWindowActive() || !IsPanelActive() || maxIter <= 1) {
             return
         }
         ScrollAmountUp(1)
-        maxiter--
+        maxIter--
     }
 }
