@@ -8,6 +8,7 @@ global Points := cPoints()
 
 /**
  * @module cPoints
+ * @property {cPoint} ZoneSample
  * @property {cAreasPanelPoints} AreasPanel
  * @property {cBankPoints} Bank
  * @property {cBorbventuresPoints} Borbventures
@@ -24,6 +25,7 @@ global Points := cPoints()
  * 
  */
 Class cPoints {
+    ZoneSample := cPoint(0, 0)
     AreasPanel := cAreasPanelPoints()
     Bank := cBankPoints()
     Borbventures := cBorbventuresPoints()

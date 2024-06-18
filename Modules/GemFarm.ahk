@@ -1,5 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
 
+#Include <cTravel>
+
 global GemFarmSleepAmount := 1
 global TradesAutoRefreshOldState := false
 global TradesDetailedModeOldState := false
@@ -11,7 +13,7 @@ fGemFarmSuitcase() {
     global TradesDetailedModeOldState
     global GemFarmSleepAmount, HadToHideNotifs, GemFarmActive
     global X, Y, W, H
-    if (!GoToDesert()) {
+    if (!Travel().Desert.GoTo()) {
         if (Debug) {
             MsgBox("GemFarm: Could not find desert area. Aborted travel.")
         }
@@ -306,7 +308,6 @@ ToggleDetailedMode() {
     sleep(50)
     TradesDetailedModeOldState := IsTradeDetailedModeOn()
 }
-
 
 ResetToPriorAutoRefresh() {
     global TradesAutoRefreshOldState

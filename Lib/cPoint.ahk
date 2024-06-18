@@ -3,7 +3,7 @@
 #Include cColours.ahk
 #Include SettingsCheck.ahk
 
-global Debug := true
+global Debug := false
 
 /**
  * Defines the resolution independant locations for pixel checks
