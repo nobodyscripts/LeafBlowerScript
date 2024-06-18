@@ -55,6 +55,8 @@ Class cPoint {
             return this._y
         }
     }
+
+    ; Set true for relative coords on get, false for original values
     relative := true
 
     /**
@@ -70,6 +72,13 @@ Class cPoint {
         this.relative := relative
     }
 
+    /**
+     * Set values on precreated cPoint
+     * @param x 
+     * @param y 
+     * @param {Integer} relative Set true for relative coords on get, false for original values
+     * @returns {cPoint} 
+     */
     Set(x, y, relative := true) {
         this.x := x
         this.y := y
