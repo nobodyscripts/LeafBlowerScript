@@ -7,6 +7,9 @@ global Debug := true
 
 /**
  * Defines the resolution independant locations for pixel checks
+ * @argument {Integer} x X value
+ * @argument {Integer} y Y value
+ * @argument {Integer} relative Set for % relative value, false for fixed
  */
 Class cPoint {
     /**

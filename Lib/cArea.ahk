@@ -4,6 +4,18 @@
 
 /**
  * Defines the locations resolution independant for area colour checks
+ * @argument x1 X value top left
+ * @argument y1 Y value top left
+ * @argument x2 X value bottom right
+ * @argument y2 Y value bottom right
+ * @argument relative Set for % relative value, false for fixed
+ * @property w Width
+ * @property h Height
+ * @method Set Coord values and relative
+ * @method toString Returns coords as string for logging
+ * @method ToolTipAtArea Places two blank tooltips at top left and bottom right 
+ * of area aligned to top left corners of the tooltip
+ * @method PixelSearch Find colour in area, returns coord
  */
 Class cArea {
     x1 {
@@ -104,6 +116,15 @@ Class cArea {
         }
     }
 
+    /**
+     * Set area after creation
+     * @param xin1 X1
+     * @param yin1 Y1
+     * @param xin2 X2
+     * @param yin2 Y2
+     * @param {Bool} relative Is relative or fixed
+     * @returns {cArea} 
+     */
     Set(xin1, yin1, xin2, yin2, relative := true) {
         this.x1 := xin1
         this.y1 := yin1
@@ -113,16 +134,33 @@ Class cArea {
         return this
     }
 
+    /**
+     * Get log formatted string of area
+     * @returns {String} Log formatted string form of coords
+     */
     toString() {
         return ("X1: " this.x1 " Y1: " this.y1 " X2: " this.x2 " Y2: "
             this.y2 "`nW: " this.w " H: " this.h)
     }
 
+    /**
+     * Creates two blank tooltops to mark the area, top left corner and bottom 
+     * right, top left corner of the tooltip marks the rect
+     * @param {Integer} id1 Tooltip id for top left
+     * @param {Integer} id2 Tooltip id for bottom right
+     */
     ToolTipAtArea(id1 := 14, id2 := 15) {
         ToolTip(" ", this.x1, this.y1, id1)
         ToolTip(" ", this.x2, this.y2, id2)
     }
 
+    /**
+     * Find coord of colour in area
+     * @param {String} colour "0xFFFFFF" Formatted strings
+     * @param {Integer} variation Amount of colour variation allowed, 0-255 
+     * none-any colour
+     * @returns {Array | Bool} [x, y] or false
+     */
     PixelSearch(colour := "0xFFFFFF", variation := 0) {
         try {
             found := PixelSearch(&OutX, &OutY,
