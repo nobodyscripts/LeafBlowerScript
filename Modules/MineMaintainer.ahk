@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0
 
 #Include ../Lib/cPoints.ahk
+#Include ../Lib/cAreas.ahk
 #Include ../Lib/Spammers.ahk
 #Include MineMaintainerCaves.ahk
-#Include ../Navigate/Mines/Travel.ahk
+#Include ../Navigate/Header.ahk
 
 global MinerEnableVeins := true
 global MinerEnableVeinRemoval := true
@@ -95,12 +96,11 @@ fMineMaintainer() {
             Sleep(NavigateTime)
         }
         if (IsWindowActive() && MinerEnableVeins) {
-            if (CurrentTab != 0 || !IsOnMineCoalVeinTab()) {
-                VeinsTab.Click()
+            i := 1
+            while (!IsOnMineCoalVeinTab() || i >= 10 || !IsPanelActive()) {
+                VeinsTab.Click(NavigateTime)
                 Sleep(NavigateTime)
-                VeinsTab.Click()
-                Sleep(NavigateTime)
-                CurrentTab := 0
+                i++
             }
             if (IsOnMineCoalVeinTab()) {
                 if (MinerEnableVeinRemoval) {
@@ -119,12 +119,11 @@ fMineMaintainer() {
             (IsWindowActive() && isAnyTransmuteEnabled() &&
                 DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer)) {
             TransmuteTime := A_Now
-            if (CurrentTab != 6 || !IsOnMineTransmuteTab()) {
-                TransmuteTab.Click()
+            i := 1
+            while (!IsOnMineTransmuteTab() || i >= 10 || !IsPanelActive()) {
+                TransmuteTab.Click(NavigateTime)
                 Sleep(NavigateTime)
-                TransmuteTab.Click()
-                Sleep(NavigateTime)
-                CurrentTab := 6
+                i++
             }
             if (!IsOnMineTransmuteTab()) {
                 Log("Mine: Transmute tab click failed")
@@ -139,12 +138,11 @@ fMineMaintainer() {
             (IsWindowActive() && DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
                 MinerEnableFreeRefuel)) {
             RefuelTime := A_Now
-            if (CurrentTab != 4 || !IsOnMineDrillTab()) {
-                DrillTab.Click()
+            i := 1
+            while (!IsOnMineDrillTab() || i >= 10 || !IsPanelActive()) {
+                DrillTab.Click(NavigateTime)
                 Sleep(NavigateTime)
-                DrillTab.Click()
-                Sleep(NavigateTime)
-                CurrentTab := 4
+                i++
             }
             if (IsOnMineDrillTab()) {
                 CollectFreeDrillFuel()
@@ -159,12 +157,11 @@ fMineMaintainer() {
             (IsWindowActive() && DateDiff(A_Now, SphereTime, "Seconds") >= MinerSphereTimer * 60 &&
                 MinerEnableSphereUse)) {
             SphereTime := A_Now
-            if (CurrentTab != 4 || !IsOnMineDrillTab()) {
-                DrillTab.Click()
+            i := 1
+            while (!IsOnMineDrillTab() || i >= 10 || !IsPanelActive()) {
+                DrillTab.Click(NavigateTime)
                 Sleep(NavigateTime)
-                DrillTab.Click()
-                Sleep(NavigateTime)
-                CurrentTab := 4
+                i++
             }
             if (IsOnMineDrillTab()) {
                 Sleep(NavigateTime)
@@ -197,12 +194,11 @@ fMineMaintainer() {
         if ((Firstpass && MinerEnableCaves) ||
             (IsWindowActive() && DateDiff(A_Now, CavesTime, "Seconds") >= MinerCaveTimer * 60 &&
                 MinerEnableCaves)) {
-            if (CurrentTab != 2) {
+            i := 1
+            while (!IsOnMineCavesTab() || i >= 10 || !IsPanelActive()) {
                 MinesTab.Click()
                 Sleep(NavigateTime)
-                MinesTab.Click()
-                Sleep(NavigateTime)
-                CurrentTab := 2
+                i++
             }
             if (IsOnMineCavesTab()) {
                 Log("Mine: Cave Maintainer starting.")
