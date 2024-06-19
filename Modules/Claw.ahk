@@ -52,22 +52,11 @@ fClawFarm() {
 }
 
 ClawGetLocation(col) {
-    try {
-        ; 406 672 top left pickup area 1440 res
-        ; 2070 920 bottom right  pickup area
-        found := PixelSearch(&OutX, &OutY,
-            WinRelPosLargeW(406), WinRelPosLargeH(672),
-            WinRelPosLargeW(2070), WinRelPosLargeH(970), col, 0)
-        ; Pumpkin stem pixel search
-        If (found and OutX != 0) {
-            return OutX ; Found colour
-        }
-    } catch as exc {
-        Log("Claw: ClawGetLocation search failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+    found := Areas.Claw.Items.PixelSearch(col)
+    if (!found) {
+        return 0
     }
-    return 0
+    return found[1]
 }
 
 ClawGetHookLocation(ScreenX) {

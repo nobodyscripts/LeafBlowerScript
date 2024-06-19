@@ -5,9 +5,9 @@
 /**
  * Claw pixel areas
  * @memberof module:cAreas
- * @property {cArea} BearoSearch Area to check for Bearo being equipped
+ * @property {cArea} Items Area to check for items to pick up
  */
 Class cClawAreas {
-    ; Area to check for Bearo being equipped
-    BearoSearch := cArea(675, 1070, 1494, 1138)
+    ; Area to check for items to pick up
+    Items := cArea(406, 672, 2070, 970)
 }

@@ -30,7 +30,7 @@ Class CursedHalloween extends Zone {
         this.ScrollAmountDown(46) ; Scroll down
         sleep(150)
         ; Pub button check
-        If (cPoint(1662, 740).IsBackground()) {
+        If (Points.Areas.LeafG.Pub.IsBackground()) {
             Log("Claw: Could not travel to pub.")
             ToolTip("Pub area button didn't align, try again",
                 W / 2 - WinRelPosW(50), H / 2)
