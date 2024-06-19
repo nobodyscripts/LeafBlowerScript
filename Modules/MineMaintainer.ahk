@@ -82,6 +82,7 @@ fMineMaintainer() {
         NormalBossSpammerStart()
     }
     if (IsPanelActive()) {
+        Sleep(NavigateTime)
         ClosePanel()
         Sleep(NavigateTime)
     }
@@ -95,9 +96,9 @@ fMineMaintainer() {
             OpenMining()
             Sleep(NavigateTime)
         }
-        if (IsWindowActive() && MinerEnableVeins) {
+        if (IsWindowActive() && MinerEnableVeins && IsPanelActive()) {
             i := 1
-            while (!IsOnMineCoalVeinTab() || i >= 10 || !IsPanelActive()) {
+            while (!IsOnMineCoalVeinTab() || i >= 10) {
                 VeinsTab.Click(NavigateTime)
                 Sleep(NavigateTime)
                 i++
@@ -115,12 +116,12 @@ fMineMaintainer() {
                 Log("Mine: Vein tab click failed")
             }
         }
-        if ((Firstpass && isAnyTransmuteEnabled()) ||
-            (IsWindowActive() && isAnyTransmuteEnabled() &&
+        if ((Firstpass && isAnyTransmuteEnabled() && IsPanelActive()) ||
+            (IsWindowActive() && isAnyTransmuteEnabled() && IsPanelActive() &&
                 DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer)) {
             TransmuteTime := A_Now
             i := 1
-            while (!IsOnMineTransmuteTab() || i >= 10 || !IsPanelActive()) {
+            while (!IsOnMineTransmuteTab() || i >= 10) {
                 TransmuteTab.Click(NavigateTime)
                 Sleep(NavigateTime)
                 i++
@@ -134,9 +135,10 @@ fMineMaintainer() {
             }
         }
 
-        if ((Firstpass && MinerEnableFreeRefuel) ||
-            (IsWindowActive() && DateDiff(A_Now, RefuelTime, "Seconds") >= MinerRefuelTimer * 60 &&
-                MinerEnableFreeRefuel)) {
+        if ((Firstpass && MinerEnableFreeRefuel && IsPanelActive()) ||
+            (IsWindowActive() && IsPanelActive() &&
+                DateDiff(A_Now, RefuelTime, "Seconds") >=
+                MinerRefuelTimer * 60 && MinerEnableFreeRefuel)) {
             RefuelTime := A_Now
             i := 1
             while (!IsOnMineDrillTab() || i >= 10 || !IsPanelActive()) {
@@ -153,9 +155,10 @@ fMineMaintainer() {
             }
         }
 
-        if ((Firstpass && MinerEnableSphereUse) ||
-            (IsWindowActive() && DateDiff(A_Now, SphereTime, "Seconds") >= MinerSphereTimer * 60 &&
-                MinerEnableSphereUse)) {
+        if ((Firstpass && MinerEnableSphereUse && IsPanelActive()) ||
+            (IsWindowActive() && IsPanelActive() &&
+                DateDiff(A_Now, SphereTime, "Seconds") >=
+                MinerSphereTimer * 60 && MinerEnableSphereUse)) {
             SphereTime := A_Now
             i := 1
             while (!IsOnMineDrillTab() || i >= 10 || !IsPanelActive()) {
@@ -173,8 +176,9 @@ fMineMaintainer() {
                 Log("Mine: Drill tab click failed")
             }
         }
-        if ((Firstpass && MinerEnableBanks) ||
-            (IsWindowActive() && DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
+        if ((Firstpass && MinerEnableBanks && IsPanelActive()) ||
+            (IsWindowActive() && IsPanelActive() &&
+                DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
                 MinerEnableBanks)) {
             ToolTip(, , , 4)
             Log("Mine: Bank Maintainer starting.")
@@ -191,8 +195,9 @@ fMineMaintainer() {
             Sleep(NavigateTime)
         }
 
-        if ((Firstpass && MinerEnableCaves) ||
-            (IsWindowActive() && DateDiff(A_Now, CavesTime, "Seconds") >= MinerCaveTimer * 60 &&
+        if ((Firstpass && MinerEnableCaves && IsPanelActive()) ||
+            (IsWindowActive() && IsPanelActive() &&
+                DateDiff(A_Now, CavesTime, "Seconds") >= MinerCaveTimer * 60 &&
                 MinerEnableCaves)) {
             i := 1
             while (!IsOnMineCavesTab() || i >= 10 || !IsPanelActive()) {
@@ -210,7 +215,7 @@ fMineMaintainer() {
                 Log("Mine: Cave tab click failed")
             }
         }
-        if (IsWindowActive() && IsOnMineCoalVeinTab() &&
+        if (IsWindowActive() && IsPanelActive() && IsOnMineCoalVeinTab() &&
             VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
             Log("Upgrading vein")
             VeinUpgradeButton.ClickOffset(NavigateTime)
