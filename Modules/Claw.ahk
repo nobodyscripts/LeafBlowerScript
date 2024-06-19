@@ -5,34 +5,11 @@ global ClawFindAny := false
 
 fClawFarm() {
     global ClawFindAny
-    If (!IsHalloweenEventActive()) {
-        Log("Claw: Halloween inactive.")
-        ToolTip("Halloween inactive`nPlease use the artifact to enable"
-            " halloween event",
-            W / 2 - WinRelPosW(50),
-            H / 2)
-        SetTimer(ToolTip, -5000)
+    
+    if(!Travel().CursedHalloween.Goto()) {
         return
     }
-    fSlowClick(315, 574, 101) ; Click the right tab after checking halloween
-    sleep(150)
-    ResetAreaScroll() ; Reset incase
-    sleep(150)
-    ScrollAmountDown(46) ; Scroll down
-    sleep(150)
-    If (IsBackground(WinRelPosW(830), WinRelPosH(359))) {
-        Log("Claw: Could not travel to pub.")
-        ToolTip("Pub area button didn't align, try again",
-            W / 2 - WinRelPosW(50), H / 2)
-        SetTimer(ToolTip, -5000)
-        return
-    }
-    fSlowClick(830, 359, 101) ; Open pub area
-    sleep(250)
-    fSlowClick(50, 252, 101) ; Close the area screen
-    sleep(250)
-    fSlowClick(276, 252, 101) ; Open claw machine
-    sleep(250)
+
     RefreshTrades()
     sleep(150)
     loop {
@@ -64,7 +41,6 @@ fClawFarm() {
                     RefreshTrades()
                     sleep(50)
                 }
-
             }
         }
         ; Version 3
@@ -126,7 +102,7 @@ ClawGetHookLocation(ScreenX) {
 
 IsClawAboveLocation(ScreenX) {
     ;374 height to check
-    if (!IsBackground(ScreenX, WinRelPosLargeH(374))) {
+    if (!cPoint(ScreenX, WinRelPosLargeH(374), false).IsBackground()) {
         return true
     }
     return false
@@ -142,12 +118,4 @@ ClawCheck(TargetX, offset := 0, delay := 0) {
         return true
     }
     return false
-}
-
-IsHalloweenEventActive() {
-    OpenEventsAreasPanel()
-    if (IsBackground(WinRelPosW(836), WinRelPosH(160))) {
-        return false
-    }
-    return true
 }

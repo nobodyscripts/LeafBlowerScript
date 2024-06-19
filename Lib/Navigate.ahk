@@ -22,7 +22,7 @@ OpenAreasPanel(reset := true, extraDelay := 0) {
     OpenAreas() ; Open areas
     sleep(NavTime * 2)
     i := 0
-    while (!Points.AreasPanel.Tab1.IsButtonActive() && i <= 4) {
+    while (!Points.Areas.Favs.Tab.IsButtonActive() && i <= 4) {
         Log("OpenAreasPanel: Retry, could not see active button.")
         OpenAreas() ; Open areas if it still hasn't opened
         sleep(NavTime)
@@ -43,15 +43,15 @@ ResetAreaScroll(extraDelay := 0) {
         NavTime := 72 + extraDelay
     }
     ; Click Favourites
-    Points.AreasPanel.Tab1.ClickOffset(, , NavTime)
+    Points.Areas.Favs.Tab.ClickOffset(, , NavTime)
     Sleep(NavTime)
 
     ; Click Back to default page to reset the scroll
-    Points.AreasPanel.Tab2.ClickOffset(, , NavTime)
+    Points.Areas.LeafG.Tab.ClickOffset(, , NavTime)
     Sleep(NavTime)
 
     ; Double click for redundancy
-    Points.AreasPanel.Tab2.ClickOffset(, , NavTime)
+    Points.Areas.LeafG.Tab.ClickOffset(, , NavTime)
     Sleep(NavTime)
 }
 
@@ -98,15 +98,15 @@ ScrollAmountUp(amount := 1, extraDelay := 0) {
 OpenEventsAreasPanel(extraDelay := 0) {
     OpenAreasPanel(false, extraDelay)
     ; Click Favourites
-    Points.AreasPanel.Tab1.ClickOffset(, , NavigateTime + extraDelay)
+    Points.Areas.Favs.Tab.ClickOffset(, , NavigateTime + extraDelay)
     Sleep(NavigateTime + extraDelay)
 
     ; Click the event tab
-    Points.AreasPanel.Tab8.ClickOffset(, , NavigateTime + extraDelay)
+    Points.Areas.Events.Tab.ClickOffset(, , NavigateTime + extraDelay)
     sleep(NavigateTime + extraDelay)
 
     ; Redundant click
-    Points.AreasPanel.Tab8.ClickOffset(, , NavigateTime + extraDelay)
+    Points.Areas.Events.Tab.ClickOffset(, , NavigateTime + extraDelay)
     sleep(NavigateTime + extraDelay)
 }
 
@@ -118,11 +118,11 @@ OpenQuarkPanel(extraDelay := 0) {
     OpenAreasPanel(false, extraDelay)
 
     ; Quark tab
-    Points.AreasPanel.Tab7.ClickOffset(, , NavigateTime + extraDelay)
+    Points.Areas.QuarkA.Tab.ClickOffset(, , NavigateTime + extraDelay)
     Sleep(NavigateTime + extraDelay)
 
     ; Redundant click
-    Points.AreasPanel.Tab7.ClickOffset(, , NavigateTime + extraDelay)
+    Points.Areas.QuarkA.Tab.ClickOffset(, , NavigateTime + extraDelay)
     Sleep(NavigateTime + extraDelay)
 
     ScrollAmountUp(2)
@@ -130,7 +130,7 @@ OpenQuarkPanel(extraDelay := 0) {
 }
 
 IsAreaResetToGarden() {
-    if (!Areas.AreasPanel.GardenReset.PixelSearch("0x4A9754")) {
+    if (!Areas.Areas.GardenReset.PixelSearch("0x4A9754")) {
         return false
     }
     return true
@@ -751,7 +751,6 @@ GoToAnteLeafton() {
         }
     }
 }
-
 
 GotoCardsFirstTab() {
     if (!IsWindowActive()) {

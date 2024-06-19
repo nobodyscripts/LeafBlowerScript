@@ -6,16 +6,18 @@ global Areas := cAreas()
 
 /**
  * @module cAreas
- * @property {cAreasPanelAreas} AreasPanel
+ * @property {cAreasAreas} Areas
  * @property {cBorbventuresAreas} Borbventures
+ * @property {cClawAreas} Claw
  * @property {cGemFarmAreas} GemFarm
  * @property {cMiscAreas} Misc
  * @property {cMineAreas} Mine
  * @property {cCaveAreas} Mine.Cave
  */
 Class cAreas {
-    AreasPanel := cAreasPanelAreas()
+    Areas := cAreasAreas()
     Borbventures := cBorbventuresAreas()
+    Claw := cClawAreas()
     GemFarm := cGemFarmAreas()
     Misc := cMiscAreas()
     Mine := cMineAreas()

@@ -10,4 +10,5 @@
 Class Travel {
     ; Travel class for Desert
     Desert := Desert()
+    CursedHalloween := CursedHalloween()
 }

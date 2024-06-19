@@ -131,7 +131,7 @@ Class Zone {
         OpenAreas() ; Open areas
         sleep(NavTime * 2)
         i := 0
-        while (!Points.AreasPanel.Tab1.IsButtonActive() && i <= 4) {
+        while (!Points.Areas.Favs.Tab.IsButtonActive() && i <= 4) {
             Log("OpenAreasPanel: Retry, could not see active button.")
             OpenAreas() ; Open areas if it still hasn't opened
             sleep(NavTime)
@@ -152,15 +152,15 @@ Class Zone {
             NavTime := 72 + extraDelay
         }
         ; Click Favourites
-        Points.AreasPanel.Tab1.ClickOffset(, , NavTime)
+        Points.Areas.Favs.Tab.ClickOffset(, , NavTime)
         Sleep(NavTime)
 
         ; Click Back to default page to reset the scroll
-        Points.AreasPanel.Tab2.ClickOffset(, , NavTime)
+        Points.Areas.LeafG.Tab.ClickOffset(, , NavTime)
         Sleep(NavTime)
 
         ; Double click for redundancy
-        Points.AreasPanel.Tab2.ClickOffset(, , NavTime)
+        Points.Areas.LeafG.Tab.ClickOffset(, , NavTime)
         Sleep(NavTime)
     }
 

@@ -9,11 +9,12 @@ global Points := cPoints()
 /**
  * @module cPoints
  * @property {cPoint} ZoneSample
- * @property {cAreasPanelPoints} AreasPanel
+ * @property {cAreasPoints} Areas
  * @property {cBankPoints} Bank
  * @property {cBorbventuresPoints} Borbventures
  * @property {cBrewPoints} Brew
  * @property {cCardPoints} Card
+ * @property {cClawPoints} Claw
  * @property {cCraftingPoints} Crafting
  * @property {cGemFarmPoints} GemFarm
  * @property {cHyacinthPoints} Hyacinth
@@ -27,11 +28,12 @@ global Points := cPoints()
  */
 Class cPoints {
     ZoneSample := cPoint(0, 0)
-    AreasPanel := cAreasPanelPoints()
+    Areas := cAreasPoints()
     Bank := cBankPoints()
     Borbventures := cBorbventuresPoints()
     Brew := cBrewPoints()
     Card := cCardPoints()
+    Claw := cClawPoints()
     Crafting := cCraftingPoints()
     GemFarm := cGemFarmPoints()
     Hyacinth := cHyacinthPoints()
