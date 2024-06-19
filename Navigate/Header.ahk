@@ -7,6 +7,7 @@
 
 #Include Bank\Header.ahk
 #Include BorbVentures\Header.ahk
+#Include Brew\Header.ahk
 #Include Cards\Header.ahk
 #Include Crafting\Header.ahk
 #Include GemFarm\Header.ahk

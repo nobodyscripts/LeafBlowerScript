@@ -12,6 +12,7 @@ global Points := cPoints()
  * @property {cAreasPanelPoints} AreasPanel
  * @property {cBankPoints} Bank
  * @property {cBorbventuresPoints} Borbventures
+ * @property {cBrewPoints} Brew
  * @property {cCardPoints} Card
  * @property {cCraftingPoints} Crafting
  * @property {cGemFarmPoints} GemFarm
@@ -29,6 +30,7 @@ Class cPoints {
     AreasPanel := cAreasPanelPoints()
     Bank := cBankPoints()
     Borbventures := cBorbventuresPoints()
+    Brew := cBrewPoints()
     Card := cCardPoints()
     Crafting := cCraftingPoints()
     GemFarm := cGemFarmPoints()

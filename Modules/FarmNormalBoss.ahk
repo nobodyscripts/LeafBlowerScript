@@ -94,24 +94,29 @@ SpamBrewButtons() {
         return
     }
     ; Artifacts
-    If (IsButtonActive(WinRelPosW(856), WinRelPosH(150))) {
-        fSlowClick(856, 150, 34)
+    Artifacts := Points.Brew.Tab1.Artifacts
+    If (Artifacts.IsButtonActive()) {
+        Artifacts.Click()
     }
-    ;Equipment
-    If (IsButtonActive(WinRelPosW(856), WinRelPosH(219))) {
-        fSlowClick(856, 219, 34)
+    ; Equipment
+    Equipment := Points.Brew.Tab1.Equipment
+    If (Equipment.IsButtonActive()) { 
+        Equipment.Click()
     }
     ; Materials
-    If (IsButtonActive(WinRelPosW(856), WinRelPosH(290))) {
-        fSlowClick(856, 290, 34)
+    Materials := Points.Brew.Tab1.Materials
+    If (Materials.IsButtonActive()) { 
+        Materials.Click()
     }
     ; Card Parts
-    If (IsButtonActive(WinRelPosW(856), WinRelPosH(433))) {
-        fSlowClick(856, 433, 34)
+    CardParts := Points.Brew.Tab1.CardParts
+    If (CardParts.IsButtonActive()) {  
+        CardParts.Click()
     }
     ; Card Parts for fontsize 1
-    If (IsButtonActive(WinRelPosW(856), WinRelPosH(448))) {
-        fSlowClick(856, 448, 34)
+    CardPartsFont1 := Points.Brew.Tab1.CardPartsFont1
+    If (CardPartsFont1.IsButtonActive()) { 
+        CardPartsFont1.Click()
     }
 }
 
