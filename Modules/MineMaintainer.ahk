@@ -196,7 +196,7 @@ fMineMaintainer() {
                 MinerEnableCaves)) {
             i := 1
             while (!IsOnMineCavesTab() || i >= 10 || !IsPanelActive()) {
-                MinesTab.Click()
+                MinesTab.Click(NavigateTime)
                 Sleep(NavigateTime)
                 i++
             }
@@ -213,7 +213,7 @@ fMineMaintainer() {
         if (IsWindowActive() && IsOnMineCoalVeinTab() &&
             VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
             Log("Upgrading vein")
-            VeinUpgradeButton.ClickOffset()
+            VeinUpgradeButton.ClickOffset(NavigateTime)
         }
         Firstpass := false
     }
