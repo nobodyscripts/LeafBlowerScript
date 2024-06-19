@@ -191,7 +191,7 @@ GoToGF() {
             }
             Log("Traveling to Flame Brazier (Green Flame)")
             GoToAreaFireFieldsTab()
-            fSlowClickRelL(1680, 820, NavigateTime) ; Open Flame Brazier (GF zone)
+            fSlowClickRelL(1680, 947, NavigateTime) ; Open Flame Brazier (GF zone)
             if (NavigateTime > 151) { ; Need a longer delay to load the slower map
                 sleep(NavigateTime)
             } else {
@@ -207,7 +207,7 @@ GoToGF() {
         Log("Traveling to Flame Brazier (Green Flame). Attempt to blind travel"
             " with slowed times.")
         GoToAreaFireFieldsTab(200)
-        fSlowClickRelL(1680, 820, NavigateTime + 200) ; Open Flame Brazier (GF zone)
+        fSlowClickRelL(1680, 947, NavigateTime + 200) ; Open Flame Brazier (GF zone)
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
             ; Checks are disabled so blindly trust we reached zone
@@ -239,7 +239,8 @@ GoToSS() {
             }
             Log("Traveling to Flame Universe (Soulseeker)")
             GoToAreaFireFieldsTab()
-            fSlowClick(877, 516, NavigateTime) ; Open Flame Universe (SS zone)
+            ScrollAmountDown(2, NavigateTime)
+            fSlowClickRelL(1680, 988, NavigateTime) ; Open Flame Universe (SS zone)
             if (NavigateTime > 151) { ; Need a longer delay to load the slower map
                 sleep(NavigateTime)
             } else {
@@ -255,7 +256,8 @@ GoToSS() {
         Log("Traveling to Flame Universe (Soulseeker). Attempt to blind travel"
             " with slowed times.")
         GoToAreaFireFieldsTab(200)
-        fSlowClick(877, 516, NavigateTime + 200) ; Open Flame Universe (SS zone)
+        ScrollAmountDown(2, NavigateTime + 200)
+        fSlowClickRelL(1680, 988, NavigateTime + 200) ; Open Flame Universe (SS zone)
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
             ; Checks are disabled so blindly trust we reached zone
@@ -287,7 +289,7 @@ GoToShadowCavern() {
             }
             Log("Traveling to Shadow Cavern")
             GoToAreaFireFieldsTab()
-            fSlowClick(880, 159, NavigateTime) ; Go to shadow cavern
+            fSlowClickRelL(1670, 320, NavigateTime) ; Go to shadow cavern
             if (NavigateTime > 151) { ; Need a longer delay to load the slower map
                 sleep(NavigateTime)
             } else {
@@ -303,7 +305,7 @@ GoToShadowCavern() {
         Log("Traveling to Shadow Cavern. Attempt to blind travel with slowed"
             " times.")
         GoToAreaFireFieldsTab(200)
-        fSlowClick(880, 159, NavigateTime + 200) ; Go to shadow cavern
+        fSlowClickRelL(1670, 320, NavigateTime + 200) ; Go to shadow cavern
         sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
             ; Checks are disabled so blindly trust we reached zone
@@ -328,7 +330,7 @@ GotoResetSS() {
     GoToShadowCavern()
     ClosePanel() ; Close the panel to see borb
     sleep(NavigateTime)
-    fSlowClick(880, 180, NavigateTime) ; Go to Borbiana Jones screen
+    fSlowClickRelL(1735 397, NavigateTime) ; Go to Borbiana Jones screen
     sleep(NavigateTime)
 }
 
@@ -339,7 +341,7 @@ ResetSS() {
 
 ResetGF() {
     GotoResetSS()
-    fSlowClick(280, 245, NavigateTime) ; Reset Green Flame
+    fSlowClickRelL(820, 500, NavigateTime) ; Reset Green Flame
 }
 
 GoToNatureBoss() {
@@ -814,11 +816,17 @@ IsOnCardsFirstPanel() {
 GoToAreaFireFieldsTab(extraDelay := 0) {
     i := 0
     OpenAreasPanel(false, extraDelay)
-    fSlowClick(200, 574, NavigateTime + extraDelay) ; Click Favourites
+
+    ; Click Favourites
+    Points.Areas.Favs.Tab.Click(NavigateTime + extraDelay)
     Sleep(NavigateTime + extraDelay)
-    fSlowClick(686, 574, NavigateTime + extraDelay) ; Open Fire Fields tab
+
+    ; Open Fire Fields tab
+    Points.Areas.FireF.Tab.Click(NavigateTime + extraDelay)
     sleep(NavigateTime + extraDelay)
-    fSlowClick(686, 574, NavigateTime + extraDelay) ; Open Fire Fields tab
+
+    ; Repeat
+    Points.Areas.FireF.Tab.Click(NavigateTime + extraDelay)
     sleep(NavigateTime + extraDelay)
 }
 

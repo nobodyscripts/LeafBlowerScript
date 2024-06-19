@@ -15,6 +15,7 @@
  * @property {Object} SacredN Sacred Nebula
  * @property {Object} EnergyB Energy Belt
  * @property {Object} FireF Fire Fields
+ * @property {Object} FireF.Tab Tab for areas panel (Fire Fields)
  * @property {Object} SoulR Soul Realm
  * @property {Object} QuarkA Quark Ambit
  * @property {cPoint} QuarkA.Tab Tab for areas panel (Quark Ambit)
@@ -40,6 +41,8 @@ Class cAreasPoints {
     EnergyB := {}
     ; Fire Fields
     FireF := {}
+    ; Tab for areas panel (Fire Fields)
+    FireF.Tab := cPoint(1272, 1163)
     ; Soul Realm
     SoulR := {}
     ; Quark Ambit

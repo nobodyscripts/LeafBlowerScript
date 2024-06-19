@@ -97,9 +97,47 @@ KillTowerPassiveSpammer() {
     }
 }
 
+
+GFSSBossSpammerStart() {
+    global SpammerPID
+    if (IsWindowActive()) {
+        ;TriggerViolin()
+        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\GFSSBoss.ahk"',
+            , , &OutPid)
+        SpammerPID := OutPid
+    }
+}
+
+IsGFSSSpammerActive() {
+    if ((SpammerPID && ProcessExist(SpammerPID)) ||
+        WinExist(A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey")) {
+            return true
+    }
+    return false
+}
+
+KillGFSSSpammer() {
+    ;F:\Documents\AutoHotkey\LeafBlowerV3\Secondaries\GFSSBoss.ahk - AutoHotkey v2.0.4
+    if (SpammerPID && ProcessExist(SpammerPID)) {
+        ProcessClose(SpammerPID)
+        Log("Closed GFSSBoss.ahk using pid.")
+    } else {
+        if (WinExist(A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey")) {
+            WinClose(A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey")
+            Log("Closed GFSSBoss.ahk using filename.")
+        }
+        /* if (WinExist("GFSSBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")) {
+            WinClose("GFSSBoss.ahk - AutoHotkey (Workspace) - Visual Studio Code")
+        } */
+    }
+}
+
 KillAllSpammers() {
     if (IsSpammerActive()) {
         KillSpammer()
+    }
+    if (IsGFSSSpammerActive()) {
+        KillGFSSSpammer()
     }
     if (IsLeaftonSpammerActive()) {
         KillLeaftonSpammer()

@@ -121,7 +121,7 @@ Or from releases page:
 <https://github.com/nobodyscripts/LeafBlowerScript/releases>
 
 Extract the zip where you want to keep the files, something like:
-Documents/LeafBlowerScript/<files>
+Documents/LeafBlowerScript/{files}
 
 ### 2. GUI Assisted Config
 
@@ -247,6 +247,8 @@ Insert: Adapted background boss spammer into two seperate modes, boss and
 Leafton Pit. These options conflict with Leafton taking priority, added setting
 MinerEnableLeafton. Boss mode enabled by default.
 
+F8 (GFSS): Replaced normalboss spammer with standalone, updated travel coords.
+
 ## TODO
 
 Check settings from options.dat as bootup tests
@@ -265,12 +267,15 @@ F3: Greedy card purchasing.
 F4: Add mouse movement patterns to collect artifacts in the background.  
 F6: Load dlc purchase state from save file and remove setting.  
 F7: Needs to use artifact if need be / get replacement.  
-F8: Alignment is off, refresh entire function.  
+F8: Add setting for standalone WW in GFSS spammer.  
 F8: Review ending of gfssnoreset mode.  
 F10: Needs to use artifact if need be / get replacement.  
 F12: Replace all checks with options.dat lookup.  
 PageDown: Leafton needs better setup routine. Travel to zone.  
 Insert: Add brewing somehow.
+
+Fix borb target items/active slots, nature boss travel
+f12 alt font, hyacinth open fields, tower passive travel
 
 ## Known issues
 
