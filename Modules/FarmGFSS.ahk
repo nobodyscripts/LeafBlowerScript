@@ -48,10 +48,10 @@ fFarmGFSS() {
                     GFKills++
                     Log("GFKill marked")
                 }
-                /* DebugLog("GFKill timerlast " TimerLastCheckStatus " timer 
+                /* DebugLog("GFKill timerlast " TimerLastCheckStatus " timer
                 cur " TimerCurrentState " waslong " IsPrevTimerLong " islong "
                 IsTimerLong)
-                 */
+                */
                 IsPrevTimerLong := IsTimerLong
                 ; If boss killed us at gf assume we're weak and reset gf
                 ; If user set gf kills too high it'll hit this
@@ -94,7 +94,7 @@ fFarmGFSS() {
             /* DebugLog("SSKill timerlast " TimerLastCheckStatus " timer cur "
                     TimerCurrentState " waslong " IsPrevTimerLong
                     " islong " IsTimerLong)
-             */
+            */
             IsPrevTimerLong := IsTimerLong
             ; if boss killed us exit this loop, then let the master loop
             ; reset

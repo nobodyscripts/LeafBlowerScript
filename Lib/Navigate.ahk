@@ -191,11 +191,15 @@ GoToGF() {
             }
             Log("Traveling to Flame Brazier (Green Flame)")
             GoToAreaFireFieldsTab()
-            fSlowClickRelL(1680, 947, NavigateTime) ; Open Flame Brazier (GF zone)
-            if (NavigateTime > 151) { ; Need a longer delay to load the slower map
+
+            ; Open Flame Brazier (GF zone)
+            fSlowClickRelL(1680, 947, NavigateTime)
+
+            ; Need a longer delay to load the slower map
+            if (NavigateTime > 201) {
                 sleep(NavigateTime)
             } else {
-                sleep(151)
+                sleep(201)
             }
             i++
         }
@@ -241,10 +245,10 @@ GoToSS() {
             GoToAreaFireFieldsTab()
             ScrollAmountDown(2, NavigateTime)
             fSlowClickRelL(1680, 988, NavigateTime) ; Open Flame Universe (SS zone)
-            if (NavigateTime > 151) { ; Need a longer delay to load the slower map
+            if (NavigateTime > 201) { ; Need a longer delay to load the slower map
                 sleep(NavigateTime)
             } else {
-                sleep(151)
+                sleep(201)
             }
             i++
         }
@@ -290,10 +294,10 @@ GoToShadowCavern() {
             Log("Traveling to Shadow Cavern")
             GoToAreaFireFieldsTab()
             fSlowClickRelL(1670, 320, NavigateTime) ; Go to shadow cavern
-            if (NavigateTime > 151) { ; Need a longer delay to load the slower map
+            if (NavigateTime > 201) { ; Need a longer delay to load the slower map
                 sleep(NavigateTime)
             } else {
-                sleep(151)
+                sleep(201)
             }
             i++
         }
@@ -328,20 +332,35 @@ GotoResetSS() {
         return false
     }
     GoToShadowCavern()
-    ClosePanel() ; Close the panel to see borb
-    sleep(NavigateTime)
-    fSlowClickRelL(1735 397, NavigateTime) ; Go to Borbiana Jones screen
-    sleep(NavigateTime)
+    if (IsPanelActive()) {
+        ClosePanel() ; Close the panel to see borb
+        sleep(NavigateTime)
+    }
+    button := cPoint(1735, 397)
+    Log(button.GetColour())
+    ; Go to Borbiana Jones screen
+    if (button.IsColour("0x60F811")){
+        button.Click(NavigateTime)
+        sleep(NavigateTime)
+    }
 }
 
 ResetSS() {
     GotoResetSS()
-    fSlowClickRelL(1280, 500, NavigateTime) ; Reset SpectralSeeker
+    ; Reset SpectralSeeker
+    button := cPoint(1280, 500)
+    if (button.IsButtonActive()){
+        button.Click(NavigateTime)
+    }
 }
 
 ResetGF() {
     GotoResetSS()
-    fSlowClickRelL(820, 500, NavigateTime) ; Reset Green Flame
+     ; Reset Green Flame
+    button := cPoint(820, 500)
+    if (button.IsButtonActive()){
+        button.Click(NavigateTime)
+    }
 }
 
 GoToNatureBoss() {
