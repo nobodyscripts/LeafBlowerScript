@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+#include ../Lib/cTravel.ahk
+
 #Include AreasCoords.ahk
 #Include MiscCoords.ahk
 
