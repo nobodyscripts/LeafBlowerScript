@@ -122,7 +122,7 @@ Class cPoint {
         If (Colours().IsButtonInactive(targetColour)) {
             return true
         }
-        VerboseLog("cPoint.IsButtonInactive: " this.toString() " is now " targetColour "`n")
+        VerboseLog("cPoint.IsButtonInactive: " this.toString() " is now " targetColour)
 
         return false
     }
@@ -136,7 +136,7 @@ Class cPoint {
         If (Colours().IsBackground(targetColour)) {
             return true
         }
-        VerboseLog("cPoint.IsBackground: " this.toString() " is now " targetColour "`n")
+        VerboseLog("cPoint.IsBackground: " this.toString() " is now " targetColour)
 
         return false
     }
@@ -150,7 +150,7 @@ Class cPoint {
         If (Colours().IsButtonOffPanel(targetColour)) {
             return true
         }
-        VerboseLog("cPoint.IsButtonOffPanel: " this.toString() " is now " targetColour "`n")
+        VerboseLog("cPoint.IsButtonOffPanel: " this.toString() " is now " targetColour)
 
         return false
     }
@@ -246,7 +246,7 @@ Class cPoint {
                 return false
             }
         }
-        VerboseLog("ClickOffsetWhileColour: " this.toString() " is now " this.GetColour() "`n")
+        VerboseLog("ClickOffsetWhileColour: " this.toString() " is now " this.GetColour())
         return true
     }
 
@@ -268,7 +268,7 @@ Class cPoint {
             Sleep(interval)
             i--
             if (i = 0) {
-                VerboseLog("ClickOffsetUntilColour: Hit max clicks " this.toString() " is now " this.GetColour() "`n")
+                VerboseLog("ClickOffsetUntilColour: Hit max clicks " this.toString() " is now " this.GetColour())
                 return false
             }
         }
@@ -291,7 +291,7 @@ Class cPoint {
                 break
             }
         }
-        VerboseLog("WaitWhileColour: " this.toString() " is now " this.GetColour() "`n")
+        VerboseLog("WaitWhileColour: " this.toString() " is now " this.GetColour())
         if (this.GetColour() != colour) {
             return true
         } else {
@@ -315,7 +315,7 @@ Class cPoint {
                 break
             }
         }
-        VerboseLog("WaitUntilColour: " this.toString() " is now " this.GetColour() "`n")
+        VerboseLog("WaitUntilColour: " this.toString() " is now " this.GetColour())
         if (this.GetColour() = colour) {
             return true
         } else {
