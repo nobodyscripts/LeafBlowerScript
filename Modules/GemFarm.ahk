@@ -216,6 +216,7 @@ FillTradeSlots() {
     ; We try to fill up the trade slots 50 times
     ; Could get stuck here if L1 leafscensions are on and no trades available
     ; So capped at trying 50 times
+    Button := Points.GemFarm.Start2
     i := 200
     Log("GemFarm: Filling trade slots for suitcase farming.")
     ToolTip("Filling trade slots", W / 2 - WinRelPosW(70), H / 2)
@@ -234,11 +235,12 @@ FillTradeSlots() {
             return false
         }
         ; If we see background instead of a start button we are full
-        if (!Points.GemFarm.StartCheck1.IsBackground()) {
+        if (!Button.IsBackground()) {
             ; If the button isn't active, ignore it and don't count it
-            If (!Points.GemFarm.StartCheck2.IsButtonInactive()) {
+            If (!Button.IsButtonInactive()) {
                 sleep(50)
-                Points.GemFarm.StartCheck1.ClickOffset(0, 3)
+                DebugLog("")
+                Button.ClickOffset(0, 3)
                 sleep(50)
                 i--
             }
@@ -255,7 +257,7 @@ FillTradeSlots() {
             RefreshTrades()
             Sleep(72)
             ; Is there any button in the start position
-            if (Points.GemFarm.StartCheck1.IsBackground()) {
+            if (Button.IsBackground()) {
                 i := 0
             } else {
                 ; Try again
@@ -268,8 +270,8 @@ FillTradeSlots() {
 }
 
 HasSuitCaseBeenUsed() {
-    if (Points.GemFarm.SuitcaseCheck1.IsBackground() &&
-        Points.GemFarm.SuitcaseCheck2.IsBackground()) {
+    if (Points.GemFarm.FirstTradeCancel.IsBackground() &&
+        Points.GemFarm.FirstTradeCollect.IsBackground()) {
         return false
     }
     return true

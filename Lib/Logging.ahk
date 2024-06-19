@@ -68,5 +68,5 @@ VerboseLog(logmessage) {
     if (!Verbose) {
         Return
     }
-    OutputDebug("Verbose: " logmessage)
+    OutputDebug("Verbose: " logmessage "`r`n")
 }
