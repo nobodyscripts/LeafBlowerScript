@@ -239,7 +239,6 @@ FillTradeSlots() {
             ; If the button isn't active, ignore it and don't count it
             If (!Button.IsButtonInactive()) {
                 sleep(50)
-                DebugLog("")
                 Button.ClickOffset(0, 3)
                 sleep(50)
                 i--
