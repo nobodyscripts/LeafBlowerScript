@@ -339,7 +339,7 @@ GotoResetSS() {
     button := cPoint(1735, 397)
     Log(button.GetColour())
     ; Go to Borbiana Jones screen
-    if (button.IsColour("0x60F811")){
+    if (button.IsColour("0x60F811")) {
         button.Click(NavigateTime)
         sleep(NavigateTime)
     }
@@ -349,23 +349,24 @@ ResetSS() {
     GotoResetSS()
     ; Reset SpectralSeeker
     button := cPoint(1280, 500)
-    if (button.IsButtonActive()){
+    if (button.IsButtonActive()) {
         button.Click(NavigateTime)
     }
 }
 
 ResetGF() {
     GotoResetSS()
-     ; Reset Green Flame
+    ; Reset Green Flame
     button := cPoint(820, 500)
-    if (button.IsButtonActive()){
+    if (button.IsButtonActive()) {
         button.Click(NavigateTime)
     }
 }
 
 GoToNatureBoss() {
-    buttonX := 840
-    buttonY := 459
+    button := cPoint(1682, 946)
+    button2 := cPoint(1682, 860)
+
     if (!IsWindowActive()) {
         Log("No window found while trying to travel.")
         return false
@@ -379,16 +380,19 @@ GoToNatureBoss() {
                 return false
             }
             Log("Traveling to The Doomed Tree")
-            OpenEventsAreasPanel()
+            while (!IsOnEventAreaPanel()) {
+                OpenEventsAreasPanel(100)
+            }
             Sleep(NavigateTime)
-            if (!cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
-                ; Open nature boss area
-                fSlowClick(buttonX, buttonY, NavigateTime)
-            } else {
+            if (!NatureBossButtonClick()) {
                 Log("Nature event inactive, no button found.")
                 return false
             }
-            Sleep(NavigateTime)
+            if (NavigateTime < 201) {
+                Sleep(201)
+            } else {
+                Sleep(NavigateTime)
+            }
             i++
         }
     }
@@ -398,11 +402,11 @@ GoToNatureBoss() {
     } else {
         Log("Traveling to The Doomed Tree. Attempt to blind travel with slowed"
             " times.")
-        OpenEventsAreasPanel(200)
+        while (!IsOnEventAreaPanel()) {
+            OpenEventsAreasPanel(200)
+        }
         Sleep(NavigateTime + 200)
-        if (!cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
-            fSlowClick(buttonX, buttonY, NavigateTime + 200) ; Open nature boss area
-        } else {
+        if (!NatureBossButtonClick()) {
             Log("Nature event inactive, no button found.")
             return false
         }
@@ -422,6 +426,35 @@ GoToNatureBoss() {
     }
 }
 
+NatureBossButtonClick() {
+    button := cPoint(1682, 946)
+    button2 := cPoint(1682, 860)
+    if (button.IsButton()) {
+        button.Click(100)
+        return true
+    } else if (button2.IsButton()) {
+        button2.Click(100)
+        return true
+    } else {
+        if (Debug) {
+            button.ToolTipAtCoord()
+            button2.ToolTipAtCoord()
+        }
+        return false
+    }
+}
+
+IsOnEventAreaPanel() {
+    button := cPoint(1682, 946)
+    button2 := cPoint(1682, 860)
+    if (button.IsButton()) {
+        return true
+    } else if (button2.IsButton()) {
+        return true
+    } else {
+        return false
+    }
+}
 
 GoToCheeseBoss() {
     buttonX := 840

@@ -23,9 +23,9 @@ settings.initSettings(true)
 Log("Secondary: GFSS Boss Started")
 
 InitGameWindow()
-fNormalBoss()
+fGFSSBoss()
 
-fNormalBoss() {
+fGFSSBoss() {
     startTime := A_Now
     loop {
         if (!IsWindowActive()) {

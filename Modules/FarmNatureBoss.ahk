@@ -96,6 +96,9 @@ fFarmNatureBoss() {
 IsNatureBossAlive() {
     ;2ce8f5
     ; 852 250 (1440)
+    if (IsPanelActive()) {
+        Log("IsNatureBossAlive: Was checked while panel was active.")
+    }
     try {
         found := PixelGetColor(WinRelPosLargeW(852), WinRelPosLargeH(250))
         ; Timer pixel search
@@ -122,6 +125,7 @@ IsNatureBossTimerActive() {
     ; 2189 1033
     try {
         if (!IsBackground(WinRelPosLargeW(1693), WinRelPosLargeH(960))) {
+            ; font 1
             found := PixelSearch(&OutX, &OutY,
                 WinRelPosLargeW(1574), WinRelPosLargeH(965),
                 WinRelPosLargeW(1642), WinRelPosLargeH(1009), "0xFFFFFF", 0)
@@ -129,12 +133,20 @@ IsNatureBossTimerActive() {
                 return true ; Found colour
             }
         } else {
+            ; font 0
             found := PixelSearch(&OutX, &OutY,
                 WinRelPosLargeW(1525), WinRelPosLargeH(965),
                 WinRelPosLargeW(1660), WinRelPosLargeH(985), "0xFFFFFF", 0)
             ; Timer pixel search
             If (found and OutX != 0) {
                 return true ; Found colour
+            }
+        }
+        ; Halloween inactive, nature active
+        if (cPoint(1650, 870).IsButton()) {
+            found := cArea(1525, 897, 1660, 922).PixelSearch()
+            if (found) {
+                return true
             }
         }
     } catch as exc {
