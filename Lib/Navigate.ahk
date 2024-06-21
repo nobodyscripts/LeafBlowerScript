@@ -457,8 +457,7 @@ IsOnEventAreaPanel() {
 }
 
 GoToCheeseBoss() {
-    buttonX := 840
-    buttonY := 145
+    button := cPoint(1682, 298)
     if (!IsWindowActive()) {
         Log("No window found while trying to travel.")
         return false
@@ -474,8 +473,9 @@ GoToCheeseBoss() {
             Log("Traveling to Cursed Halloween")
             OpenEventsAreasPanel()
             Sleep(NavigateTime)
-            if (!cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
-                fSlowClick(buttonX, buttonY, NavigateTime) ; Open Cheese boss area
+            if (!button.IsBackground()) {
+                ; Open Cheese boss area
+                button.Click(NavigateTime)
             } else {
                 Log("Halloween event inactive, no button found.")
                 return false
@@ -492,8 +492,9 @@ GoToCheeseBoss() {
             " times.")
         OpenEventsAreasPanel(200)
         Sleep(NavigateTime + 200)
-        if (!cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
-            fSlowClick(buttonX, buttonY, NavigateTime + 200) ; Open Cheese boss area
+        if (!button.IsBackground()) {
+            ; Open Cheese boss area
+            button.Click(NavigateTime + 200)
         } else {
             Log("Halloween event inactive, no button found.")
             return false
@@ -515,8 +516,7 @@ GoToCheeseBoss() {
 }
 
 GoToFarmField() {
-    buttonX := 840
-    buttonY := 255
+    button := cPoint(1682, 525)
     if (!IsWindowActive()) {
         Log("No window found while trying to travel.")
         return false
@@ -541,20 +541,22 @@ GoToFarmField() {
                 return false
             }
             OpenEventsAreasPanel()
-            if (cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
+            if (button.IsBackground()) {
                 return false
             }
-            fSlowClick(buttonX, buttonY, NavigateTime) ; Open farm field
+            ; Open farm field
+            button.Click(NavigateTime)
             Sleep(NavigateTime)
             i++
         }
         ; If we were not at home garden or now farm field, try travel
         while (!IsAreaSampleColour("0x4A9754") && i <= 4) {
             OpenEventsAreasPanel()
-            if (cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
+            if (button.IsBackground()) {
                 return false
             }
-            fSlowClick(buttonX, buttonY, NavigateTime) ; Open farm field
+            ; Open farm field
+            button.Click(NavigateTime)
             Sleep(NavigateTime)
             i++
         }
@@ -566,10 +568,11 @@ GoToFarmField() {
         Log("Traveling to Farm Field. Attempt to blind travel with slowed"
             " times.")
         OpenEventsAreasPanel(200)
-        if (cPoint(WinRelPosW(buttonX), WinRelPosH(buttonY), true).IsBackground()) {
+        if (button.IsBackground()) {
             return false
         }
-        fSlowClick(buttonX, buttonY, NavigateTime + 200) ; Open farm field
+        ; Open farm field
+        button.Click(NavigateTime + 200)
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
             ; Checks are disabled so blindly trust we reached zone

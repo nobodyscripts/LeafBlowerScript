@@ -208,74 +208,64 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 ## Changes
 
-Check for updates added to gui, will check against the website once per day.
+- General
+  - Check for updates added to gui, will check against the website once per day.
 Settings added to General Settings and 3 settings added to ini.
+  - Replaced old coords system with new classes; cPoint, cArea, cColour etc
+  - Added DebugLog and VerboseLog
+  - Added some checks on libs when loaded in a secondary script
 
-Replaced old coords system with new classes; cPoint, cArea, cColour etc
+- Hotkeys
+  - Added new systems to handle both the hotkeys for ingame and the script.
+  - Potential fixes for hotkey settings being added to game not working.
 
-Added DebugLog and VerboseLog
-
-Added some checks on libs when loaded in a secondary script
-
-Hotkeys: Added new systems to handle both the hotkeys for ingame and the script.
-
-Hotkeys: Potential fixes for hotkey settings being added to game not working.
-
-GUI: Reflects custom hotkeys.
-
-GUI: Disabled Mine Sphere Count and Modifier if Greedy is enabled to be clear,
+- GUI
+  - Reflects custom hotkeys.
+  - Disabled Mine Sphere Count and Modifier if Greedy is enabled to be clear,
 the options conflict. Also renamed Amount > Count for clarity.
 
-Insert: Added MinerSphereModifier setting, custom amount to use per click when
+- Mine
+  - Added MinerSphereModifier setting, custom amount to use per click when
 greedy mode is turned off. Added to GUI.
-
-Insert: Added MinerEnableTransmuteSdia setting, transmutes max Coal Bars to
+  - Added MinerEnableTransmuteSdia setting, transmutes max Coal Bars to
 Shiny Diamonds. Added to GUI.
-
-Insert: Added MinerEnableTransmuteFuel setting, transmutes max Coal Diamonds to
+  - Added MinerEnableTransmuteFuel setting, transmutes max Coal Diamonds to
 Fuel. Added to GUI.
-
-Insert: Added MinerEnableTransmuteSphere setting, transmutes max Coal Diamonds
+  - Added MinerEnableTransmuteSphere setting, transmutes max Coal Diamonds
 to Spheres. Added to GUI.
-
-Insert: Added MinerEnableTransmuteSdiaToCB setting, transmutes max Shiny
+  - Added MinerEnableTransmuteSdiaToCB setting, transmutes max Shiny
 Diamonds to Coal Diamonds. Added to GUI.
-
-Insert: Improved checks for which tab is active to avoid script getting stuck.  
-
-Insert: Adapted background boss spammer into two seperate modes, boss and
+  - Improved checks for which tab is active to avoid script getting stuck.  
+  - Adapted background boss spammer into two seperate modes, boss and
 Leafton Pit. These options conflict with Leafton taking priority, added setting
 MinerEnableLeafton. Boss mode enabled by default.
 
-F8 (GFSS): Replaced normalboss spammer with standalone, updated travel coords.
+- GFSS
+  - Replaced normalboss spammer with standalone, updated travel coords.
 
-## TODO
+- TODO
+  - Check settings from options.dat as bootup tests
+  - Cleanup card purchase orders into a more generic func.  
+  - Investigate fullscreen (it breaks fullscreen).  
+  - Trade farming for non gems/non suitcase version.  
+  - Brew + cards rotation mode.  
+  - Halloween + Nature artifact secondary which pauses main functions.  
+  - Adjust window resize based on delta from intended size, for non matching window
+dressing.  
+  - Fix borb target items/active slots, f12 alt font
+  - Automated challenges (early game scripts)
 
-Check settings from options.dat as bootup tests
-Cleanup card purchase orders into a more generic func.  
-Investigate fullscreen (it breaks fullscreen).  
-
-Trade farming for non gems/non suitcase version.  
-Brew + cards rotation mode.  
-Halloween + Nature artifact secondary which pauses main functions.  
-Adjust window resize based on delta from intended size, for non matching window
-   dressing.  
-
-Automated challenges (early game scripts)
-
-F3: Greedy card purchasing.  
-F4: Add mouse movement patterns to collect artifacts in the background.  
-F6: Load dlc purchase state from save file and remove setting.  
-F7: Needs to use artifact if need be / get replacement.  
-F8: Add setting for standalone WW in GFSS spammer.  
-F8: Review ending of gfssnoreset mode.  
-F10: Recheck nature boss.  
-F10: Needs to use artifact if need be / get replacement.  
-F12: Replace all checks with options.dat lookup.  
-PageDown: Leafton needs better setup routine. Travel to zone.  
-Insert: Add brewing somehow.
-
-Fix borb target items/active slots, f12 alt font, hyacinth open fields
+  - Cards: Greedy card purchasing.  
+  - GemFarm: Add mouse movement patterns to collect artifacts in the background.  
+  - Borbv: Load dlc purchase state from save file and remove setting.  
+  - Claw: Needs to use artifact if need be / get replacement.  
+  - GFSS: Add setting for standalone WW in GFSS spammer.  
+  - GFSS: Review ending of gfssnoreset mode.  
+  - NatBoss: Recheck nature boss.  
+  - NatBoss: Needs to use artifact if need be / get replacement.  
+  - F12Test: Replace all checks with options.dat lookup.  
+  - Leafton: Leafton needs better setup routine. Travel to zone.  
+  - Mine: Add brewing somehow.
 
 ## Known issues
 

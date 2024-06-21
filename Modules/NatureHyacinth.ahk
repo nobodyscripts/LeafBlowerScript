@@ -58,6 +58,7 @@ fFarmNormalBossAndNatureHyacinth() {
         PlantBY := 750
     }
     loop {
+        Log(HarvBX " " HarvBY " " PlantBX " " PlantBY)
         if (!IsWindowActive()) {
             Log("BossHyacinth: Exiting as no game.")
             cReload() ; Kill if no game
@@ -95,27 +96,29 @@ fFarmNormalBossAndNatureHyacinth() {
             if (IsButtonActive(WinRelPosLargeW(1380), WinRelPosLargeH(750))) {
                 ; If planting available via plant button, planting available
                 fSlowClickRelL(PlantBX + 5, PlantBY, NavigateTime)
+            } else {
+                if (HyacinthUseNextAvailableFlower && flowerTypesUsed < 16) {
+                    ; If upgrading flower type and we've not gone through all 16
+                    newFlowerID := FlowerToID(HyacinthUseFlower) + 1
+                    if (newFlowerID > 16) {
+                        newFlowerID := 1
+                    }
+                    flowerTypesUsed := flowerTypesUsed++
+                    flowerID := newFlowerID
+                } else if (HyacinthUseNextAvailableFlower && flowerTypesUsed >= 16) {
+                    ; Run out of seeds so exiting
+                    if (HyacinthFarmBoss) KillSpammer()
+                        Log("BossHyacinth: Plants exausted. Exiting.")
+                    ToolTip("Plants exausted. Exiting.", W / 2, H / 2 +
+                        WinRelPosLargeH(50), 2)
+                    SetTimer(ToolTip.Bind(, , , 2), -3000)
+                    break
+                }
+
             }
             Sleep(NavigateTime)
-        } else {
-            if (HyacinthUseNextAvailableFlower && flowerTypesUsed < 16) {
-                ; If upgrading flower type and we've not gone through all 16
-                newFlowerID := FlowerToID(HyacinthUseFlower) + 1
-                if (newFlowerID > 16) {
-                    newFlowerID := 1
-                }
-                flowerTypesUsed := flowerTypesUsed++
-                flowerID := newFlowerID
-            } else {
-                ; Run out of seeds so exiting
-                if (HyacinthFarmBoss) KillSpammer()
-                    Log("BossHyacinth: Plants exausted. Exiting.")
-                ToolTip("Plants exausted. Exiting.", W / 2, H / 2 +
-                    WinRelPosLargeH(50), 2)
-                SetTimer(ToolTip.Bind(, , , 2), -3000)
-                break
-            }
         }
+
         if (HyacinthUseSpheres) {
             ; Use spheres if we have got the option to do so
             UseSphereLoop(HarvBX, HarvBY)
@@ -150,7 +153,9 @@ fFarmNormalBossAndNatureHyacinth() {
 
 OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID) {
     sleep(NavigateTime)
-    GoToFarmField()
+    while (!IsAreaResetToGarden()) {
+        GoToFarmField()
+    }
     sleep(NavigateTime)
     if (IsPanelActive()) {
         ClosePanel()
