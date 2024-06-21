@@ -35,7 +35,11 @@ Button_Click_BorbVenture(thisGui, info) {
         "0x6BEA15 Borb token`n"
         "0xCEF587 Free borb token`n"
         "0xC9C9C9 Dice Points (white)`n"
-        "0x0E44BE Power Dice Points (blue)")
+        "0x0E44BE Power Dice Points (blue)`n"
+        "0x11CF1C Quantum Blob (green)`n"
+        "0x250D05 Quark Blob (purple)`n"
+        "0x120D1C Quark Structures"
+    )
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunBorbv)
     optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveBorbv)

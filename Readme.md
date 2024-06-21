@@ -243,6 +243,9 @@ MinerEnableLeafton. Boss mode enabled by default.
 - GFSS
   - Replaced normalboss spammer with standalone, updated travel coords.
 
+- BorbVentures
+  - Added quantum blob, quark blob and quark structures
+
 - TODO
   - Check settings from options.dat as bootup tests
   - Cleanup card purchase orders into a more generic func.  
@@ -252,7 +255,7 @@ MinerEnableLeafton. Boss mode enabled by default.
   - Halloween + Nature artifact secondary which pauses main functions.  
   - Adjust window resize based on delta from intended size, for non matching window
 dressing.  
-  - Fix borb target items/active slots, f12 alt font
+  - F12 alt font
   - Automated challenges (early game scripts)
 
   - Cards: Greedy card purchasing.  

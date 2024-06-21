@@ -15,7 +15,7 @@ fBorbVentureJuiceFarm() {
     Log("Borbv: Main loop starting.")
     bvAutostartDisabled := false
     if (IsBVAutoStartOn()) {
-        fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
+        cPoint(591, 1100).Click()
         bvAutostartDisabled := true
     }
     loop {
@@ -32,7 +32,7 @@ fBorbVentureJuiceFarm() {
         BVMainLoop()
     }
     if (bvAutostartDisabled = true && !IsBVAutoStartOn()) {
-        fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
+        cPoint(591, 1100).Click()
     }
     Log("Borbv: Aborted.")
     ToolTip()
@@ -47,7 +47,7 @@ BVMainLoop() {
         if (!found) {
             break
         }
-        fCustomClick(WinRelPosLargeW(1847), WinRelPosLargeH(1085), 34)
+        cPoint(1847, 1085).Click()
         Sleep(34)
     }
     ; Get a list of the arrows heights so we can check the buttons and icons
@@ -63,21 +63,24 @@ BVMainLoop() {
         if (arrowY && IsWindowActive()) {
             arrowCount++
             ; If slot is active, we don't care what it is
-            StartButton := cPoint(WinRelPosLargeW(1855), arrowY, true)
-            CancelButton := cPoint(WinRelPosLargeW(2100), arrowY, true)
+            StartButton := cPoint(WinRelPosLargeW(1855), arrowY, false)
+            CancelButton := cPoint(WinRelPosLargeW(2100), arrowY, false)
             if (StartButton.IsBackground() && !CancelButton.IsBackground()) {
                 ; If slots cancel button exists, assume active. This lets us
                 ; pause refreshing until something new happens to avoid wastage
+                VerboseLog("Found active slot.")
                 activeSlots++
             } else {
                 if ((BVScanSlotRarity(arrowY) != "0x9E10C1" &&
-                    BVScanSlotRarity(arrowY) != "0xE1661A") || !BVBlockMythLeg) {
+                    BVScanSlotRarity(arrowY) != "0xE1661A" && BVBlockMythLeg) || !BVBlockMythLeg) {
+
+                        VerboseLog("Can scan slot " arrowCount)
                     ; If slot has an item we want add it to the target list
-                    IsUsefulItem := BVScanSlotItem(WinRelPosLargeW(1313),
+                    if (BVScanSlotItem(WinRelPosLargeW(1313),
                         arrowY - WinRelPosLargeH(17),
                         WinRelPosLargeW(1347),
-                        arrowY + WinRelPosLargeH(20))
-                    if (IsUsefulItem) {
+                        arrowY + WinRelPosLargeH(20))) {
+                        VerboseLog("Found item added to target items.")
                         targetItemsYArray.Push(arrowY)
                     }
                 }
@@ -87,10 +90,12 @@ BVMainLoop() {
     detailedMode := false
     ; If we have more than 4 arrows details mode is on
     if (arrowCount >= 6) {
+        DebugLog("Found detailed mode off.")
         detailedMode := true
     }
     ; Check for only if scroll is not at the top
     if (!detailedMode && !IsBVScrollAblePanelAtTop()) {
+        DebugLog("Reset scroll.")
         BVResetScroll()
         Sleep(34)
         return ; If we had to reset we should restart function and rescan
@@ -105,6 +110,7 @@ BVMainLoop() {
     for SlotY in targetItemsYArray {
         if (AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started)) {
             if (BVStartItemFromSlot(SlotY)) {
+                VerboseLog("Found item, added to started.")
                 started++
             }
         }
@@ -136,7 +142,8 @@ AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started) {
 }
 
 BVStartItemFromSlot(SlotY) {
-    StartButton := cPoint(WinRelPosLargeW(1864), SlotY, true)
+    DebugLog("Attempting to start bv on slot with y " SlotY)
+    StartButton := cPoint(WinRelPosLargeW(1864), SlotY, false)
     if (SlotY != 0 && IsWindowActive() && StartButton.IsButtonInactive()) {
         ; Don't try to start more if we're full even if another is
         ; detected
@@ -144,8 +151,8 @@ BVStartItemFromSlot(SlotY) {
         ; use its y to align clicks
         ; Click team slot 1
         bvSleepTime := 72
-
-        BorbSlot1 := cPoint(WinRelPosLargeW(1608), SlotY, true)
+        ; Click team slot 1
+        BorbSlot1 := cPoint(WinRelPosLargeW(1608), SlotY, false)
         BorbSlot1.ClickOffset(2, 0, bvSleepTime)
         Sleep(bvSleepTime)
         a := b := c := 0
@@ -155,7 +162,7 @@ BVStartItemFromSlot(SlotY) {
             Sleep(bvSleepTime)
         }
         ; Click team slot 2
-        BorbSlot2 := cPoint(WinRelPosLargeW(1728), SlotY, true)
+        BorbSlot2 := cPoint(WinRelPosLargeW(1728), SlotY, false)
         BorbSlot2.ClickOffset(2, 0, bvSleepTime)
         Sleep(bvSleepTime)
         while (BorbSlot2.IsButtonActive() && b < 2) {
@@ -164,7 +171,7 @@ BVStartItemFromSlot(SlotY) {
             Sleep(bvSleepTime)
         }
         ; Click Start
-        StartButton2 := cPoint(WinRelPosLargeW(1850), SlotY, true)
+        StartButton2 := cPoint(WinRelPosLargeW(1850), SlotY, false)
         StartButton2.ClickOffset(61, 0, bvSleepTime)
         Sleep(bvSleepTime)
         while (StartButton2.IsButtonActive() && c < 2) {
@@ -207,10 +214,10 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
     ; This is the check for the items colours, if you want to scan
     ; for something else. Change this colour to something unique to that
     ; type, or add more checks if you want several.
-
     try {
         for colour in BVItemsArr {
-            If (PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, colour, 0)) {
+            found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, colour, 0)
+            If (found and OutX != 0) {
                 return OutY
             }
         }
@@ -238,6 +245,9 @@ BVColourToItem(colour) {
         case "0xCEF587": return "Free borb token"
         case "0xC9C9C9": return "Dice Points (white)"
         case "0x0E44BE": return "Power Dice Points (blue)"
+        case "0x11CF1C": return "Quantum Blob (green)"
+        case "0x250D05": return "Quark Blob (purple)"
+        case "0x120D1C": return "Quark Structures"
         default: return "Unknown"
     }
 }
