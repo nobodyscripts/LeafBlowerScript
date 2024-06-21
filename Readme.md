@@ -272,7 +272,6 @@ borderless fullscreen
 - GFSS: Review ending of gfssnoreset mode.  
 - NatBoss: Recheck nature boss.  
 - NatBoss: Needs to use artifact if need be / get replacement.  
-- F12Test: Replace all checks with options.dat lookup.  
 - Leafton: Leafton needs better setup routine. Travel to zone.  
 - Mine: Add brewing somehow.
 
