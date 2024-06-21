@@ -269,13 +269,13 @@ F6: Load dlc purchase state from save file and remove setting.
 F7: Needs to use artifact if need be / get replacement.  
 F8: Add setting for standalone WW in GFSS spammer.  
 F8: Review ending of gfssnoreset mode.  
+F10: Recheck nature boss.  
 F10: Needs to use artifact if need be / get replacement.  
 F12: Replace all checks with options.dat lookup.  
 PageDown: Leafton needs better setup routine. Travel to zone.  
 Insert: Add brewing somehow.
 
-Fix borb target items/active slots, nature boss travel
-f12 alt font, hyacinth open fields, tower passive travel
+Fix borb target items/active slots, f12 alt font, hyacinth open fields
 
 ## Known issues
 

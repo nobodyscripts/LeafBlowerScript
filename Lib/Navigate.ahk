@@ -824,7 +824,7 @@ GotoCardsFirstTab() {
             Sleep(NavigateTime)
             OpenCards()
             Sleep(NavigateTime)
-            fSlowClick(202, 574, NavigateTime)
+            cPoint(404, 1183).Click(NavigateTime)
             ; Open first tab incase wrong tab
             Sleep(NavigateTime)
             i++
@@ -841,7 +841,7 @@ GotoCardsFirstTab() {
         Sleep(NavigateTime + 200)
         OpenCards()
         Sleep(NavigateTime + 200)
-        fSlowClick(202, 574, NavigateTime + 200)
+        cPoint(404, 1183).Click(NavigateTime + 200)
         ; Open first tab incase wrong tab
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
@@ -890,8 +890,8 @@ GotoBorbventuresFirstTab() {
     Sleep(101)
     BVResetScroll()
     i := 0
-    while (!IsButtonActive(WinRelPosLargeW(1100), WinRelPosLargeH(314)) &&
-        !IsButtonActive(WinRelPosLargeW(1574), WinRelPosLargeH(314)) &&
+    while (!cPoint(1100, 314).IsButtonActive() &&
+        !cPoint(1574, 314).IsButtonActive() &&
         i <= 4) {
         OpenPets() ; Opens or closes another screen so that when areas is opened it
         ; doesn't close
@@ -901,8 +901,8 @@ GotoBorbventuresFirstTab() {
         BVResetScroll()
         i++
     }
-    if (IsButtonActive(WinRelPosLargeW(1100), WinRelPosLargeH(314)) &&
-        IsButtonActive(WinRelPosLargeW(1574), WinRelPosLargeH(314))) {
+    if (cPoint(1100, 314).IsButtonActive() &&
+        cPoint(1574, 314).IsButtonActive()) {
         DebugLog("Travel success to Borbventures First Tab.")
         return true
     }
@@ -912,11 +912,11 @@ GotoBorbventuresFirstTab() {
 
 BVResetScroll() {
     ; Double up due to notifications
-    fSlowClick(315, 574, 72) ; Click borbs tab to reset scroll
-    fSlowClick(315, 574, 72) ; Redundant for stability
+    cPoint(630, 1183).Click(72) ; Click borbs tab to reset scroll
+    cPoint(630, 1183).Click(72) ; Redundant for stability
     Sleep(72)
-    fSlowClick(200, 574, 72) ; Click borbventures
-    fSlowClick(200, 574, 72) ; Redundant for stability
+    cPoint(400, 1183).Click(72) ; Click borbventures
+    cPoint(400, 1183).Click(72) ; Redundant for stability
     Sleep(72)
 }
 
@@ -925,90 +925,56 @@ GoToLeafTower() {
     ScrollAmountDown(16) ; Scroll down for the zones
     Sleep(101)
 
+    ; Leaf pixel search
     ; Look for colour of a segment of the rightmost tower leaf c5d8e0
-    try {
-        found := PixelSearch(&OutX, &OutY,
-            WinRelPosLargeW(1563), WinRelPosLargeH(430),
-            WinRelPosLargeW(1604), WinRelPosLargeH(964), "0xC5D8E0", 0)
-        ; Leaf pixel search
-        If (!found || OutX = 0) {
-            ; Not found
-            Log("TowerBoost: Could not find tower zone.")
-            return false
-        }
-    } catch as exc {
-        Log("Error 29: Tower leaf detection failed. Alignment1 - "
-            exc.Message)
-        MsgBox("Alignment issue 1, could not conduct the search due to the"
-            " following error:`n" exc.Message)
+    spot := cArea(1563, 430, 1615, 964).PixelSearch("0xC5D8E0")
+    if (!spot) {
+        ; Not found
+        Log("TowerBoost: Could not find tower leaf to open area.")
+        return false
     }
-    ; Found at 1595x778 (1440)
-    ; 1664 800 < tower floor zone Relative: 69 22
-    ; 2066 865 < Max floor button Relative: 471 87
-    ; 1664 646 < Leaksink Relative: 69 -132
-
+    LeafsingButton := cPoint(spot[1] + WinRelPosLargeW(69),
+        spot[2] - WinRelPosLargeH(160), false)
     ; Open leafsing harbor to allow max level reset
-    if (IsBackground(OutX + WinRelPosLargeW(69),
-        OutY - WinRelPosLargeH(132))) {
+    if (LeafsingButton.IsBackground()) {
         ; Background colour found
         Log("Error 30: Tower alt area detection failed. Alignment2.")
         return false
     }
-    fCustomClick(OutX + WinRelPosLargeW(69),
-        OutY - WinRelPosLargeH(132), 101)
-    Sleep(101)
+    LeafsingButton.Click(101)
+    Sleep(201)
 
+    TowerMax := cPoint(spot[1] + WinRelPosLargeW(460),
+        spot[2] + WinRelPosLargeH(60), false)
     ; Max Tower level
-    if (!cPoint(OutX + WinRelPosLargeW(471),
-        OutY + WinRelPosLargeH(67), true).IsButtonActive()) {
+    if (!TowerMax.IsButtonActive()) {
         Log("Error 31: Tower max detection failed. Alignment3.")
         return false
     }
-    fCustomClick(OutX + WinRelPosLargeW(471),
-        OutY + WinRelPosLargeH(67), 101)
+    TowerMax.Click(101)
     Sleep(101)
 
+    TowerArea := cPoint(spot[1] + WinRelPosLargeW(69),
+        spot[2] - WinRelPosLargeH(5), false)
     ; Select Tower area
-    if (!cPoint(OutX + WinRelPosLargeW(69),
-        OutY + WinRelPosLargeH(5), true).IsButtonActive()) {
+    if (!TowerArea.IsButtonActive()) {
         Log("Error 32: Tower area detection failed. Could not find "
             " Leaf Tower Travel Button.")
         return
     }
-    fCustomClick(OutX + WinRelPosLargeW(69),
-        OutY + WinRelPosLargeH(5), 101)
-    Sleep(101)
+    TowerArea.Click(101)
+    Sleep(201)
 }
 
 IsAreaSampleColour(targetColour := "0xFFFFFF") {
-    try {
-        ; Have to sample the corner to get a reliable pixel colour
-        sampleColour := PixelGetColor(WinRelPosLargeW(0), WinRelPosLargeH(0))
-        If (sampleColour = targetColour) {
-            ; Found target colour
-            return true
-        }
-    } catch as exc {
-        Log("Error 12: IsAreaSampleColour failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
-    }
-    if (Debug) {
-        Log("IsAreaSampleColour: Not in target area, colour: " sampleColour)
+    if (cPoint(0, 0).GetColour() = targetColour) {
+        return true
     }
     return false
 }
 
 GetAreaSampleColour() {
-    try {
-        ; Have to sample the corner to get a reliable pixel colour
-        sampleColour := PixelGetColor(WinRelPosLargeW(0), WinRelPosLargeH(0))
-    } catch as exc {
-        Log("Error 13: GetAreaSampleColour failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
-    }
-    return sampleColour
+    return cPoint(0, 0).GetColour()
 }
 
 IsAreaFlameBrazier() {
