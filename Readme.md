@@ -246,29 +246,35 @@ MinerEnableLeafton. Boss mode enabled by default.
 - BorbVentures
   - Added quantum blob, quark blob and quark structures
 
-- TODO
-  - Check settings from options.dat as bootup tests
-  - Cleanup card purchase orders into a more generic func.  
-  - Investigate fullscreen (it breaks fullscreen).  
-  - Trade farming for non gems/non suitcase version.  
-  - Brew + cards rotation mode.  
-  - Halloween + Nature artifact secondary which pauses main functions.  
-  - Adjust window resize based on delta from intended size, for non matching window
-dressing.  
-  - F12 alt font
-  - Automated challenges (early game scripts)
+- F12 (resize and test)
+  - Updated function to check options.dat directly for settings. Collects errors
+  and warning to report to user.  
 
-  - Cards: Greedy card purchasing.  
-  - GemFarm: Add mouse movement patterns to collect artifacts in the background.  
-  - Borbv: Load dlc purchase state from save file and remove setting.  
-  - Claw: Needs to use artifact if need be / get replacement.  
-  - GFSS: Add setting for standalone WW in GFSS spammer.  
-  - GFSS: Review ending of gfssnoreset mode.  
-  - NatBoss: Recheck nature boss.  
-  - NatBoss: Needs to use artifact if need be / get replacement.  
-  - F12Test: Replace all checks with options.dat lookup.  
-  - Leafton: Leafton needs better setup routine. Travel to zone.  
-  - Mine: Add brewing somehow.
+## TODO
+
+- Check settings from options.dat as bootup tests
+- Cleanup card purchase orders into a more generic func.  
+- Investigate fullscreen (it breaks fullscreen).  
+- Trade farming for non gems/non suitcase version.  
+- Brew + cards rotation mode.  
+- Halloween + Nature artifact secondary which pauses main functions.  
+- Adjust window resize based on delta from intended size, for non matching window
+dressing.  
+- F12 and settings apply, account for notifications behind menu setting and
+borderless fullscreen  
+- Automated challenges (early game scripts)
+
+- Cards: Greedy card purchasing.  
+- GemFarm: Add mouse movement patterns to collect artifacts in the background.  
+- Borbv: Load dlc purchase state from save file and remove setting.  
+- Claw: Needs to use artifact if need be / get replacement.  
+- GFSS: Add setting for standalone WW in GFSS spammer.  
+- GFSS: Review ending of gfssnoreset mode.  
+- NatBoss: Recheck nature boss.  
+- NatBoss: Needs to use artifact if need be / get replacement.  
+- F12Test: Replace all checks with options.dat lookup.  
+- Leafton: Leafton needs better setup routine. Travel to zone.  
+- Mine: Add brewing somehow.
 
 ## Known issues
 

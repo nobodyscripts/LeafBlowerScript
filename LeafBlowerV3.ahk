@@ -17,6 +17,7 @@ global IsSecondary := false
 #Include Lib\GameHotkeys.ahk
 #Include Lib\ScriptHotkeys.ahk
 #Include Lib\GameSettings.ahk
+#Include Lib\CheckGameSettings.ahk
 
 #Include Navigate\Header.ahk
 
@@ -427,53 +428,15 @@ fGameResize(*) {
         WinRestore(LBRWindowTitle)
     }
     ; Changes size of client window for windows 11
-    WinMove(, , 1294, 603, LBRWindowTitle)
-    WinWait(LBRWindowTitle)
-    InitGameWindow()
-    if (W != "1278" || H != "564") {
-        Log("Resized window to 1294*603 client size should be 1278*564, found: " W "*" H)
-    }
-    Sleep(500)
-    if (!CheckGameSettingsCorrectVerbose()) {
-        ; If it fails checks we need to restore the size we needed and then
-        ; return
-        WinMove(, , 1294, 703, LBRWindowTitle)
-        InitGameWindow()
-        if (W != "1278" || H != "664") {
-            Log("Resized window to 1294*703 client size should be 1278*664, found: " W "*" H)
-        }
-        return
-    }
     WinMove(, , 1294, 703, LBRWindowTitle)
     WinWait(LBRWindowTitle)
     InitGameWindow()
     if (W != "1278" || H != "664") {
         Log("Resized window to 1294*703 client size should be 1278*664, found: " W "*" H)
     }
-    if (!DisableSettingsChecks) {
-        if (IsFontCorrectCheck()) {
-            ToolTip(, , , 1)
-            ToolTip(, , , 2)
-            ToolTip(, , , 3)
-            ToolTip(, , , 4)
-            ToolTip(, , , 5)
-            ToolTip("Correct render mode, transparency, trees, dark "
-                "background,`nsmooth graphics and font settings found`nF2 to "
-                "dismiss",
-                W / 2 - WinRelPosW(150),
-                H / 3, 10)
-            Log("F12: Correct font settings found")
-        } else {
-            Log("F12: Incorrect font settings found")
-        }
-        SetTimer(removeLastCheckTooltip, -3000)
-    }
+    fCheckGameSettings()
 }
 
-; As passing the number of the tooltip is such a pain
-removeLastCheckTooltip() {
-    ToolTip(, , , 10)
-}
 
 fMineStart(*) {
     Static on13 := false
