@@ -8,7 +8,7 @@ Button_Click_Mine(thisGui, info) {
         MinerSphereDelay, MinerSphereCount, MinerSphereTimer, MinerEnableLeafton,
         MinerEnableCaves, MinerCaveTimer, MinerSphereGreedyUse,
         MinerSphereModifier, MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
-        MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCB
+        MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia
 
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -75,10 +75,10 @@ Button_Click_Mine(thisGui, info) {
         optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSphere ccfcfcf", "Enable Coal Dia To Sphere Transmute")
     }
 
-    if (MinerEnableTransmuteSdiaToCB = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdiaToCB ccfaf21 checked", "Enable Shiny Dia To Coal Bar Transmute")
+    if (MinerEnableTransmuteSdiaToCDia = true) {
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdiaToCDia ccfaf21 checked", "Enable Shiny Dia To Coal Diamond Transmute")
     } else {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdiaToCB ccfaf21", "Enable Shiny Dia To Coal Bar Transmute")
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSdiaToCDia ccfaf21", "Enable Shiny Dia To Coal Diamond Transmute")
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Auto Bars Transmute Timer (s):")
@@ -295,7 +295,7 @@ Button_Click_Mine(thisGui, info) {
         MinerEnableTransmuteSdia := values.MinerEnableTransmuteSdia
         MinerEnableTransmuteFuel := values.MinerEnableTransmuteFuel
         MinerEnableTransmuteSphere := values.MinerEnableTransmuteSphere
-        MinerEnableTransmuteSdiaToCB := values.MinerEnableTransmuteSdiaToCB
+        MinerEnableTransmuteSdiaToCDia := values.MinerEnableTransmuteSdiaToCDia
         settings.SaveCurrentSettings()
     }
 

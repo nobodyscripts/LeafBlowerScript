@@ -48,7 +48,7 @@ global MinerEnableVeins, MinerEnableTransmute,
 global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
     MinerSphereTimer, MinerSphereGreedyUse,
     MinerSphereModifier, MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
-    MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCB
+    MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia
 
 class singleSetting {
     Name := ""
@@ -161,7 +161,7 @@ class cSettings {
         this.Map["MinerEnableTransmuteSdia"] := singleSetting().Create("MinerEnableTransmuteSdia", false, false, "bool", "Miner")
         this.Map["MinerEnableTransmuteFuel"] := singleSetting().Create("MinerEnableTransmuteFuel", false, false, "bool", "Miner")
         this.Map["MinerEnableTransmuteSphere"] := singleSetting().Create("MinerEnableTransmuteSphere", false, false, "bool", "Miner")
-        this.Map["MinerEnableTransmuteSdiaToCB"] := singleSetting().Create("MinerEnableTransmuteSdiaToCB", false, false, "bool", "Miner")
+        this.Map["MinerEnableTransmuteSdiaToCDia"] := singleSetting().Create("MinerEnableTransmuteSdiaToCDia", false, false, "bool", "Miner")
         this.Map["MinerEnableFreeRefuel"] := singleSetting().Create("MinerEnableFreeRefuel", true, true, "bool", "Miner")
         this.Map["MinerEnableBanks"] := singleSetting().Create("MinerEnableBanks", true, true, "bool", "Miner")
         this.Map["MinerEnableSpammer"] := singleSetting().Create("MinerEnableSpammer", true, true, "bool", "Miner")
@@ -252,7 +252,7 @@ class cSettings {
         global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
             MinerSphereTimer, MinerSphereGreedyUse, MinerSphereModifier,
             MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
-            MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCB
+            MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia
         for (setting in this.Map) {
             try {
                 if (this.Map[setting].Name != "BVItemsArr") {

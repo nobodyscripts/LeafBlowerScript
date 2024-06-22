@@ -318,7 +318,7 @@ Enable auto transmute of all Coal Diamonds to Fuel in Transmute tab.
 MinerEnableTransmuteSphere: (Default) false  
 Enable auto transmute of all Coal Diamonds to Spheres in Transmute tab.
 
-MinerEnableTransmuteSdiaToCB: (Default) false  
+MinerEnableTransmuteSdiaToCDia: (Default) false  
 Enable auto transmute of all Shiny Diamonds to Coal Diamonds in Transmute tab.
 
 MinerTransmuteTimer: (Default) 10  

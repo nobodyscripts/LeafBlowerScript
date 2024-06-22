@@ -12,7 +12,7 @@ global MinerEnableTransmute := true
 global MinerEnableTransmuteSdia := false
 global MinerEnableTransmuteFuel := false
 global MinerEnableTransmuteSphere := false
-global MinerEnableTransmuteSdiaToCB := false
+global MinerEnableTransmuteSdiaToCDia := false
 global MinerEnableFreeRefuel := true
 global MinerEnableBanks := true
 global MinerEnableSpammer := true
@@ -232,7 +232,7 @@ fMineMaintainer() {
 isAnyTransmuteEnabled() {
     return MinerEnableTransmute || MinerEnableTransmuteSdia ||
         MinerEnableTransmuteFuel || MinerEnableTransmuteSphere ||
-        MinerEnableTransmuteSdiaToCB
+        MinerEnableTransmuteSdiaToCDia
 }
 
 EnhanceVeins() {
@@ -317,7 +317,7 @@ TransmuteAllCoalBars() {
             Sleep(NavigateTime)
         }
     }
-    if (MinerEnableTransmuteSdiaToCB) { ; Cdia not Cbar, setting has typo
+    if (MinerEnableTransmuteSdiaToCDia) {
         SdiaToCBTransmuteButton := Points.Mine.Transmute.AllSDiasToCDia
         while (IsWindowActive() && IsPanelActive() &&
             SdiaToCBTransmuteButton.IsButtonActive() &&

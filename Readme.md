@@ -6,89 +6,82 @@ Autohotkey V2 script, see Setup Guide below for installation help.
 
 Same key toggles the feature off, if this toggle fails, F1 or F2 to abort.
 
-F1: Closes the script entirely
+- F1: Closes the script entirely
 
-F2: Reloads the script, deactivating anything that is active but keeping it
+- F2: Reloads the script, deactivating anything that is active but keeping it
 loaded
 
-F3: Open/Buy card packs - Opens/buys card screen for you. Customize the amount
-to open/buy in the UserSettings.ini file, 25000 default. May leave the
-ctrl/alt/shift keys pressed when canceling, just press them to update their
-state if you notice anything weird. Doesn't handle the button modifiers, set as
-you want before running.
+- F3: Open/Buy card packs - Opens/buys card screen for you. Settings control
+every aspect so configure how prefered. Doesn't handle the button modifiers, set
+as you want, accounting for the amount the script will try to use before running.
 
-F4: Gem suitcase farming - Will do prep for you and reset afterwards, keep an
-eye on it for a minute incase it has missed anything and is running smoothly.
-Removes Bearo from pet team if active, sets default loadout when exited with F4.
-No check in place for remaining golden suitcases, if its skipping a bunch of
-gems you are out, and can either wait for regen or let it continue to run
-slower.
+- F4: Gem suitcase farming - Removes Bearo from pet team if active, sets default
+loadout when exited with F4. No check in place for remaining golden suitcases,
+if its skipping a bunch of gems you are out, and can either wait for regen or
+let it continue to run slower.
 
-F5: 72h tower boost loop - Uses (doesn't buy) boosts, swaps areas to raise max
+- F5: 72h tower boost loop - Uses (doesn't buy) boosts, swaps areas to raise max
 floor. Does equip a tower gear equipment loadout, sets back to default loadout
 after exiting with F5.
 
-F6: Borbventure farming - Defaults to farming purple juice, nature gems and
-white dices (configure in UserSettings.ini). Set if you own the borb dlc
-otherwise it will ignore the first two slots being unfilled. Doesn't scroll so
-there may be some pauses. Scrolling will interupt, requires to be at the top of
-the panel. Auto finish can be left on for faster runs, auto start is toggled off
-though you will need to wait a cycle for new items, or clear active before
-running the script.
+- F6: Borbventure farming - Defaults to farming purple juice, nature gems and
+white dices (configure for more). Set if you own the borb dlc otherwise it will
+ignore the first two slots being unfilled. Scrolling will interupt, requires to
+be at the top of the panel. Auto finish can be left on for faster runs, auto
+start is toggled off though you will need to wait a cycle for new items, or
+clear active before running the script.
 
-F7: Claw machine pumpkin farmer - Tries to identify the pumpkin and use the
+- F7: Claw machine pumpkin farmer - Tries to identify the pumpkin and use the
 hook to grab it, will miss some due to other items and sometimes doesn't grab
 things on the first pass. Downgrades to picking gems if no pumpkin found. Auto
 start required on.
 
-F8: Green Flame/SoulSeeker farmer - Set how many of each to kill in the
-UserSettings.ini, will cycle and use violins to farm that amount as well as
-resetting SoulSeeker. Will attempt to reset GF if needed and handle deaths.  
-Milestone farm mode (see settings) lets you stop automatic resetting.
+- F8: Green Flame/SoulSeeker farmer - Configure how many of each to kill, will
+cycle and use violins to farm that amount as well as resetting SoulSeeker.
+Attempts to reset GF if needed and handle deaths. Milestone farm mode (see
+settings) lets you stop automatic resetting for milestone runs.
 
-F9: Normal boss farmer - Doesn't select a zone, sit in the area you want to farm
+- F9: Normal boss farmer - Doesn't select a zone, sit in the area you want to farm
 and it'll spam violins when the timers up. If kill numbers look off see settings
-below. Settings for Wind/Grav/WW and timers available apply to all modes of F9,
-attempts to use artifacts smartly, depending which boss zone you are currently
-in (updates with WW use). Uses a second script to bypass limitations, so you
-will see 2 icons in tray.
+below. Settings for Wind/Grav/WW and timers available apply to all uses of boss
+spammer, attempts to use artifacts smartly, depending which boss zone you are
+currently in (updates with WW use). Uses a second script to bypass limitations,
+so you will see 2 icons in tray.
 
-F9x2 (twice): Boss farmer + brew spammer - Opens the first tab of brewing and
+  - F9x2 (twice): Boss farmer + brew spammer - Opens the first tab of brewing and
 spams Artifacts, Equipment, Materials and Card parts (no scrolls).  
 
-F9x3 (three times): Boss farm + borbventures
+  - F9x3 (three times): Boss farm + borbventures
 
-F9x4 (four times): Boss farm + card opening - Will continue when done opening
-cards, can disable this in the UserSettings.ini if concerned about using cards
-unintentionally
+  - F9x4 (four times): Boss farm + card opening - Uses card mode settings
 
-F9x5 (five times): Toggles off (though you can just F2 early if you prefer)
+  - F9x5 (five times): Toggles off (though you can just F2 early if you prefer)
 
-F10: Nature boss farmer - Swaps out to Shadow Cavern to use violins, uses the
+- F10: Nature boss farmer - Swaps out to Shadow Cavern to use violins, uses the
 timer in the area screen to check if the timers done, so don't close the panels
 while it is running.
 
-F11: A 16.7ms autoclicker - Works outside the game too so be careful
+- F11: A 16.7ms autoclicker - Works outside the game too so be careful
 
-F12: Performs settings tests for render type, menu transparency, font size and
-font type. Then resizes the window to 1278x664 client area (on windows 11, may
-need tweaking if not) This is intended to be optional, but you can use this if
-things break for you. And to test if settings are working. Does not currently
-test for alb settings, may break if window title bar/borders are different.
+- F12: Performs settings tests against the games settings and reports. Also
+resizes the window to 1278x664 client area This is intended to be optional, but
+you can use this if things break for you. And to test if settings are working.
+May break if window title bar/borders sizes are different from Windows 11
+defaults.
 
-Insert: Mine maintainer - Automatic enhance, vein removal (to quickly refresh),
+- Insert: Mine maintainer - Automatic enhance, vein removal (to quickly refresh),
 Transmute max coal bars to coal diamonds on timer, free drill fuel collection on
 a timer. Bank and WW spammer supported.
 
-Home: Hyacinth farming - Spam grows hyacinths to farm nature gems/exp. Can farm
+- Home: Hyacinth farming - Spam grows hyacinths to farm nature gems/exp. Can farm
 bosses with WW in the background.
 
-End: Passive Tower Farm - Spams wind and blazing skulls as fast as possible,
+- End: Passive Tower Farm - Spams wind and blazing skulls as fast as possible,
 resets player to tower if found in home garden. Options for bank and crafting.
 
-PageUp: Bank Maintainer - Every (10m by default) will refill RESS in bank.
+- PageUp: Bank Maintainer - Every (10m by default) will refill RESS in bank.
 
-PageDown: Leafton mode, auto taxi that waits for energy to refill, while active
+- PageDown: Leafton mode, auto taxi that waits for energy to refill, while active
 will also do crafting, bank, wind for damage. Runonce mode for sweeping floors
 to improve max for milestones (suggest bank and crafting off when using).
 
@@ -178,7 +171,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 |                                                         |                                                                                                                               |
 |   Alternative renderer                                  |  All: Setting is tested for and errors without.                                                                               |
 |                                                         |                                                                                                                               |
-|   Font size (0/1) (0 default)                           |  F12: Tests this setting and errors (May cause missalignment, both should work 0 is my default and will work better in borbv).|
+|   Font size (0)                                         |  F12: Tests this setting and errors (May cause missalignment, 1 may work, 0 is my default and will work better).|
 |                                                         |                                                                                                                               |
 |   Font (Alternative)                                    |  F12: Tests this setting and errors without (May cause missalignment).                                                        |
 |                                                         |                                                                                                                               |
@@ -233,7 +226,7 @@ Shiny Diamonds. Added to GUI.
 Fuel. Added to GUI.
   - Added MinerEnableTransmuteSphere setting, transmutes max Coal Diamonds
 to Spheres. Added to GUI.
-  - Added MinerEnableTransmuteSdiaToCB setting, transmutes max Shiny
+  - Added MinerEnableTransmuteSdiaToCDia setting, transmutes max Shiny
 Diamonds to Coal Diamonds. Added to GUI.
   - Improved checks for which tab is active to avoid script getting stuck.  
   - Adapted background boss spammer into two seperate modes, boss and
@@ -263,6 +256,7 @@ dressing.
 - F12 and settings apply, account for notifications behind menu setting and
 borderless fullscreen  
 - Automated challenges (early game scripts)
+- Convert borbventures gui to checkboxes for item selection
 
 - Cards: Greedy card purchasing.  
 - GemFarm: Add mouse movement patterns to collect artifacts in the background.  
