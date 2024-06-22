@@ -49,8 +49,7 @@ loop {
 }
 
 FindVeinsWithBars2() {
-
-    SampleSlot4 := Points.Mine.Vein.Slot4.Icon 
+    SampleSlot4 := Points.Mine.Vein.Slot4.Icon
     SampleSlot5 := Points.Mine.Vein.Slot5.Icon
     SampleSlot6 := Points.Mine.Vein.Slot6.Icon
     if (SampleSlot4.GetColour() != "0x6D758D" ||

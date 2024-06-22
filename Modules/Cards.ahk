@@ -113,7 +113,7 @@ CardsOpenSinglePass() {
         fSlowClick(32, 596, 101)
         HadToHideNotifs := true
         ; Notifications were blocking, close notifications and reshow
-        OpenCards()
+        GameKeys.OpenCards()
         Sleep(101)
     }
 

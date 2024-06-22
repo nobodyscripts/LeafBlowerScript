@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include GameHotkeys.ahk
+#Include ..\Lib\cHotkeysInitGame.ahk
+#Include ..\Lib\cHotkeysInitScript.ahk
 
 global DisableZoneChecks := false
 global NavigateTime := 150
@@ -16,15 +17,15 @@ OpenAreasPanel(reset := true, extraDelay := 0) {
     if (NavigateTime < 72) {
         NavTime := 72 + extraDelay
     }
-    OpenPets() ; Opens or closes another screen so that when areas
+    GameKeys.OpenPets() ; Opens or closes another screen so that when areas
     ; is opened it doesn't close
     sleep(NavTime)
-    OpenAreas() ; Open areas
+    GameKeys.OpenAreas() ; Open areas
     sleep(NavTime * 2)
     i := 0
     while (!Points.Areas.Favs.Tab.IsButtonActive() && i <= 4) {
         Log("OpenAreasPanel: Retry, could not see active button.")
-        OpenAreas() ; Open areas if it still hasn't opened
+        GameKeys.OpenAreas() ; Open areas if it still hasn't opened
         sleep(NavTime)
         i++
     }
@@ -333,7 +334,7 @@ GotoResetSS() {
     }
     GoToShadowCavern()
     if (IsPanelActive()) {
-        ClosePanel() ; Close the panel to see borb
+        GameKeys.ClosePanel() ; Close the panel to see borb
         sleep(NavigateTime)
     }
     button := cPoint(1735, 397)
@@ -757,7 +758,7 @@ SingleAnteLeaftonTravel(extradelay := 0) {
     }
     Log("Traveling to Ante Leafton")
     if (IsPanelActive()) {
-        ClosePanel()
+        GameKeys.ClosePanel()
         Sleep(NavigateTime)
     }
     OpenQuarkPanel(extradelay)
@@ -823,9 +824,9 @@ GotoCardsFirstTab() {
                 return false
             }
             Log("Opening cards, packs (first) tab.")
-            OpenPets() ; Toggle alt panel to cleanup old panels
+            GameKeys.OpenPets() ; Toggle alt panel to cleanup old panels
             Sleep(NavigateTime)
-            OpenCards()
+            GameKeys.OpenCards()
             Sleep(NavigateTime)
             cPoint(404, 1183).Click(NavigateTime)
             ; Open first tab incase wrong tab
@@ -840,9 +841,9 @@ GotoCardsFirstTab() {
         ; Attempt to blind travel with slowed times
         Log("Opening cards, packs (first) tab. Attempt to blind travel with"
             " slowed times.")
-        OpenPets() ; Toggle alt panel to cleanup old panels
+        GameKeys.OpenPets() ; Toggle alt panel to cleanup old panels
         Sleep(NavigateTime + 200)
-        OpenCards()
+        GameKeys.OpenCards()
         Sleep(NavigateTime + 200)
         cPoint(404, 1183).Click(NavigateTime + 200)
         ; Open first tab incase wrong tab
@@ -886,20 +887,20 @@ GoToAreaFireFieldsTab(extraDelay := 0) {
 }
 
 GotoBorbventuresFirstTab() {
-    OpenPets() ; Opens or closes another screen so that when areas is opened it
+    GameKeys.OpenPets() ; Opens or closes another screen so that when areas is opened it
     ; doesn't close
     Sleep(101)
-    OpenBorbVentures() ; Open BV
+    GameKeys.OpenBorbVentures() ; Open BV
     Sleep(101)
     BVResetScroll()
     i := 0
     while (!cPoint(1100, 314).IsButtonActive() &&
         !cPoint(1574, 314).IsButtonActive() &&
         i <= 4) {
-        OpenPets() ; Opens or closes another screen so that when areas is opened it
+        GameKeys.OpenPets() ; Opens or closes another screen so that when areas is opened it
         ; doesn't close
         Sleep(101)
-        OpenBorbVentures() ; Open BV
+        GameKeys.OpenBorbVentures() ; Open BV
         Sleep(101)
         BVResetScroll()
         i++

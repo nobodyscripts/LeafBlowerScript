@@ -13,7 +13,7 @@ fFarmCheeseBoss() {
         return
     }
     Sleep(101)
-    ClosePanel()
+    GameKeys.ClosePanel()
     Sleep(101)
     Killcount := 0
     IsInCursedHalloween := false
@@ -55,7 +55,7 @@ fFarmCheeseBoss() {
                 if (IsCheeseBossTimerActive()) {
                     ToolTip("Using violins", W / 2, H / 2)
                     SetTimer(ToolTip, -250)
-                    TriggerViolin()
+                    Gamekeys.TriggerViolin()
                     Sleep(71)
                 } else {
                     Log("CheeseBoss: Traveling to Cursed Halloween.")
@@ -74,7 +74,7 @@ fFarmCheeseBoss() {
                     }
                     IsInCursedHalloween := false
                     Sleep(101)
-                    ClosePanel()
+                    GameKeys.ClosePanel()
                     Sleep(101)
                     ; boss doesn't appear instantly so we need a manual delay
                     break

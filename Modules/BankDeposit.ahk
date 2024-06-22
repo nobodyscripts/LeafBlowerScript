@@ -24,7 +24,7 @@ fBankAutoDeposit() {
     if (BankRunsSpammer) {
         NormalBossSpammerStart()
     }
-    OpenBank()
+    GameKeys.OpenBank()
     ToolTip("Bank Maintainer Active", W / 2 - WinRelPosLargeW(100), H / 2, 4)
     loop {
         if (!IsWindowActive()) {
@@ -77,13 +77,13 @@ BankSinglePass() {
     DepositRESS := Points.Bank.DepositRESS
     UpgradeButton := Points.Bank.UpgradeStorage
     if (IsPanelActive()) {
-        ClosePanel()
+        GameKeys.ClosePanel()
         Sleep(NavigateTime)
     }
-    OpenBank()
+    GameKeys.OpenBank()
     Sleep(NavigateTime + 100)
     if (!IsPanelActive()) {
-        OpenBank()
+        GameKeys.OpenBank()
         Sleep(NavigateTime)
     }
     i := 0
@@ -126,7 +126,7 @@ BankSinglePass() {
         i++
     }
     if (IsPanelActive()) {
-        ClosePanel()
+        GameKeys.ClosePanel()
         Sleep(NavigateTime)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-#include HotkeysClass.ahk
+#include cHotkeys.ahk
 
 
 ; ------------------- Keybinds -------------------
@@ -13,7 +13,7 @@ global Scriptkeys := cHotkeys()
 
 ScriptKeys.sFilename := A_ScriptDir "\ScriptHotkeys.ini"
 
-Scriptkeys.Hotkeys["Exit"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["Exit"] := cHotkey(
     "Exit",
     Map(
         "EN-US", "F1",
@@ -22,7 +22,7 @@ Scriptkeys.Hotkeys["Exit"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["Reload"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["Reload"] := cHotkey(
     "Reload",
     Map(
         "EN-US", "F2",
@@ -31,7 +31,7 @@ Scriptkeys.Hotkeys["Reload"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["Cards"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["Cards"] := cHotkey(
     "Cards",
     Map(
         "EN-US", "F3",
@@ -40,7 +40,7 @@ Scriptkeys.Hotkeys["Cards"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["GemFarm"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["GemFarm"] := cHotkey(
     "GemFarm",
     Map(
         "EN-US", "F4",
@@ -49,7 +49,7 @@ Scriptkeys.Hotkeys["GemFarm"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["TowerBoost"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["TowerBoost"] := cHotkey(
     "TowerBoost",
     Map(
         "EN-US", "F5",
@@ -58,7 +58,7 @@ Scriptkeys.Hotkeys["TowerBoost"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["Borbv"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["Borbv"] := cHotkey(
     "Borbv",
     Map(
         "EN-US", "F6",
@@ -67,7 +67,7 @@ Scriptkeys.Hotkeys["Borbv"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["Claw"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["Claw"] := cHotkey(
     "Claw",
     Map(
         "EN-US", "F7",
@@ -76,7 +76,7 @@ Scriptkeys.Hotkeys["Claw"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["GFSS"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["GFSS"] := cHotkey(
     "GFSS",
     Map(
         "EN-US", "F8",
@@ -85,7 +85,7 @@ Scriptkeys.Hotkeys["GFSS"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["BossFarm"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["BossFarm"] := cHotkey(
     "BossFarm",
     Map(
         "EN-US", "F9",
@@ -94,7 +94,7 @@ Scriptkeys.Hotkeys["BossFarm"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["NatureBoss"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["NatureBoss"] := cHotkey(
     "NatureBoss",
     Map(
         "EN-US", "F10",
@@ -103,7 +103,7 @@ Scriptkeys.Hotkeys["NatureBoss"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["AutoClicker"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["AutoClicker"] := cHotkey(
     "AutoClicker",
     Map(
         "EN-US", "F11",
@@ -112,7 +112,7 @@ Scriptkeys.Hotkeys["AutoClicker"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["GameResize"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["GameResize"] := cHotkey(
     "GameResize",
     Map(
         "EN-US", "F12",
@@ -121,7 +121,7 @@ Scriptkeys.Hotkeys["GameResize"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["MineMaintain"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["MineMaintain"] := cHotkey(
     "MineMaintain",
     Map(
         "EN-US", "Insert",
@@ -130,7 +130,7 @@ Scriptkeys.Hotkeys["MineMaintain"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["HyacinthFarm"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["HyacinthFarm"] := cHotkey(
     "HyacinthFarm",
     Map(
         "EN-US", "Home",
@@ -139,7 +139,7 @@ Scriptkeys.Hotkeys["HyacinthFarm"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["Bank"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["Bank"] := cHotkey(
     "Bank",
     Map(
         "EN-US", "PgUp",
@@ -148,7 +148,7 @@ Scriptkeys.Hotkeys["Bank"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["CursedCheese"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["CursedCheese"] := cHotkey(
     "CursedCheese",
     Map(
         "EN-US", "Del",
@@ -157,7 +157,7 @@ Scriptkeys.Hotkeys["CursedCheese"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["TowerPassive"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["TowerPassive"] := cHotkey(
     "TowerPassive",
     Map(
         "EN-US", "End",
@@ -166,7 +166,7 @@ Scriptkeys.Hotkeys["TowerPassive"] := singleHotkey().Create(
     ),
     "Default")
 
-Scriptkeys.Hotkeys["Leafton"] := singleHotkey().Create(
+Scriptkeys.Hotkeys["Leafton"] := cHotkey(
     "Leafton",
     Map(
         "EN-US", "PgDn",

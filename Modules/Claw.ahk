@@ -10,7 +10,7 @@ fClawFarm() {
         return
     }
 
-    RefreshTrades()
+    GameKeys.RefreshTrades()
     sleep(150)
     loop {
         if (!IsWindowActive()) {
@@ -32,13 +32,13 @@ fClawFarm() {
                     if (TargetX = 0) {
                         ; Still nothing just reset
                         Sleep(101)
-                        RefreshTrades()
+                        GameKeys.RefreshTrades()
                         sleep(50)
                     }
                 } else {
                     ; Still nothing just reset
                     Sleep(101)
-                    RefreshTrades()
+                    GameKeys.RefreshTrades()
                     sleep(50)
                 }
             }
@@ -46,7 +46,7 @@ fClawFarm() {
         ; Version 3
         HookX := ClawGetHookLocation(TargetX)
         if (HookX != 0 && TargetX != 0) {
-            RefreshTrades()
+            GameKeys.RefreshTrades()
         }
     }
 }
@@ -101,7 +101,7 @@ ClawCheck(TargetX, offset := 0, delay := 0) {
     if (IsClawAboveLocation(TargetX - WinRelPosLargeW(offset)) &&
         TargetX != 0) {
         Sleep(delay)
-        RefreshTrades()
+        GameKeys.RefreshTrades()
         Log("Trying to catch, Offset " offset " Delay " delay " X "
             TargetX - WinRelPosLargeW(offset))
         return true

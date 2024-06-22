@@ -7,7 +7,7 @@ fTimeWarpAndRaiseTower() {
     global X, Y, W, H, TowerFarmActive
     GemTest := true
     if (GemTest) {
-        OpenGemShop()
+        GameKeys.OpenGemShop()
         sleep(150)
 
         if (!IsButtonActive(WinRelPosW(904), WinRelPosH(571))) {
@@ -30,7 +30,7 @@ fTimeWarpAndRaiseTower() {
     ScrollAmountDown(16) ; Scroll down for the zones
     Sleep(101)
     Log("TowerBoost: Equiping tower loadout")
-    EquipTowerGearLoadout() ; Equip Tower set
+    GameKeys.EquipTowerGearLoadout() ; Equip Tower set
     TowerFarmActive := true
     Log("TowerBoost: Starting main loop.")
     Loop {
@@ -58,7 +58,7 @@ fTimeWarpAndRaiseTower() {
                     W / 2 - WinRelPosW(50),
                     H / 2)
                 Log("TowerBoost: Equiping default loadout")
-                EquipDefaultGearLoadout()
+                GameKeys.EquipDefaultGearLoadout()
                 break
             }
         } catch as exc {
@@ -82,7 +82,7 @@ fTimeWarpAndRaiseTower() {
                     W / 2 - WinRelPosW(50),
                     H / 2)
                 Log("TowerBoost: Equiping default loadout")
-                EquipDefaultGearLoadout()
+                GameKeys.EquipDefaultGearLoadout()
                 break
         }
         fCustomClick(OutX + WinRelPosLargeW(69),
@@ -98,7 +98,7 @@ fTimeWarpAndRaiseTower() {
                     W / 2 - WinRelPosW(50),
                     H / 2)
                 Log("TowerBoost: Equiping default loadout")
-                EquipDefaultGearLoadout()
+                GameKeys.EquipDefaultGearLoadout()
                 break
         }
         fCustomClick(OutX + WinRelPosLargeW(471),
@@ -118,14 +118,14 @@ fTimeWarpAndRaiseTower() {
                     W / 2 - WinRelPosW(50),
                     H / 2)
                 Log("TowerBoost: Equiping default loadout")
-                EquipDefaultGearLoadout()
+                GameKeys.EquipDefaultGearLoadout()
                 break
         }
         fCustomClick(OutX + WinRelPosLargeW(69),
             OutY + WinRelPosLargeH(5), 101)
         Sleep(101)
 
-        OpenGemShop()
+        GameKeys.OpenGemShop()
         sleep(150)
 
         if (!IsButtonActive(WinRelPosW(904), WinRelPosH(571))) {
@@ -135,7 +135,7 @@ fTimeWarpAndRaiseTower() {
                 W / 2 - WinRelPosW(50),
                 H / 2)
             Log("TowerBoost: Equiping default loadout")
-            EquipDefaultGearLoadout()
+            GameKeys.EquipDefaultGearLoadout()
             break
         }
         fSlowClick(904, 571, 101) ; Navigate to Time Travel tab
@@ -150,10 +150,10 @@ fTimeWarpAndRaiseTower() {
                 W / 2 - WinRelPosW(50),
                 H / 2)
             Log("TowerBoost: Equiping default loadout")
-            EquipDefaultGearLoadout()
+            GameKeys.EquipDefaultGearLoadout()
             break
         }
-        OpenAreas() ; Doing this last as we open this to scroll to start
+        GameKeys.OpenAreas() ; Doing this last as we open this to scroll to start
         sleep(150)
     }
     TowerFarmActive := false

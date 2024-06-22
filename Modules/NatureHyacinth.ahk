@@ -25,7 +25,7 @@ fFarmNormalBossAndNatureHyacinth() {
     flowerID := HyacinthUseFlower
     flowerTypesUsed := 1
     if (HyacinthBanksEnabled) {
-        OpenPets()
+        GameKeys.OpenPets()
         Sleep(NavigateTime)
         BankSinglePass()
     }
@@ -37,7 +37,7 @@ fFarmNormalBossAndNatureHyacinth() {
 
     if (HyacinthFarmBoss && BossFarmUsesWobblyWings) {
         bossfarm := true
-        TriggerWobblyWings()
+        Gamekeys.TriggerWobblyWings()
         Sleep(NavigateTime)
         NormalBossSpammerStart()
     }
@@ -158,7 +158,7 @@ OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID) {
     }
     sleep(NavigateTime)
     if (IsPanelActive()) {
-        ClosePanel()
+        GameKeys.ClosePanel()
         sleep(NavigateTime)
     }
     ClickFarmSlot(HyacinthUseSlot)

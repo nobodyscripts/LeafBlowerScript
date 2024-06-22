@@ -32,7 +32,7 @@ fLeaftonTaxi() {
     craftStopCoord := Points.Crafting.Stop
     HasRun := false
     StopRunning := false
-    OpenPets()
+    GameKeys.OpenPets()
     Sleep(NavigateTime)
     if (LeaftonBanksEnabled) {
         BankSinglePass()
@@ -62,7 +62,7 @@ fLeaftonTaxi() {
             }
             if (IsBossTimerActive() && IsPanelActive() && IsScrollAblePanel()) {
                 ; We're in bank screen still so close it
-                ClosePanel()
+                GameKeys.ClosePanel()
             }
             HasRun := true
         } else {
@@ -76,12 +76,12 @@ fLeaftonTaxi() {
                 }
                 if (LeaftonCraftEnabled && !IsPanelActive()) {
                     Sleep(NavigateTime)
-                    OpenCrafting()
+                    GameKeys.OpenCrafting()
                     Sleep(NavigateTime)
                     Points.Crafting.Tab1.ClickOffset()
                     Sleep(NavigateTime)
                     if (!IsPanelActive()) {
-                        OpenCrafting()
+                        GameKeys.OpenCrafting()
                         Sleep(NavigateTime)
                         Points.Crafting.Tab1.ClickOffset()
                         Sleep(NavigateTime)
@@ -92,7 +92,7 @@ fLeaftonTaxi() {
                 }
             }
             if (LeaftonCraftEnabled && IsPanelActive()) {
-                ClosePanel()
+                GameKeys.ClosePanel()
                 Sleep(NavigateTime)
             }
         }
@@ -109,7 +109,7 @@ LeaftonTaxiSinglePassStart() {
     if (LeaftonSpamsWind) {
         LeaftonSpammerStart()
     }
-    OpenPets()
+    GameKeys.OpenPets()
     Sleep(NavigateTime)
 }
 
@@ -126,7 +126,7 @@ LeaftonTaxiSinglePass() {
 
     if (IsAreaBlack() && IsBossTimerActive()) {
         if (IsPanelActive()) {
-            ClosePanel()
+            GameKeys.ClosePanel()
             Sleep(NavigateTime)
         }
         if (!startCoord.IsBackground()) {

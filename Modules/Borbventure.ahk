@@ -102,7 +102,7 @@ BVMainLoop() {
     }
     ; Check if scroll exists at top (if less than 4 trades)
     if (!detailedMode && !IsScrollAblePanelAtTop()) {
-        RefreshTrades()
+        GameKeys.RefreshTrades()
         Sleep(34)
         return ; If we had to refresh we should restart function and rescan
     }
@@ -126,7 +126,7 @@ BVMainLoop() {
     }
     if (AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started)) {
         ; If we have not filled all available slots refresh
-        RefreshTrades()
+        GameKeys.RefreshTrades()
         Sleep(34)
     }
 }

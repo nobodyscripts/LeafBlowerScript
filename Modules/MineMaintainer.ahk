@@ -83,17 +83,17 @@ fMineMaintainer() {
     }
     if (IsPanelActive()) {
         Sleep(NavigateTime)
-        ClosePanel()
+        GameKeys.ClosePanel()
         Sleep(NavigateTime)
     }
-    OpenMining()
+    GameKeys.OpenMining()
     Sleep(NavigateTime)
     loop {
         if (IsWindowActive() && MinerEnableLeafton) {
             LeaftonTaxiSinglePass()
         }
         if (IsWindowActive() && !IsPanelActive()) {
-            OpenMining()
+            GameKeys.OpenMining()
             Sleep(NavigateTime)
         }
         if (IsWindowActive() && MinerEnableVeins && IsPanelActive()) {
@@ -191,7 +191,7 @@ fMineMaintainer() {
                 WinRelPosLargeH(200), 4)
             BankTime := A_Now
             Sleep(NavigateTime)
-            OpenMining()
+            GameKeys.OpenMining()
             Sleep(NavigateTime)
         }
 

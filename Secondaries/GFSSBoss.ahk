@@ -9,7 +9,7 @@ global IsSecondary := true
 #Include '../Lib/Functions.ahk'
 #Include '../Lib/SettingsCheck.ahk'
 #Include '../Lib/Navigate.ahk'
-#Include ..\Lib\GameHotkeys.ahk
+#Include ..\Lib\cHotkeysInitGame.ahk
 
 global X, Y, W, H
 X := Y := W := H := 0
@@ -34,21 +34,21 @@ fGFSSBoss() {
         }
         if ((IsWindowActive() && IsBossTimerActive()) ||
             (IsWindowActive() && DateDiff(A_Now, startTime, "Seconds") >= 30)) {
-            TriggerViolin()
+            Gamekeys.TriggerViolin()
             Sleep(ArtifactSleepAmount)
             startTime := A_Now
         }
         if (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
             if (BossFarmUsesSeeds) {
-                TriggerSeeds()
+                Gamekeys.TriggerSeeds()
             }
             if (IsAreaGFOrSS()) {
-                TriggerGravity()
-                TriggerWind()
+                Gamekeys.TriggerGravity()
+                Gamekeys.TriggerWind()
                 Sleep(ArtifactSleepAmount)
             } else {
                 if (BossFarmUsesWind) {
-                    TriggerWind()
+                    Gamekeys.TriggerWind()
                     Sleep(ArtifactSleepAmount)
                 }
             }

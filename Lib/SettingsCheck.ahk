@@ -196,11 +196,11 @@ IsPanelTransparentCorrectCheck() {
             " please set to 100% then F2 to reload().`nSee Readme.md"
             " for other required settings.")
         WinActivate(LBRWindowTitle)
-        OpenPets()
+        GameKeys.OpenPets()
         sleep(150)
-        ClosePanel()
+        GameKeys.ClosePanel()
         sleep(150)
-        ClosePanel() ; Settings
+        GameKeys.ClosePanel() ; Settings
         sleep(150)
         ; Set to graphics tab
         fSlowClick(443, 572)
@@ -250,11 +250,11 @@ IsAspectRatioCorrectCheck() {
             " please set Alternative on then F2 to reload() at the bottom of"
             " settings.`nSee Readme.md for other required settings.")
         WinActivate(LBRWindowTitle)
-        OpenPets()
+        GameKeys.OpenPets()
         sleep(150)
-        ClosePanel()
+        GameKeys.ClosePanel()
         sleep(150)
-        ClosePanel() ; Settings
+        GameKeys.ClosePanel() ; Settings
         ; Not trying to click tab and scroll because window is known misaligned
         return false
     } else {
@@ -263,11 +263,11 @@ IsAspectRatioCorrectCheck() {
 }
 
 WhatFont() {
-    OpenPets()
+    GameKeys.OpenPets()
     sleep(150)
-    ClosePanel()
+    GameKeys.ClosePanel()
     sleep(150)
-    ClosePanel() ; Settings
+    GameKeys.ClosePanel() ; Settings
     sleep(150)
     fSlowClick(386, 572, 101)
     sleep(150) ; Resetting tab to make sure scroll is at top
@@ -326,11 +326,11 @@ IsFontCorrectCheck() {
             " please set to Alternative then F2 to reload().`nSee Readme.md"
             " for other required settings.")
         WinActivate(LBRWindowTitle)
-        OpenPets()
+        GameKeys.OpenPets()
         sleep(150)
-        ClosePanel()
+        GameKeys.ClosePanel()
         sleep(150)
-        ClosePanel() ; Settings
+        GameKeys.ClosePanel() ; Settings
         return false
     }
     Log("Error 24: Font size check failed - size " (font - 1))
@@ -338,11 +338,11 @@ IsFontCorrectCheck() {
         ", please set to 0/1 then F2 to reload().`nSee Readme.md"
         " for other required settings.")
     WinActivate(LBRWindowTitle)
-    OpenPets()
+    GameKeys.OpenPets()
     sleep(150)
-    ClosePanel()
+    GameKeys.ClosePanel()
     sleep(150)
-    ClosePanel() ; Settings
+    GameKeys.ClosePanel() ; Settings
     sleep(150)
     ; Set to graphics tab
     fSlowClick(443, 572)
@@ -380,11 +380,11 @@ IsPanelSmoothedCheck() {
         " to off then F2 to reload().`nSee Readme.md for other required"
         " settings.")
     WinActivate(LBRWindowTitle)
-    OpenPets()
+    GameKeys.OpenPets()
     sleep(150)
-    ClosePanel()
+    GameKeys.ClosePanel()
     sleep(150)
-    ClosePanel() ; Settings
+    GameKeys.ClosePanel() ; Settings
     sleep(150)
     ; Set to graphics tab
     fSlowClick(443, 572)
@@ -423,11 +423,11 @@ IsDarkBackgroundCheck() {
         " set to off then F2 to reload().`nSee Readme.md for other"
         " required settings.")
     WinActivate(LBRWindowTitle)
-    OpenPets()
+    GameKeys.OpenPets()
     sleep(150)
-    ClosePanel()
+    GameKeys.ClosePanel()
     sleep(150)
-    ClosePanel() ; Settings
+    GameKeys.ClosePanel() ; Settings
     sleep(150)
     ; Set to graphics tab
     fSlowClick(443, 572)
@@ -448,11 +448,11 @@ IsTreesSetCheck() {
             " off then F2 to reload().`nSee Readme.md for other"
             " required settings.")
         WinActivate(LBRWindowTitle)
-        OpenPets()
+        GameKeys.OpenPets()
         sleep(150)
-        ClosePanel()
+        GameKeys.ClosePanel()
         sleep(150)
-        ClosePanel() ; Settings
+        GameKeys.ClosePanel() ; Settings
         sleep(150)
         ; Set to graphics tab
         fSlowClick(443, 572)

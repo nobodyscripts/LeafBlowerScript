@@ -5,24 +5,24 @@ fSuitcaseSpam() {
         return
     }
     if (IsPanelActive()) {
-        ClosePanel()
+        GameKeys.ClosePanel()
     }
-    OpenTrades()
+    GameKeys.OpenTrades()
     Sleep(150)
     loop {
         if (!IsWindowActive()) {
             break
         }
         if (IsWindowActive() && !IsPanelActive()) {
-            OpenTrades()
+            GameKeys.OpenTrades()
             Sleep(NavigateTime)
         }
         if (IsWindowActive() && IsPanelActive()) {
-            TriggerSuitcase()
-    
-            TriggerSeeds()
-    
-            RefreshTrades()
+            Gamekeys.TriggerSuitcase()
+
+            Gamekeys.TriggerSeeds()
+
+            GameKeys.RefreshTrades()
             Sleep(17)
         }
     }

@@ -48,9 +48,9 @@ fGemFarmSuitcase() {
         return
     } else {
         ; We need the trade window now the Bearo and traveling is done
-        OpenTrades()
+        GameKeys.OpenTrades()
         sleep(NavigateTime)
-        RefreshTrades()
+        GameKeys.RefreshTrades()
         ; Need to refresh once otherwise there might be blank trade screen
     }
 
@@ -70,12 +70,12 @@ fGemFarmSuitcase() {
         HadToHideNotifs := false
         ; Return to trades as it'll close
         if (!IsPanelActive()) {
-            OpenTrades()
+            GameKeys.OpenTrades()
             sleep(NavigateTime)
         }
     }
     if (!IsPanelActive()) {
-        OpenTrades()
+        GameKeys.OpenTrades()
         sleep(NavigateTime)
     }
     ScrollAmountUp(6)
@@ -105,7 +105,7 @@ fGemFarmSuitcase() {
         ; Collect first trade
         VerboseLog("FirstTradeCollect")
         Points.GemFarm.FirstTradeCollect.Click(NavigateTime)
-        RefreshTrades()
+        GameKeys.RefreshTrades()
         ; Leaves the first slot free to use suitcase on
     }
 
@@ -160,12 +160,12 @@ fGemFarmSuitcase() {
                 colour := Icon1.GetColour()
                 If (colour = "0xFF0044") {
                     ; Double check to try and avoid false usage
-                    TriggerSuitcase()
+                    Gamekeys.TriggerSuitcase()
                     Sleep(NavigateTime)
                     if (HasSuitCaseBeenUsed()) {
                         sCount++
                     } else {
-                        TriggerSuitcase()
+                        Gamekeys.TriggerSuitcase()
                         Sleep(NavigateTime)
                         if (HasSuitCaseBeenUsed()) {
                             sCount++
@@ -184,7 +184,7 @@ fGemFarmSuitcase() {
             MsgBox("Could not conduct the search due to the following error:`n"
                 exc.Message)
         }
-        RefreshTrades()
+        GameKeys.RefreshTrades()
         Sleep(GemFarmSleepAmount)
     }
     ToolTip(, , , 15)
@@ -193,7 +193,7 @@ fGemFarmSuitcase() {
 
 RemoveBearo() {
     global HadToHideNotifs, HadToRemoveBearo
-    OpenPets()
+    GameKeys.OpenPets()
     Sleep(NavigateTime)
     coord := Areas.GemFarm.BearoSearch.PixelSearch("0x64747A")
     if (coord) {
@@ -243,7 +243,7 @@ FillTradeSlots() {
                 sleep(50)
                 i--
             }
-            RefreshTrades()
+            GameKeys.RefreshTrades()
             sleep(50)
             If (i = 0) {
                 Log("GemFarm: Filling trades failed, ran out of attempts.")
@@ -253,7 +253,7 @@ FillTradeSlots() {
             }
         } Else {
             ; Done? Double check
-            RefreshTrades()
+            GameKeys.RefreshTrades()
             Sleep(72)
             ; Is there any button in the start position
             if (Button.IsBackground()) {
@@ -295,9 +295,9 @@ IsTradeDetailedModeOn() {
 
 ToggleAutoRefresh() {
     global TradesAutoRefreshOldState
-    OpenPets()
+    GameKeys.OpenPets()
     Sleep(101)
-    OpenTrades()
+    GameKeys.OpenTrades()
     Sleep(101)
     ; Disable auto refresh if its on
     Points.GemFarm.AutoRefreshToggle.Click(101)
@@ -307,9 +307,9 @@ ToggleAutoRefresh() {
 
 ToggleDetailedMode() {
     global TradesDetailedModeOldState
-    OpenPets()
+    GameKeys.OpenPets()
     Sleep(101)
-    OpenTrades()
+    GameKeys.OpenTrades()
     Sleep(101)
     ; Disable detailed mode if its on
     Points.GemFarm.DetailedToggle.Click(101)

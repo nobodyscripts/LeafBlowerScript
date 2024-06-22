@@ -10,7 +10,7 @@ global IsSecondary := true
 #Include '../Lib/Functions.ahk'
 #Include '../Lib/SettingsCheck.ahk'
 #Include '../Lib/Navigate.ahk'
-#Include ..\Lib\GameHotkeys.ahk
+#Include ..\Lib\cHotkeysInitGame.ahk
 
 global X, Y, W, H
 X := Y := W := H := 0
@@ -34,8 +34,8 @@ fTowerPassiveSpammer() {
             GoToLeafTower()
         }
         if (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
-            TriggerBlazingSkull()
-            TriggerWind()
+            Gamekeys.TriggerBlazingSkull()
+            Gamekeys.TriggerWind()
             Sleep(ArtifactSleepAmount)
         }
     }

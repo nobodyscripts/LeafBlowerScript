@@ -20,7 +20,7 @@ fFarmGFSS() {
         GoToGF()
         IsPrevTimerLong := IsBossTimerLong()
         if (IsPanelActive()) {
-            ClosePanel()
+            GameKeys.ClosePanel()
         }
 
         while (SSToKillPerCycle != SSKills) {
@@ -36,7 +36,7 @@ fFarmGFSS() {
                     GoToGF()
                     IsPrevTimerLong := IsBossTimerLong()
                     if (IsPanelActive()) {
-                        ClosePanel()
+                        GameKeys.ClosePanel()
                     }
                     IsInGF := true
                     IsInSS := false
@@ -78,7 +78,7 @@ fFarmGFSS() {
                 GoToSS()
                 Sleep(101)
                 if (IsPanelActive()) {
-                    ClosePanel()
+                    GameKeys.ClosePanel()
                 }
                 IsInSS := true
                 IsInGF := false

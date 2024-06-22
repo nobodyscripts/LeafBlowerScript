@@ -14,8 +14,8 @@ global IsSecondary := false
 #Include Lib\SettingsCheck.ahk
 #Include Lib\Spammers.ahk
 
-#Include Lib\GameHotkeys.ahk
-#Include Lib\ScriptHotkeys.ahk
+#Include Lib\cHotkeysInitGame.ahk
+#Include Lib\cHotkeysInitScript.ahk
 #Include Lib\GameSettings.ahk
 #Include Lib\CheckGameSettings.ahk
 
@@ -158,12 +158,12 @@ fReloadApp(*) {
             return
         }
         if (!IsPanelActive()) {
-            OpenTrades()
+            Gamekeys.OpenTrades()
         }
         Sleep(34)
         if (HadToRemoveBearo) {
             Log("F2: Equiping default loadout to reapply Bearo")
-            EquipDefaultGearLoadout()
+            GameKeys.EquipDefaultGearLoadout()
             HadToRemoveBearo := false
         }
         Log("F2: Resetting auto refresh and detailed mode.")
@@ -175,7 +175,7 @@ fReloadApp(*) {
     if (TowerFarmActive) {
         TowerFarmActive := false
         Log("F2: Equiping default loadout.")
-        EquipDefaultGearLoadout()
+        GameKeys.EquipDefaultGearLoadout()
         cReload()
         return
     }
@@ -238,12 +238,12 @@ fGemFarmStart(*) { ; Gem farm using suitcase
             return
         }
         if (!IsPanelActive()) {
-            OpenTrades()
+            GameKeys.OpenTrades()
         }
         Sleep(34)
         if (HadToRemoveBearo) {
             Log("F4: Equiping default loadout to reapply Bearo")
-            EquipDefaultGearLoadout()
+            GameKeys.EquipDefaultGearLoadout()
             HadToRemoveBearo := false
         }
         Log("F4: Resetting auto refresh and detailed mode.")
@@ -268,7 +268,7 @@ fTowerBoostStart(*) { ; Tower 72hr boost loop
     } Else {
         TowerFarmActive := false
         Log("TowerBoost: Equiping default loadout.")
-        EquipDefaultGearLoadout()
+        GameKeys.EquipDefaultGearLoadout()
         cReload()
     }
 }
@@ -350,7 +350,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
                 on9 := 0 ; Disabled
                 Log("F9: Resetting with cards disabled")
                 if (IsPanelActive()) {
-                    ClosePanel()
+                    GameKeys.ClosePanel()
                 }
                 cReload()
                 return
@@ -365,7 +365,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
             Log("F9: Resetting")
             ResetModifierKeys() ; Cleanup incase needed
             if (IsPanelActive()) {
-                ClosePanel()
+                GameKeys.ClosePanel()
             }
             cReload()
             return
@@ -376,7 +376,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
                 return
             }
             if (IsPanelActive()) {
-                ClosePanel()
+                GameKeys.ClosePanel()
             }
             Log("F9: Boss Farm Activated")
             fFarmNormalBoss(on9)

@@ -10,7 +10,7 @@ global IsSecondary := true
 #Include '../Lib/Functions.ahk'
 #Include '../Lib/SettingsCheck.ahk'
 #Include '../Lib/Navigate.ahk'
-#Include ..\Lib\GameHotkeys.ahk
+#Include ..\Lib\cHotkeysInitGame.ahk
 
 global X, Y, W, H
 X := Y := W := H := 0
@@ -32,9 +32,9 @@ fWindSpammer() {
             return
         }
         if (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
-            TriggerWind()
+            Gamekeys.TriggerWind()
             if (BossFarmUsesSeeds) {
-                TriggerSeeds()
+                Gamekeys.TriggerSeeds()
             }
             Sleep(ArtifactSleepAmount)
         }

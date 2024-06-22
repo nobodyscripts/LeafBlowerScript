@@ -35,7 +35,7 @@ CardBuySinglePass() {
             " notifications.")
         fSlowClick(32, 596, 101)
         HadToHideNotifs := true
-        OpenCards()
+        GameKeys.OpenCards()
         Sleep(101)
     }
     switch CardsBuyStyle {
@@ -76,7 +76,7 @@ CardBuyLoop() {
                 " notifications.")
             fSlowClick(32, 596, 101)
             HadToHideNotifs := true
-            OpenCards()
+            GameKeys.OpenCards()
             Sleep(101)
         }
         switch CardsBuyStyle {
