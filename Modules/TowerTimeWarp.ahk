@@ -27,7 +27,7 @@ fTimeWarpAndRaiseTower() {
             return
         }
     }
-    OpenAreasPanel()
+    Travel.OpenAreas()
     ScrollAmountDown(16) ; Scroll down for the zones
     Sleep(101)
     Log("TowerBoost: Equiping tower loadout")

@@ -182,13 +182,13 @@ CardOpenerRel(xin, yin, offset, amount) {
         if (Debug) {
             tempX := Format("{1:.1f}", posx)
             tempY := Format("{1:.1f}", (posy + offset))
-            Log("Attempted to open card at " tempX "*" tempY)
+            VerboseLog("Attempted to open card at " tempX "*" tempY)
         }
     } else {
         if (Debug) {
             tempX := Format("{1:.1f}", posx)
             tempY := Format("{1:.1f}", (posy + offset))
-            Log("Could not open card at " tempX "*" tempY)
+            VerboseLog("Could not open card at " tempX "*" tempY)
         }
     }
     ; Deliberate second check to return new state
@@ -205,7 +205,7 @@ CardBuyerRel(posx, posy, offset, amount) {
     if (Debug) {
         tempX := Format("{1:.1f}", posx)
         tempY := Format("{1:.1f}", (posy + offset))
-        Log("Card Buy: at " tempX "*" tempY " x " amount)
+        VerboseLog("Card Buy: at " tempX "*" tempY " x " amount)
     }
     ; Check if button is active, if not we can skip
     AmountToModifier(amount)
@@ -217,14 +217,14 @@ CardBuyerRel(posx, posy, offset, amount) {
         if (Debug) {
             tempX := Format("{1:.1f}", posx)
             tempY := Format("{1:.1f}", (posy + offset))
-            Log("Attempted to buy card at " tempX "*" tempY)
+            VerboseLog("Attempted to buy card at " tempX "*" tempY)
         }
         return true
     } else {
         if (Debug) {
             tempX := Format("{1:.1f}", posx)
             tempY := Format("{1:.1f}", (posy + offset))
-            Log("Could not buy card at " tempX "*" tempY)
+            VerboseLog("Could not buy card at " tempX "*" tempY)
         }
         return false
     }

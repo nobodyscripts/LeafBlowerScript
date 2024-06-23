@@ -623,9 +623,7 @@ FindVeinsLowestPriority(StatusArray) {
         }
         k--
     }
-    if (Debug) {
-        Log("Slot " slotId " value " lowestValue " picked.")
-    }
+    DebugLog("Slot " slotId " value " lowestValue " picked.")
     return slotId
 }
 

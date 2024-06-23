@@ -74,7 +74,7 @@ BVMainLoop() {
                 if ((BVScanSlotRarity(arrowY) != "0x9E10C1" &&
                     BVScanSlotRarity(arrowY) != "0xE1661A" && BVBlockMythLeg) || !BVBlockMythLeg) {
 
-                        VerboseLog("Can scan slot " arrowCount)
+                    VerboseLog("Can scan slot " arrowCount)
                     ; If slot has an item we want add it to the target list
                     if (BVScanSlotItem(WinRelPosLargeW(1313),
                         arrowY - WinRelPosLargeH(17),
@@ -265,10 +265,8 @@ BVScanSlotRarity(arrowY) {
 IsBVAutoStartOn() {
     font0 := !Points.Borbventures.AutoStartFont0.IsButtonActive()
     font1 := !Points.Borbventures.AutoStartFont1.IsButtonActive()
-    if (Debug) {
-        Log("BVAutostart: Font 0 check " BinaryToStr(font0)
-            ", Font 1 check " BinaryToStr(font1))
-    }
+    DebugLog("BVAutostart: Font 0 check " BinaryToStr(font0)
+        ", Font 1 check " BinaryToStr(font1))
     if (font0 || font1) {
         return false
     }

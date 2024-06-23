@@ -207,9 +207,7 @@ IsOnBankTab(buttonTab) {
     if (colour = "0x82805D" || colour = "0xA8EC7F") {
         return true
     }
-    if (Debug) {
-        Log("IsOnBankTab false: found " colour)
-    }
+    DebugLog("IsOnBankTab false: found " colour)
     return false
 }
 

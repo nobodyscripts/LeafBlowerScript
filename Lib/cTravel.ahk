@@ -52,13 +52,14 @@ Class cTravel {
         this.ClosePanelIfActive()
         action() ; Open location in func
         sleep(NavTime)
+        VerboseLog("Panel opened " IsPanelActive())
         i := 0
         while (!test() && i <= 4) {
             action() ; Open location in func
             sleep(NavTime)
             i++
         }
-        if (reset) {
+        if (reset && IsPanelActive()) {
             this.ResetAreaScroll(delay)
         }
     }
@@ -89,63 +90,83 @@ Class cTravel {
 
     ; Open Areas panel, closes others first
     OpenAreas(reset := true, delay := 0) {
-        this._OpenAny(() => GameKeys.OpenAreas, IsPanelActive, reset, delay)
+        VerboseLog("Openareas")
+        this._OpenAny(GameKeys.OpenAreas.Bind(GameKeys), IsPanelActive, reset, delay)
     }
 
     ; Open Gem shop panel, closes others first
     OpenGemShop(reset := true, delay := 0) {
-        this._OpenAny(() => GameKeys.OpenGemShop, IsPanelActive, reset, delay)
+        VerboseLog("OpenGemShop")
+        this._OpenAny(GameKeys.OpenGemShop.Bind(GameKeys), IsPanelActive, reset, delay)
     }
 
     ; Open Trades panel, closes others first
     OpenTrades(reset := true, delay := 0) {
-        this._OpenAny(() => GameKeys.OpenTrades, IsPanelActive, reset, delay)
+        VerboseLog("OpenTrades")
+        this._OpenAny(GameKeys.OpenTrades.Bind(GameKeys), IsPanelActive, reset, delay)
     }
 
     ; Open Pets panel, closes others first
     OpenPets(reset := true, delay := 0) {
-        this._OpenAny(() => GameKeys.OpenPets, IsPanelActive, reset, delay)
+        VerboseLog("OpenPets")
+        this._OpenAny(GameKeys.OpenPets.Bind(GameKeys), IsPanelActive, reset, delay)
     }
 
     ; Open Bank panel, closes others first
     OpenBank(reset := true, delay := 0) {
-        this._OpenAny(() => GameKeys.OpenBank, IsPanelActive, reset, delay)
+        VerboseLog("OpenBank")
+        this._OpenAny(GameKeys.OpenBank.Bind(GameKeys), IsPanelActive, reset, delay)
     }
 
     ; Open Borbventures panel, closes others first
     OpenBorbVentures(reset := true, delay := 0) {
-        this._OpenAny(() => GameKeys.OpenBorbVentures, IsPanelActive, reset, delay)
+        VerboseLog("OpenBorbVentures")
+        this._OpenAny(GameKeys.OpenBorbVentures.Bind(GameKeys), IsPanelActive, reset, delay)
     }
 
     ; Open Cards panel, closes others first
     OpenCards(reset := true, delay := 0) {
-        this._OpenAny(() => GameKeys.OpenCards, IsPanelActive, reset, delay)
+        VerboseLog("OpenCards")
+        this._OpenAny(GameKeys.OpenCards.Bind(GameKeys), IsPanelActive, reset, delay)
     }
 
     ; Open Alchemy panel, closes others first
     OpenAlchemy(reset := true, delay := 0) {
-        this._OpenAny(() => GameKeys.OpenAlchemy, IsPanelActive, reset, delay)
+        VerboseLog("OpenAlchemy")
+        this._OpenAny(GameKeys.OpenAlchemy.Bind(GameKeys), IsPanelActive, reset, delay)
     }
 
     ; Open Crafting panel, closes others first
     OpenCrafting(reset := true, delay := 0) {
-        this._OpenAny(() => GameKeys.OpenCrafting, IsPanelActive, reset, delay)
+        VerboseLog("OpenCrafting")
+        this._OpenAny(GameKeys.OpenCrafting.Bind(GameKeys), IsPanelActive, reset, delay)
     }
 
     ; Open Mining panel, closes others first
     OpenMining(reset := true, delay := 0) {
-        this._OpenAny(() => GameKeys.OpenMining, IsPanelActive, reset, delay)
+        VerboseLog("OpenMining")
+        this._OpenAny(GameKeys.OpenMining.Bind(GameKeys), IsPanelActive, reset, delay)
     }
 
     ; Open Gold portal (prestige 1) panel, closes others first
     OpenGoldPortal(reset := true, delay := 0) {
-        this._OpenAny(() => GameKeys.OpenGoldPortal, IsPanelActive, reset, delay)
+        VerboseLog("OpenGoldPortal")
+        this._OpenAny(GameKeys.OpenGoldPortal.Bind(GameKeys), IsPanelActive, reset, delay)
+    }
+
+    ; Opens settings panel, closes others first
+    OpenSettings(reset := true, delay := 0) {
+        VerboseLog("OpenSettings")
+        this.ClosePanelIfActive()
+        GameKeys.ClosePanel()
+        Sleep(NavigateTime)
     }
 
     ; Closes open panels or opens settings if non open
     ClosePanel(reset := true, delay := 0) {
         GameKeys.ClosePanel()
         Sleep(NavigateTime)
+        VerboseLog("Panel closed manually")
     }
 
     ; Closes open panels if one is open
@@ -154,13 +175,7 @@ Class cTravel {
             this.ClosePanel()
             Sleep(NavigateTime)
         }
-    }
-
-    ; Opens settings panel, closes others first
-    OpenSettings(reset := true, delay := 0) {
-        this.ClosePanelIfActive()
-        GameKeys.ClosePanel()
-        Sleep(NavigateTime)
+        VerboseLog("Panel closed is " IsPanelActive())
     }
 
 }

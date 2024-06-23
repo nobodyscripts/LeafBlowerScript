@@ -8,31 +8,6 @@ global NavigateTime := 150
 global LBRWindowTitle
 
 /**
- * Open the areas panel
- * @param {bool} reset (optional): swaps tab to reset scroll
- * @param {number} extraDelay (optional): adds ms to the sleep timers
- */
-OpenAreasPanel(reset := true, extraDelay := 0) {
-    NavTime := NavigateTime + extraDelay
-    if (NavigateTime < 72) {
-        NavTime := 72 + extraDelay
-    }
-    Travel.OpenAreas() ; Open areas
-    sleep(NavTime * 2)
-    i := 0
-    while (!Points.Areas.Favs.Tab.IsButtonActive() && i <= 4) {
-        Log("OpenAreasPanel: Retry, could not see active button.")
-        GameKeys.OpenAreas() ; Open areas if it still hasn't opened
-        sleep(NavTime)
-        i++
-    }
-    if (reset) {
-        Travel.ResetAreaScroll()
-    }
-}
-
-
-/**
  * Scroll downwards in a panel by ticks
  * @param {number} amount (optional): default 1, amount to scroll in ticks
  * of mousewheel
@@ -73,7 +48,7 @@ ScrollAmountUp(amount := 1, extraDelay := 0) {
  * @param {number} extraDelay (optional): add ms to the sleep timers
  */
 OpenEventsAreasPanel(extraDelay := 0) {
-    OpenAreasPanel(false, extraDelay)
+    Travel.OpenAreas(false, extraDelay)
     ; Click Favourites
     Points.Areas.Favs.Tab.ClickOffset(, , NavigateTime + extraDelay)
     Sleep(NavigateTime + extraDelay)
@@ -92,7 +67,7 @@ OpenEventsAreasPanel(extraDelay := 0) {
  * @param {number} extraDelay (optional): add ms to the sleep timers
  */
 OpenQuarkPanel(extraDelay := 0) {
-    OpenAreasPanel(false, extraDelay)
+    Travel.OpenAreas(false, extraDelay)
 
     ; Quark tab
     Points.Areas.QuarkA.Tab.ClickOffset(, , NavigateTime + extraDelay)
@@ -123,7 +98,7 @@ GoToHomeGarden() {
     if (!DisableZoneChecks) {
         while (!IsAreaSampleColour("0x4A9754") && i <= 4) {
             Log("Traveling to Home Garden")
-            OpenAreasPanel()
+            Travel.OpenAreas()
             ; Click Home Garden button
             cPoint(1662, 325).Click(NavigateTime)
             Sleep(NavigateTime)
@@ -136,7 +111,7 @@ GoToHomeGarden() {
     } else {
         Log("Traveling to Home Garden. Attempt to blind travel with"
             " slowed times.")
-        OpenAreasPanel(, 200)
+        Travel.OpenAreas(true, 200)
         cPoint(1662, 325).Click(NavigateTime + 200)
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
@@ -414,10 +389,6 @@ NatureBossButtonClick() {
         button2.Click(100)
         return true
     } else {
-        if (Debug) {
-            button.ToolTipAtCoord()
-            button2.ToolTipAtCoord()
-        }
         return false
     }
 }
@@ -848,7 +819,7 @@ IsOnCardsFirstPanel() {
 
 GoToAreaFireFieldsTab(extraDelay := 0) {
     i := 0
-    OpenAreasPanel(false, extraDelay)
+    Travel.OpenAreas(false, extraDelay)
 
     ; Click Favourites
     Points.Areas.Favs.Tab.Click(NavigateTime + extraDelay)
@@ -902,7 +873,7 @@ BVResetScroll() {
 }
 
 GoToLeafTower() {
-    OpenAreasPanel()
+    Travel.OpenAreas()
     ScrollAmountDown(16) ; Scroll down for the zones
     Sleep(101)
 

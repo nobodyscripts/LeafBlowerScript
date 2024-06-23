@@ -69,7 +69,7 @@ CheckGameSettingsCorrect() {
     }
     ; Check for afk, if it is on, click the corner of the screen
     AFKFix()
-    OpenAreasPanel(false)
+    Travel.OpenAreas(false)
     ; Cannot check font here as it might not be correct res
     ; Changing res every activation would be annoying
     If (!IsAspectRatioCorrectCheck()) {
@@ -122,9 +122,7 @@ IsPanelTransparent() {
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
-    if (Debug) {
-        Log("Panel transparency check found " targetColour " instead of 0x97714A")
-    }
+    DebugLog("Panel transparency check found " targetColour " instead of 0x97714A")
     return true
 }
 
@@ -175,9 +173,7 @@ IsAspectRatioCorrect() {
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
-    if (Debug) {
-        Log("Aspect ratio check found unknown colour " sampleColour)
-    }
+    DebugLog("Aspect ratio check found unknown colour " sampleColour)
     return false
 }
 
@@ -213,7 +209,7 @@ WhatFont() {
     cPoint(1776, 1179).Click(101)
     sleep(150) ; Resetting tab to make sure scroll is at top
     ; Set to graphics tab
-    cPoint(887, 1179).Click(101) 
+    cPoint(887, 1179).Click(101)
     sleep(150)
     Images := ["Images\AlternativeFontSize0.png",
         "Images\AlternativeFontSize1.png",
@@ -237,10 +233,8 @@ WhatFont() {
                 WinRelPosLargeW(1461), WinRelPosLargeH(260),
                 WinRelPosLargeW(1732), WinRelPosLargeH(1080), image)
             If (found && OutX > 0) {
-                if (Debug) {
-                    Log("Settings: Found user is using alternative font size "
-                        (i - 1))
-                }
+                DebugLog("Settings: Found user is using alternative font size "
+                    (i - 1))
                 return i
             }
             i++
@@ -379,7 +373,7 @@ IsDarkBackgroundCheck() {
 }
 
 IsTreesSetCheck() {
-    OpenAreasPanel(, 300)
+    Travel.OpenAreas(true, 300)
     cPoint(1662, 325).Click(NavigateTime + 300)
     Sleep(NavigateTime + 300)
     if (IsAreaSampleColour("0x4A9754")) {

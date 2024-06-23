@@ -13,7 +13,7 @@ Class Desert extends Zone {
     BossTimer := false
 
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        OpenAreasPanel(true, extradelay)
+        Travel.OpenAreas(true, extradelay)
         ScrollAmountDown(23, scrolldelay) ; Scroll down for the zones 0xAC816B
         Sleep(delay + extradelay)
         local DesertLeaf := this.FindDesertZone()
@@ -44,7 +44,7 @@ Class Desert extends Zone {
             }
         } else {
             Log("Desert travel: Button not found.")
-            Button.ToolTipAtCoord()
+            ;Button.ToolTipAtCoord()
         }
     }
 }
