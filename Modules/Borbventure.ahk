@@ -5,7 +5,7 @@ global HaveBorbDLC := false
 global BVBlockMythLeg := false
 
 fBorbVentureJuiceFarm() {
-    global bvAutostartDisabled
+    global bvAutostartDisabled, BVBlockMythLeg
 
     if (!GotoBorbventuresFirstTab()) {
         Log("Borbv: Failed to travel, aborting.")
@@ -17,6 +17,10 @@ fBorbVentureJuiceFarm() {
     if (IsBVAutoStartOn()) {
         cPoint(591, 1100).Click()
         bvAutostartDisabled := true
+    }
+    if (BVBlockMythLeg) {
+        ; Add note so that every time i turn it on and nothing starts i know why
+        Log("Warning: BVBlockMythLeg is on, if all available trades are myth/leg nothing will start.")
     }
     loop {
         if (!IsWindowActive()) {
@@ -54,6 +58,7 @@ BVMainLoop() {
     ; relative to that position
     targetItemsYArray := []
     arrows := BVCachedArrowsLocations()
+    VerboseLog(ArrToCommaDelimStr(arrows))
     arrowCount := 0
     activeSlots := 0
     if (!arrows) {
@@ -218,6 +223,7 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
         for colour in BVItemsArr {
             found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, colour, 0)
             If (found and OutX != 0) {
+                VerboseLog("Found item thats useful " OutX " " OutY " " colour)
                 return OutY
             }
         }
@@ -259,7 +265,9 @@ BVColourToItem(colour) {
  * @returns {string} Returns raw from Pixelgetcolor, can be false
  */
 BVScanSlotRarity(arrowY) {
-    return PixelGetColor(WinRelPosLargeW(331), arrowY)
+    rarity := cPoint(WinRelPosLargeW(331), arrowY, false).GetColour()
+    VerboseLog("Slot rarity " rarity)
+    return rarity
 }
 
 IsBVAutoStartOn() {

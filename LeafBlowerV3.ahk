@@ -345,9 +345,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
             } else {
                 on9 := 0 ; Disabled
                 Log("F9: Resetting with cards disabled")
-                if (IsPanelActive()) {
-                    GameKeys.ClosePanel()
-                }
+                Travel.ClosePanelIfActive()
                 cReload()
                 return
             }
@@ -360,9 +358,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
             }
             Log("F9: Resetting")
             ResetModifierKeys() ; Cleanup incase needed
-            if (IsPanelActive()) {
-                GameKeys.ClosePanel()
-            }
+            Travel.ClosePanelIfActive()
             cReload()
             return
         default:
@@ -371,9 +367,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
                 cReload()
                 return
             }
-            if (IsPanelActive()) {
-                GameKeys.ClosePanel()
-            }
+            Travel.ClosePanelIfActive()
             Log("F9: Boss Farm Activated")
             fFarmNormalBoss(on9)
     }

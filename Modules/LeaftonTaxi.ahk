@@ -60,9 +60,9 @@ fLeaftonTaxi() {
             if (startCoord.IsButtonActive()) {
                 startCoord.Click()
             }
-            if (IsBossTimerActive() && IsPanelActive() && IsScrollAblePanel()) {
+            if (IsBossTimerActive() && IsScrollAblePanel()) {
                 ; We're in bank screen still so close it
-                GameKeys.ClosePanel()
+                Travel.ClosePanelIfActive()
             }
             HasRun := true
         } else {
@@ -91,9 +91,8 @@ fLeaftonTaxi() {
                     craftStopCoord.ClickOffset(, , 17)
                 }
             }
-            if (LeaftonCraftEnabled && IsPanelActive()) {
-                GameKeys.ClosePanel()
-                Sleep(NavigateTime)
+            if (LeaftonCraftEnabled) {
+                Travel.ClosePanelIfActive()
             }
         }
         ToolTip(, , , 4)
@@ -125,10 +124,7 @@ LeaftonTaxiSinglePass() {
     }
 
     if (IsAreaBlack() && IsBossTimerActive()) {
-        if (IsPanelActive()) {
-            GameKeys.ClosePanel()
-            Sleep(NavigateTime)
-        }
+        Travel.ClosePanelIfActive()
         if (!startCoord.IsBackground()) {
             centerCoord.Click()
         }

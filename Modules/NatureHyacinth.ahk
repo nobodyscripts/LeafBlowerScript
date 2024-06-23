@@ -157,10 +157,7 @@ OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID) {
         GoToFarmField()
     }
     sleep(NavigateTime)
-    if (IsPanelActive()) {
-        GameKeys.ClosePanel()
-        sleep(NavigateTime)
-    }
+    Travel.ClosePanelIfActive()
     ClickFarmSlot(HyacinthUseSlot)
     sleep(NavigateTime)
     SelectFlower(FlowerToID(flowerID)) ; Select flower to use

@@ -19,9 +19,7 @@ fFarmGFSS() {
         Log("GFSSFarm: Going to Green Flame")
         GoToGF()
         IsPrevTimerLong := IsBossTimerLong()
-        if (IsPanelActive()) {
-            GameKeys.ClosePanel()
-        }
+        Travel.ClosePanelIfActive()
 
         while (SSToKillPerCycle != SSKills) {
             if (!IsWindowActive()) {
@@ -35,9 +33,7 @@ fFarmGFSS() {
                     Log("GFSSFarm: Going to Green Flame")
                     GoToGF()
                     IsPrevTimerLong := IsBossTimerLong()
-                    if (IsPanelActive()) {
-                        GameKeys.ClosePanel()
-                    }
+                    Travel.ClosePanelIfActive()
                     IsInGF := true
                     IsInSS := false
                 }
@@ -77,9 +73,7 @@ fFarmGFSS() {
                 Log("GFSSFarm: Going to Soulseeker")
                 GoToSS()
                 Sleep(101)
-                if (IsPanelActive()) {
-                    GameKeys.ClosePanel()
-                }
+                Travel.ClosePanelIfActive()
                 IsInSS := true
                 IsInGF := false
             }

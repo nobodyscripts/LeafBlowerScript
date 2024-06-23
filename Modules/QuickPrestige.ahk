@@ -3,10 +3,6 @@
 fPrestigeSpammer() {
     prestigeButton := cPoint(1456, 430)
     prestigeConfirmButton := cPoint(1456, 525)
-    if (IsPanelActive()) {
-        GameKeys.ClosePanel()
-        Sleep(NavigateTime)
-    }
     Travel.OpenGoldPortal()
     Sleep(NavigateTime)
     count := 0

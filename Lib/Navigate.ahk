@@ -285,10 +285,7 @@ GotoResetSS() {
         return false
     }
     GoToShadowCavern()
-    if (IsPanelActive()) {
-        GameKeys.ClosePanel() ; Close the panel to see borb
-        sleep(NavigateTime)
-    }
+    Travel.ClosePanelIfActive()
     button := cPoint(1735, 397)
     Log(button.GetColour())
     ; Go to Borbiana Jones screen
@@ -705,10 +702,7 @@ SingleAnteLeaftonTravel(extradelay := 0) {
         return false
     }
     Log("Traveling to Ante Leafton")
-    if (IsPanelActive()) {
-        GameKeys.ClosePanel()
-        Sleep(NavigateTime)
-    }
+    Travel.ClosePanelIfActive()
     OpenQuarkPanel(extradelay)
     ScrollAmountDown(2)
     button := cPoint(1665, 970)

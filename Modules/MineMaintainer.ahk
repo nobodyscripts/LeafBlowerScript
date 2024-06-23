@@ -78,13 +78,9 @@ fMineMaintainer() {
         WinRelPosLargeH(200), 4)
     if (MinerEnableLeafton) {
         LeaftonTaxiSinglePassStart()
+        Sleep(NavigateTime)
     } else if (MinerEnableSpammer) {
         NormalBossSpammerStart()
-    }
-    if (IsPanelActive()) {
-        Sleep(NavigateTime)
-        GameKeys.ClosePanel()
-        Sleep(NavigateTime)
     }
     Travel.OpenMining()
     Sleep(NavigateTime)

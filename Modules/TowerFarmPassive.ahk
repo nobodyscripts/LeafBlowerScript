@@ -32,10 +32,7 @@ fTowerFarm() {
         BankSinglePass()
         ToolTip(, , , 4)
     }
-    if (IsPanelActive()) {
-        GameKeys.ClosePanel()
-        Sleep(NavigateTime)
-    }
+    Travel.ClosePanelIfActive()
     ToolTip("Tower Farm Passive Active", W / 2, H / 2, 5)
     loop {
         if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&

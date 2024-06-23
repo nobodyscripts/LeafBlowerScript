@@ -103,7 +103,7 @@ class cSettings {
         this.Map["Debug"] := singleSetting().Create("Debug", false, true, "bool", "Debug")
         this.Map["NavigateTime"] := singleSetting().Create("NavigateTime", 101, 101, "int", "Default")
         this.Map["HaveBorbDLC"] := singleSetting().Create("HaveBorbDLC", false, false, "bool", "Borbventures")
-        this.Map["BVBlockMythLeg"] := singleSetting().Create("BVBlockMythLeg", true, true, "bool", "Borbventures")
+        this.Map["BVBlockMythLeg"] := singleSetting().Create("BVBlockMythLeg", false, false, "bool", "Borbventures")
         this.Map["BVItemsArr"] := singleSetting().Create("BVItemsArr", "0x018C9C, 0x01D814, 0x0F2A1D, 0x6CD820, 0xC9C9C9",
             "0x01D814, 0xC9C9C9, 0xF91FF6", "arrBorbv", "Borbventures")
         this.Map["CardsCommonAmount"] := singleSetting().Create("CardsCommonAmount", 25000, 1000, "int", "Cards")

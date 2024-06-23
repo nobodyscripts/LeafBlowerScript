@@ -13,7 +13,7 @@ fFarmNatureBoss() {
         return
     }
     Sleep(101)
-    GameKeys.ClosePanel()
+    Travel.ClosePanelIfActive()
     Sleep(101)
     Killcount := 0
     IsInShadowCavern := false
@@ -74,7 +74,7 @@ fFarmNatureBoss() {
                     }
                     IsInShadowCavern := false
                     Sleep(101)
-                    GameKeys.ClosePanel()
+                    Travel.ClosePanelIfActive()
                     Sleep(101)
                     ; boss doesn't appear instantly so we need a manual delay
                     break

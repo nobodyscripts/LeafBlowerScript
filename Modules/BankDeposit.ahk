@@ -76,10 +76,6 @@ fBankAutoDeposit() {
 BankSinglePass() {
     DepositRESS := Points.Bank.DepositRESS
     UpgradeButton := Points.Bank.UpgradeStorage
-    if (IsPanelActive()) {
-        GameKeys.ClosePanel()
-        Sleep(NavigateTime)
-    }
     Travel.OpenBank()
     Sleep(NavigateTime + 100)
     if (!IsPanelActive()) {
@@ -125,10 +121,7 @@ BankSinglePass() {
         }
         i++
     }
-    if (IsPanelActive()) {
-        GameKeys.ClosePanel()
-        Sleep(NavigateTime)
-    }
+    Travel.ClosePanelIfActive()
 }
 
 BankTravelAreaByInd(index) {

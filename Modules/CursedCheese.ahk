@@ -13,7 +13,7 @@ fFarmCheeseBoss() {
         return
     }
     Sleep(101)
-    GameKeys.ClosePanel()
+    Travel.ClosePanelIfActive()
     Sleep(101)
     Killcount := 0
     IsInCursedHalloween := false
@@ -74,7 +74,7 @@ fFarmCheeseBoss() {
                     }
                     IsInCursedHalloween := false
                     Sleep(101)
-                    GameKeys.ClosePanel()
+                    Travel.ClosePanelIfActive()
                     Sleep(101)
                     ; boss doesn't appear instantly so we need a manual delay
                     break

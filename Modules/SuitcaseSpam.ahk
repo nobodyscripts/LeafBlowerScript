@@ -4,9 +4,6 @@ fSuitcaseSpam() {
     if (!IsWindowActive()) {
         return
     }
-    if (IsPanelActive()) {
-        GameKeys.ClosePanel()
-    }
     Travel.OpenTrades()
     Sleep(150)
     loop {
