@@ -2,6 +2,7 @@
 
 #Include cArea.ahk
 
+/** @type {cAreas} */
 global Areas := cAreas()
 
 /**

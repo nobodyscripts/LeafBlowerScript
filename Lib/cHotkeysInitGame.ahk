@@ -5,6 +5,7 @@
 ; ------------------- Ingame Hotkeys -------------------
 ; Loads UserHotkeys.ini values for the rest of the script to use
 
+/** @type {cHotkeysGames} */
 global GameKeys := cHotkeysGames()
 
 GameKeys.Hotkeys["OpenAreas"] := cHotkey(

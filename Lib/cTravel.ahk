@@ -3,15 +3,39 @@
 #Include ..\Navigate\Header.ahk
 #Include cZone.ahk
 
-; {cTravel} Travel object
+/** @type {cTravel} */
 global Travel := cTravel()
 
 /**
  * Travel class, contains functions and sub classes for travel to areas, tabs
  * or windows in lbr.
+ * @module cTravel
  * @property {Desert} Desert Travel class for Desert
+ * @property {CursedHalloween} CursedHalloween Travel class for Cursed Halloween
+ * @Private _OpenAny Takes functions and provides the logic for the
+ * .Open methods
+ * @method ResetAreaScroll Reset scroll state in open panel
+ * @method OpenAreas Open areas panel
+ * @method OpenGemShop Open gem shop panel
+ * @method OpenTrades Open trades panel
+ * @method OpenPets Open pets panel
+ * @method OpenBank Open bank panel
+ * @method OpenBorbVentures Open borbventures panel
+ * @method OpenCards Open cards panel
+ * @method OpenAlchemy Open alchemy panel
+ * @method OpenCrafting Open crafting panel
+ * @method OpenMining Open mining panel
+ * @method OpenGoldPortal Open gold portal (prestige) panel
+ * @method ClosePanel Closes open panel or open settings
+ * @method ClosePanelIfActive Closes open panel only if open
+ * @method OpenSettings Open settings panel
  */
 Class cTravel {
+    ; Travel class for Desert
+    Desert := Desert()
+
+    ; Travel class for Cursed Halloween
+    CursedHalloween := CursedHalloween()
 
     /**
      * Private func, used as base of Open* funcs to add redundancy
@@ -139,9 +163,4 @@ Class cTravel {
         Sleep(NavigateTime)
     }
 
-    ; Travel class for Desert
-    Desert := Desert()
-
-    ; Travel class for Cursed Halloween
-    CursedHalloween := CursedHalloween()
 }

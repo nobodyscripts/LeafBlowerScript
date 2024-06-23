@@ -9,6 +9,7 @@
 ; Make sure to reload() (F2) if you change these while running
 ; https://www.autohotkey.com/docs/v2/KeyList.htm for a list of possible keys
 
+/** @type {cHotkeys} */
 global Scriptkeys := cHotkeys()
 
 ScriptKeys.sFilename := A_ScriptDir "\ScriptHotkeys.ini"

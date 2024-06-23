@@ -115,25 +115,21 @@ Class Zone {
         return ZoneColours[name]
     }
 
-
-
     /**
-     * Resets the scroll position on areas panel by swapping tabs
-     * @param {number} extraDelay (optional): add ms to the sleep timers
+     * Swap tabs to reset scroll state in areas panel
+     * @param {Integer} delay Extra delay to apply to NavigateTime
      */
-    ResetAreaScroll(extraDelay := 0) {
-        NavTime := NavigateTime + extraDelay
-        if (NavigateTime < 72) {
-            NavTime := 72 + extraDelay
+    ResetAreaScroll(delay := 0) {
+        NavTime := NavigateTime + delay
+        if (NavTime < 72) {
+            NavTime := 72
         }
         ; Click Favourites
         Points.Areas.Favs.Tab.ClickOffset(, , NavTime)
         Sleep(NavTime)
-
         ; Click Back to default page to reset the scroll
         Points.Areas.LeafG.Tab.ClickOffset(, , NavTime)
         Sleep(NavTime)
-
         ; Double click for redundancy
         Points.Areas.LeafG.Tab.ClickOffset(, , NavTime)
         Sleep(NavTime)

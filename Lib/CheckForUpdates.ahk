@@ -10,6 +10,7 @@ global CheckForUpdatesLastCheck := 0
 global CheckForUpdatesInterval := 30 * 60 * 60 * 1000 ; every 30mins check time (unused)
 global CheckForUpdatesLimiter := 24 ; Limit to check once every 24 hours
 
+/** @type {UpdateChecker} */
 global Updater := UpdateChecker()
 
 ;Updater.Init()
