@@ -144,7 +144,7 @@ fReloadApp(*) {
     KillAllSpammers()
     if (HadToHideNotifs) {
         Log("F2: Reenabling notifications.")
-        fSlowClick(32, 596, 101)
+        cPoint(64, 1228).Click(101)
         HadToHideNotifs := false
     }
     if (bvAutostartDisabled = true) {
@@ -157,9 +157,7 @@ fReloadApp(*) {
             cReload()
             return
         }
-        if (!IsPanelActive()) {
-            Gamekeys.OpenTrades()
-        }
+        Travel.OpenTrades()
         Sleep(34)
         if (HadToRemoveBearo) {
             Log("F2: Equiping default loadout to reapply Bearo")
@@ -203,7 +201,7 @@ fCardsStart(*) { ; Open cards clicker
     } Else {
         if (HadToHideNotifs) {
             Log("Cards: Reenabling notifications.")
-            fSlowClick(32, 596, 101)
+            cPoint(64, 1228).Click(101)
             HadToHideNotifs := false
         }
         ResetModifierKeys() ; Cleanup incase needed
@@ -237,9 +235,7 @@ fGemFarmStart(*) { ; Gem farm using suitcase
             cReload()
             return
         }
-        if (!IsPanelActive()) {
-            GameKeys.OpenTrades()
-        }
+        Travel.OpenTrades()
         Sleep(34)
         if (HadToRemoveBearo) {
             Log("F4: Equiping default loadout to reapply Bearo")
@@ -359,7 +355,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
             on9 := 0 ; Disabled
             if (HadToHideNotifsF9) {
                 Log("F9: Reenabling notifications")
-                fSlowClick(32, 596, 17)
+                cPoint(64, 1228).Click(101)
                 HadToHideNotifsF9 := false
             }
             Log("F9: Resetting")

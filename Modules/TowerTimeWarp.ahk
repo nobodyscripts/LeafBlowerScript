@@ -10,17 +10,18 @@ fTimeWarpAndRaiseTower() {
         GameKeys.OpenGemShop()
         sleep(150)
 
-        if (!IsButtonActive(WinRelPosW(904), WinRelPosH(571))) {
+        if (!IsButtonActive(WinRelPosLargeW(1810), WinRelPosLargeH(1177))) {
             Log("TowerBoost: Found no time travel button, exiting.")
             return
         }
-        fSlowClick(904, 571, 101) ; Navigate to Time Travel tab
+        ; Navigate to Time Travel tab
+        cPoint(1810, 1177).Click(101)
         Sleep(101)
 
-        if (!IsButtonActive(WinRelPosW(894), WinRelPosH(312))) {
+        if (!IsButtonActive(WinRelPosLargeW(1790), WinRelPosLargeH(643))) {
             ToolTip("No 72hr boosts to use, exiting.`n"
                 "Use F5 to finish",
-                W / 2 - WinRelPosW(50),
+                W / 2 - WinRelPosLargeW(100),
                 H / 2)
             Log("TowerBoost: Found no 72 hour boosts, exiting.")
             return
@@ -55,7 +56,7 @@ fTimeWarpAndRaiseTower() {
                 Log("TowerBoost: Could not find tower zone.")
                 ToolTip("Could not find tower area`nUse F5 to finish"
                     "`nApplied default loadout",
-                    W / 2 - WinRelPosW(50),
+                    W / 2 - WinRelPosLargeW(100),
                     H / 2)
                 Log("TowerBoost: Equiping default loadout")
                 GameKeys.EquipDefaultGearLoadout()
@@ -75,15 +76,15 @@ fTimeWarpAndRaiseTower() {
         ; Open leafsing harbor to allow max level reset
         if (IsBackground(OutX + WinRelPosLargeW(69),
             OutY - WinRelPosLargeH(132))) {
-                ; Background colour found
-                Log("Error 30: Tower alt area detection failed. Alignment2.")
-                ToolTip("Alignment issue 2, could not continue`n"
-                    "Use F5 to finish`nApplied default loadout",
-                    W / 2 - WinRelPosW(50),
-                    H / 2)
-                Log("TowerBoost: Equiping default loadout")
-                GameKeys.EquipDefaultGearLoadout()
-                break
+            ; Background colour found
+            Log("Error 30: Tower alt area detection failed. Alignment2.")
+            ToolTip("Alignment issue 2, could not continue`n"
+                "Use F5 to finish`nApplied default loadout",
+                W / 2 - WinRelPosLargeW(100),
+                H / 2)
+            Log("TowerBoost: Equiping default loadout")
+            GameKeys.EquipDefaultGearLoadout()
+            break
         }
         fCustomClick(OutX + WinRelPosLargeW(69),
             OutY - WinRelPosLargeH(132), 101)
@@ -92,14 +93,14 @@ fTimeWarpAndRaiseTower() {
         ; Max Tower level
         if (!IsButtonActive(OutX + WinRelPosLargeW(471),
             OutY + WinRelPosLargeH(67))) {
-                Log("Error 31: Tower max detection failed. Alignment3.")
-                ToolTip("Alignment issue 3, could not continue`n"
-                    "Use F5 to finish`nApplied default loadout",
-                    W / 2 - WinRelPosW(50),
-                    H / 2)
-                Log("TowerBoost: Equiping default loadout")
-                GameKeys.EquipDefaultGearLoadout()
-                break
+            Log("Error 31: Tower max detection failed. Alignment3.")
+            ToolTip("Alignment issue 3, could not continue`n"
+                "Use F5 to finish`nApplied default loadout",
+                W / 2 - WinRelPosLargeW(100),
+                H / 2)
+            Log("TowerBoost: Equiping default loadout")
+            GameKeys.EquipDefaultGearLoadout()
+            break
         }
         fCustomClick(OutX + WinRelPosLargeW(471),
             OutY + WinRelPosLargeH(67), 101)
@@ -109,17 +110,17 @@ fTimeWarpAndRaiseTower() {
         if (!IsButtonActive(OutX + WinRelPosLargeW(69),
             OutY + WinRelPosLargeH(5))) {
 
-                ToolTip(" ", OutX + WinRelPosLargeW(69),
-                    OutY + WinRelPosLargeH(5), 4)
+            ToolTip(" ", OutX + WinRelPosLargeW(69),
+                OutY + WinRelPosLargeH(5), 4)
 
-                Log("Error 32: Tower area detection failed. Alignment4.")
-                ToolTip("Alignment issue 4, could not continue`n"
-                    "Use F5 to finish`nApplied default loadout",
-                    W / 2 - WinRelPosW(50),
-                    H / 2)
-                Log("TowerBoost: Equiping default loadout")
-                GameKeys.EquipDefaultGearLoadout()
-                break
+            Log("Error 32: Tower area detection failed. Alignment4.")
+            ToolTip("Alignment issue 4, could not continue`n"
+                "Use F5 to finish`nApplied default loadout",
+                W / 2 - WinRelPosLargeW(100),
+                H / 2)
+            Log("TowerBoost: Equiping default loadout")
+            GameKeys.EquipDefaultGearLoadout()
+            break
         }
         fCustomClick(OutX + WinRelPosLargeW(69),
             OutY + WinRelPosLargeH(5), 101)
@@ -128,26 +129,28 @@ fTimeWarpAndRaiseTower() {
         GameKeys.OpenGemShop()
         sleep(150)
 
-        if (!IsButtonActive(WinRelPosW(904), WinRelPosH(571))) {
+        if (!IsButtonActive(WinRelPosLargeW(1810), WinRelPosLargeH(1177))) {
             Log("Error 33: Gem purchase detection failed. Alignment5.")
             ToolTip("Alignment issue 5, could not continue`n"
                 "Use F5 to finish`nApplied default loadout",
-                W / 2 - WinRelPosW(50),
+                W / 2 - WinRelPosLargeW(100),
                 H / 2)
             Log("TowerBoost: Equiping default loadout")
             GameKeys.EquipDefaultGearLoadout()
             break
         }
-        fSlowClick(904, 571, 101) ; Navigate to Time Travel tab
+        ; Navigate to Time Travel tab
+        cPoint(1810, 1177).Click(101)
         Sleep(101)
 
-        if (IsButtonActive(WinRelPosW(894), WinRelPosH(312))) {
-            fSlowClick(894, 312, 101) ; Click 72h warp
+        if (IsButtonActive(WinRelPosLargeW(1790), WinRelPosLargeH(643))) {
+            ; Click 72h warp
+            cPoint(1790, 643).Click(101)
         } else {
             Log("TowerBoost: No boosts remaining. Exiting.")
             ToolTip("Run out of 72hr boosts to use`n"
                 "Use F5 to finish`nApplied default loadout",
-                W / 2 - WinRelPosW(50),
+                W / 2 - WinRelPosLargeW(100),
                 H / 2)
             Log("TowerBoost: Equiping default loadout")
             GameKeys.EquipDefaultGearLoadout()

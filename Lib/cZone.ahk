@@ -115,32 +115,7 @@ Class Zone {
         return ZoneColours[name]
     }
 
-    /**
-     * Open the areas panel
-     * @param {bool} reset (optional): swaps tab to reset scroll
-     * @param {number} extraDelay (optional): adds ms to the sleep timers
-     */
-    OpenAreas(reset := true, extraDelay := 0) {
-        NavTime := NavigateTime + extraDelay
-        if (NavigateTime < 72) {
-            NavTime := 72 + extraDelay
-        }
-        GameKeys.OpenPets() ; Opens or closes another screen so that when areas
-        ; is opened it doesn't close
-        sleep(NavTime)
-        GameKeys.OpenAreas() ; Open areas
-        sleep(NavTime * 2)
-        i := 0
-        while (!Points.Areas.Favs.Tab.IsButtonActive() && i <= 4) {
-            Log("Zone.OpenAreas: Retry, could not see active button.")
-            GameKeys.OpenAreas() ; Open areas if it still hasn't opened
-            sleep(NavTime)
-            i++
-        }
-        if (reset) {
-            ResetAreaScroll()
-        }
-    }
+
 
     /**
      * Resets the scroll position on areas panel by swapping tabs

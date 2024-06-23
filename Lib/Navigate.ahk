@@ -148,7 +148,8 @@ GoToHomeGarden() {
         while (!IsAreaSampleColour("0x4A9754") && i <= 4) {
             Log("Traveling to Home Garden")
             OpenAreasPanel()
-            fSlowClick(830, 158, NavigateTime) ; Click Home Garden button
+            ; Click Home Garden button
+            cPoint(1662, 325).Click(NavigateTime)
             Sleep(NavigateTime)
             i++
         }
@@ -160,7 +161,7 @@ GoToHomeGarden() {
         Log("Traveling to Home Garden. Attempt to blind travel with"
             " slowed times.")
         OpenAreasPanel(, 200)
-        fSlowClick(830, 158, NavigateTime + 200)
+        cPoint(1662, 325).Click(NavigateTime + 200)
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
             ; Checks are disabled so blindly trust we reached zone

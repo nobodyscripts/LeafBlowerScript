@@ -17,7 +17,7 @@ Class CursedHalloween extends Zone {
             Log("Claw: Halloween inactive.")
             ToolTip("Halloween inactive`nPlease use the artifact to enable"
                 " halloween event",
-                W / 2 - WinRelPosW(50),
+                W / 2 - WinRelPosLargeW(100),
                 H / 2)
             SetTimer(ToolTip, -5000)
             return false
@@ -33,7 +33,7 @@ Class CursedHalloween extends Zone {
         If (Points.Areas.LeafG.Pub.IsBackground()) {
             Log("Claw: Could not travel to pub.")
             ToolTip("Pub area button didn't align, try again",
-                W / 2 - WinRelPosW(50), H / 2)
+                W / 2 - WinRelPosLargeW(100), H / 2)
             SetTimer(ToolTip, -5000)
             return false
         }

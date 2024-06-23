@@ -7,7 +7,7 @@ fFarmCheeseBoss() {
             " Cheese season not active.")
         ToolTip("Could not travel to Cheese boss zone`n"
             "Please use the artifact to enable Cheese season",
-            W / 2 - WinRelPosW(50),
+            W / 2 - WinRelPosLargeW(100),
             H / 2)
         SetTimer(ToolTip, -5000)
         return
@@ -29,12 +29,12 @@ fFarmCheeseBoss() {
         if (!CurrentAliveState && IsBossTimerActive()) {
             if (!IsInCursedHalloween) {
                 Log("CheeseBoss: Going to Cursed Halloween to spam violins.")
-                ToolTip("Going to Cursed Halloween", W / 2 - WinRelPosW(50), H / 2)
+                ToolTip("Going to Cursed Halloween", W / 2 - WinRelPosLargeW(100), H / 2)
                 SetTimer(ToolTip, -250)
                 if (!GoToShadowCavern()) {
                     Log("CheeseBoss: Traveling to Cursed Halloween failed.")
                     ToolTip("Traveling to Cursed Halloween failed.",
-                        W / 2 - WinRelPosW(50),
+                        W / 2 - WinRelPosLargeW(100),
                         H / 2)
                     SetTimer(ToolTip, -5000)
                     return
@@ -67,7 +67,7 @@ fFarmCheeseBoss() {
                             " Cheese season not active.")
                         ToolTip("Could not travel to Cursed Halloween zone`n"
                             "Please use the artifact to enable Nature season",
-                            W / 2 - WinRelPosW(50),
+                            W / 2 - WinRelPosLargeW(100),
                             H / 2)
                         SetTimer(ToolTip, -5000)
                         return

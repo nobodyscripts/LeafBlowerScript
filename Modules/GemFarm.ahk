@@ -17,13 +17,13 @@ fGemFarmSuitcase() {
     NotifArrow := Points.Misc.NotifArrow
     AutoRefreshToggle := Points.GemFarm.AutoRefreshToggle
 
-    if (!Travel().Desert.GoTo()) {
+    if (!Travel.Desert.GoTo()) {
         if (Debug) {
             MsgBox("GemFarm: Could not find desert area. Aborted travel.")
         }
         Log("GemFarm: Could not find desert area. Aborted travel.")
         ToolTip("Could not find desert area`nUse F4 to finish",
-            W / 2 - WinRelPosW(50),
+            W / 2 - WinRelPosLargeW(100),
             H / 2, 3)
         return
     }
@@ -121,7 +121,7 @@ fGemFarmSuitcase() {
         SetTimer(ToolTip.Bind(, , , 5), -1000)
         return
     }
-    MouseMove(W / 2, WinRelPosH(400))
+    MouseMove(W / 2, WinRelPosLargeH(800))
     sCount := 0
     fCount := 0
     GemFarmActive := true
@@ -199,7 +199,7 @@ RemoveBearo() {
     if (coord) {
         Log("GemFarm: Bearo found and removed.")
         ToolTip("Bearo found and removed",
-            W / 2 - WinRelPosW(50), H / 2 - WinRelPosH(70), 16)
+            W / 2 - WinRelPosLargeW(100), H / 2 - WinRelPosLargeH(140), 16)
         SetTimer(Tooltip.Bind(, , , 16), -1000)
         HadToRemoveBearo := true
         Sleep(NavigateTime)
@@ -219,7 +219,7 @@ FillTradeSlots() {
     Button := Points.GemFarm.Start2
     i := 200
     Log("GemFarm: Filling trade slots for suitcase farming.")
-    ToolTip("Filling trade slots", W / 2 - WinRelPosW(70), H / 2)
+    ToolTip("Filling trade slots", W / 2 - WinRelPosLargeW(140), H / 2)
     SetTimer(ToolTip, -1000)
     While i > 0 {
         if (!IsWindowActive()) {

@@ -7,7 +7,7 @@ fFarmNatureBoss() {
             " Nature season not active.")
         ToolTip("Could not travel to nature boss zone`n"
             "Please use the artifact to enable nature season",
-            W / 2 - WinRelPosW(50),
+            W / 2 - WinRelPosLargeW(100),
             H / 2)
         SetTimer(ToolTip, -5000)
         return
@@ -29,12 +29,12 @@ fFarmNatureBoss() {
         if (!CurrentAliveState && IsBossTimerActive()) {
             if (!IsInShadowCavern) {
                 Log("NatureBoss: Going to Shadow Cavern to spam violins.")
-                ToolTip("Going to Shadow Cavern", W / 2 - WinRelPosW(50), H / 2)
+                ToolTip("Going to Shadow Cavern", W / 2 - WinRelPosLargeW(100), H / 2)
                 SetTimer(ToolTip, -250)
                 if (!GoToShadowCavern()) {
                     Log("NatureBoss: Traveling to Shadow Cavern failed.")
                     ToolTip("Traveling to Shadow Cavern failed.",
-                        W / 2 - WinRelPosW(50),
+                        W / 2 - WinRelPosLargeW(100),
                         H / 2)
                     SetTimer(ToolTip, -5000)
                     return
@@ -67,7 +67,7 @@ fFarmNatureBoss() {
                             " Nature season not active.")
                         ToolTip("Could not travel to The Doomed Tree zone`n"
                             "Please use the artifact to enable nature season",
-                            W / 2 - WinRelPosW(50),
+                            W / 2 - WinRelPosLargeW(100),
                             H / 2)
                         SetTimer(ToolTip, -5000)
                         return

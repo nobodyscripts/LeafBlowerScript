@@ -91,65 +91,6 @@ CheckGameSettingsCorrect() {
     return true
 }
 
-CheckGameSettingsCorrectVerbose() {
-    global DisableSettingsChecks
-    if (DisableSettingsChecks) {
-        return true
-    }
-    if (!IsWindowActive()) {
-        return false ; Kill if no game
-    }
-    ; Check for afk, if it is on, click the corner of the screen
-    AFKFix()
-    OpenAreasPanel(false)
-    if (IsAspectRatioCorrectCheck()) {
-        Log("Passed Verbose Render Mode check.")
-        ToolTip("Good: Correct render mode detected, F2 to dismiss",
-            W / 2 - WinRelPosW(200),
-            H / 2, 1)
-        SetTimer(ToolTip, -3000)
-    } else {
-        ; If aspect ratio fails, transparency isn't aligned anyway
-        return false
-    }
-    If (IsPanelTransparentCorrectCheck()) {
-        Log("Passed Verbose Transparency check.")
-        ToolTip("Good: No transparency detected, F2 to dismiss",
-            W / 2 - WinRelPosW(200),
-            H / 2 - WinRelPosW(20), 2)
-        SetTimer(ToolTip, -3000)
-    } else {
-        return false
-    }
-    If (IsPanelSmoothedCheck()) {
-        Log("Passed Smooth Graphics check.")
-        ToolTip("Good: No smooth graphics detected, F2 to dismiss",
-            W / 2 - WinRelPosW(200),
-            H / 2 - WinRelPosW(40), 3)
-        SetTimer(ToolTip, -3000)
-    } else {
-        return false
-    }
-    If (IsDarkBackgroundCheck()) {
-        Log("Passed Dark Dialog Background check.")
-        ToolTip("Good: No Dark Dialog Background detected, F2 to dismiss",
-            W / 2 - WinRelPosW(200),
-            H / 2 - WinRelPosW(60), 4)
-        SetTimer(ToolTip, -3000)
-    } else {
-        return false
-    }
-    If (IsTreesSetCheck()) {
-        Log("Passed Trees check.")
-        ToolTip("Good: No Trees detected, F2 to dismiss",
-            W / 2 - WinRelPosW(200),
-            H / 2 - WinRelPosW(80), 5)
-        SetTimer(ToolTip, -3000)
-    } else {
-        return false
-    }
-    return true
-}
 
 /**
  * Check for panel being open
@@ -166,7 +107,7 @@ IsPanelActive() {
  */
 IsPanelTransparent() {
     try {
-        targetColour := PixelGetColor(WinRelPosW(1090), WinRelPosH(107))
+        targetColour := cPoint(2183, 220).GetColour()
         ; If its afk mode return as well, let afk check handle
         If (targetColour = "0x97714A" || targetColour = "0x6A4F34") {
             ; Found panel background colour
@@ -203,7 +144,7 @@ IsPanelTransparentCorrectCheck() {
         GameKeys.ClosePanel() ; Settings
         sleep(150)
         ; Set to graphics tab
-        fSlowClick(443, 572)
+        cPoint(887, 1179).Click()
         Sleep(101)
         ScrollAmountDown(32)
         return false
@@ -269,9 +210,10 @@ WhatFont() {
     sleep(150)
     GameKeys.ClosePanel() ; Settings
     sleep(150)
-    fSlowClick(386, 572, 101)
+    cPoint(1776, 1179).Click(101)
     sleep(150) ; Resetting tab to make sure scroll is at top
-    fSlowClick(443, 572, 101) ; Set to graphics tab
+    ; Set to graphics tab
+    cPoint(887, 1179).Click(101) 
     sleep(150)
     Images := ["Images\AlternativeFontSize0.png",
         "Images\AlternativeFontSize1.png",
@@ -345,7 +287,7 @@ IsFontCorrectCheck() {
     GameKeys.ClosePanel() ; Settings
     sleep(150)
     ; Set to graphics tab
-    fSlowClick(443, 572)
+    cPoint(887, 1179).Click()
     Sleep(101)
     ScrollAmountDown(32)
     return false
@@ -353,8 +295,8 @@ IsFontCorrectCheck() {
 
 IsPanelSmoothed() {
     try {
-        sampleColour := PixelGetColor(WinRelPosW(1095), WinRelPosH(94))
-        sampleColour2 := PixelGetColor(WinRelPosW(1095), WinRelPosH(90))
+        sampleColour := cPoint(2193, 193).GetColour()
+        sampleColour2 := cPoint(2193, 185).GetColour()
         If (sampleColour != sampleColour2) {
             DebugLog("Smoothed graphics check found " sampleColour " " sampleColour2)
             ; Found smoothing
@@ -387,7 +329,7 @@ IsPanelSmoothedCheck() {
     GameKeys.ClosePanel() ; Settings
     sleep(150)
     ; Set to graphics tab
-    fSlowClick(443, 572)
+    cPoint(887, 1179).Click()
     return false
 }
 
@@ -430,7 +372,7 @@ IsDarkBackgroundCheck() {
     GameKeys.ClosePanel() ; Settings
     sleep(150)
     ; Set to graphics tab
-    fSlowClick(443, 572)
+    cPoint(887, 1179).Click()
     Sleep(101)
     ScrollAmountDown(32)
     return false
@@ -438,7 +380,7 @@ IsDarkBackgroundCheck() {
 
 IsTreesSetCheck() {
     OpenAreasPanel(, 300)
-    fSlowClick(830, 158, NavigateTime + 300)
+    cPoint(1662, 325).Click(NavigateTime + 300)
     Sleep(NavigateTime + 300)
     if (IsAreaSampleColour("0x4A9754")) {
         return true
@@ -455,7 +397,7 @@ IsTreesSetCheck() {
         GameKeys.ClosePanel() ; Settings
         sleep(150)
         ; Set to graphics tab
-        fSlowClick(443, 572)
+        cPoint(887, 1179).Click()
         Sleep(101)
         ScrollAmountDown(5)
         return false
@@ -494,6 +436,6 @@ AFKFix() {
         return true
     }
     Log("Warning 1: AFK found enabled.")
-    fSlowClick(5, 5)
+    cPoint(10, 10).Click()
     return false
 }

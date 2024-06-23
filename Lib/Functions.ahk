@@ -9,20 +9,6 @@ global LBRWindowTitle
 
 ; ------------------- Functions -------------------
 
-; Convert positions from 1278*664 client resolution to current resolution
-; DEPRECATED
-WinRelPosW(PosW) {
-    global W
-    return PosW / 1278 * W
-}
-
-; Convert positions from 1278*664 client resolution to current resolution
-; DEPRECATED
-WinRelPosH(PosH) {
-    global H
-    return PosH / 664 * H
-}
-
 ; Convert positions from 2560*1396 client resolution to current resolution to
 ; allow higher accuracy
 WinRelPosLargeW(PosW2) {
@@ -35,21 +21,6 @@ WinRelPosLargeW(PosW2) {
 WinRelPosLargeH(PosH2) {
     global H
     return PosH2 / 1369 * H
-}
-
-; Default clicking function, uses relative locations (DEPRECATED 1278*664)
-fSlowClick(clickX, clickY, delay := 34) {
-    if (!IsWindowActive()) {
-        Log("No window found while trying to Sclick at " clickX " * " clickY
-            "`n Rel: " WinRelPosW(clickX) " * " WinRelPosH(clickY))
-        return false
-    }
-    MouseClick("left", WinRelPosW(clickX), WinRelPosH(clickY), , , "D")
-    Sleep(delay)
-    /* Must be higher than 16.67 which is a single frame of 60fps,
-    set to slightly higher than 2 frames for safety
-    If clicking isn't reliable increase this sleep value */
-    MouseClick("left", WinRelPosW(clickX), WinRelPosH(clickY), , , "U")
 }
 
 ; Custom clicking function, uses 2560*1396 relative coords

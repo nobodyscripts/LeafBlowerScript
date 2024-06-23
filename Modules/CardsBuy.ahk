@@ -33,7 +33,7 @@ CardBuySinglePass() {
     if (IsNotificationActive()) {
         Log("Card buying: Found notification covering button and hid"
             " notifications.")
-        fSlowClick(32, 596, 101)
+        cPoint(64, 1228).Click(101)
         HadToHideNotifs := true
         GameKeys.OpenCards()
         Sleep(101)
@@ -74,7 +74,7 @@ CardBuyLoop() {
         if (IsNotificationActive()) {
             Log("Card buying: Found notification covering button and hid"
                 " notifications.")
-            fSlowClick(32, 596, 101)
+            cPoint(64, 1228).Click(101)
             HadToHideNotifs := true
             GameKeys.OpenCards()
             Sleep(101)

@@ -69,8 +69,8 @@ fFarmNormalBossAndBrew(modecheck) {
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
         if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
-                ; If the timer is longer, killed too quick to get a gap
-                Killcount++
+            ; If the timer is longer, killed too quick to get a gap
+            Killcount++
         }
         IsPrevTimerLong := IsTimerLong
         if (IsAreaResetToGarden() && IsSpammerActive()) {
@@ -100,22 +100,22 @@ SpamBrewButtons() {
     }
     ; Equipment
     Equipment := Points.Brew.Tab1.Equipment
-    If (Equipment.IsButtonActive()) { 
+    If (Equipment.IsButtonActive()) {
         Equipment.Click()
     }
     ; Materials
     Materials := Points.Brew.Tab1.Materials
-    If (Materials.IsButtonActive()) { 
+    If (Materials.IsButtonActive()) {
         Materials.Click()
     }
     ; Card Parts
     CardParts := Points.Brew.Tab1.CardParts
-    If (CardParts.IsButtonActive()) {  
+    If (CardParts.IsButtonActive()) {
         CardParts.Click()
     }
     ; Card Parts for fontsize 1
     CardPartsFont1 := Points.Brew.Tab1.CardPartsFont1
-    If (CardPartsFont1.IsButtonActive()) { 
+    If (CardPartsFont1.IsButtonActive()) {
         CardPartsFont1.Click()
     }
 }
@@ -170,8 +170,8 @@ fNormalBossFarmWithBorbs(modecheck) {
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
         if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
-                ; If the timer is longer, killed too quick to get a gap
-                Killcount++
+            ; If the timer is longer, killed too quick to get a gap
+            Killcount++
         }
         IsPrevTimerLong := IsTimerLong
     }
@@ -190,7 +190,7 @@ fNormalBossFarmWithCards(modecheck) {
     if (IsNotificationActive()) {
         Log("Card opening: Found notification covering button and hid"
             " notifications.")
-        fSlowClick(32, 596, 101)
+        cPoint(64, 1228).Click(101)
         HadToHideNotifs := true
     }
 
@@ -218,7 +218,7 @@ fNormalBossFarmWithCards(modecheck) {
         if (IsNotificationActive()) {
             Log("BossCards: Found notification covering button and hid"
                 " notifications.")
-            fSlowClick(32, 596, 101)
+            cPoint(64, 1228).Click(101)
             HadToHideNotifs := true
         }
         if (!CardButtonsActive()) {
@@ -237,8 +237,8 @@ fNormalBossFarmWithCards(modecheck) {
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
         if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
-                ; If the timer is longer, killed too quick to get a gap
-                Killcount++
+            ; If the timer is longer, killed too quick to get a gap
+            Killcount++
         }
         IsPrevTimerLong := IsTimerLong
         Log("BossCards Opening: Loop starting.")
@@ -258,8 +258,8 @@ fNormalBossFarmWithCards(modecheck) {
             IsTimerLong := IsBossTimerLong()
             ; if state of timer has changed and is now off, we killed
             if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
-                    ; If the timer is longer, killed too quick to get a gap
-                    Killcount++
+                ; If the timer is longer, killed too quick to get a gap
+                Killcount++
             }
             IsPrevTimerLong := IsTimerLong
             ToolTip("Cardfarm on, Kills: " . Killcount,
@@ -271,7 +271,7 @@ fNormalBossFarmWithCards(modecheck) {
     ToolTip()
     if (HadToHideNotifs) {
         Log("BossCards: Reenabling notifications.")
-        fSlowClick(32, 596, 17)
+        cPoint(64, 1228).Click(17)
         HadToHideNotifs := false
     }
     ResetModifierKeys() ; Cleanup incase of broken loop

@@ -32,7 +32,7 @@ fOpenCardLoop() {
     if (IsNotificationActive()) {
         Log("Cards: Found notification covering button and hid"
             " notifications.")
-        fSlowClick(32, 596, 101)
+        cPoint(64, 1228).Click(101)
         Sleep(72)
         HadToHideNotifs := true
         ; Notifications were blocking, close notifications and reshow
@@ -56,7 +56,7 @@ fOpenCardLoop() {
         if (IsNotificationActive()) {
             Log("Card Opening: Found notification covering button and hid"
                 " notifications.")
-            fSlowClick(32, 596, 101)
+            cPoint(64, 1228).Click(101)
             HadToHideNotifs := true
         }
         if (!CardsPermaLoop && !CardButtonsActive()) {
@@ -80,7 +80,7 @@ fOpenCardLoop() {
     }
     if (HadToHideNotifs) {
         Log("Cards: Reenabling notifications.")
-        fSlowClick(32, 596, 101)
+        cPoint(64, 1228).Click(101)
         HadToHideNotifs := false
     }
     ResetModifierKeys() ; Cleanup incase needed
@@ -110,7 +110,7 @@ CardsOpenSinglePass() {
     if (IsNotificationActive()) {
         Log("Card opening: Found notification covering button and hid"
             " notifications.")
-        fSlowClick(32, 596, 101)
+        cPoint(64, 1228).Click(101)
         HadToHideNotifs := true
         ; Notifications were blocking, close notifications and reshow
         GameKeys.OpenCards()
@@ -175,7 +175,7 @@ CardOpenerRel(xin, yin, offset, amount) {
                     H / 2 - WinRelPosLargeH(70))
                 HaveWarnedDisplayRewards := true
             }
-            fSlowClick(1110, 94, 72)
+            cPoint(2223, 193).Click(72)
             Sleep(150)
             i++
         }
@@ -235,38 +235,38 @@ CardButtonsActive() {
     Sleep(72)
     if (IsButtonActive(WinRelPosLargeW(cardOpenCommonButtonX),
         WinRelPosLargeH(cardOpenCommonButtonY))) {
-            return true
+        return true
     }
     AmountToModifier(CardsRareAmount)
     Sleep(72)
     if (IsButtonActive(WinRelPosLargeW(cardOpenRareButtonX),
         WinRelPosLargeH(cardOpenRareButtonY))) {
-            return true
+        return true
     }
     AmountToModifier(CardsLegendaryAmount)
     Sleep(72)
     if (IsButtonActive(WinRelPosLargeW(cardOpenLegButtonX),
         WinRelPosLargeH(cardOpenLegButtonY))) {
-            return true
+        return true
     }
     if (CardsBuyEnabled) {
         AmountToModifier(CardsCommonBuyAmount)
         Sleep(72)
         if (IsButtonActive(WinRelPosLargeW(cardBuyCommonButtonX),
             WinRelPosLargeH(cardBuyCommonButtonY))) {
-                return true
+            return true
         }
         AmountToModifier(CardsRareBuyAmount)
         Sleep(72)
         if (IsButtonActive(WinRelPosLargeW(cardBuyRareButtonX),
             WinRelPosLargeH(cardBuyRareButtonY))) {
-                return true
+            return true
         }
         AmountToModifier(CardsLegBuyAmount)
         Sleep(72)
         if (IsButtonActive(WinRelPosLargeW(cardBuyLegButtonX),
             WinRelPosLargeH(cardBuyLegButtonY))) {
-                return true
+            return true
         }
     }
     return false

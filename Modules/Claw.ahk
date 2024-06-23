@@ -6,7 +6,7 @@ global ClawFindAny := false
 fClawFarm() {
     global ClawFindAny
     
-    if(!Travel().CursedHalloween.Goto()) {
+    if(!Travel.CursedHalloween.Goto()) {
         return
     }
 
