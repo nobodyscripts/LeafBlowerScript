@@ -7,7 +7,7 @@ fPrestigeSpammer() {
         GameKeys.ClosePanel()
         Sleep(NavigateTime)
     }
-    GameKeys.OpenGoldPortal()
+    Travel.OpenGoldPortal()
     Sleep(NavigateTime)
     count := 0
     while (count <= 29) {
@@ -15,7 +15,7 @@ fPrestigeSpammer() {
             break
         }
         if (IsWindowActive() && !IsPanelActive()) {
-            GameKeys.OpenGoldPortal()
+            Travel.OpenGoldPortal()
             Sleep(NavigateTime)
         }
         if (IsWindowActive() && IsPanelActive()) {

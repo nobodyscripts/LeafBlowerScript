@@ -7,7 +7,7 @@ fTimeWarpAndRaiseTower() {
     global X, Y, W, H, TowerFarmActive
     GemTest := true
     if (GemTest) {
-        GameKeys.OpenGemShop()
+        Travel.OpenGemShop()
         sleep(150)
 
         if (!IsButtonActive(WinRelPosLargeW(1810), WinRelPosLargeH(1177))) {
@@ -126,7 +126,7 @@ fTimeWarpAndRaiseTower() {
             OutY + WinRelPosLargeH(5), 101)
         Sleep(101)
 
-        GameKeys.OpenGemShop()
+        Travel.OpenGemShop()
         sleep(150)
 
         if (!IsButtonActive(WinRelPosLargeW(1810), WinRelPosLargeH(1177))) {
@@ -156,7 +156,7 @@ fTimeWarpAndRaiseTower() {
             GameKeys.EquipDefaultGearLoadout()
             break
         }
-        GameKeys.OpenAreas() ; Doing this last as we open this to scroll to start
+        Travel.OpenAreas() ; Doing this last as we open this to scroll to start
         sleep(150)
     }
     TowerFarmActive := false

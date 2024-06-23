@@ -772,9 +772,7 @@ GotoCardsFirstTab() {
                 return false
             }
             Log("Opening cards, packs (first) tab.")
-            GameKeys.OpenPets() ; Toggle alt panel to cleanup old panels
-            Sleep(NavigateTime)
-            GameKeys.OpenCards()
+            Travel.OpenCards()
             Sleep(NavigateTime)
             cPoint(404, 1183).Click(NavigateTime)
             ; Open first tab incase wrong tab
@@ -789,9 +787,7 @@ GotoCardsFirstTab() {
         ; Attempt to blind travel with slowed times
         Log("Opening cards, packs (first) tab. Attempt to blind travel with"
             " slowed times.")
-        GameKeys.OpenPets() ; Toggle alt panel to cleanup old panels
-        Sleep(NavigateTime + 200)
-        GameKeys.OpenCards()
+        Travel.OpenCards(, 200)
         Sleep(NavigateTime + 200)
         cPoint(404, 1183).Click(NavigateTime + 200)
         ; Open first tab incase wrong tab
@@ -834,21 +830,16 @@ GoToAreaFireFieldsTab(extraDelay := 0) {
     sleep(NavigateTime + extraDelay)
 }
 
+; TODO Move this to cTravel or cZone
 GotoBorbventuresFirstTab() {
-    GameKeys.OpenPets() ; Opens or closes another screen so that when areas is opened it
-    ; doesn't close
-    Sleep(101)
-    GameKeys.OpenBorbVentures() ; Open BV
+    Travel.OpenBorbVentures() ; Open BV
     Sleep(101)
     BVResetScroll()
     i := 0
     while (!cPoint(1100, 314).IsButtonActive() &&
         !cPoint(1574, 314).IsButtonActive() &&
         i <= 4) {
-        GameKeys.OpenPets() ; Opens or closes another screen so that when areas is opened it
-        ; doesn't close
-        Sleep(101)
-        GameKeys.OpenBorbVentures() ; Open BV
+        Travel.OpenBorbVentures() ; Open BV
         Sleep(101)
         BVResetScroll()
         i++

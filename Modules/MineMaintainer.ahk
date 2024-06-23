@@ -86,14 +86,14 @@ fMineMaintainer() {
         GameKeys.ClosePanel()
         Sleep(NavigateTime)
     }
-    GameKeys.OpenMining()
+    Travel.OpenMining()
     Sleep(NavigateTime)
     loop {
         if (IsWindowActive() && MinerEnableLeafton) {
             LeaftonTaxiSinglePass()
         }
         if (IsWindowActive() && !IsPanelActive()) {
-            GameKeys.OpenMining()
+            Travel.OpenMining()
             Sleep(NavigateTime)
         }
         if (IsWindowActive() && MinerEnableVeins && IsPanelActive()) {
@@ -191,7 +191,7 @@ fMineMaintainer() {
                 WinRelPosLargeH(200), 4)
             BankTime := A_Now
             Sleep(NavigateTime)
-            GameKeys.OpenMining()
+            Travel.OpenMining()
             Sleep(NavigateTime)
         }
 

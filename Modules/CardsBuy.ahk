@@ -35,7 +35,7 @@ CardBuySinglePass() {
             " notifications.")
         cPoint(64, 1228).Click(101)
         HadToHideNotifs := true
-        GameKeys.OpenCards()
+        Travel.OpenCards()
         Sleep(101)
     }
     switch CardsBuyStyle {
@@ -76,7 +76,7 @@ CardBuyLoop() {
                 " notifications.")
             cPoint(64, 1228).Click(101)
             HadToHideNotifs := true
-            GameKeys.OpenCards()
+            Travel.OpenCards()
             Sleep(101)
         }
         switch CardsBuyStyle {

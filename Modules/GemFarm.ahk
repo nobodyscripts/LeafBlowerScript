@@ -48,7 +48,7 @@ fGemFarmSuitcase() {
         return
     } else {
         ; We need the trade window now the Bearo and traveling is done
-        GameKeys.OpenTrades()
+        Travel.OpenTrades()
         sleep(NavigateTime)
         GameKeys.RefreshTrades()
         ; Need to refresh once otherwise there might be blank trade screen
@@ -70,12 +70,12 @@ fGemFarmSuitcase() {
         HadToHideNotifs := false
         ; Return to trades as it'll close
         if (!IsPanelActive()) {
-            GameKeys.OpenTrades()
+            Travel.OpenTrades()
             sleep(NavigateTime)
         }
     }
     if (!IsPanelActive()) {
-        GameKeys.OpenTrades()
+        Travel.OpenTrades()
         sleep(NavigateTime)
     }
     ScrollAmountUp(6)
@@ -193,7 +193,7 @@ fGemFarmSuitcase() {
 
 RemoveBearo() {
     global HadToHideNotifs, HadToRemoveBearo
-    GameKeys.OpenPets()
+    Travel.OpenPets()
     Sleep(NavigateTime)
     coord := Areas.GemFarm.BearoSearch.PixelSearch("0x64747A")
     if (coord) {
@@ -295,9 +295,7 @@ IsTradeDetailedModeOn() {
 
 ToggleAutoRefresh() {
     global TradesAutoRefreshOldState
-    GameKeys.OpenPets()
-    Sleep(101)
-    GameKeys.OpenTrades()
+    Travel.OpenTrades()
     Sleep(101)
     ; Disable auto refresh if its on
     Points.GemFarm.AutoRefreshToggle.Click(101)
@@ -307,9 +305,7 @@ ToggleAutoRefresh() {
 
 ToggleDetailedMode() {
     global TradesDetailedModeOldState
-    GameKeys.OpenPets()
-    Sleep(101)
-    GameKeys.OpenTrades()
+    Travel.OpenTrades()
     Sleep(101)
     ; Disable detailed mode if its on
     Points.GemFarm.DetailedToggle.Click(101)

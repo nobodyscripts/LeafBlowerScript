@@ -24,7 +24,7 @@ fBankAutoDeposit() {
     if (BankRunsSpammer) {
         NormalBossSpammerStart()
     }
-    GameKeys.OpenBank()
+    Travel.OpenBank()
     ToolTip("Bank Maintainer Active", W / 2 - WinRelPosLargeW(100), H / 2, 4)
     loop {
         if (!IsWindowActive()) {
@@ -80,10 +80,10 @@ BankSinglePass() {
         GameKeys.ClosePanel()
         Sleep(NavigateTime)
     }
-    GameKeys.OpenBank()
+    Travel.OpenBank()
     Sleep(NavigateTime + 100)
     if (!IsPanelActive()) {
-        GameKeys.OpenBank()
+        Travel.OpenBank()
         Sleep(NavigateTime)
     }
     i := 0

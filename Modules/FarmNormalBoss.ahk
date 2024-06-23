@@ -44,9 +44,7 @@ fFarmNormalBossAndBrew(modecheck) {
     ToolTip()
     global on9
     Killcount := 0
-    GameKeys.OpenPets()
-    sleep(50)
-    GameKeys.OpenAlchemy()
+    Travel.OpenAlchemy()
     sleep(150)
     fSlowClickRelL(512, 1181)
     sleep(150)

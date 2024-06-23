@@ -32,7 +32,7 @@ fLeaftonTaxi() {
     craftStopCoord := Points.Crafting.Stop
     HasRun := false
     StopRunning := false
-    GameKeys.OpenPets()
+    Travel.OpenPets()
     Sleep(NavigateTime)
     if (LeaftonBanksEnabled) {
         BankSinglePass()
@@ -76,12 +76,12 @@ fLeaftonTaxi() {
                 }
                 if (LeaftonCraftEnabled && !IsPanelActive()) {
                     Sleep(NavigateTime)
-                    GameKeys.OpenCrafting()
+                    Travel.OpenCrafting()
                     Sleep(NavigateTime)
                     Points.Crafting.Tab1.ClickOffset()
                     Sleep(NavigateTime)
                     if (!IsPanelActive()) {
-                        GameKeys.OpenCrafting()
+                        Travel.OpenCrafting()
                         Sleep(NavigateTime)
                         Points.Crafting.Tab1.ClickOffset()
                         Sleep(NavigateTime)
@@ -109,7 +109,7 @@ LeaftonTaxiSinglePassStart() {
     if (LeaftonSpamsWind) {
         LeaftonSpammerStart()
     }
-    GameKeys.OpenPets()
+    Travel.OpenPets()
     Sleep(NavigateTime)
 }
 

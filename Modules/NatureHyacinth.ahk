@@ -25,7 +25,7 @@ fFarmNormalBossAndNatureHyacinth() {
     flowerID := HyacinthUseFlower
     flowerTypesUsed := 1
     if (HyacinthBanksEnabled) {
-        GameKeys.OpenPets()
+        Travel.OpenPets()
         Sleep(NavigateTime)
         BankSinglePass()
     }

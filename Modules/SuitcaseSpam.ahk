@@ -7,14 +7,14 @@ fSuitcaseSpam() {
     if (IsPanelActive()) {
         GameKeys.ClosePanel()
     }
-    GameKeys.OpenTrades()
+    Travel.OpenTrades()
     Sleep(150)
     loop {
         if (!IsWindowActive()) {
             break
         }
         if (IsWindowActive() && !IsPanelActive()) {
-            GameKeys.OpenTrades()
+            Travel.OpenTrades()
             Sleep(NavigateTime)
         }
         if (IsWindowActive() && IsPanelActive()) {

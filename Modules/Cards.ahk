@@ -113,7 +113,7 @@ CardsOpenSinglePass() {
         cPoint(64, 1228).Click(101)
         HadToHideNotifs := true
         ; Notifications were blocking, close notifications and reshow
-        GameKeys.OpenCards()
+        Travel.OpenCards()
         Sleep(101)
     }
 

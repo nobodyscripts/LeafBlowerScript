@@ -25,7 +25,7 @@ fTowerFarm() {
     craftStopCoord := Points.Crafting.Stop
     TowerPassiveSpammerStart()
     if (TowerPassiveBanksEnabled) {
-        GameKeys.OpenPets()
+        Travel.OpenPets()
         Sleep(NavigateTime)
         ToolTip("Tower Passive, Bank Maintainer Active", W / 2,
             WinRelPosLargeH(200), 4)
@@ -52,10 +52,10 @@ fTowerFarm() {
         }
         if (TowerPassiveCraftEnabled) {
             Sleep(NavigateTime)
-            GameKeys.OpenCrafting()
+            Travel.OpenCrafting()
             Sleep(NavigateTime)
             if (!IsPanelActive()) {
-                GameKeys.OpenCrafting()
+                Travel.OpenCrafting()
                 Sleep(NavigateTime)
             }
         }
