@@ -202,7 +202,6 @@ CardBuyLegFirst() {
             cardBuyOffset, CardsRareBuyAmount)
     } else {
         ; If disabled mark inactive
-        DebugLog("Rare Disabled")
         RareButtonActive := false
     }
     ; Common
@@ -212,13 +211,11 @@ CardBuyLegFirst() {
             cardBuyOffset, CardsCommonBuyAmount)
     } else {
         ; If disabled mark inactive
-        DebugLog("Commons Disabled")
         CommonButtonActive := false
     }
 
     If (!CommonButtonActive && !RareButtonActive &&
         !LegButtonActive) {
-        DebugLog("All inactive")
         return false
     }
     return true

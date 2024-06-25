@@ -4,6 +4,7 @@
 
 /**
  * Defines the locations resolution independant for area colour checks
+ * @module cArea
  * @argument x1 X value top left
  * @argument y1 Y value top left
  * @argument x2 X value bottom right

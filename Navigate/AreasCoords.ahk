@@ -60,6 +60,7 @@ Class cAreasPoints {
 /**
  * Areas areas areas areas areas areas areas areas areas 
  * @property {cArea} GardenReset Garden reset area
+ * @memberof module:cAreas
  */
 Class cAreasAreas {
     GardenReset := cArea(1240, 5, 1280, 40)

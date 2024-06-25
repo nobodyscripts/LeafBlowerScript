@@ -3,6 +3,7 @@
 /**
  * CursedHalloween class for zone travel
  * @extends Zone
+ * @memberof module:cTravel
  */
 Class CursedHalloween extends Zone {
     ; The name of the zone for display purposes

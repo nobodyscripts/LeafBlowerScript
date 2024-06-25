@@ -9,21 +9,21 @@ global LBRWindowTitle
 
 ; ------------------- Functions -------------------
 
-; Convert positions from 2560*1396 client resolution to current resolution to
+; Convert positions from 2560*1369 client resolution to current resolution to
 ; allow higher accuracy
 WinRelPosLargeW(PosW2) {
     global W
     return PosW2 / 2560 * W
 }
 
-; Convert positions from 2560*1396 client resolution to current resolution to
+; Convert positions from 2560*1369 client resolution to current resolution to
 ; allow higher accuracy
 WinRelPosLargeH(PosH2) {
     global H
     return PosH2 / 1369 * H
 }
 
-; Custom clicking function, uses 2560*1396 relative coords
+; Custom clicking function, uses 2560*1369 relative coords
 fSlowClickRelL(clickX, clickY, delay := 34) {
     if (!IsWindowActive()) {
         Log("No window found while trying to Lclick at " clickX " * " clickY

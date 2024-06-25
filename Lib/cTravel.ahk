@@ -41,7 +41,7 @@ Class cTravel {
      * Private func, used as base of Open* funcs to add redundancy
      * @param {Func} action Function to run to 'open' and redundantly attempt
      * @param {Func} test Function to test if 'open' was successful
-     * @param {Integer} reset Reset area panel scroll state at end
+     * @param {Bool} reset Reset area panel scroll state at end
      * @param {Integer} delay Extra delay to apply to NavigateTime
      */
     _OpenAny(action, test, reset := true, delay := 0) {

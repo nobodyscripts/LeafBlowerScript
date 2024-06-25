@@ -3,13 +3,17 @@
 #Include cColours.ahk
 #Include SettingsCheck.ahk
 
+/** @type {Bool} */
 global Debug := false
 
 /**
  * Defines the resolution independant locations for pixel checks
+ * Convert positions from 2560*1369 client resolution to current resolution
+ * Create with relative coords and relative on, or use fixed coords with it off
+ * to handle scaling manually (for dynamic situations)
  * @argument {Integer} x X value
  * @argument {Integer} y Y value
- * @argument {Integer} relative Set for % relative value, false for fixed
+ * @argument {Integer} relative Set true for relative coords on get, false for original values
  */
 Class cPoint {
     /**
@@ -64,7 +68,7 @@ Class cPoint {
      * maximised client coords
      * @param x 
      * @param y 
-     * @param relative Flag to set non relative xy, defaults off
+     * @param relative Set true for relative coords on get, false for original values
      */
     __New(x := "", y := "", relative := true) {
         this.x := x
