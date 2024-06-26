@@ -403,3 +403,36 @@ InitScriptHotKey() {
     ReloadIfNoGame()
     ResetModifierKeys() ; Cleanup incase needed
 }
+
+BinaryToStr(var) {
+    if (var) {
+        return "true"
+    }
+    return "false"
+}
+
+ArrToCommaDelimStr(var) {
+    output := ""
+    if (Type(var) = "String") {
+        if (var = "") {
+            return false
+        }
+        return var
+    }
+    if (var.Length > 1) {
+        for text in var {
+            if (output != "") {
+                output := output ", " text
+            } else {
+                output := text
+            }
+        }
+        return output
+    } else {
+        return false
+    }
+}
+
+CommaDelimStrToArr(var) {
+    return StrSplit(var, " ", ",.")
+}

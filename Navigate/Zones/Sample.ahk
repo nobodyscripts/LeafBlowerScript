@@ -5,15 +5,15 @@
 #Include ../../Lib/cTravel.ahk
 
 /**
- * Desert class for zone travel
+ * Sample class for zone travel
  * @extends Zone
  * @memberof module:cTravel
  */
-Class Desert extends Zone {
+Class Sample extends Zone {
     ; The name of the zone for display purposes
-    Name := "The Infernal Desert"
+    Name := "Sample"
     ; The colour of the sample pixel for the zone
-    ZoneColour := this.GetColourByName("The Infernal Desert")
+    ZoneColour := this.GetColourByName("Sample")
     ; Require boss timer (or not) to match for success
     BossTimer := false
 
@@ -21,34 +21,32 @@ Class Desert extends Zone {
         Travel.OpenAreas(true, extradelay)
         ScrollAmountDown(23, scrolldelay) ; Scroll down for the zones 0xAC816B
         Sleep(delay + extradelay)
-        local DesertLeaf := this.FindDesertZone()
-        if (DesertLeaf) {
-            this.ClickTravelButton(DesertLeaf, delay + extradelay)
+        local SampleLeaf := this.FindSampleZone()
+        if (SampleLeaf) {
+            this.ClickTravelButton(SampleLeaf, delay + extradelay)
         } else {
-            Log("Desert leaf not found while trying to travel.")
+            Log("Sample leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
     }
 
-    FindDesertZone() {
+    FindSampleZone() {
         return Rects.GemFarm.TravelLeafSearch.PixelSearch("0x4A4429")
     }
 
     ClickTravelButton(coord, delay) {
-        ; Button to travel to desert
-        Button := cPoint(
-            coord[1] + WinRelPosLargeW(225),
-            coord[2] + WinRelPosLargeH(5), false)
+        ; Button to travel to Sample
+        Button := cPoint()
         DebugLog(Button.GetColour() " " Button.IsButton() " " Button.IsButtonActive())
         ; If no button we are misaligned
         if (Button.IsButton()) {
-            ; Set zone to The Infernal Desert (if not already inactive)
+            ; Set zone to The Infernal Sample (if not already inactive)
             if (Button.IsButtonActive()) {
                 Button.Click(delay)
             }
         } else {
-            Log("Desert travel: Button not found.")
+            Log("Sample travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

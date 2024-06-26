@@ -14,6 +14,8 @@ Button_Click_Mine(thisGui, info) {
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
+    ;@region Add controls
+    
     if (MinerEnableVeins = true) {
         optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf checked", "Enable Coal Veins")
     } else {
@@ -229,6 +231,8 @@ Button_Click_Mine(thisGui, info) {
     optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveMine)
     optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessMineSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseMineSettings)
+
+    ;@endregion
 
     if (MinerSphereGreedyUse) {
         optionsGUI["MinerSphereCount"].Opt("+Disabled")

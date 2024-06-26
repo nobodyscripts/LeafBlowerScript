@@ -172,6 +172,7 @@ Class Zone {
     }
 }
 
+/** @type {Map} */
 ZoneColours := Map()
 
 ZoneColours["Home Garden"] := "0x4A9754" ; (non unique)

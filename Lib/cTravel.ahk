@@ -2,6 +2,7 @@
 
 #Include ..\Navigate\Header.ahk
 #Include cZone.ahk
+#Include Functions.ahk
 
 /** @type {cTravel} */
 global Travel := cTravel()
@@ -37,6 +38,9 @@ Class cTravel {
     ; Travel class for Cursed Halloween
     CursedHalloween := CursedHalloween()
 
+    ; Travel class for Mine
+    Mine := Mine()
+
     /**
      * Private func, used as base of Open* funcs to add redundancy
      * @param {Func} action Function to run to 'open' and redundantly attempt
@@ -46,6 +50,7 @@ Class cTravel {
      */
     _OpenAny(action, test, reset := true, delay := 0) {
         NavTime := NavigateTime + delay
+        ; TODO remove this manual limit and tweak individual usage
         if (NavTime < 72) {
             NavTime := 72
         }

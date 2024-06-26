@@ -822,7 +822,11 @@ GoToAreaFireFieldsTab(extraDelay := 0) {
     sleep(NavigateTime + extraDelay)
 }
 
-; TODO Move this to cTravel or cZone
+;TODO Move to borbventures travel class
+/**
+ * Travel to Borbventures first tab
+ * @returns {Boolean} 
+ */
 GotoBorbventuresFirstTab() {
     Travel.OpenBorbVentures() ; Open BV
     Sleep(101)
@@ -845,6 +849,7 @@ GotoBorbventuresFirstTab() {
     return false
 }
 
+;TODO Move to borbventures travel class
 BVResetScroll() {
     ; Double up due to notifications
     cPoint(630, 1183).Click(72) ; Click borbs tab to reset scroll

@@ -82,24 +82,22 @@ fMineMaintainer() {
     } else if (MinerEnableSpammer) {
         NormalBossSpammerStart()
     }
-    Travel.OpenMining()
-    Sleep(NavigateTime)
+    Travel.Mine.GoTo()
     loop {
         if (IsWindowActive() && MinerEnableLeafton) {
             LeaftonTaxiSinglePass()
         }
         if (IsWindowActive() && !IsPanelActive()) {
-            Travel.OpenMining()
-            Sleep(NavigateTime)
+            Travel.Mine.GoTo()
         }
         if (IsWindowActive() && MinerEnableVeins && IsPanelActive()) {
             i := 1
-            while (!IsOnMineCoalVeinTab() || i >= 10) {
+            while (!Travel.Mine.IsOnTabVein() || i >= 10) {
                 VeinsTab.Click(NavigateTime)
                 Sleep(NavigateTime)
                 i++
             }
-            if (IsOnMineCoalVeinTab()) {
+            if (Travel.Mine.IsOnTabVein()) {
                 if (MinerEnableVeinRemoval) {
                     RemoveSingleVein()
                     Sleep(NavigateTime)
@@ -117,12 +115,12 @@ fMineMaintainer() {
                 DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer)) {
             TransmuteTime := A_Now
             i := 1
-            while (!IsOnMineTransmuteTab() || i >= 10) {
+            while (!Travel.Mine.IsOnTabTrans() || i >= 10) {
                 TransmuteTab.Click(NavigateTime)
                 Sleep(NavigateTime)
                 i++
             }
-            if (!IsOnMineTransmuteTab()) {
+            if (!Travel.Mine.IsOnTabTrans()) {
                 Log("Mine: Transmute tab click failed")
             } else {
                 TransmuteAllCoalBars()
@@ -137,12 +135,12 @@ fMineMaintainer() {
                 MinerRefuelTimer * 60 && MinerEnableFreeRefuel)) {
             RefuelTime := A_Now
             i := 1
-            while (!IsOnMineDrillTab() || i >= 10 || !IsPanelActive()) {
+            while (!Travel.Mine.IsOnTabDrill() || i >= 10 || !IsPanelActive()) {
                 DrillTab.Click(NavigateTime)
                 Sleep(NavigateTime)
                 i++
             }
-            if (IsOnMineDrillTab()) {
+            if (Travel.Mine.IsOnTabDrill()) {
                 CollectFreeDrillFuel()
                 Log("Mine: Collected free fuel.")
                 Sleep(NavigateTime)
@@ -157,12 +155,12 @@ fMineMaintainer() {
                 MinerSphereTimer * 60 && MinerEnableSphereUse)) {
             SphereTime := A_Now
             i := 1
-            while (!IsOnMineDrillTab() || i >= 10 || !IsPanelActive()) {
+            while (!Travel.Mine.IsOnTabDrill() || i >= 10 || !IsPanelActive()) {
                 DrillTab.Click(NavigateTime)
                 Sleep(NavigateTime)
                 i++
             }
-            if (IsOnMineDrillTab()) {
+            if (Travel.Mine.IsOnTabDrill()) {
                 Sleep(NavigateTime)
                 Log("Mine: Using spheres.")
                 UseDrillSphereLoop()
@@ -187,8 +185,7 @@ fMineMaintainer() {
                 WinRelPosLargeH(200), 4)
             BankTime := A_Now
             Sleep(NavigateTime)
-            Travel.OpenMining()
-            Sleep(NavigateTime)
+            Travel.Mine.GoTo()
         }
 
         if ((Firstpass && MinerEnableCaves && IsPanelActive()) ||
@@ -196,12 +193,12 @@ fMineMaintainer() {
                 DateDiff(A_Now, CavesTime, "Seconds") >= MinerCaveTimer * 60 &&
                 MinerEnableCaves)) {
             i := 1
-            while (!IsOnMineCavesTab() || i >= 10 || !IsPanelActive()) {
+            while (!Travel.Mine.IsOnTabMines() || i >= 10 || !IsPanelActive()) {
                 MinesTab.Click(NavigateTime)
                 Sleep(NavigateTime)
                 i++
             }
-            if (IsOnMineCavesTab()) {
+            if (Travel.Mine.IsOnTabMines()) {
                 Log("Mine: Cave Maintainer starting.")
                 Sleep(NavigateTime)
                 CavesSinglePass()
@@ -211,7 +208,7 @@ fMineMaintainer() {
                 Log("Mine: Cave tab click failed")
             }
         }
-        if (IsWindowActive() && IsPanelActive() && IsOnMineCoalVeinTab() &&
+        if (IsWindowActive() && IsPanelActive() && Travel.Mine.IsOnTabVein() &&
             VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
             Log("Upgrading vein")
             VeinUpgradeButton.ClickOffset(NavigateTime)
@@ -281,7 +278,7 @@ TransmuteAllCoalBars() {
         TransmuteButton := Points.Mine.Transmute.AllCBarsToCDias
         while (IsWindowActive() && IsPanelActive() &&
             TransmuteButton.IsButtonActive() &&
-            IsOnMineTransmuteTab()) {
+            Travel.Mine.IsOnTabTrans()) {
             TransmuteButton.ClickOffset()
             Sleep(NavigateTime)
         }
@@ -290,7 +287,7 @@ TransmuteAllCoalBars() {
         SdiaTransmuteButton := Points.Mine.Transmute.AllCDiasToSDias
         while (IsWindowActive() && IsPanelActive() &&
             SdiaTransmuteButton.IsButtonActive() &&
-            IsOnMineTransmuteTab()) {
+            Travel.Mine.IsOnTabTrans()) {
             SdiaTransmuteButton.ClickOffset()
             Sleep(NavigateTime)
         }
@@ -299,7 +296,7 @@ TransmuteAllCoalBars() {
         FuelTransmuteButton := Points.Mine.Transmute.AllCDiasToFuel
         while (IsWindowActive() && IsPanelActive() &&
             FuelTransmuteButton.IsButtonActive() &&
-            IsOnMineTransmuteTab()) {
+            Travel.Mine.IsOnTabTrans()) {
             FuelTransmuteButton.ClickOffset()
             Sleep(NavigateTime)
         }
@@ -308,7 +305,7 @@ TransmuteAllCoalBars() {
         SphereTransmuteButton := Points.Mine.Transmute.AllCDiasToSpheres
         while (IsWindowActive() && IsPanelActive() &&
             SphereTransmuteButton.IsButtonActive() &&
-            IsOnMineTransmuteTab()) {
+            Travel.Mine.IsOnTabTrans()) {
             SphereTransmuteButton.ClickOffset()
             Sleep(NavigateTime)
         }
@@ -317,7 +314,7 @@ TransmuteAllCoalBars() {
         SdiaToCBTransmuteButton := Points.Mine.Transmute.AllSDiasToCDia
         while (IsWindowActive() && IsPanelActive() &&
             SdiaToCBTransmuteButton.IsButtonActive() &&
-            IsOnMineTransmuteTab()) {
+            Travel.Mine.IsOnTabTrans()) {
             SdiaToCBTransmuteButton.ClickOffset()
             Sleep(NavigateTime)
         }

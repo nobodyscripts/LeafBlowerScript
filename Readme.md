@@ -251,7 +251,6 @@ MinerEnableLeafton. Boss mode enabled by default.
 ## TODO
 
 - Check settings from options.dat as bootup tests
-- Cleanup card purchase orders into a more generic func.
 - Investigate fullscreen (it breaks fullscreen).
 - Trade farming for non gems/non suitcase version.
 - Brew + cards rotation mode.
