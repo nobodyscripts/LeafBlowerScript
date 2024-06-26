@@ -195,7 +195,7 @@ RemoveBearo() {
     global HadToHideNotifs, HadToRemoveBearo
     Travel.OpenPets()
     Sleep(NavigateTime)
-    coord := Areas.GemFarm.BearoSearch.PixelSearch("0x64747A")
+    coord := Rects.GemFarm.BearoSearch.PixelSearch("0x64747A")
     if (coord) {
         Log("GemFarm: Bearo found and removed.")
         ToolTip("Bearo found and removed",
@@ -278,7 +278,7 @@ HasSuitCaseBeenUsed() {
 
 IsTradeAutoRefreshOn() {
     ; if white is in this area, timer active so it is on
-    result := Areas.GemFarm.AutoRefreshTimer.PixelSearch()
+    result := Rects.GemFarm.AutoRefreshTimer.PixelSearch()
     ; Timer pixel search
     If (result) {
         return true ; Found colour

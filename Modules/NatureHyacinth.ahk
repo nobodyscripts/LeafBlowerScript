@@ -46,19 +46,15 @@ fFarmNormalBossAndNatureHyacinth() {
     ; 666 425 harvest all
     ; 1380 750 plant
     ; 1700 750 plant all
+    HarvestAllButton := cPoint(1380, 750)
     if (StrLower(HyacinthUseSlot) = "all") {
-        HarvBX := 666
-        HarvBY := 425
-        PlantBX := 1700
-        PlantBY := 750
+        HarvestButton := cPoint(666, 425)
+        PlantButton := cPoint(1700, 750)
     } else {
-        HarvBX := 530
-        HarvBY := 425
-        PlantBX := 1380
-        PlantBY := 750
+        HarvestButton := cPoint(530, 425)
+        PlantButton := cPoint(1380, 750)
     }
     loop {
-        Log(HarvBX " " HarvBY " " PlantBX " " PlantBY)
         if (!IsWindowActive()) {
             Log("BossHyacinth: Exiting as no game.")
             cReload() ; Kill if no game
@@ -86,16 +82,15 @@ fFarmNormalBossAndNatureHyacinth() {
             }
             Sleep(NavigateTime)
         }
-        if (IsButtonActive(WinRelPosLargeW(HarvBX), WinRelPosLargeH(HarvBY))) {
+        if (HarvestButton.IsButtonActive()) {
             ; If harvest button active
-            fSlowClickRelL(HarvBX + 5, HarvBY, NavigateTime)
-            Sleep(NavigateTime)
+            HarvestButton.ClickOffset(5, , NavigateTime)
         }
-        if (IsButtonActive(WinRelPosLargeW(PlantBX), WinRelPosLargeH(PlantBY))) {
+        if (PlantButton.IsButtonActive()) {
             ; If plant all button available, we've not run out
-            if (IsButtonActive(WinRelPosLargeW(1380), WinRelPosLargeH(750))) {
+            if (HarvestAllButton.IsButtonActive()) {
                 ; If planting available via plant button, planting available
-                fSlowClickRelL(PlantBX + 5, PlantBY, NavigateTime)
+                PlantButton.ClickOffset(5, , NavigateTime)
             } else {
                 if (HyacinthUseNextAvailableFlower && flowerTypesUsed < 16) {
                     ; If upgrading flower type and we've not gone through all 16
@@ -121,7 +116,7 @@ fFarmNormalBossAndNatureHyacinth() {
 
         if (HyacinthUseSpheres) {
             ; Use spheres if we have got the option to do so
-            UseSphereLoop(HarvBX, HarvBY)
+            UseSphereLoop(HarvestButton)
         }
         if (bossfarm) {
             IsTimerLong := IsBossTimerLong()
@@ -167,31 +162,31 @@ OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID) {
 ClickFarmSlot(HyacinthUseSlot) {
     switch HyacinthUseSlot {
         case "All":
-            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
+            cPoint(375, 500).Click(NavigateTime) ; Slot 1
         case "all":
-            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
+            cPoint(375, 500).Click(NavigateTime) ; Slot 1
         case 1:
-            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
+            cPoint(375, 500).Click(NavigateTime) ; Slot 1
         case 2:
-            fSlowClickRelL(745, 500, NavigateTime) ; Slot 2
+            cPoint(745, 500).Click(NavigateTime) ; Slot 2
         case 3:
-            fSlowClickRelL(1120, 500, NavigateTime) ; Slot 3
+            cPoint(1120, 500).Click(NavigateTime) ; Slot 3
         case 4:
-            fSlowClickRelL(1490, 500, NavigateTime) ; Slot 4
+            cPoint(1490, 500).Click(NavigateTime) ; Slot 4
         case 5:
-            fSlowClickRelL(1870, 500, NavigateTime) ; Slot 5
+            cPoint(1870, 500).Click(NavigateTime) ; Slot 5
         case 6:
-            fSlowClickRelL(375, 865, NavigateTime) ; Slot 6
+            cPoint(375, 865).Click(NavigateTime) ; Slot 6
         case 7:
-            fSlowClickRelL(745, 865, NavigateTime) ; Slot 7
+            cPoint(745, 865).Click(NavigateTime) ; Slot 7
         case 8:
-            fSlowClickRelL(1120, 865, NavigateTime) ; Slot 8
+            cPoint(1120, 865).Click(NavigateTime) ; Slot 8
         case 9:
-            fSlowClickRelL(1490, 865, NavigateTime) ; Slot 9
+            cPoint(1490, 865).Click(NavigateTime) ; Slot 9
         case 10:
-            fSlowClickRelL(1870, 865, NavigateTime) ; Slot 10
+            cPoint(1870, 865).Click(NavigateTime) ; Slot 10
         default:
-            fSlowClickRelL(375, 500, NavigateTime) ; Slot 1
+            cPoint(375, 500).Click(NavigateTime) ; Slot 1
     }
 }
 
@@ -243,48 +238,48 @@ FlowerToID(flower) {
 SelectFlower(flowerID) {
     switch flowerID {
         case 1:
-            fSlowClickRelL(380, 600, NavigateTime) ; Hyacinth Slot 1
+            cPoint(380, 600).Click(NavigateTime) ; Hyacinth Slot 1
         case 2:
-            fSlowClickRelL(500, 600, NavigateTime) ; Pansy Slot 2
+            cPoint(500, 600).Click(NavigateTime) ; Pansy Slot 2
         case 3:
-            fSlowClickRelL(620, 600, NavigateTime) ; Hibiscus Slot 3
+            cPoint(620, 600).Click(NavigateTime) ; Hibiscus Slot 3
         case 4:
-            fSlowClickRelL(740, 600, NavigateTime) ; Rose Slot 4
+            cPoint(740, 600).Click(NavigateTime) ; Rose Slot 4
         case 5:
-            fSlowClickRelL(860, 600, NavigateTime) ; Poppy Slot 5
+            cPoint(860, 600).Click(NavigateTime) ; Poppy Slot 5
         case 6:
-            fSlowClickRelL(980, 600, NavigateTime) ; Primula Slot 6
+            cPoint(980, 600).Click(NavigateTime) ; Primula Slot 6
         case 7:
-            fSlowClickRelL(1100, 600, NavigateTime) ; Forget-me-not Slot 7
+            cPoint(1100, 600).Click(NavigateTime) ; Forget-me-not Slot 7
         case 8:
-            fSlowClickRelL(1220, 600, NavigateTime) ; Tulip Slot 8
+            cPoint(1220, 600).Click(NavigateTime) ; Tulip Slot 8
         case 9:
-            fSlowClickRelL(380, 700, NavigateTime) ; Camomile Slot 9
+            cPoint(380, 700).Click(NavigateTime) ; Camomile Slot 9
         case 10:
-            fSlowClickRelL(500, 700, NavigateTime) ; Dandelion Slot 10
+            cPoint(500, 700).Click(NavigateTime) ; Dandelion Slot 10
         case 11:
-            fSlowClickRelL(620, 700, NavigateTime) ; Aster Slot 11
+            cPoint(620, 700).Click(NavigateTime) ; Aster Slot 11
         case 12:
-            fSlowClickRelL(740, 700, NavigateTime) ; Daffodil Slot 12
+            cPoint(740, 700).Click(NavigateTime) ; Daffodil Slot 12
         case 13:
-            fSlowClickRelL(860, 700, NavigateTime) ; Cornflower Slot 13
+            cPoint(860, 700).Click(NavigateTime) ; Cornflower Slot 13
         case 14:
-            fSlowClickRelL(980, 700, NavigateTime) ; Lily of the Valley Slot 14
+            cPoint(980, 700).Click(NavigateTime) ; Lily of the Valley Slot 14
         case 15:
-            fSlowClickRelL(1100, 700, NavigateTime) ; Dames Rocket Slot 15
+            cPoint(1100, 700).Click(NavigateTime) ; Dames Rocket Slot 15
         case 16:
-            fSlowClickRelL(1220, 700, NavigateTime) ; Marigold Slot 16
+            cPoint(1220, 700).Click(NavigateTime) ; Marigold Slot 16
         default:
-            fSlowClickRelL(380, 600, NavigateTime) ; Hyacinth
+            cPoint(380, 600).Click(NavigateTime) ; Hyacinth
     }
 }
 
-UseSphereLoop(HarvBX, HarvBY) {
+UseSphereLoop(point) {
     ; Plant should be planted, use sphere then check for harvest
     ; If no harvest button and sphere button active loop, else break
     sphereButton := Points.Hyacinth.UseSphere
     loop {
-        if (sphereButton.IsButtonActive() && !cPoint(HarvBX, HarvBY).IsButtonActive()) {
+        if (sphereButton.IsButtonActive() && !point.IsButtonActive()) {
             sphereButton.ClickOffset()
             Sleep(NavigateTime + 50)
         } else {

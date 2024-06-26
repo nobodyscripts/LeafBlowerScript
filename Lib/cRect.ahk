@@ -4,7 +4,7 @@
 
 /**
  * Defines the locations resolution independant for area colour checks
- * @module cArea
+ * @module cRect
  * @argument x1 X value top left
  * @argument y1 Y value top left
  * @argument x2 X value bottom right
@@ -18,7 +18,7 @@
  * of area aligned to top left corners of the tooltip
  * @method PixelSearch Find colour in area, returns coord
  */
-Class cArea {
+Class cRect {
     x1 {
         get {
             global W
@@ -124,7 +124,7 @@ Class cArea {
      * @param xin2 X2
      * @param yin2 Y2
      * @param {Bool} relative Is relative or fixed
-     * @returns {cArea} 
+     * @returns {cRect} 
      */
     Set(xin1, yin1, xin2, yin2, relative := true) {
         this.x1 := xin1

@@ -1,27 +1,4 @@
 #Requires AutoHotkey v2.0
-/*
-[Cards]
-CardsCommonAmount=25000
-CardsRareAmount=25000
-CardsLegendaryAmount=25000
-CardsDontOpenCommons=false
-CardsDontOpenRare=false
-CardsDontOpenLegendary=false
-CardsSleepAmount=875
-CardsPermaLoop=true
-
-CardsBossFarmEnabled=true
-[CardsBuy]
-CardsBuyEnabled=true
-CardsBuyStyle=FocusLegend
-CardsCommonBuyAmount=25000
-CardsRareBuyAmount=25000
-CardsLegBuyAmount=25000
-CardsDontBuyCommons=false
-CardsDontBuyRare=false
-CardsDontBuyLeg=false
-CardsSleepBuyAmount=17 */
-
 
 Button_Click_Cards(thisGui, info) {
     global Settings, CardsCommonAmount, CardsRareAmount,
@@ -30,7 +7,7 @@ Button_Click_Cards(thisGui, info) {
         CardsBossFarmEnabled, CardsBuyEnabled, CardsBuyStyle,
         CardsCommonBuyAmount, CardsRareBuyAmount, CardsLegBuyAmount,
         CardsDontBuyCommons, CardsDontBuyRare, CardsDontBuyLeg,
-        CardsSleepBuyAmount
+        CardsSleepBuyAmount, CardsGreedyOpen, CardsGreedyBuy
 
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -100,6 +77,13 @@ Button_Click_Cards(thisGui, info) {
             optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose8", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
         default:
             optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose8", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
+    }
+
+    optionsGUI.Add("Text", "ccfcfcf", "Greedy starts at Amount")
+    if (CardsGreedyOpen = true) {
+        optionsGUI.Add("CheckBox", "vCardsGreedyOpen ccfcfcf checked", "Greedy Open Cards")
+    } else {
+        optionsGUI.Add("CheckBox", "vCardsGreedyOpen ccfcfcf", "Greedy Open Cards")
     }
 
     if (CardsDontOpenCommons = true) {
@@ -240,6 +224,13 @@ Button_Click_Cards(thisGui, info) {
             optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose8", ["1", "10", "25", "100", "250", "1000", "2500", "25000"])
     }
 
+    optionsGUI.Add("Text", "ccfcfcf", "Greedy starts at Amount")
+    if (CardsGreedyBuy = true) {
+        optionsGUI.Add("CheckBox", "vCardsGreedyBuy ccfcfcf checked", "Greedy Open Cards")
+    } else {
+        optionsGUI.Add("CheckBox", "vCardsGreedyBuy ccfcfcf", "Greedy Open Cards")
+    }
+
     if (CardsDontBuyCommons = true) {
         optionsGUI.Add("CheckBox", "vCardsDontBuyCommons ccfcfcf checked", "Disable Common Card Purchasing")
     } else {
@@ -323,6 +314,8 @@ Button_Click_Cards(thisGui, info) {
         CardsDontBuyRare := values.CardsDontBuyRare
         CardsDontBuyLeg := values.CardsDontBuyLeg
         CardsSleepBuyAmount := values.CardsSleepBuyAmount
+        CardsGreedyOpen := values.CardsGreedyOpen
+        CardsGreedyBuy := values.CardsGreedyBuy
 
         settings.SaveCurrentSettings()
     }

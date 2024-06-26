@@ -144,7 +144,7 @@ IsNatureBossTimerActive() {
         }
         ; Halloween inactive, nature active
         if (cPoint(1650, 870).IsButton()) {
-            found := cArea(1525, 897, 1660, 922).PixelSearch()
+            found := cRect(1525, 897, 1660, 922).PixelSearch()
             if (found) {
                 return true
             }

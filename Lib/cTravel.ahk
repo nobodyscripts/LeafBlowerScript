@@ -52,7 +52,7 @@ Class cTravel {
         this.ClosePanelIfActive()
         action() ; Open location in func
         sleep(NavTime)
-        VerboseLog("Panel opened " IsPanelActive())
+        VerboseLog("Panel opened " BinaryToStr(IsPanelActive()))
         i := 0
         while (!test() && i <= 4) {
             action() ; Open location in func
@@ -175,7 +175,7 @@ Class cTravel {
             this.ClosePanel()
             Sleep(NavigateTime)
         }
-        VerboseLog("Panel closed is " IsPanelActive())
+        VerboseLog("Panel closed is " BinaryToStr(IsPanelActive()))
     }
 
 }

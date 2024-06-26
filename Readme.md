@@ -204,7 +204,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - General
   - Check for updates added to gui, will check against the website once per day.
 Settings added to General Settings and 3 settings added to ini.
-  - Replaced old coords system with new classes; cPoint, cArea, cColour etc
+  - Replaced old coords system with new classes; cPoint, cRect, cColour etc
   - Added DebugLog and VerboseLog
   - Added some checks on libs when loaded in a secondary script
 
@@ -244,6 +244,10 @@ MinerEnableLeafton. Boss mode enabled by default.
   - Updated function to check options.dat directly for settings. Collects errors
   and warning to report to user.
 
+- Cards
+  - Added Greedy card purchasing and opening. Use of Greedy ignores "Amount".
+  - Added CardsGreedyOpen and CardsGreedyBuy settings (both default off)
+
 ## TODO
 
 - Check settings from options.dat as bootup tests
@@ -259,7 +263,6 @@ borderless fullscreen
 - Automated challenges (early game scripts)
 - Convert borbventures gui to checkboxes for item selection  
 
-- Cards: Greedy card purchasing.
 - GemFarm: Add mouse movement patterns to collect artifacts in the background.
 - Borbv: Load dlc purchase state from save file and remove setting.
 - Claw: Needs to use artifact if need be / get replacement.

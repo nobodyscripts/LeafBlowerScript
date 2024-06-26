@@ -11,7 +11,7 @@ global Points := cPoints()
  * tasks useful for the script.
  * @module cPoints
  * @property {cPoint} ZoneSample
- * @property {cAreasPoints} Areas
+ * @property {cRectsPoints} Areas
  * @property {cBankPoints} Bank
  * @property {cBorbventuresPoints} Borbventures
  * @property {cBrewPoints} Brew
@@ -30,7 +30,7 @@ global Points := cPoints()
  */
 Class cPoints {
     ZoneSample := cPoint(0, 0)
-    Areas := cAreasPoints()
+    Areas := cRectsPoints()
     Bank := cBankPoints()
     Borbventures := cBorbventuresPoints()
     Brew := cBrewPoints()

@@ -19,7 +19,7 @@ global CardsCommonAmount, CardsRareAmount, CardsLegendaryAmount,
     CardsCommonBuyAmount, CardsRareBuyAmount, CardsLegBuyAmount,
     CardsDontBuyCommons, CardsDontBuyRare, CardsDontBuyLeg,
     CardsSleepBuyAmount, CardsPermaLoop,
-    CardsBossFarmEnabled
+    CardsBossFarmEnabled, CardsGreedyOpen, CardsGreedyBuy
 
 global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
 global GemFarmSleepAmount
@@ -109,6 +109,8 @@ class cSettings {
         this.Map["CardsCommonAmount"] := singleSetting().Create("CardsCommonAmount", 25000, 1000, "int", "Cards")
         this.Map["CardsRareAmount"] := singleSetting().Create("CardsRareAmount", 25000, 1000, "int", "Cards")
         this.Map["CardsLegendaryAmount"] := singleSetting().Create("CardsLegendaryAmount", 25000, 1000, "int", "Cards")
+        this.Map["CardsGreedyOpen"] := singleSetting().Create("CardsGreedyOpen", false, false, "bool", "Cards")
+        this.Map["CardsGreedyBuy"] := singleSetting().Create("CardsGreedyBuy", false, false, "bool", "Cards")
         this.Map["CardsDontOpenCommons"] := singleSetting().Create("CardsDontOpenCommons", false, false, "bool", "Cards")
         this.Map["CardsDontOpenRare"] := singleSetting().Create("CardsDontOpenRare", false, false, "bool", "Cards")
         this.Map["CardsDontOpenLegendary"] := singleSetting().Create("CardsDontOpenLegendary", false, false, "bool", "Cards")
@@ -219,7 +221,7 @@ class cSettings {
             CardsCommonBuyAmount, CardsRareBuyAmount, CardsLegBuyAmount,
             CardsDontBuyCommons, CardsDontBuyRare, CardsDontBuyLeg,
             CardsSleepBuyAmount, CardsPermaLoop,
-            CardsBossFarmEnabled
+            CardsBossFarmEnabled, CardsGreedyOpen, CardsGreedyBuy
 
         global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
         global GemFarmSleepAmount

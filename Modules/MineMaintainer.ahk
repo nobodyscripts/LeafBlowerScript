@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 #Include ../Lib/cPoints.ahk
-#Include ../Lib/cAreas.ahk
+#Include ../Lib/cRects.ahk
 #Include ../Lib/Spammers.ahk
 #Include MineMaintainerCaves.ahk
 #Include ../Navigate/Header.ahk
@@ -370,7 +370,7 @@ UseDrillSphereLoop() {
             }
         } else {
             ; Greedy
-            SphereButton.GreedyModifierUsageClick(MinerSphereDelay)
+            SphereButton.GreedyModifierClick(MinerSphereDelay, 72, MinerSphereModifier)
             Sleep(MinerSphereDelay)
         }
     }

@@ -346,7 +346,7 @@ IsDarkBackgroundCheck() {
 
 IsTreesSetCheck() {
     Travel.OpenAreas(true, 300)
-    cPoint(1662, 325).Click(NavigateTime + 300)
+    Points.Areas.LeafG.HomeGarden.Click(NavigateTime + 300)
     Sleep(NavigateTime + 300)
     if (IsAreaSampleColour("0x4A9754")) {
         return true

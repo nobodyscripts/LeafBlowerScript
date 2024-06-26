@@ -22,8 +22,8 @@ Log(logmessage, logfile := "") {
         EnableLogging := true
     }
     static isWritingToLog := false
-    message := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - ' logmessage '`r`n'
-    OutputDebug(message)
+    logmessage := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' ' logmessage '`r`n'
+    OutputDebug(logmessage)
     if (!EnableLogging) {
         return
     }
@@ -32,7 +32,7 @@ Log(logmessage, logfile := "") {
         if (!isWritingToLog) {
             isWritingToLog := true
             Sleep(1)
-            FileAppend(message, logfile)
+            FileAppend(logmessage, logfile)
             isWritingToLog := false
 
         }
@@ -40,7 +40,7 @@ Log(logmessage, logfile := "") {
         OutputDebug("LogError: Error writing to log - " exc.Message "`r`n")
         ; MsgBox("Error writing to log:`n" exc.Message)
         Sleep(1)
-        FileAppend(message, logfile)
+        FileAppend(logmessage, logfile)
         Sleep(1)
         FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
             "LogError: Error writing to log - " exc.Message '`r`n', logfile)
@@ -68,5 +68,6 @@ VerboseLog(logmessage) {
     if (!Verbose) {
         Return
     }
-    OutputDebug("Verbose: " logmessage "`r`n")
+    logmessage := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) " Verbose: " logmessage '`r`n'
+    OutputDebug( logmessage)
 }

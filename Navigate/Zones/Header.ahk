@@ -2,3 +2,4 @@
 
 #Include CursedHalloween.ahk
 #Include Desert.ahk
+#Include Mines.ahk

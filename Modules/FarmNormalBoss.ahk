@@ -188,7 +188,7 @@ fNormalBossFarmWithCards(modecheck) {
     if (IsNotificationActive()) {
         Log("Card opening: Found notification covering button and hid"
             " notifications.")
-        cPoint(64, 1228).Click(101)
+        Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := true
     }
 
@@ -216,7 +216,7 @@ fNormalBossFarmWithCards(modecheck) {
         if (IsNotificationActive()) {
             Log("BossCards: Found notification covering button and hid"
                 " notifications.")
-            cPoint(64, 1228).Click(101)
+            Points.Misc.NotifArrow.Click(101)
             HadToHideNotifs := true
         }
         if (!CardButtonsActive()) {
@@ -269,7 +269,7 @@ fNormalBossFarmWithCards(modecheck) {
     ToolTip()
     if (HadToHideNotifs) {
         Log("BossCards: Reenabling notifications.")
-        cPoint(64, 1228).Click(17)
+        Points.Misc.NotifArrow.Click(17)
         HadToHideNotifs := false
     }
     ResetModifierKeys() ; Cleanup incase of broken loop

@@ -28,7 +28,7 @@ Class Desert extends Zone {
     }
 
     FindDesertZone() {
-        return Areas.GemFarm.TravelLeafSearch.PixelSearch("0x4A4429")
+        return Rects.GemFarm.TravelLeafSearch.PixelSearch("0x4A4429")
     }
 
     ClickTravelButton(coord, delay) {

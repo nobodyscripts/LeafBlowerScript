@@ -5,8 +5,8 @@ global ClawFindAny := false
 
 fClawFarm() {
     global ClawFindAny
-    
-    if(!Travel.CursedHalloween.Goto()) {
+
+    if (!Travel.CursedHalloween.Goto()) {
         return
     }
 
@@ -52,7 +52,7 @@ fClawFarm() {
 }
 
 ClawGetLocation(col) {
-    found := Areas.Claw.Items.PixelSearch(col)
+    found := Rects.Claw.Items.PixelSearch(col)
     if (!found) {
         return 0
     }

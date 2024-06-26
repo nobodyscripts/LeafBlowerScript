@@ -134,7 +134,7 @@ Button_Click_Mine(thisGui, info) {
     } else {
         optionsGUI.Add("CheckBox", "vMinerSphereGreedyUse ccfcfcf", "Enable Greedy Sphere Use").OnEvent("Click", HandleGreedy)
     }
-    optionsGUI.Add("Text", "ccfaf21", "Greedy disables sphere count and sphere modifier")
+    optionsGUI.Add("Text", "ccfaf21", "Greedy caps to Amount")
     optionsGUI.Add("Text", "ccfcfcf YP+25", "Drill Sphere Use Delay (ms):")
     optionsGUI.AddEdit()
     If (IsInteger(MinerSphereDelay) && MinerSphereDelay > 0) {
@@ -231,13 +231,10 @@ Button_Click_Mine(thisGui, info) {
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseMineSettings)
 
     if (MinerSphereGreedyUse) {
-        optionsGUI["MinerSphereModifier"].Opt("+Disabled")
         optionsGUI["MinerSphereCount"].Opt("+Disabled")
         optionsGUI["MinerSphereCountEdit"].Opt("+Readonly")
         optionsGUI["MinerSphereCountLabel"].Text := "Disabled with Greedy ON"
-        optionsGUI["MinerSphereModifierLabel"].Text := "Disabled with Greedy ON"
         optionsGUI["MinerSphereCountLabel"].Opt("ccfaf21")
-        optionsGUI["MinerSphereModifierLabel"].Opt("ccfaf21")
     }
 
     optionsGUI.Show("w300")
@@ -302,27 +299,19 @@ Button_Click_Mine(thisGui, info) {
     HandleGreedy(guiControlObj, info) {
         guiObj := guiControlObj.gui
         if (guiControlObj.Value) {
-            guiObj["MinerSphereModifier"].Opt("+Disabled")
-            guiObj["MinerSphereModifier"].Redraw()
+
             guiObj["MinerSphereCountEdit"].Opt("+Readonly")
             guiObj["MinerSphereCountEdit"].Redraw()
             guiObj["MinerSphereCount"].Opt("+Disabled")
             guiObj["MinerSphereCount"].Redraw()
             guiObj["MinerSphereCountLabel"].Text := "Disabled with Greedy ON"
-            guiObj["MinerSphereModifierLabel"].Text := "Disabled with Greedy ON"
             guiObj["MinerSphereCountLabel"].Opt("ccfaf21")
-            guiObj["MinerSphereModifierLabel"].Opt("ccfaf21")
         } else {
-            guiObj["MinerSphereModifier"].Opt("-Disabled")
-            guiObj["MinerSphereModifier"].Redraw()
             guiObj["MinerSphereCountEdit"].Opt("-Readonly")
             guiObj["MinerSphereCountEdit"].Redraw()
             guiObj["MinerSphereCount"].Opt("-Disabled")
             guiObj["MinerSphereCount"].Redraw()
             guiObj["MinerSphereCountLabel"].Text := "Drill Sphere Use Count, 0 (infinite):"
-            guiObj["MinerSphereModifierLabel"].Text := "Drill Sphere Usage Amount Modifier:"
-            guiObj["MinerSphereCountLabel"].Opt("ccfcfcf")
-            guiObj["MinerSphereModifierLabel"].Opt("ccfcfcf")
         }
     }
 }

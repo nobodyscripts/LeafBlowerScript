@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+; TODO Move these functions into a class with mine travel
+
 /**
  * Is current panel on Mine Coal Vein tab
  * @returns {Integer} 

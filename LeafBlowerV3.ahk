@@ -144,7 +144,7 @@ fReloadApp(*) {
     KillAllSpammers()
     if (HadToHideNotifs) {
         Log("F2: Reenabling notifications.")
-        cPoint(64, 1228).Click(101)
+        Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := false
     }
     if (bvAutostartDisabled = true) {
@@ -201,7 +201,7 @@ fCardsStart(*) { ; Open cards clicker
     } Else {
         if (HadToHideNotifs) {
             Log("Cards: Reenabling notifications.")
-            cPoint(64, 1228).Click(101)
+            Points.Misc.NotifArrow.Click(101)
             HadToHideNotifs := false
         }
         ResetModifierKeys() ; Cleanup incase needed
@@ -353,7 +353,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
             on9 := 0 ; Disabled
             if (HadToHideNotifsF9) {
                 Log("F9: Reenabling notifications")
-                cPoint(64, 1228).Click(101)
+                Points.Misc.NotifArrow.Click(101)
                 HadToHideNotifsF9 := false
             }
             Log("F9: Resetting")

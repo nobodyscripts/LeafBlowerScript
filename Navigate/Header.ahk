@@ -2,6 +2,7 @@
 
 #include ../Lib/cTravel.ahk
 
+#Include AreasRects.ahk
 #Include AreasCoords.ahk
 #Include MiscCoords.ahk
 

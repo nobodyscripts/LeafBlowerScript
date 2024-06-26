@@ -7,13 +7,34 @@
 global Debug := false
 
 /**
- * Defines the resolution independant locations for pixel checks
- * Convert positions from 2560*1369 client resolution to current resolution
+ * Defines the resolution independant locations for pixel checks.  
+ * Convert positions from 2560*1369 client resolution to current resolution.
  * Create with relative coords and relative on, or use fixed coords with it off
- * to handle scaling manually (for dynamic situations)
- * @argument {Integer} x X value
- * @argument {Integer} y Y value
+ * to handle scaling manually (for dynamic situations).  
+ * cPoint(x, y, relative) to construct.
+ * @argument {Integer} x X value (output depends on .relative)
+ * @argument {Integer} y Y value (output depends on .relative)
  * @argument {Integer} relative Set true for relative coords on get, false for original values
+ * @method Set Set new values after construction
+ * @method IsBackground Is point a background colour
+ * @method IsButton Is point a button colour
+ * @method IsButtonActive Is point an active button colour
+ * @method IsButtonInactive Is point an inactive button colour
+ * @method IsButtonOffPanel Is point an off panel button colour 
+ * @method Click Click left mouse button at point
+ * @method ClickOffset Click left mouse button at point with an offset
+ * @method toString Convert x y to readable string
+ * @method toStringWColour toSting with colour
+ * @method GetColour Get pixel colour at point
+ * @method IsColour Check if pixel colour at point is equal
+ * @method ToolTipAtCoord Create a blank tooltip with top left at point
+ * @method ClickOffsetUntilColour Click offset while colour doesn't match
+ * @method ClickOffsetWhileColour Click offset while colour matches
+ * @method WaitUntilColour Loop while colour doesn't match
+ * @method WaitWhileColour Loop while colour matches
+ * @method GreedyModifierClick Use decending value modifiers to click while looping on an active button, start at cap amount
+ * @method ClientToScreen Convert point xy to screenspace xy and return as Array
+ * @method ClientToScreencPoint Convert point xy to screenspace xy and return new cPoint
  */
 Class cPoint {
     /**
@@ -66,6 +87,7 @@ Class cPoint {
     /**
      * Create new point instance using 2560*1440 resolution resolution
      * maximised client coords
+     * @constructor
      * @param x 
      * @param y 
      * @param relative Set true for relative coords on get, false for original values
@@ -232,13 +254,14 @@ Class cPoint {
     /**
      * Clickoffset with loop that checks for specified colour, useful for 
      * clicking until something changes.
+     * @memberof cPoint
      * @param colour 
      * @param {Integer} maxLoops Max number of loops permitted before exit
      * @param {Integer} offsetX 
      * @param {Integer} offsetY 
      * @param {Integer} delay Click delay
      * @param {Integer} interval Delay between loop passes
-     * @returns {Integer} 
+     * @returns {Bool} 
      */
     ClickOffsetWhileColour(colour, maxLoops := 20, offsetX := 1, offsetY := 1, delay := 54, interval := 50) {
         i := maxLoops
@@ -257,13 +280,14 @@ Class cPoint {
     /**
      * Clickoffset with loop that checks for NOT being the specified colour, 
      * useful for clicking until something changes.
+     * @memberof cPoint
      * @param colour 
      * @param {Integer} maxLoops Max number of loops permitted before exit
      * @param {Integer} offsetX 
      * @param {Integer} offsetY 
      * @param {Integer} delay Click delay
      * @param {Integer} interval Delay between loop passes
-     * @returns {Integer} 
+     * @returns {Bool} 
      */
     ClickOffsetUntilColour(colour, maxLoops := 20, offsetX := 1, offsetY := 1, delay := 54, interval := 50) {
         i := maxLoops
@@ -281,10 +305,11 @@ Class cPoint {
 
     /**
      * Loop until colour found or max loops reached
+     * @memberof cPoint
      * @param colour 
      * @param {Integer} maxLoops 
      * @param {Integer} interval Delay between loop passes
-     * @returns {Integer} True if colour changed, false if not
+     * @returns {Bool} True if colour changed, false if not
      */
     WaitWhileColour(colour, maxLoops := 20, interval := 50) {
         i := maxLoops
@@ -305,6 +330,7 @@ Class cPoint {
 
     /**
      * Loop until not colour specified or max loops reached
+     * @memberof cPoint
      * @param colour 
      * @param {Integer} maxLoops 
      * @param {Integer} interval Delay between loop passes
@@ -329,48 +355,55 @@ Class cPoint {
 
     /**
      * Click with decending amounts of modifiers used when button becomes
-     * inactive, starting at 25000.
-     * @param {Integer} delay 
+     * inactive, starting at 25000 or startAt amount.
+     * @memberof cPoint
+     * @param {Integer} sleeptime Time to sleep between clicks 
+     * @param {Integer} delay Time to wait between mousedown and mouseup
+     * @param {Integer} startAt Amount for keyboard modifier starting level
      */
-    GreedyModifierUsageClick(delay := 54) {
+    GreedyModifierClick(sleeptime := 54, delay := 54, startAt := 25000) {
         AmountArr := ["25000", "2500", "1000", "250", "100", "25", "10", "1"]
         if (!IsWindowActive() || !IsPanelActive() ||
             !this.IsButtonActive()) {
             return
         }
         for Amount in AmountArr {
-            AmountToModifier(Amount)
-            Sleep(NavigateTime)
-            while (IsWindowActive() && IsPanelActive() &&
-                this.IsButtonActive()) {
-                this.ClickOffset()
-                Sleep(delay)
+            if (Amount <= startAt) {
+                AmountToModifier(Amount)
+                VerboseLog("GreedyModifierClick amount " Amount)
+                Sleep(NavigateTime)
+                while (IsWindowActive() && IsPanelActive() &&
+                    this.IsButtonActive()) {
+                    this.ClickOffset(5, 5, delay)
+                    Sleep(sleeptime)
+                }
             }
         }
     }
 
     /**
-     * Click with decending amounts of modifiers used when button becomes
-     * inactive, starting at 25000 or startAt amount.
-     * @param {Integer} startAt 
-     * @param {Integer} delay 
+     * Converts current cPoint to screenspace and returns [x,y]
+     * @memberof cPoint
+     * @param hWnd 
+     * @returns {Array} [x,y]
      */
-    GreedyCappedModifierUsageClick(startAt := 25000, delay := 54) {
-        AmountArr := ["25000", "2500", "1000", "250", "100", "25", "10", "1"]
-        if (!IsWindowActive() || !IsPanelActive() ||
-            !this.IsButtonActive()) {
-            return
-        }
-        for Amount in AmountArr {
-            if (startAt <= Amount) {
-                AmountToModifier(Amount)
-                Sleep(NavigateTime)
-                while (IsWindowActive() && IsPanelActive() &&
-                    this.IsButtonActive()) {
-                    this.ClickOffset()
-                    Sleep(delay)
-                }
-            }
-        }
+    ClientToScreen(hWnd?) {
+        ptr := Buffer(8), NumPut("int", this.x, "int", this.y, ptr)
+        DllCall("ClientToScreen", "ptr", hWnd, "ptr", ptr)
+        sx := NumGet(ptr, 0, "int"), sy := NumGet(ptr, 4, "int")
+        return [sx, sy]
+    }
+
+    /**
+     * Converts current cPoint to screenspace and returns a new cPoint
+     * @memberof cPoint
+     * @param hWnd 
+     * @returns {cPoint} 
+     */
+    ClientToScreencPoint(hWnd?) {
+        ptr := Buffer(8), NumPut("int", this.x, "int", this.y, ptr)
+        DllCall("ClientToScreen", "ptr", hWnd, "ptr", ptr)
+        sx := NumGet(ptr, 0, "int"), sy := NumGet(ptr, 4, "int")
+        return cPoint(sx, sy, false)
     }
 }

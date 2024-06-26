@@ -2,14 +2,7 @@
 
 global HadToHideNotifs := false
 global HaveWarnedDisplayRewards := false
-global cardOpenCommonButtonX := 548
-global cardOpenCommonButtonY := 807
 
-global cardOpenRareButtonX := 1108
-global cardOpenRareButtonY := 807
-
-global cardOpenLegButtonX := 1668
-global cardOpenLegButtonY := 807
 
 ; Vscode loves to warn me about globals so defining even though loading save
 global CardsPermaLoop := false
@@ -24,6 +17,8 @@ global CardsLegendaryAmount := 1
 global CardsLegBuyAmount := 1
 global CardsSleepAmount := 150
 global CardsSleepBuyAmount := 150
+global CardsGreedyOpen := false
+global CardsGreedyBuy := false
 
 
 fOpenCardLoop() {
@@ -32,7 +27,7 @@ fOpenCardLoop() {
     if (IsNotificationActive()) {
         Log("Cards: Found notification covering button and hid"
             " notifications.")
-        cPoint(64, 1228).Click(101)
+        Points.Misc.NotifArrow.Click(101)
         Sleep(72)
         HadToHideNotifs := true
         ; Notifications were blocking, close notifications and reshow
@@ -56,12 +51,14 @@ fOpenCardLoop() {
         if (IsNotificationActive()) {
             Log("Card Opening: Found notification covering button and hid"
                 " notifications.")
-            cPoint(64, 1228).Click(101)
+            Points.Misc.NotifArrow.Click(101)
             HadToHideNotifs := true
         }
         if (!CardsPermaLoop && !CardButtonsActive()) {
             Log("Cards: Found no active buttons. Exiting.")
             break
+        } else if (!CardButtonsActive()) {
+            Log("CardsLoop: Found no active buttons. Looping.")
         }
         if (CardsBuyEnabled) {
             Log("Card Buy: Loop starting.")
@@ -80,7 +77,7 @@ fOpenCardLoop() {
     }
     if (HadToHideNotifs) {
         Log("Cards: Reenabling notifications.")
-        cPoint(64, 1228).Click(101)
+        Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := false
     }
     ResetModifierKeys() ; Cleanup incase needed
@@ -110,7 +107,7 @@ CardsOpenSinglePass() {
     if (IsNotificationActive()) {
         Log("Card opening: Found notification covering button and hid"
             " notifications.")
-        cPoint(64, 1228).Click(101)
+        Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := true
         ; Notifications were blocking, close notifications and reshow
         Travel.OpenCards()
@@ -120,8 +117,7 @@ CardsOpenSinglePass() {
     ; Common
     ; If disabled skip, get active state back
     if (!CardsDontOpenCommons) {
-        CommonButtonActive := CardOpenerRel(cardOpenCommonButtonX, cardOpenCommonButtonY,
-            5, CardsCommonAmount)
+        CommonButtonActive := CardOpenerRel(1, 5, CardsCommonAmount)
     } else {
         ; If disabled mark inactive
         CommonButtonActive := false
@@ -129,8 +125,7 @@ CardsOpenSinglePass() {
     ; Rare
     ; If disabled skip, get active state back
     if (!CardsDontOpenRare) {
-        RareButtonActive := CardOpenerRel(cardOpenRareButtonX, cardOpenRareButtonY,
-            5, CardsRareAmount)
+        RareButtonActive := CardOpenerRel(2, 5, CardsRareAmount)
     } else {
         ; If disabled mark inactive
         RareButtonActive := false
@@ -138,8 +133,7 @@ CardsOpenSinglePass() {
     ; Legendary
     ; If disabled skip, get active state back
     if (!CardsDontOpenLegendary) {
-        LegendaryButtonActive := CardOpenerRel(cardOpenLegButtonX, cardOpenLegButtonY,
-            5, CardsLegendaryAmount)
+        LegendaryButtonActive := CardOpenerRel(3, 5, CardsLegendaryAmount)
     } else {
         ; If disabled mark inactive
         LegendaryButtonActive := false
@@ -152,17 +146,31 @@ CardsOpenSinglePass() {
     return true
 }
 
-CardOpenerRel(xin, yin, offset, amount) {
-    global HaveWarnedDisplayRewards, Debug
-    posx := WinRelPosLargeW(xin)
-    posy := WinRelPosLargeH(yin)
+CardOpenerRel(quality, offset, amount) {
+    global HaveWarnedDisplayRewards, Debug, CardsGreedyOpen
     offset := WinRelPosLargeH(offset)
+    switch quality {
+        case 1:
+            button := Points.Card.OpenCommon
+        case 2:
+            button := Points.Card.OpenRare
+        case 3:
+            button := Points.Card.OpenLegend
+        default:
+            button := Points.Card.OpenCommon
+    }
+    clickdelay := (CardsSleepAmount > 101) ? 54 : CardsSleepAmount
+    if (CardsGreedyOpen) {
+        button.GreedyModifierClick(CardsSleepAmount, clickdelay, amount)
+        VerboseLog("Greedy opening " CardQualityToStr(quality) " quality card")
+        return false
+    }
     ; Check if button is active, if not we can skip
     AmountToModifier(amount)
-    Sleep(72)
-    if (IsButtonActive(posx, posy) && IsWindowActive()) {
-        fCustomClick(posx, posy + offset, 72)
-        ; Legendary pack open
+    Sleep(NavigateTime)
+    if (button.IsButtonActive() && IsWindowActive()) {
+        ; Pack open
+        button.ClickOffset(, offset, clickdelay)
         Sleep(CardsSleepAmount)
         local i := 0
         while (IsScrollAblePanelAtTop() && i <= 5) {
@@ -175,99 +183,133 @@ CardOpenerRel(xin, yin, offset, amount) {
                     H / 2 - WinRelPosLargeH(70))
                 HaveWarnedDisplayRewards := true
             }
-            cPoint(2223, 193).Click(72)
+            Points.Misc.PanelClose.Click(72)
             Sleep(150)
             i++
         }
-        if (Debug) {
-            tempX := Format("{1:.1f}", posx)
-            tempY := Format("{1:.1f}", (posy + offset))
-            VerboseLog("Attempted to open card at " tempX "*" tempY)
-        }
+        VerboseLog("Attempted to open " CardQualityToStr(quality) " type card")
     } else {
-        if (Debug) {
-            tempX := Format("{1:.1f}", posx)
-            tempY := Format("{1:.1f}", (posy + offset))
-            VerboseLog("Could not open card at " tempX "*" tempY)
-        }
+        VerboseLog("Could not open " CardQualityToStr(quality) " type card")
     }
     ; Deliberate second check to return new state
-    return IsButtonActive(posx, posy)
+    return button.IsButtonActive()
 }
 
 ; Seperate buyer to have faster turnover
-CardBuyerRel(posx, posy, offset, amount) {
+CardBuyerRel(quality, offset, amount) {
     global Debug
-    posx := WinRelPosLargeW(posx)
-    posy := WinRelPosLargeH(posy)
     offset := WinRelPosLargeH(offset)
-
-    if (Debug) {
-        tempX := Format("{1:.1f}", posx)
-        tempY := Format("{1:.1f}", (posy + offset))
-        VerboseLog("Card Buy: at " tempX "*" tempY " x " amount)
+    switch quality {
+        case 1:
+            button := Points.Card.BuyCommon
+        case 2:
+            button := Points.Card.BuyRare
+        case 3:
+            button := Points.Card.BuyLegend
+        default:
+            button := Points.Card.BuyCommon
     }
     ; Check if button is active, if not we can skip
-    AmountToModifier(amount)
-    sleep(CardsSleepBuyAmount)
-    if (!IsButtonInactive(posx, posy) && IsWindowActive()) {
-        fCustomClick(posx, posy + offset, CardsSleepBuyAmount)
-        ; Legendary pack open
-        Sleep(CardsSleepBuyAmount)
-        if (Debug) {
-            tempX := Format("{1:.1f}", posx)
-            tempY := Format("{1:.1f}", (posy + offset))
-            VerboseLog("Attempted to buy card at " tempX "*" tempY)
-        }
-        return true
-    } else {
-        if (Debug) {
-            tempX := Format("{1:.1f}", posx)
-            tempY := Format("{1:.1f}", (posy + offset))
-            VerboseLog("Could not buy card at " tempX "*" tempY)
-        }
+    if (CardsGreedyBuy) {
+        ResetModifierKeys()
+        button.GreedyModifierClick(CardsSleepBuyAmount, CardsSleepBuyAmount, amount)
+        DebugLog("Greedy buy " CardQualityToStr(quality) " quality card")
         return false
+    } else {
+        AmountToModifier(amount)
+        sleep(CardsSleepBuyAmount)
+        if (!button.IsButtonInactive() && IsWindowActive()) {
+            button.ClickOffset(, offset, CardsSleepBuyAmount)
+            ; Legendary pack open
+            Sleep(CardsSleepBuyAmount)
+            VerboseLog("Attempting buy " CardQualityToStr(quality) " quality card")
+            return true
+        } else {
+            VerboseLog("Could not buy " CardQualityToStr(quality) " quality card")
+            return false
+        }
     }
 }
 
 CardButtonsActive() {
-    AmountToModifier(CardsCommonAmount)
+    ; Common
+    if (!CardsGreedyOpen) {
+        AmountToModifier(CardsCommonAmount)
+    } else {
+        ResetModifierKeys()
+    }
     Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(cardOpenCommonButtonX),
-        WinRelPosLargeH(cardOpenCommonButtonY))) {
+    if (Points.Card.OpenCommon.IsButtonActive()) {
         return true
     }
-    AmountToModifier(CardsRareAmount)
+
+    ; Rare
+    if (!CardsGreedyOpen) {
+        AmountToModifier(CardsRareAmount)
+    } else {
+        ResetModifierKeys()
+    }
     Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(cardOpenRareButtonX),
-        WinRelPosLargeH(cardOpenRareButtonY))) {
+    if (Points.Card.OpenRare.IsButtonActive()) {
         return true
     }
-    AmountToModifier(CardsLegendaryAmount)
+
+    ; Legendary
+    if (!CardsGreedyOpen) {
+        AmountToModifier(CardsLegendaryAmount)
+    } else {
+        ResetModifierKeys()
+    }
     Sleep(72)
-    if (IsButtonActive(WinRelPosLargeW(cardOpenLegButtonX),
-        WinRelPosLargeH(cardOpenLegButtonY))) {
+    if (Points.Card.OpenLegend.IsButtonActive()) {
         return true
     }
     if (CardsBuyEnabled) {
-        AmountToModifier(CardsCommonBuyAmount)
+        ; Common
+        if (!CardsGreedyBuy) {
+            AmountToModifier(CardsCommonBuyAmount)
+        } else {
+            ResetModifierKeys()
+        }
         Sleep(72)
-        if (IsButtonActive(WinRelPosLargeW(cardBuyCommonButtonX),
-            WinRelPosLargeH(cardBuyCommonButtonY))) {
+        if (Points.Card.BuyCommon.IsButtonActive()) {
             return true
         }
-        AmountToModifier(CardsRareBuyAmount)
+
+        ; Rare
+        if (!CardsGreedyBuy) {
+            AmountToModifier(CardsRareBuyAmount)
+        } else {
+            ResetModifierKeys()
+        }
         Sleep(72)
-        if (IsButtonActive(WinRelPosLargeW(cardBuyRareButtonX),
-            WinRelPosLargeH(cardBuyRareButtonY))) {
+        if (Points.Card.BuyRare.IsButtonActive()) {
             return true
         }
-        AmountToModifier(CardsLegBuyAmount)
+
+        ; Legendary
+        if (!CardsGreedyBuy) {
+            AmountToModifier(CardsLegBuyAmount)
+        } else {
+            ResetModifierKeys()
+        }
         Sleep(72)
-        if (IsButtonActive(WinRelPosLargeW(cardBuyLegButtonX),
-            WinRelPosLargeH(cardBuyLegButtonY))) {
+        if (Points.Card.BuyLegend.IsButtonActive()) {
             return true
         }
     }
     return false
+}
+
+CardQualityToStr(var) {
+    switch var {
+        case 1:
+            return "common"
+        case 2:
+            return "rare"
+        case 3:
+            return "legendry"
+        default:
+            return "common"
+    }
 }

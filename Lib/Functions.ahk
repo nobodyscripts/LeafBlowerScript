@@ -3,7 +3,7 @@
 #Include Logging.ahk
 #Include Spammers.ahk
 #Include cPoints.ahk
-#Include cAreas.ahk
+#Include cRects.ahk
 
 global LBRWindowTitle
 
@@ -100,7 +100,7 @@ AmountToModifier(num) {
     }
 }
 
-; DEPRECATED
+/* ; DEPRECATED
 IsButton(screenX, screenY) {
     try {
         targetColour := PixelGetColor(screenX, screenY)
@@ -118,7 +118,6 @@ IsButton(screenX, screenY) {
     }
     return false
 }
-
 ; DEPRECATED
 IsButtonActive(screenX, screenY) {
     try {
@@ -137,6 +136,7 @@ IsButtonActive(screenX, screenY) {
     return false
 }
 
+*/
 ; DEPRECATED
 IsButtonInactive(screenX, screenY) {
     try {
@@ -223,14 +223,14 @@ IsNotificationActive() {
 }
 
 IsBossTimerActive() {
-    if (!Areas.Misc.BossTimer.PixelSearch()) {
+    if (!Rects.Misc.BossTimer.PixelSearch()) {
         return false
     }
     return true
 }
 
 IsBossTimerLong() {
-    if (!Areas.Misc.BossTimerLong.PixelSearch()) {
+    if (!Rects.Misc.BossTimerLong.PixelSearch()) {
         return false
     }
     return true
@@ -266,7 +266,7 @@ PixelSearchWrapper(x1, y1, x2, y2, colour) {
 
 PixelSearchWrapperRel(x1, y1, x2, y2, colour) {
     Log("Remove this usage of PixelSearchWrapperRel")
-    tempArea := cArea(x1, y1, x2, y2)
+    tempArea := cRect(x1, y1, x2, y2)
     return tempArea.PixelSearch(colour)
 }
 

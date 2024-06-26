@@ -82,7 +82,7 @@ OpenQuarkPanel(extraDelay := 0) {
 }
 
 IsAreaResetToGarden() {
-    if (!Areas.Areas.GardenReset.PixelSearch("0x4A9754")) {
+    if (!Rects.Areas.GardenReset.PixelSearch("0x4A9754")) {
         return false
     }
     return true
@@ -100,7 +100,7 @@ GoToHomeGarden() {
             Log("Traveling to Home Garden")
             Travel.OpenAreas()
             ; Click Home Garden button
-            cPoint(1662, 325).Click(NavigateTime)
+            Points.Areas.LeafG.HomeGarden.Click(NavigateTime)
             Sleep(NavigateTime)
             i++
         }
@@ -112,7 +112,7 @@ GoToHomeGarden() {
         Log("Traveling to Home Garden. Attempt to blind travel with"
             " slowed times.")
         Travel.OpenAreas(true, 200)
-        cPoint(1662, 325).Click(NavigateTime + 200)
+        Points.Areas.LeafG.HomeGarden.Click(NavigateTime + 200)
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
             ; Checks are disabled so blindly trust we reached zone
@@ -286,7 +286,7 @@ GotoResetSS() {
     }
     GoToShadowCavern()
     Travel.ClosePanelIfActive()
-    button := cPoint(1735, 397)
+    button := Points.Areas.FireF.BorbianaJones
     Log(button.GetColour())
     ; Go to Borbiana Jones screen
     if (button.IsColour("0x60F811")) {
@@ -298,7 +298,7 @@ GotoResetSS() {
 ResetSS() {
     GotoResetSS()
     ; Reset SpectralSeeker
-    button := cPoint(1280, 500)
+    button := Points.Areas.FireF.ResetSS
     if (button.IsButtonActive()) {
         button.Click(NavigateTime)
     }
@@ -307,16 +307,13 @@ ResetSS() {
 ResetGF() {
     GotoResetSS()
     ; Reset Green Flame
-    button := cPoint(820, 500)
+    button := Points.Areas.FireF.ResetGF
     if (button.IsButtonActive()) {
         button.Click(NavigateTime)
     }
 }
 
 GoToNatureBoss() {
-    button := cPoint(1682, 946)
-    button2 := cPoint(1682, 860)
-
     if (!IsWindowActive()) {
         Log("No window found while trying to travel.")
         return false
@@ -377,8 +374,8 @@ GoToNatureBoss() {
 }
 
 NatureBossButtonClick() {
-    button := cPoint(1682, 946)
-    button2 := cPoint(1682, 860)
+    button := Points.Areas.Events.NatureBoss
+    button2 := Points.Areas.Events.NatureBoss2
     if (button.IsButton()) {
         button.Click(100)
         return true
@@ -391,8 +388,8 @@ NatureBossButtonClick() {
 }
 
 IsOnEventAreaPanel() {
-    button := cPoint(1682, 946)
-    button2 := cPoint(1682, 860)
+    button := Points.Areas.Events.NatureBoss
+    button2 := Points.Areas.Events.NatureBoss2
     if (button.IsButton()) {
         return true
     } else if (button2.IsButton()) {
@@ -403,7 +400,7 @@ IsOnEventAreaPanel() {
 }
 
 GoToCheeseBoss() {
-    button := cPoint(1682, 298)
+    button := Points.Areas.Events.CursedHalloween
     if (!IsWindowActive()) {
         Log("No window found while trying to travel.")
         return false
@@ -462,7 +459,7 @@ GoToCheeseBoss() {
 }
 
 GoToFarmField() {
-    button := cPoint(1682, 525)
+    button := Points.Areas.Events.FarmField
     if (!IsWindowActive()) {
         Log("No window found while trying to travel.")
         return false
@@ -542,7 +539,7 @@ GoToAstralOasis() {
     }
     global DisableZoneChecks
     i := 0
-    button := cPoint(1665, 643)
+    button := Points.Areas.QuarkA.AstralOasis
     if (!DisableZoneChecks) {
         while (!IsAreaSampleColour("0x000108") && i <= 4) {
             if (!IsWindowActive()) {
@@ -595,7 +592,7 @@ GoToDimentionalTapestry() {
     }
     global DisableZoneChecks
     i := 0
-    button := cPoint(1665, 820)
+    button := Points.Areas.Events.DimentionalTapestry
     if (!DisableZoneChecks) {
         while (!IsAreaSampleColour("0x37356B") && i <= 4) {
             if (!IsWindowActive()) {
@@ -648,6 +645,8 @@ GoToPlankScope() {
     }
     global DisableZoneChecks
     i := 0
+    button := Points.Areas.Events.PlankScope
+    button2 := Points.Areas.Events.PlankScope2
     if (!DisableZoneChecks) {
         while (!IsAreaSampleColour("0x0B1E32") && i <= 4) {
             if (!IsWindowActive()) {
@@ -656,13 +655,10 @@ GoToPlankScope() {
             }
             Log("Traveling to Plank Scope (Quark Boss 3)")
             OpenQuarkPanel()
-            button := cPoint(1665, 970)
-            if (!button.IsBackground()) {
-                button.ClickOffset(5, 0, NavigateTime)
-                fSlowClickRelL(1670, 970, NavigateTime + 200)
-            } else {
-                button.ClickOffset(5, 50, NavigateTime)
-                fSlowClickRelL(1670, 1020, NavigateTime + 200)
+            if (button.IsButtonActive()) {
+                button.ClickOffset(5, , NavigateTime)
+            } else if (button2.IsButtonActive()) {
+                button2.ClickOffset(5, , NavigateTime)
             }
             Sleep(NavigateTime)
             i++
@@ -675,10 +671,10 @@ GoToPlankScope() {
         Log("Traveling to Plank Scope (Quark Boss 3). Attempt to blind travel"
             " with slowed times.")
         OpenQuarkPanel(200)
-        if (!button.IsBackground()) {
-            button.ClickOffset(5, 0, NavigateTime + 200)
-        } else if (!cPoint(1665, 1020).IsBackground()) {
-            button.ClickOffset(5, 50, NavigateTime + 200)
+        if (button.IsButtonActive()) {
+            button.ClickOffset(5, , NavigateTime + 200)
+        } else if (button2.IsButtonActive()) {
+            button2.ClickOffset(5, , NavigateTime + 200)
         }
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
@@ -705,11 +701,12 @@ SingleAnteLeaftonTravel(extradelay := 0) {
     Travel.ClosePanelIfActive()
     OpenQuarkPanel(extradelay)
     ScrollAmountDown(2)
-    button := cPoint(1665, 970)
-    if (!button.IsBackground()) {
-        button.ClickOffset(5, 0, NavigateTime + extradelay)
-    } else {
-        button.ClickOffset(5, 50, NavigateTime + extradelay)
+    button := Points.Areas.QuarkA.AnteLeafton
+    button2 := Points.Areas.QuarkA.AnteLeafton2
+    if (button.IsButtonActive()) {
+        button.ClickOffset(5, , NavigateTime + extradelay)
+    } else if (button2.IsButtonActive()) {
+        button2.ClickOffset(5, , NavigateTime + extradelay)
     }
     Sleep(NavigateTime)
 }
@@ -759,6 +756,7 @@ GotoCardsFirstTab() {
     }
     global DisableZoneChecks
     i := 0
+    button := cPoint(404, 1183)
     if (!DisableZoneChecks) {
         while (!IsOnCardsFirstPanel() && IsWindowActive() && i <= 4) {
             if (!IsWindowActive()) {
@@ -768,7 +766,7 @@ GotoCardsFirstTab() {
             Log("Opening cards, packs (first) tab.")
             Travel.OpenCards()
             Sleep(NavigateTime)
-            cPoint(404, 1183).Click(NavigateTime)
+            button.Click(NavigateTime)
             ; Open first tab incase wrong tab
             Sleep(NavigateTime)
             i++
@@ -783,7 +781,7 @@ GotoCardsFirstTab() {
             " slowed times.")
         Travel.OpenCards(, 200)
         Sleep(NavigateTime + 200)
-        cPoint(404, 1183).Click(NavigateTime + 200)
+        button.Click(NavigateTime + 200)
         ; Open first tab incase wrong tab
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
@@ -864,7 +862,7 @@ GoToLeafTower() {
 
     ; Leaf pixel search
     ; Look for colour of a segment of the rightmost tower leaf c5d8e0
-    spot := cArea(1563, 430, 1615, 964).PixelSearch("0xC5D8E0")
+    spot := Rects.Areas.LeafTower.PixelSearch("0xC5D8E0")
     if (!spot) {
         ; Not found
         Log("TowerBoost: Could not find tower leaf to open area.")

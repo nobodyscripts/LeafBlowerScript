@@ -86,6 +86,9 @@ Don't check for the buttons being done, stay in the loop till stopped
 CardsBossFarmEnabled: (Default) true  
 This disables the card mode on the F9 key rotation
 
+CardsGreedyOpen: (Default) false  
+Use decending amounts of modifiers to open all cards down to single use.
+
 ## Cards Buying
 
 CardsBuyEnabled: (Default) false  
@@ -123,6 +126,9 @@ Disable the purchasing of cards, so false buys
 CardsSleepBuyAmount: (Default) 72  
 Default 72, amount of time to wait between purchases, can lower down to at
 minimum 17ms or raise if not smoothly purchasing
+
+CardsGreedyBuy: (Default) false  
+Use decending amounts of modifiers to buy all cards down to single use.
 
 ## GFSS Farm
 

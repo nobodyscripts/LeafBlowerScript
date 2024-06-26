@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 #Include ../Lib/cPoints.ahk
-#Include ../Lib/cArea.ahk
+#Include ../Lib/cRect.ahk
 
 CavesSinglePass() {
     id := 1
@@ -43,18 +43,18 @@ CavesSingleCheck() {
 }
 
 IsCaveDrilling() {
-    if (Areas.Mine.Cave.DrillStatus.PixelSearch("0xFFFFFF")) {
+    if (Rects.Mine.Cave.DrillStatus.PixelSearch("0xFFFFFF")) {
         return false
     }
     return true
 }
 
 IsCaveLocked(id) {
-    LockAreas := [Areas.Mine.Cave.LockInd1,
-        Areas.Mine.Cave.LockInd2,
-        Areas.Mine.Cave.LockInd3,
-        Areas.Mine.Cave.LockInd4,
-        Areas.Mine.Cave.LockInd5]
+    LockAreas := [Rects.Mine.Cave.LockInd1,
+        Rects.Mine.Cave.LockInd2,
+        Rects.Mine.Cave.LockInd3,
+        Rects.Mine.Cave.LockInd4,
+        Rects.Mine.Cave.LockInd5]
     if (!LockAreas[id].PixelSearch("0xFFFF79")) {
         return false
     }
@@ -73,7 +73,7 @@ IsCaveSelected(id) {
 }
 
 IsCaveDiamond() {
-    if (!Areas.Mine.Cave.DiamondIcon.PixelSearch("0x3210B0")) {
+    if (!Rects.Mine.Cave.DiamondIcon.PixelSearch("0x3210B0")) {
         return false
     }
     return true
