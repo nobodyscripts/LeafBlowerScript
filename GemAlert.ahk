@@ -29,16 +29,18 @@ if (IsPanelActive()) {
 localOpenMining()
 Sleep(NavigateTime)
 loop {
-    if (IsWindowActive() && !IsPanelActive()) {
-        localOpenMining()
-        Sleep(NavigateTime)
+    if (!WinExist(LBRWindowTitle) ) {
+        break
     }
-    if (IsWindowActive() && IsPanelActive()) {
-        FindVeinsWithBars2()
-        Sleep(seconds(10))
-    }
-
-    if (!IsWindowActive()) {
+    if (WinActive(LBRWindowTitle)) {
+        if (!IsPanelActive()) {
+            localOpenMining()
+            Sleep(NavigateTime)
+        } else {
+            FindVeinsWithBars2()
+            Sleep(seconds(10))
+        }
+    } else {
         FindVeinsWithBars2()
         Sleep(seconds(10))
     }
