@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 global ScriptsLogFile, EnableLogging
-global Verbose := false
+global Verbose := (FileExist(A_ScriptDir "\IsNobody"))
 
 /**
  * Logger, user disable possible, debugout regardless of setting to vscode.

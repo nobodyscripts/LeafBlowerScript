@@ -5,7 +5,6 @@
 #Include Lib/Navigate.ahk
 #Include Lib/ScriptSettings.ahk
 #Include Lib/SettingsCheck.ahk
-#Include Navigate\Mines\Travel.ahk
 
 global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
 global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
@@ -15,8 +14,14 @@ global NavigateTime := 150
 X := Y := W := H := 0
 if (WinExist(LBRWindowTitle)) {
     WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
+} else {
+    ExitApp()
 }
 
+if (!IsWindowActive()) {
+    WinActivate(LBRWindowTitle)
+    Sleep(NavigateTime)
+}
 if (IsPanelActive()) {
     localClosePanel()
     Sleep(NavigateTime)
@@ -30,34 +35,30 @@ loop {
     }
     if (IsWindowActive() && IsPanelActive()) {
         FindVeinsWithBars2()
-        Sleep(1000 * 10)
+        Sleep(seconds(10))
     }
 
     if (!IsWindowActive()) {
-        WinActivate(LBRWindowTitle)
-        Sleep(NavigateTime)
-
-        if (!IsPanelActive()) {
-            localOpenMining()
-            Sleep(NavigateTime)
-        }
-        if (IsPanelActive()) {
-            FindVeinsWithBars2()
-            Sleep(1000 * 30)
-        }
+        FindVeinsWithBars2()
+        Sleep(seconds(10))
     }
 }
 
+seconds(int) {
+    return int * 1000
+}
+
 FindVeinsWithBars2() {
-    SampleSlot4 := Points.Mine.Vein.Slot4.Icon
-    SampleSlot5 := Points.Mine.Vein.Slot5.Icon
-    SampleSlot6 := Points.Mine.Vein.Slot6.Icon
-    if (SampleSlot4.GetColour() != "0x6D758D" ||
-        SampleSlot5.GetColour() != "0x6D758D" ||
-        SampleSlot6.GetColour() != "0x6D758D") {
+    SampleSlot4 := Points.Mine.Vein.Slot4.Icon.ClientToScreencPoint()
+    SampleSlot5 := Points.Mine.Vein.Slot5.Icon.ClientToScreencPoint()
+    SampleSlot6 := Points.Mine.Vein.Slot6.Icon.ClientToScreencPoint()
+    CoordMode("Pixel", "Screen")
+    if (PixelGetColor(SampleSlot4.x, SampleSlot4.y) != "0x6D758D" ||
+        PixelGetColor(SampleSlot5.x, SampleSlot5.y) != "0x6D758D" ||
+        PixelGetColor(SampleSlot6.x, SampleSlot6.y) != "0x6D758D") {
         SoundBeep()
-        Sleep(1000 * 30)
     }
+    CoordMode("Pixel", "Client")
     return
 }
 
