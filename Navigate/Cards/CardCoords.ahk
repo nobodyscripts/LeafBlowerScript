@@ -5,7 +5,8 @@
 /**
  * Card points for buttons
  * @memberof module:cPoints
- * @property {cPoint} FirstTab Point for first panel tab
+ * @property {cPoint} PacksTab Point for first panel tab Packs
+ * @property {cPoint} TranscendTab Point for second panel tab Transcend
  * @property {cPoint} OpenCommon Open common cards button
  * @property {cPoint} OpenRare Open rare cards button
  * @property {cPoint} OpenLegend Open legendary cards button
@@ -14,8 +15,10 @@
  * @property {cPoint} BuyLegend Buy legendary cards button
  */
 Class cCardPoints {
-    ; Point for first panel tab
-    FirstTab := cPoint(526, 1180)
+    ; Point for first panel tab Packs
+    PacksTab := cPoint(404, 1183)
+    ; Point for second panel tab Transcend
+    TranscendTab := cPoint(526, 1180)
     ; Open common cards button
     OpenCommon := cPoint(548, 807)
     ; Open rare cards button
@@ -28,4 +31,6 @@ Class cCardPoints {
     BuyRare := cPoint(1016, 935)
     ; Buy legendary cards button
     BuyLegend := cPoint(1576, 935)
+    ; Odds button (Used to check, IsOnCardsFirstPanel)
+    OddsButton := cPoint(2129, 420)
 }

@@ -17,9 +17,21 @@ Button_Click_Mine(thisGui, info) {
     ;@region Add controls
     
     if (MinerEnableVeins = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf checked", "Enable Coal Veins")
+        optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf checked", "Enable Coal Veins Enhance")
     } else {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf", "Enable Coal Veins")
+        optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf", "Enable Coal Veins Enhance")
+    }
+
+    if (MinerEnableVeinUpgrade = true) {
+        optionsGUI.Add("CheckBox", "vMinerEnableVeinUpgrade ccfcfcf checked", "Enable Vein Level Upgrader")
+    } else {
+        optionsGUI.Add("CheckBox", "vMinerEnableVeinUpgrade ccfcfcf", "Enable Vein Level Upgrader")
+    }
+
+    if (MinerEnableVeinRemoval = true) {
+        optionsGUI.Add("CheckBox", "vMinerEnableVeinRemoval ccfcfcf checked", "Enable Removal of 6th Vein")
+    } else {
+        optionsGUI.Add("CheckBox", "vMinerEnableVeinRemoval ccfcfcf", "Enable Removal of 6th Vein")
     }
 
     if (MinerEnableFreeRefuel = true) {
@@ -111,18 +123,6 @@ Button_Click_Mine(thisGui, info) {
             optionsGUI.Add("UpDown", "vMinerRefuelTimer Range0-9999",
                 settings.defaultSettings.MinerRefuelTimer)
         }
-    }
-
-    if (MinerEnableVeinUpgrade = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeinUpgrade ccfcfcf checked", "Enable Vein Level Upgrader")
-    } else {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeinUpgrade ccfcfcf", "Enable Vein Level Upgrader")
-    }
-
-    if (MinerEnableVeinRemoval = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeinRemoval ccfcfcf checked", "Enable Removal of 6th Vein")
-    } else {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeinRemoval ccfcfcf", "Enable Removal of 6th Vein")
     }
 
     if (MinerEnableSphereUse = true) {

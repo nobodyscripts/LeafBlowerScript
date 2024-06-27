@@ -15,6 +15,7 @@ fBorbVentureJuiceFarm() {
     Log("Borbv: Main loop starting.")
     bvAutostartDisabled := false
     if (IsBVAutoStartOn()) {
+        ; TODO Move point to Points
         cPoint(591, 1100).Click()
         bvAutostartDisabled := true
     }
@@ -36,6 +37,7 @@ fBorbVentureJuiceFarm() {
         BVMainLoop()
     }
     if (bvAutostartDisabled = true && !IsBVAutoStartOn()) {
+        ; TODO Move point to Points
         cPoint(591, 1100).Click()
     }
     Log("Borbv: Aborted.")
@@ -51,6 +53,7 @@ BVMainLoop() {
         if (!found) {
             break
         }
+        ; TODO Move point to Points
         cPoint(1847, 1085).Click()
         Sleep(34)
     }

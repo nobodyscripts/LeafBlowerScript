@@ -100,6 +100,7 @@ IsNatureBossAlive() {
         Log("IsNatureBossAlive: Was checked while panel was active.")
     }
     try {
+        ; TODO Move point to Points
         found := PixelGetColor(WinRelPosLargeW(852), WinRelPosLargeH(250))
         ; Timer pixel search
         If (found = "0x2CE8F5") {
@@ -124,8 +125,10 @@ IsNatureBossTimerActive() {
     ; 1883 1004
     ; 2189 1033
     try {
-        if (!IsBackground(WinRelPosLargeW(1693), WinRelPosLargeH(960))) {
+        ; TODO Move point to Points
+        if (!cPoint(1693, 960).IsBackground()) {
             ; font 1
+            ; TODO Move rect to Rects
             found := PixelSearch(&OutX, &OutY,
                 WinRelPosLargeW(1574), WinRelPosLargeH(965),
                 WinRelPosLargeW(1642), WinRelPosLargeH(1009), "0xFFFFFF", 0)
@@ -134,6 +137,7 @@ IsNatureBossTimerActive() {
             }
         } else {
             ; font 0
+            ; TODO Move rect to Rects
             found := PixelSearch(&OutX, &OutY,
                 WinRelPosLargeW(1525), WinRelPosLargeH(965),
                 WinRelPosLargeW(1660), WinRelPosLargeH(985), "0xFFFFFF", 0)
@@ -143,7 +147,9 @@ IsNatureBossTimerActive() {
             }
         }
         ; Halloween inactive, nature active
+    ; TODO Move point to Points
         if (cPoint(1650, 870).IsButton()) {
+            ; TODO Move rect to Rects
             found := cRect(1525, 897, 1660, 922).PixelSearch()
             if (found) {
                 return true

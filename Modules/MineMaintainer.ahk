@@ -90,7 +90,8 @@ fMineMaintainer() {
         if (IsWindowActive() && !IsPanelActive()) {
             Travel.Mine.GoTo()
         }
-        if (IsWindowActive() && MinerEnableVeins && IsPanelActive()) {
+        if (IsWindowActive() && IsPanelActive() &&
+            (MinerEnableVeins || MinerEnableVeinRemoval)) {
             i := 1
             while (!Travel.Mine.IsOnTabVein() || i >= 10) {
                 VeinsTab.Click(NavigateTime)
@@ -105,7 +106,9 @@ fMineMaintainer() {
                         VeinCancelConfirm()
                     }
                 }
-                EnhanceVeins()
+                if (MinerEnableVeins) {
+                    EnhanceVeins()
+                }
             } else {
                 Log("Mine: Vein tab click failed")
             }

@@ -107,7 +107,7 @@ IsPanelActive() {
  */
 IsPanelTransparent() {
     try {
-        targetColour := cPoint(2183, 220).GetColour()
+        targetColour := Points.Misc.PanelBG.GetColour()
         ; If its afk mode return as well, let afk check handle
         If (targetColour = "0x97714A" || targetColour = "0x6A4F34") {
             ; Found panel background colour
@@ -134,13 +134,6 @@ IsPanelTransparentCorrectCheck() {
         MsgBox("Error: It appears you may be using menu transparency,"
             " please set to 100% then F2 to reload().`nSee Readme.md"
             " for other required settings.")
-        WinActivate(LBRWindowTitle)
-        Travel.OpenSettings() ; Settings
-        sleep(150)
-        ; Set to graphics tab
-        cPoint(887, 1179).Click()
-        Sleep(101)
-        ScrollAmountDown(32)
         return false
     } Else {
         return true
@@ -151,10 +144,8 @@ IsAspectRatioCorrect() {
     ;54 1328 (lower left of lower left hide button)
     ;2425 51 (top right of top right hide button)
     try {
-        sampleColour := PixelGetColor(WinRelPosLargeW(58),
-            WinRelPosLargeH(1323))
-        sampleColour2 := PixelGetColor(WinRelPosLargeW(2425),
-            WinRelPosLargeH(51))
+        sampleColour := Points.Misc.AspectRatio1.GetColour()
+        sampleColour2 := Points.Misc.AspectRatio2.GetColour()
         If (sampleColour = "0xFFF1D2" || ; Normal
             sampleColour = "0xFDD28A" || ; Mouseover
             sampleColour = "0x837C6C" || ; Dark dialog background normal
@@ -191,85 +182,11 @@ IsAspectRatioCorrectCheck() {
     }
 }
 
-WhatFont() {
-    Travel.OpenSettings() ; Settings
-    sleep(150)
-    cPoint(1776, 1179).Click(101)
-    sleep(150) ; Resetting tab to make sure scroll is at top
-    ; Set to graphics tab
-    cPoint(887, 1179).Click(101)
-    sleep(150)
-    Images := ["Images\AlternativeFontSize0.png",
-        "Images\AlternativeFontSize1.png",
-        "Images\AlternativeFontSize2.png",
-        "Images\AlternativeFontSize3.png",
-        "Images\AlternativeFontSize4.png",
-        "Images\AlternativeFontSize5.png",
-        "Images\AlternativeFontSize6.png",
-        "Images\AlternativeFontSize7.png",
-        "Images\AlternativeFontSize8.png",
-        "Images\AlternativeFontSize9.png",
-        "Images\AlternativeFontSize10.png"]
-    i := 1
-    try {
-        for image in Images {
-            ; 1480 765 (font size 0, tl)
-            ; 1732 822 (font size 0, br)
-            ; 1461 755 (font size 10, tl)
-            ; 1682 819 (font size 10, br)
-            found := ImageSearch(&OutX, &OutY,
-                WinRelPosLargeW(1461), WinRelPosLargeH(260),
-                WinRelPosLargeW(1732), WinRelPosLargeH(1080), image)
-            If (found && OutX > 0) {
-                DebugLog("Settings: Found user is using alternative font size "
-                    (i - 1))
-                return i
-            }
-            i++
-        }
-    } catch as exc {
-        Log("Error 22: WhatFont check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
-    }
-    ; If we didn't match, then its not alternative
-    return 0
-}
-
-IsFontCorrectCheck() {
-    if (!IsWindowActive()) {
-        return false ; Kill if no game
-    }
-    font := WhatFont()
-    If (font = 1 || font = 2) {
-        return true
-    }
-    if (!font) {
-        Log("Error 23: Font type check failed, not using alternative")
-        MsgBox("Error: It appears you are not using alternative font type,"
-            " please set to Alternative then F2 to reload().`nSee Readme.md"
-            " for other required settings.")
-        WinActivate(LBRWindowTitle)
-        Travel.OpenSettings() ; Settings
-        return false
-    }
-    Log("Error 24: Font size check failed - size " (font - 1))
-    MsgBox("Error: It appears you are using font size " (font - 1)
-        ", please set to 0/1 then F2 to reload().`nSee Readme.md"
-        " for other required settings.")
-    WinActivate(LBRWindowTitle)
-    Travel.OpenSettings() ; Settings
-    sleep(150)
-    ; Set to graphics tab
-    cPoint(887, 1179).Click()
-    Sleep(101)
-    ScrollAmountDown(32)
-    return false
-}
-
 IsPanelSmoothed() {
     try {
+        ; TODO Move point to Points
         sampleColour := cPoint(2193, 193).GetColour()
+        ; TODO Move point to Points
         sampleColour2 := cPoint(2193, 185).GetColour()
         If (sampleColour != sampleColour2) {
             DebugLog("Smoothed graphics check found " sampleColour " " sampleColour2)
@@ -295,11 +212,6 @@ IsPanelSmoothedCheck() {
     MsgBox("Error: It appears you are using Smooth Graphics, please set"
         " to off then F2 to reload().`nSee Readme.md for other required"
         " settings.")
-    WinActivate(LBRWindowTitle)
-    Travel.OpenSettings() ; Settings
-    sleep(150)
-    ; Set to graphics tab
-    cPoint(887, 1179).Click()
     return false
 }
 
@@ -334,13 +246,7 @@ IsDarkBackgroundCheck() {
     MsgBox("Error: It appears you are using Dark Dialog Background, please"
         " set to off then F2 to reload().`nSee Readme.md for other"
         " required settings.")
-    WinActivate(LBRWindowTitle)
-    Travel.OpenSettings() ; Settings
-    sleep(150)
-    ; Set to graphics tab
-    cPoint(887, 1179).Click()
-    Sleep(101)
-    ScrollAmountDown(32)
+
     return false
 }
 
@@ -355,13 +261,6 @@ IsTreesSetCheck() {
         MsgBox("Error: It appears you are using Trees, please set to"
             " off then F2 to reload().`nSee Readme.md for other"
             " required settings.")
-        WinActivate(LBRWindowTitle)
-        Travel.OpenSettings() ; Settings
-        sleep(150)
-        ; Set to graphics tab
-        cPoint(887, 1179).Click()
-        Sleep(101)
-        ScrollAmountDown(5)
         return false
     }
 
@@ -398,6 +297,7 @@ AFKFix() {
         return true
     }
     Log("Warning 1: AFK found enabled.")
+    ; TODO Move point to Points
     cPoint(10, 10).Click()
     return false
 }

@@ -756,7 +756,7 @@ GotoCardsFirstTab() {
     }
     global DisableZoneChecks
     i := 0
-    button := cPoint(404, 1183)
+    button := Points.Card.PacksTab
     if (!DisableZoneChecks) {
         while (!IsOnCardsFirstPanel() && IsWindowActive() && i <= 4) {
             if (!IsWindowActive()) {
@@ -799,7 +799,7 @@ GotoCardsFirstTab() {
 }
 
 IsOnCardsFirstPanel() {
-    if (cPoint(2129, 420).IsButtonActive()) {
+    if (Points.Card.OddsButton.IsButtonActive()) {
         return true
     }
     return false
@@ -832,16 +832,16 @@ GotoBorbventuresFirstTab() {
     Sleep(101)
     BVResetScroll()
     i := 0
-    while (!cPoint(1100, 314).IsButtonActive() &&
-        !cPoint(1574, 314).IsButtonActive() &&
+    while (!Points.Borbventures.Detailed.IsButtonActive() &&
+        !Points.Borbventures.ScaleMin.IsButtonActive() &&
         i <= 4) {
         Travel.OpenBorbVentures() ; Open BV
         Sleep(101)
         BVResetScroll()
         i++
     }
-    if (cPoint(1100, 314).IsButtonActive() &&
-        cPoint(1574, 314).IsButtonActive()) {
+    if (Points.Borbventures.Detailed.IsButtonActive() &&
+        Points.Borbventures.ScaleMin.IsButtonActive()) {
         DebugLog("Travel success to Borbventures First Tab.")
         return true
     }
@@ -852,11 +852,11 @@ GotoBorbventuresFirstTab() {
 ;TODO Move to borbventures travel class
 BVResetScroll() {
     ; Double up due to notifications
-    cPoint(630, 1183).Click(72) ; Click borbs tab to reset scroll
-    cPoint(630, 1183).Click(72) ; Redundant for stability
+    Points.Borbventures.BorbsTab.Click(72) ; Click borbs tab to reset scroll
+    Points.Borbventures.BorbsTab.Click(72) ; Redundant for stability
     Sleep(72)
-    cPoint(400, 1183).Click(72) ; Click borbventures
-    cPoint(400, 1183).Click(72) ; Redundant for stability
+    Points.Borbventures.BVTab.Click(72) ; Click borbventures
+    Points.Borbventures.BVTab.Click(72) ; Redundant for stability
     Sleep(72)
 }
 
@@ -907,14 +907,14 @@ GoToLeafTower() {
 }
 
 IsAreaSampleColour(targetColour := "0xFFFFFF") {
-    if (cPoint(0, 0).GetColour() = targetColour) {
+    if (Points.Misc.ZoneSample.GetColour() = targetColour) {
         return true
     }
     return false
 }
 
 GetAreaSampleColour() {
-    return cPoint(0, 0).GetColour()
+    return Points.Misc.ZoneSample.GetColour()
 }
 
 IsAreaFlameBrazier() {

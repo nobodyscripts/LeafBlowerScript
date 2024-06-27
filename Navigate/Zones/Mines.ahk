@@ -4,8 +4,6 @@
 #Include ../../Lib/cZone.ahk
 #Include ../../Lib/cTravel.ahk
 
-; TODO Move these functions into a class with mine travel
-
 /**
  * Mine class for zone travel
  * @extends Zone

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0
 
 fPrestigeSpammer() {
+    ; TODO Move point to Points
     prestigeButton := cPoint(1456, 430)
+    ; TODO Move point to Points
     prestigeConfirmButton := cPoint(1456, 525)
     Travel.OpenGoldPortal()
     Sleep(NavigateTime)

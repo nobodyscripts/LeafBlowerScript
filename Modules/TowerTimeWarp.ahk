@@ -10,14 +10,17 @@ fTimeWarpAndRaiseTower() {
         Travel.OpenGemShop()
         sleep(150)
 
+        ; TODO Move point to Points
         if (!cPoint(1810, 1177).IsButtonActive()) {
             Log("TowerBoost: Found no time travel button, exiting.")
             return
         }
         ; Navigate to Time Travel tab
+        ; TODO Move point to Points
         cPoint(1810, 1177).Click(101)
         Sleep(101)
 
+        ; TODO Move point to Points
         if (!cPoint(1790, 643).IsButtonActive()) {
             ToolTip("No 72hr boosts to use, exiting.`n"
                 "Use F5 to finish",
@@ -45,6 +48,7 @@ fTimeWarpAndRaiseTower() {
         ; Update window size
 
         ; Look for colour of a segment of the rightmost tower leaf c5d8e0
+        ; TODO Move rect to Rects
         found := cRect(1563, 430, 1604, 964).PixelSearch("0xC5D8E0")
 
         ; Leaf pixel search
@@ -66,8 +70,8 @@ fTimeWarpAndRaiseTower() {
         ; 1664 646 < Leaksink Relative: 69 -132
 
         ; Open leafsing harbor to allow max level reset
-        if (IsBackground(found[1] + WinRelPosLargeW(69),
-            found[2] - WinRelPosLargeH(132))) {
+        if (cPoint(found[1] + WinRelPosLargeW(69),
+            found[2] - WinRelPosLargeH(132), false).IsBackground()) {
             ; Background colour found
             Log("Error 30: Tower alt area detection failed. Alignment2.")
             ToolTip("Alignment issue 2, could not continue`n"
@@ -120,7 +124,7 @@ fTimeWarpAndRaiseTower() {
 
         Travel.OpenGemShop()
         sleep(150)
-
+        ; TODO move points to Points
         if (!cPoint(1810, 1177).IsButtonActive()) {
             Log("Error 33: Gem purchase detection failed. Alignment5.")
             ToolTip("Alignment issue 5, could not continue`n"
@@ -132,11 +136,14 @@ fTimeWarpAndRaiseTower() {
             break
         }
         ; Navigate to Time Travel tab
+        ; TODO Move point to Points
         cPoint(1810, 1177).Click(101)
         Sleep(101)
 
+        ; TODO Move point to Points
         if (cPoint(1790, 643).IsButtonActive()) {
             ; Click 72h warp
+        ; TODO Move point to Points
             cPoint(1790, 643).Click(101)
         } else {
             Log("TowerBoost: No boosts remaining. Exiting.")

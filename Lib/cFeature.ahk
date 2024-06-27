@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
 
 #Include cTask.ahk
+#Include cZone.ahk
 
 Class Feature extends cTask {
     ; Is task running
@@ -35,4 +36,3 @@ Class Feature extends cTask {
     }
 
 }
-#Include <cZone>

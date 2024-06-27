@@ -46,6 +46,7 @@ fFarmNormalBossAndNatureHyacinth() {
     ; 666 425 harvest all
     ; 1380 750 plant
     ; 1700 750 plant all
+    ; TODO Move point to Points
     HarvestAllButton := cPoint(1380, 750)
     if (StrLower(HyacinthUseSlot) = "all") {
         HarvestButton := cPoint(666, 425)
@@ -160,6 +161,7 @@ OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID) {
 }
 
 ClickFarmSlot(HyacinthUseSlot) {
+    ; TODO Move point to Points
     switch HyacinthUseSlot {
         case "All":
             cPoint(375, 500).Click(NavigateTime) ; Slot 1
@@ -236,6 +238,7 @@ FlowerToID(flower) {
 }
 
 SelectFlower(flowerID) {
+    ; TODO Move point to Points
     switch flowerID {
         case 1:
             cPoint(380, 600).Click(NavigateTime) ; Hyacinth Slot 1
