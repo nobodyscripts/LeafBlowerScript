@@ -111,9 +111,9 @@ Class cRect {
 
     relative := true
 
-    __New(xin1 := "", yin1 := "", xin2 := "", yin2 := "") {
+    __New(xin1 := "", yin1 := "", xin2 := "", yin2 := "", relative := true) {
         if (xin1 != "" && yin1 != "" && xin2 != "" && yin2 != "") {
-            this.Set(xin1, yin1, xin2, yin2)
+            this.Set(xin1, yin1, xin2, yin2, relative)
         }
     }
 

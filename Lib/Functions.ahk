@@ -236,40 +236,6 @@ IsBossTimerLong() {
     return true
 }
 
-; DEPRECATED
-PixelSearchWrapper(x1, y1, x2, y2, colour) {
-    try {
-        found := PixelSearch(&OutX, &OutY,
-            x1, y1,
-            x2, y2, colour, 0)
-        VerboseLog("PixelSearchWrapper - Remove PixelSearchWrapper")
-
-        If (!found || OutX = 0) {
-            return false
-        }
-    } catch as exc {
-        Log("Error 8: PixelSearchWrapper check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
-    }
-    return [OutX, OutY]
-}
-
-/**
- * Search area for first instance of colour found from top left (DEPRECATED)
- * @param x1 Top left Coordinate (relative 1440)
- * @param y1 Top left Coordinate (relative 1440)
- * @param x2 Bottom Right Coordinate (relative 1440)
- * @param y2 Bottom Right Coordinate (relative 1440)
- * @returns {array|number} returns array of [ x, y ] or false
- */
-
-PixelSearchWrapperRel(x1, y1, x2, y2, colour) {
-    Log("Remove this usage of PixelSearchWrapperRel")
-    tempArea := cRect(x1, y1, x2, y2)
-    return tempArea.PixelSearch(colour)
-}
-
 /**
  * For a given 1px wide strip horizontally or vertically, get all blocks
  * of colour from the first point reached.
@@ -339,7 +305,7 @@ LineGetColourInstancesOffsetV(x, y1, y2, colour, splitCount := 20) {
     while splitCur < splitCount {
         yTop := y1 + (splitCur * splitSize)
         yBot := y1 + ((splitCur + 1) * splitSize)
-        result := PixelSearchWrapperRel(x, yTop, x, yBot, colour)
+        result := cRect(x, yTop, x, yBot).PixelSearch(colour)
         if (result) {
             ; DebugLog("Found in segment " splitCur " at " result[1] " by " result[2])
             found++
