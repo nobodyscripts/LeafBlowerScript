@@ -207,6 +207,8 @@ Settings added to General Settings and 3 settings added to ini.
   - Replaced old coords system with new classes; cPoint, cRect, cColour etc
   - Added DebugLog and VerboseLog
   - Added some checks on libs when loaded in a secondary script
+  - Added individual settings update when script gains new settings instead of
+  reset all to default
 
 - Hotkeys
   - Added new systems to handle both the hotkeys for ingame and the script.
