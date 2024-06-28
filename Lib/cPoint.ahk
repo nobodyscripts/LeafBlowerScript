@@ -402,7 +402,7 @@ Class cPoint {
      */
     ClientToScreencPoint(hWnd?) {
         ptr := Buffer(8), NumPut("int", this.x, "int", this.y, ptr)
-        DllCall("ClientToScreen", "ptr",  WinGetID(LBRWindowTitle), "ptr", ptr)
+        DllCall("ClientToScreen", "ptr",  WinExist(LBRWindowTitle), "ptr", ptr)
         sx := NumGet(ptr, 0, "int"), sy := NumGet(ptr, 4, "int")
         return cPoint(sx, sy, false)
     }

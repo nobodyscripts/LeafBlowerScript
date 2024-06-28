@@ -8,14 +8,16 @@ Button_Click_Mine(thisGui, info) {
         MinerSphereDelay, MinerSphereCount, MinerSphereTimer, MinerEnableLeafton,
         MinerEnableCaves, MinerCaveTimer, MinerSphereGreedyUse,
         MinerSphereModifier, MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
-        MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia
+        MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia,
+        MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime
 
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
     ;@region Add controls
-    
+
+    ;@region Vein settings
     if (MinerEnableVeins = true) {
         optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf checked", "Enable Coal Veins Enhance")
     } else {
@@ -33,6 +35,7 @@ Button_Click_Mine(thisGui, info) {
     } else {
         optionsGUI.Add("CheckBox", "vMinerEnableVeinRemoval ccfcfcf", "Enable Removal of 6th Vein")
     }
+    ;@endregion
 
     if (MinerEnableFreeRefuel = true) {
         optionsGUI.Add("CheckBox", "vMinerEnableFreeRefuel ccfcfcf checked", "Enable Fuel Collection")
@@ -65,6 +68,7 @@ Button_Click_Mine(thisGui, info) {
             optionsGUI.Add("DropDownList", "vMinerBackground Choose3", ["Leafton Taxi", "Boss Spammer", "Off"])
     }
 
+    ;@region Transmute settings
     if (MinerEnableTransmute = true) {
         optionsGUI.Add("CheckBox", "vMinerEnableTransmute ccfcfcf checked", "Enable Coal Bar To Coal Dia Transmute")
     } else {
@@ -109,6 +113,7 @@ Button_Click_Mine(thisGui, info) {
                 settings.defaultSettings.MinerTransmuteTimer)
         }
     }
+    ;@endregion
 
     optionsGUI.Add("Text", "ccfcfcf", "Fuel Collection Timer (m):")
     optionsGUI.AddEdit()
@@ -125,6 +130,7 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
+    ;@region Sphere settings
     if (MinerEnableSphereUse = true) {
         optionsGUI.Add("CheckBox", "vMinerEnableSphereUse ccfcfcf checked", "Enable Drill Sphere Use")
     } else {
@@ -204,6 +210,7 @@ Button_Click_Mine(thisGui, info) {
                 settings.defaultSettings.MinerSphereTimer)
         }
     }
+    ;@endregion
 
     if (MinerEnableCaves = true) {
         optionsGUI.Add("CheckBox", "vMinerEnableCaves ccfcfcf checked", "Enable Cave Diamond Drills")
@@ -226,6 +233,44 @@ Button_Click_Mine(thisGui, info) {
                 settings.defaultSettings.MinerCaveTimer)
         }
     }
+
+    ;@region Brew settings
+    if (MinerEnableBrewing = true) {
+        optionsGUI.Add("CheckBox", "vMinerEnableBrewing ccfcfcf checked", "Enable Brewing")
+    } else {
+        optionsGUI.Add("CheckBox", "vMinerEnableBrewing ccfcfcf", "Enable Brewing")
+    }
+
+    optionsGUI.Add("Text", "ccfcfcf", "Brew Cycle Timer (s):")
+    optionsGUI.AddEdit()
+    If ((IsInteger(MinerBrewCycleTime) || IsFloat(MinerBrewCycleTime)) && MinerBrewCycleTime >= 0) {
+        optionsGUI.Add("UpDown", "vMinerBrewCycleTime Range0-9999",
+            MinerBrewCycleTime)
+    } else {
+        if (settings.sUseNobody) {
+            optionsGUI.Add("UpDown", "vMinerBrewCycleTime Range0-9999",
+                settings.defaultNobodySettings.MinerBrewCycleTime)
+        } else {
+            optionsGUI.Add("UpDown", "vMinerBrewCycleTime Range0-9999",
+                settings.defaultSettings.MinerBrewCycleTime)
+        }
+    }
+
+    optionsGUI.Add("Text", "ccfcfcf", "Cave Drills Cycle Timer (m):")
+    optionsGUI.AddEdit()
+    If ((IsInteger(MinerBrewCutOffTime) || IsFloat(MinerBrewCutOffTime)) && MinerBrewCutOffTime >= 0) {
+        optionsGUI.Add("UpDown", "vMinerBrewCutOffTime Range0-9999",
+            MinerBrewCutOffTime)
+    } else {
+        if (settings.sUseNobody) {
+            optionsGUI.Add("UpDown", "vMinerBrewCutOffTime Range0-9999",
+                settings.defaultNobodySettings.MinerBrewCutOffTime)
+        } else {
+            optionsGUI.Add("UpDown", "vMinerBrewCutOffTime Range0-9999",
+                settings.defaultSettings.MinerBrewCutOffTime)
+        }
+    }
+    ;@endregion
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunMine)
     optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveMine)
@@ -297,6 +342,9 @@ Button_Click_Mine(thisGui, info) {
         MinerEnableTransmuteFuel := values.MinerEnableTransmuteFuel
         MinerEnableTransmuteSphere := values.MinerEnableTransmuteSphere
         MinerEnableTransmuteSdiaToCDia := values.MinerEnableTransmuteSdiaToCDia
+        MinerEnableBrewing := values.MinerEnableBrewing
+        MinerBrewCycleTime := values.MinerBrewCycleTime
+        MinerBrewCutOffTime := values.MinerBrewCutOffTime
         settings.SaveCurrentSettings()
     }
 

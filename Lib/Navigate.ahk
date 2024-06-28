@@ -146,6 +146,7 @@ GoToGF() {
             GoToAreaFireFieldsTab()
 
             ; Open Flame Brazier (GF zone)
+            ; TODO Move point to Points
             fSlowClickRelL(1680, 947, NavigateTime)
 
             ; Need a longer delay to load the slower map
@@ -163,6 +164,7 @@ GoToGF() {
     } else {
         Log("Traveling to Flame Brazier (Green Flame). Attempt to blind travel"
             " with slowed times.")
+        ; TODO Replace below with travel and move to Points
         GoToAreaFireFieldsTab(200)
         fSlowClickRelL(1680, 947, NavigateTime + 200) ; Open Flame Brazier (GF zone)
         Sleep(NavigateTime + 200)
@@ -195,6 +197,7 @@ GoToSS() {
                 return false
             }
             Log("Traveling to Flame Universe (Soulseeker)")
+            ; TODO Replace below with travel and move to Points
             GoToAreaFireFieldsTab()
             ScrollAmountDown(2, NavigateTime)
             fSlowClickRelL(1680, 988, NavigateTime) ; Open Flame Universe (SS zone)
@@ -212,6 +215,7 @@ GoToSS() {
     } else {
         Log("Traveling to Flame Universe (Soulseeker). Attempt to blind travel"
             " with slowed times.")
+        ; TODO Replace below with travel and move to Points
         GoToAreaFireFieldsTab(200)
         ScrollAmountDown(2, NavigateTime + 200)
         fSlowClickRelL(1680, 988, NavigateTime + 200) ; Open Flame Universe (SS zone)
@@ -245,6 +249,7 @@ GoToShadowCavern() {
                 return false
             }
             Log("Traveling to Shadow Cavern")
+            ; TODO Replace below with travel and move to Points
             GoToAreaFireFieldsTab()
             fSlowClickRelL(1670, 320, NavigateTime) ; Go to shadow cavern
             if (NavigateTime > 201) { ; Need a longer delay to load the slower map
@@ -261,6 +266,7 @@ GoToShadowCavern() {
     } else {
         Log("Traveling to Shadow Cavern. Attempt to blind travel with slowed"
             " times.")
+        ; TODO Replace below with travel and move to Points
         GoToAreaFireFieldsTab(200)
         fSlowClickRelL(1670, 320, NavigateTime + 200) ; Go to shadow cavern
         sleep(NavigateTime + 200)

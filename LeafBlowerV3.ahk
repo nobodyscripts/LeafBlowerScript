@@ -148,6 +148,7 @@ fReloadApp(*) {
         HadToHideNotifs := false
     }
     if (bvAutostartDisabled = true) {
+        ; TODO move point to Points
         fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
     }
     if (GemFarmActive) {
@@ -282,6 +283,7 @@ fBorbvStart(*) { ; Borb pink juice farm in borbventures
         fBorbVentureJuiceFarm()
     } Else {
         if (bvAutostartDisabled = true && GotoBorbventuresFirstTab()) {
+            ; TODO move point to Points
             fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
         }
         ToolTip()
@@ -335,6 +337,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
         case 3:
             if (bvAutostartDisabled = true) {
                 if (!IsBVAutoStartOn()) {
+                    ; TODO move point to Points
                     fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
                 }
             }

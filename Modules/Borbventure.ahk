@@ -193,11 +193,11 @@ BVStartItemFromSlot(SlotY) {
 }
 
 BVGetFinishButtonLocation() {
-    col1 := Rects.Borbventures.FinishButtonCol.PixelSearch("0xFFF1D2")
+    col1 := Rects.Borbventures.FinishButtonCol.PixelSearch(Colours().Active)
     if (col1 != false) {
         return col1
     }
-    col2 := Rects.Borbventures.FinishButtonCol.PixelSearch("0xFDD28A")
+    col2 := Rects.Borbventures.FinishButtonCol.PixelSearch(Colours().ActiveMouseOver)
     if (col2 != false) {
         return col2
     }

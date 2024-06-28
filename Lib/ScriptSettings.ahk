@@ -49,6 +49,7 @@ global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
     MinerSphereTimer, MinerSphereGreedyUse,
     MinerSphereModifier, MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
     MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia
+Global MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime
 
 class singleSetting {
     Name := ""
@@ -180,6 +181,9 @@ class cSettings {
         this.Map["MinerTransmuteTimer"] := singleSetting().Create("MinerTransmuteTimer", 10, 10, "int", "Miner")
         this.Map["MinerRefuelTimer"] := singleSetting().Create("MinerRefuelTimer", 1, 1, "int", "Miner")
         this.Map["MinerCaveTimer"] := singleSetting().Create("MinerCaveTimer", 5, 5, "int", "Miner")
+        this.Map["MinerEnableBrewing"] := singleSetting().Create("MinerEnableBrewing", true, true, "bool", "Miner")
+        this.Map["MinerBrewCycleTime"] := singleSetting().Create("MinerBrewCycleTime", 30, 30, "int", "Miner")
+        this.Map["MinerBrewCutOffTime"] := singleSetting().Create("MinerBrewCutOffTime", 30, 30, "int", "Miner")
 
         if (!secondary) {
             if (FileExist(A_ScriptDir "\IsNobody")) {
@@ -255,6 +259,7 @@ class cSettings {
             MinerSphereTimer, MinerSphereGreedyUse, MinerSphereModifier,
             MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
             MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia
+        Global MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime
         for (setting in this.Map) {
             try {
                 if (this.Map[setting].Name != "BVItemsArr") {

@@ -141,6 +141,14 @@ Class cTravel {
         this._OpenAny(GameKeys.OpenAlchemy.Bind(GameKeys), IsPanelActive, reset, delay)
     }
 
+    ; Open Alchemy panel first tab, closes others first
+    OpenAlchemyGeneral(reset := true, delay := 0) {
+        this.OpenAlchemy(reset, delay)
+        Sleep(NavigateTime)
+        Points.Brew.Tab1.Nav.Click(NavigateTime)
+        Sleep(NavigateTime)
+    }
+    
     ; Open Crafting panel, closes others first
     OpenCrafting(reset := true, delay := 0) {
         VerboseLog("OpenCrafting")

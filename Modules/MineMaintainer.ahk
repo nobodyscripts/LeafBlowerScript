@@ -5,6 +5,7 @@
 #Include ../Lib/Spammers.ahk
 #Include MineMaintainerCaves.ahk
 #Include ../Navigate/Header.ahk
+#Include <cTimer>
 
 global MinerEnableVeins := true
 global MinerEnableVeinRemoval := true
@@ -48,6 +49,10 @@ global MinerColourCodeLegendary := "0xE1661A"
 
 Global MinerSphereGreedyUse := true
 
+Global MinerEnableBrewing := true
+Global MinerBrewCycleTime := 30
+Global MinerBrewCutOffTime := 20
+
 fMineMaintainer() {
     global MinerRefuelTimer, MinerSphereTimer, BankDepositTime
     if (MinerRefuelTimer = 0) { ; If user set 0 in gui without adding a fraction, make at least 1 second
@@ -74,6 +79,8 @@ fMineMaintainer() {
     VeinUpgradeButton := Points.Mine.Vein.Upgrade
     CancelConfirm := Points.Mine.Vein.CancelConfirm
     CurrentTab := 0
+    BrewCycleTimer := Timer()
+    BrewCutOffTimer := Timer()
     ToolTip("Mine Maintainer Active", W / 2,
         WinRelPosLargeH(200), 4)
     if (MinerEnableLeafton) {
@@ -215,6 +222,17 @@ fMineMaintainer() {
             VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
             Log("Upgrading vein")
             VeinUpgradeButton.ClickOffset(NavigateTime)
+        }
+        if (IsWindowActive() && IsPanelActive() && MinerEnableBrewing &&
+            !BrewCycleTimer.Running) {
+            Log("Mine: Brewing")
+            Travel.OpenAlchemyGeneral()
+            BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &BrewCutOffRunning)
+            while (BrewCutOffRunning) {
+                SpamBrewButtons()
+            }
+            Travel.ClosePanelIfActive()
+            BrewCycleTimer.CoolDownS(MinerBrewCycleTime, &BrewCycleRunning)
         }
         Firstpass := false
     }

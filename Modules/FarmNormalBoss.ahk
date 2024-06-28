@@ -44,10 +44,7 @@ fFarmNormalBossAndBrew(modecheck) {
     ToolTip()
     global on9
     Killcount := 0
-    Travel.OpenAlchemy()
-    sleep(150)
-    fSlowClickRelL(512, 1181)
-    sleep(150)
+    Travel.OpenAlchemyGeneral()
     IsPrevTimerLong := IsBossTimerLong()
     NormalBossSpammerStart()
     loop {
@@ -135,6 +132,7 @@ fNormalBossFarmWithBorbs(modecheck) {
     NormalBossSpammerStart()
     bvAutostartDisabled := false
     if (IsBVAutoStartOn()) {
+        ; TODO move point to Points
         fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
         bvAutostartDisabled := true
     }
@@ -174,6 +172,7 @@ fNormalBossFarmWithBorbs(modecheck) {
         IsPrevTimerLong := IsTimerLong
     }
     if (bvAutostartDisabled = true && !IsBVAutoStartOn()) {
+        ; TODO move point to Points
         fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
     }
     ToolTip(, , , 4)

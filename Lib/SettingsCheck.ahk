@@ -109,11 +109,11 @@ IsPanelTransparent() {
     try {
         targetColour := Points.Misc.PanelBG.GetColour()
         ; If its afk mode return as well, let afk check handle
-        If (targetColour = "0x97714A" || targetColour = "0x6A4F34") {
+        If (targetColour = Colours().Background || targetColour = Colours().BackgroundAFK) {
             ; Found panel background colour
             return false
         }
-        if (targetColour = "0x97714B") {
+        if (targetColour = Colours().BackgroundSpotify) {
             Log("Spotify colour warp detected, please avoid using spotify desktop.")
             return false
         }
@@ -146,12 +146,8 @@ IsAspectRatioCorrect() {
     try {
         sampleColour := Points.Misc.AspectRatio1.GetColour()
         sampleColour2 := Points.Misc.AspectRatio2.GetColour()
-        If (sampleColour = "0xFFF1D2" || ; Normal
-            sampleColour = "0xFDD28A" || ; Mouseover
-            sampleColour = "0x837C6C" || ; Dark dialog background normal
-            sampleColour = "0x826C47" || ; Dark dialog background mouseover
-            sampleColour = "0xB3A993" || ; Afk mode normal
-            sampleColour = "0xB29361" &&  ; Afk mode mouseover
+        If (Colours().IsButtonOffPanel(sampleColour) ||
+            Colours().IsButtonOffPanel(sampleColour2) &&
             sampleColour = sampleColour2) {
             return true
         }
@@ -184,10 +180,8 @@ IsAspectRatioCorrectCheck() {
 
 IsPanelSmoothed() {
     try {
-        ; TODO Move point to Points
-        sampleColour := cPoint(2193, 193).GetColour()
-        ; TODO Move point to Points
-        sampleColour2 := cPoint(2193, 185).GetColour()
+        sampleColour := Points.Misc.PanelBG2.GetColour()
+        sampleColour2 := Points.Misc.PanelBG3.GetColour()
         If (sampleColour != sampleColour2) {
             DebugLog("Smoothed graphics check found " sampleColour " " sampleColour2)
             ; Found smoothing
@@ -217,12 +211,10 @@ IsPanelSmoothedCheck() {
 
 IsDarkBackgroundOn() {
     try {
-        sampleColour := PixelGetColor(WinRelPosLargeW(58),
-            WinRelPosLargeH(1323))
-        sampleColour2 := PixelGetColor(WinRelPosLargeW(2425),
-            WinRelPosLargeH(51))
-        If (sampleColour = "0x837C6C" || sampleColour2 = "0x837C6C" ||
-            sampleColour = "0x826C47" || sampleColour2 = "0x826C47") {
+        sampleColour := Points.Misc.AspectRatio1.GetColour()
+        sampleColour2 := Points.Misc.AspectRatio2.GetColour()
+        If (Colours().IsButtonDarkened(sampleColour) ||
+            Colours().IsButtonDarkened(sampleColour2)) {
             DebugLog("Corner buttons found with Dark Dialog Background on.")
             ; Found dark mode
             return true
@@ -268,15 +260,10 @@ IsTreesSetCheck() {
 
 IsAFKOn() {
     try {
-        sampleColour := PixelGetColor(WinRelPosLargeW(58),
-            WinRelPosLargeH(1323))
-        sampleColour2 := PixelGetColor(WinRelPosLargeW(2425),
-            WinRelPosLargeH(51))
-        If (sampleColour = "0xB3A993" || ; Afk mode normal
-            sampleColour = "0xB29361" || ; Afk mode mouseover
-            sampleColour2 = "0xB3A993" || ; Afk mode normal
-            sampleColour2 = "0xB29361"  ; Afk mode mouseover
-        ) {
+        sampleColour := Points.Misc.AspectRatio1.GetColour()
+        sampleColour2 := Points.Misc.AspectRatio2.GetColour()
+        If (Colours().IsButtonAFK(sampleColour) ||
+            Colours().IsButtonAFK(sampleColour2)) {
             DebugLog("IsAFKOn: Corner buttons found with AFK on.")
             ; Found dark mode
             return true
@@ -297,7 +284,6 @@ AFKFix() {
         return true
     }
     Log("Warning 1: AFK found enabled.")
-    ; TODO Move point to Points
-    cPoint(10, 10).Click()
+    Points.Misc.BlankBG.Click()
     return false
 }

@@ -24,6 +24,8 @@ Class Colours {
     Background := "0x97714A"
     ; 0x97714B
     BackgroundSpotify := "0x97714B"
+    ; 0x6A4F34
+    BackgroundAFK := "0x6A4F34"
 
     /**
      * Is the provided colour a LBR button
@@ -63,6 +65,19 @@ Class Colours {
         if (colour = this.Active ||
             colour = this.ActiveMouseOver ||
             colour = this.AfkActive ||
+            colour = this.AfkActiveMouseover) {
+            return true
+        }
+        return false
+    }
+
+    /**
+     * Is the provided colour a LBR button in active state
+     * @param colour 
+     * @returns {Integer} true/false
+     */
+    IsButtonAFK(colour) {
+        if (colour = this.AfkActive ||
             colour = this.AfkActiveMouseover) {
             return true
         }
@@ -125,6 +140,19 @@ Class Colours {
             colour = this.AfkActiveMouseover ||
             colour = this.Inactive ||
             colour = this.DarkBgActive ||
+            colour = this.DarkBgActiveMouseover) {
+            return true
+        }
+        return false
+    }
+
+    /**
+     * Is the provided colour an LBR button off the panels thats darkened
+     * @param colour 
+     * @returns {Integer} true/false
+     */
+    IsButtonDarkened(colour) {
+        if (colour = this.DarkBgActive ||
             colour = this.DarkBgActiveMouseover) {
             return true
         }
