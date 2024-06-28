@@ -296,16 +296,18 @@ class cSettings {
                 test := IniToVar(this.sFilename, this.Map[setting].Category,
                     this.Map[setting].Name)
             } catch {
-                this.WriteToIni(this.Map[setting].Name,
-                    this.Map[setting].ValueToString(this.Map[setting].DefaultValue),
-                    this.Map[setting].Category)
+                if (!this.sUseNobody) {
+                    this.WriteToIni(this.Map[setting].Name,
+                        this.Map[setting].ValueToString(this.Map[setting].DefaultValue),
+                        this.Map[setting].Category)
+                } else {
+                    this.WriteToIni(this.Map[setting].Name,
+                        this.Map[setting].ValueToString(this.Map[setting].NobodyDefaultValue),
+                        this.Map[setting].Category)
+                }
             }
         }
     }
-    /* saveSettings() {
-        IniWrite("this is a new value", this.sFilename, this.sFileSection, "key")
-    
-    } */
 
     WriteToIni(key, value, section := this.sFileSection) {
         IniWrite(value, this.sFilename, section, key)
