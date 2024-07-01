@@ -2,9 +2,15 @@
 #MaxThreadsPerHotkey 8
 #SingleInstance Force
 
+/**
+ * 
+ */
+
+; Applying these first incase self run functions in includes require them
 global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
-global EnableLogging := true
 global IsSecondary := false
+
+#Include Globals.ahk
 
 #Include Gui\MainGUI.ahk
 
@@ -46,14 +52,8 @@ DetectHiddenWindows(true)
 Persistent()  ; Prevent the script from exiting automatically.
 OnExit(ExitFunc)
 
-global GameSaveDir := A_AppData "\..\Local\blow_the_leaves_away\"
-global ActiveSavePath := GameSaveDir "save.dat"
-global ActiveGameSettingsPath := GameSaveDir "options.dat"
 global on9 := 0
 global HadToHideNotifsF9 := false
-global CardsBossFarmEnabled := false
-global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
-global X, Y, W, H
 global settings := cSettings()
 
 if (!settings.initSettings()) {
@@ -66,12 +66,10 @@ if (!settings.initSettings()) {
         ExitApp()
     }
 }
-X := Y := W := H := 0
-if (WinExist(LBRWindowTitle)) {
-    WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
-}
 Log("Script loaded")
 RunGui()
+; Setup script hotkeys
+CreateScriptHotkeys()
 
 ; ------------------- Readme -------------------
 /*
@@ -103,7 +101,6 @@ Run this file to load script
     results := testArea.OCRArea()
     MsgBox(results.Text)
 } */
-CreateScriptHotkeys()
 
 CreateScriptHotkeys() {
     Hotkey("*" Scriptkeys.GetHotkey("AutoClicker"), fAutoClicker)
@@ -392,7 +389,7 @@ fNatureBossStart(*) { ; Farm nature boss using violins
 fAutoClicker(*) {
     Static on11 := False
     Log("F11: Pressed")
-    ;InitGameWindow()
+    ;GameWindowExist()
     If (on11 := !on11) {
         while (on11) {
             MouseClick("left", , , , , "D")
@@ -414,7 +411,7 @@ fAutoClicker(*) {
 fGameResize(*) {
     global X, Y, W, H, DisableSettingsChecks
     Log("F12: Pressed")
-    if (!InitGameWindow()) {
+    if (!GameWindowExist()) {
         return
     }
     If (WinGetMinMax(LBRWindowTitle) != 0) {
@@ -423,7 +420,7 @@ fGameResize(*) {
     ; Changes size of client window for windows 11
     WinMove(, , 1294, 703, LBRWindowTitle)
     WinWait(LBRWindowTitle)
-    InitGameWindow()
+    GameWindowExist()
     if (W != "1278" || H != "664") {
         Log("Resized window to 1294*703 client size should be 1278*664, found: " W "*" H)
     }

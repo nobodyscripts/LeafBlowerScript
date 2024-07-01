@@ -1,20 +1,16 @@
 #Requires AutoHotkey v2.0
 
+#Include Globals.ahk
 #Include Lib/cPoints.ahk
 #Include Lib/Functions.ahk
 #Include Lib/Navigate.ahk
 #Include Lib/ScriptSettings.ahk
 #Include Lib/SettingsCheck.ahk
 
-global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
-global LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
-global X, Y, W, H
+global ScriptsLogFile := A_ScriptDir "\GemAlert.Log"
 global NavigateTime := 150
 
-X := Y := W := H := 0
-if (WinExist(LBRWindowTitle)) {
-    WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
-} else {
+if (!GameWindowExist()) {
     ExitApp()
 }
 
@@ -29,7 +25,7 @@ if (IsPanelActive()) {
 localOpenMining()
 Sleep(NavigateTime)
 loop {
-    if (!WinExist(LBRWindowTitle) ) {
+    if (!GameWindowExist()) {
         break
     }
     if (WinActive(LBRWindowTitle)) {

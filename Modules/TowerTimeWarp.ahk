@@ -42,11 +42,6 @@ fTimeWarpAndRaiseTower() {
         if (!IsWindowActive()) {
             break
         }
-        WinActivate(LBRWindowTitle)
-        ; Use the window found by WinExist.
-        WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
-        ; Update window size
-
         ; Look for colour of a segment of the rightmost tower leaf c5d8e0
         ; TODO Move rect to Rects
         found := cRect(1563, 430, 1604, 964).PixelSearch("0xC5D8E0")

@@ -17,16 +17,12 @@ InitSettingsCheck() {
         DisableSettingsChecks := false
     }
     if (!isset(W)) {
-        if (WinExist(LBRWindowTitle)) {
-            WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
-        } else {
-            X := Y := W := H := 0
-        }
+        GameWindowExist()
     }
 }
 
 MakeWindowActive() {
-    if (!WinExist(LBRWindowTitle)) {
+    if (!GameWindowExist()) {
         Log("Error 14: Window doesn't exist.")
         return false ; Don't check further
     }
@@ -38,7 +34,7 @@ MakeWindowActive() {
 
 IsWindowActive() {
     global LastWindowNotActiveTimer
-    if (!WinExist(LBRWindowTitle) ||
+    if (!GameWindowExist() ||
         !WinActive(LBRWindowTitle)) {
         ; Because this can be spammed lets limit rate the error log
         if (DateDiff(A_Now, LastWindowNotActiveTimer, "Seconds") >= 10) {
@@ -50,12 +46,17 @@ IsWindowActive() {
     return true
 }
 
-InitGameWindow() {
+/**
+ * Fill xywh values and return bool of existance of lbr window
+ * @returns {Boolean} Does LBRWindowTitle exist
+ */
+GameWindowExist() {
     global X, Y, W, H
     if (WinExist(LBRWindowTitle)) {
         WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
         return true
     }
+    X := Y := W := H := 0
     return false
 }
 

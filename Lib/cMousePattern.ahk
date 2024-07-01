@@ -4,11 +4,11 @@
 global MousePattern := cMousePattern()
 
 Class cMousePattern {
-    
+
     Task := () => {}
 
     SetThreeHorizontal() {
-
+        point1 := 
     }
 
     SetFiveHorizontal() {
@@ -21,6 +21,10 @@ Class cMousePattern {
 
     SetBox() {
 
+    }
+
+    SetNull() {
+        this.Task := () => {}
     }
 }
 
@@ -36,10 +40,10 @@ Class cMouseTask {
         this.StopCallback := StopCallback
     }
 
-    Run(){
+    Run() {
         while (this.StopCallback) {
             for point in this.PatternArr {
-
+                MouseMove(point.x, point.y, 5, false)
             }
         }
     }

@@ -243,7 +243,7 @@ cReload() {
 }
 
 ReloadIfNoGame() {
-    if (!InitGameWindow() || !IsWindowActive()) {
+    if (!GameWindowExist() || !IsWindowActive()) {
         cReload() ; Kill if no game
         return
     }
