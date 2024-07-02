@@ -37,18 +37,15 @@ Button_Click_Mine(thisGui, info) {
     }
     ;@endregion
 
-    if (MinerEnableFreeRefuel = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableFreeRefuel ccfcfcf checked", "Enable Fuel Collection")
-    } else {
-        optionsGUI.Add("CheckBox", "vMinerEnableFreeRefuel ccfcfcf", "Enable Fuel Collection")
-    }
-
+    ;@region Bank settings
     if (MinerEnableBanks = true) {
         optionsGUI.Add("CheckBox", "vMinerEnableBanks ccfcfcf checked", "Enable Banks")
     } else {
         optionsGUI.Add("CheckBox", "vMinerEnableBanks ccfcfcf", "Enable Banks")
     }
+    ;@endregion
 
+    ;@region Spammer settings
     if (MinerEnableLeafton) {
         bgMode := 1
     } else if (MinerEnableSpammer) {
@@ -67,6 +64,7 @@ Button_Click_Mine(thisGui, info) {
         default:
             optionsGUI.Add("DropDownList", "vMinerBackground Choose3", ["Leafton Taxi", "Boss Spammer", "Off"])
     }
+    ;@endregion
 
     ;@region Transmute settings
     if (MinerEnableTransmute = true) {
@@ -114,7 +112,13 @@ Button_Click_Mine(thisGui, info) {
         }
     }
     ;@endregion
-
+    
+    ;@region Fuel settings
+    if (MinerEnableFreeRefuel = true) {
+        optionsGUI.Add("CheckBox", "vMinerEnableFreeRefuel ccfcfcf checked", "Enable Fuel Collection")
+    } else {
+        optionsGUI.Add("CheckBox", "vMinerEnableFreeRefuel ccfcfcf", "Enable Fuel Collection")
+    }
     optionsGUI.Add("Text", "ccfcfcf", "Fuel Collection Timer (m):")
     optionsGUI.AddEdit()
     If ((IsInteger(MinerRefuelTimer) || IsFloat(MinerRefuelTimer)) && MinerRefuelTimer > 0.15) {
@@ -129,6 +133,7 @@ Button_Click_Mine(thisGui, info) {
                 settings.defaultSettings.MinerRefuelTimer)
         }
     }
+    ;@endregion
 
     ;@region Sphere settings
     if (MinerEnableSphereUse = true) {
@@ -212,6 +217,7 @@ Button_Click_Mine(thisGui, info) {
     }
     ;@endregion
 
+    ;@region Cave settings
     if (MinerEnableCaves = true) {
         optionsGUI.Add("CheckBox", "vMinerEnableCaves ccfcfcf checked", "Enable Cave Diamond Drills")
     } else {
@@ -233,6 +239,7 @@ Button_Click_Mine(thisGui, info) {
                 settings.defaultSettings.MinerCaveTimer)
         }
     }
+    ;@endregion
 
     ;@region Brew settings
     if (MinerEnableBrewing = true) {
@@ -256,7 +263,7 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Cave Drills Cycle Timer (m):")
+    optionsGUI.Add("Text", "ccfcfcf", "Brew Period Cycle Timer (m):")
     optionsGUI.AddEdit()
     If ((IsInteger(MinerBrewCutOffTime) || IsFloat(MinerBrewCutOffTime)) && MinerBrewCutOffTime >= 0) {
         optionsGUI.Add("UpDown", "vMinerBrewCutOffTime Range0-9999",
