@@ -123,7 +123,6 @@ IsPanelTransparent() {
         MsgBox("Could not conduct the search due to the following error:`n"
             exc.Message)
     }
-    DebugLog("Panel transparency check found " targetColour " instead of 0x97714A")
     return true
 }
 

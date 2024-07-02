@@ -239,10 +239,10 @@ fMineMaintainer() {
         ;@region Brew
         if (IsWindowActive() && MinerEnableBrewing && !BrewCycleTimer.Running) {
             Log("Mine: Brewing")
-            if (Travel.OpenAlchemyGeneral()) {
+            if (Travel.OpenAlchemyGeneral() && IsPanelActive()) {
                 BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &
                     BrewCutOffRunning)
-                while (BrewCutOffRunning) {
+                while (BrewCutOffRunning && IsPanelActive()) {
                     SpamBrewButtons()
                 }
                 Travel.ClosePanelIfActive()
