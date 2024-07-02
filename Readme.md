@@ -218,6 +218,7 @@ Settings added to General Settings and 3 settings added to ini.
   - Reflects custom hotkeys.
   - Disabled Mine Sphere Count and Modifier if Greedy is enabled to be clear,
 the options conflict. Also renamed Amount > Count for clarity.
+  - Fixed mislabeled brew setting in mine maintainer and slight sorting.
 
 - Mine
   - Added MinerSphereModifier setting, custom amount to use per click when
@@ -234,6 +235,7 @@ Diamonds to Coal Diamonds. Added to GUI.
   - Adapted background boss spammer into two seperate modes, boss and
 Leafton Pit. These options conflict with Leafton taking priority, added setting
 MinerEnableLeafton. Boss mode enabled by default.
+  - Added more checks for travel being correct to avoid getting stuck.
 
 - GFSS
   - Replaced normalboss spammer with standalone, updated travel coords.
