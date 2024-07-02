@@ -49,7 +49,6 @@ Class cTask {
      */
     Task() {
         throw Error("No Task() set")
-        return false
     }
 
     /**
@@ -180,7 +179,7 @@ Class cTask {
 
     ;@region Private Methods
     _startCooldown() {
-        Timer().CoolDownS(this.Cooldown, &this._cooldownState)
+        Timer().CoolDownS(this.Cooldown, this._cooldownState)
     }
     ;@endregion
     ;@endregion

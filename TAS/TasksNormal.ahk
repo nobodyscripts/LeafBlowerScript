@@ -20,7 +20,6 @@ Class BlowLeaves extends cTask {
      * @returns {Boolean} Return false to exit task loop early
      */
     Task() {
-        throw Error("No Task() set")
         return false
     }
 
