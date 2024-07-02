@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0 
 
-#Include <GameSettings>
-
-global GameSaveLocation
+#Include <hGlobals>
+#Include ..\Lib\GameSettings.ahk
 
 /**
  * Holds save data and performs checks on save data to return progress 
  * information
  */
-Class GameProgress {
+Class GameState {
 
     __New() {
-        This.SaveData := GetGameSettings(GameSaveLocation)
+        This.SaveData := GetGameSettings(ActiveSavePath)
     }
 
     ; Contains game save data in json obj format
@@ -19,6 +18,10 @@ Class GameProgress {
 
     LoadCurrent() {
         return {}
+    }
+
+    GetCurrentGameMode() {
+        return "Basic"
     }
 
     GetUnlockedLeaves() {

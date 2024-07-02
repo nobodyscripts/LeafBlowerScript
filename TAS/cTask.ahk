@@ -1,30 +1,45 @@
 #Requires AutoHotkey v2.0
 
-#Include cProgress.ahk
-#Include ..\cZone.ahk
-#Include ..\cTimer.ahk
+#Include cGameStage.ahk
+#Include ..\Lib\cZone.ahk
+#Include ..\Lib\cTimer.ahk
 
+/**
+ * Class to encapsulate tasks, allowing generic activation and control
+ * @property {Integer} RunFor Period to run for (-1 to disable)
+ * @property {Integer} Cooldown Cooldown after stopping before task can run 
+ * again (-1 if no cooldown)
+ * @property {Integer} Loadout What loadout the task needs (-1 if no loadout)
+ * @property {Zone} Zone What Zone is needed for task
+ * @property {cGameStage} Stage Progress stage to run task at
+ */
 Class cTask {
-    ; Is task looping (using a Loop not Run)
+    ;@region Properties
+    ; @private Starting time of loop for timer calculations
+    _startTime := 0
+    ; @private Is task looping (using a Loop not Run)
     _isLooping := false
-    ; Is task running
+    ; @private Is task running
     _isRunning := false
-    ; Period to run for (-1 if no time limit)
+    ; @private Contains state of cooldown period
+    _cooldownState := false
+
+    ; Period to run for (-1 to disable)
     RunFor := -1
     ; Cooldown after stopping before task can run again (-1 if no cooldown)
     Cooldown := -1
-    ; Contains state of cooldown period
-    _cooldownState := false
     ; What loadout the task needs (-1 if no loadout)
     Loadout := -1
     ; What Zone is needed for task
     Zone := Zone().Any()
     ; Progress stage to run task at
-    ProgressStage := Progress().Any()
-    ; Starting time of loop for timer calculations
-    StartTime := 0
+    Stage := cGameStage().Any()
+    ;@endregion
 
-    ; To complete for uses of the class
+    ;@region Placeholders
+    /**
+     * To complete for uses of the class 
+     */
     PreTask() {
     }
 
@@ -37,10 +52,15 @@ Class cTask {
         return false
     }
 
-    ; To complete for uses of the class
+    /**
+     * To complete for uses of the class 
+     */
     PostTask() {
     }
+    ;@endregion
 
+    ;@region Methods
+    ;@region StopWhen()
     /**
      * Check for loops allows loop to be exited based on conditions.
      * @returns {Boolean} Return false to exit task loop early
@@ -48,7 +68,9 @@ Class cTask {
     StopWhen() {
         throw Error("No StopWhen() set")
     }
+    ;@endregion
 
+    ;@region Run()
     /**
      * Execute pretask, task and posttask once
      */
@@ -60,7 +82,9 @@ Class cTask {
         this._startCooldown()
         this._isRunning := false
     }
+    ;@endregion
 
+    ;@region RunIn()
     /**
      * Run task in ms time
      * @param secs Delay period
@@ -68,7 +92,9 @@ Class cTask {
     RunIn(secs) {
         SetTimer(this.Run.Bind(this), -(secs * 1000))
     }
+    ;@endregion
 
+    ;@region LoopIn()
     /**
      * Run task loop in ms time
      * @param seconds Delay period
@@ -76,7 +102,9 @@ Class cTask {
     LoopIn(seconds) {
         SetTimer(this.Loop.Bind(this), -(seconds * 1000))
     }
+    ;@endregion
 
+    ;@region Loop()
     /**
      * Executes the task as a loop stopping when this.StopWhen() is true
      * if this._isLooping is false due to this.Stop() or if (this.RunFor) runs
@@ -84,7 +112,7 @@ Class cTask {
      */
     Loop() {
         this._isRunning := this._isLooping := true
-        this.StartTime := A_now
+        this._startTime := A_now
         this.PreTask()
         ; Break if provided check, timer or manual stop change
         while (this.StopWhen() && this._isLooping && this.WithinRunFor()) {
@@ -96,14 +124,18 @@ Class cTask {
         this._startCooldown()
         this._isLooping := this._isRunning := false
     }
+    ;@endregion
 
+    ;@region Stop()
     /**
      * Stop running loop of task
      */
     Stop() {
         this._isLooping := false
     }
+    ;@endregion
 
+    ;@region Is functions
     /**
      * Get running state
      */
@@ -128,7 +160,9 @@ Class cTask {
         }
         return this._cooldownState
     }
+    ;@endregion
 
+    ;@region WithinRunFor()
     /**
      * Check if within runfor period or if -1
      * @returns {Boolean} True if within runfor period, false if not
@@ -137,13 +171,17 @@ Class cTask {
         if (this.RunFor = -1) {
             return true
         }
-        if (DateDiff(A_Now, this.StartTime, "Seconds") <= this.RunFor) {
+        if (DateDiff(A_Now, this._startTime, "Seconds") <= this.RunFor) {
             return true
         }
         return false
     }
+    ;@endregion
 
+    ;@region Private Methods
     _startCooldown() {
         Timer().CoolDownS(this.Cooldown, &this._cooldownState)
     }
+    ;@endregion
+    ;@endregion
 }
