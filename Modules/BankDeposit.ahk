@@ -32,7 +32,7 @@ fBankAutoDeposit() {
         }
         i := 0
         while (i < 6) {
-            if (!IsWindowActive()) {
+            if (!IsWindowActive() || !IsPanelActive()) {
                 break
             }
             ResetBankScroll()
@@ -43,7 +43,7 @@ fBankAutoDeposit() {
                     Sleep(NavigateTime)
                 }
                 loop {
-                    if (!IsWindowActive()) {
+                    if (!IsWindowActive() || !IsPanelActive()) {
                         break
                     }
                     if (DepositRESS.IsButtonActive()) {
@@ -55,7 +55,7 @@ fBankAutoDeposit() {
                 }
                 if (BankEnableStorageUpgrade) {
                     loop {
-                        if (!IsWindowActive()) {
+                        if (!IsWindowActive() || !IsPanelActive()) {
                             break
                         }
                         if (UpgradeButton.IsButtonActive()) {
@@ -84,7 +84,7 @@ BankSinglePass() {
     }
     i := 0
     while (i < 6) {
-        if (!IsWindowActive()) {
+        if (!IsWindowActive() || !IsPanelActive()) {
             break
         }
         ResetBankScroll()
@@ -95,7 +95,7 @@ BankSinglePass() {
                 Sleep(NavigateTime)
             }
             loop {
-                if (!IsWindowActive()) {
+                if (!IsWindowActive() || !IsPanelActive()) {
                     break
                 }
                 if (DepositRESS.IsButtonActive()) {
@@ -107,7 +107,7 @@ BankSinglePass() {
             }
             if (BankEnableStorageUpgrade) {
                 loop {
-                    if (!IsWindowActive()) {
+                    if (!IsWindowActive() || !IsPanelActive()) {
                         break
                     }
                     if (UpgradeButton.IsButtonActive()) {
@@ -123,6 +123,8 @@ BankSinglePass() {
     }
     Travel.ClosePanelIfActive()
 }
+
+;@region Support functions
 
 BankTravelAreaByInd(index) {
     switch index {
@@ -216,3 +218,4 @@ ResetBankScroll() {
         maxIter--
     }
 }
+;@endregion
