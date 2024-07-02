@@ -263,7 +263,7 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Brew Period Cycle Timer (m):")
+    optionsGUI.Add("Text", "ccfcfcf", "Brew Period Length Timer (s):")
     optionsGUI.AddEdit()
     If ((IsInteger(MinerBrewCutOffTime) || IsFloat(MinerBrewCutOffTime)) && MinerBrewCutOffTime >= 0) {
         optionsGUI.Add("UpDown", "vMinerBrewCutOffTime Range0-9999",
