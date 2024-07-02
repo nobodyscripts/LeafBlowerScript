@@ -77,6 +77,7 @@ fTimeWarpAndRaiseTower() {
             GameKeys.EquipDefaultGearLoadout()
             break
         }
+        ; TODO Move to cPoint
         fCustomClick(found[1] + WinRelPosLargeW(69),
             found[2] - WinRelPosLargeH(132), 101)
         Sleep(101)
@@ -93,6 +94,7 @@ fTimeWarpAndRaiseTower() {
             GameKeys.EquipDefaultGearLoadout()
             break
         }
+        ; TODO Move to cPoint
         fCustomClick(found[1] + WinRelPosLargeW(471),
             found[2] + WinRelPosLargeH(67), 101)
         Sleep(101)
@@ -113,6 +115,7 @@ fTimeWarpAndRaiseTower() {
             GameKeys.EquipDefaultGearLoadout()
             break
         }
+        ; TODO Move to cPoint
         fCustomClick(found[1] + WinRelPosLargeW(69),
             found[2] + WinRelPosLargeH(5), 101)
         Sleep(101)

@@ -43,7 +43,8 @@ if (!settings.initSettings()) {
     ; Hardcoding 2 attempts because a loop could continuously error
     Sleep(50)
     if (!settings.initSettings()) {
-        MsgBox("Script failed to load settings, script closing, try restarting.")
+        MsgBox(
+            "Script failed to load settings, script closing, try restarting.")
         ExitApp()
     }
 }
@@ -316,7 +317,8 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
             if (bvAutostartDisabled = true) {
                 if (!IsBVAutoStartOn()) {
                     ; TODO move point to Points
-                    fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
+                    fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100),
+                        34)
                 }
             }
             on9 := 4 ; Boss mode with cards
@@ -403,7 +405,9 @@ fGameResize(*) {
     WinWait(LBRWindowTitle)
     GameWindowExist()
     if (W != "1278" || H != "664") {
-        Log("Resized window to 1294*703 client size should be 1278*664, found: " W "*" H)
+        Log(
+            "Resized window to 1294*703 client size should be 1278*664, found: " W "*" H
+        )
     }
     fCheckGameSettings()
 }

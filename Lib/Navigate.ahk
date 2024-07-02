@@ -68,18 +68,22 @@ ScrollAmountUp(amount := 1, extraDelay := 0) {
  * @param {number} extraDelay (optional): add ms to the sleep timers
  */
 OpenEventsAreasPanel(extraDelay := 0) {
-    Travel.OpenAreas(false, extraDelay)
-    ; Click Favourites
-    Points.Areas.Favs.Tab.ClickOffset(, , NavigateTime + extraDelay)
-    Sleep(NavigateTime + extraDelay)
+    if (Travel.OpenAreas(false, extraDelay)) {
+        ; Click Favourites
+        Points.Areas.Favs.Tab.ClickOffset(, , NavigateTime + extraDelay)
+        Sleep(NavigateTime + extraDelay)
 
-    ; Click the event tab
-    Points.Areas.Events.Tab.ClickOffset(, , NavigateTime + extraDelay)
-    sleep(NavigateTime + extraDelay)
+        ; Click the event tab
+        Points.Areas.Events.Tab.ClickOffset(, , NavigateTime + extraDelay)
+        sleep(NavigateTime + extraDelay)
 
-    ; Redundant click
-    Points.Areas.Events.Tab.ClickOffset(, , NavigateTime + extraDelay)
-    sleep(NavigateTime + extraDelay)
+        ; Redundant click
+        Points.Areas.Events.Tab.ClickOffset(, , NavigateTime + extraDelay)
+        sleep(NavigateTime + extraDelay)
+        return true
+    } else {
+        return false
+    }
 }
 
 /**
@@ -87,18 +91,22 @@ OpenEventsAreasPanel(extraDelay := 0) {
  * @param {number} extraDelay (optional): add ms to the sleep timers
  */
 OpenQuarkPanel(extraDelay := 0) {
-    Travel.OpenAreas(false, extraDelay)
+    if (Travel.OpenAreas(false, extraDelay)) {
 
-    ; Quark tab
-    Points.Areas.QuarkA.Tab.ClickOffset(, , NavigateTime + extraDelay)
-    Sleep(NavigateTime + extraDelay)
+        ; Quark tab
+        Points.Areas.QuarkA.Tab.ClickOffset(, , NavigateTime + extraDelay)
+        Sleep(NavigateTime + extraDelay)
 
-    ; Redundant click
-    Points.Areas.QuarkA.Tab.ClickOffset(, , NavigateTime + extraDelay)
-    Sleep(NavigateTime + extraDelay)
+        ; Redundant click
+        Points.Areas.QuarkA.Tab.ClickOffset(, , NavigateTime + extraDelay)
+        Sleep(NavigateTime + extraDelay)
 
-    ScrollAmountUp(2)
-    Sleep(NavigateTime + extraDelay)
+        ScrollAmountUp(2)
+        Sleep(NavigateTime + extraDelay)
+        return true
+    } else {
+        return false
+    }
 }
 
 IsAreaResetToGarden() {
@@ -142,8 +150,8 @@ GoToHomeGarden() {
             DebugLog("Blind travel success to Home Garden.")
             return true
         } else {
-            Log("Traveling to Home Garden failed, colour found was "
-                GetAreaSampleColour())
+            Log("Traveling to Home Garden failed, colour found was " GetAreaSampleColour()
+            )
             return false
         }
     }
@@ -271,8 +279,10 @@ GoToShadowCavern() {
             Log("Traveling to Shadow Cavern")
             ; TODO Replace below with travel and move to Points
             GoToAreaFireFieldsTab()
-            fSlowClickRelL(1670, 320, NavigateTime) ; Go to shadow cavern
-            if (NavigateTime > 201) { ; Need a longer delay to load the slower map
+            ; Go to shadow cavern
+            fSlowClickRelL(1670, 320, NavigateTime)
+            ; Need a longer delay to load the slower map
+            if (NavigateTime > 201) {
                 sleep(NavigateTime)
             } else {
                 sleep(201)
@@ -298,8 +308,8 @@ GoToShadowCavern() {
             DebugLog("Blind travel success to shadow cavern.")
             return true
         } else {
-            Log("Traveling to Shadow Cavern failed, colour found was "
-                GetAreaSampleColour())
+            Log("Traveling to Shadow Cavern failed, colour found was " GetAreaSampleColour()
+            )
             return false
         }
     }
@@ -392,8 +402,8 @@ GoToNatureBoss() {
             DebugLog("Blind travel success to The Doomed Tree.")
             return true
         } else {
-            Log("Traveling to The Doomed Tree failed, colour found was "
-                GetAreaSampleColour())
+            Log("Traveling to The Doomed Tree failed, colour found was " GetAreaSampleColour()
+            )
             return false
         }
     }
@@ -457,7 +467,8 @@ GoToCheeseBoss() {
         DebugLog("Travel success to Cursed Halloween.")
         return true
     } else {
-        Log("Traveling to Cursed Halloween. Attempt to blind travel with slowed"
+        Log(
+            "Traveling to Cursed Halloween. Attempt to blind travel with slowed"
             " times.")
         OpenEventsAreasPanel(200)
         Sleep(NavigateTime + 200)
@@ -477,8 +488,8 @@ GoToCheeseBoss() {
             DebugLog("Blind travel success to Cursed Halloween.")
             return true
         } else {
-            Log("Traveling to Cursed Halloween, colour found was "
-                GetAreaSampleColour())
+            Log("Traveling to Cursed Halloween, colour found was " GetAreaSampleColour()
+            )
             return false
         }
     }
@@ -503,8 +514,8 @@ GoToFarmField() {
         }
         ; If we're at home garden attempt to travel, boss timer should appear,
         ; breaking
-        while ((IsAreaSampleColour("0x4A9754") && !IsBossTimerActive())
-            && i <= 4) {
+        while ((IsAreaSampleColour("0x4A9754") && !IsBossTimerActive()) && i <=
+            4) {
             if (!IsWindowActive()) {
                 Log("No window found while trying to travel.")
                 return false
@@ -551,8 +562,8 @@ GoToFarmField() {
             DebugLog("Blind travel success to Farm Field.")
             return true
         } else {
-            Log("Traveling to Farm Field failed, colour found was "
-                GetAreaSampleColour())
+            Log("Traveling to Farm Field failed, colour found was " GetAreaSampleColour()
+            )
             return false
         }
     }
@@ -654,7 +665,8 @@ GoToDimentionalTapestry() {
             return true
         }
         if (IsAreaSampleColour("0x37356B")) {
-            DebugLog("Blind travel success to Dimentional Tapestry (Quark Boss 2).")
+            DebugLog(
+                "Blind travel success to Dimentional Tapestry (Quark Boss 2).")
             return true
         } else {
             Log("Traveling to Dimentional Tapestry (Quark Boss 2) failed,"
@@ -858,16 +870,15 @@ GotoBorbventuresFirstTab() {
     Sleep(101)
     BVResetScroll()
     i := 0
-    while (!Points.Borbventures.Detailed.IsButtonActive() &&
-        !Points.Borbventures.ScaleMin.IsButtonActive() &&
-        i <= 4) {
+    while (!Points.Borbventures.Detailed.IsButtonActive() && !Points.Borbventures
+        .ScaleMin.IsButtonActive() && i <= 4) {
         Travel.OpenBorbVentures() ; Open BV
         Sleep(101)
         BVResetScroll()
         i++
     }
-    if (Points.Borbventures.Detailed.IsButtonActive() &&
-        Points.Borbventures.ScaleMin.IsButtonActive()) {
+    if (Points.Borbventures.Detailed.IsButtonActive() && Points.Borbventures.ScaleMin
+        .IsButtonActive()) {
         DebugLog("Travel success to Borbventures First Tab.")
         return true
     }
@@ -899,8 +910,8 @@ GoToLeafTower() {
         Log("TowerBoost: Could not find tower leaf to open area.")
         return false
     }
-    LeafsingButton := cPoint(spot[1] + WinRelPosLargeW(69),
-        spot[2] - WinRelPosLargeH(160), false)
+    LeafsingButton := cPoint(spot[1] + WinRelPosLargeW(69), spot[2] -
+        WinRelPosLargeH(160), false)
     ; Open leafsing harbor to allow max level reset
     if (LeafsingButton.IsBackground()) {
         ; Background colour found
@@ -910,8 +921,8 @@ GoToLeafTower() {
     LeafsingButton.Click(101)
     Sleep(201)
 
-    TowerMax := cPoint(spot[1] + WinRelPosLargeW(460),
-        spot[2] + WinRelPosLargeH(60), false)
+    TowerMax := cPoint(spot[1] + WinRelPosLargeW(460), spot[2] +
+        WinRelPosLargeH(60), false)
     ; Max Tower level
     if (!TowerMax.IsButtonActive()) {
         Log("Error 31: Tower max detection failed. Alignment3.")
@@ -920,8 +931,8 @@ GoToLeafTower() {
     TowerMax.Click(101)
     Sleep(101)
 
-    TowerArea := cPoint(spot[1] + WinRelPosLargeW(69),
-        spot[2] - WinRelPosLargeH(5), false)
+    TowerArea := cPoint(spot[1] + WinRelPosLargeW(69), spot[2] -
+        WinRelPosLargeH(5), false)
     ; Select Tower area
     if (!TowerArea.IsButtonActive()) {
         Log("Error 32: Tower area detection failed. Could not find "

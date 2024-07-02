@@ -50,10 +50,6 @@ Class cTravel {
      */
     _OpenAny(action, test, reset := true, delay := 0) {
         NavTime := NavigateTime + delay
-        ; TODO remove this manual limit and tweak individual usage
-        if (NavTime < 72) {
-            NavTime := 72
-        }
         this.ClosePanelIfActive()
         action() ; Open location in func
         sleep(NavTime)
@@ -64,9 +60,11 @@ Class cTravel {
             sleep(NavTime)
             i++
         }
-        if (reset && IsPanelActive()) {
+        active := IsPanelActive()
+        if (reset && active) {
             this.ResetAreaScroll(delay)
         }
+        return active
     }
 
     /**
@@ -75,9 +73,6 @@ Class cTravel {
      */
     ResetAreaScroll(delay := 0) {
         NavTime := NavigateTime + delay
-        if (NavTime < 72) {
-            NavTime := 72
-        }
         ; Click Favourites
         Points.Areas.Favs.Tab.ClickOffset(, , NavTime)
         Sleep(NavTime)
@@ -90,84 +85,160 @@ Class cTravel {
     }
 
     /**
-     * Cannot pass object properties directly so use fat arrow funcs
+     * Open Areas panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
      */
-
-    ; Open Areas panel, closes others first
     OpenAreas(reset := true, delay := 0) {
         VerboseLog("Openareas")
-        this._OpenAny(GameKeys.OpenAreas.Bind(GameKeys), IsPanelActive, reset, delay)
+        return this._OpenAny(GameKeys.OpenAreas.Bind(GameKeys), IsPanelActive,
+            reset, delay)
     }
 
-    ; Open Gem shop panel, closes others first
+    /**
+     * Open Gem panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenGemShop(reset := false, delay := 0) {
         VerboseLog("OpenGemShop")
-        this._OpenAny(GameKeys.OpenGemShop.Bind(GameKeys), IsPanelActive, reset, delay)
+        return this._OpenAny(GameKeys.OpenGemShop.Bind(GameKeys), IsPanelActive,
+            reset, delay)
     }
 
-    ; Open Trades panel, closes others first
+    /**
+     * Open Trades panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenTrades(reset := false, delay := 0) {
         VerboseLog("OpenTrades")
-        this._OpenAny(GameKeys.OpenTrades.Bind(GameKeys), IsPanelActive, reset, delay)
+        return this._OpenAny(GameKeys.OpenTrades.Bind(GameKeys), IsPanelActive,
+            reset, delay)
     }
 
-    ; Open Pets panel, closes others first
+    /**
+     * Open Pets panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenPets(reset := false, delay := 0) {
         VerboseLog("OpenPets")
-        this._OpenAny(GameKeys.OpenPets.Bind(GameKeys), IsPanelActive, reset, delay)
+        return this._OpenAny(GameKeys.OpenPets.Bind(GameKeys), IsPanelActive,
+            reset, delay)
     }
 
-    ; Open Bank panel, closes others first
+    /**
+     * Open Bank panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenBank(reset := false, delay := 0) {
         VerboseLog("OpenBank")
-        this._OpenAny(GameKeys.OpenBank.Bind(GameKeys), IsPanelActive, reset, delay)
+        return this._OpenAny(GameKeys.OpenBank.Bind(GameKeys), IsPanelActive,
+            reset, delay)
     }
 
-    ; Open Borbventures panel, closes others first
+    /**
+     * Open Borbventures panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenBorbVentures(reset := true, delay := 0) {
         VerboseLog("OpenBorbVentures")
-        this._OpenAny(GameKeys.OpenBorbVentures.Bind(GameKeys), IsPanelActive, reset, delay)
+        return this._OpenAny(GameKeys.OpenBorbVentures.Bind(GameKeys),
+            IsPanelActive, reset, delay)
     }
 
-    ; Open Cards panel, closes others first
+    /**
+     * Open Cards panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenCards(reset := true, delay := 0) {
         VerboseLog("OpenCards")
-        this._OpenAny(GameKeys.OpenCards.Bind(GameKeys), IsPanelActive, reset, delay)
+        return this._OpenAny(GameKeys.OpenCards.Bind(GameKeys), IsPanelActive,
+            reset, delay)
     }
 
-    ; Open Alchemy panel, closes others first
+    /**
+     * Open Alchemy panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenAlchemy(reset := true, delay := 0) {
         VerboseLog("OpenAlchemy")
-        this._OpenAny(GameKeys.OpenAlchemy.Bind(GameKeys), IsPanelActive, reset, delay)
+        return this._OpenAny(GameKeys.OpenAlchemy.Bind(GameKeys), IsPanelActive,
+            reset, delay)
     }
 
-    ; Open Alchemy panel first tab, closes others first
+    /**
+     * Open Alchemy panel first tab, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenAlchemyGeneral(reset := false, delay := 0) {
-        this.OpenAlchemy(reset, delay)
-        Sleep(NavigateTime)
-        Points.Brew.Tab1.Nav.Click(NavigateTime)
-        Sleep(NavigateTime)
+        if (this.OpenAlchemy(reset, delay)) {
+            Sleep(NavigateTime)
+            Points.Brew.Tab1.Nav.Click(NavigateTime)
+            Sleep(NavigateTime)
+        } else {
+            return false
+        }
+        return true
     }
-    
-    ; Open Crafting panel, closes others first
+
+    /**
+     * Open Crafting panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenCrafting(reset := true, delay := 0) {
         VerboseLog("OpenCrafting")
-        this._OpenAny(GameKeys.OpenCrafting.Bind(GameKeys), IsPanelActive, reset, delay)
+        return this._OpenAny(GameKeys.OpenCrafting.Bind(GameKeys),
+            IsPanelActive, reset, delay)
     }
 
-    ; Open Mining panel, closes others first
+    /**
+     * Open Mining panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenMining(reset := true, delay := 0) {
         VerboseLog("OpenMining")
-        this._OpenAny(GameKeys.OpenMining.Bind(GameKeys), IsPanelActive, reset, delay)
+        return this._OpenAny(GameKeys.OpenMining.Bind(GameKeys), IsPanelActive,
+            reset, delay)
     }
 
-    ; Open Gold portal (prestige 1) panel, closes others first
+    /**
+     * Open Gold portal (prestige 1) panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenGoldPortal(reset := false, delay := 0) {
         VerboseLog("OpenGoldPortal")
-        this._OpenAny(GameKeys.OpenGoldPortal.Bind(GameKeys), IsPanelActive, reset, delay)
+        return this._OpenAny(GameKeys.OpenGoldPortal.Bind(GameKeys),
+            IsPanelActive, reset, delay)
     }
 
-    ; Opens settings panel, closes others first
+    /**
+     * Open settings panel, closes others first
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     OpenSettings(reset := true) {
         VerboseLog("OpenSettings")
         this.ClosePanelIfActive()
@@ -176,22 +247,33 @@ Class cTravel {
             this.ResetAreaScroll()
         }
         Sleep(NavigateTime)
+        return IsPanelActive()
     }
 
-    ; Closes open panels or opens settings if non open
+    /**
+     * Closes open panels or opens settings if non open
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     ClosePanel() {
         GameKeys.ClosePanel()
         Sleep(NavigateTime)
-        VerboseLog("Panel closed manually")
+        return IsPanelActive()
     }
 
-    ; Closes open panels if one is open
+    /**
+     * Closes open panels if one is open
+     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * @param {Integer} delay Additional delay to NavigateTime for slow points
+     * @returns {Boolean} Is panel active
+     */
     ClosePanelIfActive() {
         if (IsPanelActive()) {
             this.ClosePanel()
             Sleep(NavigateTime)
         }
-        VerboseLog("Panel closed is " BinaryToStr(IsPanelActive()))
+        return IsPanelActive()
     }
 
 }

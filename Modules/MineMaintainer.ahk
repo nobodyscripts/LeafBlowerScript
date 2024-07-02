@@ -123,6 +123,14 @@ fMineMaintainer() {
         }
         ;@endregion
 
+        ;@region Vein upgrade
+        if (IsWindowActive() && IsPanelActive() && Travel.Mine.IsOnTabVein() &&
+            VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
+            Log("Upgrading vein")
+            VeinUpgradeButton.ClickOffset(NavigateTime)
+        }
+        ;@endregion
+
         ;@region Transmute
         if ((Firstpass && isAnyTransmuteEnabled() && IsPanelActive()) || (
             IsWindowActive() && isAnyTransmuteEnabled() && IsPanelActive() &&
@@ -228,25 +236,18 @@ fMineMaintainer() {
         }
         ;@endregion
 
-        ;@region Vein upgrade
-        if (IsWindowActive() && IsPanelActive() && Travel.Mine.IsOnTabVein() &&
-            VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
-            Log("Upgrading vein")
-            VeinUpgradeButton.ClickOffset(NavigateTime)
-        }
-        ;@endregion
-
         ;@region Brew
-        if (IsWindowActive() && IsPanelActive() && MinerEnableBrewing && !
-            BrewCycleTimer.Running) {
+        if (IsWindowActive() && MinerEnableBrewing && !BrewCycleTimer.Running) {
             Log("Mine: Brewing")
-            Travel.OpenAlchemyGeneral()
-            BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &BrewCutOffRunning)
-            while (BrewCutOffRunning) {
-                SpamBrewButtons()
+            if (Travel.OpenAlchemyGeneral()) {
+                BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &
+                    BrewCutOffRunning)
+                while (BrewCutOffRunning) {
+                    SpamBrewButtons()
+                }
+                Travel.ClosePanelIfActive()
+                BrewCycleTimer.CoolDownS(MinerBrewCycleTime, &BrewCycleRunning)
             }
-            Travel.ClosePanelIfActive()
-            BrewCycleTimer.CoolDownS(MinerBrewCycleTime, &BrewCycleRunning)
         }
         Firstpass := false
         ;@endregion
