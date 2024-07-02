@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0
 
-#Include <cPoints>
-#Include <cRects>
-#Include <Spammers>
-#Include <Navigate>
-#Include <cTimer>
+#Include ..\Lib\cPoints.ahk
+#Include ..\Lib\cRects.ahk
+#Include ..\Lib\Spammers.ahk
+#Include ..\Lib\Navigate.ahk
+#Include ..\Lib\cTimer.ahk
 #Include MineMaintainerCaves.ahk
 
 global MinerEnableVeins := true

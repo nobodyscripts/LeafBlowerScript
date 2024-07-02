@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include <cPoints>
-#Include <Spammers>
+#Include ..\Lib\cPoints.ahk
+#Include ..\Lib\Spammers.ahk
 
 global TowerPassiveCraftEnabled := true
 global TowerPassiveBanksEnabled := true

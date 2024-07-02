@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0
 
-#Include <Logging>
-#Include <cZone>
-#Include <cTravel>
+#Include ..\..\Lib\Logging.ahk
+#Include ..\..\Lib\cZone.ahk
+#Include ..\..\Lib\cTravel.ahk
 
 /**
  * Mine class for zone travel

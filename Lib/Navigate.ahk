@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0
 
-#Include <cHotkeysInitGame>
-#Include <cHotkeysInitScript>
+#Include cHotkeysInitGame.ahk
+#Include cHotkeysInitScript.ahk
 
-#include <cTravel>
+#include cTravel.ahk
 
 #Include ..\Navigate\AreasRects.ahk
 #Include ..\Navigate\AreasCoords.ahk

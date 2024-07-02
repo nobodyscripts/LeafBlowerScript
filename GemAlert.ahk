@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0
 
-#Include <hGlobals>
-#Include <cPoints>
-#Include <Functions>
-#Include <Navigate>
-#Include <ScriptSettings>
-#Include <SettingsCheck>
+#Include Lib\hGlobals.ahk
+#Include Lib\cPoints.ahk
+#Include Lib\Functions.ahk
+#Include Lib\Navigate.ahk
+#Include Lib\ScriptSettings.ahk
+#Include Lib\SettingsCheck.ahk
 
 global ScriptsLogFile := A_ScriptDir "\GemAlert.Log"
 global NavigateTime := 150

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include <cPoint>
-#Include <Navigate>
+#Include cPoint.ahk
+#Include Navigate.ahk
 
 /** @type {cPoints} */
 global Points := cPoints()

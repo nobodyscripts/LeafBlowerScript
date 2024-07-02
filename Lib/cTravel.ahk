@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0
 
-#Include <Navigate>
-#Include <cZone>
-#Include <Functions>
+#Include Navigate.ahk
+#Include cZone.ahk
+#Include Functions.ahk
 
 /** @type {cTravel} */
 global Travel := cTravel()

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-#Include <cPoints>
+#Include ..\Lib\cPoints.ahk
 
 global BankEnableLGDeposit := true
 global BankEnableSNDeposit := true

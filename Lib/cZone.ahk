@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include <Navigate>
-#Include <SettingsCheck>
+#Include Navigate.ahk
+#Include SettingsCheck.ahk
 
 /**
  * Base zone travel object

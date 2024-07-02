@@ -10,21 +10,20 @@
 global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
 global IsSecondary := false
 
-#Include <hGlobals>
+#Include Lib\hGlobals.ahk
 
 #Include Gui\MainGUI.ahk
 
-#Include <ScriptSettings>
-#Include <Functions>
-#Include <Navigate>
-#Include <SettingsCheck>
-#Include <Spammers>
-
-#Include <cHotkeysInitGame>
-#Include <cHotkeysInitScript>
-#Include <GameSettings>
-#Include <CheckGameSettings>
-#Include <hModules>
+#Include Lib\ScriptSettings.ahk
+#Include Lib\Functions.ahk
+#Include Lib\Navigate.ahk
+#Include Lib\SettingsCheck.ahk
+#Include Lib\Spammers.ahk
+#Include Lib\cHotkeysInitGame.ahk
+#Include Lib\cHotkeysInitScript.ahk
+#Include Lib\GameSettings.ahk
+#Include Lib\CheckGameSettings.ahk
+#Include Lib\hModules.ahk
 
 
 SendMode("Input") ; Support for vm
