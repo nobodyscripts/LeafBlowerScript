@@ -1,46 +1,56 @@
 #Requires AutoHotkey v2.0
 
-#Include Globals.ahk
-#Include Lib/cPoints.ahk
-#Include Lib/Functions.ahk
-#Include Lib/Navigate.ahk
-#Include Lib/ScriptSettings.ahk
-#Include Lib/SettingsCheck.ahk
+#Include <hGlobals>
+#Include <cPoints>
+#Include <Functions>
+#Include <Navigate>
+#Include <ScriptSettings>
+#Include <SettingsCheck>
 
 global ScriptsLogFile := A_ScriptDir "\GemAlert.Log"
 global NavigateTime := 150
 
-if (!GameWindowExist()) {
-    ExitApp()
-}
+GemAlert()
 
-if (!IsWindowActive()) {
-    WinActivate(LBRWindowTitle)
-    Sleep(NavigateTime)
-}
-if (IsPanelActive()) {
-    localClosePanel()
-    Sleep(NavigateTime)
-}
-localOpenMining()
-Sleep(NavigateTime)
-loop {
+;@region GemAlert()
+/**
+ * Check location of bars for non bar colours, do so within screenspace so alt
+ * tab is available for users
+ */
+GemAlert() {
     if (!GameWindowExist()) {
-        break
+        ExitApp()
     }
-    if (WinActive(LBRWindowTitle)) {
-        if (!IsPanelActive()) {
-            localOpenMining()
-            Sleep(NavigateTime)
+    
+    if (!IsWindowActive()) {
+        WinActivate(LBRWindowTitle)
+        Sleep(NavigateTime)
+    }
+    if (IsPanelActive()) {
+        localClosePanel()
+        Sleep(NavigateTime)
+    }
+    localOpenMining()
+    Sleep(NavigateTime)
+    loop {
+        if (!GameWindowExist()) {
+            break
+        }
+        if (WinActive(LBRWindowTitle)) {
+            if (!IsPanelActive()) {
+                localOpenMining()
+                Sleep(NavigateTime)
+            } else {
+                FindVeinsWithBars2()
+                Sleep(seconds(10))
+            }
         } else {
             FindVeinsWithBars2()
             Sleep(seconds(10))
         }
-    } else {
-        FindVeinsWithBars2()
-        Sleep(seconds(10))
     }
 }
+;@endregion
 
 seconds(int) {
     return int * 1000

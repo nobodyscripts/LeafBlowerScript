@@ -1,7 +1,27 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\Lib\cHotkeysInitGame.ahk
-#Include ..\Lib\cHotkeysInitScript.ahk
+#Include <cHotkeysInitGame>
+#Include <cHotkeysInitScript>
+
+#include <cTravel>
+
+#Include ..\Navigate\AreasRects.ahk
+#Include ..\Navigate\AreasCoords.ahk
+#Include ..\Navigate\MiscCoords.ahk
+
+#Include ..\Navigate\Bank\Header.ahk
+#Include ..\Navigate\BorbVentures\Header.ahk
+#Include ..\Navigate\Brew\Header.ahk
+#Include ..\Navigate\Cards\Header.ahk
+#Include ..\Navigate\Claw\Header.ahk
+#Include ..\Navigate\Crafting\Header.ahk
+#Include ..\Navigate\GemFarm\Header.ahk
+#Include ..\Navigate\Hyacinth\Header.ahk
+#Include ..\Navigate\Leafton\Header.ahk
+#Include ..\Navigate\Mines\Header.ahk
+
+#Include ..\Navigate\Zones\Header.ahk
+
 
 global DisableZoneChecks := false
 global NavigateTime := 150

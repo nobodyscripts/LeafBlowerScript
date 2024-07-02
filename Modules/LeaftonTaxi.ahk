@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ../Lib/cPoints.ahk
-#Include ../Lib/Spammers.ahk
+#Include <cPoints>
+#Include <Spammers>
 
 global LeaftonCraftEnabled := true
 global LeaftonSpamsWind := true

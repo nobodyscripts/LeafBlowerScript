@@ -10,40 +10,22 @@
 global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
 global IsSecondary := false
 
-#Include Globals.ahk
+#Include <hGlobals>
 
 #Include Gui\MainGUI.ahk
 
-#Include Lib\ScriptSettings.ahk
-#Include Lib\Functions.ahk
-#Include Lib\Navigate.ahk
-#Include Lib\SettingsCheck.ahk
-#Include Lib\Spammers.ahk
+#Include <ScriptSettings>
+#Include <Functions>
+#Include <Navigate>
+#Include <SettingsCheck>
+#Include <Spammers>
 
-#Include Lib\cHotkeysInitGame.ahk
-#Include Lib\cHotkeysInitScript.ahk
-#Include Lib\GameSettings.ahk
-#Include Lib\CheckGameSettings.ahk
+#Include <cHotkeysInitGame>
+#Include <cHotkeysInitScript>
+#Include <GameSettings>
+#Include <CheckGameSettings>
+#Include <hModules>
 
-#Include Navigate\Header.ahk
-
-#Include Modules\BankDeposit.ahk
-#Include Modules\Borbventure.ahk
-#Include Modules\Cards.ahk
-#Include Modules\CardsBuy.ahk
-#Include Modules\Claw.ahk
-#Include Modules\CursedCheese.ahk
-#Include Modules\FarmGFSS.ahk
-#Include Modules\FarmNatureBoss.ahk
-#Include Modules\FarmNormalBoss.ahk
-#Include Modules\GemFarm.ahk
-#Include Modules\NatureHyacinth.ahk
-#Include Modules\TowerTimeWarp.ahk
-#Include Modules\TowerFarmPassive.ahk
-#Include Modules\LeaftonTaxi.ahk
-#Include Modules\MineMaintainer.ahk
-#Include Modules\SuitcaseSpam.ahk
-#Include Modules\QuickPrestige.ahk
 
 SendMode("Input") ; Support for vm
 ; Can be Input, Event, Play, InputThenPlay if Input doesn't work for you

@@ -1,6 +1,7 @@
 # Block private files
 IsNobody
 IsNobody2
+Notes.txt
 *.log
 *.Log
 *.ini
@@ -8,4 +9,3 @@ IsNobody2
 
 # Block vscode workspace files
 *.code-workspace
-.vscode

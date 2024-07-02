@@ -1,6 +1,6 @@
 ﻿#Requires AutoHotkey v2.0
 
-#Include ../Lib/cTravel.ahk
+#Include <cTravel>
 
 global GemFarmSleepAmount := 1
 global TradesAutoRefreshOldState := false

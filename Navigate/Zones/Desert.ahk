@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0
 
-#Include ../../Lib/Logging.ahk
-#Include ../../Lib/cZone.ahk
-#Include ../../Lib/cTravel.ahk
+#Include <Logging>
+#Include <cZone>
+#Include <cTravel>
 
 /**
  * Desert class for zone travel

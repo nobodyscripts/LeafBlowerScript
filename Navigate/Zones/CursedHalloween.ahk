@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0
 
-#Include ../../Lib/Logging.ahk
-#Include ../../Lib/cZone.ahk
-#Include ../../Lib/cTravel.ahk
+#Include <Logging>
+#Include <cZone>
+#Include <cTravel>
 
 /**
  * CursedHalloween class for zone travel
@@ -21,9 +21,7 @@ Class CursedHalloween extends Zone {
         If (!this.IsHalloweenEventActive()) {
             Log("Claw: Halloween inactive.")
             ToolTip("Halloween inactive`nPlease use the artifact to enable"
-                " halloween event",
-                W / 2 - WinRelPosLargeW(100),
-                H / 2)
+                " halloween event", W / 2 - WinRelPosLargeW(100), H / 2)
             SetTimer(ToolTip, -5000)
             return false
         }
@@ -37,8 +35,8 @@ Class CursedHalloween extends Zone {
         ; Pub button check
         If (Points.Areas.LeafG.Pub.IsBackground()) {
             Log("Claw: Could not travel to pub.")
-            ToolTip("Pub area button didn't align, try again",
-                W / 2 - WinRelPosLargeW(100), H / 2)
+            ToolTip("Pub area button didn't align, try again", W / 2 -
+                WinRelPosLargeW(100), H / 2)
             SetTimer(ToolTip, -5000)
             return false
         }

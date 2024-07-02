@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ../Lib/cPoints.ahk
-#Include ../Lib/Spammers.ahk
+#Include <cPoints>
+#Include <Spammers>
 
 global TowerPassiveCraftEnabled := true
 global TowerPassiveBanksEnabled := true
@@ -27,8 +27,8 @@ fTowerFarm() {
     if (TowerPassiveBanksEnabled) {
         Travel.OpenPets()
         Sleep(NavigateTime)
-        ToolTip("Tower Passive, Bank Maintainer Active", W / 2,
-            WinRelPosLargeH(200), 4)
+        ToolTip("Tower Passive, Bank Maintainer Active", W / 2, WinRelPosLargeH(
+            200), 4)
         BankSinglePass()
         ToolTip(, , , 4)
     }

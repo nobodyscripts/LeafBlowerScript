@@ -1,0 +1,258 @@
+{
+	// Place your LeafBlowerScript workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Function Statement": {
+		"scope": "ahk2",
+		"prefix": "function",
+		"body": [
+			";@region ${1:name}()",
+			"/**",
+			" * ${3:Description}",
+			" */",
+			"${1:name}(${2:params}) {",
+			"\t$TM_SELECTED_TEXT$0",
+			"}",
+			";@endregion"
+		],
+		"description": "Template func with region and comment"
+	},
+	"Class Statement": {
+		"scope": "ahk2",
+		"prefix": "class",
+		"body": [
+			"/**",
+			" * ${1:Classname} ${2:Description}",
+			" * @module ${1:Classname}",
+			" * @property {Type} property Desc",
+			" * @method Name Desc",
+			" */",
+			"Class $1() {",
+			"\t/** @type {Type} Desc */",
+			"\tproperty := 0",
+			"",
+			"\t;@region ${3:Funcname}()",
+			"\t/**",
+			"\t * ${4:Description}",
+			"\t */",
+			"\t$3() {",
+			"\t\t$TM_SELECTED_TEXT$0",
+			"\t}",
+			"\t;@endregion",
+			"}"
+		],
+		"description": "Template class with comment"
+	},
+	"FoldRegion": {
+		"scope": "ahk2",
+		"prefix": "foldregion",
+		"body": [
+			";@region ${3:Name}()",
+			"$TM_SELECTED_TEXT$0",
+			";@endregion"
+		],
+		"description": "Foldable region"
+	},
+	"GetColour": {
+		"scope": "ahk2",
+		"prefix": "getcolour",
+		"body": [
+			"cPoint($1, $2).GetColour()"
+		],
+		"description": "Get colour from point"
+	},
+	"cPoint": {
+		"scope": "ahk2",
+		"prefix": "cPoint",
+		"body": [
+			"cPoint($1, $2)$0"
+		],
+		"description": "cPoint template"
+	},
+	"cRect": {
+		"scope": "ahk2",
+		"prefix": "cRect",
+		"body": [
+			"cRect($1, $2, $3, $4)$0"
+		],
+		"description": "cRect template"
+	},
+	"CommentedVar": {
+		"scope": "ahk2",
+		"prefix": "var",
+		"body": [
+			"/** @type {${1:type}} ${2:description} */",
+			"${3:varname} := ${4:value}",
+		],
+		"description": "Commented property"
+	},
+	"Log": {
+		"scope": "ahk2",
+		"prefix": "log",
+		"body": [
+			"Log(${1:message})",
+			"$2"
+		],
+		"description": "Log message"
+	},
+	"DebugLog": {
+		"scope": "ahk2",
+		"prefix": "dlog",
+		"body": [
+			"DebugLog(${1:message})",
+			"$2"
+		],
+		"description": "DebugLog message"
+	},
+	"VerboseLog": {
+		"scope": "ahk2",
+		"prefix": "vlog",
+		"body": [
+			"VerboseLog(${1:message})",
+			"$2"
+		],
+		"description": "VerboseLog message"
+	},
+	"For Loop": {
+		"scope": "ahk2",
+		"prefix": "for",
+		"body": [
+			"for (${1:item} in ${2:array}) {",
+			"\t$TM_SELECTED_TEXT$0",
+			"}"
+		],
+		"description": "For Loop"
+	},
+	"If Statement": {
+		"scope": "ahk2",
+		"prefix": "if",
+		"body": [
+			"if (${1:condition}) {",
+			"\t$TM_SELECTED_TEXT$0",
+			"}"
+		],
+		"description": "If Statement"
+	},
+	"If-Else Statement": {
+		"scope": "ahk2",
+		"prefix": "ifelse",
+		"body": [
+			"if (${1:condition}) {",
+			"\t$TM_SELECTED_TEXT$0",
+			"} else {",
+			"\t",
+			"}"
+		],
+		"description": "If-Else Statement"
+	},
+	"Switch Statement": {
+		"scope": "ahk2",
+		"prefix": "switch",
+		"body": [
+			"switch (${1:key}) {",
+			"\tcase ${2:value}:",
+			"\t\t$0",
+			"\t\tbreak;",
+			"",
+			"\tdefault:",
+			"\t\tbreak;",
+			"}"
+		],
+		"description": "Switch Statement"
+	},
+	"Loop Statement": {
+		"scope": "ahk2",
+		"prefix": "loop",
+		"body": [
+			"loop ${1:count} {",
+			"\t$TM_SELECTED_TEXT$0",
+			"}"
+		],
+		"description": "Loop Statement"
+	},
+	"Until Statement": {
+		"scope": "ahk2",
+		"prefix": "until",
+		"body": [
+			"loop {",
+			"\t$TM_SELECTED_TEXT$0",
+			"} until (${1:condition})"
+		],
+		"description": "Until Statement"
+	},
+	"While Statement": {
+		"scope": "ahk2",
+		"prefix": "while",
+		"body": [
+			"while (${1:condition}) {",
+			"\t$TM_SELECTED_TEXT$0",
+			"}"
+		],
+		"description": "While Statement"
+	},
+	"Try-Catch Statement": {
+		"scope": "ahk2",
+		"prefix": "trycatch",
+		"body": [
+			"try {",
+			"\t$TM_SELECTED_TEXT$0",
+			"} catch (${1:error}) {",
+			"\t",
+			"}"
+		],
+		"description": "Try-Catch Statement"
+	},
+	"SetTimer Function": {
+		"scope": "ahk2",
+		"prefix": "settimer",
+		"body": [
+			"SetTimer($0, -${1:timeout})"
+		],
+		"description": "SetTimer Function"
+	},
+	"SetTimer Interval Function": {
+		"scope": "ahk2",
+		"prefix": "setinterval",
+		"body": [
+			"SetTimer($0, ${1:timeout})"
+		],
+		"description": "Set Interval Function"
+	},
+	"Include Statement": {
+		"scope": "ahk2",
+		"prefix": "include",
+		"body": [
+			"#Include $0"
+		],
+		"description": "Include external file"
+	},
+	"Region Start": {
+		"scope": "ahk2",
+		"prefix": "#region",
+		"body": [
+			";@region $0"
+		],
+		"description": "Folding Region Start"
+	},
+	"Region End": {
+		"scope": "ahk2",
+		"prefix": "#endregion",
+		"body": [
+			";@endregion"
+		],
+		"description": "Folding Region End"
+	}
+}

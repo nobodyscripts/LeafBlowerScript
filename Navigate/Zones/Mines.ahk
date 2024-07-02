@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0
 
-#Include ../../Lib/Logging.ahk
-#Include ../../Lib/cZone.ahk
-#Include ../../Lib/cTravel.ahk
+#Include <Logging>
+#Include <cZone>
+#Include <cTravel>
 
 /**
  * Mine class for zone travel
@@ -38,8 +38,8 @@ Class Mine extends Zone {
      * @returns {Integer} 
      */
     IsOnTabVein() {
-        if (Points.Mine.Vein.Search.IsButton() &&
-            Points.Mine.Vein.AutoMine.IsButton()) {
+        if (Points.Mine.Vein.Search.IsButton() && Points.Mine.Vein.AutoMine.IsButton()
+        ) {
             return true
         }
         return false
@@ -57,14 +57,14 @@ Class Mine extends Zone {
         Points.Mine.Tab2Mines.Click()
         Sleep(NavigateTime)
     }
-    
+
     /**
      * Is current panel on Mine Caves tab
      * @returns {Integer} 
      */
     IsOnTabMines() {
-        if (Points.Mine.Cave.Select1.IsButton() &&
-            Points.Mine.Cave.AutoSearch.IsButton()) {
+        if (Points.Mine.Cave.Select1.IsButton() && Points.Mine.Cave.AutoSearch.IsButton()
+        ) {
             return true
         }
         return false
@@ -96,8 +96,8 @@ Class Mine extends Zone {
      * @returns {Integer} 
      */
     IsOnTabDrill() {
-        if (Points.Mine.CoalSphere.IsButton() &&
-            Points.Mine.FreeFuel.IsButton()) {
+        if (Points.Mine.CoalSphere.IsButton() && Points.Mine.FreeFuel.IsButton()
+        ) {
             return true
         }
         return false
@@ -134,20 +134,16 @@ Class Mine extends Zone {
      * @returns {Integer} 
      */
     IsOnTabTrans() {
-        if (
-            !Points.Mine.Transmute.SingleCBarToCDia.IsBackground() &&
-            !Points.Mine.Transmute.SingleCDiaToSDia.IsBackground() &&
-            !Points.Mine.Transmute.SingleCDiaToFuel.IsBackground() &&
-            !Points.Mine.Transmute.SingleCDiaToSphere.IsBackground() &&
-            !Points.Mine.Transmute.AllCBarsToCDias.IsBackground() &&
-            !Points.Mine.Transmute.AllCDiasToSDias.IsBackground() &&
-            !Points.Mine.Transmute.AllCDiasToFuel.IsBackground() &&
-            !Points.Mine.Transmute.AllCDiasToSpheres.IsBackground() &&
-            !Points.Mine.Transmute.AllSDiasToCDia.IsBackground() &&
-            !Points.Mine.Transmute.AutoCBarToCDia.IsBackground() &&
-            !Points.Mine.Transmute.AutoCDiaToSDia.IsBackground() &&
-            !Points.Mine.Transmute.AutoCDiaToFuel.IsBackground() &&
-            !Points.Mine.Transmute.AutoCDiaToSphere.IsBackground()
+        if (!Points.Mine.Transmute.SingleCBarToCDia.IsBackground() && !Points.Mine
+            .Transmute.SingleCDiaToSDia.IsBackground() && !Points.Mine.Transmute
+            .SingleCDiaToFuel.IsBackground() && !Points.Mine.Transmute.SingleCDiaToSphere
+            .IsBackground() && !Points.Mine.Transmute.AllCBarsToCDias.IsBackground() &&
+            !Points.Mine.Transmute.AllCDiasToSDias.IsBackground() && !Points.Mine
+            .Transmute.AllCDiasToFuel.IsBackground() && !Points.Mine.Transmute.AllCDiasToSpheres
+            .IsBackground() && !Points.Mine.Transmute.AllSDiasToCDia.IsBackground() &&
+            !Points.Mine.Transmute.AutoCBarToCDia.IsBackground() && !Points.Mine
+            .Transmute.AutoCDiaToSDia.IsBackground() && !Points.Mine.Transmute.AutoCDiaToFuel
+            .IsBackground() && !Points.Mine.Transmute.AutoCDiaToSphere.IsBackground()
         ) {
             return true
         }

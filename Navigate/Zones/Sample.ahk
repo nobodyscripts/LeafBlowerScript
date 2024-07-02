@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0
 
-#Include ../../Lib/Logging.ahk
-#Include ../../Lib/cZone.ahk
-#Include ../../Lib/cTravel.ahk
+#Include <Logging>
+#Include <cZone>
+#Include <cTravel>
 
 /**
  * Sample class for zone travel
@@ -38,7 +38,8 @@ Class Sample extends Zone {
     ClickTravelButton(coord, delay) {
         ; Button to travel to Sample
         Button := cPoint()
-        DebugLog(Button.GetColour() " " Button.IsButton() " " Button.IsButtonActive())
+        DebugLog(Button.GetColour() " " Button.IsButton() " " Button.IsButtonActive()
+        )
         ; If no button we are misaligned
         if (Button.IsButton()) {
             ; Set zone to The Infernal Sample (if not already inactive)

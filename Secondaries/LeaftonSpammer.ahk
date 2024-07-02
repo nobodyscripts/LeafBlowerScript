@@ -6,11 +6,11 @@
 global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
 global IsSecondary := true
 
-#Include ../Globals.ahk
-#Include '../Lib/ScriptSettings.ahk'
-#Include '../Lib/Functions.ahk'
-#Include '../Lib/SettingsCheck.ahk'
-#Include '../Lib/Navigate.ahk'
+#Include ..\Lib\hGlobals.ahk
+#Include ..\Lib\ScriptSettings.ahk
+#Include ..\Lib\Functions.ahk
+#Include ..\Lib\SettingsCheck.ahk
+#Include ..\Lib\Navigate.ahk
 #Include ..\Lib\cHotkeysInitGame.ahk
 
 global ArtifactSleepAmount := 1

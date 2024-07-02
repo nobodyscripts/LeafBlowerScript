@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0
 
-#Include ../Lib/cPoints.ahk
-#Include ../Lib/cRects.ahk
-#Include ../Lib/Spammers.ahk
-#Include MineMaintainerCaves.ahk
-#Include ../Navigate/Header.ahk
+#Include <cPoints>
+#Include <cRects>
+#Include <Spammers>
+#Include <Navigate>
 #Include <cTimer>
+#Include MineMaintainerCaves.ahk
 
 global MinerEnableVeins := true
 global MinerEnableVeinRemoval := true
@@ -81,8 +81,7 @@ fMineMaintainer() {
     CurrentTab := 0
     BrewCycleTimer := Timer()
     BrewCutOffTimer := Timer()
-    ToolTip("Mine Maintainer Active", W / 2,
-        WinRelPosLargeH(200), 4)
+    ToolTip("Mine Maintainer Active", W / 2, WinRelPosLargeH(200), 4)
     if (MinerEnableLeafton) {
         LeaftonTaxiSinglePassStart()
         Sleep(NavigateTime)
@@ -97,8 +96,8 @@ fMineMaintainer() {
         if (IsWindowActive() && !IsPanelActive()) {
             Travel.Mine.GoTo()
         }
-        if (IsWindowActive() && IsPanelActive() &&
-            (MinerEnableVeins || MinerEnableVeinRemoval)) {
+        if (IsWindowActive() && IsPanelActive() && (MinerEnableVeins ||
+            MinerEnableVeinRemoval)) {
             i := 1
             while (!Travel.Mine.IsOnTabVein() || i >= 10) {
                 VeinsTab.Click(NavigateTime)
@@ -120,9 +119,9 @@ fMineMaintainer() {
                 Log("Mine: Vein tab click failed")
             }
         }
-        if ((Firstpass && isAnyTransmuteEnabled() && IsPanelActive()) ||
-            (IsWindowActive() && isAnyTransmuteEnabled() && IsPanelActive() &&
-                DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer)) {
+        if ((Firstpass && isAnyTransmuteEnabled() && IsPanelActive()) || (
+            IsWindowActive() && isAnyTransmuteEnabled() && IsPanelActive() &&
+            DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer)) {
             TransmuteTime := A_Now
             i := 1
             while (!Travel.Mine.IsOnTabTrans() || i >= 10) {
@@ -139,10 +138,9 @@ fMineMaintainer() {
             }
         }
 
-        if ((Firstpass && MinerEnableFreeRefuel && IsPanelActive()) ||
-            (IsWindowActive() && IsPanelActive() &&
-                DateDiff(A_Now, RefuelTime, "Seconds") >=
-                MinerRefuelTimer * 60 && MinerEnableFreeRefuel)) {
+        if ((Firstpass && MinerEnableFreeRefuel && IsPanelActive()) || (
+            IsWindowActive() && IsPanelActive() && DateDiff(A_Now, RefuelTime,
+                "Seconds") >= MinerRefuelTimer * 60 && MinerEnableFreeRefuel)) {
             RefuelTime := A_Now
             i := 1
             while (!Travel.Mine.IsOnTabDrill() || i >= 10 || !IsPanelActive()) {
@@ -159,10 +157,9 @@ fMineMaintainer() {
             }
         }
 
-        if ((Firstpass && MinerEnableSphereUse && IsPanelActive()) ||
-            (IsWindowActive() && IsPanelActive() &&
-                DateDiff(A_Now, SphereTime, "Seconds") >=
-                MinerSphereTimer * 60 && MinerEnableSphereUse)) {
+        if ((Firstpass && MinerEnableSphereUse && IsPanelActive()) || (
+            IsWindowActive() && IsPanelActive() && DateDiff(A_Now, SphereTime,
+                "Seconds") >= MinerSphereTimer * 60 && MinerEnableSphereUse)) {
             SphereTime := A_Now
             i := 1
             while (!Travel.Mine.IsOnTabDrill() || i >= 10 || !IsPanelActive()) {
@@ -180,28 +177,25 @@ fMineMaintainer() {
                 Log("Mine: Drill tab click failed")
             }
         }
-        if ((Firstpass && MinerEnableBanks && IsPanelActive()) ||
-            (IsWindowActive() && IsPanelActive() &&
-                DateDiff(A_Now, BankTime, "Seconds") >= BankDepositTime * 60 &&
-                MinerEnableBanks)) {
+        if ((Firstpass && MinerEnableBanks && IsPanelActive()) || (
+            IsWindowActive() && IsPanelActive() && DateDiff(A_Now, BankTime,
+                "Seconds") >= BankDepositTime * 60 && MinerEnableBanks)) {
             ToolTip(, , , 4)
             Log("Mine: Bank Maintainer starting.")
-            ToolTip("Mine Bank Maintainer Active", W / 2,
-                WinRelPosLargeH(200), 4)
+            ToolTip("Mine Bank Maintainer Active", W / 2, WinRelPosLargeH(200),
+                4)
             Sleep(NavigateTime)
             BankSinglePass()
             ToolTip(, , , 4)
-            ToolTip("Mine Maintainer Active", W / 2,
-                WinRelPosLargeH(200), 4)
+            ToolTip("Mine Maintainer Active", W / 2, WinRelPosLargeH(200), 4)
             BankTime := A_Now
             Sleep(NavigateTime)
             Travel.Mine.GoTo()
         }
 
-        if ((Firstpass && MinerEnableCaves && IsPanelActive()) ||
-            (IsWindowActive() && IsPanelActive() &&
-                DateDiff(A_Now, CavesTime, "Seconds") >= MinerCaveTimer * 60 &&
-                MinerEnableCaves)) {
+        if ((Firstpass && MinerEnableCaves && IsPanelActive()) || (
+            IsWindowActive() && IsPanelActive() && DateDiff(A_Now, CavesTime,
+                "Seconds") >= MinerCaveTimer * 60 && MinerEnableCaves)) {
             i := 1
             while (!Travel.Mine.IsOnTabMines() || i >= 10 || !IsPanelActive()) {
                 MinesTab.Click(NavigateTime)
@@ -223,8 +217,8 @@ fMineMaintainer() {
             Log("Upgrading vein")
             VeinUpgradeButton.ClickOffset(NavigateTime)
         }
-        if (IsWindowActive() && IsPanelActive() && MinerEnableBrewing &&
-            !BrewCycleTimer.Running) {
+        if (IsWindowActive() && IsPanelActive() && MinerEnableBrewing && !
+            BrewCycleTimer.Running) {
             Log("Mine: Brewing")
             Travel.OpenAlchemyGeneral()
             BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &BrewCutOffRunning)
@@ -297,8 +291,7 @@ EnhanceVeins() {
 TransmuteAllCoalBars() {
     if (MinerEnableTransmute) {
         TransmuteButton := Points.Mine.Transmute.AllCBarsToCDias
-        while (IsWindowActive() && IsPanelActive() &&
-            TransmuteButton.IsButtonActive() &&
+        while (IsWindowActive() && IsPanelActive() && TransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             TransmuteButton.ClickOffset()
             Sleep(NavigateTime)
@@ -306,8 +299,7 @@ TransmuteAllCoalBars() {
     }
     if (MinerEnableTransmuteSdia) {
         SdiaTransmuteButton := Points.Mine.Transmute.AllCDiasToSDias
-        while (IsWindowActive() && IsPanelActive() &&
-            SdiaTransmuteButton.IsButtonActive() &&
+        while (IsWindowActive() && IsPanelActive() && SdiaTransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             SdiaTransmuteButton.ClickOffset()
             Sleep(NavigateTime)
@@ -315,8 +307,7 @@ TransmuteAllCoalBars() {
     }
     if (MinerEnableTransmuteFuel) {
         FuelTransmuteButton := Points.Mine.Transmute.AllCDiasToFuel
-        while (IsWindowActive() && IsPanelActive() &&
-            FuelTransmuteButton.IsButtonActive() &&
+        while (IsWindowActive() && IsPanelActive() && FuelTransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             FuelTransmuteButton.ClickOffset()
             Sleep(NavigateTime)
@@ -324,8 +315,7 @@ TransmuteAllCoalBars() {
     }
     if (MinerEnableTransmuteSphere) {
         SphereTransmuteButton := Points.Mine.Transmute.AllCDiasToSpheres
-        while (IsWindowActive() && IsPanelActive() &&
-            SphereTransmuteButton.IsButtonActive() &&
+        while (IsWindowActive() && IsPanelActive() && SphereTransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             SphereTransmuteButton.ClickOffset()
             Sleep(NavigateTime)
@@ -333,8 +323,7 @@ TransmuteAllCoalBars() {
     }
     if (MinerEnableTransmuteSdiaToCDia) {
         SdiaToCBTransmuteButton := Points.Mine.Transmute.AllSDiasToCDia
-        while (IsWindowActive() && IsPanelActive() &&
-            SdiaToCBTransmuteButton.IsButtonActive() &&
+        while (IsWindowActive() && IsPanelActive() && SdiaToCBTransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             SdiaToCBTransmuteButton.ClickOffset()
             Sleep(NavigateTime)
@@ -344,8 +333,7 @@ TransmuteAllCoalBars() {
 
 CollectFreeDrillFuel() {
     FuelButton := Points.Mine.FreeFuel
-    while (IsWindowActive() && IsPanelActive() &&
-        FuelButton.IsButtonActive()) {
+    while (IsWindowActive() && IsPanelActive() && FuelButton.IsButtonActive()) {
         FuelButton.ClickOffset()
         Sleep(NavigateTime)
     }
@@ -356,8 +344,8 @@ UseDrillSphereLoop() {
     tempCount := MinerSphereCount
 
     if (MinerSphereCount > 0) {
-        while (IsWindowActive() && IsPanelActive() &&
-            SphereButton.IsButtonActive() && tempCount > 0) {
+        while (IsWindowActive() && IsPanelActive() && SphereButton.IsButtonActive() &&
+            tempCount > 0) {
             if (MinerSphereModifier > 1) {
                 ; limited count, with modifier
                 AmountToModifier(MinerSphereModifier)
@@ -374,8 +362,8 @@ UseDrillSphereLoop() {
     } else {
         if (!MinerSphereGreedyUse) {
             ; Inf use, no greedy
-            while (IsWindowActive() && IsPanelActive() &&
-                SphereButton.IsButtonActive()) {
+            while (IsWindowActive() && IsPanelActive() && SphereButton.IsButtonActive()
+            ) {
                 if (MinerSphereModifier > 1) {
                     AmountToModifier(MinerSphereModifier)
                     Sleep(34)
@@ -388,7 +376,8 @@ UseDrillSphereLoop() {
             }
         } else {
             ; Greedy
-            SphereButton.GreedyModifierClick(MinerSphereDelay, 72, MinerSphereModifier)
+            SphereButton.GreedyModifierClick(MinerSphereDelay, 72,
+                MinerSphereModifier)
             Sleep(MinerSphereDelay)
         }
     }
@@ -416,7 +405,8 @@ RemoveSingleVein() {
         return false
     }
 
-    if (VeinTotalCount = 6 && PotentialVeins[1].Active = true && LowestPrioritySlot = 1) {
+    if (VeinTotalCount = 6 && PotentialVeins[1].Active = true &&
+        LowestPrioritySlot = 1) {
         Log("Removing slot 1")
         Cancel1.ClickOffset()
         Sleep(NavigateTime)
@@ -424,7 +414,8 @@ RemoveSingleVein() {
         VeinTotalCount := FindVeinsCount()
         return true
     }
-    if (VeinTotalCount = 6 && PotentialVeins[2].Active = true && LowestPrioritySlot = 2) {
+    if (VeinTotalCount = 6 && PotentialVeins[2].Active = true &&
+        LowestPrioritySlot = 2) {
         Log("Removing slot 2")
         Cancel2.ClickOffset()
         Sleep(NavigateTime)
@@ -432,7 +423,8 @@ RemoveSingleVein() {
         VeinTotalCount := FindVeinsCount()
         return true
     }
-    if (VeinTotalCount = 6 && PotentialVeins[3].Active = true && LowestPrioritySlot = 3) {
+    if (VeinTotalCount = 6 && PotentialVeins[3].Active = true &&
+        LowestPrioritySlot = 3) {
         Log("Removing slot 3")
         Cancel3.ClickOffset()
         Sleep(NavigateTime)
@@ -440,7 +432,8 @@ RemoveSingleVein() {
         VeinTotalCount := FindVeinsCount()
         return true
     }
-    if (VeinTotalCount = 6 && PotentialVeins[4].Active = true && LowestPrioritySlot = 4) {
+    if (VeinTotalCount = 6 && PotentialVeins[4].Active = true &&
+        LowestPrioritySlot = 4) {
         Log("Removing slot 4")
         Cancel4.ClickOffset()
         Sleep(NavigateTime)
@@ -448,7 +441,8 @@ RemoveSingleVein() {
         VeinTotalCount := FindVeinsCount()
         return true
     }
-    if (VeinTotalCount = 6 && PotentialVeins[5].Active = true && LowestPrioritySlot = 5) {
+    if (VeinTotalCount = 6 && PotentialVeins[5].Active = true &&
+        LowestPrioritySlot = 5) {
         Log("Removing slot 5")
         Cancel5.ClickOffset()
         Sleep(NavigateTime)
@@ -456,7 +450,8 @@ RemoveSingleVein() {
         VeinTotalCount := FindVeinsCount()
         return true
     }
-    if (VeinTotalCount = 6 && PotentialVeins[6].Active = true && LowestPrioritySlot = 6) {
+    if (VeinTotalCount = 6 && PotentialVeins[6].Active = true &&
+        LowestPrioritySlot = 6) {
         Log("Removing slot 6")
         Cancel6.ClickOffset()
         Sleep(NavigateTime)
@@ -502,55 +497,36 @@ FindVeinsWithBars() {
             ;
             { Active: false, Quality: "ignored", Priority: 9999 },
             ;
-            { Active: false, Quality: "ignored", Priority: 9999 }
-    ]
+            { Active: false, Quality: "ignored", Priority: 9999 }]
     if (SampleSlot1.GetColour() = "0x6D758D") {
         qualityText1 := VeinQualityColourToText(QualitySlot1.GetColour())
-        results[1] := {
-            Active: true,
-            Quality: qualityText1,
-            Priority: VeinQualityToPriority(qualityText1) - 4
-        }
+        results[1] := { Active: true, Quality: qualityText1, Priority: VeinQualityToPriority(
+            qualityText1) - 4 }
     }
     if (SampleSlot2.GetColour() = "0x6D758D") {
         qualityText2 := VeinQualityColourToText(QualitySlot2.GetColour())
-        results[2] := {
-            Active: true,
-            Quality: qualityText2,
-            Priority: VeinQualityToPriority(qualityText2) - 2
-        }
+        results[2] := { Active: true, Quality: qualityText2, Priority: VeinQualityToPriority(
+            qualityText2) - 2 }
     }
     if (SampleSlot3.GetColour() = "0x6D758D") {
         qualityText3 := VeinQualityColourToText(QualitySlot3.GetColour())
-        results[3] := {
-            Active: true,
-            Quality: qualityText3,
-            Priority: VeinQualityToPriority(qualityText3) - 1
-        }
+        results[3] := { Active: true, Quality: qualityText3, Priority: VeinQualityToPriority(
+            qualityText3) - 1 }
     }
     if (SampleSlot4.GetColour() = "0x6D758D") {
         qualityText4 := VeinQualityColourToText(QualitySlot4.GetColour())
-        results[4] := {
-            Active: true,
-            Quality: qualityText4,
-            Priority: VeinQualityToPriority(qualityText4)
-        }
+        results[4] := { Active: true, Quality: qualityText4, Priority: VeinQualityToPriority(
+            qualityText4) }
     }
     if (SampleSlot5.GetColour() = "0x6D758D") {
         qualityText5 := VeinQualityColourToText(QualitySlot5.GetColour())
-        results[5] := {
-            Active: true,
-            Quality: qualityText5,
-            Priority: VeinQualityToPriority(qualityText5)
-        }
+        results[5] := { Active: true, Quality: qualityText5, Priority: VeinQualityToPriority(
+            qualityText5) }
     }
     if (SampleSlot6.GetColour() = "0x6D758D") {
         qualityText6 := VeinQualityColourToText(QualitySlot6.GetColour())
-        results[6] := {
-            Active: true,
-            Quality: qualityText6,
-            Priority: VeinQualityToPriority(qualityText6)
-        }
+        results[6] := { Active: true, Quality: qualityText6, Priority: VeinQualityToPriority(
+            qualityText6) }
     }
     return results
 }
@@ -644,7 +620,8 @@ FindVeinsLowestPriority(StatusArray) {
 ArrDebug(arr) {
     i := 1
     while (i <= arr.Length) {
-        Log(i " Active " arr[i].Active " Quality " arr[i].Quality " Priority " arr[i].Priority)
+        Log(i " Active " arr[i].Active " Quality " arr[i].Quality " Priority " arr[
+            i].Priority)
         i++
     }
 }

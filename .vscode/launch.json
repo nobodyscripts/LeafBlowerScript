@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "LBR Debug",
+            "type": "autohotkey",
+            "request": "launch",
+            "program": "${workspaceFolder}/LeafBlowerV3.ahk",
+            "args": ["/ErrorStdOut=UTF-8"],
+            "variableCategories": "recommend",
+            "usePerfTips": {
+                "fontColor": "red",
+                "format": "{{elapsedTime_ms}} ms {{hitCount}} hit"
+            },
+            "useDebugDirective": false,
+            "useAutoJumpToError": true,
+            "stopOnEntry": false
+        }
+    ]
+}

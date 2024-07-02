@@ -5,11 +5,11 @@
 global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
 global IsSecondary := true
 
-#Include ../Globals.ahk
-#Include '../Lib/ScriptSettings.ahk'
-#Include '../Lib/Functions.ahk'
-#Include '../Lib/SettingsCheck.ahk'
-#Include '../Lib/Navigate.ahk'
+#Include ..\Lib\hGlobals.ahk
+#Include ..\Lib\ScriptSettings.ahk
+#Include ..\Lib\Functions.ahk
+#Include ..\Lib\SettingsCheck.ahk
+#Include ..\Lib\Navigate.ahk
 #Include ..\Lib\cHotkeysInitGame.ahk
 
 global BossFarmUsesWind := false
@@ -30,8 +30,8 @@ fGFSSBoss() {
             Log("GFSSBoss: Exiting as no game.")
             return
         }
-        if ((IsWindowActive() && IsBossTimerActive()) ||
-            (IsWindowActive() && DateDiff(A_Now, startTime, "Seconds") >= 30)) {
+        if ((IsWindowActive() && IsBossTimerActive()) || (IsWindowActive() &&
+            DateDiff(A_Now, startTime, "Seconds") >= 30)) {
             Gamekeys.TriggerViolin()
             Sleep(ArtifactSleepAmount)
             startTime := A_Now

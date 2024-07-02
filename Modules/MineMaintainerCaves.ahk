@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ../Lib/cPoints.ahk
-#Include ../Lib/cRect.ahk
+#Include <cPoints>
+#Include <cRect>
 
 CavesSinglePass() {
     id := 1

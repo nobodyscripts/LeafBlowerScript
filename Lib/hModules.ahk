@@ -1,0 +1,19 @@
+#Requires AutoHotkey v2.0
+
+#Include ..\Modules\BankDeposit.ahk
+#Include ..\Modules\Borbventure.ahk
+#Include ..\Modules\Cards.ahk
+#Include ..\Modules\CardsBuy.ahk
+#Include ..\Modules\Claw.ahk
+#Include ..\Modules\CursedCheese.ahk
+#Include ..\Modules\FarmGFSS.ahk
+#Include ..\Modules\FarmNatureBoss.ahk
+#Include ..\Modules\FarmNormalBoss.ahk
+#Include ..\Modules\GemFarm.ahk
+#Include ..\Modules\NatureHyacinth.ahk
+#Include ..\Modules\TowerTimeWarp.ahk
+#Include ..\Modules\TowerFarmPassive.ahk
+#Include ..\Modules\LeaftonTaxi.ahk
+#Include ..\Modules\MineMaintainer.ahk
+#Include ..\Modules\SuitcaseSpam.ahk
+#Include ..\Modules\QuickPrestige.ahk
