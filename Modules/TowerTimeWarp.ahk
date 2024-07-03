@@ -31,7 +31,7 @@ fTimeWarpAndRaiseTower() {
         }
     }
     Travel.OpenAreas()
-    ScrollAmountDown(16) ; Scroll down for the zones
+    Travel.ScrollAmountDown(16) ; Scroll down for the zones
     Sleep(101)
     Log("TowerBoost: Equiping tower loadout")
     GameKeys.EquipTowerGearLoadout() ; Equip Tower set

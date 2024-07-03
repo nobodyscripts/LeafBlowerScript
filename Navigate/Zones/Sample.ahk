@@ -19,8 +19,12 @@ Class Sample extends Zone {
 
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ScrollAmountDown(23, scrolldelay) ; Scroll down for the zones 0xAC816B
+        ;Points.Areas.<Galaxy>.Tab.Click()
+        ;Sleep(delay)
+        ; Scroll down if needed
+        this.ScrollAmountDown(26, scrolldelay) 
         Sleep(delay + extradelay)
+        ; Scanning by leaf
         local SampleLeaf := this.FindSampleZone()
         if (SampleLeaf) {
             this.ClickTravelButton(SampleLeaf, delay + extradelay)
@@ -32,17 +36,20 @@ Class Sample extends Zone {
     }
 
     FindSampleZone() {
-        return Rects.GemFarm.TravelLeafSearch.PixelSearch("0x4A4429")
+        ; Change this if used
+        ;return Rects.<Galaxy>.SampleTravel.PixelSearch("0xFFFFFF")
+        return true
     }
 
     ClickTravelButton(coord, delay) {
         ; Button to travel to Sample
+        ;Button := Points.Areas.<Galaxy>.Sample
         Button := cPoint()
         DebugLog(Button.GetColour() " " Button.IsButton() " " Button.IsButtonActive()
         )
         ; If no button we are misaligned
         if (Button.IsButton()) {
-            ; Set zone to The Infernal Sample (if not already inactive)
+            ; Set zone to Sample (if not already inactive)
             if (Button.IsButtonActive()) {
                 Button.Click(delay)
             }

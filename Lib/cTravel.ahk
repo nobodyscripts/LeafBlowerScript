@@ -11,8 +11,6 @@ global Travel := cTravel()
  * Travel class, contains functions and sub classes for travel to areas, tabs
  * or windows in lbr.
  * @module cTravel
- * @property {Desert} Desert Travel class for Desert
- * @property {CursedHalloween} CursedHalloween Travel class for Cursed Halloween
  * @Private _OpenAny Takes functions and provides the logic for the
  * .Open methods
  * @method ResetAreaScroll Reset scroll state in open panel
@@ -30,16 +28,25 @@ global Travel := cTravel()
  * @method ClosePanel Closes open panel or open settings
  * @method ClosePanelIfActive Closes open panel only if open
  * @method OpenSettings Open settings panel
+ * 
+ * @property {TheInfernalDesert} TheInfernalDesert Travel class for 
+ * TheInfernalDesert
+ * @property {CursedHalloween} CursedHalloween Travel class for Cursed Halloween
+ * <jsdocmarker>
  */
 Class cTravel {
-    ; Travel class for Desert
-    Desert := Desert()
+    ;@region Travel classes definition
+    ; Travel class for TheInfernalDesert
+    TheInfernalDesert := TheInfernalDesert()
 
     ; Travel class for Cursed Halloween
     CursedHalloween := CursedHalloween()
 
     ; Travel class for Mine
     Mine := Mine()
+
+    ; <classmarker>
+    ;@endregion
 
     /**
      * Private func, used as base of Open* funcs to add redundancy
@@ -67,12 +74,16 @@ Class cTravel {
         return active
     }
 
+    ;@region ResetAreaScroll()
     /**
      * Swap tabs to reset scroll state in areas panel
-     * @param {Integer} delay Extra delay to apply to NavigateTime
+     * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      */
     ResetAreaScroll(delay := 0) {
         NavTime := NavigateTime + delay
+        if (NavTime < 72) {
+            NavTime := 72
+        }
         ; Click Favourites
         Points.Areas.Favs.Tab.ClickOffset(, , NavTime)
         Sleep(NavTime)
@@ -83,6 +94,45 @@ Class cTravel {
         Points.Areas.LeafG.Tab.ClickOffset(, , NavTime)
         Sleep(NavTime)
     }
+    ;@endregion
+
+    ;@region ScrollAmountDown()
+    /**
+     * Scroll downwards in a panel by ticks
+     * @param {number} [amount=1] Amount to scroll in ticks of mousewheel
+     * @param {number} [extraDelay=0] Add ms to the sleep timers
+     */
+    ScrollAmountDown(amount := 1, extraDelay := 0) {
+        while (amount > 0) {
+            if (!IsWindowActive() || !IsPanelActive()) {
+                break
+            } Else {
+                ControlClick(, LBRWindowTitle, , "WheelDown")
+                Sleep(NavigateTime + extraDelay)
+                amount--
+            }
+        }
+    }
+    ;@endregion
+
+    ;@region ScrollAmountUp()
+    /**
+     * Scroll upwards in a panel by ticks
+     * @param {number} [amount=1] Amount to scroll in ticks of mousewheel
+     * @param {number} [extraDelay=0] Add ms to the sleep timers
+     */
+    ScrollAmountUp(amount := 1, extraDelay := 0) {
+        while (amount > 0) {
+            if (!IsWindowActive() || !IsPanelActive()) {
+                break
+            } Else {
+                ControlClick(, LBRWindowTitle, , "WheelUp")
+                Sleep(NavigateTime + extraDelay)
+                amount--
+            }
+        }
+    }
+    ;@endregion
 
     /**
      * Open Areas panel, closes others first

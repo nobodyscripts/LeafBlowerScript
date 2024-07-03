@@ -214,7 +214,7 @@ ResetBankScroll() {
         if (!IsWindowActive() || !IsPanelActive() || maxIter <= 1) {
             return
         }
-        ScrollAmountUp(1)
+        Travel.ScrollAmountUp(1)
         maxIter--
     }
 }

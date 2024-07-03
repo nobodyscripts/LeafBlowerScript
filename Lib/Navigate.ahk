@@ -28,42 +28,6 @@ global NavigateTime := 150
 global LBRWindowTitle
 
 /**
- * Scroll downwards in a panel by ticks
- * @param {number} amount (optional): default 1, amount to scroll in ticks
- * of mousewheel
- * @param {number} extraDelay (optional): add ms to the sleep timers
- */
-ScrollAmountDown(amount := 1, extraDelay := 0) {
-    while (amount > 0) {
-        if (!IsWindowActive() || !IsPanelActive()) {
-            break
-        } Else {
-            ControlClick(, LBRWindowTitle, , "WheelDown")
-            Sleep(NavigateTime + extraDelay)
-            amount--
-        }
-    }
-}
-
-/**
- * Scroll upwards in a panel by ticks
- * @param {number} amount (optional): default 1, amount to scroll in ticks
- * of mousewheel
- * @param {number} extraDelay (optional): add ms to the sleep timers
- */
-ScrollAmountUp(amount := 1, extraDelay := 0) {
-    while (amount > 0) {
-        if (!IsWindowActive() || !IsPanelActive()) {
-            break
-        } Else {
-            ControlClick(, LBRWindowTitle, , "WheelUp")
-            Sleep(NavigateTime + extraDelay)
-            amount--
-        }
-    }
-}
-
-/**
  * Opens the areas panel, events tab
  * @param {number} extraDelay (optional): add ms to the sleep timers
  */
@@ -101,7 +65,7 @@ OpenQuarkPanel(extraDelay := 0) {
         Points.Areas.QuarkA.Tab.ClickOffset(, , NavigateTime + extraDelay)
         Sleep(NavigateTime + extraDelay)
 
-        ScrollAmountUp(2)
+        Travel.ScrollAmountUp(2)
         Sleep(NavigateTime + extraDelay)
         return true
     } else {
@@ -227,7 +191,7 @@ GoToSS() {
             Log("Traveling to Flame Universe (Soulseeker)")
             ; TODO Replace below with travel and move to Points
             GoToAreaFireFieldsTab()
-            ScrollAmountDown(2, NavigateTime)
+            Travel.ScrollAmountDown(2, NavigateTime)
             fSlowClickRelL(1680, 988, NavigateTime) ; Open Flame Universe (SS zone)
             if (NavigateTime > 201) { ; Need a longer delay to load the slower map
                 sleep(NavigateTime)
@@ -245,7 +209,7 @@ GoToSS() {
             " with slowed times.")
         ; TODO Replace below with travel and move to Points
         GoToAreaFireFieldsTab(200)
-        ScrollAmountDown(2, NavigateTime + 200)
+        Travel.ScrollAmountDown(2, NavigateTime + 200)
         fSlowClickRelL(1680, 988, NavigateTime + 200) ; Open Flame Universe (SS zone)
         Sleep(NavigateTime + 200)
         if (DisableZoneChecks) {
@@ -738,7 +702,7 @@ SingleAnteLeaftonTravel(extradelay := 0) {
     Log("Traveling to Ante Leafton")
     Travel.ClosePanelIfActive()
     OpenQuarkPanel(extradelay)
-    ScrollAmountDown(2)
+    Travel.ScrollAmountDown(2)
     button := Points.Areas.QuarkA.AnteLeafton
     button2 := Points.Areas.QuarkA.AnteLeafton2
     if (button.IsButtonActive()) {
@@ -899,7 +863,7 @@ BVResetScroll() {
 
 GoToLeafTower() {
     Travel.OpenAreas()
-    ScrollAmountDown(16) ; Scroll down for the zones
+    Travel.ScrollAmountDown(16) ; Scroll down for the zones
     Sleep(101)
 
     ; Leaf pixel search

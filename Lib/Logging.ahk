@@ -69,5 +69,23 @@ VerboseLog(logmessage) {
         Return
     }
     logmessage := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) " Verbose: " logmessage '`r`n'
-    OutputDebug( logmessage)
+    OutputDebug(logmessage)
+}
+
+/**
+ * Log error information and stack
+ * @param {Error} error 
+ */
+ErrorLog(error) {
+    DebugLog("Error:" error.Message "`n ErrorExtra: " error.Extra "`nStack: " Error().Stack)
+}
+
+/**
+ * Log callstack for Deprecated functions that need removal to be located
+ */
+Deprecated() {
+    if (!Debug) {
+        Return
+    }
+    DebugLog("Deprecated:" Error().Stack)
 }

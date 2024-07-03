@@ -5,11 +5,11 @@
 #Include ..\..\Lib\cTravel.ahk
 
 /**
- * Desert class for zone travel
+ * TheInfernalDesert class for zone travel
  * @extends Zone
  * @memberof module:cTravel
  */
-Class Desert extends Zone {
+Class TheInfernalDesert extends Zone {
     ; The name of the zone for display purposes
     Name := "The Infernal Desert"
     ; The colour of the sample pixel for the zone
@@ -19,13 +19,13 @@ Class Desert extends Zone {
 
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ScrollAmountDown(23, scrolldelay) ; Scroll down for the zones 0xAC816B
+        this.ScrollAmountDown(23, scrolldelay) ; Scroll down for the zones 0xAC816B
         Sleep(delay + extradelay)
         local DesertLeaf := this.FindDesertZone()
         if (DesertLeaf) {
             this.ClickTravelButton(DesertLeaf, delay + extradelay)
         } else {
-            Log("Desert leaf not found while trying to travel.")
+            Log("The Infernal Desert marker leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -36,7 +36,7 @@ Class Desert extends Zone {
     }
 
     ClickTravelButton(coord, delay) {
-        ; Button to travel to desert
+        ; Button to travel to The Infernal Desert
         Button := cPoint(
             coord[1] + WinRelPosLargeW(225),
             coord[2] + WinRelPosLargeH(5), false)
@@ -48,7 +48,7 @@ Class Desert extends Zone {
                 Button.Click(delay)
             }
         } else {
-            Log("Desert travel: Button not found.")
+            Log("The Infernal Desert travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

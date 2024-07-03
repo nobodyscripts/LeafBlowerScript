@@ -53,7 +53,13 @@ IsWindowActive() {
 GameWindowExist() {
     global X, Y, W, H
     if (WinExist(LBRWindowTitle)) {
-        WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
+        try {
+            WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
+        } catch (error) {
+            Log("Game window lost")
+            ErrorLog(error)
+            return false
+        }
         return true
     }
     X := Y := W := H := 0

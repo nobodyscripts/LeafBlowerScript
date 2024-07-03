@@ -3,25 +3,39 @@
 #Include Navigate.ahk
 #Include SettingsCheck.ahk
 #Include cColours.ahk
+#Include cTravel.ahk
 
 /**
  * Base zone travel object
  * @property {String} Name The name of the zone for display purposes
  * @property {String} AreaColour The colour of the sample pixel for the zone
- * @property {Bool} BossTimer Require boss timer (or not) to match for success
+ * @property {Boolean} BossTimer Require boss timer (or not) to match for success
+ * @function GoTo Go to the zone defined in the extended version of this class
  */
 Class Zone {
-    ; The name of the zone for display purposes
+    ;@region Properties
+    /**
+     * The name of the zone for display purposes
+     * @type {String} 
+     */
     Name := ""
-    ; The colour of the sample pixel for the zone
+    /**
+     * The colour of the sample pixel for the zone
+     * @type {String} 
+     */
     ZoneColour := ""
-    ; Require boss timer (or not) to match for success
+    /**
+     * Require boss timer (or not) to match for success
+     * @type {Boolean} 
+     */
     BossTimer := false
-
+    ;@endregion
+    
+    ;@region GoTo()
     /**
      * Go to the zone base function, uses other functions in class to modifiy
      * target zone (don't use base Zone class directly)
-     * @returns {Bool} 
+     * @returns {Boolean} True if travel success, false if travel failed
      */
     GoTo() {
         if (!IsWindowActive()) {
@@ -66,12 +80,14 @@ Class Zone {
             }
         }
     }
+    ;@endregion
 
+    ;@region Placeholders
     /**
      * Blank function contains the code in extend to attempt one pass at travel
      * @param delay 
-     * @param {Integer} scrolldelay 
-     * @param {Integer} extradelay 
+     * @param {Integer} [scrolldelay=0] 
+     * @param {Integer} [extradelay=0] 
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
     }
@@ -83,11 +99,13 @@ Class Zone {
      */
     ClickTravelButton(coord, delay) {
     }
+    ;@endregion
 
+    ;@region IsZoneColour()
     /**
      * Checks if zone is currently set to the zone required based on 
      * this.AreaColour
-     * @returns {Integer} 
+     * @returns {Boolean} 
      */
     IsZoneColour() {
         sampleColour := this.GetZoneColour()
@@ -98,7 +116,9 @@ Class Zone {
         DebugLog("IsZoneColour: Not in target zone, colour: " sampleColour)
         return false
     }
+    ;@endregion
 
+    ;@region GetZoneColour()
     /**
      * Get current zone colour sample to know what zone player is currently in
      * @returns {String} 
@@ -106,7 +126,9 @@ Class Zone {
     GetZoneColour() {
         return Points.ZoneSample.GetColour()
     }
+    ;@endregion
 
+    ;@region GetColourByName()
     /**
      * Gets the colour the game needs to return to confirm current zone
      * @param name Full name string of zone found in ZoneColours
@@ -115,60 +137,37 @@ Class Zone {
     GetColourByName(name) {
         return Colours().GetColourByZone(name)
     }
+    ;@endregion
 
+    ;@region ResetAreaScroll()
     /**
      * Swap tabs to reset scroll state in areas panel
-     * @param {Integer} delay Extra delay to apply to NavigateTime
+     * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      */
     ResetAreaScroll(delay := 0) {
-        NavTime := NavigateTime + delay
-        if (NavTime < 72) {
-            NavTime := 72
-        }
-        ; Click Favourites
-        Points.Areas.Favs.Tab.ClickOffset(, , NavTime)
-        Sleep(NavTime)
-        ; Click Back to default page to reset the scroll
-        Points.Areas.LeafG.Tab.ClickOffset(, , NavTime)
-        Sleep(NavTime)
-        ; Double click for redundancy
-        Points.Areas.LeafG.Tab.ClickOffset(, , NavTime)
-        Sleep(NavTime)
+        Travel.ResetAreaScroll(delay)
     }
+    ;@endregion
 
+    ;@region ScrollAmountDown()
     /**
      * Scroll downwards in a panel by ticks
-     * @param {number} amount (optional): default 1, amount to scroll in ticks
-     * of mousewheel
-     * @param {number} extraDelay (optional): add ms to the sleep timers
+     * @param {number} [amount=1] Amount to scroll in ticks of mousewheel
+     * @param {number} [extraDelay=0] Add ms to the sleep timers
      */
     ScrollAmountDown(amount := 1, extraDelay := 0) {
-        while (amount > 0) {
-            if (!IsWindowActive() || !IsPanelActive()) {
-                break
-            } Else {
-                ControlClick(, LBRWindowTitle, , "WheelDown")
-                Sleep(NavigateTime + extraDelay)
-                amount--
-            }
-        }
+        Travel.ScrollAmountDown(amount, extraDelay)
     }
+    ;@endregion
 
+    ;@region ScrollAmountUp()
     /**
      * Scroll upwards in a panel by ticks
-     * @param {number} amount (optional): default 1, amount to scroll in ticks
-     * of mousewheel
-     * @param {number} extraDelay (optional): add ms to the sleep timers
+     * @param {number} [amount=1] Amount to scroll in ticks of mousewheel
+     * @param {number} [extraDelay=0] Add ms to the sleep timers
      */
     ScrollAmountUp(amount := 1, extraDelay := 0) {
-        while (amount > 0) {
-            if (!IsWindowActive() || !IsPanelActive()) {
-                break
-            } Else {
-                ControlClick(, LBRWindowTitle, , "WheelUp")
-                Sleep(NavigateTime + extraDelay)
-                amount--
-            }
-        }
+        Travel.ScrollAmountUp(amount, extraDelay)
     }
+    ;@endregion
 }

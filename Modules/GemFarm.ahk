@@ -17,12 +17,12 @@ fGemFarmSuitcase() {
     NotifArrow := Points.Misc.NotifArrow
     AutoRefreshToggle := Points.GemFarm.AutoRefreshToggle
 
-    if (!Travel.Desert.GoTo()) {
+    if (!Travel.TheInfernalDesert.GoTo()) {
         if (Debug) {
-            MsgBox("GemFarm: Could not find desert area. Aborted travel.")
+            MsgBox("GemFarm: Could not find The Infernal Desert area. Aborted travel.")
         }
-        Log("GemFarm: Could not find desert area. Aborted travel.")
-        ToolTip("Could not find desert area`nUse F4 to finish",
+        Log("GemFarm: Could not find The Infernal Desert area. Aborted travel.")
+        ToolTip("Could not find The Infernal Desert area`nUse F4 to finish",
             W / 2 - WinRelPosLargeW(100),
             H / 2, 3)
         return
@@ -78,7 +78,7 @@ fGemFarmSuitcase() {
         Travel.OpenTrades()
         sleep(NavigateTime)
     }
-    ScrollAmountUp(6)
+    Travel.ScrollAmountUp(6)
     sleep(NavigateTime)
     ; Detailed mode check, we need it off for alignment of fill trades
     TradesDetailedModeOldState := IsTradeDetailedModeOn()

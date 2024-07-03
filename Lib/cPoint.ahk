@@ -19,7 +19,6 @@ global Debug := false
  * cPoint(1, 10) ; Returns cPoint class
  * @example
  * cPoint(1, 10, false) ; Returns cPoint class with non relative coords
- * @constructor
  * @class
  * @public
  * @argument {Integer} x X value (output depends on .relative)

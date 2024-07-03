@@ -88,6 +88,7 @@ Class Colours {
         "Energy Singularity", "0x1A1A31", ;
         "Fire Fields Portal", "0x1F1509", ;
         "The Shadow Cavern", "0x260000", ;
+        "The Coal Mine", "0xFFFFFF", ; TODO Get actual colour for this new zone
         "Mount Moltenfurty", "0x841E11", ;
         "The Fire Temple", "0x291F31", ;
         "Flame Brazier", "0x121328", ;
@@ -97,8 +98,9 @@ Class Colours {
         "Soul Crypt", "0x1C1C31", ;
         "The Hollow", "0x170F24", ;
         "Soul Forge", "0x02030D", ;
-        "The Fabric of the Leafverse", "0x110B1B", ;
         "Quark Portal", "0x000000", ; (non unique)
+        "The Fabric of the Leafverse", "0x110B1B", ;
+        "Primordial Ethos", "0xFFFFFF", ; TODO Get actual colour for this new zone
         "Quark Nexus", "0x00000A", ;
         "Quantum Aether", "0x131119", ;
         "Astral Oasis", "0x000108", ;
