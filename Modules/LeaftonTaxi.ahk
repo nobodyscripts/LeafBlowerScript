@@ -126,6 +126,7 @@ LeaftonTaxiSinglePass() {
     if (IsAreaBlack() && IsBossTimerActive()) {
         Travel.ClosePanelIfActive()
         if (!startCoord.IsBackground()) {
+            VerboseLog("Center Click")
             centerCoord.Click()
         }
         Sleep(NavigateTime)
@@ -134,5 +135,6 @@ LeaftonTaxiSinglePass() {
             startCoord.Click()
             Sleep(NavigateTime)
         }
+        Travel.ClosePanelIfActive()
     }
 }
