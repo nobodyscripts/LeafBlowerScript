@@ -2,6 +2,7 @@
 
 global SpammerPID := 0
 global CardsBuyEnabled := false
+global CardsBossFarmEnabled := false
 
 fFarmNormalBoss(modecheck) {
     global on9

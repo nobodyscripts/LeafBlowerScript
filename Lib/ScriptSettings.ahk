@@ -3,6 +3,7 @@
 ; ------------------- Settings -------------------
 ; Loads UserSettings.ini values for the rest of the script to use
 
+;@region Globals definition
 global EnableLogging := Debug := false
 global DisableZoneChecks := DisableSettingsChecks := false
 
@@ -48,15 +49,46 @@ global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
     MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
     MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia
 Global MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime
+;@endregion
 
 class singleSetting {
+    /**
+     * Name of the setting and global var name
+     * @type {String} 
+     */
     Name := ""
+    /**
+     * Default value for non developers
+     * @type {String | Integer | Any} 
+     */
     DefaultValue := 0
+    /**
+     * Default value for developer
+     * @type {String | Integer | Any} 
+     */
     NobodyDefaultValue := 0
+    /**
+     * Internal custom datatype string
+     * @type {String} 
+     */
     DataType := "bool"
+    /**
+     * Ini file category heading
+     * @type {String} 
+     */
     Category := "Default"
-    globalvar := 0
 
+    /**
+     * Constructs class and provides object back, has defaults for all except 
+     * iName
+     * @constructor
+     * @param iName Name of the setting and global var
+     * @param {Integer} iDefaultValue Default value set in script
+     * @param {Integer} iNobodyDefaultValue Default value set for developer
+     * @param {String} [iDataType="bool"] Internal custom datatype
+     * @param {String} [iCategory="Default"] Ini file section heading name
+     * @returns {singleSetting} Returns (this)
+     */
     __New(iName, iDefaultValue := 0, iNobodyDefaultValue := 0, iDataType :=
         "bool", iCategory := "Default") {
         this.Name := iName
@@ -67,6 +99,12 @@ class singleSetting {
         return this
     }
 
+    
+    /**
+     * Convert value to file writable string
+     * @param {Any} value Defaults to getting value of the global variable
+     * @returns {String | Integer | Any} 
+     */
     ValueToString(value := %this.Name%) {
         switch (StrLower(this.DataType)) {
             case "bool":
@@ -104,7 +142,7 @@ class cSettings {
      * @type {Boolean}
      */
     sUseNobody := false
-    /** 
+    /**
      * Map to store singleSettings objects per global var name
      * @type {Map<string, singleSetting>}
      */
@@ -331,6 +369,11 @@ class cSettings {
         }
     }
 
+    /**
+     * Load script settings into global vars, runs UpdateSettings first to add
+     * missing settings rather than reset to defaults if some settings exist
+     * @returns {Boolean} False if error
+     */
     loadSettings() {
         ;@region Globals
         global EnableLogging := false
@@ -385,13 +428,14 @@ class cSettings {
         for (setting in this.Map) {
             try {
                 if (this.Map[setting].Name != "BVItemsArr") {
-                    %this.Map[setting].Name% := IniToVar(this.sFilename, this.Map[
-                        setting].Category, this.Map[setting].Name)
+                    %this.Map[setting].Name% := ;
+                        this.IniToVar(this.Map[setting].Name, this.Map[setting]
+                            .Category)
                 } else {
                     ; special handling for the bv array
-                    %this.Map[setting].Name% := CommaDelimStrToArr(IniToVar(
-                        this.sFilename, this.Map[setting].Category, this.Map[
-                            setting].Name))
+                    %this.Map[setting].Name% := CommaDelimStrToArr( ;
+                        this.IniToVar(this.Map[setting].Name, this.Map[setting]
+                            .Category))
                 }
             } catch as exc {
                 if (exc.Extra) {
@@ -400,9 +444,8 @@ class cSettings {
                 } else {
                     Log("Error 35: LoadSettings failed - " exc.Message)
                 }
-                MsgBox(
-                    "Could not load all settings, making new default UserSettings.ini"
-                )
+                MsgBox("Could not load all settings, making new default " .
+                    "UserSettings.ini")
                 Log("Attempting to write a new default UserSettings.ini.")
                 this.WriteDefaults(this.sUseNobody)
                 return false
@@ -411,11 +454,14 @@ class cSettings {
         return true
     }
 
+    /**
+     * Adds missing settings using defaults if some settings don't exist
+     */
     UpdateSettings() {
         for (setting in this.Map) {
             try {
-                test := IniToVar(this.sFilename, this.Map[setting].Category,
-                    this.Map[setting].Name)
+                test := this.IniToVar(this.Map[setting].Name, this.Map[setting]
+                    .Category)
             } catch {
                 if (!this.sUseNobody) {
                     this.WriteToIni(this.Map[setting].Name, this.Map[setting].ValueToString(
@@ -430,10 +476,10 @@ class cSettings {
         }
     }
 
-    WriteToIni(key, value, section := this.sFileSection) {
-        IniWrite(value, this.sFilename, section, key)
-    }
-
+    /**
+     * Write default settings to ini file, does not wipe other removed settings
+     * @param isnobody Flag for developer default settings
+     */
     WriteDefaults(isnobody) {
         if (isnobody) {
             for (setting in this.Map) {
@@ -450,22 +496,43 @@ class cSettings {
         }
     }
 
+    /**
+     * Save current Map to ini file converting to format safe for storage
+     */
     SaveCurrentSettings() {
         for (setting in this.Map) {
-            this.WriteToIni(this.Map[setting].Name, this.Map[setting].ValueToString(),
-                this.Map[setting].Category)
+            this.WriteToIni(this.Map[setting].Name, ;
+                this.Map[setting].ValueToString(), this.Map[setting].Category)
         }
     }
-}
 
-IniToVar(file, section, name) {
-    var := IniRead(file, section, name)
-    switch var {
-        case "true":
-            return true
-        case "false":
-            return false
-        default:
-            return var
+    /**
+     * Write (key, value) to ini file within (section) heading
+     * @param key Name of setting
+     * @param value Value of setting
+     * @param {String} [section="Default"] 
+     */
+    WriteToIni(key, value, section := this.sFileSection) {
+        IniWrite(value, this.sFilename, section, key)
+    }
+
+    /**
+     * Reads ini value for (name) in (section) from (file) and returns as 
+     * string or Boolean
+     * @param name 
+     * @param {String} section 
+     * @param {String} file 
+     * @returns {Integer | String} 
+     */
+    IniToVar(name, section := this.sFileSection, file := this.sFilename) {
+        var := IniRead(file, section, name)
+        switch var {
+            case "true":
+                return true
+            case "false":
+                return false
+            default:
+                return var
+        }
     }
 }

@@ -3,7 +3,7 @@
 #SingleInstance Force
 
 /**
- * 
+ * Main script file, run this to activate gui and hotkeys
  */
 
 ; Applying these first incase self run functions in includes require them

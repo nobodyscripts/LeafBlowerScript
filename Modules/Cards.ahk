@@ -20,7 +20,6 @@ global CardsSleepBuyAmount := 150
 global CardsGreedyOpen := false
 global CardsGreedyBuy := false
 
-
 fOpenCardLoop() {
     global HadToHideNotifs, W, H, X, Y
 

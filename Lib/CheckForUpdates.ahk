@@ -4,12 +4,22 @@
 #Include ScriptSettings.ahk
 #Include Logging.ahk
 
+/** @type {Boolean} */
 global CheckForUpdatesEnable := true
+/** @type {Boolean} */
 global CheckForUpdatesReleaseOnly := true
+/** @type {DateTime} */
 global CheckForUpdatesLastCheck := 0
-global CheckForUpdatesInterval := 30 * 60 * 60 * 1000 ; every 30mins check time (unused)
-global CheckForUpdatesLimiter := 24 ; Limit to check once every 24 hours
-
+/**
+ * 30 mins in ms, check time (unused)
+ * @type {Integer}
+ */
+global CheckForUpdatesInterval := 30 * 60 * 60 * 1000
+/**
+ * Limit to check once every 24 hours
+ * @type {Integer} "24"
+ */
+global CheckForUpdatesLimiter := 24 
 /** @type {UpdateChecker} */
 global Updater := UpdateChecker()
 
@@ -181,7 +191,8 @@ class UpdateChecker {
         localVer.SetByJson(localjson)
         webVer := ScriptVersion()
         webVer.SetByJson(webjson)
-        comparison := CompareScriptVersions(localVer, webVer, this.ReleasesOnly)
+        comparison := CompareScriptVersions(localVer, webVer, this.ReleasesOnly
+        )
         if (this.ReleasesOnly && comparison = -1) {
             this.IsNewRelease := true
         }
@@ -195,20 +206,24 @@ class UpdateChecker {
             if (FileExist(this.CurrentJsonFile)) {
                 filecontents := FileRead(this.CurrentJsonFile)
             } else {
-                Log("Error: Version file not found at " this.CurrentJsonFile "`r`n")
-                MsgBox("Error: Version file not found at " this.CurrentJsonFile)
+                Log("Error: Version file not found at " this.CurrentJsonFile "`r`n"
+                )
+                MsgBox("Error: Version file not found at " this.CurrentJsonFile
+                )
                 return false
             }
         } catch as exc {
-            Log("Error: Error opening version file " this.CurrentJsonFile " - " exc.Message "`r`n")
-            MsgBox("Error: Error opening version file " this.CurrentJsonFile " - " exc.Message)
+            Log("Error: Error opening version file " this.CurrentJsonFile " - " exc
+                .Message "`r`n")
+            MsgBox("Error: Error opening version file " this.CurrentJsonFile " - " exc
+                .Message)
             return false
         }
         if (!filecontents) {
             Log("Error: No version file found in " this.CurrentJsonFile)
             return false
         }
-        
+
         Log("Local:`r`n" filecontents)
         return jsongo.Parse(filecontents)
     }
@@ -216,23 +231,28 @@ class UpdateChecker {
     GetWebJson() {
         try {
             whr := ComObject("WinHttp.WinHttpRequest.5.1")
-            whr.Open("GET", "https://raw.githubusercontent.com/nobodyscripts/LeafBlowerScript/main/Version.json", true)
+            whr.Open("GET",
+                "https://raw.githubusercontent.com/nobodyscripts/LeafBlowerScript/main/Version.json",
+                true)
             whr.Send()
             ; Using 'true' above and the call below allows the script to remain responsive.
             whr.WaitForResponse()
             Log("Remote:`r`n" whr.ResponseText)
             return jsongo.Parse(whr.ResponseText)
         } catch as exc {
-            Log("CheckForUpdates: GetWebJson, Error fetching version.json - " exc.Message "`r`n")
-            MsgBox("CheckForUpdates: GetWebJson, Error fetching version.json:`n" exc.Message)
+            Log("CheckForUpdates: GetWebJson, Error fetching version.json - " exc
+                .Message "`r`n")
+            MsgBox(
+                "CheckForUpdates: GetWebJson, Error fetching version.json:`n" exc
+                .Message)
             return false
         }
     }
 
     isUpdateCheckTimePassed() {
         global CheckForUpdatesLastCheck, CheckForUpdatesLimiter
-        if (this.LastCheckTime = 0 ||
-            DateDiff(this.LastCheckTime, A_Now, "Hours") >= CheckForUpdatesLimiter) {
+        if (this.LastCheckTime = 0 || DateDiff(this.LastCheckTime, A_Now,
+            "Hours") >= CheckForUpdatesLimiter) {
             CheckForUpdatesLastCheck := this.LastCheckTime := A_Now
 
             this.SaveCheckTime()
