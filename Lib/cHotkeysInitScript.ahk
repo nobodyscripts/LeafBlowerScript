@@ -12,6 +12,8 @@
 /** @type {cHotkeys} */
 global Scriptkeys := cHotkeys()
 
+Scriptkeys.IsScriptHotkeys := true
+
 ScriptKeys.sFilename := A_ScriptDir "\ScriptHotkeys.ini"
 
 Scriptkeys.Hotkeys["Exit"] := cHotkey(

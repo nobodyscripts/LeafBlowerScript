@@ -5,6 +5,7 @@
 global LBRWindowTitle
 
 Class cHotkeysGames extends cHotkeys {
+    IsGameHotkeys := true
     OpenAreas() {
         ControlSend("{" this.GetHotkey("OpenAreas") "}", , LBRWindowTitle)
     }

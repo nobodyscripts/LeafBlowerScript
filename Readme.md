@@ -209,6 +209,7 @@ Settings added to General Settings and 3 settings added to ini.
   - Added some checks on libs when loaded in a secondary script
   - Added individual settings update when script gains new settings instead of
   reset all to default
+  - Fix secondary scripts writing ScriptHotkey.ini contents to UserHotkey.ini
 
 - Hotkeys
   - Added new systems to handle both the hotkeys for ingame and the script.

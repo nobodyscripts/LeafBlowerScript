@@ -9,25 +9,30 @@
 class cHotkeys {
     sFilename := A_ScriptDir "\UserHotkeys.ini"
     sFileSection := "Default"
+    IsGameHotkeys := false
+    IsScriptHotkeys := false
     Hotkeys := Map()
 
     initHotkeys(secondary := false) {
         if (!secondary) {
             if (!FileExist(this.sFilename)) {
-                OutputDebug("No UserHotkeys.ini found, writing default file.`r`n")
-                Log("No UserHotkeys.ini found, writing default file.")
+                Log("No " this.sFilename " found, writing default file.")
                 this.WriteHotkeyDefaults()
             }
             if (this.loadHotkeys()) {
-                Log("Loaded Hotkeys.")
+                Log("Loaded " this.sFilename ".")
             } else {
                 return false
             }
             return true
         } else {
-            this.sFilename := A_ScriptDir "\..\UserHotkeys.ini"
+            if (this.IsScriptHotkeys) {
+                this.sFilename := A_ScriptDir "\..\ScriptHotkeys.ini"
+            } else if (this.IsGameHotkeys) {
+                this.sFilename := A_ScriptDir "\..\UserHotkeys.ini"
+            }
             if (this.loadHotkeys()) {
-                Log("Loaded Hotkeys.")
+                Log("Loaded " this.sFilename ".")
             } else {
                 return false
             }
@@ -46,16 +51,19 @@ class cHotkeys {
                 if (loaded) {
                     this.Hotkeys[Key].SetValue(loaded)
                 } else {
-                    this.Hotkeys[Key].SetValue(this.Hotkeys[key].GetDefaultValue())
+                    this.Hotkeys[Key].SetValue(this.Hotkeys[key].GetDefaultValue()
+                    )
                 }
             } catch as exc {
                 if (exc.Extra) {
-                    Log("Error 35: LoadHotkeys failed - " exc.Message "`n" exc.Extra)
+                    MsgBox("Error 35: LoadHotkeys failed - " exc.Message "`n" exc
+                        .Extra)
                 } else {
                     Log("Error 35: LoadHotkeys failed - " exc.Message)
                 }
-                MsgBox("Could not load all Hotkeys, making new default UserHotkeys.ini")
-                Log("Attempting to write a new default UserHotkeys.ini.")
+                MsgBox("Could not load all Hotkeys, making new default " this.sFilename
+                )
+                Log("Attempting to write a new default " this.sFilename ".")
                 this.WriteHotkeyDefaults()
                 return false
             }
@@ -104,8 +112,7 @@ class cHotkeys {
         Log("Writing new default hotkeys file.")
 
         for (Key in this.Hotkeys) {
-            this.WriteToIni(this.Hotkeys[Key].Name,
-                this.Hotkeys[Key].GetDefaultValue(),
+            this.WriteToIni(this.Hotkeys[Key].Name, this.Hotkeys[Key].GetDefaultValue(),
                 this.Hotkeys[Key].Category)
 
         }
@@ -114,19 +121,17 @@ class cHotkeys {
     ToString() {
         text := "Logging hotkeys:`r`n"
         for (Key in this.Hotkeys) {
-            text := text "Name: " this.Hotkeys[Key].Name " "
-                . "Default:" this.Hotkeys[Key].GetDefaultValue() " "
-                . "Value:" this.Hotkeys[Key].GetValue() " "
-                . "Cat: " this.Hotkeys[Key].Category "`r`n"
+            text := text "Name: " this.Hotkeys[Key].Name " " . "Default:" this.Hotkeys[
+                Key].GetDefaultValue() " " . "Value:" this.Hotkeys[Key].GetValue() " " .
+                "Cat: " this.Hotkeys[Key].Category "`r`n"
         }
         return text
     }
 
     SaveCurrentHotkeys() {
         for (Key in this.Hotkeys) {
-            this.WriteToIni(this.Hotkeys[Key].Name,
-                this.GetHotkey(Key),
-                this.Hotkeys[Key].Category)
+            this.WriteToIni(this.Hotkeys[Key].Name, this.GetHotkey(Key), this.Hotkeys[
+                Key].Category)
         }
     }
 
