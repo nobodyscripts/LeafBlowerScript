@@ -9,6 +9,7 @@
 
 global ScriptsLogFile := A_ScriptDir "\GemAlert.Log"
 global NavigateTime := 150
+global IsSecondary := false
 
 GemAlert()
 

@@ -4,6 +4,7 @@
 #Include TAS\cGameController.ahk
 
 global ScriptsLogFile := A_ScriptDir "\TAS.Log"
+global IsSecondary := false
 
 if (WinExist(LBRWindowTitle)) {
     if (!WinActive(LBRWindowTitle)) {

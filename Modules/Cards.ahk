@@ -197,7 +197,6 @@ CardOpenerRel(quality, offset, amount) {
 
 ; Seperate buyer to have faster turnover
 CardBuyerRel(quality, offset, amount) {
-    global Debug
     offset := WinRelPosLargeH(offset)
     switch quality {
         case 1:
