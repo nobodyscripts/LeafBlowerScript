@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0
 
+global SpammerPID := 0
 global WindSpammerPID := 0
 global TowerPassiveSpammerPID := 0
+global GFSSSpammerPID := 0
 
 NormalBossSpammerStart() {
     global SpammerPID
