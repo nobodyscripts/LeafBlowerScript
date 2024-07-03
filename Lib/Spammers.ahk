@@ -92,16 +92,16 @@ KillTowerPassiveSpammer() {
 
 
 GFSSBossSpammerStart() {
-    global SpammerPID
+    global GFSSSpammerPID
     if (IsWindowActive()) {
         Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\GFSSBoss.ahk"',
             , , &OutPid)
-        SpammerPID := OutPid
+            GFSSSpammerPID := OutPid
     }
 }
 
 IsGFSSSpammerActive() {
-    if ((SpammerPID && ProcessExist(SpammerPID)) ||
+    if ((GFSSSpammerPID && ProcessExist(GFSSSpammerPID)) ||
         WinExist(A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey")) {
         return true
     }
@@ -109,8 +109,8 @@ IsGFSSSpammerActive() {
 }
 
 KillGFSSSpammer() {
-    if (SpammerPID && ProcessExist(SpammerPID)) {
-        ProcessClose(SpammerPID)
+    if (GFSSSpammerPID && ProcessExist(GFSSSpammerPID)) {
+        ProcessClose(GFSSSpammerPID)
         Log("Closed GFSSBoss.ahk using pid.")
     } else {
         if (WinExist(A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey")) {
