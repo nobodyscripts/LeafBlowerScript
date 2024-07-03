@@ -174,24 +174,25 @@ fMineMaintainer() {
         ;@endregion
 
         ;@region Sphere
-        if ((Firstpass && MinerEnableSphereUse && IsPanelActive()) || (
-            IsWindowActive() && IsPanelActive() && DateDiff(A_Now, SphereTime,
-                "Seconds") >= MinerSphereTimer * 60 && MinerEnableSphereUse)) {
-            SphereTime := A_Now
-            i := 1
-            while (!Travel.Mine.IsOnTabDrill() || i >= 10 || !IsPanelActive()) {
-                DrillTab.Click(NavigateTime)
-                Sleep(NavigateTime)
-                i++
-            }
-            if (Travel.Mine.IsOnTabDrill()) {
-                Sleep(NavigateTime)
-                Log("Mine: Using spheres.")
-                UseDrillSphereLoop()
-                Sleep(NavigateTime)
-                ResetModifierKeys()
-            } else {
-                Log("Mine: Drill tab click failed")
+        if (IsWindowActive() && IsPanelActive() && MinerEnableSphereUse) {
+            if (Firstpass || DateDiff(A_Now, SphereTime, "Seconds") >=
+                MinerSphereTimer * 60) {
+                SphereTime := A_Now
+                i := 1
+                while (!Travel.Mine.IsOnTabDrill() && i <= 10) {
+                    DrillTab.Click(NavigateTime)
+                    Sleep(NavigateTime)
+                    i++
+                }
+                if (Travel.Mine.IsOnTabDrill()) {
+                    Sleep(NavigateTime)
+                    Log("Mine: Using spheres.")
+                    UseDrillSphereLoop()
+                    Sleep(NavigateTime)
+                    ResetModifierKeys()
+                } else {
+                    Log("Mine: Drill tab click failed")
+                }
             }
         }
         ;@endregion
@@ -321,16 +322,23 @@ CollectFreeDrillFuel() {
 }
 
 UseDrillSphereLoop() {
+    /**
+     * @type {cPoint} SphereButton
+     */
     SphereButton := Points.Mine.CoalSphere
+
+    /**
+     * @type {cPoint} tempCount
+     */
     tempCount := MinerSphereCount
 
     if (MinerSphereCount > 0) {
-        while (IsWindowActive() && IsPanelActive() && SphereButton.IsButtonActive() &&
-            tempCount > 0) {
+        while (IsWindowActive() && IsPanelActive() && ;
+            SphereButton.IsButtonActive() && tempCount > 0) {
             if (MinerSphereModifier > 1) {
                 ; limited count, with modifier
                 AmountToModifier(MinerSphereModifier)
-                Sleep(34)
+                Sleep(72)
                 SphereButton.ClickOffset()
                 Sleep(MinerSphereDelay)
             } else {
@@ -343,8 +351,8 @@ UseDrillSphereLoop() {
     } else {
         if (!MinerSphereGreedyUse) {
             ; Inf use, no greedy
-            while (IsWindowActive() && IsPanelActive() && SphereButton.IsButtonActive()
-            ) {
+            while (IsWindowActive() && IsPanelActive() && ;
+                SphereButton.IsButtonActive()) {
                 if (MinerSphereModifier > 1) {
                     AmountToModifier(MinerSphereModifier)
                     Sleep(34)
