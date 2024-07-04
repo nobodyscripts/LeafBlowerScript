@@ -85,12 +85,7 @@ VerboseLog(logmessage) {
     if (!Verbose) {
         Return
     }
-    if (TimestampLogs) {
-        logmessage := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) " Verbose: " logmessage '`r`n'
-    } else {
-        logmessage := "Verbose: " logmessage '`r`n'
-    }
-    OutputDebug(logmessage)
+    Log(logmessage)
 }
 
 /**
@@ -109,5 +104,5 @@ Deprecated() {
     if (!Debug) {
         Return
     }
-    DebugLog("Deprecated:" Error().Stack)
+    VerboseLog("Deprecated:" Error().Stack)
 }

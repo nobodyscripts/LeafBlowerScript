@@ -37,6 +37,7 @@ global Debug := false
  * @function IsButtonOffPanel Is point an off panel button colour 
  * @function Click Click left mouse button at point
  * @function ClickOffset Click left mouse button at point with an offset
+ * @function MouseMove Move mouse to point
  * @function toString Convert x y to readable string
  * @function toStringWColour toSting with colour
  * @function toStringDisplay toString to 2 decimal places
@@ -227,6 +228,15 @@ Class cPoint {
      */
     ClickOffset(xOffset := 1, yOffset := 1, delay := 34) {
         fCustomClick(this.x + xOffset, this.y + yOffset, delay)
+    }
+
+    /**
+     * Move mouse to point
+     * @param {Integer} speed 0-100 with 100 being slowest
+     * @param {String} relative Set to "R" for relative to current location
+     */
+    MouseMove(speed := 5, relative := "") {
+        MouseMove(this.x, this.y, speed, relative)
     }
 
     /**
