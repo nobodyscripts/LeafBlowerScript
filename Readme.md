@@ -220,6 +220,7 @@ Settings added to General Settings and 3 settings added to ini.
   - Disabled Mine Sphere Count and Modifier if Greedy is enabled to be clear,
 the options conflict. Also renamed Amount > Count for clarity.
   - Fixed mislabeled brew setting in mine maintainer and slight sorting.
+  - Added option to control timestamps in logging to general settings.
 
 - Mine
   - Added MinerSphereModifier setting, custom amount to use per click when

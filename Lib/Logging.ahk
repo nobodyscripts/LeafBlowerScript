@@ -2,6 +2,7 @@
 
 global ScriptsLogFile, EnableLogging
 global Verbose := (FileExist(A_ScriptDir "\IsNobody"))
+global TimestampLogs := true
 
 /**
  * Logger, user disable possible, debugout regardless of setting to vscode.
@@ -13,6 +14,7 @@ global Verbose := (FileExist(A_ScriptDir "\IsNobody"))
  */
 Log(logmessage, logfile := "") {
     global EnableLogging, ScriptsLogFile
+    time := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec)
     if (!logfile && IsSet(ScriptsLogFile)) {
         logfile := ScriptsLogFile
     } else if (!logfile) {
@@ -22,7 +24,11 @@ Log(logmessage, logfile := "") {
         EnableLogging := true
     }
     static isWritingToLog := false
-    logmessage := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' ' logmessage '`r`n'
+    if (TimestampLogs) {
+        logmessage := time ' ' logmessage '`r`n'
+    } else {
+        logmessage := logmessage '`r`n'
+    }
     OutputDebug(logmessage)
     if (!EnableLogging) {
         return
@@ -37,13 +43,24 @@ Log(logmessage, logfile := "") {
 
         }
     } catch as exc {
-        OutputDebug("LogError: Error writing to log - " exc.Message "`r`n")
-        ; MsgBox("Error writing to log:`n" exc.Message)
-        Sleep(1)
-        FileAppend(logmessage, logfile)
-        Sleep(1)
-        FileAppend(FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) ' - '
-            "LogError: Error writing to log - " exc.Message '`r`n', logfile)
+        if (TimestampLogs) {
+            OutputDebug(time " LogError: Error writing to log - " exc.Message "`r`n"
+            )
+            ; MsgBox("Error writing to log:`n" exc.Message)
+            Sleep(1)
+            FileAppend(logmessage, logfile)
+            Sleep(1)
+            FileAppend(time " LogError: Error writing to log - " exc.Message '`r`n',
+                logfile)
+        } else {
+            OutputDebug("LogError: Error writing to log - " exc.Message "`r`n")
+            ; MsgBox("Error writing to log:`n" exc.Message)
+            Sleep(1)
+            FileAppend(logmessage, logfile)
+            Sleep(1)
+            FileAppend("LogError: Error writing to log - " exc.Message '`r`n',
+                logfile)
+        }
     }
 }
 
@@ -68,7 +85,11 @@ VerboseLog(logmessage) {
     if (!Verbose) {
         Return
     }
-    logmessage := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) " Verbose: " logmessage '`r`n'
+    if (TimestampLogs) {
+        logmessage := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec) " Verbose: " logmessage '`r`n'
+    } else {
+        logmessage := "Verbose: " logmessage '`r`n'
+    }
     OutputDebug(logmessage)
 }
 
@@ -77,7 +98,8 @@ VerboseLog(logmessage) {
  * @param {Error} error 
  */
 ErrorLog(error) {
-    DebugLog("Error:" error.Message "`n ErrorExtra: " error.Extra "`nStack: " Error().Stack)
+    DebugLog("Error:" error.Message "`n ErrorExtra: " error.Extra "`nStack: " Error()
+        .Stack)
 }
 
 /**

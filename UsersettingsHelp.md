@@ -24,6 +24,9 @@ WARNING: This will stop the script checking for badly configured settings, if
 you want to accept the risk, change to true. Disables all handling of
 incorrect settings. So if things are not configured correctly they will break.
 
+TimestampLogs: (Default) true  
+Allows removal of timestamps in logging.
+
 ## Check For Updates
 
 CheckForUpdatesEnable: (Default) true  

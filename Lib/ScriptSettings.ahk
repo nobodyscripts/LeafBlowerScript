@@ -6,6 +6,7 @@
 ;@region Globals definition
 global EnableLogging := Debug := false
 global DisableZoneChecks := DisableSettingsChecks := false
+global TimestampLogs := true
 
 global BossFarmUsesWind := BossFarmUsesWobblyWings := BossFarmUsesSeeds :=
     false
@@ -99,7 +100,7 @@ class singleSetting {
         return this
     }
 
-    
+
     /**
      * Convert value to file writable string
      * @param {Any} value Defaults to getting value of the global variable
@@ -163,6 +164,8 @@ class cSettings {
         this.Map := Map()
 
         this.Map["EnableLogging"] := singleSetting("EnableLogging", false, true,
+            "bool", "Default")
+        this.Map["TimestampLogs"] := singleSetting("TimestampLogs", true, true,
             "bool", "Default")
         this.Map["DisableZoneChecks"] := singleSetting("DisableZoneChecks",
             false, false, "bool", "Default")
@@ -378,6 +381,7 @@ class cSettings {
         ;@region Globals
         global EnableLogging := false
         global Debug := false
+        global TimestampLogs
 
         global CheckForUpdatesEnable, CheckForUpdatesReleaseOnly,
             CheckForUpdatesLastCheck
