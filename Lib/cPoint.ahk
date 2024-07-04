@@ -5,7 +5,7 @@
 
 /**
  * Debug flag for DebugLog
- *  @type {Bool}
+ * @type {Bool}
  */
 global Debug := false
 
@@ -39,6 +39,7 @@ global Debug := false
  * @function ClickOffset Click left mouse button at point with an offset
  * @function toString Convert x y to readable string
  * @function toStringWColour toSting with colour
+ * @function toStringDisplay toString to 2 decimal places
  * @function GetColour Get pixel colour at point
  * @function IsColour Check if pixel colour at point is equal
  * @function ToolTipAtCoord Create a blank tooltip with top left at point
@@ -237,11 +238,19 @@ Class cPoint {
     }
 
     /**
+     * Point to loggable format to 2 decimal places
+     * @returns {String} 
+     */
+    toStringDisplay() {
+        return "X: " Format("{:#.2f}", this.x) " Y: " Format("{:#.2f}", this.y)
+    }
+
+    /**
      * Point to loggable format
      * @returns {String} 
      */
     toStringWColour() {
-        return this.toString() " is now " this.GetColour()
+        return this.toStringDisplay() " is now " this.GetColour()
     }
 
     /**
