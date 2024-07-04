@@ -237,6 +237,7 @@ Diamonds to Coal Diamonds. Added to GUI.
 Leafton Pit. These options conflict with Leafton taking priority, added setting
 MinerEnableLeafton. Boss mode enabled by default.
   - Added more checks for travel being correct to avoid getting stuck.
+  - Fixed travel functions looping infinitely when they should be capped.
 
 - GFSS
   - Replaced normalboss spammer with standalone, updated travel coords.

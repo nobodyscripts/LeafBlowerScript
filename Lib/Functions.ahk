@@ -46,6 +46,7 @@ fCustomClick(clickX, clickY, delay := 34) {
     MouseClick("left", clickX, clickY, , , "D")
     Sleep(delay)
     MouseClick("left", clickX, clickY, , , "U")
+    VerboseLog("Clicking at " clickX " " clickY)
 }
 
 ResetModifierKeys() {

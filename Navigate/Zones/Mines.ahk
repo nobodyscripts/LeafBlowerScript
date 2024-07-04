@@ -14,9 +14,10 @@ Class Mine extends Zone {
     ;@region Mine main travel
     /**
      * Go to mine panel
+     * @returns {Boolean} Is panel active
      */
     GoTo() {
-        Travel.OpenMining()
+        return Travel.OpenMining()
     }
     ;@endregion
 

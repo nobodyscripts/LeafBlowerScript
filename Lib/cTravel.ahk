@@ -84,6 +84,7 @@ Class cTravel {
         if (NavTime < 72) {
             NavTime := 72
         }
+        VerboseLog("Resetting panel scroll")
         ; Click Favourites
         Points.Areas.Favs.Tab.ClickOffset(, , NavTime)
         Sleep(NavTime)
@@ -239,8 +240,14 @@ Class cTravel {
     OpenAlchemyGeneral(reset := false, delay := 0) {
         if (this.OpenAlchemy(reset, delay)) {
             Sleep(NavigateTime)
-            Points.Brew.Tab1.Nav.Click(NavigateTime)
-            Sleep(NavigateTime)
+            if (Points.Brew.Tab1.Nav.IsButtonActive()) {
+                VerboseLog("Clicking alchemy general tab")
+                Points.Brew.Tab1.Nav.Click(NavigateTime)
+                Sleep(NavigateTime)
+            } else {
+                DebugLog("Alchemy general tab button not found active.")
+                return false
+            }
         } else {
             return false
         }

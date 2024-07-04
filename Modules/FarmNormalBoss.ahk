@@ -30,13 +30,11 @@ fFarmNormalBoss(modecheck) {
         IsPrevTimerLong := IsTimerLong
         if (IsAreaResetToGarden()) {
             Log("BossFarm: User killed.")
-            ToolTip("Killed by boss", W / 2, H / 2 +
-                WinRelPosLargeH(50), 2)
+            ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
         }
-        ToolTip("Kills: " . Killcount,
-            W / 2 - WinRelPosLargeW(50),
-            H / 2 + WinRelPosLargeH(20), 1)
+        ToolTip("Kills: " . Killcount, W / 2 - WinRelPosLargeW(50), H / 2 +
+            WinRelPosLargeH(20), 1)
     }
     ToolTip(, , , 1)
 }
@@ -58,7 +56,8 @@ fFarmNormalBossAndBrew(modecheck) {
             break
         }
         if (!IsPanelActive()) {
-            Log("BossBrew: Did not find panel. Aborted brewing. Violins active")
+            Log("BossBrew: Did not find panel. Aborted brewing. Violins active"
+            )
             break
         }
         SetTimer(SpamBrewButtons, -5)
@@ -72,13 +71,11 @@ fFarmNormalBossAndBrew(modecheck) {
         if (IsAreaResetToGarden() && IsSpammerActive()) {
             KillSpammer()
             Log("BossFarm: User killed.")
-            ToolTip("Killed by boss", W / 2, H / 2 +
-                WinRelPosLargeH(50), 2)
+            ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
             return
         }
-        ToolTip("Brewing on, Kills: " . Killcount,
-            W / 2 - WinRelPosLargeW(150),
+        ToolTip("Brewing on, Kills: " . Killcount, W / 2 - WinRelPosLargeW(150),
             H / 2 + WinRelPosLargeH(20), 1)
     }
     ToolTip(, , , 1)
@@ -114,6 +111,20 @@ SpamBrewButtons() {
     If (CardPartsFont1.IsButtonActive()) {
         CardPartsFont1.Click()
     }
+}
+
+IsAlchGeneralTab() {
+    if (!IsPanelActive()) {
+        return false
+    }
+    Artifacts := Points.Brew.Tab1.Artifacts
+    Equipment := Points.Brew.Tab1.Equipment
+    Materials := Points.Brew.Tab1.Materials
+    If (Artifacts.IsButton() || Equipment.IsButton() || Materials.IsButton()
+    ) {
+        return true
+    }
+    return false
 }
 
 fNormalBossFarmWithBorbs(modecheck) {
@@ -155,14 +166,12 @@ fNormalBossFarmWithBorbs(modecheck) {
         if (IsAreaResetToGarden() && IsSpammerActive()) {
             KillSpammer()
             Log("BossBorbs: User killed.")
-            ToolTip("Killed by boss", W / 2, H / 2 +
-                WinRelPosLargeH(50), 2)
+            ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
             return
         }
-        ToolTip("Borbfarm on, Kills: " . Killcount,
-            W / 2 - WinRelPosLargeW(150),
-            H / 1.2, 4)
+        ToolTip("Borbfarm on, Kills: " . Killcount, W / 2 - WinRelPosLargeW(150
+        ), H / 1.2, 4)
         BVMainLoop()
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
@@ -223,9 +232,8 @@ fNormalBossFarmWithCards(modecheck) {
             Log("BossCards: Exiting.")
             return
         }
-        ToolTip("Boss farm with cards active",
-            W / 2 - WinRelPosLargeW(150),
-            H / 2 + WinRelPosLargeH(320), 9)
+        ToolTip("Boss farm with cards active", W / 2 - WinRelPosLargeW(150), H /
+            2 + WinRelPosLargeH(320), 9)
         if (CardsBuyEnabled) {
             Log("BossCards buy: Loop starting.")
             CardBuyLoop()
@@ -248,8 +256,8 @@ fNormalBossFarmWithCards(modecheck) {
             if (IsAreaResetToGarden() && IsSpammerActive()) {
                 KillSpammer()
                 Log("BossCards: User killed.")
-                ToolTip("Killed by boss", W / 2, H / 2 +
-                    WinRelPosLargeH(50), 2)
+                ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2
+                )
                 SetTimer(ToolTip.Bind(, , , 2), -3000)
                 return
             }
@@ -260,9 +268,8 @@ fNormalBossFarmWithCards(modecheck) {
                 Killcount++
             }
             IsPrevTimerLong := IsTimerLong
-            ToolTip("Cardfarm on, Kills: " . Killcount,
-                W / 2 - WinRelPosLargeW(150),
-                H / 1.2, 4)
+            ToolTip("Cardfarm on, Kills: " . Killcount, W / 2 - WinRelPosLargeW(
+                150), H / 1.2, 4)
         }
     }
     ToolTip(, , , 4)

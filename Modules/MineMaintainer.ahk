@@ -101,9 +101,12 @@ fMineMaintainer() {
         if (IsWindowActive() && IsPanelActive() && (MinerEnableVeins ||
             MinerEnableVeinRemoval)) {
             i := 1
-            while (!Travel.Mine.IsOnTabVein() || i >= 10) {
-                VeinsTab.Click(NavigateTime)
-                Sleep(NavigateTime)
+            DebugLog("Opening veins tab")
+            while (!Travel.Mine.IsOnTabVein() && i <= 10) {
+                if (VeinsTab.IsButton()) {
+                    VeinsTab.Click(NavigateTime)
+                    Sleep(NavigateTime)
+                }
                 i++
             }
             if (Travel.Mine.IsOnTabVein()) {
@@ -132,43 +135,51 @@ fMineMaintainer() {
         ;@endregion
 
         ;@region Transmute
-        if ((Firstpass && isAnyTransmuteEnabled() && IsPanelActive()) || (
-            IsWindowActive() && isAnyTransmuteEnabled() && IsPanelActive() &&
-            DateDiff(A_Now, TransmuteTime, "Seconds") >= MinerTransmuteTimer)) {
-            TransmuteTime := A_Now
-            i := 1
-            while (!Travel.Mine.IsOnTabTrans() || i >= 10) {
-                TransmuteTab.Click(NavigateTime)
-                Sleep(NavigateTime)
-                i++
-            }
-            if (!Travel.Mine.IsOnTabTrans()) {
-                Log("Mine: Transmute tab click failed")
-            } else {
-                TransmuteAllCoalBars()
-                Log("Mine: Transmuted all bars.")
-                Sleep(NavigateTime)
+        if (IsWindowActive() && isAnyTransmuteEnabled() && IsPanelActive()) {
+            if (Firstpass || DateDiff(A_Now, TransmuteTime, "Seconds") >=
+                MinerTransmuteTimer) {
+                TransmuteTime := A_Now
+                i := 1
+                DebugLog("Opening transmute tab")
+                while (!Travel.Mine.IsOnTabTrans() && i <= 10) {
+                    if (TransmuteTab.IsButton()) {
+                        TransmuteTab.Click(NavigateTime)
+                        Sleep(NavigateTime)
+                    }
+                    i++
+                }
+                if (Travel.Mine.IsOnTabTrans()) {
+                    TransmuteAllCoalBars()
+                    Log("Mine: Transmuted all bars.")
+                    Sleep(NavigateTime)
+                } else {
+                    Log("Mine: Transmute tab click failed")
+                }
             }
         }
         ;@endregion
 
         ;@region Fuel
-        if ((Firstpass && MinerEnableFreeRefuel && IsPanelActive()) || (
-            IsWindowActive() && IsPanelActive() && DateDiff(A_Now, RefuelTime,
-                "Seconds") >= MinerRefuelTimer * 60 && MinerEnableFreeRefuel)) {
-            RefuelTime := A_Now
-            i := 1
-            while (!Travel.Mine.IsOnTabDrill() || i >= 10 || !IsPanelActive()) {
-                DrillTab.Click(NavigateTime)
-                Sleep(NavigateTime)
-                i++
-            }
-            if (Travel.Mine.IsOnTabDrill()) {
-                CollectFreeDrillFuel()
-                Log("Mine: Collected free fuel.")
-                Sleep(NavigateTime)
-            } else {
-                Log("Mine: Drill tab click failed")
+        if (MinerEnableFreeRefuel && IsWindowActive() && IsPanelActive()) {
+            if (Firstpass || DateDiff(A_Now, RefuelTime, "Seconds") >=
+                MinerRefuelTimer * 60) {
+                RefuelTime := A_Now
+                i := 1
+                DebugLog("Opening drill tab")
+                while (!Travel.Mine.IsOnTabDrill() && i <= 10) {
+                    if (DrillTab.IsButton()) {
+                        DrillTab.Click(NavigateTime)
+                        Sleep(NavigateTime)
+                    }
+                    i++
+                }
+                if (Travel.Mine.IsOnTabDrill()) {
+                    CollectFreeDrillFuel()
+                    Log("Mine: Collected free fuel.")
+                    Sleep(NavigateTime)
+                } else {
+                    Log("Mine: Drill tab click failed")
+                }
             }
         }
         ;@endregion
@@ -179,9 +190,12 @@ fMineMaintainer() {
                 MinerSphereTimer * 60) {
                 SphereTime := A_Now
                 i := 1
+                DebugLog("Opening drill tab")
                 while (!Travel.Mine.IsOnTabDrill() && i <= 10) {
-                    DrillTab.Click(NavigateTime)
-                    Sleep(NavigateTime)
+                    if (DrillTab.IsButton()) {
+                        DrillTab.Click(NavigateTime)
+                        Sleep(NavigateTime)
+                    }
                     i++
                 }
                 if (Travel.Mine.IsOnTabDrill()) {
@@ -243,11 +257,15 @@ fMineMaintainer() {
             if (Travel.OpenAlchemyGeneral() && IsPanelActive()) {
                 BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &
                     BrewCutOffRunning)
-                while (BrewCutOffRunning && IsPanelActive()) {
-                    SpamBrewButtons()
+                if (IsAlchGeneralTab()) {
+                    while (BrewCutOffRunning && IsPanelActive()) {
+                        SpamBrewButtons()
+                    }
+                    BrewCycleTimer.CoolDownS(MinerBrewCycleTime, &
+                        BrewCycleRunning)
+                    Sleep(NavigateTime)
                 }
                 Travel.ClosePanelIfActive()
-                BrewCycleTimer.CoolDownS(MinerBrewCycleTime, &BrewCycleRunning)
             }
         }
         Firstpass := false
