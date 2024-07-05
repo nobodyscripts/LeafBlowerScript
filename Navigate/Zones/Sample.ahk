@@ -17,6 +17,12 @@ Class Sample extends Zone {
     ; Require boss timer (or not) to match for success
     BossTimer := false
 
+    /**
+     * Logic for a single travel attempt
+     * @param delay Normal NavigateTime 
+     * @param {Integer} [scrolldelay=0] Additional delay to NavigateTime
+     * @param {Integer} [extradelay=0] Additional delay to NavigateTime
+     */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
         ;Points.Areas.<Galaxy>.Tab.Click()
@@ -35,17 +41,26 @@ Class Sample extends Zone {
         ; Delay to allow the map to change, otherwise we travel twice
     }
 
+    /**
+     * Checks if leaf colour is found in an area (If this is needed)
+     * @returns {Boolean} 
+     */
     FindSampleZone() {
         ; Change this if used
         ;return Rects.<Galaxy>.SampleTravel.PixelSearch("0xFFFFFF")
         return true
     }
 
+    /**
+     * Checks and clicks button in area panel
+     * @param coord 
+     * @param delay 
+     */
     ClickTravelButton(coord, delay) {
         ; Button to travel to Sample
         ;Button := Points.Areas.<Galaxy>.Sample
         Button := cPoint()
-        DebugLog(Button.GetColour() " " Button.IsButton() " " Button.IsButtonActive()
+        DebugLog("Click travel button found " Button.GetColour() " " Button.IsButton() " " Button.IsButtonActive()
         )
         ; If no button we are misaligned
         if (Button.IsButton()) {

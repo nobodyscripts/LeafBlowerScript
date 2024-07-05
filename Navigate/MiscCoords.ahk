@@ -21,9 +21,7 @@
  * button
  * @property {cPoint} AspectRatio2 Aspect ratio check point top right hide
  * button
- * @property {Object} Settings
- * @property {cPoint} Settings.MiscTab Misc tab on settings (tab 6)
- * @property {cPoint} Settings.GraphicsTab Graphics tab on settings (tab 3)
+ * @property {cMiscSettingPoints} Settings
  */
 Class cMiscPoints {
     ; Top left corner used for zone background samples
@@ -49,12 +47,23 @@ Class cMiscPoints {
     ; Aspect ratio check point top right hide button
     AspectRatio2 := cPoint(2425, 51)
     ; Settings object to hold points for game settings panel
-    Settings := {}
-    ; Misc tab on settings (tab 6)
-    Settings.MiscTab := cPoint(1776, 1179)
-    ; Graphics tab on settings (tab 3)
-    Settings.GraphicsTab := cPoint(887, 1179)
+    Settings := cMiscSettingPoints()
 }
+
+;@region cMiscSettingPoints
+/**
+ * Settings panel points
+ * @memberof module:cMiscPoints
+ * @property {cPoint} MiscTab Misc tab on settings (tab 6)
+ * @property {cPoint} GraphicsTab Graphics tab on settings (tab 3)
+ */
+Class cMiscSettingPoints {
+    ; Misc tab on settings (tab 6)
+    MiscTab := cPoint(1776, 1179)
+    ; Graphics tab on settings (tab 3)
+    GraphicsTab := cPoint(887, 1179)
+}
+;@endregion
 
 /**
  * Misc areas
