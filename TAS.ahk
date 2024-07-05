@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include Lib\hGlobals.ahk
-#Include TAS\cGameController.ahk
+#Include Lib\hTas.ahk
+#Include Lib\hModules.ahk
 
 global ScriptsLogFile := A_ScriptDir "\TAS.Log"
 global IsSecondary := false

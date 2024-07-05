@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0 
 
-#Include ..\Lib\hGlobals.ahk
-#Include ..\Lib\GameSettings.ahk
-
 /**
  * Holds save data and performs checks on save data to return progress 
  * information

@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0
 
-#Include GameState.ahk
-#Include StageNormal.ahk
-
 /**
  * Adapt to which type of speedrun we are attempting (second level)
  */
@@ -27,7 +24,7 @@ Class GameModeBasic extends cGameMode {
 
     RunCurrentStage() {
         while (this.GetProgressStage() = "BasicLeaf") {
-            StageBasicLeaf()
+            StageBasicLeaf().RunTaskList()
         }
     }
 }

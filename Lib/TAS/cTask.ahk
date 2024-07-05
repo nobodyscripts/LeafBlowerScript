@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.0
 
-#Include cGameStage.ahk
-#Include ..\Lib\cZone.ahk
-#Include ..\Lib\cTimer.ahk
-
 /**
  * Class to encapsulate tasks, allowing generic activation and control
  * @property {Integer} RunFor Period to run for (-1 to disable)

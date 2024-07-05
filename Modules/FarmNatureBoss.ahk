@@ -1,5 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
 
+global on9 := 0
+
 fFarmNatureBoss() {
     ; Check zone is available
     If (!GoToNatureBoss()) {

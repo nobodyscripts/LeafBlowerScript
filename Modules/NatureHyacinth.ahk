@@ -9,6 +9,7 @@ global HyacinthUseNextAvailableFlower := true
 global HyacinthBanksEnabled := true
 global BankDepositTime := 5
 global NavigateTime := 150
+global BossFarmUsesWobblyWings := false
 
 fFarmNormalBossAndNatureHyacinth() {
     global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot,

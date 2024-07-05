@@ -11,32 +11,59 @@ Class cMousePattern {
     Task := () => {}
 
     SetThreeHorizontal() {
-        WSeg := W/8
-        HSeg := H/4
+        WSeg := W / 8
+        HSeg := H / 4
         left1 := cPoint(WSeg, HSeg)
-        left2 := cPoint(WSeg, HSeg*2)
-        left3 := cPoint(WSeg, HSeg*3)
-        right1 := cPoint(WSeg*7, HSeg)
-        right2 := cPoint(WSeg*7, HSeg*2)
-        right3 := cPoint(WSeg*7, HSeg*3)
+        left2 := cPoint(WSeg, HSeg * 2)
+        left3 := cPoint(WSeg, HSeg * 3)
+        right1 := cPoint(WSeg * 7, HSeg)
+        right2 := cPoint(WSeg * 7, HSeg * 2)
+        right3 := cPoint(WSeg * 7, HSeg * 3)
+
+
+        /**
+         * |---------------------|
+         * |  >>>>>>>>>>>>>>>>>  |
+         * |                  |  |
+         * |  <<<<<<<<<<<<<<<<<  |
+         * |  |                  |
+         * |  >>>>>>>>>>>>>>>>>  |
+         * |---------------------|
+         */
 
         ; Top left
-        left1.MouseMove(0) 
+        left1.MouseMove(0)
+        ; Top right
+        right1.MouseMove(10)
+        ; Mid right
+        right2.MouseMove(10)
+        ; Mid left
+        left2.MouseMove(10)
         ; Top left
-        right1.MouseMove(10) 
+        left3.MouseMove(10)
         ; Top left
-        right2.MouseMove(10) 
-        ; Top left
-        left2.MouseMove(10) 
-        ; Top left
-        left3.MouseMove(10) 
-        ; Top left
-        right3.MouseMove(10) 
+        right3.MouseMove(10)
 
     }
 
     SetFiveHorizontal() {
+        WSeg := W / 8
+        HSeg := H / 6
+        left1 := cPoint(WSeg, HSeg)
+        left2 := cPoint(WSeg, HSeg * 2)
+        left3 := cPoint(WSeg, HSeg * 3)
+        left4 := cPoint(WSeg, HSeg * 4)
+        left5 := cPoint(WSeg, HSeg * 5)
+        right1 := cPoint(WSeg * 7, HSeg)
+        right2 := cPoint(WSeg * 7, HSeg * 2)
+        right3 := cPoint(WSeg * 7, HSeg * 3)
+        right4 := cPoint(WSeg * 7, HSeg * 4)
+        right5 := cPoint(WSeg * 7, HSeg * 5)
 
+        ; Top left
+        left1.MouseMove(0)
+        ; Top right
+        right1.MouseMove(10)
     }
 
     SetSpiral() {

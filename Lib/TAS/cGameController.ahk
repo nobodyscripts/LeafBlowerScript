@@ -1,10 +1,5 @@
 #Requires AutoHotkey v2.0
 
-#Include cGameStage.ahk
-#Include GameState.ahk
-#Include cGameMode.ahk
-#Include ..\Lib\CheckGameSettings.ahk
-
 /**
  * Controller for TAS functionality. (Top level)
  * Handles main logic and is the controller for tasks

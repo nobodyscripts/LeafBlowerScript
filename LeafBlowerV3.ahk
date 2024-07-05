@@ -33,7 +33,6 @@ DetectHiddenWindows(true)
 Persistent()  ; Prevent the script from exiting automatically.
 OnExit(ExitFunc)
 
-global on9 := 0
 global HadToHideNotifsF9 := false
 global settings := cSettings()
 
