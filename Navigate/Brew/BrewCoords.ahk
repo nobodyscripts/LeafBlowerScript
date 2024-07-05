@@ -5,26 +5,35 @@
 /**
  * Brew points for buttons
  * @memberof module:cPoints
- * @property {cPoint} Tab1.Nav Point for first panel tab
- * @property {cPoint} Tab1.Artifacts Artifacts 
- * @property {cPoint} Tab1.Equipment Equipment
- * @property {cPoint} Tab1.Materials Materials
- * @property {cPoint} Tab1.CardParts Card Parts
- * @property {cPoint} Tab1.CardPartsFont1 Card Parts for fontsize 1
+ * @property {Object} Tab1 Container for sub properties
  */
 Class cBrewPoints {
     ; Obj to hold sub points
-    Tab1 := {}
+    Tab1 := cBrewTab1Points()
+
+}
+
+/**
+ * Brew points for buttons
+ * @memberof module:cBrewPoints
+ * @property {cPoint} Nav Point for first panel tab
+ * @property {cPoint} Artifacts Artifacts 
+ * @property {cPoint} Equipment Equipment
+ * @property {cPoint} Materials Materials
+ * @property {cPoint} CardParts Card Parts
+ * @property {cPoint} CardPartsFont1 Card Parts for fontsize 1
+ */
+Class cBrewTab1Points{
     ; First tab and sub points
-    Tab1.Nav := cPoint(526, 1180)
+    Nav := cPoint(526, 1180)
     ; Artifacts
-    Tab1.Artifacts := cPoint(1745, 310)
+    Artifacts := cPoint(1745, 310)
     ; Equipment
-    Tab1.Equipment := cPoint(1745, 463)
+    Equipment := cPoint(1745, 463)
     ; Materials
-    Tab1.Materials := cPoint(1745, 610)
+    Materials := cPoint(1745, 610)
     ; Card Parts
-    Tab1.CardParts := cPoint(1745, 931)
+    CardParts := cPoint(1745, 931)
     ; Card Parts for fontsize 1
-    Tab1.CardPartsFont1 := cPoint(1745, 960)
+    CardPartsFont1 := cPoint(1745, 960)
 }
