@@ -148,7 +148,8 @@ Class cPoint {
         If (Colours().IsButton(targetColour)) {
             return true
         }
-        VerboseLog("cPoint.IsButton: " this.toString() " is now " targetColour)
+        VerboseLog("cPoint.IsButton: " this.toStringDisplay() " is now " targetColour
+        )
         return false
     }
 
@@ -161,7 +162,7 @@ Class cPoint {
         If (Colours().IsButtonActive(targetColour)) {
             return true
         }
-        VerboseLog("cPoint.IsButtonActive: " this.toString() " is now " targetColour
+        VerboseLog("cPoint.IsButtonActive: " this.toStringDisplay() " is now " targetColour
         )
 
         return false
@@ -176,7 +177,7 @@ Class cPoint {
         If (Colours().IsButtonInactive(targetColour)) {
             return true
         }
-        VerboseLog("cPoint.IsButtonInactive: " this.toString() " is now " targetColour
+        VerboseLog("cPoint.IsButtonInactive: " this.toStringDisplay() " is now " targetColour
         )
 
         return false
@@ -191,7 +192,7 @@ Class cPoint {
         If (Colours().IsBackground(targetColour)) {
             return true
         }
-        VerboseLog("cPoint.IsBackground: " this.toString() " is now " targetColour
+        VerboseLog("cPoint.IsBackground: " this.toStringDisplay() " is now " targetColour
         )
 
         return false
@@ -206,7 +207,7 @@ Class cPoint {
         If (Colours().IsButtonOffPanel(targetColour)) {
             return true
         }
-        VerboseLog("cPoint.IsButtonOffPanel: " this.toString() " is now " targetColour
+        VerboseLog("cPoint.IsButtonOffPanel: " this.toStringDisplay() " is now " targetColour
         )
 
         return false
@@ -322,8 +323,7 @@ Class cPoint {
                 return false
             }
         }
-        VerboseLog("ClickOffsetWhileColour: " this.toString() " is now " this.GetColour()
-        )
+        VerboseLog("ClickOffsetWhileColour: " this.toStringWColour())
         return true
     }
 
@@ -347,8 +347,7 @@ Class cPoint {
             Sleep(interval)
             i--
             if (i = 0) {
-                VerboseLog("ClickOffsetUntilColour: Hit max clicks " this.toString() " is now " this
-                    .GetColour())
+                VerboseLog("ClickOffsetUntilColour: Hit max clicks " this.toStringWColour())
                 return false
             }
         }
@@ -372,8 +371,7 @@ Class cPoint {
                 break
             }
         }
-        VerboseLog("WaitWhileColour: " this.toString() " is now " this.GetColour()
-        )
+        VerboseLog("WaitWhileColour: " this.toStringWColour())
         if (this.GetColour() != colour) {
             return true
         } else {
@@ -398,8 +396,7 @@ Class cPoint {
                 break
             }
         }
-        VerboseLog("WaitUntilColour: " this.toString() " is now " this.GetColour()
-        )
+        VerboseLog("WaitUntilColour: " this.toStringWColour())
         if (this.GetColour() = colour) {
             return true
         } else {

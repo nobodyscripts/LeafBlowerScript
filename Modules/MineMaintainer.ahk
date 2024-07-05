@@ -71,17 +71,29 @@ fMineMaintainer() {
     BankTime := A_Now
     SphereTime := A_Now
     CavesTime := A_Now
-    VeinsTab := Points.Mine.Tab1Vein
-    MinesTab := Points.Mine.Tab2Mines
-    DrillTab := Points.Mine.Tab4Drill
-    ShopTab := Points.Mine.Tab5Shop
-    TransmuteTab := Points.Mine.Tab6Transmute
-    VeinUpgradeButton := Points.Mine.Vein.Upgrade
-    CancelConfirm := Points.Mine.Vein.CancelConfirm
     CurrentTab := 0
+    /** @type {cPoint} */
+    VeinsTab := Points.Mine.Tab1Vein
+    /** @type {cPoint} */
+    MinesTab := Points.Mine.Tab2Mines
+    /** @type {cPoint} */
+    DrillTab := Points.Mine.Tab4Drill
+    /** @type {cPoint} */
+    ShopTab := Points.Mine.Tab5Shop
+    /** @type {cPoint} */
+    TransmuteTab := Points.Mine.Tab6Transmute
+    /** @type {cPoint} */
+    VeinUpgradeButton := Points.Mine.Vein.Upgrade
+    /** @type {cPoint} */
+    CancelConfirm := Points.Mine.Vein.CancelConfirm
+    /** @type {Timer} */
     BrewCycleTimer := Timer()
+    /** @type {Timer} */
     BrewCutOffTimer := Timer()
+
     ToolTip("Mine Maintainer Active", W / 2, WinRelPosLargeH(200), 4)
+    ; Log mine settings for remote debugging
+    MineLogSettings()
     if (MinerEnableLeafton) {
         LeaftonTaxiSinglePassStart()
         Sleep(NavigateTime)
@@ -264,6 +276,10 @@ fMineMaintainer() {
                     BrewCycleTimer.CoolDownS(MinerBrewCycleTime, &
                         BrewCycleRunning)
                     Sleep(NavigateTime)
+                } else {
+                    DebugLog(
+                        "Alch travel error: Travel.OpenAlchemyGeneral() true but IsAlchGeneralTab() false"
+                    )
                 }
                 Travel.ClosePanelIfActive()
             }
@@ -292,6 +308,7 @@ TransmuteAllCoalBars() {
         while (IsWindowActive() && IsPanelActive() && TransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             TransmuteButton.ClickOffset()
+            DebugLog("Transmuted all coal bars to coal diamonds")
             Sleep(NavigateTime)
         }
     }
@@ -300,6 +317,7 @@ TransmuteAllCoalBars() {
         while (IsWindowActive() && IsPanelActive() && SdiaTransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             SdiaTransmuteButton.ClickOffset()
+            DebugLog("Transmuted all coal diamonds to shiny diamonds")
             Sleep(NavigateTime)
         }
     }
@@ -308,6 +326,7 @@ TransmuteAllCoalBars() {
         while (IsWindowActive() && IsPanelActive() && FuelTransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             FuelTransmuteButton.ClickOffset()
+            DebugLog("Transmuted all coal diamonds to fuel")
             Sleep(NavigateTime)
         }
     }
@@ -316,6 +335,7 @@ TransmuteAllCoalBars() {
         while (IsWindowActive() && IsPanelActive() && SphereTransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             SphereTransmuteButton.ClickOffset()
+            DebugLog("Transmuted all coal diamonds to spheres")
             Sleep(NavigateTime)
         }
     }
@@ -324,6 +344,7 @@ TransmuteAllCoalBars() {
         while (IsWindowActive() && IsPanelActive() && SdiaToCBTransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             SdiaToCBTransmuteButton.ClickOffset()
+            DebugLog("Transmuted all shiny diamonds to coal diamonds")
             Sleep(NavigateTime)
         }
     }
@@ -679,4 +700,33 @@ ArrDebug(arr) {
             i].Priority)
         i++
     }
+}
+
+MineLogSettings() {
+    DebugLog("Dumping Mine settings to log:"
+        "`nMinerEnableVeins: " MinerEnableVeins
+        "`nMinerEnableTransmute: " MinerEnableTransmute
+        "`nMinerEnableFreeRefuel: " MinerEnableFreeRefuel
+        "`nMinerTransmuteTimer: " MinerTransmuteTimer
+        "`nMinerRefuelTimer: " MinerRefuelTimer
+        "`nMinerEnableSpammer: " MinerEnableSpammer
+        "`nMinerEnableBanks: " MinerEnableBanks
+        "`nMinerEnableVeinUpgrade: " MinerEnableVeinUpgrade
+        "`nMinerEnableVeinRemoval: " MinerEnableVeinRemoval
+        "`nMinerEnableCaves: " MinerEnableCaves
+        "`nMinerCaveTimer: " MinerCaveTimer
+        "`nMinerEnableLeafton: " MinerEnableLeafton
+        "`nMinerEnableSphereUse: " MinerEnableSphereUse
+        "`nMinerSphereDelay: " MinerSphereDelay
+        "`nMinerSphereCount: " MinerSphereCount
+        "`nMinerSphereTimer: " MinerSphereTimer
+        "`nMinerSphereGreedyUse: " MinerSphereGreedyUse
+        "`nMinerSphereModifier: " MinerSphereModifier
+        "`nMinerEnableTransmuteSdia: " MinerEnableTransmuteSdia
+        "`nMinerEnableTransmuteFuel: " MinerEnableTransmuteFuel
+        "`nMinerEnableTransmuteSphere: " MinerEnableTransmuteSphere
+        "`nMinerEnableTransmuteSdiaToCDia: " MinerEnableTransmuteSdiaToCDia
+        "`nMinerEnableBrewing: " MinerEnableBrewing
+        "`nMinerBrewCycleTime: " MinerBrewCycleTime
+        "`nMinerBrewCutOffTime: " MinerBrewCutOffTime)
 }

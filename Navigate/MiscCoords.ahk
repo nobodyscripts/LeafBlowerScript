@@ -21,7 +21,8 @@
  * button
  * @property {cPoint} AspectRatio2 Aspect ratio check point top right hide
  * button
- * @property {cMiscSettingPoints} Settings
+ * @property {cMiscSettingPoints} Settings Points for the game settings panel
+ * @property {cMiscPetPoints} Pets Points for the Pets panel
  */
 Class cMiscPoints {
     ; Top left corner used for zone background samples
@@ -46,8 +47,10 @@ Class cMiscPoints {
     AspectRatio1 := cPoint(58, 1323)
     ; Aspect ratio check point top right hide button
     AspectRatio2 := cPoint(2425, 51)
-    ; Settings object to hold points for game settings panel
+    ; Points for game settings panel
     Settings := cMiscSettingPoints()
+    ; Points for Pets panel
+    Pets := cMiscPetPoints()
 }
 
 ;@region cMiscSettingPoints
@@ -62,6 +65,20 @@ Class cMiscSettingPoints {
     MiscTab := cPoint(1776, 1179)
     ; Graphics tab on settings (tab 3)
     GraphicsTab := cPoint(887, 1179)
+}
+;@endregion
+
+;@region cMiscPetPoints
+/**
+ * Pet panel points
+ * @memberof module:cMiscPoints
+ * @property {cPoint} Tab 
+ */
+Class cMiscPetPoints {
+    ; Pets tab on Pets Panel (tab 1)
+    PetsTab := cPoint(550, 1165)
+    ; Teams tab on Pets Panel (tab 2)
+    TeamsTab := cPoint(828, 1165)
 }
 ;@endregion
 

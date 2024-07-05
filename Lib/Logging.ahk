@@ -89,6 +89,16 @@ VerboseLog(logmessage) {
 }
 
 /**
+ * Log callstack for Deprecated functions that need removal to be located
+ */
+StackLog() {
+    if (!Debug) {
+        Return
+    }
+    VerboseLog("Stack:" Error().Stack)
+}
+
+/**
  * Log error information and stack
  * @param {Error} error 
  */
