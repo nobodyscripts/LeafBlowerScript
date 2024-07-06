@@ -16,9 +16,9 @@
  */
 Class cCardPoints {
     ; Point for first panel tab Packs
-    PacksTab := cPoint(404, 1183)
+    PacksTab := cPoint(404, 1167)
     ; Point for second panel tab Transcend
-    TranscendTab := cPoint(526, 1180)
+    TranscendTab := cPoint(526, 1167)
     ; Open common cards button
     OpenCommon := cPoint(548, 807)
     ; Open rare cards button

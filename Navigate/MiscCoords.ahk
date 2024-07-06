@@ -72,7 +72,8 @@ Class cMiscSettingPoints {
 /**
  * Pet panel points
  * @memberof module:cMiscPoints
- * @property {cPoint} Tab 
+ * @property {cPoint} PetsTab Pets tab on Pets Panel (tab 1)
+ * @property {cPoint} TeamsTab Teams tab on Pets Panel (tab 2)
  */
 Class cMiscPetPoints {
     ; Pets tab on Pets Panel (tab 1)

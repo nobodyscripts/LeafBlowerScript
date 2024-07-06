@@ -16,9 +16,9 @@
  */
 Class cBorbventuresPoints {
     ; First tab (Borbventures)
-    BVTab := cPoint(400, 1183)
+    BVTab := cPoint(400, 1167)
     ; Second tab (Borbs)
-    BorbsTab := cPoint(630, 1183)
+    BorbsTab := cPoint(630, 1167)
     ; Point for checking autostart status with font size 0
     AutoStartFont0 := cPoint(586, 1097)
     ; Point for checking autostart status with font size 1

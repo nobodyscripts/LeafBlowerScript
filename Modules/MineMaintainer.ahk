@@ -114,7 +114,7 @@ fMineMaintainer() {
             MinerEnableVeinRemoval)) {
             i := 1
             DebugLog("Opening veins tab")
-            while (!Travel.Mine.IsOnTabVein() && i <= 10) {
+            while (!Travel.Mine.IsOnTabVein() && i <= 4) {
                 if (VeinsTab.IsButton()) {
                     VeinsTab.Click(NavigateTime)
                     Sleep(NavigateTime)
@@ -153,7 +153,7 @@ fMineMaintainer() {
                 TransmuteTime := A_Now
                 i := 1
                 DebugLog("Opening transmute tab")
-                while (!Travel.Mine.IsOnTabTrans() && i <= 10) {
+                while (!Travel.Mine.IsOnTabTrans() && i <= 4) {
                     if (TransmuteTab.IsButton()) {
                         TransmuteTab.Click(NavigateTime)
                         Sleep(NavigateTime)
@@ -178,7 +178,7 @@ fMineMaintainer() {
                 RefuelTime := A_Now
                 i := 1
                 DebugLog("Opening drill tab")
-                while (!Travel.Mine.IsOnTabDrill() && i <= 10) {
+                while (!Travel.Mine.IsOnTabDrill() && i <= 4) {
                     if (DrillTab.IsButton()) {
                         DrillTab.Click(NavigateTime)
                         Sleep(NavigateTime)
@@ -203,7 +203,7 @@ fMineMaintainer() {
                 SphereTime := A_Now
                 i := 1
                 DebugLog("Opening drill tab")
-                while (!Travel.Mine.IsOnTabDrill() && i <= 10) {
+                while (!Travel.Mine.IsOnTabDrill() && i <= 4) {
                     if (DrillTab.IsButton()) {
                         DrillTab.Click(NavigateTime)
                         Sleep(NavigateTime)
@@ -224,41 +224,46 @@ fMineMaintainer() {
         ;@endregion
 
         ;@region Banks
-        if ((Firstpass && MinerEnableBanks && IsPanelActive()) || (
-            IsWindowActive() && IsPanelActive() && DateDiff(A_Now, BankTime,
-                "Seconds") >= BankDepositTime * 60 && MinerEnableBanks)) {
-            ToolTip(, , , 4)
-            Log("Mine: Bank Maintainer starting.")
-            ToolTip("Mine Bank Maintainer Active", W / 2, WinRelPosLargeH(200),
-                4)
-            Sleep(NavigateTime)
-            BankSinglePass()
-            ToolTip(, , , 4)
-            ToolTip("Mine Maintainer Active", W / 2, WinRelPosLargeH(200), 4)
-            BankTime := A_Now
-            Sleep(NavigateTime)
-            Travel.Mine.GoTo()
+        if (IsWindowActive() && IsPanelActive() && MinerEnableBanks) {
+            if (Firstpass || DateDiff(A_Now, BankTime, "Seconds") >=
+                BankDepositTime * 60) {
+                ToolTip(, , , 4)
+                Log("Mine: Bank Maintainer starting.")
+                ToolTip("Mine Bank Maintainer Active", W / 2, WinRelPosLargeH(
+                    200), 4)
+                Sleep(NavigateTime)
+                BankSinglePass()
+                ToolTip(, , , 4)
+                ToolTip("Mine Maintainer Active", W / 2, WinRelPosLargeH(200),
+                    4)
+                BankTime := A_Now
+                ; Single pass does try to close, this is redundancy
+                Travel.ClosePanelIfActive()
+                Travel.Mine.GoTo()
+            }
         }
         ;@endregion
 
         ;@region Caves
-        if ((Firstpass && MinerEnableCaves && IsPanelActive()) || (
-            IsWindowActive() && IsPanelActive() && DateDiff(A_Now, CavesTime,
-                "Seconds") >= MinerCaveTimer * 60 && MinerEnableCaves)) {
-            i := 1
-            while (!Travel.Mine.IsOnTabMines() || i >= 10 || !IsPanelActive()) {
-                MinesTab.Click(NavigateTime)
-                Sleep(NavigateTime)
-                i++
-            }
-            if (Travel.Mine.IsOnTabMines()) {
-                Log("Mine: Cave Maintainer starting.")
-                Sleep(NavigateTime)
-                CavesSinglePass()
-                CavesTime := A_Now
-                Sleep(NavigateTime)
-            } else {
-                Log("Mine: Cave tab click failed")
+        if (IsWindowActive() && IsPanelActive() && MinerEnableCaves) {
+            if (Firstpass || DateDiff(A_Now, CavesTime, "Seconds") >=
+                MinerCaveTimer * 60) {
+                i := 1
+                while (!Travel.Mine.IsOnTabMines() && i <= 4 && IsPanelActive()
+                ) {
+                    MinesTab.Click(NavigateTime)
+                    Sleep(NavigateTime)
+                    i++
+                }
+                if (Travel.Mine.IsOnTabMines()) {
+                    Log("Mine: Cave Maintainer starting.")
+                    Sleep(NavigateTime)
+                    CavesSinglePass()
+                    CavesTime := A_Now
+                    Sleep(NavigateTime)
+                } else {
+                    Log("Mine: Cave tab click failed")
+                }
             }
         }
         ;@endregion
@@ -270,8 +275,10 @@ fMineMaintainer() {
                 BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &
                     BrewCutOffRunning)
                 if (IsAlchGeneralTab()) {
-                    while (BrewCutOffRunning && IsPanelActive()) {
-                        SpamBrewButtons()
+                    while (BrewCutOffRunning) {
+                        if(!SpamBrewButtons()) {
+                            break
+                        }
                     }
                     BrewCycleTimer.CoolDownS(MinerBrewCycleTime, &
                         BrewCycleRunning)
@@ -281,6 +288,8 @@ fMineMaintainer() {
                         "Alch travel error: Travel.OpenAlchemyGeneral() true but IsAlchGeneralTab() false"
                     )
                 }
+                ; This is redundancy
+                Travel.ClosePanelIfActive()
                 Travel.ClosePanelIfActive()
             }
         }

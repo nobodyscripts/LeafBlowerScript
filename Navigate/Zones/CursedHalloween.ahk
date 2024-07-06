@@ -55,7 +55,7 @@ Class CursedHalloween extends Zone {
     }
 
     IsHalloweenEventActive() {
-        OpenEventsAreasPanel()
+        Travel.OpenAreasEvents()
         if (Points.Areas.Events.CursedHalloween.IsBackground()) {
             return false
         }

@@ -85,7 +85,7 @@ Button_Click_Cards(thisGui, info) {
     } else {
         optionsGUI.Add("CheckBox", "vCardsGreedyOpen ccfcfcf", "Greedy Open Cards")
     }
-
+    
     if (CardsDontOpenCommons = true) {
         optionsGUI.Add("CheckBox", "vCardsDontOpenCommons ccfcfcf checked", "Disable Opening Common Cards")
     } else {
@@ -226,9 +226,9 @@ Button_Click_Cards(thisGui, info) {
 
     optionsGUI.Add("Text", "ccfcfcf", "Greedy starts at Amount")
     if (CardsGreedyBuy = true) {
-        optionsGUI.Add("CheckBox", "vCardsGreedyBuy ccfcfcf checked", "Greedy Open Cards")
+        optionsGUI.Add("CheckBox", "vCardsGreedyBuy ccfcfcf checked", "Greedy Buy Cards")
     } else {
-        optionsGUI.Add("CheckBox", "vCardsGreedyBuy ccfcfcf", "Greedy Open Cards")
+        optionsGUI.Add("CheckBox", "vCardsGreedyBuy ccfcfcf", "Greedy Buy Cards")
     }
 
     if (CardsDontBuyCommons = true) {

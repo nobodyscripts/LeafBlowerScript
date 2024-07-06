@@ -42,7 +42,7 @@ Class cAreasPoints {
  */
 Class cAreasFavPoints {
     ; Tab for areas panel (Favourites)
-    Tab := cPoint(300, 1180)
+    Tab := cPoint(300, 1167)
 }
 ;@endregion
 

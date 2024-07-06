@@ -8,9 +8,8 @@ fFarmNatureBoss() {
         Log("NatureBoss: Traveling to The Doomed Tree failed."
             " Nature season not active.")
         ToolTip("Could not travel to nature boss zone`n"
-            "Please use the artifact to enable nature season",
-            W / 2 - WinRelPosLargeW(100),
-            H / 2)
+            "Please use the artifact to enable nature season", W / 2 -
+            WinRelPosLargeW(100), H / 2)
         SetTimer(ToolTip, -5000)
         return
     }
@@ -31,23 +30,22 @@ fFarmNatureBoss() {
         if (!CurrentAliveState && IsBossTimerActive()) {
             if (!IsInShadowCavern) {
                 Log("NatureBoss: Going to Shadow Cavern to spam violins.")
-                ToolTip("Going to Shadow Cavern", W / 2 - WinRelPosLargeW(100), H / 2)
+                ToolTip("Going to Shadow Cavern", W / 2 - WinRelPosLargeW(100),
+                    H / 2)
                 SetTimer(ToolTip, -250)
                 if (!GoToShadowCavern()) {
                     Log("NatureBoss: Traveling to Shadow Cavern failed.")
-                    ToolTip("Traveling to Shadow Cavern failed.",
-                        W / 2 - WinRelPosLargeW(100),
-                        H / 2)
+                    ToolTip("Traveling to Shadow Cavern failed.", W / 2 -
+                        WinRelPosLargeW(100), H / 2)
                     SetTimer(ToolTip, -5000)
                     return
                 }
-                OpenEventsAreasPanel()
+                Travel.OpenAreasEvents()
                 Killcount++
                 IsInShadowCavern := true
 
-                ToolTip("Kills: " . Killcount,
-                    W / 2,
-                    H / 2 + WinRelPosLargeH(50))
+                ToolTip("Kills: " . Killcount, W / 2, H / 2 + WinRelPosLargeH(
+                    50))
                 SetTimer(ToolTip, -200)
             }
             loop {
@@ -69,8 +67,7 @@ fFarmNatureBoss() {
                             " Nature season not active.")
                         ToolTip("Could not travel to The Doomed Tree zone`n"
                             "Please use the artifact to enable nature season",
-                            W / 2 - WinRelPosLargeW(100),
-                            H / 2)
+                            W / 2 - WinRelPosLargeW(100), H / 2)
                         SetTimer(ToolTip, -5000)
                         return
                     }
@@ -112,10 +109,10 @@ IsNatureBossAlive() {
             return false
         }
     } catch as exc {
-        Log("NatureBoss: IsNatureBossAlive check failed with error - "
-            exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+        Log("NatureBoss: IsNatureBossAlive check failed with error - " exc.Message
+        )
+        MsgBox("Could not conduct the search due to the following error:`n" exc
+            .Message)
     }
     return false
 }
@@ -131,25 +128,25 @@ IsNatureBossTimerActive() {
         if (!cPoint(1693, 960).IsBackground()) {
             ; font 1
             ; TODO Move rect to Rects
-            found := PixelSearch(&OutX, &OutY,
-                WinRelPosLargeW(1574), WinRelPosLargeH(965),
-                WinRelPosLargeW(1642), WinRelPosLargeH(1009), "0xFFFFFF", 0)
+            found := PixelSearch(&OutX, &OutY, WinRelPosLargeW(1574),
+                WinRelPosLargeH(965), WinRelPosLargeW(1642), WinRelPosLargeH(
+                    1009), "0xFFFFFF", 0)
             If (found and OutX != 0) {
                 return true ; Found colour
             }
         } else {
             ; font 0
             ; TODO Move rect to Rects
-            found := PixelSearch(&OutX, &OutY,
-                WinRelPosLargeW(1525), WinRelPosLargeH(965),
-                WinRelPosLargeW(1660), WinRelPosLargeH(985), "0xFFFFFF", 0)
+            found := PixelSearch(&OutX, &OutY, WinRelPosLargeW(1525),
+                WinRelPosLargeH(965), WinRelPosLargeW(1660), WinRelPosLargeH(
+                    985), "0xFFFFFF", 0)
             ; Timer pixel search
             If (found and OutX != 0) {
                 return true ; Found colour
             }
         }
         ; Halloween inactive, nature active
-    ; TODO Move point to Points
+        ; TODO Move point to Points
         if (cPoint(1650, 870).IsButton()) {
             ; TODO Move rect to Rects
             found := cRect(1525, 897, 1660, 922).PixelSearch()
@@ -158,10 +155,10 @@ IsNatureBossTimerActive() {
             }
         }
     } catch as exc {
-        Log("NatureBoss: IsNatureBossTimerActive check failed with error - "
-            exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+        Log("NatureBoss: IsNatureBossTimerActive check failed with error - " exc
+            .Message)
+        MsgBox("Could not conduct the search due to the following error:`n" exc
+            .Message)
     }
     return false
 }

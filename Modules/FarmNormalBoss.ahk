@@ -84,7 +84,7 @@ fFarmNormalBossAndBrew(modecheck) {
 SpamBrewButtons() {
     if (!IsPanelActive()) {
         Log("SpamBrewButtons: Did not find panel. Aborted.")
-        return
+        return false
     }
     ; Artifacts
     Artifacts := Points.Brew.Tab1.Artifacts
@@ -111,6 +111,7 @@ SpamBrewButtons() {
     If (CardPartsFont1.IsButtonActive()) {
         CardPartsFont1.Click()
     }
+    return true
 }
 
 IsAlchGeneralTab() {
@@ -120,8 +121,7 @@ IsAlchGeneralTab() {
     Artifacts := Points.Brew.Tab1.Artifacts
     Equipment := Points.Brew.Tab1.Equipment
     Materials := Points.Brew.Tab1.Materials
-    If (Artifacts.IsButton() || Equipment.IsButton() || Materials.IsButton()
-    ) {
+    If (Artifacts.IsButton() || Equipment.IsButton() || Materials.IsButton()) {
         return true
     }
     return false
@@ -133,7 +133,7 @@ fNormalBossFarmWithBorbs(modecheck) {
     global on9
     Killcount := 0
 
-    if (!GotoBorbventuresFirstTab()) {
+    if (!Travel.GotoBorbVFirstTab()) {
         Log("Borbv: Failed to travel, aborting.")
         ToolTip("Failed to open Borbv, exiting.", W / 2, H / 2 +
             WinRelPosLargeH(50), 5)

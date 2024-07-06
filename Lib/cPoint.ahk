@@ -192,8 +192,7 @@ Class cPoint {
         If (Colours().IsBackground(targetColour)) {
             return true
         }
-        VerboseLog("cPoint.IsBackground: " this.toStringDisplay() " is now " targetColour
-        )
+        VerboseLog("cPoint.IsBackground: " this.toStringDisplay() " is now " targetColour)
 
         return false
     }
@@ -347,7 +346,8 @@ Class cPoint {
             Sleep(interval)
             i--
             if (i = 0) {
-                VerboseLog("ClickOffsetUntilColour: Hit max clicks " this.toStringWColour())
+                VerboseLog("ClickOffsetUntilColour: Hit max clicks " this.toStringWColour()
+                )
                 return false
             }
         }

@@ -221,6 +221,7 @@ Settings added to General Settings and 3 settings added to ini.
 the options conflict. Also renamed Amount > Count for clarity.
   - Fixed mislabeled brew setting in mine maintainer and slight sorting.
   - Added option to control timestamps in logging to general settings.
+  - Moved greedy open cards to the open cards section.
 
 - Mine
   - Added MinerSphereModifier setting, custom amount to use per click when
@@ -271,9 +272,11 @@ borderless fullscreen
 
 - GemFarm: Add mouse movement patterns to collect artifacts in the background.
 - Borbv: Load dlc purchase state from save file and remove setting.
+- Borbv: Not starting quests again?
 - Claw: Needs to use artifact if need be / get replacement.
 - GFSS: Add setting for standalone WW in GFSS spammer.
 - GFSS: Review ending of gfssnoreset mode.
+- NormBoss: F9 rotation button not working?
 - NatBoss: Recheck nature boss.
 - NatBoss: Needs to use artifact if need be / get replacement.
 - Leafton: Leafton needs better setup routine. Travel to zone.

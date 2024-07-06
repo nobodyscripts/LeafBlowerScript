@@ -260,7 +260,7 @@ fBorbvStart(*) { ; Borb pink juice farm in borbventures
         }
         fBorbVentureJuiceFarm()
     } Else {
-        if (bvAutostartDisabled = true && GotoBorbventuresFirstTab()) {
+        if (bvAutostartDisabled = true && Travel.GotoBorbVFirstTab()) {
             ; TODO move point to Points
             fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
         }

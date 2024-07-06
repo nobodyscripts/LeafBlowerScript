@@ -27,51 +27,6 @@ global DisableZoneChecks := false
 global NavigateTime := 150
 global LBRWindowTitle
 
-/**
- * Opens the areas panel, events tab
- * @param {number} extraDelay (optional): add ms to the sleep timers
- */
-OpenEventsAreasPanel(extraDelay := 0) {
-    if (Travel.OpenAreas(false, extraDelay)) {
-        ; Click Favourites
-        Points.Areas.Favs.Tab.ClickOffset(, , NavigateTime + extraDelay)
-        Sleep(NavigateTime + extraDelay)
-
-        ; Click the event tab
-        Points.Areas.Events.Tab.ClickOffset(, , NavigateTime + extraDelay)
-        sleep(NavigateTime + extraDelay)
-
-        ; Redundant click
-        Points.Areas.Events.Tab.ClickOffset(, , NavigateTime + extraDelay)
-        sleep(NavigateTime + extraDelay)
-        return true
-    } else {
-        return false
-    }
-}
-
-/**
- * Opens the quark panel
- * @param {number} extraDelay (optional): add ms to the sleep timers
- */
-OpenQuarkPanel(extraDelay := 0) {
-    if (Travel.OpenAreas(false, extraDelay)) {
-
-        ; Quark tab
-        Points.Areas.QuarkA.Tab.ClickOffset(, , NavigateTime + extraDelay)
-        Sleep(NavigateTime + extraDelay)
-
-        ; Redundant click
-        Points.Areas.QuarkA.Tab.ClickOffset(, , NavigateTime + extraDelay)
-        Sleep(NavigateTime + extraDelay)
-
-        Travel.ScrollAmountUp(2)
-        Sleep(NavigateTime + extraDelay)
-        return true
-    } else {
-        return false
-    }
-}
 
 IsAreaResetToGarden() {
     if (!Rects.Areas.GardenReset.PixelSearch("0x4A9754")) {
@@ -328,7 +283,7 @@ GoToNatureBoss() {
             }
             Log("Traveling to The Doomed Tree")
             while (!IsOnEventAreaPanel()) {
-                OpenEventsAreasPanel(100)
+                Travel.OpenAreasEvents(100)
             }
             Sleep(NavigateTime)
             if (!NatureBossButtonClick()) {
@@ -350,7 +305,7 @@ GoToNatureBoss() {
         Log("Traveling to The Doomed Tree. Attempt to blind travel with slowed"
             " times.")
         while (!IsOnEventAreaPanel()) {
-            OpenEventsAreasPanel(200)
+            Travel.OpenAreasEvents(200)
         }
         Sleep(NavigateTime + 200)
         if (!NatureBossButtonClick()) {
@@ -414,7 +369,7 @@ GoToCheeseBoss() {
                 return false
             }
             Log("Traveling to Cursed Halloween")
-            OpenEventsAreasPanel()
+            Travel.OpenAreasEvents()
             Sleep(NavigateTime)
             if (!button.IsBackground()) {
                 ; Open Cheese boss area
@@ -434,7 +389,7 @@ GoToCheeseBoss() {
         Log(
             "Traveling to Cursed Halloween. Attempt to blind travel with slowed"
             " times.")
-        OpenEventsAreasPanel(200)
+        Travel.OpenAreasEvents(200)
         Sleep(NavigateTime + 200)
         if (!button.IsBackground()) {
             ; Open Cheese boss area
@@ -484,7 +439,7 @@ GoToFarmField() {
                 Log("No window found while trying to travel.")
                 return false
             }
-            OpenEventsAreasPanel()
+            Travel.OpenAreasEvents()
             if (button.IsBackground()) {
                 return false
             }
@@ -495,7 +450,7 @@ GoToFarmField() {
         }
         ; If we were not at home garden or now farm field, try travel
         while (!IsAreaSampleColour("0x4A9754") && i <= 4) {
-            OpenEventsAreasPanel()
+            Travel.OpenAreasEvents()
             if (button.IsBackground()) {
                 return false
             }
@@ -511,7 +466,7 @@ GoToFarmField() {
     } else {
         Log("Traveling to Farm Field. Attempt to blind travel with slowed"
             " times.")
-        OpenEventsAreasPanel(200)
+        Travel.OpenAreasEvents(200)
         if (button.IsBackground()) {
             return false
         }
@@ -548,7 +503,7 @@ GoToAstralOasis() {
                 return false
             }
             Log("Traveling to Astral Oasis (Quark Boss 1)")
-            OpenQuarkPanel()
+            Travel.OpenAreasQuark()
             if (!button.IsBackground()) {
                 button.ClickOffset(5, 0, NavigateTime)
             } else {
@@ -564,7 +519,7 @@ GoToAstralOasis() {
     } else {
         Log("Traveling to Astral Oasis (Quark Boss 1). Attempt to blind travel"
             " with slowed times.")
-        OpenQuarkPanel(200)
+        Travel.OpenAreasQuark(200)
         if (!button.IsBackground()) {
             button.ClickOffset(5, 0, NavigateTime + 200)
         } else {
@@ -601,7 +556,7 @@ GoToDimentionalTapestry() {
                 return false
             }
             Log("Traveling to Dimentional Tapestry (Quark Boss 2)")
-            OpenQuarkPanel()
+            Travel.OpenAreasQuark()
             if (!button.IsBackground()) {
                 button.ClickOffset(5, 0, NavigateTime)
             } else {
@@ -617,7 +572,7 @@ GoToDimentionalTapestry() {
     } else {
         Log("Traveling to Dimentional Tapestry (Quark Boss 2). Attempt to"
             " blind travel with slowed times.")
-        OpenQuarkPanel(200)
+        Travel.OpenAreasQuark(200)
         if (!button.IsBackground()) {
             button.ClickOffset(5, 0, NavigateTime + 200)
         } else {
@@ -656,7 +611,7 @@ GoToPlankScope() {
                 return false
             }
             Log("Traveling to Plank Scope (Quark Boss 3)")
-            OpenQuarkPanel()
+            Travel.OpenAreasQuark()
             if (button.IsButtonActive()) {
                 button.ClickOffset(5, , NavigateTime)
             } else if (button2.IsButtonActive()) {
@@ -672,7 +627,7 @@ GoToPlankScope() {
     } else {
         Log("Traveling to Plank Scope (Quark Boss 3). Attempt to blind travel"
             " with slowed times.")
-        OpenQuarkPanel(200)
+        Travel.OpenAreasQuark(200)
         if (button.IsButtonActive()) {
             button.ClickOffset(5, , NavigateTime + 200)
         } else if (button2.IsButtonActive()) {
@@ -701,7 +656,7 @@ SingleAnteLeaftonTravel(extradelay := 0) {
     }
     Log("Traveling to Ante Leafton")
     Travel.ClosePanelIfActive()
-    OpenQuarkPanel(extradelay)
+    Travel.OpenAreasQuark(extradelay)
     Travel.ScrollAmountDown(2)
     button := Points.Areas.QuarkA.AnteLeafton
     button2 := Points.Areas.QuarkA.AnteLeafton2
@@ -822,43 +777,6 @@ GoToAreaFireFieldsTab(extraDelay := 0) {
     ; Repeat
     Points.Areas.FireF.Tab.Click(NavigateTime + extraDelay)
     sleep(NavigateTime + extraDelay)
-}
-
-;TODO Move to borbventures travel class
-/**
- * Travel to Borbventures first tab
- * @returns {Boolean} 
- */
-GotoBorbventuresFirstTab() {
-    Travel.OpenBorbVentures() ; Open BV
-    Sleep(101)
-    BVResetScroll()
-    i := 0
-    while (!Points.Borbventures.Detailed.IsButtonActive() && !Points.Borbventures
-        .ScaleMin.IsButtonActive() && i <= 4) {
-        Travel.OpenBorbVentures() ; Open BV
-        Sleep(101)
-        BVResetScroll()
-        i++
-    }
-    if (Points.Borbventures.Detailed.IsButtonActive() && Points.Borbventures.ScaleMin
-        .IsButtonActive()) {
-        DebugLog("Travel success to Borbventures First Tab.")
-        return true
-    }
-    Log("Failed to travel to borbventures first tab")
-    return false
-}
-
-;TODO Move to borbventures travel class
-BVResetScroll() {
-    ; Double up due to notifications
-    Points.Borbventures.BorbsTab.Click(72) ; Click borbs tab to reset scroll
-    Points.Borbventures.BorbsTab.Click(72) ; Redundant for stability
-    Sleep(72)
-    Points.Borbventures.BVTab.Click(72) ; Click borbventures
-    Points.Borbventures.BVTab.Click(72) ; Redundant for stability
-    Sleep(72)
 }
 
 GoToLeafTower() {

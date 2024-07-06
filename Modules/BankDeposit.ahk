@@ -122,6 +122,7 @@ BankSinglePass() {
         i++
     }
     Travel.ClosePanelIfActive()
+    Travel.ClosePanelIfActive()
 }
 
 ;@region Support functions

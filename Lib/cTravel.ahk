@@ -55,8 +55,11 @@ Class cTravel {
      * @param {Bool} reset Reset area panel scroll state at end
      * @param {Integer} delay Extra delay to apply to NavigateTime
      */
-    _OpenAny(action, test, reset := true, delay := 0) {
+    _OpenAny(action, test, delay := 0) {
         NavTime := NavigateTime + delay
+        if (NavTime < 72) {
+            NavTime := 72
+        }
         this.ClosePanelIfActive()
         action() ; Open location in func
         sleep(NavTime)
@@ -67,33 +70,43 @@ Class cTravel {
             sleep(NavTime)
             i++
         }
-        active := IsPanelActive()
-        if (reset && active) {
-            this.ResetAreaScroll(delay)
-        }
-        return active
+        return IsPanelActive()
     }
 
-    ;@region ResetAreaScroll()
+    ;@region ResetScroll()
     /**
      * Swap tabs to reset scroll state in areas panel
      * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      */
-    ResetAreaScroll(delay := 0) {
+    ResetScroll(Button1, Button2, delay := 0) {
         NavTime := NavigateTime + delay
         if (NavTime < 72) {
             NavTime := 72
         }
         VerboseLog("Resetting panel scroll")
-        ; Click Favourites
-        Points.Areas.Favs.Tab.ClickOffset(, , NavTime)
-        Sleep(NavTime)
-        ; Click Back to default page to reset the scroll
-        Points.Areas.LeafG.Tab.ClickOffset(, , NavTime)
-        Sleep(NavTime)
-        ; Double click for redundancy
-        Points.Areas.LeafG.Tab.ClickOffset(, , NavTime)
-        Sleep(NavTime)
+        ; Click tab
+        if (Button1.IsButtonActive()) {
+            Button1.ClickOffset(, , NavTime)
+            Sleep(NavTime)
+        } else {
+            DebugLog("Reset panel scroll did not find an active button.")
+            VerboseLog(Button1.toStringWColour())
+            StackLog()
+            return false
+        }
+        ; Click Back to reset the scroll
+        if (Button2.IsButtonActive()) {
+            Button2.ClickOffset(, , NavTime)
+            Sleep(NavTime)
+            ; Double click for redundancy
+            Button2.ClickOffset(, , NavTime)
+            Sleep(NavTime)
+            return true
+        } else {
+            DebugLog("Button 2 inactive on resetscroll")
+            VerboseLog(Button2.toStringWColour())
+        }
+        return false
     }
     ;@endregion
 
@@ -135,18 +148,68 @@ Class cTravel {
     }
     ;@endregion
 
+    ;@region OpenAreas()
     /**
      * Open Areas panel, closes others first
      * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
-    OpenAreas(reset := true, delay := 0) {
+    OpenAreas(reset := false, delay := 0) {
         VerboseLog("Openareas")
-        return this._OpenAny(GameKeys.OpenAreas.Bind(GameKeys), IsPanelActive,
-            reset, delay)
+        active := this._OpenAny(GameKeys.OpenAreas.Bind(GameKeys),
+            IsPanelActive, delay)
+        if (reset && active) {
+            this.ResetAreaScroll(delay)
+        }
+        return active
     }
 
+    ;@region ResetAreaScroll()
+    /**
+     * Swap tabs to reset scroll state in areas panel
+     * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
+     */
+    ResetAreaScroll(delay := 0) {
+        return this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.LeafG.Tab,
+            delay)
+    }
+    ;@endregion
+    ;@endregion
+
+    ;@region OpenAreasEvents()
+    /**
+     * Opens the areas panel, events tab
+     * @param {number} extraDelay (optional): add ms to the sleep timers
+     */
+    OpenAreasEvents(extraDelay := 0) {
+        if (this.OpenAreas(false, extraDelay)) {
+            return this.ResetScroll(Points.Areas.Favs.Tab, ;
+                Points.Areas.Events.Tab, extraDelay)
+        }
+        return false
+    }
+    ;@endregion
+
+    ;@region OpenAreasQuark()
+    /**
+     * Opens the quark panel
+     * @param {number} extraDelay (optional): add ms to the sleep timers
+     */
+    OpenAreasQuark(extraDelay := 0) {
+        if (this.OpenAreas(false, extraDelay)) {
+            state := this.ResetScroll(Points.Areas.Favs.Tab, ;
+                Points.Areas.QuarkA.Tab, extraDelay)
+            if (state) {
+                this.ScrollAmountUp(2)
+                Sleep(NavigateTime + extraDelay)
+            }
+        }
+        return false
+    }
+    ;@endregion
+
+    ;@region OpenGemShop()
     /**
      * Open Gem panel, closes others first
      * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
@@ -155,22 +218,42 @@ Class cTravel {
      */
     OpenGemShop(reset := false, delay := 0) {
         VerboseLog("OpenGemShop")
-        return this._OpenAny(GameKeys.OpenGemShop.Bind(GameKeys), IsPanelActive,
-            reset, delay)
+        active := this._OpenAny(GameKeys.OpenGemShop.Bind(GameKeys),
+            IsPanelActive, delay)
+        if (reset && active) {
+            this.ResetGemShopScroll(delay)
+        }
+        return active
     }
 
+    ;@region ResetGemShopScroll()
+    /**
+     * Swap tabs to reset scroll state in GemShop panel
+     * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
+     */
+    ResetGemShopScroll(delay := 0) {
+        return this.ResetScroll(Points.Areas.LeafG.Tab, Points.Areas.Favs.Tab,
+            delay)
+    }
+    ;@endregion
+    ;@endregion
+
+    ;@region OpenTrades()
     /**
      * Open Trades panel, closes others first
      * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
-    OpenTrades(reset := false, delay := 0) {
+    OpenTrades(delay := 0) {
+        ; No tabs so no reset
         VerboseLog("OpenTrades")
         return this._OpenAny(GameKeys.OpenTrades.Bind(GameKeys), IsPanelActive,
-            reset, delay)
+            delay)
     }
+    ;@endregion
 
+    ;@region OpenPets()
     /**
      * Open Pets panel, closes others first
      * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
@@ -179,33 +262,96 @@ Class cTravel {
      */
     OpenPets(reset := false, delay := 0) {
         VerboseLog("OpenPets")
-        return this._OpenAny(GameKeys.OpenPets.Bind(GameKeys), IsPanelActive,
-            reset, delay)
+        active := this._OpenAny(GameKeys.OpenPets.Bind(GameKeys), IsPanelActive,
+            delay)
+        if (reset && active) {
+            this.ResetPetScroll(delay)
+        }
+        return active
     }
+    ;@region ResetPetScroll()
+    /**
+     * Swap tabs to reset scroll state in Pet panel
+     * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
+     */
+    ResetPetScroll(delay := 0) {
+        return this.ResetScroll(Points.Misc.Pets.TeamsTab, Points.Misc.Pets.PetsTab,
+            delay)
+    }
+    ;@endregion
+    ;@endregion
 
+    ;@region OpenBank()
     /**
      * Open Bank panel, closes others first
      * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
-    OpenBank(reset := false, delay := 0) {
+    OpenBank(delay := 0) {
         VerboseLog("OpenBank")
         return this._OpenAny(GameKeys.OpenBank.Bind(GameKeys), IsPanelActive,
-            reset, delay)
+            delay)
     }
+    ;@endregion
 
+    ;@region OpenBorbVentures()
+    ;TODO split borbv to class
     /**
      * Open Borbventures panel, closes others first
      * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
-    OpenBorbVentures(reset := true, delay := 0) {
+    OpenBorbVentures(reset := false, delay := 0) {
         VerboseLog("OpenBorbVentures")
-        return this._OpenAny(GameKeys.OpenBorbVentures.Bind(GameKeys),
-            IsPanelActive, reset, delay)
+        active := this._OpenAny(GameKeys.OpenBorbVentures.Bind(GameKeys),
+            IsPanelActive, delay)
+        if (reset && active) {
+            this.ResetBorbVScroll(delay)
+        }
+        return active
     }
+
+    ;@region ResetBorbVScroll()
+    /**
+     * Swap tabs to reset scroll state in BorbV panel
+     * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
+     */
+    ResetBorbVScroll(delay := 0) {
+        log(Points.Borbventures.BorbsTab.toStringWColour())
+        log(Points.Borbventures.BVTab.toStringWColour())
+        return this.ResetScroll(Points.Borbventures.BorbsTab, Points.Borbventures
+            .BVTab, delay)
+    }
+    ;@endregion
+    ;@endregion
+
+    ;@region GotoBorbVFirstTab()
+    /**
+     * Travel to Borbventures first tab
+     * @returns {Boolean} 
+     */
+    GotoBorbVFirstTab() {
+        Travel.OpenBorbVentures(true)
+        i := 0
+        while (!this.IsBorbVFirstTab() && i <= 4) {
+            Travel.OpenBorbVentures(true)
+            i++
+        }
+        if (this.IsBorbVFirstTab()) {
+            DebugLog("Travel success to Borbventures First Tab.")
+            return true
+        }
+        Log("Failed to travel to borbventures first tab")
+        return false
+    }
+
+    IsBorbVFirstTab() {
+        return Points.Borbventures.Detailed.IsButtonActive() && Points.Borbventures
+            .ScaleMin.IsButtonActive()
+    }
+    ;@endregion
 
     /**
      * Open Cards panel, closes others first
@@ -213,10 +359,14 @@ Class cTravel {
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
-    OpenCards(reset := true, delay := 0) {
+    OpenCards(reset := false, delay := 0) {
         VerboseLog("OpenCards")
-        return this._OpenAny(GameKeys.OpenCards.Bind(GameKeys), IsPanelActive,
-            reset, delay)
+        active := this._OpenAny(GameKeys.OpenCards.Bind(GameKeys),
+            IsPanelActive, delay)
+        if (reset && active) {
+            this.ResetAreaScroll(delay)
+        }
+        return active
     }
 
     /**
@@ -225,10 +375,14 @@ Class cTravel {
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
-    OpenAlchemy(reset := true, delay := 0) {
+    OpenAlchemy(reset := false, delay := 0) {
         VerboseLog("OpenAlchemy")
-        return this._OpenAny(GameKeys.OpenAlchemy.Bind(GameKeys), IsPanelActive,
-            reset, delay)
+        active := this._OpenAny(GameKeys.OpenAlchemy.Bind(GameKeys),
+            IsPanelActive, delay)
+        if (reset && active) {
+            this.ResetAreaScroll(delay)
+        }
+        return active
     }
 
     /**
@@ -260,10 +414,14 @@ Class cTravel {
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
-    OpenCrafting(reset := true, delay := 0) {
+    OpenCrafting(reset := false, delay := 0) {
         VerboseLog("OpenCrafting")
-        return this._OpenAny(GameKeys.OpenCrafting.Bind(GameKeys),
-            IsPanelActive, reset, delay)
+        active := this._OpenAny(GameKeys.OpenCrafting.Bind(GameKeys),
+            IsPanelActive, delay)
+        if (reset && active) {
+            this.ResetAreaScroll(delay)
+        }
+        return active
     }
 
     /**
@@ -272,23 +430,30 @@ Class cTravel {
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
-    OpenMining(reset := true, delay := 0) {
+    OpenMining(reset := false, delay := 0) {
         VerboseLog("OpenMining")
-        return this._OpenAny(GameKeys.OpenMining.Bind(GameKeys), IsPanelActive,
-            reset, delay)
+        active := this._OpenAny(GameKeys.OpenMining.Bind(GameKeys),
+            IsPanelActive, delay)
+        if (reset && active) {
+            this.ResetAreaScroll(delay)
+        }
+        return active
     }
 
+    ;@region OpenGoldPortal()
     /**
      * Open Gold portal (prestige 1) panel, closes others first
      * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
-    OpenGoldPortal(reset := false, delay := 0) {
+    OpenGoldPortal(delay := 0) {
         VerboseLog("OpenGoldPortal")
-        return this._OpenAny(GameKeys.OpenGoldPortal.Bind(GameKeys),
-            IsPanelActive, reset, delay)
+        active := this._OpenAny(GameKeys.OpenGoldPortal.Bind(GameKeys),
+            IsPanelActive, delay)
+        return active
     }
+    ;@endregion
 
     /**
      * Open settings panel, closes others first
@@ -296,7 +461,7 @@ Class cTravel {
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
-    OpenSettings(reset := true) {
+    OpenSettings(reset := false) {
         VerboseLog("OpenSettings")
         this.ClosePanelIfActive()
         GameKeys.ClosePanel()
@@ -307,6 +472,7 @@ Class cTravel {
         return IsPanelActive()
     }
 
+    ;@region Close panel
     /**
      * Closes open panels or opens settings if non open
      * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
@@ -332,5 +498,6 @@ Class cTravel {
         }
         return IsPanelActive()
     }
+    ;@endregion
 
 }

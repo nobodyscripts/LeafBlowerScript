@@ -13,11 +13,21 @@ Class Mine extends Zone {
 
     ;@region Mine main travel
     /**
-     * Go to mine panel
+     * Go to mine panel can return on any tab
+     * @param {Boolean} [reset=false] Click first tab after travel?
      * @returns {Boolean} Is panel active
      */
-    GoTo() {
-        return Travel.OpenMining()
+    GoTo(reset := false) {
+        if (!reset) {
+            return Travel.OpenMining(false)
+        } else {
+            Travel.OpenMining(false)
+            if (Points.Mine.Tab1Vein.IsButtonActive()) {
+                Points.Mine.Tab1Vein.Click()
+                Sleep(NavigateTime)
+            }
+            return IsPanelActive()
+        }
     }
     ;@endregion
 
@@ -26,7 +36,7 @@ Class Mine extends Zone {
      * Go to mine panel > vein tab
      */
     GoToTabVein() {
-        this.Goto()
+        Travel.OpenMining(false)
 
         Points.Mine.Tab1Vein.Click()
         Sleep(NavigateTime)

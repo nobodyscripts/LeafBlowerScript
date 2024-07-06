@@ -7,7 +7,7 @@ global BVBlockMythLeg := false
 fBorbVentureJuiceFarm() {
     global bvAutostartDisabled, BVBlockMythLeg
 
-    if (!GotoBorbventuresFirstTab()) {
+    if (!Travel.GotoBorbVFirstTab()) {
         Log("Borbv: Failed to travel, aborting.")
         return
     }
@@ -21,7 +21,9 @@ fBorbVentureJuiceFarm() {
     }
     if (BVBlockMythLeg) {
         ; Add note so that every time i turn it on and nothing starts i know why
-        Log("Warning: BVBlockMythLeg is on, if all available trades are myth/leg nothing will start.")
+        Log(
+            "Warning: BVBlockMythLeg is on, if all available trades are myth/leg nothing will start."
+        )
     }
     loop {
         if (!IsWindowActive()) {
@@ -79,15 +81,15 @@ BVMainLoop() {
                 VerboseLog("Found active slot.")
                 activeSlots++
             } else {
-                if ((BVScanSlotRarity(arrowY) != "0x9E10C1" &&
-                    BVScanSlotRarity(arrowY) != "0xE1661A" && BVBlockMythLeg) || !BVBlockMythLeg) {
+                if ((BVScanSlotRarity(arrowY) != "0x9E10C1" && BVScanSlotRarity(
+                    arrowY) != "0xE1661A" && BVBlockMythLeg) || !BVBlockMythLeg
+                ) {
 
                     VerboseLog("Can scan slot " arrowCount)
                     ; If slot has an item we want add it to the target list
-                    if (BVScanSlotItem(WinRelPosLargeW(1313),
-                        arrowY - WinRelPosLargeH(17),
-                        WinRelPosLargeW(1347),
-                        arrowY + WinRelPosLargeH(20))) {
+                    if (BVScanSlotItem(WinRelPosLargeW(1313), arrowY -
+                        WinRelPosLargeH(17), WinRelPosLargeW(1347), arrowY +
+                        WinRelPosLargeH(20))) {
                         VerboseLog("Found item added to target items.")
                         targetItemsYArray.Push(arrowY)
                     }
@@ -104,7 +106,7 @@ BVMainLoop() {
     ; Check for only if scroll is not at the top
     if (!detailedMode && !IsBVScrollAblePanelAtTop()) {
         DebugLog("Reset scroll.")
-        BVResetScroll()
+        Travel.ResetBorbVScroll()
         Sleep(34)
         return ; If we had to reset we should restart function and rescan
     }
@@ -116,7 +118,8 @@ BVMainLoop() {
     }
     started := 0
     for SlotY in targetItemsYArray {
-        if (AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started)) {
+        if (AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started
+        )) {
             if (BVStartItemFromSlot(SlotY)) {
                 VerboseLog("Found item, added to started.")
                 started++
@@ -125,12 +128,10 @@ BVMainLoop() {
     }
     if (Debug) {
         ToolTip("Found " . activeSlots . " active slots`n"
-            "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows "
-            arrowCount ", Target items " targetItemsYArray.Length,
-            W / 2.2, H / 6.5, 1)
+            "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows " arrowCount ", Target items " targetItemsYArray
+            .Length, W / 2.2, H / 6.5, 1)
     } else {
-        ToolTip("Found " . activeSlots . " active slots",
-            W / 2.2, H / 6.2, 1)
+        ToolTip("Found " . activeSlots . " active slots", W / 2.2, H / 6.2, 1)
     }
     if (AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started)) {
         ; If we have not filled all available slots refresh
@@ -140,10 +141,10 @@ BVMainLoop() {
 }
 
 AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started) {
-    if ((!detailedMode && !HaveBorbDLC && activeSlots + started < 3) ||
-        (detailedMode && !HaveBorbDLC && activeSlots + started < 5) ||
-        (!detailedMode && HaveBorbDLC && activeSlots + started < 4) ||
-        (detailedMode && HaveBorbDLC && activeSlots + started < 6)) {
+    if ((!detailedMode && !HaveBorbDLC && activeSlots + started < 3) || (
+        detailedMode && !HaveBorbDLC && activeSlots + started < 5) || (!
+            detailedMode && HaveBorbDLC && activeSlots + started < 4) || (
+                detailedMode && HaveBorbDLC && activeSlots + started < 6)) {
         return true
     }
     return false
@@ -197,7 +198,8 @@ BVGetFinishButtonLocation() {
     if (col1 != false) {
         return col1
     }
-    col2 := Rects.Borbventures.FinishButtonCol.PixelSearch(Colours().ActiveMouseOver)
+    col2 := Rects.Borbventures.FinishButtonCol.PixelSearch(Colours().ActiveMouseOver
+    )
     if (col2 != false) {
         return col2
     }
@@ -232,8 +234,8 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
         }
     } catch as exc {
         Log("Borbv: ScanSlotItem failed to scan - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n" exc
+            .Message)
     }
     return 0
 }
@@ -289,17 +291,19 @@ BVCachedArrowsLocations() {
     if (locations != false) {
         ; if first two cached locations are correct, return the rest, otherwise
         ; refresh
-        if (locations.Length >= 6 && PixelGetColor(WinRelPosLargeW(1280), locations[1]) = "0x1989B8" &&
-            PixelGetColor(WinRelPosLargeW(1280), locations[2]) = "0x1989B8" &&
-            PixelGetColor(WinRelPosLargeW(1280), locations[3]) = "0x1989B8" &&
-            PixelGetColor(WinRelPosLargeW(1280), locations[4]) = "0x1989B8" &&
+        if (locations.Length >= 6 && PixelGetColor(WinRelPosLargeW(1280),
+            locations[1]) = "0x1989B8" && PixelGetColor(WinRelPosLargeW(1280),
+                locations[2]) = "0x1989B8" && PixelGetColor(WinRelPosLargeW(
+                    1280), locations[3]) = "0x1989B8" && PixelGetColor(
+                        WinRelPosLargeW(1280), locations[4]) = "0x1989B8" &&
             PixelGetColor(WinRelPosLargeW(1280), locations[5]) = "0x1989B8" &&
             PixelGetColor(WinRelPosLargeW(1280), locations[6]) = "0x1989B8") {
             return locations
         }
 
     }
-    newlocations := LineGetColourInstancesOffsetV(1280, 275, 1073, "0x1989B8", 8)
+    newlocations := LineGetColourInstancesOffsetV(1280, 275, 1073, "0x1989B8",
+        8)
     locations := newlocations
     return locations
 }
