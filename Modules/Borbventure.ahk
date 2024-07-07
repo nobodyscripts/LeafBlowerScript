@@ -15,15 +15,13 @@ fBorbVentureJuiceFarm() {
     Log("Borbv: Main loop starting.")
     bvAutostartDisabled := false
     if (IsBVAutoStartOn()) {
-        ; TODO Move point to Points
-        cPoint(591, 1100).Click()
+        Points.Borbventures.AutoStartFont0.Click()
         bvAutostartDisabled := true
     }
     if (BVBlockMythLeg) {
         ; Add note so that every time i turn it on and nothing starts i know why
-        Log(
-            "Warning: BVBlockMythLeg is on, if all available trades are myth/leg nothing will start."
-        )
+        Log("Warning: BVBlockMythLeg is on, if all available trades are " .
+            "myth/leg nothing will start.")
     }
     loop {
         if (!IsWindowActive()) {
@@ -55,15 +53,14 @@ BVMainLoop() {
         if (!found) {
             break
         }
-        ; TODO Move point to Points
-        cPoint(1847, 1085).Click()
+        Points.Borbventures.FinishAll.Click()
         Sleep(34)
     }
     ; Get a list of the arrows heights so we can check the buttons and icons
     ; relative to that position
     targetItemsYArray := []
     arrows := BVCachedArrowsLocations()
-    VerboseLog(ArrToCommaDelimStr(arrows))
+    VerboseLog("Y positions of arrows: " ArrToCommaDelimStr(arrows))
     arrowCount := 0
     activeSlots := 0
     if (!arrows) {

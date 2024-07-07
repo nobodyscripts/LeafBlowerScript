@@ -247,6 +247,7 @@ MinerEnableLeafton. Boss mode enabled by default.
 - BorbVentures
   - Added quantum blob, quark blob and quark structures.
   - Changed default of block myth/legend to off.
+  - Fix for not starting quests.
 
 - F12 (resize and test)
   - Updated function to check options.dat directly for settings. Collects errors

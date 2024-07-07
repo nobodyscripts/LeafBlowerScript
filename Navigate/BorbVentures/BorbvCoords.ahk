@@ -13,6 +13,7 @@
  * with font size 1
  * @property {cPoint} Detailed Detailed mode button for checks
  * @property {cPoint} ScaleMin Scale minimum button for checks
+ * @property {cPoint} FinishAll Finish all completed quests button
  */
 Class cBorbventuresPoints {
     ; First tab (Borbventures)
@@ -27,4 +28,6 @@ Class cBorbventuresPoints {
     Detailed := cPoint(1100, 314)
     ; Scale minimum button for checks
     ScaleMin := cPoint(1574, 314)
+    ; Finish all button
+    FinishAll := cPoint(1847, 1085)
 }
