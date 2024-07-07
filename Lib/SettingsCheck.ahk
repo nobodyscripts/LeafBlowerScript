@@ -76,7 +76,7 @@ CheckGameSettingsCorrect() {
     }
     ; Check for afk, if it is on, click the corner of the screen
     AFKFix()
-    Travel.OpenAreas(false)
+    Travel.OpenAreas()
     ; Cannot check font here as it might not be correct res
     ; Changing res every activation would be annoying
     If (!IsAspectRatioCorrectCheck()) {

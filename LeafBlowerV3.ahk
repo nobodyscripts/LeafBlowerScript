@@ -300,7 +300,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
     Log("F9: Pressed")
     InitScriptHotKey()
     Thread('Interrupt', 0)  ; Make all threads always-interruptible.
-    if (GUIMode != -1) {
+    if (GUIMode != -1 && IsNumber(GUIMode)) {
         on9 := GUIMode
     }
     switch on9 {

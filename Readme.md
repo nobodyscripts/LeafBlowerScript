@@ -256,6 +256,9 @@ MinerEnableLeafton. Boss mode enabled by default.
   - Added Greedy card purchasing and opening. Use of Greedy ignores "Amount".
   - Added CardsGreedyOpen and CardsGreedyBuy settings (both default off)
 
+- F9 (Normal Boss)
+  - Fixed keybind not rotating through sub functions.
+
 ## TODO
 
 - Check settings from options.dat as bootup tests
@@ -276,7 +279,6 @@ borderless fullscreen
 - Claw: Needs to use artifact if need be / get replacement.
 - GFSS: Add setting for standalone WW in GFSS spammer.
 - GFSS: Review ending of gfssnoreset mode.
-- NormBoss: F9 rotation button not working?
 - NatBoss: Recheck nature boss.
 - NatBoss: Needs to use artifact if need be / get replacement.
 - Leafton: Leafton needs better setup routine. Travel to zone.
