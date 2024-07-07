@@ -364,6 +364,7 @@ Class cTravel {
         active := this._OpenAny(GameKeys.OpenCards.Bind(GameKeys),
             IsPanelActive, delay)
         if (reset && active) {
+            ; TODO this one needs a custom reset
             this.ResetAreaScroll(delay)
         }
         return active
@@ -392,20 +393,33 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenAlchemyGeneral(reset := false, delay := 0) {
-        if (this.OpenAlchemy(reset, delay)) {
-            Sleep(NavigateTime)
-            if (Points.Brew.Tab1.Nav.IsButtonActive()) {
-                VerboseLog("Clicking alchemy general tab")
-                Points.Brew.Tab1.Nav.Click(NavigateTime)
+        i := 1
+        while (!this.IsAlchGeneralTab() && i <= 4) {
+            if (this.OpenAlchemy(reset, delay)) {
                 Sleep(NavigateTime)
-            } else {
-                DebugLog("Alchemy general tab button not found active.")
-                return false
+                if (Points.Brew.Tab1.Nav.IsButtonActive()) {
+                    VerboseLog("Clicking alchemy general tab")
+                    Points.Brew.Tab1.Nav.Click(NavigateTime)
+                    Sleep(NavigateTime)
+                }
             }
-        } else {
+            i++
+        }
+        return this.IsAlchGeneralTab()
+    }
+
+    IsAlchGeneralTab() {
+        if (!IsPanelActive()) {
             return false
         }
-        return true
+        Artifacts := Points.Brew.Tab1.Artifacts
+        Equipment := Points.Brew.Tab1.Equipment
+        Materials := Points.Brew.Tab1.Materials
+        If (Artifacts.IsButton() || Equipment.IsButton() || Materials.IsButton()
+        ) {
+            return true
+        }
+        return false
     }
 
     /**

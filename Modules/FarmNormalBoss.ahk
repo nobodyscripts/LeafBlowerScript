@@ -114,19 +114,6 @@ SpamBrewButtons() {
     return true
 }
 
-IsAlchGeneralTab() {
-    if (!IsPanelActive()) {
-        return false
-    }
-    Artifacts := Points.Brew.Tab1.Artifacts
-    Equipment := Points.Brew.Tab1.Equipment
-    Materials := Points.Brew.Tab1.Materials
-    If (Artifacts.IsButton() || Equipment.IsButton() || Materials.IsButton()) {
-        return true
-    }
-    return false
-}
-
 fNormalBossFarmWithBorbs(modecheck) {
     global bvAutostartDisabled
     ToolTip()

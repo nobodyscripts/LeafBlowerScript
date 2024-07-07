@@ -1,4 +1,4 @@
-# LBR Resolution independent scripts v3.1.2
+# LBR Resolution independent scripts v3.1.3-Alpha
 
 Support and news: <https://discord.gg/xu8fXw4CQ8>
 
@@ -202,63 +202,23 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 ## Changes
 
 - General
-  - Check for updates added to gui, will check against the website once per day.
-Settings added to General Settings and 3 settings added to ini.
-  - Replaced old coords system with new classes; cPoint, cRect, cColour etc
-  - Added DebugLog and VerboseLog
-  - Added some checks on libs when loaded in a secondary script
-  - Added individual settings update when script gains new settings instead of
-  reset all to default
-  - Fix secondary scripts writing ScriptHotkey.ini contents to UserHotkey.ini
 
 - Hotkeys
-  - Added new systems to handle both the hotkeys for ingame and the script.
-  - Potential fixes for hotkey settings being added to game not working.
 
 - GUI
-  - Reflects custom hotkeys.
-  - Disabled Mine Sphere Count and Modifier if Greedy is enabled to be clear,
-the options conflict. Also renamed Amount > Count for clarity.
-  - Fixed mislabeled brew setting in mine maintainer and slight sorting.
-  - Added option to control timestamps in logging to general settings.
-  - Moved greedy open cards to the open cards section.
 
 - Mine
-  - Added MinerSphereModifier setting, custom amount to use per click when
-greedy mode is turned off. Added to GUI.
-  - Added MinerEnableTransmuteSdia setting, transmutes max Coal Bars to
-Shiny Diamonds. Added to GUI.
-  - Added MinerEnableTransmuteFuel setting, transmutes max Coal Diamonds to
-Fuel. Added to GUI.
-  - Added MinerEnableTransmuteSphere setting, transmutes max Coal Diamonds
-to Spheres. Added to GUI.
-  - Added MinerEnableTransmuteSdiaToCDia setting, transmutes max Shiny
-Diamonds to Coal Diamonds. Added to GUI.
-  - Improved checks for which tab is active to avoid script getting stuck.
-  - Adapted background boss spammer into two seperate modes, boss and
-Leafton Pit. These options conflict with Leafton taking priority, added setting
-MinerEnableLeafton. Boss mode enabled by default.
-  - Added more checks for travel being correct to avoid getting stuck.
-  - Fixed travel functions looping infinitely when they should be capped.
+  - Modified brew travel to be more stable.
 
 - GFSS
-  - Replaced normalboss spammer with standalone, updated travel coords.
 
 - BorbVentures
-  - Added quantum blob, quark blob and quark structures.
-  - Changed default of block myth/legend to off.
-  - Fix for not starting quests.
 
 - F12 (resize and test)
-  - Updated function to check options.dat directly for settings. Collects errors
-  and warning to report to user.
 
 - Cards
-  - Added Greedy card purchasing and opening. Use of Greedy ignores "Amount".
-  - Added CardsGreedyOpen and CardsGreedyBuy settings (both default off)
 
 - F9 (Normal Boss)
-  - Fixed keybind not rotating through sub functions.
 
 ## TODO
 
@@ -271,19 +231,17 @@ MinerEnableLeafton. Boss mode enabled by default.
 dressing.
 - F12 and settings apply, account for notifications behind menu setting and
 borderless fullscreen
-- Automated challenges (early game scripts)
+- Automated challenges (early game scripts/TAS)
 - Convert borbventures gui to checkboxes for item selection  
 
-- GemFarm: Add mouse movement patterns to collect artifacts in the background.
-- Borbv: Load dlc purchase state from save file and remove setting.
-- Borbv: Not starting quests again?
-- Claw: Needs to use artifact if need be / get replacement.
-- GFSS: Add setting for standalone WW in GFSS spammer.
-- GFSS: Review ending of gfssnoreset mode.
-- NatBoss: Recheck nature boss.
-- NatBoss: Needs to use artifact if need be / get replacement.
-- Leafton: Leafton needs better setup routine. Travel to zone.
-- Mine: Add brewing somehow.
+- Features:
+  - GemFarm: Add mouse movement patterns to collect artifacts in the background.
+  - Borbv: Load dlc purchase state from save file and remove setting.
+  - Claw: Needs to use artifact if need be / get replacement.
+  - GFSS: Add setting for standalone WW in GFSS spammer.
+  - GFSS: Review ending of gfssnoreset mode.
+  - NatBoss: Needs to use artifact if need be / get replacement.
+  - Leafton: Leafton needs better setup routine. Travel to zone.
 
 ## Known issues
 

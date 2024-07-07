@@ -271,26 +271,20 @@ fMineMaintainer() {
         ;@region Brew
         if (IsWindowActive() && MinerEnableBrewing && !BrewCycleTimer.Running) {
             Log("Mine: Brewing")
-            if (Travel.OpenAlchemyGeneral() && IsPanelActive()) {
+            if (Travel.OpenAlchemyGeneral()) {
                 BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &
                     BrewCutOffRunning)
-                if (IsAlchGeneralTab()) {
-                    while (BrewCutOffRunning) {
-                        if(!SpamBrewButtons()) {
-                            break
-                        }
+                while (BrewCutOffRunning) {
+                    if (!SpamBrewButtons()) {
+                        break
                     }
-                    BrewCycleTimer.CoolDownS(MinerBrewCycleTime, &
-                        BrewCycleRunning)
-                    Sleep(NavigateTime)
-                } else {
-                    DebugLog(
-                        "Alch travel error: Travel.OpenAlchemyGeneral() true but IsAlchGeneralTab() false"
-                    )
                 }
-                ; This is redundancy
+                BrewCycleTimer.CoolDownS(MinerBrewCycleTime, &BrewCycleRunning)
+                Sleep(NavigateTime)
                 Travel.ClosePanelIfActive()
-                Travel.ClosePanelIfActive()
+            } else {
+                Log("Mine Brew: Travel to Alch general tab failed after 4" .
+                    " attempts.")
             }
         }
         Firstpass := false
@@ -302,7 +296,6 @@ fMineMaintainer() {
         KillSpammer()
     }
 }
-
 
 ;@region Transmute Functions
 isAnyTransmuteEnabled() {
