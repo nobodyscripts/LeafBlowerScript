@@ -1,10 +1,10 @@
 {
     "Name": "LeafBlowerScript",
     "Author": "Nobody",
-    "Version": "3.1.2-Alpha",
+    "Version": "3.1.2",
     "Major": 3,
     "Minor": 1,
     "Patch": 2,
-    "Release": "Alpha",
-    "Build": 322
+    "Release": "Release",
+    "Build": 323
 }
