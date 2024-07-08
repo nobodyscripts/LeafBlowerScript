@@ -32,6 +32,71 @@ global Travel := cTravel()
  * @property {TheInfernalDesert} TheInfernalDesert Travel class for 
  * TheInfernalDesert
  * @property {CursedHalloween} CursedHalloween Travel class for Cursed Halloween
+ * @property {AstralOasis} AstralOasis Travel class for Astral Oasis
+ * @property {BiotiteForest} BiotiteForest Travel class for Biotite Forest
+ * @property {BlackLeafHole} BlackLeafHole Travel class for Black Leaf Hole
+ * @property {BlackPlanetEdge} BlackPlanetEdge Travel class for Black Planet Edge
+ * @property {BluePlanetEdge} BluePlanetEdge Travel class for Blue Planet Edge
+ * @property {ButterflyField} ButterflyField Travel class for Butterfly Field
+ * @property {CursedKokkaupunki} CursedKokkaupunki Travel class for Cursed Kokkaupunki
+ * @property {DiceyMeadows} DiceyMeadows Travel class for Dicey Meadows
+ * @property {DimensionalTapestry} DimensionalTapestry Travel class for Dimensional Tapestry
+ * @property {EnergyShrine} EnergyShrine Travel class for Energy Shrine
+ * @property {EnergySingularity} EnergySingularity Travel class for Energy Singularity
+ * @property {FarmField} FarmField Travel class for Farm Field
+ * @property {FireFieldsPortal} FireFieldsPortal Travel class for Fire Fields Portal
+ * @property {FireUniverse} FireUniverse Travel class for Fire Universe
+ * @property {FlameBrazier} FlameBrazier Travel class for Flame Brazier
+ * @property {GlintingThicket} GlintingThicket Travel class for Glinting Thicket
+ * @property {GreenPlanetEdge} GreenPlanetEdge Travel class for Green Planet Edge
+ * @property {HomeGarden} HomeGarden Travel class for Home Garden
+ * @property {Kokkaupunki} Kokkaupunki Travel class for Kokkaupunki
+ * @property {LeafsinkHarbor} LeafsinkHarbor Travel class for Leafsink Harbor
+ * @property {MountMoltenfurty} MountMoltenfurty Travel class for Mount Moltenfurty
+ * @property {Mountain} Mountain Travel class for Mountain
+ * @property {NeighborsGarden} NeighborsGarden Travel class for Neighbors' Garden
+ * @property {PlanckScope} PlanckScope Travel class for Planck Scope
+ * @property {PlasmaForest} PlasmaForest Travel class for Plasma Forest
+ * @property {PrimordialEthos} PrimordialEthos Travel class for Primordial Ethos
+ * @property {PurplePlanetEdge} PurplePlanetEdge Travel class for Purple Planet Edge
+ * @property {QuantumAether} QuantumAether Travel class for Quantum Aether
+ * @property {QuarkNexus} QuarkNexus Travel class for Quark Nexus
+ * @property {QuarkPortal} QuarkPortal Travel class for Quark Portal
+ * @property {RedPlanetEdge} RedPlanetEdge Travel class for Red Planet Edge
+ * @property {SoulCrypt} SoulCrypt Travel class for Soul Crypt
+ * @property {SoulForge} SoulForge Travel class for Soul Forge
+ * @property {SoulPortal} SoulPortal Travel class for Soul Portal
+ * @property {SoulTemple} SoulTemple Travel class for Soul Temple
+ * @property {Space} Space Travel class for Space
+ * @property {SparkBubble} SparkBubble Travel class for Spark Bubble
+ * @property {SparkPortal} SparkPortal Travel class for Spark Portal
+ * @property {SparkRange} SparkRange Travel class for Spark Range
+ * @property {THEVOID} THEVOID Travel class for THE VOID
+ * @property {TerrorGraveyard} TerrorGraveyard Travel class for Terror Graveyard
+ * @property {TheAbandonedResearchStation} TheAbandonedResearchStation Travel class for The Abandoned Research Station
+ * @property {TheAbyss} TheAbyss Travel class for The Abyss
+ * @property {TheAncientSanctum} TheAncientSanctum Travel class for The Ancient Sanctum
+ * @property {TheCelestialPlane} TheCelestialPlane Travel class for The Celestial Plane
+ * @property {TheCheesePub} TheCheesePub Travel class for The Cheese Pub
+ * @property {TheCoalMine} TheCoalMine Travel class for The Coal Mine
+ * @property {TheCursedPyramid} TheCursedPyramid Travel class for The Cursed Pyramid
+ * @property {TheDarkGlade} TheDarkGlade Travel class for The Dark Glade
+ * @property {TheDoomedTree} TheDoomedTree Travel class for The Doomed Tree
+ * @property {TheExaltedBridge} TheExaltedBridge Travel class for The Exalted Bridge
+ * @property {TheFabricoftheLeafverse} TheFabricoftheLeafverse Travel class for The Fabric of the Leafverse
+ * @property {TheFireTemple} TheFireTemple Travel class for The Fire Temple
+ * @property {TheHiddenSea} TheHiddenSea Travel class for The Hidden Sea
+ * @property {TheHollow} TheHollow Travel class for The Hollow
+ * @property {TheInnerCursedPyramid} TheInnerCursedPyramid Travel class for The Inner Cursed Pyramid
+ * @property {TheLeafTower} TheLeafTower Travel class for The Leaf Tower
+ * @property {TheLoneTree} TheLoneTree Travel class for The Lone Tree
+ * @property {TheMoon} TheMoon Travel class for The Moon
+ * @property {TheMythicalGarden} TheMythicalGarden Travel class for The Mythical Garden
+ * @property {TheShadowCavern} TheShadowCavern Travel class for The Shadow Cavern
+ * @property {TheVolcano} TheVolcano Travel class for The Volcano
+ * @property {VialofLife} VialofLife Travel class for Vial of Life
+ * @property {VilewoodCemetery} VilewoodCemetery Travel class for Vilewood Cemetery
+ * @property {YourHouse} YourHouse Travel class for Your House
  * <jsdocmarker>
  */
 Class cTravel {
@@ -44,6 +109,461 @@ Class cTravel {
 
     ; Travel class for Mine
     Mine := Mine()
+
+    
+    /**
+     * Travel class for AstralOasis
+     * @type {AstralOasis}
+     */
+    AstralOasis := AstralOasis()
+
+    
+    /**
+     * Travel class for BiotiteForest
+     * @type {BiotiteForest}
+     */
+    BiotiteForest := BiotiteForest()
+
+    
+    /**
+     * Travel class for BlackLeafHole
+     * @type {BlackLeafHole}
+     */
+    BlackLeafHole := BlackLeafHole()
+
+    
+    /**
+     * Travel class for BlackPlanetEdge
+     * @type {BlackPlanetEdge}
+     */
+    BlackPlanetEdge := BlackPlanetEdge()
+
+    
+    /**
+     * Travel class for BluePlanetEdge
+     * @type {BluePlanetEdge}
+     */
+    BluePlanetEdge := BluePlanetEdge()
+
+    
+    /**
+     * Travel class for ButterflyField
+     * @type {ButterflyField}
+     */
+    ButterflyField := ButterflyField()
+
+    
+    /**
+     * Travel class for CursedKokkaupunki
+     * @type {CursedKokkaupunki}
+     */
+    CursedKokkaupunki := CursedKokkaupunki()
+
+    
+    /**
+     * Travel class for DiceyMeadows
+     * @type {DiceyMeadows}
+     */
+    DiceyMeadows := DiceyMeadows()
+
+    
+    /**
+     * Travel class for DimensionalTapestry
+     * @type {DimensionalTapestry}
+     */
+    DimensionalTapestry := DimensionalTapestry()
+
+    
+    /**
+     * Travel class for EnergyShrine
+     * @type {EnergyShrine}
+     */
+    EnergyShrine := EnergyShrine()
+
+    
+    /**
+     * Travel class for EnergySingularity
+     * @type {EnergySingularity}
+     */
+    EnergySingularity := EnergySingularity()
+
+    
+    /**
+     * Travel class for FarmField
+     * @type {FarmField}
+     */
+    FarmField := FarmField()
+
+    
+    /**
+     * Travel class for FireFieldsPortal
+     * @type {FireFieldsPortal}
+     */
+    FireFieldsPortal := FireFieldsPortal()
+
+    
+    /**
+     * Travel class for FireUniverse
+     * @type {FireUniverse}
+     */
+    FireUniverse := FireUniverse()
+
+    
+    /**
+     * Travel class for FlameBrazier
+     * @type {FlameBrazier}
+     */
+    FlameBrazier := FlameBrazier()
+
+    
+    /**
+     * Travel class for GlintingThicket
+     * @type {GlintingThicket}
+     */
+    GlintingThicket := GlintingThicket()
+
+    
+    /**
+     * Travel class for GreenPlanetEdge
+     * @type {GreenPlanetEdge}
+     */
+    GreenPlanetEdge := GreenPlanetEdge()
+
+    
+    /**
+     * Travel class for HomeGarden
+     * @type {HomeGarden}
+     */
+    HomeGarden := HomeGarden()
+
+    
+    /**
+     * Travel class for Kokkaupunki
+     * @type {Kokkaupunki}
+     */
+    Kokkaupunki := Kokkaupunki()
+
+    
+    /**
+     * Travel class for LeafsinkHarbor
+     * @type {LeafsinkHarbor}
+     */
+    LeafsinkHarbor := LeafsinkHarbor()
+
+    
+    /**
+     * Travel class for MountMoltenfurty
+     * @type {MountMoltenfurty}
+     */
+    MountMoltenfurty := MountMoltenfurty()
+
+    
+    /**
+     * Travel class for Mountain
+     * @type {Mountain}
+     */
+    Mountain := Mountain()
+
+    
+    /**
+     * Travel class for NeighborsGarden
+     * @type {NeighborsGarden}
+     */
+    NeighborsGarden := NeighborsGarden()
+
+    
+    /**
+     * Travel class for PlanckScope
+     * @type {PlanckScope}
+     */
+    PlanckScope := PlanckScope()
+
+    
+    /**
+     * Travel class for PlasmaForest
+     * @type {PlasmaForest}
+     */
+    PlasmaForest := PlasmaForest()
+
+    
+    /**
+     * Travel class for PrimordialEthos
+     * @type {PrimordialEthos}
+     */
+    PrimordialEthos := PrimordialEthos()
+
+    
+    /**
+     * Travel class for PurplePlanetEdge
+     * @type {PurplePlanetEdge}
+     */
+    PurplePlanetEdge := PurplePlanetEdge()
+
+    
+    /**
+     * Travel class for QuantumAether
+     * @type {QuantumAether}
+     */
+    QuantumAether := QuantumAether()
+
+    
+    /**
+     * Travel class for QuarkNexus
+     * @type {QuarkNexus}
+     */
+    QuarkNexus := QuarkNexus()
+
+    
+    /**
+     * Travel class for QuarkPortal
+     * @type {QuarkPortal}
+     */
+    QuarkPortal := QuarkPortal()
+
+    
+    /**
+     * Travel class for RedPlanetEdge
+     * @type {RedPlanetEdge}
+     */
+    RedPlanetEdge := RedPlanetEdge()
+
+    
+    /**
+     * Travel class for SoulCrypt
+     * @type {SoulCrypt}
+     */
+    SoulCrypt := SoulCrypt()
+
+    
+    /**
+     * Travel class for SoulForge
+     * @type {SoulForge}
+     */
+    SoulForge := SoulForge()
+
+    
+    /**
+     * Travel class for SoulPortal
+     * @type {SoulPortal}
+     */
+    SoulPortal := SoulPortal()
+
+    
+    /**
+     * Travel class for SoulTemple
+     * @type {SoulTemple}
+     */
+    SoulTemple := SoulTemple()
+
+    
+    /**
+     * Travel class for Space
+     * @type {Space}
+     */
+    Space := Space()
+
+    
+    /**
+     * Travel class for SparkBubble
+     * @type {SparkBubble}
+     */
+    SparkBubble := SparkBubble()
+
+    
+    /**
+     * Travel class for SparkPortal
+     * @type {SparkPortal}
+     */
+    SparkPortal := SparkPortal()
+
+    
+    /**
+     * Travel class for SparkRange
+     * @type {SparkRange}
+     */
+    SparkRange := SparkRange()
+
+    
+    /**
+     * Travel class for THEVOID
+     * @type {THEVOID}
+     */
+    THEVOID := THEVOID()
+
+    
+    /**
+     * Travel class for TerrorGraveyard
+     * @type {TerrorGraveyard}
+     */
+    TerrorGraveyard := TerrorGraveyard()
+
+    
+    /**
+     * Travel class for TheAbandonedResearchStation
+     * @type {TheAbandonedResearchStation}
+     */
+    TheAbandonedResearchStation := TheAbandonedResearchStation()
+
+    
+    /**
+     * Travel class for TheAbyss
+     * @type {TheAbyss}
+     */
+    TheAbyss := TheAbyss()
+
+    
+    /**
+     * Travel class for TheAncientSanctum
+     * @type {TheAncientSanctum}
+     */
+    TheAncientSanctum := TheAncientSanctum()
+
+    
+    /**
+     * Travel class for TheCelestialPlane
+     * @type {TheCelestialPlane}
+     */
+    TheCelestialPlane := TheCelestialPlane()
+
+    
+    /**
+     * Travel class for TheCheesePub
+     * @type {TheCheesePub}
+     */
+    TheCheesePub := TheCheesePub()
+
+    
+    /**
+     * Travel class for TheCoalMine
+     * @type {TheCoalMine}
+     */
+    TheCoalMine := TheCoalMine()
+
+    
+    /**
+     * Travel class for TheCursedPyramid
+     * @type {TheCursedPyramid}
+     */
+    TheCursedPyramid := TheCursedPyramid()
+
+    
+    /**
+     * Travel class for TheDarkGlade
+     * @type {TheDarkGlade}
+     */
+    TheDarkGlade := TheDarkGlade()
+
+    
+    /**
+     * Travel class for TheDoomedTree
+     * @type {TheDoomedTree}
+     */
+    TheDoomedTree := TheDoomedTree()
+
+    
+    /**
+     * Travel class for TheExaltedBridge
+     * @type {TheExaltedBridge}
+     */
+    TheExaltedBridge := TheExaltedBridge()
+
+    
+    /**
+     * Travel class for TheFabricoftheLeafverse
+     * @type {TheFabricoftheLeafverse}
+     */
+    TheFabricoftheLeafverse := TheFabricoftheLeafverse()
+
+    
+    /**
+     * Travel class for TheFireTemple
+     * @type {TheFireTemple}
+     */
+    TheFireTemple := TheFireTemple()
+
+    
+    /**
+     * Travel class for TheHiddenSea
+     * @type {TheHiddenSea}
+     */
+    TheHiddenSea := TheHiddenSea()
+
+    
+    /**
+     * Travel class for TheHollow
+     * @type {TheHollow}
+     */
+    TheHollow := TheHollow()
+
+    
+    /**
+     * Travel class for TheInnerCursedPyramid
+     * @type {TheInnerCursedPyramid}
+     */
+    TheInnerCursedPyramid := TheInnerCursedPyramid()
+
+    
+    /**
+     * Travel class for TheLeafTower
+     * @type {TheLeafTower}
+     */
+    TheLeafTower := TheLeafTower()
+
+    
+    /**
+     * Travel class for TheLoneTree
+     * @type {TheLoneTree}
+     */
+    TheLoneTree := TheLoneTree()
+
+    
+    /**
+     * Travel class for TheMoon
+     * @type {TheMoon}
+     */
+    TheMoon := TheMoon()
+
+    
+    /**
+     * Travel class for TheMythicalGarden
+     * @type {TheMythicalGarden}
+     */
+    TheMythicalGarden := TheMythicalGarden()
+
+    
+    /**
+     * Travel class for TheShadowCavern
+     * @type {TheShadowCavern}
+     */
+    TheShadowCavern := TheShadowCavern()
+
+    
+    /**
+     * Travel class for TheVolcano
+     * @type {TheVolcano}
+     */
+    TheVolcano := TheVolcano()
+
+    
+    /**
+     * Travel class for VialofLife
+     * @type {VialofLife}
+     */
+    VialofLife := VialofLife()
+
+    
+    /**
+     * Travel class for VilewoodCemetery
+     * @type {VilewoodCemetery}
+     */
+    VilewoodCemetery := VilewoodCemetery()
+
+    
+    /**
+     * Travel class for YourHouse
+     * @type {YourHouse}
+     */
+    YourHouse := YourHouse()
 
     /* <classmarker> */
     ;@endregion

@@ -7,7 +7,7 @@ for zonename, v in Colours().ZoneColours {
     classname := StrReplace(classname, "'")
     if (classname && !FileExist(A_ScriptDir "\" classname ".ahk")) {
         ; Append include to header
-        FileAppend("`n#include " classname ".ahk", A_ScriptDir "\Header.ahk")
+        FileAppend("`n#include z" classname ".ahk", A_ScriptDir "\Header.ahk")
 
         ; Read sample file
         classcontents := FileRead(A_ScriptDir "\Sample.ahk")
@@ -185,7 +185,7 @@ for zonename, v in Colours().ZoneColours {
         }
         ;@endregion
         ; Copy modified sample to new file
-        FileAppend(classcontents, A_ScriptDir "\" classname ".ahk")
+        FileAppend(classcontents, A_ScriptDir "\z" classname ".ahk")
 
         ; Add new class to travel class
         if (FileExist(A_ScriptDir "\..\..\Lib\cTravel.ahk")) {
