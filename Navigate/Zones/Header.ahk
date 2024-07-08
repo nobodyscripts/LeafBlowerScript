@@ -1,11 +1,9 @@
 #Requires AutoHotkey v2.0 
 
 
-#Include CursedHalloween.ahk
 
 #Include Mines.ahk
 
-#Include TheInfernalDesert.ahk
 
 #include zAstralOasis.ahk
 #include zBiotiteForest.ahk
@@ -14,6 +12,7 @@
 #include zBluePlanetEdge.ahk
 #include zButterflyField.ahk
 #include zCursedKokkaupunki.ahk
+#Include zCursedHalloween.ahk
 #include zDiceyMeadows.ahk
 #include zDimensionalTapestry.ahk
 #include zEnergyShrine.ahk
@@ -62,6 +61,7 @@
 #include zTheFireTemple.ahk
 #include zTheHiddenSea.ahk
 #include zTheHollow.ahk
+#Include zTheInfernalDesert.ahk
 #include zTheInnerCursedPyramid.ahk
 #include zTheLeafTower.ahk
 #include zTheLoneTree.ahk
