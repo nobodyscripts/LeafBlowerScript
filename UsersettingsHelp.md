@@ -354,6 +354,23 @@ Enable checking caves for any shiny diamond caves and starting drills.
 MinerCaveTimer: (Default) 1  
 Time between cave drill checks in minutes.
 
+## Brewing
+
+BrewEnableArtifacts: (Default) true  
+Enable brewing of artifacts during brew usage in mine maintainer and boss farm.
+
+BrewEnableEquipment: (Default) true  
+Enable brewing of equipment during brew usage in mine maintainer and boss farm.
+
+BrewEnableMaterials: (Default) true  
+Enable brewing of materials during brew usage in mine maintainer and boss farm.
+
+BrewEnableScrolls: (Default) false  
+Enable brewing of scrolls during brew usage in mine maintainer and boss farm.
+
+BrewEnableCardParts: (Default) true  
+Enable brewing of card parts during brew usage in mine maintainer and boss farm.
+
 ## Debug
 
 Debug: (Default) false  

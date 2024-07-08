@@ -49,7 +49,10 @@ global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
     MinerSphereTimer, MinerSphereGreedyUse, MinerSphereModifier,
     MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
     MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia
-Global MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime
+global MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime
+
+global BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
+    BrewEnableScrolls, BrewEnableCardParts
 ;@endregion
 
 class singleSetting {
@@ -343,6 +346,16 @@ class cSettings {
             30, 30, "int", "Miner")
         this.Map["MinerBrewCutOffTime"] := singleSetting("MinerBrewCutOffTime",
             30, 30, "int", "Miner")
+        this.Map["BrewEnableArtifacts"] := singleSetting("BrewEnableArtifacts",
+            true, true, "bool", "Brew")
+        this.Map["BrewEnableEquipment"] := singleSetting("BrewEnableEquipment",
+            true, true, "bool", "Brew")
+        this.Map["BrewEnableMaterials"] := singleSetting("BrewEnableMaterials",
+            true, true, "bool", "Brew")
+        this.Map["BrewEnableScrolls"] := singleSetting("BrewEnableScrolls",
+            false, false, "bool", "Brew")
+        this.Map["BrewEnableCardParts"] := singleSetting("BrewEnableCardParts",
+            true, true, "bool", "Brew")
         ;@endregion
 
         if (!secondary) {
@@ -426,6 +439,9 @@ class cSettings {
             MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
             MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia
         Global MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime
+
+        global BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
+            BrewEnableScrolls, BrewEnableCardParts
         ;@endregion
 
         this.UpdateSettings()

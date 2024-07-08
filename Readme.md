@@ -209,6 +209,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 - Mine
   - Modified brew travel to be more stable.
+  - Added settings for brew to control which are clicked in that mode (shared
+  with Normal Boss mode)
+  - Added scroll brewing
 
 - GFSS
 
@@ -219,6 +222,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - Cards
 
 - F9 (Normal Boss)
+  - Added settings for brew to control which are clicked in that mode (shared
+  with Mine mode)
+  - Added scroll brewing
 
 ## TODO
 

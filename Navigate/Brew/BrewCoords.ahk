@@ -20,6 +20,7 @@ Class cBrewPoints {
  * @property {cPoint} Artifacts Artifacts 
  * @property {cPoint} Equipment Equipment
  * @property {cPoint} Materials Materials
+ * @property {cPoint} Scrolls Scrolls
  * @property {cPoint} CardParts Card Parts
  * @property {cPoint} CardPartsFont1 Card Parts for fontsize 1
  */
@@ -32,6 +33,8 @@ Class cBrewTab1Points{
     Equipment := cPoint(1745, 463)
     ; Materials
     Materials := cPoint(1745, 610)
+    ; Scrolls
+    Scrolls := cPoint(1745, 780)
     ; Card Parts
     CardParts := cPoint(1745, 931)
     ; Card Parts for fontsize 1

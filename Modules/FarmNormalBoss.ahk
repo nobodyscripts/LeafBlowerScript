@@ -3,6 +3,11 @@
 global SpammerPID := 0
 global CardsBuyEnabled := false
 global CardsBossFarmEnabled := false
+global BrewEnableArtifacts := true
+global BrewEnableEquipment := true
+global BrewEnableMaterials := true
+global BrewEnableCardParts := true
+global BrewEnableScrolls := true
 
 fFarmNormalBoss(modecheck) {
     global on9
@@ -88,27 +93,32 @@ SpamBrewButtons() {
     }
     ; Artifacts
     Artifacts := Points.Brew.Tab1.Artifacts
-    If (Artifacts.IsButtonActive()) {
+    If (Artifacts.IsButtonActive() && BrewEnableArtifacts) {
         Artifacts.Click()
     }
     ; Equipment
     Equipment := Points.Brew.Tab1.Equipment
-    If (Equipment.IsButtonActive()) {
+    If (Equipment.IsButtonActive() && BrewEnableEquipment) {
         Equipment.Click()
     }
     ; Materials
     Materials := Points.Brew.Tab1.Materials
-    If (Materials.IsButtonActive()) {
+    If (Materials.IsButtonActive() && BrewEnableMaterials) {
         Materials.Click()
+    }
+    ; Scrolls
+    Scrolls := Points.Brew.Tab1.Scrolls
+    If (Scrolls.IsButtonActive() && BrewEnableScrolls) {
+        Scrolls.Click()
     }
     ; Card Parts
     CardParts := Points.Brew.Tab1.CardParts
-    If (CardParts.IsButtonActive()) {
+    If (CardParts.IsButtonActive() && BrewEnableCardParts) {
         CardParts.Click()
     }
     ; Card Parts for fontsize 1
     CardPartsFont1 := Points.Brew.Tab1.CardPartsFont1
-    If (CardPartsFont1.IsButtonActive()) {
+    If (CardPartsFont1.IsButtonActive() && BrewEnableCardParts) {
         CardPartsFont1.Click()
     }
     return true
