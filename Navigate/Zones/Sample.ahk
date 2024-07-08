@@ -3,6 +3,7 @@
 #Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
+#Include ..\..\Lib\cPoint.ahk
 
 /**
  * Sample class for zone travel
@@ -11,9 +12,9 @@
  */
 Class Sample extends Zone {
     ; The name of the zone for display purposes
-    Name := "Sample"
+    Name := "FullName"
     ; The colour of the sample pixel for the zone
-    ZoneColour := this.GetColourByName("Sample")
+    ZoneColour := this.GetColourByName("FullName")
     ; Require boss timer (or not) to match for success
     BossTimer := false
 
@@ -28,14 +29,14 @@ Class Sample extends Zone {
         ;Points.Areas.<Galaxy>.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay) 
+        this.ScrollAmountDown(26, scrolldelay)
         Sleep(delay + extradelay)
         ; Scanning by leaf
-        local SampleLeaf := this.FindSampleZone()
-        if (SampleLeaf) {
+        Local SampleLeaf := this.FindSampleZone()
+        If (SampleLeaf) {
             this.ClickTravelButton(SampleLeaf, delay + extradelay)
-        } else {
-            Log("Sample leaf not found while trying to travel.")
+        } Else {
+            Log("FullName leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -48,7 +49,7 @@ Class Sample extends Zone {
     FindSampleZone() {
         ; Change this if used
         ;return Rects.<Galaxy>.SampleTravel.PixelSearch("0xFFFFFF")
-        return true
+        Return true
     }
 
     /**
@@ -57,19 +58,13 @@ Class Sample extends Zone {
      * @param delay 
      */
     ClickTravelButton(coord, delay) {
-        ; Button to travel to Sample
+        ; Button to travel to FullName
         ;Button := Points.Areas.<Galaxy>.Sample
         Button := cPoint()
-        DebugLog("Click travel button found " Button.GetColour() " " Button.IsButton() " " Button.IsButtonActive()
-        )
+        DebugLog("Zone travel button colour " Button.GetColour() )
         ; If no button we are misaligned
-        if (Button.IsButton()) {
-            ; Set zone to Sample (if not already inactive)
-            if (Button.IsButtonActive()) {
-                Button.Click(delay)
-            }
-        } else {
-            Log("Sample travel: Button not found.")
+        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
+            Log("FullName travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

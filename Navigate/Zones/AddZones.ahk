@@ -4,6 +4,7 @@
 
 for zonename, v in Colours().ZoneColours {
     classname := StrReplace(zonename, " ")
+    classname := StrReplace(classname, "'")
     if (classname && !FileExist(A_ScriptDir "\" classname ".ahk")) {
         ; Append include to header
         FileAppend("`n#include " classname ".ahk", A_ScriptDir "\Header.ahk")
@@ -11,8 +12,10 @@ for zonename, v in Colours().ZoneColours {
         ; Read sample file
         classcontents := FileRead(A_ScriptDir "\Sample.ahk")
 
+        ;@region galaxy replace
         ; Replace Sample with name of class
         classcontents := StrReplace(classcontents, "Sample", classname)
+        classcontents := StrReplace(classcontents, "FullName", zonename)
         switch (zonename) {
             case "Home Garden":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
@@ -180,6 +183,7 @@ for zonename, v in Colours().ZoneColours {
                 Throw Error("Zone attempted to add but wasn't in list " zonename
                 )
         }
+        ;@endregion
         ; Copy modified sample to new file
         FileAppend(classcontents, A_ScriptDir "\" classname ".ahk")
 
@@ -188,18 +192,16 @@ for zonename, v in Colours().ZoneColours {
             ; Read travel class
             travelcontents := FileRead(A_ScriptDir "\..\..\Lib\cTravel.ahk")
             ; Replace classmarker with new class define
-            travelcontents := StrReplace(travelcontents, "`n    \; <classmarker>", 
-            "`n" . 
-            "    /**`n" .
-            "     * Travel class for " classname "`n" .
-            "     * @type {" classname "}`n" .
-            "     */`n" .
-            "    " classname " := " classname "()`n" . 
-            "`n" . 
-            "    \; <classmarker>")
+            travelcontents := StrReplace(travelcontents, "/* <classmarker> */", 
+            "`r`n    /**`r`n" .
+            "     * Travel class for " classname "`r`n" .
+            "     * @type {" classname "}`r`n" .
+            "     */`r`n" .
+            "    " classname " := " classname "()`r`n`r`n" . 
+            "    /* <classmarker> */")
 
             travelcontents := StrReplace(travelcontents, " * <jsdocmarker>", 
-            " * @property {" classname "} " classname " Travel class for " zonename "`n" .
+            " * @property {" classname "} " classname " Travel class for " zonename "`r`n" .
             " * <jsdocmarker>")
             ; Copy modified sample to new file
             FileDelete(A_ScriptDir "\..\..\Lib\cTravel.ahk")

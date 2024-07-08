@@ -122,12 +122,12 @@ Class Colours {
      * @returns {Integer} true/false
      */
     IsButton(colour) {
-        if (colour = this.Active || colour = this.ActiveMouseOver || colour =
+        If (colour = this.Active || colour = this.ActiveMouseOver || colour =
             this.AfkActive || colour = this.AfkActiveMouseover || colour = this
             .Inactive) {
-            return true
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -138,10 +138,10 @@ Class Colours {
      * @returns {Integer} true/false
      */
     IsMouseOver(colour) {
-        if (colour = this.ActiveMouseOver || colour = this.AfkActiveMouseover) {
-            return true
+        If (colour = this.ActiveMouseOver || colour = this.AfkActiveMouseover) {
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -152,11 +152,11 @@ Class Colours {
      * @returns {Integer} true/false
      */
     IsButtonActive(colour) {
-        if (colour = this.Active || colour = this.ActiveMouseOver || colour =
+        If (colour = this.Active || colour = this.ActiveMouseOver || colour =
             this.AfkActive || colour = this.AfkActiveMouseover) {
-            return true
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -167,10 +167,10 @@ Class Colours {
      * @returns {Integer} true/false
      */
     IsButtonAFK(colour) {
-        if (colour = this.AfkActive || colour = this.AfkActiveMouseover) {
-            return true
+        If (colour = this.AfkActive || colour = this.AfkActiveMouseover) {
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -181,10 +181,10 @@ Class Colours {
      * @returns {Integer} true/false
      */
     IsButtonInactive(colour) {
-        if (colour = this.Inactive) {
-            return true
+        If (colour = this.Inactive) {
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -195,13 +195,13 @@ Class Colours {
      * @returns {Integer} true/false
      */
     IsCoveredByNotification(colour) {
-        if (colour = this.Active || colour = this.ActiveMouseOver || colour =
+        If (colour = this.Active || colour = this.ActiveMouseOver || colour =
             this.AfkActive || colour = this.AfkActiveMouseover || colour = this
             .Inactive || colour = this.Background || colour = this.BackgroundSpotify
         ) {
-            return false
+            Return false
         }
-        return true
+        Return true
     }
     ;@endregion
 
@@ -212,13 +212,13 @@ Class Colours {
      * @returns {Integer} true/false
      */
     IsButtonOffPanel(colour) {
-        if (colour = this.Active || colour = this.ActiveMouseOver || colour =
+        If (colour = this.Active || colour = this.ActiveMouseOver || colour =
             this.AfkActive || colour = this.AfkActiveMouseover || colour = this
             .Inactive || colour = this.DarkBgActive || colour = this.DarkBgActiveMouseover
         ) {
-            return true
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -229,10 +229,10 @@ Class Colours {
      * @returns {Integer} true/false
      */
     IsButtonDarkened(colour) {
-        if (colour = this.DarkBgActive || colour = this.DarkBgActiveMouseover) {
-            return true
+        If (colour = this.DarkBgActive || colour = this.DarkBgActiveMouseover) {
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
     ;@endregion
@@ -244,10 +244,10 @@ Class Colours {
      * @returns {Integer} true/false
      */
     IsBackground(colour) {
-        if (colour = this.Background || colour = this.BackgroundSpotify) {
-            return true
+        If (colour = this.Background || colour = this.BackgroundSpotify) {
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -258,7 +258,10 @@ Class Colours {
      * @returns {String} Colour string for zone check
      */
     GetColourByZone(name) {
-        return this.ZoneColours[name]
+        If (this.ZoneColours.Has(name)) {
+            Return this.ZoneColours[name]
+        }
+        Log("GetColourByZone could not find zone: " name)
     }
     ;@endregion
 
@@ -269,12 +272,12 @@ Class Colours {
      * @returns {String} Full name of the zone as found in ZoneColours
      */
     GetZoneByColour(colour) {
-        for (zname, zcolour in this.ZoneColours) {
-            if (colour = zcolour) {
-                return zname
+        For (zname, zcolour in this.ZoneColours) {
+            If (colour = zcolour) {
+                Return zname
             }
         }
-        return false
+        Return false
     }
     ;@endregion
 }

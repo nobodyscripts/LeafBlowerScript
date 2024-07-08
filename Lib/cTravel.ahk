@@ -45,7 +45,7 @@ Class cTravel {
     ; Travel class for Mine
     Mine := Mine()
 
-    ; <classmarker>
+    /* <classmarker> */
     ;@endregion
 
     /**
