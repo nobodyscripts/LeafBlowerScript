@@ -4,7 +4,7 @@
 #Include cPoint.ahk
 
 /** @type {cMousePattern} */
-global MousePattern := cMousePattern()
+Global MousePattern := cMousePattern()
 
 Class cMousePattern {
 
@@ -92,8 +92,8 @@ Class cMouseTask {
     }
 
     Run() {
-        while (this.StopCallback) {
-            for point in this.PatternArr {
+        While (this.StopCallback) {
+            For point in this.PatternArr {
                 MouseMove(point.x, point.y, 5, false)
             }
         }

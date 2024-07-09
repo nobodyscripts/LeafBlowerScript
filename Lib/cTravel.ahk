@@ -5,7 +5,7 @@
 #Include Functions.ahk
 
 /** @type {cTravel} */
-global Travel := cTravel()
+Global Travel := cTravel()
 
 /**
  * Travel class, contains functions and sub classes for travel to areas, tabs
@@ -110,455 +110,455 @@ Class cTravel {
     ; Travel class for Mine
     Mine := Mine()
 
-    
+
     /**
      * Travel class for AstralOasis
      * @type {AstralOasis}
      */
     AstralOasis := AstralOasis()
 
-    
+
     /**
      * Travel class for BiotiteForest
      * @type {BiotiteForest}
      */
     BiotiteForest := BiotiteForest()
 
-    
+
     /**
      * Travel class for BlackLeafHole
      * @type {BlackLeafHole}
      */
     BlackLeafHole := BlackLeafHole()
 
-    
+
     /**
      * Travel class for BlackPlanetEdge
      * @type {BlackPlanetEdge}
      */
     BlackPlanetEdge := BlackPlanetEdge()
 
-    
+
     /**
      * Travel class for BluePlanetEdge
      * @type {BluePlanetEdge}
      */
     BluePlanetEdge := BluePlanetEdge()
 
-    
+
     /**
      * Travel class for ButterflyField
      * @type {ButterflyField}
      */
     ButterflyField := ButterflyField()
 
-    
+
     /**
      * Travel class for CursedKokkaupunki
      * @type {CursedKokkaupunki}
      */
     CursedKokkaupunki := CursedKokkaupunki()
 
-    
+
     /**
      * Travel class for DiceyMeadows
      * @type {DiceyMeadows}
      */
     DiceyMeadows := DiceyMeadows()
 
-    
+
     /**
      * Travel class for DimensionalTapestry
      * @type {DimensionalTapestry}
      */
     DimensionalTapestry := DimensionalTapestry()
 
-    
+
     /**
      * Travel class for EnergyShrine
      * @type {EnergyShrine}
      */
     EnergyShrine := EnergyShrine()
 
-    
+
     /**
      * Travel class for EnergySingularity
      * @type {EnergySingularity}
      */
     EnergySingularity := EnergySingularity()
 
-    
+
     /**
      * Travel class for FarmField
      * @type {FarmField}
      */
     FarmField := FarmField()
 
-    
+
     /**
      * Travel class for FireFieldsPortal
      * @type {FireFieldsPortal}
      */
     FireFieldsPortal := FireFieldsPortal()
 
-    
+
     /**
      * Travel class for FireUniverse
      * @type {FireUniverse}
      */
     FireUniverse := FireUniverse()
 
-    
+
     /**
      * Travel class for FlameBrazier
      * @type {FlameBrazier}
      */
     FlameBrazier := FlameBrazier()
 
-    
+
     /**
      * Travel class for GlintingThicket
      * @type {GlintingThicket}
      */
     GlintingThicket := GlintingThicket()
 
-    
+
     /**
      * Travel class for GreenPlanetEdge
      * @type {GreenPlanetEdge}
      */
     GreenPlanetEdge := GreenPlanetEdge()
 
-    
+
     /**
      * Travel class for HomeGarden
      * @type {HomeGarden}
      */
     HomeGarden := HomeGarden()
 
-    
+
     /**
      * Travel class for Kokkaupunki
      * @type {Kokkaupunki}
      */
     Kokkaupunki := Kokkaupunki()
 
-    
+
     /**
      * Travel class for LeafsinkHarbor
      * @type {LeafsinkHarbor}
      */
     LeafsinkHarbor := LeafsinkHarbor()
 
-    
+
     /**
      * Travel class for MountMoltenfurty
      * @type {MountMoltenfurty}
      */
     MountMoltenfurty := MountMoltenfurty()
 
-    
+
     /**
      * Travel class for Mountain
      * @type {Mountain}
      */
     Mountain := Mountain()
 
-    
+
     /**
      * Travel class for NeighborsGarden
      * @type {NeighborsGarden}
      */
     NeighborsGarden := NeighborsGarden()
 
-    
+
     /**
      * Travel class for PlanckScope
      * @type {PlanckScope}
      */
     PlanckScope := PlanckScope()
 
-    
+
     /**
      * Travel class for PlasmaForest
      * @type {PlasmaForest}
      */
     PlasmaForest := PlasmaForest()
 
-    
+
     /**
      * Travel class for PrimordialEthos
      * @type {PrimordialEthos}
      */
     PrimordialEthos := PrimordialEthos()
 
-    
+
     /**
      * Travel class for PurplePlanetEdge
      * @type {PurplePlanetEdge}
      */
     PurplePlanetEdge := PurplePlanetEdge()
 
-    
+
     /**
      * Travel class for QuantumAether
      * @type {QuantumAether}
      */
     QuantumAether := QuantumAether()
 
-    
+
     /**
      * Travel class for QuarkNexus
      * @type {QuarkNexus}
      */
     QuarkNexus := QuarkNexus()
 
-    
+
     /**
      * Travel class for QuarkPortal
      * @type {QuarkPortal}
      */
     QuarkPortal := QuarkPortal()
 
-    
+
     /**
      * Travel class for RedPlanetEdge
      * @type {RedPlanetEdge}
      */
     RedPlanetEdge := RedPlanetEdge()
 
-    
+
     /**
      * Travel class for SoulCrypt
      * @type {SoulCrypt}
      */
     SoulCrypt := SoulCrypt()
 
-    
+
     /**
      * Travel class for SoulForge
      * @type {SoulForge}
      */
     SoulForge := SoulForge()
 
-    
+
     /**
      * Travel class for SoulPortal
      * @type {SoulPortal}
      */
     SoulPortal := SoulPortal()
 
-    
+
     /**
      * Travel class for SoulTemple
      * @type {SoulTemple}
      */
     SoulTemple := SoulTemple()
 
-    
+
     /**
      * Travel class for Space
      * @type {Space}
      */
     Space := Space()
 
-    
+
     /**
      * Travel class for SparkBubble
      * @type {SparkBubble}
      */
     SparkBubble := SparkBubble()
 
-    
+
     /**
      * Travel class for SparkPortal
      * @type {SparkPortal}
      */
     SparkPortal := SparkPortal()
 
-    
+
     /**
      * Travel class for SparkRange
      * @type {SparkRange}
      */
     SparkRange := SparkRange()
 
-    
+
     /**
      * Travel class for THEVOID
      * @type {THEVOID}
      */
     THEVOID := THEVOID()
 
-    
+
     /**
      * Travel class for TerrorGraveyard
      * @type {TerrorGraveyard}
      */
     TerrorGraveyard := TerrorGraveyard()
 
-    
+
     /**
      * Travel class for TheAbandonedResearchStation
      * @type {TheAbandonedResearchStation}
      */
     TheAbandonedResearchStation := TheAbandonedResearchStation()
 
-    
+
     /**
      * Travel class for TheAbyss
      * @type {TheAbyss}
      */
     TheAbyss := TheAbyss()
 
-    
+
     /**
      * Travel class for TheAncientSanctum
      * @type {TheAncientSanctum}
      */
     TheAncientSanctum := TheAncientSanctum()
 
-    
+
     /**
      * Travel class for TheCelestialPlane
      * @type {TheCelestialPlane}
      */
     TheCelestialPlane := TheCelestialPlane()
 
-    
+
     /**
      * Travel class for TheCheesePub
      * @type {TheCheesePub}
      */
     TheCheesePub := TheCheesePub()
 
-    
+
     /**
      * Travel class for TheCoalMine
      * @type {TheCoalMine}
      */
     TheCoalMine := TheCoalMine()
 
-    
+
     /**
      * Travel class for TheCursedPyramid
      * @type {TheCursedPyramid}
      */
     TheCursedPyramid := TheCursedPyramid()
 
-    
+
     /**
      * Travel class for TheDarkGlade
      * @type {TheDarkGlade}
      */
     TheDarkGlade := TheDarkGlade()
 
-    
+
     /**
      * Travel class for TheDoomedTree
      * @type {TheDoomedTree}
      */
     TheDoomedTree := TheDoomedTree()
 
-    
+
     /**
      * Travel class for TheExaltedBridge
      * @type {TheExaltedBridge}
      */
     TheExaltedBridge := TheExaltedBridge()
 
-    
+
     /**
      * Travel class for TheFabricoftheLeafverse
      * @type {TheFabricoftheLeafverse}
      */
     TheFabricoftheLeafverse := TheFabricoftheLeafverse()
 
-    
+
     /**
      * Travel class for TheFireTemple
      * @type {TheFireTemple}
      */
     TheFireTemple := TheFireTemple()
 
-    
+
     /**
      * Travel class for TheHiddenSea
      * @type {TheHiddenSea}
      */
     TheHiddenSea := TheHiddenSea()
 
-    
+
     /**
      * Travel class for TheHollow
      * @type {TheHollow}
      */
     TheHollow := TheHollow()
 
-    
+
     /**
      * Travel class for TheInnerCursedPyramid
      * @type {TheInnerCursedPyramid}
      */
     TheInnerCursedPyramid := TheInnerCursedPyramid()
 
-    
+
     /**
      * Travel class for TheLeafTower
      * @type {TheLeafTower}
      */
     TheLeafTower := TheLeafTower()
 
-    
+
     /**
      * Travel class for TheLoneTree
      * @type {TheLoneTree}
      */
     TheLoneTree := TheLoneTree()
 
-    
+
     /**
      * Travel class for TheMoon
      * @type {TheMoon}
      */
     TheMoon := TheMoon()
 
-    
+
     /**
      * Travel class for TheMythicalGarden
      * @type {TheMythicalGarden}
      */
     TheMythicalGarden := TheMythicalGarden()
 
-    
+
     /**
      * Travel class for TheShadowCavern
      * @type {TheShadowCavern}
      */
     TheShadowCavern := TheShadowCavern()
 
-    
+
     /**
      * Travel class for TheVolcano
      * @type {TheVolcano}
      */
     TheVolcano := TheVolcano()
 
-    
+
     /**
      * Travel class for VialofLife
      * @type {VialofLife}
      */
     VialofLife := VialofLife()
 
-    
+
     /**
      * Travel class for VilewoodCemetery
      * @type {VilewoodCemetery}
      */
     VilewoodCemetery := VilewoodCemetery()
 
-    
+
     /**
      * Travel class for YourHouse
      * @type {YourHouse}
@@ -577,20 +577,20 @@ Class cTravel {
      */
     _OpenAny(action, test, delay := 0) {
         NavTime := NavigateTime + delay
-        if (NavTime < 72) {
+        If (NavTime < 72) {
             NavTime := 72
         }
         this.ClosePanelIfActive()
         action() ; Open location in func
-        sleep(NavTime)
+        Sleep(NavTime)
         VerboseLog("Panel opened " BinaryToStr(IsPanelActive()))
         i := 0
-        while (!test() && i <= 4) {
+        While (!test() && i <= 4) {
             action() ; Open location in func
-            sleep(NavTime)
+            Sleep(NavTime)
             i++
         }
-        return IsPanelActive()
+        Return IsPanelActive()
     }
 
     ;@region ResetScroll()
@@ -600,33 +600,33 @@ Class cTravel {
      */
     ResetScroll(Button1, Button2, delay := 0) {
         NavTime := NavigateTime + delay
-        if (NavTime < 72) {
+        If (NavTime < 72) {
             NavTime := 72
         }
         VerboseLog("Resetting panel scroll")
         ; Click tab
-        if (Button1.IsButtonActive()) {
+        If (Button1.IsButtonActive()) {
             Button1.ClickOffset(, , NavTime)
             Sleep(NavTime)
-        } else {
+        } Else {
             DebugLog("Reset panel scroll did not find an active button.")
             VerboseLog(Button1.toStringWColour())
             StackLog()
-            return false
+            Return false
         }
         ; Click Back to reset the scroll
-        if (Button2.IsButtonActive()) {
+        If (Button2.IsButtonActive()) {
             Button2.ClickOffset(, , NavTime)
             Sleep(NavTime)
             ; Double click for redundancy
             Button2.ClickOffset(, , NavTime)
             Sleep(NavTime)
-            return true
-        } else {
+            Return true
+        } Else {
             DebugLog("Button 2 inactive on resetscroll")
             VerboseLog(Button2.toStringWColour())
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -637,9 +637,9 @@ Class cTravel {
      * @param {number} [extraDelay=0] Add ms to the sleep timers
      */
     ScrollAmountDown(amount := 1, extraDelay := 0) {
-        while (amount > 0) {
-            if (!IsWindowActive() || !IsPanelActive()) {
-                break
+        While (amount > 0) {
+            If (!IsWindowActive() || !IsPanelActive()) {
+                Break
             } Else {
                 ControlClick(, LBRWindowTitle, , "WheelDown")
                 Sleep(NavigateTime + extraDelay)
@@ -656,9 +656,9 @@ Class cTravel {
      * @param {number} [extraDelay=0] Add ms to the sleep timers
      */
     ScrollAmountUp(amount := 1, extraDelay := 0) {
-        while (amount > 0) {
-            if (!IsWindowActive() || !IsPanelActive()) {
-                break
+        While (amount > 0) {
+            If (!IsWindowActive() || !IsPanelActive()) {
+                Break
             } Else {
                 ControlClick(, LBRWindowTitle, , "WheelUp")
                 Sleep(NavigateTime + extraDelay)
@@ -679,10 +679,10 @@ Class cTravel {
         VerboseLog("Openareas")
         active := this._OpenAny(GameKeys.OpenAreas.Bind(GameKeys),
             IsPanelActive, delay)
-        if (reset && active) {
+        If (reset && active) {
             this.ResetAreaScroll(delay)
         }
-        return active
+        Return active
     }
 
     ;@region ResetAreaScroll()
@@ -691,7 +691,7 @@ Class cTravel {
      * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      */
     ResetAreaScroll(delay := 0) {
-        return this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.LeafG.Tab,
+        Return this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.LeafG.Tab,
             delay)
     }
     ;@endregion
@@ -703,11 +703,11 @@ Class cTravel {
      * @param {number} extraDelay (optional): add ms to the sleep timers
      */
     OpenAreasEvents(extraDelay := 0) {
-        if (this.OpenAreas(false, extraDelay)) {
-            return this.ResetScroll(Points.Areas.Favs.Tab, ;
+        If (this.OpenAreas(false, extraDelay)) {
+            Return this.ResetScroll(Points.Areas.Favs.Tab, ;
                 Points.Areas.Events.Tab, extraDelay)
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -717,15 +717,15 @@ Class cTravel {
      * @param {number} extraDelay (optional): add ms to the sleep timers
      */
     OpenAreasQuark(extraDelay := 0) {
-        if (this.OpenAreas(false, extraDelay)) {
+        If (this.OpenAreas(false, extraDelay)) {
             state := this.ResetScroll(Points.Areas.Favs.Tab, ;
                 Points.Areas.QuarkA.Tab, extraDelay)
-            if (state) {
+            If (state) {
                 this.ScrollAmountUp(2)
                 Sleep(NavigateTime + extraDelay)
             }
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -740,10 +740,10 @@ Class cTravel {
         VerboseLog("OpenGemShop")
         active := this._OpenAny(GameKeys.OpenGemShop.Bind(GameKeys),
             IsPanelActive, delay)
-        if (reset && active) {
+        If (reset && active) {
             this.ResetGemShopScroll(delay)
         }
-        return active
+        Return active
     }
 
     ;@region ResetGemShopScroll()
@@ -752,7 +752,7 @@ Class cTravel {
      * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      */
     ResetGemShopScroll(delay := 0) {
-        return this.ResetScroll(Points.Areas.LeafG.Tab, Points.Areas.Favs.Tab,
+        Return this.ResetScroll(Points.Areas.LeafG.Tab, Points.Areas.Favs.Tab,
             delay)
     }
     ;@endregion
@@ -768,7 +768,7 @@ Class cTravel {
     OpenTrades(delay := 0) {
         ; No tabs so no reset
         VerboseLog("OpenTrades")
-        return this._OpenAny(GameKeys.OpenTrades.Bind(GameKeys), IsPanelActive,
+        Return this._OpenAny(GameKeys.OpenTrades.Bind(GameKeys), IsPanelActive,
             delay)
     }
     ;@endregion
@@ -784,10 +784,10 @@ Class cTravel {
         VerboseLog("OpenPets")
         active := this._OpenAny(GameKeys.OpenPets.Bind(GameKeys), IsPanelActive,
             delay)
-        if (reset && active) {
+        If (reset && active) {
             this.ResetPetScroll(delay)
         }
-        return active
+        Return active
     }
     ;@region ResetPetScroll()
     /**
@@ -795,7 +795,7 @@ Class cTravel {
      * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      */
     ResetPetScroll(delay := 0) {
-        return this.ResetScroll(Points.Misc.Pets.TeamsTab, Points.Misc.Pets.PetsTab,
+        Return this.ResetScroll(Points.Misc.Pets.TeamsTab, Points.Misc.Pets.PetsTab,
             delay)
     }
     ;@endregion
@@ -810,7 +810,7 @@ Class cTravel {
      */
     OpenBank(delay := 0) {
         VerboseLog("OpenBank")
-        return this._OpenAny(GameKeys.OpenBank.Bind(GameKeys), IsPanelActive,
+        Return this._OpenAny(GameKeys.OpenBank.Bind(GameKeys), IsPanelActive,
             delay)
     }
     ;@endregion
@@ -827,10 +827,10 @@ Class cTravel {
         VerboseLog("OpenBorbVentures")
         active := this._OpenAny(GameKeys.OpenBorbVentures.Bind(GameKeys),
             IsPanelActive, delay)
-        if (reset && active) {
+        If (reset && active) {
             this.ResetBorbVScroll(delay)
         }
-        return active
+        Return active
     }
 
     ;@region ResetBorbVScroll()
@@ -839,9 +839,9 @@ Class cTravel {
      * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      */
     ResetBorbVScroll(delay := 0) {
-        log(Points.Borbventures.BorbsTab.toStringWColour())
-        log(Points.Borbventures.BVTab.toStringWColour())
-        return this.ResetScroll(Points.Borbventures.BorbsTab, Points.Borbventures
+        Log(Points.Borbventures.BorbsTab.toStringWColour())
+        Log(Points.Borbventures.BVTab.toStringWColour())
+        Return this.ResetScroll(Points.Borbventures.BorbsTab, Points.Borbventures
             .BVTab, delay)
     }
     ;@endregion
@@ -855,20 +855,20 @@ Class cTravel {
     GotoBorbVFirstTab() {
         Travel.OpenBorbVentures(true)
         i := 0
-        while (!this.IsBorbVFirstTab() && i <= 4) {
+        While (!this.IsBorbVFirstTab() && i <= 4) {
             Travel.OpenBorbVentures(true)
             i++
         }
-        if (this.IsBorbVFirstTab()) {
+        If (this.IsBorbVFirstTab()) {
             DebugLog("Travel success to Borbventures First Tab.")
-            return true
+            Return true
         }
         Log("Failed to travel to borbventures first tab")
-        return false
+        Return false
     }
 
     IsBorbVFirstTab() {
-        return Points.Borbventures.Detailed.IsButtonActive() && Points.Borbventures
+        Return Points.Borbventures.Detailed.IsButtonActive() && Points.Borbventures
             .ScaleMin.IsButtonActive()
     }
     ;@endregion
@@ -883,11 +883,11 @@ Class cTravel {
         VerboseLog("OpenCards")
         active := this._OpenAny(GameKeys.OpenCards.Bind(GameKeys),
             IsPanelActive, delay)
-        if (reset && active) {
+        If (reset && active) {
             ; TODO this one needs a custom reset
             this.ResetAreaScroll(delay)
         }
-        return active
+        Return active
     }
 
     /**
@@ -900,10 +900,10 @@ Class cTravel {
         VerboseLog("OpenAlchemy")
         active := this._OpenAny(GameKeys.OpenAlchemy.Bind(GameKeys),
             IsPanelActive, delay)
-        if (reset && active) {
+        If (reset && active) {
             this.ResetAreaScroll(delay)
         }
-        return active
+        Return active
     }
 
     /**
@@ -914,10 +914,10 @@ Class cTravel {
      */
     OpenAlchemyGeneral(reset := false, delay := 0) {
         i := 1
-        while (!this.IsAlchGeneralTab() && i <= 4) {
-            if (this.OpenAlchemy(reset, delay)) {
+        While (!this.IsAlchGeneralTab() && i <= 4) {
+            If (this.OpenAlchemy(reset, delay)) {
                 Sleep(NavigateTime)
-                if (Points.Brew.Tab1.Nav.IsButtonActive()) {
+                If (Points.Brew.Tab1.Nav.IsButtonActive()) {
                     VerboseLog("Clicking alchemy general tab")
                     Points.Brew.Tab1.Nav.Click(NavigateTime)
                     Sleep(NavigateTime)
@@ -925,21 +925,21 @@ Class cTravel {
             }
             i++
         }
-        return this.IsAlchGeneralTab()
+        Return this.IsAlchGeneralTab()
     }
 
     IsAlchGeneralTab() {
-        if (!IsPanelActive()) {
-            return false
+        If (!IsPanelActive()) {
+            Return false
         }
         Artifacts := Points.Brew.Tab1.Artifacts
         Equipment := Points.Brew.Tab1.Equipment
         Materials := Points.Brew.Tab1.Materials
         If (Artifacts.IsButton() || Equipment.IsButton() || Materials.IsButton()
         ) {
-            return true
+            Return true
         }
-        return false
+        Return false
     }
 
     /**
@@ -952,10 +952,10 @@ Class cTravel {
         VerboseLog("OpenCrafting")
         active := this._OpenAny(GameKeys.OpenCrafting.Bind(GameKeys),
             IsPanelActive, delay)
-        if (reset && active) {
+        If (reset && active) {
             this.ResetAreaScroll(delay)
         }
-        return active
+        Return active
     }
 
     /**
@@ -968,10 +968,10 @@ Class cTravel {
         VerboseLog("OpenMining")
         active := this._OpenAny(GameKeys.OpenMining.Bind(GameKeys),
             IsPanelActive, delay)
-        if (reset && active) {
+        If (reset && active) {
             this.ResetAreaScroll(delay)
         }
-        return active
+        Return active
     }
 
     ;@region OpenGoldPortal()
@@ -985,7 +985,7 @@ Class cTravel {
         VerboseLog("OpenGoldPortal")
         active := this._OpenAny(GameKeys.OpenGoldPortal.Bind(GameKeys),
             IsPanelActive, delay)
-        return active
+        Return active
     }
     ;@endregion
 
@@ -999,11 +999,11 @@ Class cTravel {
         VerboseLog("OpenSettings")
         this.ClosePanelIfActive()
         GameKeys.ClosePanel()
-        if (reset) {
+        If (reset) {
             this.ResetAreaScroll()
         }
         Sleep(NavigateTime)
-        return IsPanelActive()
+        Return IsPanelActive()
     }
 
     ;@region Close panel
@@ -1016,7 +1016,7 @@ Class cTravel {
     ClosePanel() {
         GameKeys.ClosePanel()
         Sleep(NavigateTime)
-        return IsPanelActive()
+        Return IsPanelActive()
     }
 
     /**
@@ -1026,11 +1026,11 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     ClosePanelIfActive() {
-        if (IsPanelActive()) {
+        If (IsPanelActive()) {
             this.ClosePanel()
             Sleep(NavigateTime)
         }
-        return IsPanelActive()
+        Return IsPanelActive()
     }
     ;@endregion
 

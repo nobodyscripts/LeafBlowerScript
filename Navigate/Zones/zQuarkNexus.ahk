@@ -61,7 +61,7 @@ Class QuarkNexus extends Zone {
         ; Button to travel to Quark Nexus
         ;Button := Points.Areas.QuarkA.QuarkNexus
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Quark Nexus travel: Button not found.")

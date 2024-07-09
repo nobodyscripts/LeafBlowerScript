@@ -21,98 +21,98 @@
 Class cRect {
     x1 {
         get {
-            global W
-            if (this.relative && isset(W)) {
-                return this._x1 / 2560 * W
-            } else {
-                if (!isset(W)) {
+            Global W
+            If (this.relative && IsSet(W)) {
+                Return this._x1 / 2560 * W
+            } Else {
+                If (!IsSet(W)) {
                     Log("ERR: W not set")
                 }
-                return this._x1
+                Return this._x1
             }
         }
         set {
-            this._x1 := value
-            return this._x1
+            this._x1 := Value
+            Return this._x1
         }
     }
 
     y1 {
         get {
-            global H
-            if (this.relative && isset(H)) {
-                return this._y1 / 1369 * H
-            } else {
-                if (!isset(H)) {
+            Global H
+            If (this.relative && IsSet(H)) {
+                Return this._y1 / 1369 * H
+            } Else {
+                If (!IsSet(H)) {
                     Log("ERR: H not set")
                 }
-                return this._y1
+                Return this._y1
             }
         }
         set {
-            this._y1 := value
-            return this._y1
+            this._y1 := Value
+            Return this._y1
         }
     }
 
     x2 {
         get {
-            global W
-            if (this.relative && isset(W)) {
-                return this._x2 / 2560 * W
-            } else {
-                if (!isset(W)) {
+            Global W
+            If (this.relative && IsSet(W)) {
+                Return this._x2 / 2560 * W
+            } Else {
+                If (!IsSet(W)) {
                     Log("ERR: W not set")
                 }
-                return this._x2
+                Return this._x2
             }
         }
         set {
-            this._x2 := value
-            return this._x2
+            this._x2 := Value
+            Return this._x2
         }
     }
 
     y2 {
         get {
-            global H
-            if (this.relative && isset(H)) {
-                return this._y2 / 1369 * H
-            } else {
-                if (!isset(H)) {
+            Global H
+            If (this.relative && IsSet(H)) {
+                Return this._y2 / 1369 * H
+            } Else {
+                If (!IsSet(H)) {
                     Log("ERR: H not set")
                 }
-                return this._y2
+                Return this._y2
             }
         }
         set {
-            this._y2 := value
-            return this._y2
+            this._y2 := Value
+            Return this._y2
         }
     }
 
     w {
         get {
-            if (this.x2 - this.x1 > 0) {
-                return this.x2 - this.x1
+            If (this.x2 - this.x1 > 0) {
+                Return this.x2 - this.x1
             }
-            return 0
+            Return 0
         }
     }
 
     h {
         get {
-            if (this.y2 - this.y1 > 0) {
-                return this.y2 - this.y1
+            If (this.y2 - this.y1 > 0) {
+                Return this.y2 - this.y1
             }
-            return 0
+            Return 0
         }
     }
 
     relative := true
 
     __New(xin1 := "", yin1 := "", xin2 := "", yin2 := "", relative := true) {
-        if (xin1 != "" && yin1 != "" && xin2 != "" && yin2 != "") {
+        If (xin1 != "" && yin1 != "" && xin2 != "" && yin2 != "") {
             this.Set(xin1, yin1, xin2, yin2, relative)
         }
     }
@@ -132,7 +132,7 @@ Class cRect {
         this.x2 := xin2
         this.y2 := yin2
         this.Relative := relative
-        return this
+        Return this
     }
 
     /**
@@ -140,8 +140,8 @@ Class cRect {
      * @returns {String} Log formatted string form of coords
      */
     toString() {
-        return ("X1: " this.x1 " Y1: " this.y1 " X2: " this.x2 " Y2: "
-            this.y2 "`nW: " this.w " H: " this.h)
+        Return ("X1: " this.x1 " Y1: " this.y1 " X2: " this.x2 " Y2: " this.y2 "`nW: " this
+            .w " H: " this.h)
     }
 
     /**
@@ -163,19 +163,18 @@ Class cRect {
      * @returns {Array | Bool} [x, y] or false
      */
     PixelSearch(colour := "0xFFFFFF", variation := 0) {
-        try {
-            found := PixelSearch(&OutX, &OutY,
-                this.x1, this.y1,
-                this.x2, this.y2, colour, variation)
+        Try {
+            found := PixelSearch(&OutX, &OutY, this.x1, this.y1, this.x2, this.y2,
+                colour, variation)
             If (found and OutX != 0) {
-                return [OutX, OutY] ; Found colour
+                Return [OutX, OutY] ; Found colour
             }
             VerboseLog("PixelSearch false: " colour " not found")
-        } catch as exc {
+        } Catch As exc {
             Log("Error 8: PixelSearch search failed - " exc.Message)
-            MsgBox("Could not conduct the search due to the following error:`n"
-                exc.Message)
+            MsgBox("Could not conduct the search due to the following error:`n" exc
+                .Message)
         }
-        return false
+        Return false
     }
 }

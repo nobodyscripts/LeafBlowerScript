@@ -61,7 +61,7 @@ Class GreenPlanetEdge extends Zone {
         ; Button to travel to Green Planet Edge
         ;Button := Points.Areas.EnergyB.GreenPlanetEdge
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Green Planet Edge travel: Button not found.")

@@ -2,67 +2,67 @@
 
 #Include ..\Lib\cPoints.ahk
 
-global BankEnableLGDeposit := true
-global BankEnableSNDeposit := true
-global BankEnableEBDeposit := true
-global BankEnableFFDeposit := true
-global BankEnableSRDeposit := true
-global BankEnableQADeposit := true
-global BankEnableStorageUpgrade := true
-global BankRunsSpammer := true
-global BankDepositTime := 5
-global NavigateTime := 150
+Global BankEnableLGDeposit := true
+Global BankEnableSNDeposit := true
+Global BankEnableEBDeposit := true
+Global BankEnableFFDeposit := true
+Global BankEnableSRDeposit := true
+Global BankEnableQADeposit := true
+Global BankEnableStorageUpgrade := true
+Global BankRunsSpammer := true
+Global BankDepositTime := 5
+Global NavigateTime := 150
 
 fBankAutoDeposit() {
-    global BankDepositTime
+    Global BankDepositTime
     DepositRESS := Points.Bank.DepositRESS
     UpgradeButton := Points.Bank.UpgradeStorage
     ; If user set 0 in gui without adding a fraction, make at least 1 second
-    if (BankDepositTime = 0) {
+    If (BankDepositTime = 0) {
         BankDepositTime := 0.017
     }
-    if (BankRunsSpammer) {
+    If (BankRunsSpammer) {
         NormalBossSpammerStart()
     }
     Travel.OpenBank()
     ToolTip("Bank Maintainer Active", W / 2 - WinRelPosLargeW(100), H / 2, 4)
-    loop {
-        if (!IsWindowActive()) {
-            break
+    Loop {
+        If (!IsWindowActive()) {
+            Break
         }
         i := 0
-        while (i < 6) {
-            if (!IsWindowActive() || !IsPanelActive()) {
-                break
+        While (i < 6) {
+            If (!IsWindowActive() || !IsPanelActive()) {
+                Break
             }
             ResetBankScroll()
-            if (BankIsTabEnabled(i)) {
+            If (BankIsTabEnabled(i)) {
                 buttonTab := BankTabCoordByInd(i)
-                if (!IsOnBankTab(buttonTab)) {
+                If (!IsOnBankTab(buttonTab)) {
                     BankTravelAreaByInd(i)
                     Sleep(NavigateTime)
                 }
-                loop {
-                    if (!IsWindowActive() || !IsPanelActive()) {
-                        break
+                Loop {
+                    If (!IsWindowActive() || !IsPanelActive()) {
+                        Break
                     }
-                    if (DepositRESS.IsButtonActive()) {
+                    If (DepositRESS.IsButtonActive()) {
                         DepositRESS.ClickOffset(5, 5)
                         Sleep(NavigateTime)
-                    } else {
-                        break
+                    } Else {
+                        Break
                     }
                 }
-                if (BankEnableStorageUpgrade) {
-                    loop {
-                        if (!IsWindowActive() || !IsPanelActive()) {
-                            break
+                If (BankEnableStorageUpgrade) {
+                    Loop {
+                        If (!IsWindowActive() || !IsPanelActive()) {
+                            Break
                         }
-                        if (UpgradeButton.IsButtonActive()) {
+                        If (UpgradeButton.IsButtonActive()) {
                             UpgradeButton.ClickOffset(5, 5)
                             Sleep(NavigateTime)
-                        } else {
-                            break
+                        } Else {
+                            Break
                         }
                     }
                 }
@@ -78,43 +78,43 @@ BankSinglePass() {
     UpgradeButton := Points.Bank.UpgradeStorage
     Travel.OpenBank()
     Sleep(NavigateTime + 100)
-    if (!IsPanelActive()) {
+    If (!IsPanelActive()) {
         Travel.OpenBank()
         Sleep(NavigateTime)
     }
     i := 0
-    while (i < 6) {
-        if (!IsWindowActive() || !IsPanelActive()) {
-            break
+    While (i < 6) {
+        If (!IsWindowActive() || !IsPanelActive()) {
+            Break
         }
         ResetBankScroll()
-        if (BankIsTabEnabled(i)) {
+        If (BankIsTabEnabled(i)) {
             buttonTab := BankTabCoordByInd(i)
-            if (!IsOnBankTab(buttonTab)) {
+            If (!IsOnBankTab(buttonTab)) {
                 BankTravelAreaByInd(i)
                 Sleep(NavigateTime)
             }
-            loop {
-                if (!IsWindowActive() || !IsPanelActive()) {
-                    break
+            Loop {
+                If (!IsWindowActive() || !IsPanelActive()) {
+                    Break
                 }
-                if (DepositRESS.IsButtonActive()) {
+                If (DepositRESS.IsButtonActive()) {
                     DepositRESS.ClickOffset(5, 5)
                     Sleep(NavigateTime)
-                } else {
-                    break
+                } Else {
+                    Break
                 }
             }
-            if (BankEnableStorageUpgrade) {
-                loop {
-                    if (!IsWindowActive() || !IsPanelActive()) {
-                        break
+            If (BankEnableStorageUpgrade) {
+                Loop {
+                    If (!IsWindowActive() || !IsPanelActive()) {
+                        Break
                     }
-                    if (UpgradeButton.IsButtonActive()) {
+                    If (UpgradeButton.IsButtonActive()) {
                         UpgradeButton.ClickOffset(5, 5)
                         Sleep(NavigateTime)
-                    } else {
-                        break
+                    } Else {
+                        Break
                     }
                 }
             }
@@ -128,18 +128,18 @@ BankSinglePass() {
 ;@region Support functions
 
 BankTravelAreaByInd(index) {
-    switch index {
-        case 0:
+    Switch index {
+        Case 0:
             Points.Bank.TabQA.Click()
-        case 1:
+        Case 1:
             Points.Bank.TabSR.Click()
-        case 2:
+        Case 2:
             Points.Bank.TabFF.Click()
-        case 3:
+        Case 3:
             Points.Bank.TabEB.Click()
-        case 4:
+        Case 4:
             Points.Bank.TabSN.Click()
-        case 5:
+        Case 5:
             Points.Bank.TabLG.Click()
         default:
 
@@ -153,42 +153,42 @@ BankTravelAreaByInd(index) {
  * @returns {cPoint} | null
  */
 BankTabCoordByInd(index) {
-    switch index {
-        case 0:
-            return Points.Bank.TabQA
-        case 1:
-            return Points.Bank.TabSR
-        case 2:
-            return Points.Bank.TabFF
-        case 3:
-            return Points.Bank.TabEB
-        case 4:
-            return Points.Bank.TabSN
-        case 5:
-            return Points.Bank.TabLG
+    Switch index {
+        Case 0:
+            Return Points.Bank.TabQA
+        Case 1:
+            Return Points.Bank.TabSR
+        Case 2:
+            Return Points.Bank.TabFF
+        Case 3:
+            Return Points.Bank.TabEB
+        Case 4:
+            Return Points.Bank.TabSN
+        Case 5:
+            Return Points.Bank.TabLG
         default:
     }
 }
 BankIsTabEnabled(index) {
-    if (index = 5 && BankEnableLGDeposit) {
-        return true
+    If (index = 5 && BankEnableLGDeposit) {
+        Return true
     }
-    if (index = 4 && BankEnableSNDeposit) {
-        return true
+    If (index = 4 && BankEnableSNDeposit) {
+        Return true
     }
-    if (index = 3 && BankEnableEBDeposit) {
-        return true
+    If (index = 3 && BankEnableEBDeposit) {
+        Return true
     }
-    if (index = 2 && BankEnableFFDeposit) {
-        return true
+    If (index = 2 && BankEnableFFDeposit) {
+        Return true
     }
-    if (index = 1 && BankEnableSRDeposit) {
-        return true
+    If (index = 1 && BankEnableSRDeposit) {
+        Return true
     }
-    if (index = 0 && BankEnableQADeposit) {
-        return true
+    If (index = 0 && BankEnableQADeposit) {
+        Return true
     }
-    return false
+    Return false
 }
 
 /**
@@ -200,20 +200,20 @@ IsOnBankTab(buttonTab) {
     ; 82805D mouseoff green active button
     ; A8EC7F mouseover green active button (no mousedown, same as this)
     colour := buttonTab.GetColour()
-    if (colour = "0x82805D" || colour = "0xA8EC7F") {
-        return true
+    If (colour = "0x82805D" || colour = "0xA8EC7F") {
+        Return true
     }
     DebugLog("IsOnBankTab false: found " colour)
-    return false
+    Return false
 }
 
 ResetBankScroll() {
     maxIter := 20
     Deposit := Points.Bank.DepositRESS
     UpgStorage := Points.Bank.UpgradeStorage
-    while (!Deposit.IsButton() && !UpgStorage.IsButton()) {
-        if (!IsWindowActive() || !IsPanelActive() || maxIter <= 1) {
-            return
+    While (!Deposit.IsButton() && !UpgStorage.IsButton()) {
+        If (!IsWindowActive() || !IsPanelActive() || maxIter <= 1) {
+            Return
         }
         Travel.ScrollAmountUp(1)
         maxIter--

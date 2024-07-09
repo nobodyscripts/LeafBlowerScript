@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0
 
 fSuitcaseSpam() {
-    if (!IsWindowActive()) {
-        return
+    If (!IsWindowActive()) {
+        Return
     }
     Travel.OpenTrades()
     Sleep(150)
-    loop {
-        if (!IsWindowActive()) {
-            break
+    Loop {
+        If (!IsWindowActive()) {
+            Break
         }
-        if (IsWindowActive() && !IsPanelActive()) {
+        If (IsWindowActive() && !IsPanelActive()) {
             Travel.OpenTrades()
             Sleep(NavigateTime)
         }
-        if (IsWindowActive() && IsPanelActive()) {
-            Gamekeys.TriggerSuitcase()
+        If (IsWindowActive() && IsPanelActive()) {
+            GameKeys.TriggerSuitcase()
 
-            Gamekeys.TriggerSeeds()
+            GameKeys.TriggerSeeds()
 
             GameKeys.RefreshTrades()
             Sleep(17)

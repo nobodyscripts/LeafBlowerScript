@@ -61,7 +61,7 @@ Class SparkRange extends Zone {
         ; Button to travel to Spark Range
         ;Button := Points.Areas.SacredN.SparkRange
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Spark Range travel: Button not found.")

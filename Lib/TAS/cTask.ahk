@@ -44,7 +44,7 @@ Class cTask {
      * @returns {Boolean} Return false to exit task loop early
      */
     Task() {
-        throw Error("No Task() set")
+        Throw Error("No Task() set")
     }
 
     /**
@@ -61,7 +61,7 @@ Class cTask {
      * @returns {Boolean} Return false to exit task loop early
      */
     StopWhen() {
-        throw Error("No StopWhen() set")
+        Throw Error("No StopWhen() set")
     }
     ;@endregion
 
@@ -107,12 +107,12 @@ Class cTask {
      */
     Loop() {
         this._isRunning := this._isLooping := true
-        this._startTime := A_now
+        this._startTime := A_Now
         this.PreTask()
         ; Break if provided check, timer or manual stop change
-        while (this.StopWhen() && this._isLooping && this.WithinRunFor()) {
-            if (!this.Task()) {
-                break
+        While (this.StopWhen() && this._isLooping && this.WithinRunFor()) {
+            If (!this.Task()) {
+                Break
             }
         }
         this.PostTask()
@@ -135,14 +135,14 @@ Class cTask {
      * Get running state
      */
     IsRunning() {
-        return this._isRunning
+        Return this._isRunning
     }
 
     /**
      * Get looping state
      */
     IsLooping() {
-        return this._isLooping
+        Return this._isLooping
     }
 
     /**
@@ -150,10 +150,10 @@ Class cTask {
      * @returns {Boolean} State
      */
     IsOnCooldown() {
-        if (this.Cooldown = -1) {
-            return false
+        If (this.Cooldown = -1) {
+            Return false
         }
-        return this._cooldownState
+        Return this._cooldownState
     }
     ;@endregion
 
@@ -163,13 +163,13 @@ Class cTask {
      * @returns {Boolean} True if within runfor period, false if not
      */
     WithinRunFor() {
-        if (this.RunFor = -1) {
-            return true
+        If (this.RunFor = -1) {
+            Return true
         }
-        if (DateDiff(A_Now, this._startTime, "Seconds") <= this.RunFor) {
-            return true
+        If (DateDiff(A_Now, this._startTime, "Seconds") <= this.RunFor) {
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 

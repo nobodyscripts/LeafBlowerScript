@@ -1,31 +1,31 @@
 ﻿#Requires AutoHotkey v2.0
 
-global SpammerPID := 0
-global CardsBuyEnabled := false
-global CardsBossFarmEnabled := false
-global BrewEnableArtifacts := true
-global BrewEnableEquipment := true
-global BrewEnableMaterials := true
-global BrewEnableCardParts := true
-global BrewEnableScrolls := true
+Global SpammerPID := 0
+Global CardsBuyEnabled := false
+Global CardsBossFarmEnabled := false
+Global BrewEnableArtifacts := true
+Global BrewEnableEquipment := true
+Global BrewEnableMaterials := true
+Global BrewEnableCardParts := true
+Global BrewEnableScrolls := true
 
 fFarmNormalBoss(modecheck) {
-    global on9
+    Global on9
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
     NormalBossSpammerStart()
-    loop {
+    Loop {
         If (on9 != modecheck) {
-            return
+            Return
         }
-        if (!IsWindowActive()) {
+        If (!IsWindowActive()) {
             Log("BossFarm: Exiting as no game.")
             cReload() ; Kill early if no game
-            return
+            Return
         }
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
-        if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+        If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
             ; If the timer is longer, killed too quick to get a gap
             ; Log("Kill timerlast " TimerLastCheckStatus " timer cur "
             ; TimerCurrentState " waslong " IsPrevTimerLong
@@ -33,7 +33,7 @@ fFarmNormalBoss(modecheck) {
             Killcount++
         }
         IsPrevTimerLong := IsTimerLong
-        if (IsAreaResetToGarden()) {
+        If (IsAreaResetToGarden()) {
             Log("BossFarm: User killed.")
             ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
@@ -46,39 +46,39 @@ fFarmNormalBoss(modecheck) {
 
 fFarmNormalBossAndBrew(modecheck) {
     ToolTip()
-    global on9
+    Global on9
     Killcount := 0
     Travel.OpenAlchemyGeneral()
     IsPrevTimerLong := IsBossTimerLong()
     NormalBossSpammerStart()
-    loop {
+    Loop {
         If (on9 != modecheck) {
-            break
+            Break
         }
-        if (!IsWindowActive()) {
+        If (!IsWindowActive()) {
             Log("BossBrew: Exiting as no game.")
             cReload() ; Kill if no game
-            break
+            Break
         }
-        if (!IsPanelActive()) {
+        If (!IsPanelActive()) {
             Log("BossBrew: Did not find panel. Aborted brewing. Violins active"
             )
-            break
+            Break
         }
         SetTimer(SpamBrewButtons, -5)
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
-        if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+        If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
             ; If the timer is longer, killed too quick to get a gap
             Killcount++
         }
         IsPrevTimerLong := IsTimerLong
-        if (IsAreaResetToGarden() && IsSpammerActive()) {
+        If (IsAreaResetToGarden() && IsSpammerActive()) {
             KillSpammer()
             Log("BossFarm: User killed.")
             ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
-            return
+            Return
         }
         ToolTip("Brewing on, Kills: " . Killcount, W / 2 - WinRelPosLargeW(150),
             H / 2 + WinRelPosLargeH(20), 1)
@@ -87,9 +87,9 @@ fFarmNormalBossAndBrew(modecheck) {
 }
 
 SpamBrewButtons() {
-    if (!IsPanelActive()) {
+    If (!IsPanelActive()) {
         Log("SpamBrewButtons: Did not find panel. Aborted.")
-        return false
+        Return false
     }
     ; Artifacts
     Artifacts := Points.Brew.Tab1.Artifacts
@@ -121,64 +121,64 @@ SpamBrewButtons() {
     If (CardPartsFont1.IsButtonActive() && BrewEnableCardParts) {
         CardPartsFont1.Click()
     }
-    return true
+    Return true
 }
 
 fNormalBossFarmWithBorbs(modecheck) {
-    global bvAutostartDisabled
+    Global bvAutostartDisabled
     ToolTip()
-    global on9
+    Global on9
     Killcount := 0
 
-    if (!Travel.GotoBorbVFirstTab()) {
+    If (!Travel.GotoBorbVFirstTab()) {
         Log("Borbv: Failed to travel, aborting.")
         ToolTip("Failed to open Borbv, exiting.", W / 2, H / 2 +
             WinRelPosLargeH(50), 5)
         SetTimer(ToolTip.Bind(, , , 5), -3000)
-        return
+        Return
     }
 
     NormalBossSpammerStart()
     bvAutostartDisabled := false
-    if (IsBVAutoStartOn()) {
+    If (IsBVAutoStartOn()) {
         ; TODO move point to Points
         fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
         bvAutostartDisabled := true
     }
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
-    loop {
+    Loop {
         If (on9 != modecheck) {
-            return
+            Return
         }
-        if (!IsWindowActive()) {
+        If (!IsWindowActive()) {
             Log("BossBorbs: Exiting as no game.")
             cReload()
-            return
+            Return
         }
-        if (!IsPanelActive()) {
+        If (!IsPanelActive()) {
             Log("BossBorbs: Did not find panel. Aborted.")
-            return
+            Return
         }
-        if (IsAreaResetToGarden() && IsSpammerActive()) {
+        If (IsAreaResetToGarden() && IsSpammerActive()) {
             KillSpammer()
             Log("BossBorbs: User killed.")
             ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
-            return
+            Return
         }
         ToolTip("Borbfarm on, Kills: " . Killcount, W / 2 - WinRelPosLargeW(150
         ), H / 1.2, 4)
         BVMainLoop()
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
-        if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+        If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
             ; If the timer is longer, killed too quick to get a gap
             Killcount++
         }
         IsPrevTimerLong := IsTimerLong
     }
-    if (bvAutostartDisabled = true && !IsBVAutoStartOn()) {
+    If (bvAutostartDisabled = true && !IsBVAutoStartOn()) {
         ; TODO move point to Points
         fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
     }
@@ -188,79 +188,79 @@ fNormalBossFarmWithBorbs(modecheck) {
 fNormalBossFarmWithCards(modecheck) {
     ToolTip(, , , 4)
     ToolTip()
-    global HadToHideNotifs, W, H, X, Y, on9
+    Global HadToHideNotifs, W, H, X, Y, on9
     Killcount := 0
 
-    if (IsNotificationActive()) {
+    If (IsNotificationActive()) {
         Log("Card opening: Found notification covering button and hid"
             " notifications.")
         Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := true
     }
 
-    if (!GotoCardsFirstTab()) {
+    If (!GotoCardsFirstTab()) {
         ; We still failed to travel
         Log("BossCards: Failed to open cards first tab")
-        return
+        Return
     }
 
     NormalBossSpammerStart()
     IsPrevTimerLong := IsBossTimerLong()
-    loop {
+    Loop {
         If (on9 != modecheck) {
-            return
+            Return
         }
-        if (!IsWindowActive()) {
+        If (!IsWindowActive()) {
             Log("BossCards: Exiting as no game.")
             cReload() ; Kill if no game
-            return
+            Return
         }
-        if (!IsPanelActive()) {
+        If (!IsPanelActive()) {
             Log("BossCards: Did not find panel. Aborted.")
-            break
+            Break
         }
-        if (IsNotificationActive()) {
+        If (IsNotificationActive()) {
             Log("BossCards: Found notification covering button and hid"
                 " notifications.")
             Points.Misc.NotifArrow.Click(101)
             HadToHideNotifs := true
         }
-        if (!CardButtonsActive()) {
+        If (!CardButtonsActive()) {
             Log("BossCards: Exiting.")
-            return
+            Return
         }
         ToolTip("Boss farm with cards active", W / 2 - WinRelPosLargeW(150), H /
             2 + WinRelPosLargeH(320), 9)
-        if (CardsBuyEnabled) {
+        If (CardsBuyEnabled) {
             Log("BossCards buy: Loop starting.")
             CardBuyLoop()
-        } else {
+        } Else {
             Log("BossCards buy: Disabled.")
         }
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
-        if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+        If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
             ; If the timer is longer, killed too quick to get a gap
             Killcount++
         }
         IsPrevTimerLong := IsTimerLong
         Log("BossCards Opening: Loop starting.")
-        loop {
-            if (!CardsOpenSinglePass()) {
+        Loop {
+            If (!CardsOpenSinglePass()) {
                 Log("BossCards Opening: Loop finishing.")
-                break
+                Break
             }
-            if (IsAreaResetToGarden() && IsSpammerActive()) {
+            If (IsAreaResetToGarden() && IsSpammerActive()) {
                 KillSpammer()
                 Log("BossCards: User killed.")
                 ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2
                 )
                 SetTimer(ToolTip.Bind(, , , 2), -3000)
-                return
+                Return
             }
             IsTimerLong := IsBossTimerLong()
             ; if state of timer has changed and is now off, we killed
-            if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+            If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
                 ; If the timer is longer, killed too quick to get a gap
                 Killcount++
             }
@@ -271,7 +271,7 @@ fNormalBossFarmWithCards(modecheck) {
     }
     ToolTip(, , , 4)
     ToolTip()
-    if (HadToHideNotifs) {
+    If (HadToHideNotifs) {
         Log("BossCards: Reenabling notifications.")
         Points.Misc.NotifArrow.Click(17)
         HadToHideNotifs := false

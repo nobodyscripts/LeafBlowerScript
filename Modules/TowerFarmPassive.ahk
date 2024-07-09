@@ -3,28 +3,28 @@
 #Include ..\Lib\cPoints.ahk
 #Include ..\Lib\Spammers.ahk
 
-global TowerPassiveCraftEnabled := true
-global TowerPassiveBanksEnabled := true
-global BankEnableLGDeposit := true
-global BankEnableSNDeposit := true
-global BankEnableEBDeposit := true
-global BankEnableFFDeposit := true
-global BankEnableSRDeposit := true
-global BankEnableQADeposit := true
-global BankDepositTime := 5
-global NavigateTime := 150
+Global TowerPassiveCraftEnabled := true
+Global TowerPassiveBanksEnabled := true
+Global BankEnableLGDeposit := true
+Global BankEnableSNDeposit := true
+Global BankEnableEBDeposit := true
+Global BankEnableFFDeposit := true
+Global BankEnableSRDeposit := true
+Global BankEnableQADeposit := true
+Global BankDepositTime := 5
+Global NavigateTime := 150
 
 fTowerFarm() {
-    global BankDepositTime
+    Global BankDepositTime
     ; If user set 0 in gui without adding a fraction, make at least 1 second
-    if (BankDepositTime = 0) {
+    If (BankDepositTime = 0) {
         BankDepositTime := 0.017
     }
     GoToLeafTower()
     starttime := A_Now
     craftStopCoord := Points.Crafting.Stop
     TowerPassiveSpammerStart()
-    if (TowerPassiveBanksEnabled) {
+    If (TowerPassiveBanksEnabled) {
         Travel.OpenPets()
         Sleep(NavigateTime)
         ToolTip("Tower Passive, Bank Maintainer Active", W / 2, WinRelPosLargeH(
@@ -34,8 +34,8 @@ fTowerFarm() {
     }
     Travel.ClosePanelIfActive()
     ToolTip("Tower Farm Passive Active", W / 2, H / 2, 5)
-    loop {
-        if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
+    Loop {
+        If (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             TowerPassiveBanksEnabled) {
             Log("TowerPassive: Bank Maintainer starting.")
             ToolTip("Tower Passive, Bank Maintainer Active", W / 2,
@@ -44,23 +44,23 @@ fTowerFarm() {
             ToolTip(, , , 4)
             starttime := A_Now
         }
-        if (!IsWindowActive()) {
-            break
+        If (!IsWindowActive()) {
+            Break
         }
-        if (TowerPassiveCraftEnabled) {
+        If (TowerPassiveCraftEnabled) {
             Sleep(NavigateTime)
             Travel.OpenCrafting()
             Sleep(NavigateTime)
-            if (!IsPanelActive()) {
+            If (!IsPanelActive()) {
                 Travel.OpenCrafting()
                 Sleep(NavigateTime)
             }
         }
-        while (DateDiff(A_Now, starttime, "Seconds") < BankDepositTime * 60) {
-            if (!IsWindowActive()) {
-                break
+        While (DateDiff(A_Now, starttime, "Seconds") < BankDepositTime * 60) {
+            If (!IsWindowActive()) {
+                Break
             }
-            if (TowerPassiveCraftEnabled && craftStopCoord.IsButtonActive()) {
+            If (TowerPassiveCraftEnabled && craftStopCoord.IsButtonActive()) {
                 craftStopCoord.ClickOffset(, , 17)
             }
         }

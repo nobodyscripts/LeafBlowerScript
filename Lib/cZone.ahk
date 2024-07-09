@@ -30,7 +30,7 @@ Class Zone {
      */
     BossTimer := false
     ;@endregion
-    
+
     ;@region GoTo()
     /**
      * Go to the zone base function, uses other functions in class to modifiy
@@ -38,45 +38,44 @@ Class Zone {
      * @returns {Boolean} True if travel success, false if travel failed
      */
     GoTo() {
-        if (!IsWindowActive()) {
+        If (!IsWindowActive()) {
             Log("No window found while trying to travel.")
-            return false
+            Return false
         }
-        global DisableZoneChecks
+        Global DisableZoneChecks
         i := 0
-        if (!DisableZoneChecks) {
+        If (!DisableZoneChecks) {
             Log("Traveling to " this.Name)
             ; Advantage of this sample check is script doesn't travel if already
             ; there and can recheck if travels failed
-            while (!this.IsZoneColour() &&
-                this.BossTimer = !IsBossTimerActive() &&
+            While (!this.IsZoneColour() && this.BossTimer = !IsBossTimerActive() &&
                 i <= 4) {
-                if (!IsWindowActive()) {
+                If (!IsWindowActive()) {
                     Log("No window found while trying to travel.")
-                    return false
+                    Return false
                 }
                 this.AttemptTravel(NavigateTime)
                 i++
             }
         }
-        if (this.IsZoneColour()) {
+        If (this.IsZoneColour()) {
             DebugLog("Travel success to " this.Name)
-            return true
-        } else {
+            Return true
+        } Else {
             Log("Traveling to " this.Name ". Attempt to blind travel with"
                 " slowed times.")
             this.AttemptTravel(NavigateTime, 50, 200)
-            if (DisableZoneChecks) {
+            If (DisableZoneChecks) {
                 ; Checks are disabled so blindly trust we reached zone
-                return true
+                Return true
             }
-            if (this.IsZoneColour()) {
+            If (this.IsZoneColour()) {
                 DebugLog("Blind travel success to " this.Name)
-                return true
-            } else {
-                Log("Traveling to " this.Name " failed, colour found was "
-                    this.GetZoneColour())
-                return false
+                Return true
+            } Else {
+                Log("Traveling to " this.Name " failed, colour found was " this
+                    .GetZoneColour())
+                Return false
             }
         }
     }
@@ -111,10 +110,10 @@ Class Zone {
         sampleColour := this.GetZoneColour()
         If (sampleColour = this.ZoneColour) {
             ; Found target colour
-            return true
+            Return true
         }
         DebugLog("IsZoneColour: Not in target zone, colour: " sampleColour)
-        return false
+        Return false
     }
     ;@endregion
 
@@ -124,7 +123,7 @@ Class Zone {
      * @returns {String} 
      */
     GetZoneColour() {
-        return Points.ZoneSample.GetColour()
+        Return Points.ZoneSample.GetColour()
     }
     ;@endregion
 
@@ -135,7 +134,7 @@ Class Zone {
      * @returns {String} Colour string for zone check
      */
     GetColourByName(name) {
-        return Colours().GetColourByZone(name)
+        Return Colours().GetColourByZone(name)
     }
     ;@endregion
 

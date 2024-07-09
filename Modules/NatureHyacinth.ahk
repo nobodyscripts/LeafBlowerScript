@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0
 
-global SpammerPID := 0
-global HyacinthUseSlot := "All"
-global HyacinthFarmBoss := true
-global HyacinthUseFlower := 1
-global HyacinthUseSpheres := true
-global HyacinthUseNextAvailableFlower := true
-global HyacinthBanksEnabled := true
-global BankDepositTime := 5
-global NavigateTime := 150
-global BossFarmUsesWobblyWings := false
+Global SpammerPID := 0
+Global HyacinthUseSlot := "All"
+Global HyacinthFarmBoss := true
+Global HyacinthUseFlower := 1
+Global HyacinthUseSpheres := true
+Global HyacinthUseNextAvailableFlower := true
+Global HyacinthBanksEnabled := true
+Global BankDepositTime := 5
+Global NavigateTime := 150
+Global BossFarmUsesWobblyWings := false
 
 fFarmNormalBossAndNatureHyacinth() {
-    global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot,
+    Global BossFarmUsesWobblyWings, HyacinthFarmBoss, HyacinthUseSlot,
         BankDepositTime, HyacinthBanksEnabled, NavigateTime
 
     ; If user set 0 in gui without adding a fraction, make at least 1 second
-    if (BankDepositTime = 0) {
+    If (BankDepositTime = 0) {
         BankDepositTime := 0.017
     }
     ToolTip()
@@ -25,7 +25,7 @@ fFarmNormalBossAndNatureHyacinth() {
     bossfarm := false
     flowerID := HyacinthUseFlower
     flowerTypesUsed := 1
-    if (HyacinthBanksEnabled) {
+    If (HyacinthBanksEnabled) {
         Travel.OpenPets()
         Sleep(NavigateTime)
         BankSinglePass()
@@ -36,9 +36,9 @@ fFarmNormalBossAndNatureHyacinth() {
     ; Boss timer stuff
     IsPrevTimerLong := IsBossTimerLong()
 
-    if (HyacinthFarmBoss && BossFarmUsesWobblyWings) {
+    If (HyacinthFarmBoss && BossFarmUsesWobblyWings) {
         bossfarm := true
-        Gamekeys.TriggerWobblyWings()
+        GameKeys.TriggerWobblyWings()
         Sleep(NavigateTime)
         NormalBossSpammerStart()
     }
@@ -49,26 +49,28 @@ fFarmNormalBossAndNatureHyacinth() {
     ; 1700 750 plant all
     ; TODO Move point to Points
     HarvestAllButton := cPoint(1380, 750)
-    if (StrLower(HyacinthUseSlot) = "all") {
+    If (StrLower(HyacinthUseSlot) = "all") {
         HarvestButton := cPoint(666, 425)
         PlantButton := cPoint(1700, 750)
-    } else {
+    } Else {
         HarvestButton := cPoint(530, 425)
         PlantButton := cPoint(1380, 750)
     }
-    loop {
-        if (!IsWindowActive()) {
+    Loop {
+        If (!IsWindowActive()) {
             Log("BossHyacinth: Exiting as no game.")
             cReload() ; Kill if no game
-            break
+            Break
         }
-        if (!IsPanelActive()) {
-            Log("BossHyacinth: Did not find panel. Aborted farming. Violins active")
-            break
+        If (!IsPanelActive()) {
+            Log(
+                "BossHyacinth: Did not find panel. Aborted farming. Violins active"
+            )
+            Break
         }
-        if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
+        If (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             HyacinthBanksEnabled) {
-            if (bossfarm) {
+            If (bossfarm) {
                 KillSpammer() ; Need to halt any WW spam
             }
             Log("BossHyacinth: Bank Maintainer starting.")
@@ -79,114 +81,113 @@ fFarmNormalBossAndNatureHyacinth() {
             ToolTip(, , , 4)
             starttime := A_Now
             OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID)
-            if (bossfarm) {
+            If (bossfarm) {
                 NormalBossSpammerStart() ; Restart spammer now we can travel
             }
             Sleep(NavigateTime)
         }
-        if (HarvestButton.IsButtonActive()) {
+        If (HarvestButton.IsButtonActive()) {
             ; If harvest button active
             HarvestButton.ClickOffset(5, , NavigateTime)
         }
-        if (PlantButton.IsButtonActive()) {
+        If (PlantButton.IsButtonActive()) {
             ; If plant all button available, we've not run out
-            if (HarvestAllButton.IsButtonActive()) {
+            If (HarvestAllButton.IsButtonActive()) {
                 ; If planting available via plant button, planting available
                 PlantButton.ClickOffset(5, , NavigateTime)
-            } else {
-                if (HyacinthUseNextAvailableFlower && flowerTypesUsed < 16) {
+            } Else {
+                If (HyacinthUseNextAvailableFlower && flowerTypesUsed < 16) {
                     ; If upgrading flower type and we've not gone through all 16
                     newFlowerID := FlowerToID(HyacinthUseFlower) + 1
-                    if (newFlowerID > 16) {
+                    If (newFlowerID > 16) {
                         newFlowerID := 1
                     }
                     flowerTypesUsed := flowerTypesUsed++
                     flowerID := newFlowerID
-                } else if (HyacinthUseNextAvailableFlower && flowerTypesUsed >= 16) {
+                } Else If (HyacinthUseNextAvailableFlower && flowerTypesUsed >=
+                    16) {
                     ; Run out of seeds so exiting
-                    if (HyacinthFarmBoss) KillSpammer()
+                    If (HyacinthFarmBoss) KillSpammer()
                         Log("BossHyacinth: Plants exausted. Exiting.")
                     ToolTip("Plants exausted. Exiting.", W / 2, H / 2 +
                         WinRelPosLargeH(50), 2)
                     SetTimer(ToolTip.Bind(, , , 2), -3000)
-                    break
+                    Break
                 }
 
             }
             Sleep(NavigateTime)
         }
 
-        if (HyacinthUseSpheres) {
+        If (HyacinthUseSpheres) {
             ; Use spheres if we have got the option to do so
             UseSphereLoop(HarvestButton)
         }
-        if (bossfarm) {
+        If (bossfarm) {
             IsTimerLong := IsBossTimerLong()
             ; if state of timer has changed and is now off, we killed
-            if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+            If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
                 ; If the timer is longer, killed too quick to get a gap
                 Killcount++
             }
             IsPrevTimerLong := IsTimerLong
-            if (IsAreaResetToGarden() && IsSpammerActive()) {
-                if (HyacinthFarmBoss) KillSpammer()
+            If (IsAreaResetToGarden() && IsSpammerActive()) {
+                If (HyacinthFarmBoss) KillSpammer()
                     Log("BossHyacinth: User killed.")
-                ToolTip("Killed by boss", W / 2, H / 2 +
-                    WinRelPosLargeH(50), 2)
+                ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2
+                )
                 SetTimer(ToolTip.Bind(, , , 2), -3000)
-                return
+                Return
             }
-            ToolTip("Hyacinth on, Kills: " . Killcount,
-                W / 2 - WinRelPosLargeW(150),
-                H / 2 + WinRelPosLargeH(150), 1)
-        } else {
-            ToolTip("Hyacinth on, BossFarmUsesWobblyWings disabled.",
-                W / 2 - WinRelPosLargeW(150),
-                H / 2 + WinRelPosLargeH(150), 1)
+            ToolTip("Hyacinth on, Kills: " . Killcount, W / 2 - WinRelPosLargeW(
+                150), H / 2 + WinRelPosLargeH(150), 1)
+        } Else {
+            ToolTip("Hyacinth on, BossFarmUsesWobblyWings disabled.", W / 2 -
+                WinRelPosLargeW(150), H / 2 + WinRelPosLargeH(150), 1)
         }
     }
     ToolTip(, , , 1)
 }
 
 OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID) {
-    sleep(NavigateTime)
-    while (!IsAreaResetToGarden()) {
+    Sleep(NavigateTime)
+    While (!IsAreaResetToGarden()) {
         GoToFarmField()
     }
-    sleep(NavigateTime)
+    Sleep(NavigateTime)
     Travel.ClosePanelIfActive()
     ClickFarmSlot(HyacinthUseSlot)
-    sleep(NavigateTime)
+    Sleep(NavigateTime)
     SelectFlower(FlowerToID(flowerID)) ; Select flower to use
-    sleep(NavigateTime)
+    Sleep(NavigateTime)
 }
 
 ClickFarmSlot(HyacinthUseSlot) {
     ; TODO Move point to Points
-    switch HyacinthUseSlot {
-        case "All":
+    Switch HyacinthUseSlot {
+        Case "All":
             cPoint(375, 500).Click(NavigateTime) ; Slot 1
-        case "all":
+        Case "all":
             cPoint(375, 500).Click(NavigateTime) ; Slot 1
-        case 1:
+        Case 1:
             cPoint(375, 500).Click(NavigateTime) ; Slot 1
-        case 2:
+        Case 2:
             cPoint(745, 500).Click(NavigateTime) ; Slot 2
-        case 3:
+        Case 3:
             cPoint(1120, 500).Click(NavigateTime) ; Slot 3
-        case 4:
+        Case 4:
             cPoint(1490, 500).Click(NavigateTime) ; Slot 4
-        case 5:
+        Case 5:
             cPoint(1870, 500).Click(NavigateTime) ; Slot 5
-        case 6:
+        Case 6:
             cPoint(375, 865).Click(NavigateTime) ; Slot 6
-        case 7:
+        Case 7:
             cPoint(745, 865).Click(NavigateTime) ; Slot 7
-        case 8:
+        Case 8:
             cPoint(1120, 865).Click(NavigateTime) ; Slot 8
-        case 9:
+        Case 9:
             cPoint(1490, 865).Click(NavigateTime) ; Slot 9
-        case 10:
+        Case 10:
             cPoint(1870, 865).Click(NavigateTime) ; Slot 10
         default:
             cPoint(375, 500).Click(NavigateTime) ; Slot 1
@@ -195,83 +196,83 @@ ClickFarmSlot(HyacinthUseSlot) {
 
 FlowerToID(flower) {
 
-    if (IsNumber(flower) && flower > 0 && flower < 17) {
+    If (IsNumber(flower) && flower > 0 && flower < 17) {
         ; If its already a number return the number
-        return flower
+        Return flower
     }
     flower := StrLower(flower)
-    switch flower {
-        case "hyacinth":
-            return 1
-        case "pansy":
-            return 2
-        case "hibiscus":
-            return 3
-        case "rose":
-            return 4
-        case "poppy":
-            return 5
-        case "primula":
-            return 6
-        case "forget-me-not":
-            return 7
-        case "tulip":
-            return 8
-        case "camomile":
-            return 9
-        case "dandelion":
-            return 10
-        case "aster":
-            return 11
-        case "daffodil":
-            return 12
-        case "cornflower":
-            return 13
-        case "lily of the valley":
-            return 14
-        case "dames rocket":
-            return 15
-        case "marigold":
-            return 16
+    Switch flower {
+        Case "hyacinth":
+            Return 1
+        Case "pansy":
+            Return 2
+        Case "hibiscus":
+            Return 3
+        Case "rose":
+            Return 4
+        Case "poppy":
+            Return 5
+        Case "primula":
+            Return 6
+        Case "forget-me-not":
+            Return 7
+        Case "tulip":
+            Return 8
+        Case "camomile":
+            Return 9
+        Case "dandelion":
+            Return 10
+        Case "aster":
+            Return 11
+        Case "daffodil":
+            Return 12
+        Case "cornflower":
+            Return 13
+        Case "lily of the valley":
+            Return 14
+        Case "dames rocket":
+            Return 15
+        Case "marigold":
+            Return 16
         default:
-            return 1
+            Return 1
     }
 }
 
 SelectFlower(flowerID) {
     ; TODO Move point to Points
-    switch flowerID {
-        case 1:
+    Switch flowerID {
+        Case 1:
             cPoint(380, 600).Click(NavigateTime) ; Hyacinth Slot 1
-        case 2:
+        Case 2:
             cPoint(500, 600).Click(NavigateTime) ; Pansy Slot 2
-        case 3:
+        Case 3:
             cPoint(620, 600).Click(NavigateTime) ; Hibiscus Slot 3
-        case 4:
+        Case 4:
             cPoint(740, 600).Click(NavigateTime) ; Rose Slot 4
-        case 5:
+        Case 5:
             cPoint(860, 600).Click(NavigateTime) ; Poppy Slot 5
-        case 6:
+        Case 6:
             cPoint(980, 600).Click(NavigateTime) ; Primula Slot 6
-        case 7:
+        Case 7:
             cPoint(1100, 600).Click(NavigateTime) ; Forget-me-not Slot 7
-        case 8:
+        Case 8:
             cPoint(1220, 600).Click(NavigateTime) ; Tulip Slot 8
-        case 9:
+        Case 9:
             cPoint(380, 700).Click(NavigateTime) ; Camomile Slot 9
-        case 10:
+        Case 10:
             cPoint(500, 700).Click(NavigateTime) ; Dandelion Slot 10
-        case 11:
+        Case 11:
             cPoint(620, 700).Click(NavigateTime) ; Aster Slot 11
-        case 12:
+        Case 12:
             cPoint(740, 700).Click(NavigateTime) ; Daffodil Slot 12
-        case 13:
+        Case 13:
             cPoint(860, 700).Click(NavigateTime) ; Cornflower Slot 13
-        case 14:
+        Case 14:
             cPoint(980, 700).Click(NavigateTime) ; Lily of the Valley Slot 14
-        case 15:
+        Case 15:
             cPoint(1100, 700).Click(NavigateTime) ; Dames Rocket Slot 15
-        case 16:
+        Case 16:
             cPoint(1220, 700).Click(NavigateTime) ; Marigold Slot 16
         default:
             cPoint(380, 600).Click(NavigateTime) ; Hyacinth
@@ -282,12 +283,12 @@ UseSphereLoop(point) {
     ; Plant should be planted, use sphere then check for harvest
     ; If no harvest button and sphere button active loop, else break
     sphereButton := Points.Hyacinth.UseSphere
-    loop {
-        if (sphereButton.IsButtonActive() && !point.IsButtonActive()) {
+    Loop {
+        If (sphereButton.IsButtonActive() && !point.IsButtonActive()) {
             sphereButton.ClickOffset()
             Sleep(NavigateTime + 50)
-        } else {
-            break
+        } Else {
+            Break
         }
     }
 }

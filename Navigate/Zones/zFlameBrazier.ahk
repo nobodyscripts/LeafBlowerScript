@@ -61,7 +61,7 @@ Class FlameBrazier extends Zone {
         ; Button to travel to Flame Brazier
         ;Button := Points.Areas.FireF.FlameBrazier
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Flame Brazier travel: Button not found.")

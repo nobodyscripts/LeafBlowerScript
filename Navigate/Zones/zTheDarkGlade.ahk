@@ -61,7 +61,7 @@ Class TheDarkGlade extends Zone {
         ; Button to travel to The Dark Glade
         ;Button := Points.Areas.LeafG.TheDarkGlade
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Dark Glade travel: Button not found.")

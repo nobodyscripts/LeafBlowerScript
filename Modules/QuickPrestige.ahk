@@ -8,21 +8,21 @@ fPrestigeSpammer() {
     Travel.OpenGoldPortal()
     Sleep(NavigateTime)
     count := 0
-    while (count <= 29) {
-        if (!IsWindowActive()) {
-            break
+    While (count <= 29) {
+        If (!IsWindowActive()) {
+            Break
         }
-        if (IsWindowActive() && !IsPanelActive()) {
+        If (IsWindowActive() && !IsPanelActive()) {
             Travel.OpenGoldPortal()
             Sleep(NavigateTime)
         }
-        if (IsWindowActive() && IsPanelActive()) {
-            if (prestigeConfirmButton.IsButtonActive()) {
+        If (IsWindowActive() && IsPanelActive()) {
+            If (prestigeConfirmButton.IsButtonActive()) {
                 prestigeConfirmButton.ClickOffset()
                 Sleep(NavigateTime)
                 count++
             }
-            if (prestigeButton.IsButtonActive()) {
+            If (prestigeButton.IsButtonActive()) {
                 prestigeButton.ClickOffset()
                 Sleep(NavigateTime)
             }

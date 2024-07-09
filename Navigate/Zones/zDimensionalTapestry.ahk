@@ -61,7 +61,7 @@ Class DimensionalTapestry extends Zone {
         ; Button to travel to Dimensional Tapestry
         ;Button := Points.Areas.QuarkA.DimensionalTapestry
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Dimensional Tapestry travel: Button not found.")

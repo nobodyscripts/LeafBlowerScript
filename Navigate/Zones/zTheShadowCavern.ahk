@@ -61,7 +61,7 @@ Class TheShadowCavern extends Zone {
         ; Button to travel to The Shadow Cavern
         ;Button := Points.Areas.FireF.TheShadowCavern
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Shadow Cavern travel: Button not found.")

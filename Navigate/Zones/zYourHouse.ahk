@@ -61,7 +61,7 @@ Class YourHouse extends Zone {
         ; Button to travel to Your House
         ;Button := Points.Areas.LeafG.YourHouse
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Your House travel: Button not found.")

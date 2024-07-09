@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0
 
-global ScriptsLogFile, EnableLogging
-global Verbose := (FileExist(A_ScriptDir "\IsNobody"))
-global TimestampLogs := true
+Global ScriptsLogFile, EnableLogging
+Global Verbose := (FileExist(A_ScriptDir "\IsNobody"))
+Global TimestampLogs := true
 
 /**
  * Logger, user disable possible, debugout regardless of setting to vscode.
@@ -13,37 +13,37 @@ global TimestampLogs := true
  * overwritable
  */
 Log(logmessage, logfile := "") {
-    global EnableLogging, ScriptsLogFile
+    Global EnableLogging, ScriptsLogFile
     time := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec)
-    if (!logfile && IsSet(ScriptsLogFile)) {
+    If (!logfile && IsSet(ScriptsLogFile)) {
         logfile := ScriptsLogFile
-    } else if (!logfile) {
+    } Else If (!logfile) {
         logfile := A_ScriptDir "\LeafBlowerV3.Log"
     }
-    if (!IsSet(EnableLogging)) {
+    If (!IsSet(EnableLogging)) {
         EnableLogging := true
     }
-    static isWritingToLog := false
-    if (TimestampLogs) {
+    Static isWritingToLog := false
+    If (TimestampLogs) {
         logmessage := time ' ' logmessage '`r`n'
-    } else {
+    } Else {
         logmessage := logmessage '`r`n'
     }
     OutputDebug(logmessage)
-    if (!EnableLogging) {
-        return
+    If (!EnableLogging) {
+        Return
     }
     k := 0
-    try {
-        if (!isWritingToLog) {
+    Try {
+        If (!isWritingToLog) {
             isWritingToLog := true
             Sleep(1)
             FileAppend(logmessage, logfile)
             isWritingToLog := false
 
         }
-    } catch as exc {
-        if (TimestampLogs) {
+    } Catch As exc {
+        If (TimestampLogs) {
             OutputDebug(time " LogError: Error writing to log - " exc.Message "`r`n"
             )
             ; MsgBox("Error writing to log:`n" exc.Message)
@@ -52,7 +52,7 @@ Log(logmessage, logfile := "") {
             Sleep(1)
             FileAppend(time " LogError: Error writing to log - " exc.Message '`r`n',
                 logfile)
-        } else {
+        } Else {
             OutputDebug("LogError: Error writing to log - " exc.Message "`r`n")
             ; MsgBox("Error writing to log:`n" exc.Message)
             Sleep(1)
@@ -69,7 +69,7 @@ Log(logmessage, logfile := "") {
  * @param logmessage 
  */
 DebugLog(logmessage) {
-    if (!Debug) {
+    If (!Debug) {
         Return
     }
     Log("Debug: " logmessage)
@@ -82,7 +82,7 @@ DebugLog(logmessage) {
  * @param logmessage 
  */
 VerboseLog(logmessage) {
-    if (!Verbose) {
+    If (!Verbose) {
         Return
     }
     Log(logmessage)
@@ -92,7 +92,7 @@ VerboseLog(logmessage) {
  * Log callstack for Deprecated functions that need removal to be located
  */
 StackLog() {
-    if (!Debug) {
+    If (!Debug) {
         Return
     }
     VerboseLog("Stack:" Error().Stack)
@@ -103,7 +103,7 @@ StackLog() {
  * @param {Error} error 
  */
 ErrorLog(error) {
-    DebugLog("Error:" error.Message "`n ErrorExtra: " error.Extra "`nStack: " Error()
+    DebugLog("Error:" error.Message "`n ErrorExtra: " error.Extra "`nStack: " error()
         .Stack)
 }
 
@@ -111,7 +111,7 @@ ErrorLog(error) {
  * Log callstack for Deprecated functions that need removal to be located
  */
 Deprecated() {
-    if (!Debug) {
+    If (!Debug) {
         Return
     }
     VerboseLog("Deprecated:" Error().Stack)

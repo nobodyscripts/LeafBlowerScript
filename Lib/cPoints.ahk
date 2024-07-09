@@ -4,7 +4,7 @@
 #Include Navigate.ahk
 
 /** @type {cPoints} */
-global Points := cPoints()
+Global Points := cPoints()
 
 /**
  * Collection of points x/y that allow for colour sampling, clicking and other

@@ -61,7 +61,7 @@ Class SoulForge extends Zone {
         ; Button to travel to Soul Forge
         ;Button := Points.Areas.SoulR.SoulForge
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Soul Forge travel: Button not found.")

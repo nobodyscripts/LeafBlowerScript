@@ -9,7 +9,7 @@ fFarmCheeseBoss() {
             "Please use the artifact to enable Cheese season", W / 2 -
             WinRelPosLargeW(100), H / 2)
         SetTimer(ToolTip, -5000)
-        return
+        Return
     }
     Sleep(101)
     Travel.ClosePanelIfActive()
@@ -17,26 +17,26 @@ fFarmCheeseBoss() {
     Killcount := 0
     IsInCursedHalloween := false
 
-    loop {
-        if (!IsWindowActive()) {
-            break ; Kill early if no game
+    Loop {
+        If (!IsWindowActive()) {
+            Break ; Kill early if no game
         }
         CurrentAliveState := IsCheeseBossAlive()
 
         ; if we just started and there is a timer or looped and theres
         ; still a timer, we need to use a violin
-        if (!CurrentAliveState && IsBossTimerActive()) {
-            if (!IsInCursedHalloween) {
+        If (!CurrentAliveState && IsBossTimerActive()) {
+            If (!IsInCursedHalloween) {
                 Log("CheeseBoss: Going to Cursed Halloween to spam violins.")
                 ToolTip("Going to Cursed Halloween", W / 2 - WinRelPosLargeW(
                     100), H / 2)
                 SetTimer(ToolTip, -250)
-                if (!GoToShadowCavern()) {
+                If (!GoToShadowCavern()) {
                     Log("CheeseBoss: Traveling to Cursed Halloween failed.")
                     ToolTip("Traveling to Cursed Halloween failed.", W / 2 -
                         WinRelPosLargeW(100), H / 2)
                     SetTimer(ToolTip, -5000)
-                    return
+                    Return
                 }
                 Travel.OpenAreasEvents()
                 Killcount++
@@ -46,16 +46,16 @@ fFarmCheeseBoss() {
                     50))
                 SetTimer(ToolTip, -200)
             }
-            loop {
-                if (!IsWindowActive()) {
-                    break ; Kill early if no game
+            Loop {
+                If (!IsWindowActive()) {
+                    Break ; Kill early if no game
                 }
-                if (IsCheeseBossTimerActive()) {
+                If (IsCheeseBossTimerActive()) {
                     ToolTip("Using violins", W / 2, H / 2)
                     SetTimer(ToolTip, -250)
-                    Gamekeys.TriggerViolin()
+                    GameKeys.TriggerViolin()
                     Sleep(71)
-                } else {
+                } Else {
                     Log("CheeseBoss: Traveling to Cursed Halloween.")
                     ToolTip("Returning to Cursed Halloween", W / 2, H / 2)
                     SetTimer(ToolTip, -250)
@@ -67,23 +67,23 @@ fFarmCheeseBoss() {
                             "Please use the artifact to enable Nature season",
                             W / 2 - WinRelPosLargeW(100), H / 2)
                         SetTimer(ToolTip, -5000)
-                        return
+                        Return
                     }
                     IsInCursedHalloween := false
                     Sleep(101)
                     Travel.ClosePanelIfActive()
                     Sleep(101)
                     ; boss doesn't appear instantly so we need a manual delay
-                    break
+                    Break
                 }
             }
         }
         ; If boss killed us not much we can do, on user to address
-        if (IsAreaResetToGarden()) {
+        If (IsAreaResetToGarden()) {
             Log("CheeseBoss: Killed by boss, aborting farm.")
             ToolTip("Killed by boss, exiting", W / 2, H / 2)
             SetTimer(ToolTip, -3000)
-            break
+            Break
         }
         ToolTip("Kills: " . Killcount, W / 2, H / 2 + WinRelPosLargeH(50))
         SetTimer(ToolTip, -200)
@@ -91,25 +91,25 @@ fFarmCheeseBoss() {
 }
 
 IsCheeseBossAlive() {
-    return !IsBossTimerActive()
+    Return !IsBossTimerActive()
 }
 
 IsCheeseBossTimerActive() {
     ; if white is in this area, timer active
     ; ONLY WORKS ON THE AREA SCREEN IN THE EVENT TAB
 
-    try {
+    Try {
         found := PixelSearch(&OutX, &OutY, WinRelPosLargeW(1550),
             WinRelPosLargeH(345), WinRelPosLargeW(1660), WinRelPosLargeH(370),
             "0xFFFFFF", 0)
         If (found and OutX != 0) {
-            return true ; Found colour
+            Return true ; Found colour
         }
-    } catch as exc {
+    } Catch As exc {
         Log("CheeseBoss: IsCheeseBossTimerActive check failed with error - " exc
             .Message)
         MsgBox("Could not conduct the search due to the following error:`n" exc
             .Message)
     }
-    return false
+    Return false
 }

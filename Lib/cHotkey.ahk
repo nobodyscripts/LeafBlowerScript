@@ -1,28 +1,28 @@
-#Requires AutoHotkey v2.0 
+#Requires AutoHotkey v2.0
 
 GetKeyboardLayout() {
-    return Format("0x{:x}", DllCall("GetKeyboardLayout", "UInt", 0, "UInt"))
+    Return Format("0x{:x}", DllCall("GetKeyboardLayout", "UInt", 0, "UInt"))
 }
 
 ConvertLayoutToCode(KeyboardLayout) {
-    switch KeyboardLayout {
-        case "0x4090409": ; American
-            return "EN-US"
-        case "0x8090809": ; UK
-            return "EN-GB"
+    Switch KeyboardLayout {
+        Case "0x4090409": ; American
+            Return "EN-US"
+        Case "0x8090809": ; UK
+            Return "EN-GB"
         default:
             Log("New keyboard layout needs adding: " KeyboardLayout)
-            return "EN-GB"
+            Return "EN-GB"
     }
 }
 
-class cHotkey {
+Class cHotkey {
     Name := ""
     Category := "Default"
 
     __New(iName := "", iValue := "", iCategory := "Default") {
-        if (iName = "" || iValue = "")  {
-            return this
+        If (iName = "" || iValue = "") {
+            Return this
         }
         this.Name := iName
         this.Defaults := iValue
@@ -30,7 +30,7 @@ class cHotkey {
         this.ValueVK := GetKeyVK(this.Value)
         this.ValueSC := GetKeySC(this.Value)
         this.Category := iCategory
-        return this
+        Return this
     }
 
     Create(iName, iValue, iCategory := "Default") {
@@ -40,7 +40,7 @@ class cHotkey {
         this.ValueVK := GetKeyVK(this.Value)
         this.ValueSC := GetKeySC(this.Value)
         this.Category := iCategory
-        return this
+        Return this
     }
 
     /**
@@ -50,61 +50,61 @@ class cHotkey {
      * LBR options.dat uses VK
      */
     SetValue(value, type := 0) {
-        switch type {
-            case 1:
+        Switch type {
+            Case 1:
                 this.Value := GetKeyName(value)
                 this.ValueVK := value
                 this.ValueSC := GetKeySC(value)
-            case 2:
+            Case 2:
                 this.Value := GetKeyName(value)
                 this.ValueVK := GetKeyVK(value)
                 this.ValueSC := value
             default:
                 this.Value := value
-                this.ValueVK := GetKeyVK(Value)
-                this.ValueSC := GetKeySC(Value)
+                this.ValueVK := GetKeyVK(value)
+                this.ValueSC := GetKeySC(value)
         }
     }
 
     GetValue() {
-        if (this.Value) {
-            return this.Value
+        If (this.Value) {
+            Return this.Value
         }
-        return false
+        Return false
     }
 
     GetValueVK() {
-        if (this.ValueVK) {
-            return this.ValueVK
+        If (this.ValueVK) {
+            Return this.ValueVK
         }
-        return false
+        Return false
     }
 
     GetDefaultValue(locale := "") {
-        if (locale = "") {
+        If (locale = "") {
             locale := ConvertLayoutToCode(GetKeyboardLayout())
         }
-        if (locale = "") {
-            return false
+        If (locale = "") {
+            Return false
         }
-        if (this.Defaults[locale]) {
-            return this.Defaults[locale]
-        } else {
-            return this.Defaults["Other"]
+        If (this.Defaults[locale]) {
+            Return this.Defaults[locale]
+        } Else {
+            Return this.Defaults["Other"]
         }
     }
 
     GetDefaultValueVK(locale := "") {
-        if (locale = "") {
+        If (locale = "") {
             locale := ConvertLayoutToCode(GetKeyboardLayout())
         }
-        if (locale = "") {
-            return false
+        If (locale = "") {
+            Return false
         }
-        if (this.Defaults[locale]) {
-            return GetKeyVK(this.Defaults[locale])
-        } else {
-            return GetKeyVK(this.Defaults["Other"])
+        If (this.Defaults[locale]) {
+            Return GetKeyVK(this.Defaults[locale])
+        } Else {
+            Return GetKeyVK(this.Defaults["Other"])
         }
     }
 }

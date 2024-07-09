@@ -2,8 +2,8 @@
 #MaxThreadsPerHotkey 8
 #SingleInstance Force
 
-global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
-global IsSecondary := true
+Global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
+Global IsSecondary := true
 
 #Include ..\Lib\hGlobals.ahk
 #Include ..\Lib\ScriptSettings.ahk
@@ -12,12 +12,12 @@ global IsSecondary := true
 #Include ..\Lib\Navigate.ahk
 #Include ..\Lib\cHotkeysInitGame.ahk
 
-global BossFarmUsesWobblyWings := false
-global BossFarmUsesWind := false
-global BossFarmUsesSeeds := false
-global WobblyWingsSleepAmount := 1
-global ArtifactSleepAmount := 1
-global settings := cSettings()
+Global BossFarmUsesWobblyWings := false
+Global BossFarmUsesWind := false
+Global BossFarmUsesSeeds := false
+Global WobblyWingsSleepAmount := 1
+Global ArtifactSleepAmount := 1
+Global settings := cSettings()
 settings.initSettings(true)
 
 OnExit(CleanupTimer)
@@ -29,33 +29,33 @@ fNormalBoss()
 
 fNormalBoss() {
     startTime := A_Now
-    if (BossFarmUsesWobblyWings && IsWindowActive() && IsBossTimerActive()) {
+    If (BossFarmUsesWobblyWings && IsWindowActive() && IsBossTimerActive()) {
         SetTimer(UseWings, WobblyWingsSleepAmount)
         ; Use it once to avoid getting stuck
-        Gamekeys.TriggerWobblyWings()
+        GameKeys.TriggerWobblyWings()
     }
-    loop {
-        if (!IsWindowActive()) {
+    Loop {
+        If (!IsWindowActive()) {
             Log("NormBoss: Exiting as no game.")
-            return
+            Return
         }
-        if ((IsWindowActive() && IsBossTimerActive()) || (IsWindowActive() &&
+        If ((IsWindowActive() && IsBossTimerActive()) || (IsWindowActive() &&
             DateDiff(A_Now, startTime, "Seconds") >= 30)) {
-            Gamekeys.TriggerViolin()
+            GameKeys.TriggerViolin()
             Sleep(ArtifactSleepAmount)
             startTime := A_Now
         }
-        if (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
-            if (BossFarmUsesSeeds) {
-                Gamekeys.TriggerSeeds()
+        If (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
+            If (BossFarmUsesSeeds) {
+                GameKeys.TriggerSeeds()
             }
-            if (IsAreaGFOrSS()) {
-                Gamekeys.TriggerGravity()
-                Gamekeys.TriggerWind()
+            If (IsAreaGFOrSS()) {
+                GameKeys.TriggerGravity()
+                GameKeys.TriggerWind()
                 Sleep(ArtifactSleepAmount)
-            } else {
-                if (BossFarmUsesWind) {
-                    Gamekeys.TriggerWind()
+            } Else {
+                If (BossFarmUsesWind) {
+                    GameKeys.TriggerWind()
                     Sleep(ArtifactSleepAmount)
                 }
             }
@@ -64,8 +64,8 @@ fNormalBoss() {
 }
 
 UseWings() {
-    if (IsWindowActive() && IsBossTimerActive()) {
-        Gamekeys.TriggerWobblyWings()
+    If (IsWindowActive() && IsBossTimerActive()) {
+        GameKeys.TriggerWobblyWings()
     }
 }
 

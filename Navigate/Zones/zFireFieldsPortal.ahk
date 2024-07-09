@@ -61,7 +61,7 @@ Class FireFieldsPortal extends Zone {
         ; Button to travel to Fire Fields Portal
         ;Button := Points.Areas.EnergyB.FireFieldsPortal
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Fire Fields Portal travel: Button not found.")

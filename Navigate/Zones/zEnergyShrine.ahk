@@ -61,7 +61,7 @@ Class EnergyShrine extends Zone {
         ; Button to travel to Energy Shrine
         ;Button := Points.Areas.EnergyB.EnergyShrine
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Energy Shrine travel: Button not found.")

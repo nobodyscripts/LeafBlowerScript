@@ -61,7 +61,7 @@ Class TheLoneTree extends Zone {
         ; Button to travel to The Lone Tree
         ;Button := Points.Areas.SacredN.TheLoneTree
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Lone Tree travel: Button not found.")

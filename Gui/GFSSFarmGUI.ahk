@@ -1,8 +1,7 @@
 #Requires AutoHotkey v2.0
 
 Button_Click_GFSS(thisGui, info) {
-    global Settings, GFToKillPerCycle, SSToKillPerCycle,
-        GFSSNoReset
+    Global Settings, GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
 
     optionsGUI := Gui(, "GF/SS Bossfarm Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -13,13 +12,13 @@ Button_Click_GFSS(thisGui, info) {
     If (IsInteger(GFToKillPerCycle) && GFToKillPerCycle > 0) {
         optionsGUI.Add("UpDown", "vGFToKillPerCycle Range1-9999",
             GFToKillPerCycle)
-    } else {
-        if (settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vGFToKillPerCycle Range1-9999",
-                settings.defaultNobodySettings.GFToKillPerCycle)
-        } else {
-            optionsGUI.Add("UpDown", "vGFToKillPerCycle Range1-9999",
-                settings.defaultSettings.GFToKillPerCycle)
+    } Else {
+        If (Settings.sUseNobody) {
+            optionsGUI.Add("UpDown", "vGFToKillPerCycle Range1-9999", Settings.defaultNobodySettings
+                .GFToKillPerCycle)
+        } Else {
+            optionsGUI.Add("UpDown", "vGFToKillPerCycle Range1-9999", Settings.defaultSettings
+                .GFToKillPerCycle)
         }
     }
 
@@ -28,27 +27,32 @@ Button_Click_GFSS(thisGui, info) {
     If (IsInteger(SSToKillPerCycle) && SSToKillPerCycle > 0) {
         optionsGUI.Add("UpDown", "vSSToKillPerCycle Range0-9999",
             SSToKillPerCycle)
-    } else {
-        if (settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vSSToKillPerCycle Range0-9999",
-                settings.defaultNobodySettings.SSToKillPerCycle)
-        } else {
-            optionsGUI.Add("UpDown", "vSSToKillPerCycle Range0-9999",
-                settings.defaultSettings.SSToKillPerCycle)
+    } Else {
+        If (Settings.sUseNobody) {
+            optionsGUI.Add("UpDown", "vSSToKillPerCycle Range0-9999", Settings.defaultNobodySettings
+                .SSToKillPerCycle)
+        } Else {
+            optionsGUI.Add("UpDown", "vSSToKillPerCycle Range0-9999", Settings.defaultSettings
+                .SSToKillPerCycle)
         }
     }
 
-    if (GFSSNoReset = true) {
-        optionsGUI.Add("CheckBox", "vGFSSNoReset ccfcfcf checked", "Disable resetting kill count")
-    } else {
-        optionsGUI.Add("CheckBox", "vGFSSNoReset ccfcfcf", "Disable resetting kill count")
+    If (GFSSNoReset = true) {
+        optionsGUI.Add("CheckBox", "vGFSSNoReset ccfcfcf checked",
+            "Disable resetting kill count")
+    } Else {
+        optionsGUI.Add("CheckBox", "vGFSSNoReset ccfcfcf",
+            "Disable resetting kill count")
     }
 
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunGFSS)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveGFSS)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessGFSSSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseGFSSSettings)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+        RunSaveGFSS)
+    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+        ProcessGFSSSettings)
+    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+        CloseGFSSSettings)
 
     optionsGUI.Show("w300")
 
@@ -79,6 +83,6 @@ Button_Click_GFSS(thisGui, info) {
         SSToKillPerCycle := values.SSToKillPerCycle
         GFSSNoReset := values.GFSSNoReset
 
-        settings.SaveCurrentSettings()
+        Settings.SaveCurrentSettings()
     }
 }

@@ -61,7 +61,7 @@ Class PlanckScope extends Zone {
         ; Button to travel to Planck Scope
         ;Button := Points.Areas.QuarkA.PlanckScope
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Planck Scope travel: Button not found.")

@@ -61,7 +61,7 @@ Class TheCoalMine extends Zone {
         ; Button to travel to The Coal Mine
         ;Button := Points.Areas.FireF.TheCoalMine
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Coal Mine travel: Button not found.")

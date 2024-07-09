@@ -61,7 +61,7 @@ Class TheMythicalGarden extends Zone {
         ; Button to travel to The Mythical Garden
         ;Button := Points.Areas.LeafG.TheMythicalGarden
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Mythical Garden travel: Button not found.")

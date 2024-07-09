@@ -5,41 +5,52 @@
  * @param info 
  */
 Button_Click_Leafton(thisGui, info) {
-    global settings, LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
+    Global settings, LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
         LeaftonRunOnceEnabled
 
     optionsGUI := Gui(, "Leafton Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
-    if (LeaftonCraftEnabled = true) {
-        optionsGUI.Add("CheckBox", "vLeaftonCraftEnabled ccfcfcf checked", "Enable Leafton Crafting")
-    } else {
-        optionsGUI.Add("CheckBox", "vLeaftonCraftEnabled ccfcfcf", "Enable Leafton Crafting")
+    If (LeaftonCraftEnabled = true) {
+        optionsGUI.Add("CheckBox", "vLeaftonCraftEnabled ccfcfcf checked",
+            "Enable Leafton Crafting")
+    } Else {
+        optionsGUI.Add("CheckBox", "vLeaftonCraftEnabled ccfcfcf",
+            "Enable Leafton Crafting")
     }
 
-    if (LeaftonSpamsWind = true) {
-        optionsGUI.Add("CheckBox", "vLeaftonSpamsWind ccfcfcf checked", "Enable Wind Spammer")
-    } else {
-        optionsGUI.Add("CheckBox", "vLeaftonSpamsWind ccfcfcf", "Enable Wind Spammer")
+    If (LeaftonSpamsWind = true) {
+        optionsGUI.Add("CheckBox", "vLeaftonSpamsWind ccfcfcf checked",
+            "Enable Wind Spammer")
+    } Else {
+        optionsGUI.Add("CheckBox", "vLeaftonSpamsWind ccfcfcf",
+            "Enable Wind Spammer")
     }
 
-    if (LeaftonBanksEnabled = true) {
-        optionsGUI.Add("CheckBox", "vLeaftonBanksEnabled ccfcfcf checked", "Enable Banks")
-    } else {
-        optionsGUI.Add("CheckBox", "vLeaftonBanksEnabled ccfcfcf", "Enable Banks")
+    If (LeaftonBanksEnabled = true) {
+        optionsGUI.Add("CheckBox", "vLeaftonBanksEnabled ccfcfcf checked",
+            "Enable Banks")
+    } Else {
+        optionsGUI.Add("CheckBox", "vLeaftonBanksEnabled ccfcfcf",
+            "Enable Banks")
     }
 
-    if (LeaftonRunOnceEnabled = true) {
-        optionsGUI.Add("CheckBox", "vLeaftonRunOnceEnabled ccfcfcf checked", "Enable Leafton Run Once")
-    } else {
-        optionsGUI.Add("CheckBox", "vLeaftonRunOnceEnabled ccfcfcf", "Enable Leafton Run Once")
+    If (LeaftonRunOnceEnabled = true) {
+        optionsGUI.Add("CheckBox", "vLeaftonRunOnceEnabled ccfcfcf checked",
+            "Enable Leafton Run Once")
+    } Else {
+        optionsGUI.Add("CheckBox", "vLeaftonRunOnceEnabled ccfcfcf",
+            "Enable Leafton Run Once")
     }
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunLeafton)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveLeafton)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessLeaftonSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseLeaftonSettings)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+        RunSaveLeafton)
+    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+        ProcessLeaftonSettings)
+    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+        CloseLeaftonSettings)
 
     optionsGUI.Show("w300")
 

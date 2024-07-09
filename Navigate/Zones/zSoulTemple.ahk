@@ -61,7 +61,7 @@ Class SoulTemple extends Zone {
         ; Button to travel to Soul Temple
         ;Button := Points.Areas.SoulR.SoulTemple
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Soul Temple travel: Button not found.")

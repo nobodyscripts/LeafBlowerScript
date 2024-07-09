@@ -61,7 +61,7 @@ Class AstralOasis extends Zone {
         ; Button to travel to Astral Oasis
         ;Button := Points.Areas.QuarkA.AstralOasis
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Astral Oasis travel: Button not found.")

@@ -61,7 +61,7 @@ Class HomeGarden extends Zone {
         ; Button to travel to Home Garden
         ;Button := Points.Areas.LeafG.HomeGarden
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Home Garden travel: Button not found.")

@@ -61,7 +61,7 @@ Class VilewoodCemetery extends Zone {
         ; Button to travel to Vilewood Cemetery
         ;Button := Points.Areas.SacredN.VilewoodCemetery
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Vilewood Cemetery travel: Button not found.")

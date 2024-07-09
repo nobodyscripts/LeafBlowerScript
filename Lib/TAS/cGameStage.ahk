@@ -13,7 +13,9 @@ Class cGameStage {
     TaskList := []
 
     Any() {
-        return { Stage: "Any" }
+        Return {
+            Stage: "Any"
+        }
     }
 
     GetCurrent() {
@@ -29,7 +31,7 @@ Class cGameStage {
     }
 
     RunTaskList() {
-        for task in this.TaskList {
+        For task in this.TaskList {
             task.Loop()
         }
     }

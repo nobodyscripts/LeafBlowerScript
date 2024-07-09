@@ -61,7 +61,7 @@ Class TheHiddenSea extends Zone {
         ; Button to travel to The Hidden Sea
         ;Button := Points.Areas.LeafG.TheHiddenSea
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Hidden Sea travel: Button not found.")

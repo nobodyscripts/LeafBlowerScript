@@ -61,7 +61,7 @@ Class Mountain extends Zone {
         ; Button to travel to Mountain
         ;Button := Points.Areas.LeafG.Mountain
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Mountain travel: Button not found.")

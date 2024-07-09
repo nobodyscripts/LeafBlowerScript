@@ -61,7 +61,7 @@ Class TheAncientSanctum extends Zone {
         ; Button to travel to The Ancient Sanctum
         ;Button := Points.Areas.SacredN.TheAncientSanctum
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Ancient Sanctum travel: Button not found.")

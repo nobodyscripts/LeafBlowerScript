@@ -7,8 +7,8 @@
  */
 
 ; Applying these first incase self run functions in includes require them
-global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
-global IsSecondary := false
+Global ScriptsLogFile := A_ScriptDir "\LeafBlowerV3.Log"
+Global IsSecondary := false
 
 #Include Lib\hGlobals.ahk
 
@@ -33,15 +33,15 @@ DetectHiddenWindows(true)
 Persistent()  ; Prevent the script from exiting automatically.
 OnExit(ExitFunc)
 
-global HadToHideNotifsF9 := false
-global settings := cSettings()
+Global HadToHideNotifsF9 := false
+Global settings := cSettings()
 
-if (!settings.initSettings()) {
+If (!settings.initSettings()) {
     ; If the first load fails, it attempts to write a new config, this retrys
     ; loading after that first failure
     ; Hardcoding 2 attempts because a loop could continuously error
     Sleep(50)
-    if (!settings.initSettings()) {
+    If (!settings.initSettings()) {
         MsgBox(
             "Script failed to load settings, script closing, try restarting.")
         ExitApp()
@@ -116,29 +116,29 @@ fExitApp(*) {
 }
 
 fReloadApp(*) {
-    global HadToHideNotifs, HadToRemoveBearo, GemFarmActive, TowerFarmActive,
+    Global HadToHideNotifs, HadToRemoveBearo, GemFarmActive, TowerFarmActive,
         bvAutostartDisabled
     ; Toggle notifs to handle multiple situations where its toggled
     KillAllSpammers()
-    if (HadToHideNotifs) {
+    If (HadToHideNotifs) {
         Log("F2: Reenabling notifications.")
         Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := false
     }
-    if (bvAutostartDisabled = true) {
+    If (bvAutostartDisabled = true) {
         ; TODO move point to Points
         fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
     }
-    if (GemFarmActive) {
+    If (GemFarmActive) {
         GemFarmActive := false
         ToolTip(, , , 15)
-        if (!IsWindowActive()) {
+        If (!IsWindowActive()) {
             cReload()
-            return
+            Return
         }
         Travel.OpenTrades()
         Sleep(34)
-        if (HadToRemoveBearo) {
+        If (HadToRemoveBearo) {
             Log("F2: Equiping default loadout to reapply Bearo")
             GameKeys.EquipDefaultGearLoadout()
             HadToRemoveBearo := false
@@ -147,38 +147,38 @@ fReloadApp(*) {
         ResetToPriorAutoRefresh()
         ResetToPriorDetailedMode()
         cReload()
-        return
+        Return
     }
-    if (TowerFarmActive) {
+    If (TowerFarmActive) {
         TowerFarmActive := false
         Log("F2: Equiping default loadout.")
         GameKeys.EquipDefaultGearLoadout()
         cReload()
-        return
+        Return
     }
-    log("F2: Pressed, reloading...")
-    sleep(2)
+    Log("F2: Pressed, reloading...")
+    Sleep(2)
     ResetModifierKeys() ; Cleanup incase needed
     ResetModifierKeys() ; Twice for good luck
     cReload()
 }
 
 fCardsStart(*) { ; Open cards clicker
-    global HadToHideNotifs
-    Static on3 := False
+    Global HadToHideNotifs
+    Static on3 := false
     Log("F3: Pressed")
     InitScriptHotKey()
     Sleep(34)
     ResetModifierKeys() ; Twice for good luck
     Sleep(34)
     If on3 := !on3 {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         fOpenCardLoop()
     } Else {
-        if (HadToHideNotifs) {
+        If (HadToHideNotifs) {
             Log("Cards: Reenabling notifications.")
             Points.Misc.NotifArrow.Click(101)
             HadToHideNotifs := false
@@ -188,7 +188,7 @@ fCardsStart(*) { ; Open cards clicker
         ResetModifierKeys() ; Twice for good luck
         Sleep(34)
         cReload()
-        return
+        Return
     }
     ResetModifierKeys() ; Cleanup incase needed
     Sleep(34)
@@ -197,26 +197,26 @@ fCardsStart(*) { ; Open cards clicker
 }
 
 fGemFarmStart(*) { ; Gem farm using suitcase
-    global HadToRemoveBearo, GemFarmActive
-    Static on4 := False
+    Global HadToRemoveBearo, GemFarmActive
+    Static on4 := false
     Log("F4: Pressed")
     InitScriptHotKey()
     If on4 := !on4 {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         fGemFarmSuitcase()
     } Else {
         GemFarmActive := false
         ToolTip(, , , 15)
-        if (!IsWindowActive()) {
+        If (!IsWindowActive()) {
             cReload()
-            return
+            Return
         }
         Travel.OpenTrades()
         Sleep(34)
-        if (HadToRemoveBearo) {
+        If (HadToRemoveBearo) {
             Log("F4: Equiping default loadout to reapply Bearo")
             GameKeys.EquipDefaultGearLoadout()
             HadToRemoveBearo := false
@@ -229,15 +229,15 @@ fGemFarmStart(*) { ; Gem farm using suitcase
 }
 
 fTowerBoostStart(*) { ; Tower 72hr boost loop
-    global TowerFarmActive
+    Global TowerFarmActive
     TowerFarmActive := true
-    Static on5 := False
+    Static on5 := false
     Log("F5: Pressed")
     InitScriptHotKey()
     If on5 := !on5 {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         fTimeWarpAndRaiseTower()
     } Else {
@@ -249,18 +249,18 @@ fTowerBoostStart(*) { ; Tower 72hr boost loop
 }
 
 fBorbvStart(*) { ; Borb pink juice farm in borbventures
-    Static on6 := False
-    global bvAutostartDisabled
+    Static on6 := false
+    Global bvAutostartDisabled
     Log("F6: Pressed")
     InitScriptHotKey()
     If on6 := !on6 {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         fBorbVentureJuiceFarm()
     } Else {
-        if (bvAutostartDisabled = true && Travel.GotoBorbVFirstTab()) {
+        If (bvAutostartDisabled = true && Travel.GotoBorbVFirstTab()) {
             ; TODO move point to Points
             fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
         }
@@ -270,70 +270,70 @@ fBorbvStart(*) { ; Borb pink juice farm in borbventures
 }
 
 fClawStart(*) { ; Claw pumpkin farm
-    Static on7 := False
+    Static on7 := false
     Log("F7: Pressed")
     InitScriptHotKey()
     If on7 := !on7 {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         fClawFarm()
     } Else cReload()
 }
 
 fGFSSStart(*) { ; Green Flame/Soulseeker farm
-    Static on8 := False
+    Static on8 := false
     Log("F8: Pressed")
     InitScriptHotKey()
     If on8 := !on8 {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         fFarmGFSS()
-    } Else reload()
+    } Else Reload()
 }
 
 fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
-    global on9, HadToHideNotifsF9, bvAutostartDisabled
+    Global on9, HadToHideNotifsF9, bvAutostartDisabled
     Log("F9: Pressed")
     InitScriptHotKey()
     Thread('Interrupt', 0)  ; Make all threads always-interruptible.
-    if (GUIMode != -1 && IsNumber(GUIMode)) {
+    If (GUIMode != -1 && IsNumber(GUIMode)) {
         on9 := GUIMode
     }
-    switch on9 {
-        case 1:
+    Switch on9 {
+        Case 1:
             on9 := 2 ; Brew and boss mode
             Log("F9: Brew and Boss Activated")
             fFarmNormalBossAndBrew(on9)
-        case 2:
+        Case 2:
             on9 := 3 ; Boss mode with borbventures
             Log("F9: Borbventures and Boss Activated")
             fNormalBossFarmWithBorbs(on9)
-        case 3:
-            if (bvAutostartDisabled = true) {
-                if (!IsBVAutoStartOn()) {
+        Case 3:
+            If (bvAutostartDisabled = true) {
+                If (!IsBVAutoStartOn()) {
                     ; TODO move point to Points
                     fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100),
                         34)
                 }
             }
             on9 := 4 ; Boss mode with cards
-            if (CardsBossFarmEnabled || GUIMode != -1) {
+            If (CardsBossFarmEnabled || GUIMode != -1) {
                 Log("F9: Cards and Boss Activated")
                 fNormalBossFarmWithCards(on9)
-            } else {
+            } Else {
                 on9 := 0 ; Disabled
                 Log("F9: Resetting with cards disabled")
                 Travel.ClosePanelIfActive()
                 cReload()
-                return
+                Return
             }
-        case 4:
+        Case 4:
             on9 := 0 ; Disabled
-            if (HadToHideNotifsF9) {
+            If (HadToHideNotifsF9) {
                 Log("F9: Reenabling notifications")
                 Points.Misc.NotifArrow.Click(101)
                 HadToHideNotifsF9 := false
@@ -342,12 +342,12 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
             ResetModifierKeys() ; Cleanup incase needed
             Travel.ClosePanelIfActive()
             cReload()
-            return
+            Return
         default:
             on9 := 1 ; Normal boss mode
-            if (!CheckGameSettingsCorrect()) {
+            If (!CheckGameSettingsCorrect()) {
                 cReload()
-                return
+                Return
             }
             Travel.ClosePanelIfActive()
             Log("F9: Boss Farm Activated")
@@ -356,24 +356,24 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
 }
 
 fNatureBossStart(*) { ; Farm nature boss using violins
-    Static on10 := False
+    Static on10 := false
     Log("F10: Pressed")
     InitScriptHotKey()
     If (on10 := !on10) {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         fFarmNatureBoss()
-    } Else reload()
+    } Else Reload()
 }
 
 fAutoClicker(*) {
-    Static on11 := False
+    Static on11 := false
     Log("F11: Pressed")
     ;GameWindowExist()
     If (on11 := !on11) {
-        while (on11) {
+        While (on11) {
             MouseClick("left", , , , , "D")
             Sleep(17)
             ; Must be higher than 16.67 which is a single frame of 60fps
@@ -391,10 +391,10 @@ fAutoClicker(*) {
 }
 
 fGameResize(*) {
-    global X, Y, W, H, DisableSettingsChecks
+    Global X, Y, W, H, DisableSettingsChecks
     Log("F12: Pressed")
-    if (!GameWindowExist()) {
-        return
+    If (!GameWindowExist()) {
+        Return
     }
     If (WinGetMinMax(LBRWindowTitle) != 0) {
         WinRestore(LBRWindowTitle)
@@ -403,7 +403,7 @@ fGameResize(*) {
     WinMove(, , 1294, 703, LBRWindowTitle)
     WinWait(LBRWindowTitle)
     GameWindowExist()
-    if (W != "1278" || H != "664") {
+    If (W != "1278" || H != "664") {
         Log(
             "Resized window to 1294*703 client size should be 1278*664, found: " W "*" H
         )
@@ -417,30 +417,30 @@ fMineStart(*) {
     Log("Insert: Pressed")
     InitScriptHotKey()
     If (on13 := !on13) {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         Log("Insert: Mine Mantainer Activated")
         fMineMaintainer()
     } Else {
         Log("Insert: Resetting")
         cReload()
-        return
+        Return
     }
 }
 
 fHyacinthStart(*) {
     ; Farm bosses while farming Hyacinths
     Static on14 := false
-    global HyacinthFarmActive
+    Global HyacinthFarmActive
     HyacinthFarmActive := true
     Log("Home: Pressed")
     InitScriptHotKey()
     If (on14 := !on14) {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         Log("Home: Hyacinth + Boss Activated")
         fFarmNormalBossAndNatureHyacinth()
@@ -448,7 +448,7 @@ fHyacinthStart(*) {
         HyacinthFarmActive := false
         Log("Home: Resetting")
         cReload()
-        return
+        Return
     }
 }
 
@@ -457,9 +457,9 @@ fBankStart(*) {
     Log("PgUp: Pressed")
     InitScriptHotKey()
     If (on16 := !on16) {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         Log("PgUp: Bank Maintainer Activated")
         fBankAutoDeposit()
@@ -467,7 +467,7 @@ fBankStart(*) {
         ToolTip(, , , 4)
         Log("PgUp: Resetting")
         cReload()
-        return
+        Return
     }
 }
 
@@ -478,9 +478,9 @@ fCursedCheeseStart(*) {
     Log("Del: Pressed")
     InitScriptHotKey()
     If (on18 := !on18) {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         Log("Del: Cursed Chees Activated")
         fFarmCheeseBoss()
@@ -488,7 +488,7 @@ fCursedCheeseStart(*) {
         ToolTip(, , , 4)
         Log("Del: Resetting")
         cReload()
-        return
+        Return
     }
 }
 
@@ -498,9 +498,9 @@ fTowerPassiveStart(*) {
     Log("End: Pressed")
     InitScriptHotKey()
     If (on15 := !on15) {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         Log("End: Tower Farm Passive Activated")
         fTowerFarm()
@@ -508,7 +508,7 @@ fTowerPassiveStart(*) {
         ToolTip(, , , 4)
         Log("End: Resetting")
         cReload()
-        return
+        Return
     }
 }
 
@@ -517,9 +517,9 @@ fLeaftonStart(*) {
     Log("PgDn: Pressed")
     InitScriptHotKey()
     If (on17 := !on17) {
-        if (!CheckGameSettingsCorrect()) {
+        If (!CheckGameSettingsCorrect()) {
             cReload()
-            return
+            Return
         }
         Log("PgDn: Leafton Autotaxi Activated")
         fLeaftonTaxi()
@@ -527,7 +527,7 @@ fLeaftonStart(*) {
         ToolTip(, , , 4)
         Log("PgDn: Resetting")
         cReload()
-        return
+        Return
     }
 }
 

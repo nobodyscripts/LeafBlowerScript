@@ -5,54 +5,54 @@
 #Include cPoints.ahk
 #Include cRects.ahk
 
-global LBRWindowTitle
+Global LBRWindowTitle
 
 ; ------------------- Functions -------------------
 
 ; Convert positions from 2560*1369 client resolution to current resolution to
 ; allow higher accuracy
 WinRelPosLargeW(PosW2) {
-    global W
-    return PosW2 / 2560 * W
+    Global W
+    Return PosW2 / 2560 * W
 }
 
 ; Convert positions from 2560*1369 client resolution to current resolution to
 ; allow higher accuracy
 WinRelPosLargeH(PosH2) {
-    global H
-    return PosH2 / 1369 * H
+    Global H
+    Return PosH2 / 1369 * H
 }
 
 ; Custom clicking function, uses 2560*1369 relative coords
 fSlowClickRelL(clickX, clickY, delay := 34) {
-    if (!IsWindowActive()) {
+    If (!IsWindowActive()) {
         Log("No window found while trying to Lclick at " clickX " * " clickY
             "`n Rel: " WinRelPosLargeW(clickX) " * " WinRelPosLargeH(clickY))
-        return false
+        Return false
     }
-    MouseClick("left", WinRelPosLargeW(clickX),
-        WinRelPosLargeH(clickY), , , "D")
+    MouseClick("left", WinRelPosLargeW(clickX), WinRelPosLargeH(clickY), , ,
+        "D")
     Sleep(delay)
-    MouseClick("left", WinRelPosLargeW(clickX),
-        WinRelPosLargeH(clickY), , , "U")
+    MouseClick("left", WinRelPosLargeW(clickX), WinRelPosLargeH(clickY), , ,
+        "U")
 }
 
 ; Custom clicking function, uses given coords no relative correction
 fCustomClick(clickX, clickY, delay := 34) {
-    if (!IsWindowActive()) {
+    If (!IsWindowActive()) {
         Log("No window found while trying to click at " clickX " * " clickY)
-        return false
+        Return false
     }
     MouseClick("left", clickX, clickY, , , "D")
     Sleep(delay)
     MouseClick("left", clickX, clickY, , , "U")
-    VerboseLog("Clicking at " cPoint(clickX , clickY, false).toStringDisplay())
+    VerboseLog("Clicking at " cPoint(clickX, clickY, false).toStringDisplay())
 }
 
 ResetModifierKeys() {
     ; Cleanup incase still held, ahk cannot tell if the key has been sent as up
     ; getkeystate reports the key, not what lbr has been given
-    if (IsWindowActive()) {
+    If (IsWindowActive()) {
         ControlSend("{Control up}", , LBRWindowTitle)
         ControlSend("{Alt up}", , LBRWindowTitle)
         ControlSend("{Shift up}", , LBRWindowTitle)
@@ -65,32 +65,32 @@ AmountToModifier(num) {
     ctrl 25
     alt 100
     */
-    switch num {
-        case 10:
+    Switch num {
+        Case 10:
             ControlSend("{Control up}", , LBRWindowTitle)
             ControlSend("{Alt up}", , LBRWindowTitle)
             ControlSend("{Shift down}", , LBRWindowTitle)
-        case 25:
+        Case 25:
             ControlSend("{Control down}", , LBRWindowTitle)
             ControlSend("{Alt up}", , LBRWindowTitle)
             ControlSend("{Shift up}", , LBRWindowTitle)
-        case 100:
+        Case 100:
             ControlSend("{Control up}", , LBRWindowTitle)
             ControlSend("{Alt down}", , LBRWindowTitle)
             ControlSend("{Shift up}", , LBRWindowTitle)
-        case 250:
+        Case 250:
             ControlSend("{Control down}", , LBRWindowTitle)
             ControlSend("{Alt up}", , LBRWindowTitle)
             ControlSend("{Shift down}", , LBRWindowTitle)
-        case 1000:
+        Case 1000:
             ControlSend("{Control up}", , LBRWindowTitle)
             ControlSend("{Alt down}", , LBRWindowTitle)
             ControlSend("{Shift down}", , LBRWindowTitle)
-        case 2500:
+        Case 2500:
             ControlSend("{Control down}", , LBRWindowTitle)
             ControlSend("{Alt down}", , LBRWindowTitle)
             ControlSend("{Shift up}", , LBRWindowTitle)
-        case 25000:
+        Case 25000:
             ControlSend("{Control down}", , LBRWindowTitle)
             ControlSend("{Alt down}", , LBRWindowTitle)
             ControlSend("{Shift down}", , LBRWindowTitle)
@@ -102,24 +102,24 @@ AmountToModifier(num) {
 }
 
 IsNotificationActive() {
-    if (!Points.Misc.NotifArrow.IsButtonOffPanel()) {
-        return true
+    If (!Points.Misc.NotifArrow.IsButtonOffPanel()) {
+        Return true
     }
-    return false
+    Return false
 }
 
 IsBossTimerActive() {
-    if (!Rects.Misc.BossTimer.PixelSearch()) {
-        return false
+    If (!Rects.Misc.BossTimer.PixelSearch()) {
+        Return false
     }
-    return true
+    Return true
 }
 
 IsBossTimerLong() {
-    if (!Rects.Misc.BossTimerLong.PixelSearch()) {
-        return false
+    If (!Rects.Misc.BossTimerLong.PixelSearch()) {
+        Return false
     }
-    return true
+    Return true
 }
 
 /**
@@ -136,40 +136,49 @@ LineGetColourInstances(x1, y1, x2, y2) {
     ; Detects when the colour changes to remove redundant entries
     foundArr := []
     lastColour := ""
-    try {
+    Try {
         ; if no width, and y has length
-        if (x1 = x2 && y1 < y2) {
+        If (x1 = x2 && y1 < y2) {
             ; Starting point
             i := y1
-            while (i <= y2) {
+            While (i <= y2) {
                 colour := PixelGetColor(x1, i)
-                if (foundArr.Length = 0 || lastColour != colour) {
-                    foundArr.Push({ x: x1, y: i, colour: colour })
+                If (foundArr.Length = 0 || lastColour != colour) {
+                    foundArr.Push({
+                        x: x1,
+                        y: i,
+                        colour: colour
+                    })
                     lastColour := colour
                 }
                 i++
             }
-            return foundArr
+            Return foundArr
         }
         ; if no height, and x has length
-        if (y1 = y2 && x1 < x2) {
+        If (y1 = y2 && x1 < x2) {
             ; Starting point
             i := x1
-            while (i <= x2) {
+            While (i <= x2) {
                 colour := PixelGetColor(i, y1)
-                if (foundArr.Length = 0 || foundArr[foundArr.Length].colour != colour) {
-                    foundArr.Push({ x: i, y: y1, colour: colour })
+                If (foundArr.Length = 0 || foundArr[foundArr.Length].colour !=
+                    colour) {
+                    foundArr.Push({
+                        x: i,
+                        y: y1,
+                        colour: colour
+                    })
                 }
                 i++
             }
-            return foundArr
+            Return foundArr
         }
-    } catch as exc {
+    } Catch As exc {
         Log("Error 9: LineGetColourInstances check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n" exc
+            .Message)
     }
-    return false
+    Return false
 }
 
 /**
@@ -188,55 +197,55 @@ LineGetColourInstancesOffsetV(x, y1, y2, colour, splitCount := 20) {
     found := 0
     ; Because checking every pixel takes 7 seconds, lets split up the line
     ; use pixelsearch and try to find a balance where we don't get overlap
-    while splitCur < splitCount {
+    While splitCur < splitCount {
         yTop := y1 + (splitCur * splitSize)
         yBot := y1 + ((splitCur + 1) * splitSize)
         result := cRect(x, yTop, x, yBot).PixelSearch(colour)
-        if (result) {
+        If (result) {
             ; DebugLog("Found in segment " splitCur " at " result[1] " by " result[2])
             found++
             foundArr.Push(result[2])
         }
         splitCur++
     }
-    if (found) {
-        return foundArr
+    If (found) {
+        Return foundArr
     }
-    return false
+    Return false
 }
 
 IsScrollAblePanel() {
-    if (Points.Misc.ScrollArrow.IsButtonActive()) {
+    If (Points.Misc.ScrollArrow.IsButtonActive()) {
         ; Up Arrow exists, so scrolling is possible
-        return true
+        Return true
     }
-    return false
+    Return false
 }
 
 IsScrollAblePanelAtTop() {
     ; 2220 320 scroll handle
-    if (IsScrollAblePanel()) {
-        if (Points.Misc.ScrollHandle.IsButtonActive()) {
+    If (IsScrollAblePanel()) {
+        If (Points.Misc.ScrollHandle.IsButtonActive()) {
             ; Is at top
-            return true
+            Return true
         }
     }
-    return false
+    Return false
 }
 
 IsBVScrollAblePanelAtTop() {
     ; 2220 258 top scroll arrow button
     ; 2220 320 scroll handle
-    if (Points.Misc.ScrollArrow.IsButtonActive()) {
+    If (Points.Misc.ScrollArrow.IsButtonActive()) {
         ; Up Arrow exists, so scrolling is possible
-        if (Points.Misc.ScrollHandle.IsButtonActive()) {
+        If (Points.Misc.ScrollHandle.IsButtonActive()) {
             ; Is at top
-            return true
-        } else {
-            return false
+            Return true
+        } Else {
+            Return false
         }
     }
-    return true
+    Return true
 }
 
 cReload() {
@@ -244,9 +253,9 @@ cReload() {
 }
 
 ReloadIfNoGame() {
-    if (!GameWindowExist() || !IsWindowActive()) {
+    If (!GameWindowExist() || !IsWindowActive()) {
         cReload() ; Kill if no game
-        return
+        Return
     }
 }
 
@@ -257,34 +266,34 @@ InitScriptHotKey() {
 }
 
 BinaryToStr(var) {
-    if (var) {
-        return "true"
+    If (var) {
+        Return "true"
     }
-    return "false"
+    Return "false"
 }
 
 ArrToCommaDelimStr(var) {
     output := ""
-    if (Type(var) = "String") {
-        if (var = "") {
-            return false
+    If (Type(var) = "String") {
+        If (var = "") {
+            Return false
         }
-        return var
+        Return var
     }
-    if (var.Length > 1) {
-        for text in var {
-            if (output != "") {
+    If (var.Length > 1) {
+        For text in var {
+            If (output != "") {
                 output := output ", " text
-            } else {
+            } Else {
                 output := text
             }
         }
-        return output
-    } else {
-        return false
+        Return output
+    } Else {
+        Return false
     }
 }
 
 CommaDelimStrToArr(var) {
-    return StrSplit(var, " ", ",.")
+    Return StrSplit(var, " ", ",.")
 }

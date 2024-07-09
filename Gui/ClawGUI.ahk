@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 Button_Click_Claw(thisGui, info) {
-    global settings, ClawCheckSizeOffset, ClawFindAny
+    Global settings, ClawCheckSizeOffset, ClawFindAny
 
     optionsGUI := Gui(, "Claw Farm Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -12,26 +12,31 @@ Button_Click_Claw(thisGui, info) {
     If (IsInteger(ClawCheckSizeOffset) || IsFloat(ClawCheckSizeOffset)) {
         optionsGUI.Add("UpDown", "vClawCheckSizeOffset Range-999-999",
             ClawCheckSizeOffset)
-    } else {
-        if (settings.sUseNobody) {
+    } Else {
+        If (settings.sUseNobody) {
             optionsGUI.Add("UpDown", "vClawCheckSizeOffset Range-999-9999",
                 settings.defaultNobodySettings.ClawCheckSizeOffset)
-        } else {
+        } Else {
             optionsGUI.Add("UpDown", "vClawCheckSizeOffset Range-999-9999",
                 settings.defaultSettings.ClawCheckSizeOffset)
         }
     }
 
-    if (ClawFindAny = true) {
-        optionsGUI.Add("CheckBox", "vClawFindAny ccfcfcf checked", "Enable Find any fallback")
-    } else {
-        optionsGUI.Add("CheckBox", "vClawFindAny ccfcfcf", "Enable Find any fallback")
+    If (ClawFindAny = true) {
+        optionsGUI.Add("CheckBox", "vClawFindAny ccfcfcf checked",
+            "Enable Find any fallback")
+    } Else {
+        optionsGUI.Add("CheckBox", "vClawFindAny ccfcfcf",
+            "Enable Find any fallback")
     }
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunClaw)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveClaw)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessClawSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseClawSettings)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+        RunSaveClaw)
+    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+        ProcessClawSettings)
+    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+        CloseClawSettings)
 
     optionsGUI.Show("w300")
 

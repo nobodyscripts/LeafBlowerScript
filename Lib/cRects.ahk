@@ -3,7 +3,7 @@
 #Include cRect.ahk
 
 /** @type {cRects} */
-global Rects := cRects()
+Global Rects := cRects()
 
 /**
  * @module cRects

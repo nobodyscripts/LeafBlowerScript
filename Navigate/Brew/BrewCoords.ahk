@@ -24,7 +24,7 @@ Class cBrewPoints {
  * @property {cPoint} CardParts Card Parts
  * @property {cPoint} CardPartsFont1 Card Parts for fontsize 1
  */
-Class cBrewTab1Points{
+Class cBrewTab1Points {
     ; First tab and sub points
     Nav := cPoint(526, 1180)
     ; Artifacts

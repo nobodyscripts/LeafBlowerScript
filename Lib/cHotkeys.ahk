@@ -6,7 +6,7 @@
 ; ------------------- Script Hotkeys -------------------
 ; Loads UserHotkeys.ini values for the rest of the script to use
 
-class cHotkeys {
+Class cHotkeys {
     sFilename := A_ScriptDir "\UserHotkeys.ini"
     sFileSection := "Default"
     IsGameHotkeys := false
@@ -14,29 +14,29 @@ class cHotkeys {
     Hotkeys := Map()
 
     initHotkeys(secondary := false) {
-        if (!secondary) {
-            if (!FileExist(this.sFilename)) {
+        If (!secondary) {
+            If (!FileExist(this.sFilename)) {
                 Log("No " this.sFilename " found, writing default file.")
                 this.WriteHotkeyDefaults()
             }
-            if (this.loadHotkeys()) {
+            If (this.loadHotkeys()) {
                 Log("Loaded " this.sFilename ".")
-            } else {
-                return false
+            } Else {
+                Return false
             }
-            return true
-        } else {
-            if (this.IsScriptHotkeys) {
+            Return true
+        } Else {
+            If (this.IsScriptHotkeys) {
                 this.sFilename := A_ScriptDir "\..\ScriptHotkeys.ini"
-            } else if (this.IsGameHotkeys) {
+            } Else If (this.IsGameHotkeys) {
                 this.sFilename := A_ScriptDir "\..\UserHotkeys.ini"
             }
-            if (this.loadHotkeys()) {
+            If (this.loadHotkeys()) {
                 Log("Loaded " this.sFilename ".")
-            } else {
-                return false
+            } Else {
+                Return false
             }
-            return true
+            Return true
         }
     }
 
@@ -44,64 +44,64 @@ class cHotkeys {
         KeyboardLayout := GetKeyboardLayout()
         Log("Keyboard layout detected as " KeyboardLayout ".")
 
-        for (Key in this.Hotkeys) {
-            try {
+        For (Key in this.Hotkeys) {
+            Try {
                 loaded := this.IniToHotkey(this.sFilename, this.Hotkeys[Key].Category,
                     this.Hotkeys[Key].Name)
-                if (loaded) {
+                If (loaded) {
                     this.Hotkeys[Key].SetValue(loaded)
-                } else {
-                    this.Hotkeys[Key].SetValue(this.Hotkeys[key].GetDefaultValue()
+                } Else {
+                    this.Hotkeys[Key].SetValue(this.Hotkeys[Key].GetDefaultValue()
                     )
                 }
-            } catch as exc {
-                if (exc.Extra) {
+            } Catch As exc {
+                If (exc.Extra) {
                     MsgBox("Error 35: LoadHotkeys failed - " exc.Message "`n" exc
                         .Extra)
-                } else {
+                } Else {
                     Log("Error 35: LoadHotkeys failed - " exc.Message)
                 }
                 MsgBox("Could not load all Hotkeys, making new default " this.sFilename
                 )
                 Log("Attempting to write a new default " this.sFilename ".")
                 this.WriteHotkeyDefaults()
-                return false
+                Return false
             }
         }
-        return true
+        Return true
     }
 
     GetHotkey(key) {
-        if (this.Hotkeys[key].GetValue()) {
-            return this.Hotkeys[key].GetValue()
-        } else if (this.Hotkeys[key].GetDefaultValue()) {
-            return this.Hotkeys[key].GetDefaultValue()
+        If (this.Hotkeys[key].GetValue()) {
+            Return this.Hotkeys[key].GetValue()
+        } Else If (this.Hotkeys[key].GetDefaultValue()) {
+            Return this.Hotkeys[key].GetDefaultValue()
         }
         Log("Error: Did not have a hotkey for " key)
-        return false
+        Return false
     }
 
     GetHotkeyVK(key) {
-        if (this.Hotkeys[key].GetValueVK()) {
-            return this.Hotkeys[key].GetValueVK()
-        } else if (this.Hotkeys[key].GetDefaultValueVK()) {
-            return this.Hotkeys[key].GetDefaultValueVK()
+        If (this.Hotkeys[key].GetValueVK()) {
+            Return this.Hotkeys[key].GetValueVK()
+        } Else If (this.Hotkeys[key].GetDefaultValueVK()) {
+            Return this.Hotkeys[key].GetDefaultValueVK()
         }
         Log("Error: Did not have a hotkeyVk for " key)
-        return false
+        Return false
     }
 
     SetHotkey(key, value, type := 0) {
-        if (this.Hotkeys[key]) {
+        If (this.Hotkeys[key]) {
             this.Hotkeys[key].SetValue(value, type)
         }
     }
 
     WriteToIni(key, value, section := this.sFileSection) {
-        switch value {
-            case "0":
-            case "-1":
-            case "":
+        Switch value {
+            Case "0":
+            Case "-1":
+            Case "":
                 IniWrite("-1", this.sFilename, section, key)
             default:
                 IniWrite(value, this.sFilename, section, key)
@@ -111,7 +111,7 @@ class cHotkeys {
     WriteHotkeyDefaults() {
         Log("Writing new default hotkeys file.")
 
-        for (Key in this.Hotkeys) {
+        For (Key in this.Hotkeys) {
             this.WriteToIni(this.Hotkeys[Key].Name, this.Hotkeys[Key].GetDefaultValue(),
                 this.Hotkeys[Key].Category)
 
@@ -120,16 +120,16 @@ class cHotkeys {
 
     ToString() {
         text := "Logging hotkeys:`r`n"
-        for (Key in this.Hotkeys) {
+        For (Key in this.Hotkeys) {
             text := text "Name: " this.Hotkeys[Key].Name " " . "Default:" this.Hotkeys[
                 Key].GetDefaultValue() " " . "Value:" this.Hotkeys[Key].GetValue() " " .
                 "Cat: " this.Hotkeys[Key].Category "`r`n"
         }
-        return text
+        Return text
     }
 
     SaveCurrentHotkeys() {
-        for (Key in this.Hotkeys) {
+        For (Key in this.Hotkeys) {
             this.WriteToIni(this.Hotkeys[Key].Name, this.GetHotkey(Key), this.Hotkeys[
                 Key].Category)
         }
@@ -137,15 +137,15 @@ class cHotkeys {
 
     IniToHotkey(file, section, name) {
         var := IniRead(file, section, name)
-        switch var {
-            case "0":
-                return false
-            case "":
-                return false
-            case "-1":
-                return false
+        Switch var {
+            Case "0":
+                Return false
+            Case "":
+                Return false
+            Case "-1":
+                Return false
             default:
-                return var
+                Return var
         }
     }
 

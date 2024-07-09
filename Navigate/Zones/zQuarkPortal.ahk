@@ -61,7 +61,7 @@ Class QuarkPortal extends Zone {
         ; Button to travel to Quark Portal
         ;Button := Points.Areas.SoulR.QuarkPortal
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Quark Portal travel: Button not found.")

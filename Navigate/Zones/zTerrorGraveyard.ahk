@@ -61,7 +61,7 @@ Class TerrorGraveyard extends Zone {
         ; Button to travel to Terror Graveyard
         ;Button := Points.Areas.EnergyB.TerrorGraveyard
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Terror Graveyard travel: Button not found.")

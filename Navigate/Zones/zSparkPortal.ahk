@@ -61,7 +61,7 @@ Class SparkPortal extends Zone {
         ; Button to travel to Spark Portal
         ;Button := Points.Areas.SacredN.SparkPortal
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Spark Portal travel: Button not found.")

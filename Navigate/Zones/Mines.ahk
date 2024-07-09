@@ -18,15 +18,15 @@ Class Mine extends Zone {
      * @returns {Boolean} Is panel active
      */
     GoTo(reset := false) {
-        if (!reset) {
-            return Travel.OpenMining(false)
-        } else {
+        If (!reset) {
+            Return Travel.OpenMining(false)
+        } Else {
             Travel.OpenMining(false)
-            if (Points.Mine.Tab1Vein.IsButtonActive()) {
+            If (Points.Mine.Tab1Vein.IsButtonActive()) {
                 Points.Mine.Tab1Vein.Click()
                 Sleep(NavigateTime)
             }
-            return IsPanelActive()
+            Return IsPanelActive()
         }
     }
     ;@endregion
@@ -49,11 +49,11 @@ Class Mine extends Zone {
      * @returns {Integer} 
      */
     IsOnTabVein() {
-        if (Points.Mine.Vein.Search.IsButton() && Points.Mine.Vein.AutoMine.IsButton()
+        If (Points.Mine.Vein.Search.IsButton() && Points.Mine.Vein.AutoMine.IsButton()
         ) {
-            return true
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -74,11 +74,11 @@ Class Mine extends Zone {
      * @returns {Integer} 
      */
     IsOnTabMines() {
-        if (Points.Mine.Cave.Select1.IsButton() && Points.Mine.Cave.AutoSearch.IsButton()
+        If (Points.Mine.Cave.Select1.IsButton() && Points.Mine.Cave.AutoSearch.IsButton()
         ) {
-            return true
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -87,7 +87,7 @@ Class Mine extends Zone {
      * Go to mine panel > inventory tab
      */
     GoToTabInv() {
-        throw Error("Mine.GoToTabInv not implimented")
+        Throw Error("Mine.GoToTabInv not implimented")
     }
     ;@endregion
 
@@ -107,11 +107,11 @@ Class Mine extends Zone {
      * @returns {Integer} 
      */
     IsOnTabDrill() {
-        if (Points.Mine.CoalSphere.IsButton() && Points.Mine.FreeFuel.IsButton()
+        If (Points.Mine.CoalSphere.IsButton() && Points.Mine.FreeFuel.IsButton()
         ) {
-            return true
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -145,7 +145,7 @@ Class Mine extends Zone {
      * @returns {Integer} 
      */
     IsOnTabTrans() {
-        if (!Points.Mine.Transmute.SingleCBarToCDia.IsBackground() && !Points.Mine
+        If (!Points.Mine.Transmute.SingleCBarToCDia.IsBackground() && !Points.Mine
             .Transmute.SingleCDiaToSDia.IsBackground() && !Points.Mine.Transmute
             .SingleCDiaToFuel.IsBackground() && !Points.Mine.Transmute.SingleCDiaToSphere
             .IsBackground() && !Points.Mine.Transmute.AllCBarsToCDias.IsBackground() &&
@@ -156,9 +156,9 @@ Class Mine extends Zone {
             .Transmute.AutoCDiaToSDia.IsBackground() && !Points.Mine.Transmute.AutoCDiaToFuel
             .IsBackground() && !Points.Mine.Transmute.AutoCDiaToSphere.IsBackground()
         ) {
-            return true
+            Return true
         }
-        return false
+        Return false
     }
     ;@endregion
 
@@ -167,7 +167,7 @@ Class Mine extends Zone {
      * Go to mine panel > codex tab
      */
     GoToTabCodex() {
-        throw Error("Mine.GoToTabCodex not implimented")
+        Throw Error("Mine.GoToTabCodex not implimented")
     }
     ;@endregion
 

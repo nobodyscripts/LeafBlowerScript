@@ -61,7 +61,7 @@ Class TheVolcano extends Zone {
         ; Button to travel to The Volcano
         ;Button := Points.Areas.LeafG.TheVolcano
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Volcano travel: Button not found.")

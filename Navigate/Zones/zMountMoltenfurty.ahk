@@ -61,7 +61,7 @@ Class MountMoltenfurty extends Zone {
         ; Button to travel to Mount Moltenfurty
         ;Button := Points.Areas.FireF.MountMoltenfurty
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Mount Moltenfurty travel: Button not found.")

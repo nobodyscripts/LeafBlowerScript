@@ -7,9 +7,9 @@
 #Include Lib\ScriptSettings.ahk
 #Include Lib\SettingsCheck.ahk
 
-global ScriptsLogFile := A_ScriptDir "\GemAlert.Log"
-global NavigateTime := 150
-global IsSecondary := false
+Global ScriptsLogFile := A_ScriptDir "\GemAlert.Log"
+Global NavigateTime := 150
+Global IsSecondary := false
 
 GemAlert()
 
@@ -19,33 +19,33 @@ GemAlert()
  * tab is available for users
  */
 GemAlert() {
-    if (!GameWindowExist()) {
+    If (!GameWindowExist()) {
         ExitApp()
     }
-    
-    if (!IsWindowActive()) {
+
+    If (!IsWindowActive()) {
         WinActivate(LBRWindowTitle)
         Sleep(NavigateTime)
     }
-    if (IsPanelActive()) {
+    If (IsPanelActive()) {
         localClosePanel()
         Sleep(NavigateTime)
     }
     localOpenMining()
     Sleep(NavigateTime)
-    loop {
-        if (!GameWindowExist()) {
-            break
+    Loop {
+        If (!GameWindowExist()) {
+            Break
         }
-        if (WinActive(LBRWindowTitle)) {
-            if (!IsPanelActive()) {
+        If (WinActive(LBRWindowTitle)) {
+            If (!IsPanelActive()) {
                 localOpenMining()
                 Sleep(NavigateTime)
-            } else {
+            } Else {
                 FindVeinsWithBars2()
                 Sleep(seconds(10))
             }
-        } else {
+        } Else {
             FindVeinsWithBars2()
             Sleep(seconds(10))
         }
@@ -54,7 +54,7 @@ GemAlert() {
 ;@endregion
 
 seconds(int) {
-    return int * 1000
+    Return int * 1000
 }
 
 FindVeinsWithBars2() {
@@ -62,13 +62,13 @@ FindVeinsWithBars2() {
     SampleSlot5 := Points.Mine.Vein.Slot5.Icon.ClientToScreencPoint()
     SampleSlot6 := Points.Mine.Vein.Slot6.Icon.ClientToScreencPoint()
     CoordMode("Pixel", "Screen")
-    if (PixelGetColor(SampleSlot4.x, SampleSlot4.y) != "0x6D758D" ||
+    If (PixelGetColor(SampleSlot4.x, SampleSlot4.y) != "0x6D758D" ||
         PixelGetColor(SampleSlot5.x, SampleSlot5.y) != "0x6D758D" ||
         PixelGetColor(SampleSlot6.x, SampleSlot6.y) != "0x6D758D") {
         SoundBeep()
     }
     CoordMode("Pixel", "Client")
-    return
+    Return
 }
 
 localOpenMining() {

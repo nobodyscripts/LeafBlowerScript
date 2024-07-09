@@ -34,9 +34,12 @@ Class TheFabricoftheLeafverse extends Zone {
         ; Scanning by leaf
         Local TheFabricoftheLeafverseLeaf := this.FindTheFabricoftheLeafverseZone()
         If (TheFabricoftheLeafverseLeaf) {
-            this.ClickTravelButton(TheFabricoftheLeafverseLeaf, delay + extradelay)
+            this.ClickTravelButton(TheFabricoftheLeafverseLeaf, delay +
+                extradelay)
         } Else {
-            Log("The Fabric of the Leafverse leaf not found while trying to travel.")
+            Log(
+                "The Fabric of the Leafverse leaf not found while trying to travel."
+            )
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,7 +64,7 @@ Class TheFabricoftheLeafverse extends Zone {
         ; Button to travel to The Fabric of the Leafverse
         ;Button := Points.Areas.SoulR.TheFabricoftheLeafverse
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Fabric of the Leafverse travel: Button not found.")

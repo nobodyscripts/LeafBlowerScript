@@ -61,7 +61,7 @@ Class FarmField extends Zone {
         ; Button to travel to Farm Field
         ;Button := Points.Areas.Events.FarmField
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Farm Field travel: Button not found.")

@@ -3,28 +3,28 @@
 #Include ..\Lib\cPoints.ahk
 #Include ..\Lib\Spammers.ahk
 
-global LeaftonCraftEnabled := true
-global LeaftonSpamsWind := true
-global LeaftonBanksEnabled := true
-global LeaftonRunOnceEnabled := false
-global BankEnableLGDeposit := true
-global BankEnableSNDeposit := true
-global BankEnableEBDeposit := true
-global BankEnableFFDeposit := true
-global BankEnableSRDeposit := true
-global BankEnableQADeposit := true
-global BankDepositTime := 5
-global NavigateTime := 150
+Global LeaftonCraftEnabled := true
+Global LeaftonSpamsWind := true
+Global LeaftonBanksEnabled := true
+Global LeaftonRunOnceEnabled := false
+Global BankEnableLGDeposit := true
+Global BankEnableSNDeposit := true
+Global BankEnableEBDeposit := true
+Global BankEnableFFDeposit := true
+Global BankEnableSRDeposit := true
+Global BankEnableQADeposit := true
+Global BankDepositTime := 5
+Global NavigateTime := 150
 
 fLeaftonTaxi() {
-    global BankDepositTime
+    Global BankDepositTime
     ; If user set 0 in gui without adding a fraction, make at least 1 second
-    if (BankDepositTime = 0) {
+    If (BankDepositTime = 0) {
         BankDepositTime := 0.017
     }
     GoToAnteLeafton()
     starttime := A_Now
-    if (LeaftonSpamsWind) {
+    If (LeaftonSpamsWind) {
         LeaftonSpammerStart()
     }
     centerCoord := Points.Leafton.Center
@@ -34,78 +34,78 @@ fLeaftonTaxi() {
     StopRunning := false
     Travel.OpenPets()
     Sleep(NavigateTime)
-    if (LeaftonBanksEnabled) {
+    If (LeaftonBanksEnabled) {
         BankSinglePass()
     }
-    loop {
-        if (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
+    Loop {
+        If (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             LeaftonBanksEnabled) {
             Log("Leafton: Bank Maintainer starting.")
-            ToolTip("Leafton Bank Maintainer Active", W / 2,
-                WinRelPosLargeH(200), 4)
+            ToolTip("Leafton Bank Maintainer Active", W / 2, WinRelPosLargeH(
+                200), 4)
             BankSinglePass()
             ToolTip(, , , 4)
             starttime := A_Now
         }
-        if (!IsWindowActive() || StopRunning) {
+        If (!IsWindowActive() || StopRunning) {
             Log("No window or stop called.")
-            break
+            Break
         }
         ToolTip("Leafton Active", W / 2, WinRelPosLargeH(200), 4)
-        if (IsAreaBlack() && IsBossTimerActive()) {
-            if (!startCoord.IsBackground()) {
+        If (IsAreaBlack() && IsBossTimerActive()) {
+            If (!startCoord.IsBackground()) {
                 centerCoord.Click()
             }
             Sleep(NavigateTime)
-            if (startCoord.IsButtonActive()) {
+            If (startCoord.IsButtonActive()) {
                 startCoord.Click()
             }
-            if (IsBossTimerActive() && IsScrollAblePanel()) {
+            If (IsBossTimerActive() && IsScrollAblePanel()) {
                 ; We're in bank screen still so close it
                 Travel.ClosePanelIfActive()
             }
             HasRun := true
-        } else {
-            if (LeaftonRunOnceEnabled && HasRun) {
+        } Else {
+            If (LeaftonRunOnceEnabled && HasRun) {
                 StopRunning := true
             }
-            while (!IsBossTimerActive()) {
-                if (!IsWindowActive() ||
-                    DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60) {
-                    break
+            While (!IsBossTimerActive()) {
+                If (!IsWindowActive() || DateDiff(A_Now, starttime, "Seconds") >=
+                    BankDepositTime * 60) {
+                    Break
                 }
-                if (LeaftonCraftEnabled && !IsPanelActive()) {
+                If (LeaftonCraftEnabled && !IsPanelActive()) {
                     Sleep(NavigateTime)
                     Travel.OpenCrafting()
                     Sleep(NavigateTime)
                     Points.Crafting.Tab1.ClickOffset()
                     Sleep(NavigateTime)
-                    if (!IsPanelActive()) {
+                    If (!IsPanelActive()) {
                         Travel.OpenCrafting()
                         Sleep(NavigateTime)
                         Points.Crafting.Tab1.ClickOffset()
                         Sleep(NavigateTime)
                     }
                 }
-                if (LeaftonCraftEnabled && craftStopCoord.IsButtonActive()) {
+                If (LeaftonCraftEnabled && craftStopCoord.IsButtonActive()) {
                     craftStopCoord.ClickOffset(, , 17)
                 }
             }
-            if (LeaftonCraftEnabled) {
+            If (LeaftonCraftEnabled) {
                 Travel.ClosePanelIfActive()
             }
         }
         ToolTip(, , , 4)
     }
     KillLeaftonSpammer()
-    if (StopRunning) {
+    If (StopRunning) {
         cReload()
     }
 }
 
 LeaftonTaxiSinglePassStart() {
     GoToAnteLeafton()
-    if (LeaftonSpamsWind) {
+    If (LeaftonSpamsWind) {
         LeaftonSpammerStart()
     }
     Travel.OpenPets()
@@ -119,18 +119,18 @@ LeaftonTaxiSinglePassEnd() {
 LeaftonTaxiSinglePass() {
     centerCoord := Points.Leafton.Center
     startCoord := Points.Leafton.Start
-    if (!IsWindowActive()) {
-        return false
+    If (!IsWindowActive()) {
+        Return false
     }
 
-    if (IsAreaBlack() && IsBossTimerActive()) {
+    If (IsAreaBlack() && IsBossTimerActive()) {
         Travel.ClosePanelIfActive()
-        if (!startCoord.IsBackground()) {
+        If (!startCoord.IsBackground()) {
             VerboseLog("Center Click")
             centerCoord.Click()
         }
         Sleep(NavigateTime)
-        if (startCoord.IsButtonActive()) {
+        If (startCoord.IsButtonActive()) {
             Log("Starting Leafton Pit")
             startCoord.Click()
             Sleep(NavigateTime)

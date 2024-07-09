@@ -1,92 +1,99 @@
 #Requires AutoHotkey v2.0
 
-global SpammerPID := 0
-global WindSpammerPID := 0
-global TowerPassiveSpammerPID := 0
-global GFSSSpammerPID := 0
+Global SpammerPID := 0
+Global WindSpammerPID := 0
+Global TowerPassiveSpammerPID := 0
+Global GFSSSpammerPID := 0
 
 NormalBossSpammerStart() {
-    global SpammerPID
-    if (IsWindowActive()) {
-        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\NormalBoss.ahk"',
-            , , &OutPid)
+    Global SpammerPID
+    If (IsWindowActive()) {
+        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\NormalBoss.ahk"', , , &
+            OutPid)
         SpammerPID := OutPid
     }
 }
 
 IsSpammerActive() {
-    if ((SpammerPID && ProcessExist(SpammerPID)) ||
-        WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")) {
-        return true
+    If ((SpammerPID && ProcessExist(SpammerPID)) || WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey"
+    )) {
+        Return true
     }
-    return false
+    Return false
 }
 
 KillSpammer() {
-    if (SpammerPID && ProcessExist(SpammerPID)) {
+    If (SpammerPID && ProcessExist(SpammerPID)) {
         ProcessClose(SpammerPID)
         Log("Closed NormalBoss.ahk using pid.")
-    } else {
-        if (WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")) {
-            WinClose(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey")
+    } Else {
+        If (WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey"
+        )) {
+            WinClose(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey"
+            )
             Log("Closed NormalBoss.ahk using filename.")
         }
     }
 }
 
 LeaftonSpammerStart() {
-    global WindSpammerPID
-    if (IsWindowActive()) {
-        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\LeaftonSpammer.ahk"',
-            , , &OutPid)
+    Global WindSpammerPID
+    If (IsWindowActive()) {
+        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\LeaftonSpammer.ahk"', , , &
+            OutPid)
         WindSpammerPID := OutPid
     }
 }
 
 IsLeaftonSpammerActive() {
-    if ((WindSpammerPID && ProcessExist(WindSpammerPID)) ||
-        WinExist(A_ScriptDir "\Secondaries\LeaftonSpammer.ahk ahk_class AutoHotkey")) {
-        return true
+    If ((WindSpammerPID && ProcessExist(WindSpammerPID)) || WinExist(
+        A_ScriptDir "\Secondaries\LeaftonSpammer.ahk ahk_class AutoHotkey")) {
+        Return true
     }
-    return false
+    Return false
 }
 
 KillLeaftonSpammer() {
-    if (WindSpammerPID && ProcessExist(WindSpammerPID)) {
+    If (WindSpammerPID && ProcessExist(WindSpammerPID)) {
         ProcessClose(WindSpammerPID)
         Log("Closed JustWindSpammer.ahk using pid.")
-    } else {
-        if (WinExist(A_ScriptDir "\Secondaries\LeaftonSpammer.ahk ahk_class AutoHotkey")) {
-            WinClose(A_ScriptDir "\Secondaries\LeaftonSpammer.ahk ahk_class AutoHotkey")
+    } Else {
+        If (WinExist(A_ScriptDir "\Secondaries\LeaftonSpammer.ahk ahk_class AutoHotkey"
+        )) {
+            WinClose(A_ScriptDir "\Secondaries\LeaftonSpammer.ahk ahk_class AutoHotkey"
+            )
             Log("Closed JustWindSpammer.ahk using filename.")
         }
     }
 }
 
 TowerPassiveSpammerStart() {
-    global TowerPassiveSpammerPID
-    if (IsWindowActive()) {
-        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\TowerPassiveSpammer.ahk"',
-            , , &OutPid)
+    Global TowerPassiveSpammerPID
+    If (IsWindowActive()) {
+        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\TowerPassiveSpammer.ahk"', , , &
+            OutPid)
         TowerPassiveSpammerPID := OutPid
     }
 }
 
 IsTowerPassiveSpammerActive() {
-    if ((TowerPassiveSpammerPID && ProcessExist(TowerPassiveSpammerPID)) ||
-        WinExist(A_ScriptDir "\Secondaries\TowerPassiveSpammer.ahk ahk_class AutoHotkey")) {
-        return true
+    If ((TowerPassiveSpammerPID && ProcessExist(TowerPassiveSpammerPID)) ||
+        WinExist(A_ScriptDir "\Secondaries\TowerPassiveSpammer.ahk ahk_class AutoHotkey"
+        )) {
+        Return true
     }
-    return false
+    Return false
 }
 
 KillTowerPassiveSpammer() {
-    if (TowerPassiveSpammerPID && ProcessExist(TowerPassiveSpammerPID)) {
+    If (TowerPassiveSpammerPID && ProcessExist(TowerPassiveSpammerPID)) {
         ProcessClose(TowerPassiveSpammerPID)
         Log("Closed TowerPassiveSpammer.ahk using pid.")
-    } else {
-        if (WinExist(A_ScriptDir "\Secondaries\TowerPassiveSpammer.ahk ahk_class AutoHotkey")) {
-            WinClose(A_ScriptDir "\Secondaries\TowerPassiveSpammer.ahk ahk_class AutoHotkey")
+    } Else {
+        If (WinExist(A_ScriptDir "\Secondaries\TowerPassiveSpammer.ahk ahk_class AutoHotkey"
+        )) {
+            WinClose(A_ScriptDir "\Secondaries\TowerPassiveSpammer.ahk ahk_class AutoHotkey"
+            )
             Log("Closed TowerPassiveSpammer.ahk using filename.")
         }
     }
@@ -94,45 +101,47 @@ KillTowerPassiveSpammer() {
 
 
 GFSSBossSpammerStart() {
-    global GFSSSpammerPID
-    if (IsWindowActive()) {
-        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\GFSSBoss.ahk"',
-            , , &OutPid)
-            GFSSSpammerPID := OutPid
+    Global GFSSSpammerPID
+    If (IsWindowActive()) {
+        Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\GFSSBoss.ahk"', , , &
+            OutPid)
+        GFSSSpammerPID := OutPid
     }
 }
 
 IsGFSSSpammerActive() {
-    if ((GFSSSpammerPID && ProcessExist(GFSSSpammerPID)) ||
-        WinExist(A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey")) {
-        return true
+    If ((GFSSSpammerPID && ProcessExist(GFSSSpammerPID)) || WinExist(
+        A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey")) {
+        Return true
     }
-    return false
+    Return false
 }
 
 KillGFSSSpammer() {
-    if (GFSSSpammerPID && ProcessExist(GFSSSpammerPID)) {
+    If (GFSSSpammerPID && ProcessExist(GFSSSpammerPID)) {
         ProcessClose(GFSSSpammerPID)
         Log("Closed GFSSBoss.ahk using pid.")
-    } else {
-        if (WinExist(A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey")) {
-            WinClose(A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey")
+    } Else {
+        If (WinExist(A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey"
+        )) {
+            WinClose(A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey"
+            )
             Log("Closed GFSSBoss.ahk using filename.")
         }
     }
 }
 
 KillAllSpammers() {
-    if (IsSpammerActive()) {
+    If (IsSpammerActive()) {
         KillSpammer()
     }
-    if (IsGFSSSpammerActive()) {
+    If (IsGFSSSpammerActive()) {
         KillGFSSSpammer()
     }
-    if (IsLeaftonSpammerActive()) {
+    If (IsLeaftonSpammerActive()) {
         KillLeaftonSpammer()
     }
-    if (IsTowerPassiveSpammerActive()) {
+    If (IsTowerPassiveSpammerActive()) {
         KillTowerPassiveSpammer()
     }
 }

@@ -34,9 +34,12 @@ Class TheAbandonedResearchStation extends Zone {
         ; Scanning by leaf
         Local TheAbandonedResearchStationLeaf := this.FindTheAbandonedResearchStationZone()
         If (TheAbandonedResearchStationLeaf) {
-            this.ClickTravelButton(TheAbandonedResearchStationLeaf, delay + extradelay)
+            this.ClickTravelButton(TheAbandonedResearchStationLeaf, delay +
+                extradelay)
         } Else {
-            Log("The Abandoned Research Station leaf not found while trying to travel.")
+            Log(
+                "The Abandoned Research Station leaf not found while trying to travel."
+            )
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,7 +64,7 @@ Class TheAbandonedResearchStation extends Zone {
         ; Button to travel to The Abandoned Research Station
         ;Button := Points.Areas.LeafG.TheAbandonedResearchStation
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Abandoned Research Station travel: Button not found.")

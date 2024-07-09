@@ -61,7 +61,7 @@ Class TheCheesePub extends Zone {
         ; Button to travel to The Cheese Pub
         ;Button := Points.Areas.LeafG.TheCheesePub
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Cheese Pub travel: Button not found.")

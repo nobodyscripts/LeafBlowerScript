@@ -61,7 +61,7 @@ Class GlintingThicket extends Zone {
         ; Button to travel to Glinting Thicket
         ;Button := Points.Areas.LeafG.GlintingThicket
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Glinting Thicket travel: Button not found.")

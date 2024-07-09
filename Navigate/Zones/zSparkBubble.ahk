@@ -61,7 +61,7 @@ Class SparkBubble extends Zone {
         ; Button to travel to Spark Bubble
         ;Button := Points.Areas.SacredN.SparkBubble
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Spark Bubble travel: Button not found.")

@@ -3,15 +3,15 @@
 #Include Lib\hTas.ahk
 #Include Lib\hModules.ahk
 
-global ScriptsLogFile := A_ScriptDir "\TAS.Log"
-global IsSecondary := false
+Global ScriptsLogFile := A_ScriptDir "\TAS.Log"
+Global IsSecondary := false
 
-if (WinExist(LBRWindowTitle)) {
-    if (!WinActive(LBRWindowTitle)) {
+If (WinExist(LBRWindowTitle)) {
+    If (!WinActive(LBRWindowTitle)) {
         WinActivate(LBRWindowTitle)
     }
-} else {
-    return
+} Else {
+    Return
 }
 
 gc := cGameController()

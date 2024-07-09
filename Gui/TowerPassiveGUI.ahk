@@ -1,27 +1,34 @@
 #Requires AutoHotkey v2.0
 
 Button_Click_TowerPassive(thisGui, info) {
-    global settings, TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
+    Global settings, TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
 
     optionsGUI := Gui(, "Tower Passive Mode Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
-    if (TowerPassiveBanksEnabled = true) {
-        optionsGUI.Add("CheckBox", "vTowerPassiveBanksEnabled ccfcfcf checked", "Enable Banks")
-    } else {
-        optionsGUI.Add("CheckBox", "vTowerPassiveBanksEnabled ccfcfcf", "Enable Banks")
+    If (TowerPassiveBanksEnabled = true) {
+        optionsGUI.Add("CheckBox", "vTowerPassiveBanksEnabled ccfcfcf checked",
+            "Enable Banks")
+    } Else {
+        optionsGUI.Add("CheckBox", "vTowerPassiveBanksEnabled ccfcfcf",
+            "Enable Banks")
     }
 
-    if (TowerPassiveCraftEnabled = true) {
-        optionsGUI.Add("CheckBox", "vTowerPassiveCraftEnabled ccfcfcf checked", "Enable Crafting")
-    } else {
-        optionsGUI.Add("CheckBox", "vTowerPassiveCraftEnabled ccfcfcf", "Enable Crafting")
+    If (TowerPassiveCraftEnabled = true) {
+        optionsGUI.Add("CheckBox", "vTowerPassiveCraftEnabled ccfcfcf checked",
+            "Enable Crafting")
+    } Else {
+        optionsGUI.Add("CheckBox", "vTowerPassiveCraftEnabled ccfcfcf",
+            "Enable Crafting")
     }
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunTowerPassive)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessTowerPassiveSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseTowerPassiveSettings)
+    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunTowerPassive
+    )
+    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+        ProcessTowerPassiveSettings)
+    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+        CloseTowerPassiveSettings)
 
     optionsGUI.Show("w300")
 

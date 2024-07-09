@@ -61,7 +61,7 @@ Class THEVOID extends Zone {
         ; Button to travel to THE VOID
         ;Button := Points.Areas.LeafG.THEVOID
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("THE VOID travel: Button not found.")

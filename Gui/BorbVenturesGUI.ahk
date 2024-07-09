@@ -1,28 +1,34 @@
 #Requires AutoHotkey v2.0
 
 Button_Click_BorbVenture(thisGui, info) {
-    global settings, HaveBorbDLC, BVBlockMythLeg, BVItemsArr
+    Global settings, HaveBorbDLC, BVBlockMythLeg, BVItemsArr
 
     optionsGUI := Gui(, "Borbventures Farm Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
-    if (HaveBorbDLC = true) {
-        optionsGUI.Add("CheckBox", "vHaveBorbDLC ccfcfcf checked", "Own Borbventure DLC")
-    } else {
-        optionsGUI.Add("CheckBox", "vHaveBorbDLC ccfcfcf", "Own Borbventure DLC")
+    If (HaveBorbDLC = true) {
+        optionsGUI.Add("CheckBox", "vHaveBorbDLC ccfcfcf checked",
+            "Own Borbventure DLC")
+    } Else {
+        optionsGUI.Add("CheckBox", "vHaveBorbDLC ccfcfcf",
+            "Own Borbventure DLC")
     }
 
-    if (BVBlockMythLeg = true) {
-        optionsGUI.Add("CheckBox", "vBVBlockMythLeg ccfcfcf checked", "Block Mythic and Legendries")
-    } else {
-        optionsGUI.Add("CheckBox", "vBVBlockMythLeg ccfcfcf", "Block Mythic and Legendries")
+    If (BVBlockMythLeg = true) {
+        optionsGUI.Add("CheckBox", "vBVBlockMythLeg ccfcfcf checked",
+            "Block Mythic and Legendries")
+    } Else {
+        optionsGUI.Add("CheckBox", "vBVBlockMythLeg ccfcfcf",
+            "Block Mythic and Legendries")
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Which Borbv Colours to Scan:")
-    optionsGUI.Add("Edit", "vBVItemsArr r5 w275", ArrToCommaDelimStr(BVItemsArr))
+    optionsGUI.Add("Edit", "vBVItemsArr r5 w275", ArrToCommaDelimStr(BVItemsArr
+    ))
 
-    optionsGUI.Add("Text", "ccfcfcf", "0xF91FF6 Borb ascention juice (purple default)`n"
+    optionsGUI.Add("Text", "ccfcfcf",
+        "0xF91FF6 Borb ascention juice (purple default)`n"
         "0x70F928 Borb juice (green)`n"
         "0x0F2A1D Nature time sphere`n"
         "0x55B409 Borb rune (green)`n"
@@ -38,13 +44,15 @@ Button_Click_BorbVenture(thisGui, info) {
         "0x0E44BE Power Dice Points (blue)`n"
         "0x11CF1C Quantum Blob (green)`n"
         "0x250D05 Quark Blob (purple)`n"
-        "0x120D1C Quark Structures"
-    )
+        "0x120D1C Quark Structures")
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunBorbv)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveBorbv)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessBorbvSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseBorbvSettings)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+        RunSaveBorbv)
+    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+        ProcessBorbvSettings)
+    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+        CloseBorbvSettings)
 
     optionsGUI.Show("w300")
 

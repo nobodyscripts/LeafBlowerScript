@@ -6,17 +6,17 @@
 CavesSinglePass() {
     id := 1
     Buttons := GetCaveTabButtons()
-    if (!IsPanelActive()) {
-        return
+    If (!IsPanelActive()) {
+        Return
     }
-    if (!Points.Mine.Cave.Select1.IsButton()) {
-        return
+    If (!Points.Mine.Cave.Select1.IsButton()) {
+        Return
     }
-    for button in Buttons {
-        while (!IsCaveSelected(id)) {
+    For button in Buttons {
+        While (!IsCaveSelected(id)) {
             ; until the caves selected redundantly click
-            if (!IsPanelActive()) {
-                return
+            If (!IsPanelActive()) {
+                Return
             }
             button.ClickOffset(5, 5, 51)
             Sleep(NavigateTime)
@@ -28,37 +28,35 @@ CavesSinglePass() {
 
 CavesSingleCheck() {
     id := GetCurrentCave()
-    if (id > 0 && Debug) {
+    If (id > 0 && Debug) {
         Log("Currently on cave " id " Diamond " BinaryToStr(IsCaveDiamond())
-            " Drill state is " BinaryToStr(IsCaveDrilling()) " Locked " BinaryToStr(IsCaveLocked(id))
+            " Drill state is " BinaryToStr(IsCaveDrilling()) " Locked " BinaryToStr(
+                IsCaveLocked(id))
             " Selected " BinaryToStr(IsCaveSelected(id)))
     }
-    if (id = 0) {
+    If (id = 0) {
         DebugLog("Didn't find a selected cave")
-        return
+        Return
     }
-    if (IsCaveDiamond() && !IsCaveDrilling()) {
+    If (IsCaveDiamond() && !IsCaveDrilling()) {
         Points.Mine.Cave.DrillToggle.ClickOffset()
     }
 }
 
 IsCaveDrilling() {
-    if (Rects.Mine.Cave.DrillStatus.PixelSearch("0xFFFFFF")) {
-        return false
+    If (Rects.Mine.Cave.DrillStatus.PixelSearch("0xFFFFFF")) {
+        Return false
     }
-    return true
+    Return true
 }
 
 IsCaveLocked(id) {
-    LockAreas := [Rects.Mine.Cave.LockInd1,
-        Rects.Mine.Cave.LockInd2,
-        Rects.Mine.Cave.LockInd3,
-        Rects.Mine.Cave.LockInd4,
-        Rects.Mine.Cave.LockInd5]
-    if (!LockAreas[id].PixelSearch("0xFFFF79")) {
-        return false
+    LockAreas := [Rects.Mine.Cave.LockInd1, Rects.Mine.Cave.LockInd2, Rects.Mine
+        .Cave.LockInd3, Rects.Mine.Cave.LockInd4, Rects.Mine.Cave.LockInd5]
+    If (!LockAreas[id].PixelSearch("0xFFFF79")) {
+        Return false
     }
-    return true
+    Return true
 }
 
 
@@ -66,36 +64,33 @@ IsCaveSelected(id) {
     Buttons := GetCaveTabButtons()
     colour := Buttons[id].GetColour()
     ; Green mouseover colour 0x78D063 clicked 0xA0EC84
-    if (colour = "0x78D063" || colour = "0xA0EC84") {
-        return true
+    If (colour = "0x78D063" || colour = "0xA0EC84") {
+        Return true
     }
-    return false
+    Return false
 }
 
 IsCaveDiamond() {
-    if (!Rects.Mine.Cave.DiamondIcon.PixelSearch("0x3210B0")) {
-        return false
+    If (!Rects.Mine.Cave.DiamondIcon.PixelSearch("0x3210B0")) {
+        Return false
     }
-    return true
+    Return true
 }
 
 GetCurrentCave() {
     Buttons := GetCaveTabButtons()
     id := 1
-    for button in Buttons {
+    For button in Buttons {
         colour := button.GetColour()
-        if (colour = "0x78D063" || colour = "0xA0EC84") {
-            return id
+        If (colour = "0x78D063" || colour = "0xA0EC84") {
+            Return id
         }
         id++
     }
-    return 0
+    Return 0
 }
 
 GetCaveTabButtons() {
-    return [Points.Mine.Cave.Select1,
-        Points.Mine.Cave.Select2,
-        Points.Mine.Cave.Select3,
-        Points.Mine.Cave.Select4,
-        Points.Mine.Cave.Select5]
+    Return [Points.Mine.Cave.Select1, Points.Mine.Cave.Select2, Points.Mine.Cave
+        .Select3, Points.Mine.Cave.Select4, Points.Mine.Cave.Select5]
 }

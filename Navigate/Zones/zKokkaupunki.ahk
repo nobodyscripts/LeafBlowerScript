@@ -61,7 +61,7 @@ Class Kokkaupunki extends Zone {
         ; Button to travel to Kokkaupunki
         ;Button := Points.Areas.LeafG.Kokkaupunki
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Kokkaupunki travel: Button not found.")

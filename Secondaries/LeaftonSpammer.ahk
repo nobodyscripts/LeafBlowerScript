@@ -3,8 +3,8 @@
 #MaxThreadsPerHotkey 8
 #SingleInstance Force
 
-global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
-global IsSecondary := true
+Global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
+Global IsSecondary := true
 
 #Include ..\Lib\hGlobals.ahk
 #Include ..\Lib\ScriptSettings.ahk
@@ -13,9 +13,9 @@ global IsSecondary := true
 #Include ..\Lib\Navigate.ahk
 #Include ..\Lib\cHotkeysInitGame.ahk
 
-global ArtifactSleepAmount := 1
-global BossFarmUsesSeeds := true
-global settings := cSettings()
+Global ArtifactSleepAmount := 1
+Global BossFarmUsesSeeds := true
+Global settings := cSettings()
 settings.initSettings(true)
 
 Log("Secondary: Wind Spammer Started")
@@ -24,15 +24,15 @@ GameWindowExist()
 fWindSpammer()
 
 fWindSpammer() {
-    loop {
-        if (!IsWindowActive()) {
+    Loop {
+        If (!IsWindowActive()) {
             Log("Secondary: Wind Spammer exiting as no game.")
-            return
+            Return
         }
-        if (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
-            Gamekeys.TriggerWind()
-            if (BossFarmUsesSeeds) {
-                Gamekeys.TriggerSeeds()
+        If (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
+            GameKeys.TriggerWind()
+            If (BossFarmUsesSeeds) {
+                GameKeys.TriggerSeeds()
             }
             Sleep(ArtifactSleepAmount)
         }

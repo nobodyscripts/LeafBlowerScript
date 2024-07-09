@@ -61,7 +61,7 @@ Class SoulPortal extends Zone {
         ; Button to travel to Soul Portal
         ;Button := Points.Areas.FireF.SoulPortal
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Soul Portal travel: Button not found.")

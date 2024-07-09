@@ -11,17 +11,17 @@ Class cGameController {
     Run() {
         fCheckGameSettings()
         var := this.GS.GetCurrentGameMode()
-        switch var {
-            case "Basic":
-                return GameModeBasic(this.GS)
-            case "ChallengeBasic":
-                return GameModeChallengeBasic(this.GS)
-            case "ChallengeGem":
-                return GameModeChallengeGem(this.GS)
-            case "OnlineChallenge":
-                return GameModeOnlineChallenge(this.GS)
+        Switch var {
+            Case "Basic":
+                Return GameModeBasic(this.GS)
+            Case "ChallengeBasic":
+                Return GameModeChallengeBasic(this.GS)
+            Case "ChallengeGem":
+                Return GameModeChallengeGem(this.GS)
+            Case "OnlineChallenge":
+                Return GameModeOnlineChallenge(this.GS)
             default:
-                return GameModeBasic(this.GS)
+                Return GameModeBasic(this.GS)
         }
     }
 }

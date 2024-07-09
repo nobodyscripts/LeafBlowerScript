@@ -61,7 +61,7 @@ Class LeafsinkHarbor extends Zone {
         ; Button to travel to Leafsink Harbor
         ;Button := Points.Areas.LeafG.LeafsinkHarbor
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Leafsink Harbor travel: Button not found.")

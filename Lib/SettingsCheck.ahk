@@ -2,48 +2,48 @@
 
 #Include Navigate.ahk
 
-global LBRWindowTitle
-global LastWindowNotActiveTimer := A_Now
+Global LBRWindowTitle
+Global LastWindowNotActiveTimer := A_Now
 
 InitSettingsCheck()
 
 InitSettingsCheck() {
-    global LBRWindowTitle, DisableSettingsChecks, ScriptsLogFile
-    global X, Y, W, H
-    if (!IsSet(LBRWindowTitle)) {
-        LBRWindowTitle := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
+    Global LBRWindowTitle, DisableSettingsChecks, ScriptsLogFile
+    Global X, Y, W, H
+    If (!IsSet(LBRWindowTitle)) {
+        LBRWindowTitle :=
+            "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
     }
-    if (!IsSet(DisableSettingsChecks)) {
+    If (!IsSet(DisableSettingsChecks)) {
         DisableSettingsChecks := false
     }
-    if (!isset(W)) {
+    If (!IsSet(W)) {
         GameWindowExist()
     }
 }
 
 MakeWindowActive() {
-    if (!GameWindowExist()) {
+    If (!GameWindowExist()) {
         Log("Error 14: Window doesn't exist.")
-        return false ; Don't check further
+        Return false ; Don't check further
     }
-    if (!WinActive(LBRWindowTitle)) {
+    If (!WinActive(LBRWindowTitle)) {
         WinActivate(LBRWindowTitle)
     }
-    return true
+    Return true
 }
 
 IsWindowActive() {
-    global LastWindowNotActiveTimer
-    if (!GameWindowExist() ||
-        !WinActive(LBRWindowTitle)) {
+    Global LastWindowNotActiveTimer
+    If (!GameWindowExist() || !WinActive(LBRWindowTitle)) {
         ; Because this can be spammed lets limit rate the error log
-        if (DateDiff(A_Now, LastWindowNotActiveTimer, "Seconds") >= 10) {
+        If (DateDiff(A_Now, LastWindowNotActiveTimer, "Seconds") >= 10) {
             Log("Error 1: Window not active or doesn't exist.")
             LastWindowNotActiveTimer := A_Now
         }
-        return false
+        Return false
     }
-    return true
+    Return true
 }
 
 /**
@@ -51,28 +51,28 @@ IsWindowActive() {
  * @returns {Boolean} Does LBRWindowTitle exist
  */
 GameWindowExist() {
-    global X, Y, W, H
-    if (WinExist(LBRWindowTitle)) {
-        try {
+    Global X, Y, W, H
+    If (WinExist(LBRWindowTitle)) {
+        Try {
             WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
-        } catch (error) {
+        } Catch (Error) {
             Log("Game window lost")
-            ErrorLog(error)
-            return false
+            ErrorLog(Error)
+            Return false
         }
-        return true
+        Return true
     }
     X := Y := W := H := 0
-    return false
+    Return false
 }
 
 CheckGameSettingsCorrect() {
-    global DisableSettingsChecks
-    if (DisableSettingsChecks) {
-        return true
+    Global DisableSettingsChecks
+    If (DisableSettingsChecks) {
+        Return true
     }
-    if (!IsWindowActive()) {
-        return false ; Kill if no game
+    If (!IsWindowActive()) {
+        Return false ; Kill if no game
     }
     ; Check for afk, if it is on, click the corner of the screen
     AFKFix()
@@ -81,21 +81,21 @@ CheckGameSettingsCorrect() {
     ; Changing res every activation would be annoying
     If (!IsAspectRatioCorrectCheck()) {
         Log("Error 15: Failed settings check at rendering mode.")
-        return false
+        Return false
     }
     If (!IsPanelTransparentCorrectCheck()) {
         Log("Error 16: Failed settings check at transparency.")
-        return false
+        Return false
     }
     If (!IsPanelSmoothedCheck()) {
         Log("Error 17: Failed settings check at smooth graphics.")
-        return false
+        Return false
     }
     If (!IsDarkBackgroundCheck()) {
         Log("Error 18: Failed settings check at dark dialog background.")
-        return false
+        Return false
     }
-    return true
+    Return true
 }
 
 
@@ -104,7 +104,7 @@ CheckGameSettingsCorrect() {
  * @returns {number} True/False, True if a main panel is active
  */
 IsPanelActive() {
-    return !IsPanelTransparent()
+    Return !IsPanelTransparent()
 }
 
 
@@ -113,62 +113,64 @@ IsPanelActive() {
  * @returns {number} True/False, True if a main panel is transparent
  */
 IsPanelTransparent() {
-    try {
+    Try {
         targetColour := Points.Misc.PanelBG.GetColour()
         ; If its afk mode return as well, let afk check handle
-        If (targetColour = Colours().Background || targetColour = Colours().BackgroundAFK) {
+        If (targetColour = Colours().Background || targetColour = Colours().BackgroundAFK
+        ) {
             ; Found panel background colour
-            return false
+            Return false
         }
-        if (targetColour = Colours().BackgroundSpotify) {
-            Log("Spotify colour warp detected, please avoid using spotify desktop.")
-            return false
+        If (targetColour = Colours().BackgroundSpotify) {
+            Log(
+                "Spotify colour warp detected, please avoid using spotify desktop."
+            )
+            Return false
         }
-    } catch as exc {
+    } Catch As exc {
         Log("Error 19: Panel transparency check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n" exc
+            .Message)
     }
-    return true
+    Return true
 }
 
 IsPanelTransparentCorrectCheck() {
-    if (!IsWindowActive()) {
-        return false ; Kill if no game
+    If (!IsWindowActive()) {
+        Return false ; Kill if no game
     }
     If (IsPanelTransparent()) {
         MsgBox("Error: It appears you may be using menu transparency,"
             " please set to 100% then F2 to reload().`nSee Readme.md"
             " for other required settings.")
-        return false
+        Return false
     } Else {
-        return true
+        Return true
     }
 }
 
 IsAspectRatioCorrect() {
     ;54 1328 (lower left of lower left hide button)
     ;2425 51 (top right of top right hide button)
-    try {
+    Try {
         sampleColour := Points.Misc.AspectRatio1.GetColour()
         sampleColour2 := Points.Misc.AspectRatio2.GetColour()
-        If (Colours().IsButtonOffPanel(sampleColour) ||
-            Colours().IsButtonOffPanel(sampleColour2) &&
-            sampleColour = sampleColour2) {
-            return true
+        If (Colours().IsButtonOffPanel(sampleColour) || Colours().IsButtonOffPanel(
+            sampleColour2) && sampleColour = sampleColour2) {
+            Return true
         }
-    } catch as exc {
+    } Catch As exc {
         Log("Error 20: Render Mode check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n" exc
+            .Message)
     }
     DebugLog("Aspect ratio check found unknown colour " sampleColour)
-    return false
+    Return false
 }
 
 IsAspectRatioCorrectCheck() {
-    if (!IsWindowActive()) {
-        return false ; Kill if no game
+    If (!IsWindowActive()) {
+        Return false ; Kill if no game
     }
     If (!IsAspectRatioCorrect()) {
         Log("Error 21: Alternative rendering check failed.")
@@ -178,118 +180,119 @@ IsAspectRatioCorrectCheck() {
         WinActivate(LBRWindowTitle)
         Travel.OpenSettings() ; Settings
         ; Not trying to click tab and scroll because window is known misaligned
-        return false
-    } else {
-        return true
+        Return false
+    } Else {
+        Return true
     }
 }
 
 IsPanelSmoothed() {
-    try {
+    Try {
         sampleColour := Points.Misc.PanelBG2.GetColour()
         sampleColour2 := Points.Misc.PanelBG3.GetColour()
         If (sampleColour != sampleColour2) {
-            DebugLog("Smoothed graphics check found " sampleColour " " sampleColour2)
+            DebugLog("Smoothed graphics check found " sampleColour " " sampleColour2
+            )
             ; Found smoothing
-            return true
+            Return true
         }
-    } catch as exc {
+    } Catch As exc {
         Log("Error 25: Panel smoothing check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n" exc
+            .Message)
     }
-    return false
+    Return false
 }
 
 IsPanelSmoothedCheck() {
-    if (!IsWindowActive()) {
-        return false ; Kill if no game
+    If (!IsWindowActive()) {
+        Return false ; Kill if no game
     }
     If (!IsPanelSmoothed()) {
-        return true
+        Return true
     }
     Log("Error 26: Smooth graphics check failed.")
     MsgBox("Error: It appears you are using Smooth Graphics, please set"
         " to off then F2 to reload().`nSee Readme.md for other required"
         " settings.")
-    return false
+    Return false
 }
 
 IsDarkBackgroundOn() {
-    try {
+    Try {
         sampleColour := Points.Misc.AspectRatio1.GetColour()
         sampleColour2 := Points.Misc.AspectRatio2.GetColour()
-        If (Colours().IsButtonDarkened(sampleColour) ||
-            Colours().IsButtonDarkened(sampleColour2)) {
+        If (Colours().IsButtonDarkened(sampleColour) || Colours().IsButtonDarkened(
+            sampleColour2)) {
             DebugLog("Corner buttons found with Dark Dialog Background on.")
             ; Found dark mode
-            return true
+            Return true
         }
-    } catch as exc {
+    } Catch As exc {
         Log("Error 6: Dark Dialog Background check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n" exc
+            .Message)
     }
-    return false
+    Return false
 }
 
 IsDarkBackgroundCheck() {
-    if (!IsWindowActive()) {
-        return false ; Kill if no game
+    If (!IsWindowActive()) {
+        Return false ; Kill if no game
     }
     If (!IsDarkBackgroundOn()) {
-        return true
+        Return true
     }
     Log("Error 27: Dark Dialog Background check failed.")
     MsgBox("Error: It appears you are using Dark Dialog Background, please"
         " set to off then F2 to reload().`nSee Readme.md for other"
         " required settings.")
 
-    return false
+    Return false
 }
 
 IsTreesSetCheck() {
     Travel.OpenAreas(true, 300)
     Points.Areas.LeafG.HomeGarden.Click(NavigateTime + 300)
     Sleep(NavigateTime + 300)
-    if (IsAreaSampleColour("0x4A9754")) {
-        return true
-    } else {
+    If (IsAreaSampleColour("0x4A9754")) {
+        Return true
+    } Else {
         Log("Error 28: Trees check failed. " GetAreaSampleColour())
         MsgBox("Error: It appears you are using Trees, please set to"
             " off then F2 to reload().`nSee Readme.md for other"
             " required settings.")
-        return false
+        Return false
     }
 
 }
 
 IsAFKOn() {
-    try {
+    Try {
         sampleColour := Points.Misc.AspectRatio1.GetColour()
         sampleColour2 := Points.Misc.AspectRatio2.GetColour()
-        If (Colours().IsButtonAFK(sampleColour) ||
-            Colours().IsButtonAFK(sampleColour2)) {
+        If (Colours().IsButtonAFK(sampleColour) || Colours().IsButtonAFK(
+            sampleColour2)) {
             DebugLog("IsAFKOn: Corner buttons found with AFK on.")
             ; Found dark mode
-            return true
+            Return true
         }
-    } catch as exc {
+    } Catch As exc {
         Log("Error 34: AFK check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n"
-            exc.Message)
+        MsgBox("Could not conduct the search due to the following error:`n" exc
+            .Message)
     }
-    return false
+    Return false
 }
 
 AFKFix() {
-    if (!IsWindowActive()) {
-        return false ; Kill if no game
+    If (!IsWindowActive()) {
+        Return false ; Kill if no game
     }
     If (!IsAFKOn()) {
-        return true
+        Return true
     }
     Log("Warning 1: AFK found enabled.")
     Points.Misc.BlankBG.Click()
-    return false
+    Return false
 }

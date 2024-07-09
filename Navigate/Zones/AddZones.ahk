@@ -2,10 +2,10 @@
 
 #Include ..\..\Lib\cColours.ahk
 
-for zonename, v in Colours().ZoneColours {
+For zonename, v in Colours().ZoneColours {
     classname := StrReplace(zonename, " ")
     classname := StrReplace(classname, "'")
-    if (classname && !FileExist(A_ScriptDir "\" classname ".ahk")) {
+    If (classname && !FileExist(A_ScriptDir "\" classname ".ahk")) {
         ; Append include to header
         FileAppend("`n#include z" classname ".ahk", A_ScriptDir "\Header.ahk")
 
@@ -16,167 +16,167 @@ for zonename, v in Colours().ZoneColours {
         ; Replace Sample with name of class
         classcontents := StrReplace(classcontents, "Sample", classname)
         classcontents := StrReplace(classcontents, "FullName", zonename)
-        switch (zonename) {
-            case "Home Garden":
+        Switch (zonename) {
+            Case "Home Garden":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "Neighbors' Garden":
+            Case "Neighbors' Garden":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "Mountain":
+            Case "Mountain":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "Space":
+            Case "Space":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "THE VOID":
+            Case "THE VOID":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Abyss":
+            Case "The Abyss":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Celestial Plane":
+            Case "The Celestial Plane":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Mythical Garden":
+            Case "The Mythical Garden":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Volcano":
+            Case "The Volcano":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Abandoned Research Station":
+            Case "The Abandoned Research Station":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Hidden Sea":
+            Case "The Hidden Sea":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "Leafsink Harbor":
+            Case "Leafsink Harbor":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Leaf Tower":
+            Case "The Leaf Tower":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Moon":
+            Case "The Moon":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Infernal Desert":
+            Case "The Infernal Desert":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Cursed Pyramid":
+            Case "The Cursed Pyramid":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Inner Cursed Pyramid":
+            Case "The Inner Cursed Pyramid":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "Kokkaupunki":
+            Case "Kokkaupunki":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "Cursed Kokkaupunki":
+            Case "Cursed Kokkaupunki":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Dark Glade":
+            Case "The Dark Glade":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "Black Leaf Hole":
+            Case "Black Leaf Hole":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "Dicey Meadows":
+            Case "Dicey Meadows":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "Glinting Thicket":
+            Case "Glinting Thicket":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "The Cheese Pub":
+            Case "The Cheese Pub":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "Your House":
+            Case "Your House":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "LeafG")
-            case "Biotite Forest":
+            Case "Biotite Forest":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "SacredN")
-            case "The Exalted Bridge":
+            Case "The Exalted Bridge":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "SacredN")
-            case "The Ancient Sanctum":
+            Case "The Ancient Sanctum":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "SacredN")
-            case "Vilewood Cemetery":
+            Case "Vilewood Cemetery":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "SacredN")
-            case "The Lone Tree":
+            Case "The Lone Tree":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "SacredN")
-            case "Spark Range":
+            Case "Spark Range":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "SacredN")
-            case "Spark Bubble":
+            Case "Spark Bubble":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "SacredN")
-            case "Spark Portal":
+            Case "Spark Portal":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "SacredN")
-            case "Energy Shrine":
+            Case "Energy Shrine":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "EnergyB")
-            case "Plasma Forest":
+            Case "Plasma Forest":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "EnergyB")
-            case "Blue Planet Edge":
+            Case "Blue Planet Edge":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "EnergyB")
-            case "Green Planet Edge":
+            Case "Green Planet Edge":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "EnergyB")
-            case "Red Planet Edge":
+            Case "Red Planet Edge":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "EnergyB")
-            case "Purple Planet Edge":
+            Case "Purple Planet Edge":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "EnergyB")
-            case "Black Planet Edge":
+            Case "Black Planet Edge":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "EnergyB")
-            case "Terror Graveyard":
+            Case "Terror Graveyard":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "EnergyB")
-            case "Energy Singularity":
+            Case "Energy Singularity":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "EnergyB")
-            case "Fire Fields Portal":
+            Case "Fire Fields Portal":
                 classcontents := StrReplace(classcontents, "<Galaxy>",
                     "EnergyB")
-            case "The Shadow Cavern":
+            Case "The Shadow Cavern":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "FireF")
-            case "The Coal Mine":
+            Case "The Coal Mine":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "FireF")
-            case "Mount Moltenfurty":
+            Case "Mount Moltenfurty":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "FireF")
-            case "The Fire Temple":
+            Case "The Fire Temple":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "FireF")
-            case "Flame Brazier":
+            Case "Flame Brazier":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "FireF")
-            case "Fire Universe":
+            Case "Fire Universe":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "FireF")
-            case "Soul Portal":
+            Case "Soul Portal":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "FireF")
-            case "Soul Temple":
+            Case "Soul Temple":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "SoulR")
-            case "Soul Crypt":
+            Case "Soul Crypt":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "SoulR")
-            case "The Hollow":
+            Case "The Hollow":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "SoulR")
-            case "Soul Forge":
+            Case "Soul Forge":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "SoulR")
-            case "Quark Portal":
+            Case "Quark Portal":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "SoulR")
-            case "The Fabric of the Leafverse":
+            Case "The Fabric of the Leafverse":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "SoulR")
-            case "Primordial Ethos":
+            Case "Primordial Ethos":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "SoulR")
-            case "Quark Nexus":
+            Case "Quark Nexus":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "QuarkA"
                 )
-            case "Quantum Aether":
+            Case "Quantum Aether":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "QuarkA"
                 )
-            case "Astral Oasis":
+            Case "Astral Oasis":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "QuarkA"
                 )
-            case "Dimensional Tapestry":
+            Case "Dimensional Tapestry":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "QuarkA"
                 )
-            case "Planck Scope":
+            Case "Planck Scope":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "QuarkA"
                 )
-            case "Cursed Halloween":
+            Case "Cursed Halloween":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "Events"
                 )
-            case "Farm Field":
+            Case "Farm Field":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "Events"
                 )
-            case "Butterfly Field":
+            Case "Butterfly Field":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "Events"
                 )
-            case "Vial of Life":
+            Case "Vial of Life":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "Events"
                 )
-            case "The Doomed Tree":
+            Case "The Doomed Tree":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "Events"
                 )
             default:
@@ -188,21 +188,18 @@ for zonename, v in Colours().ZoneColours {
         FileAppend(classcontents, A_ScriptDir "\z" classname ".ahk")
 
         ; Add new class to travel class
-        if (FileExist(A_ScriptDir "\..\..\Lib\cTravel.ahk")) {
+        If (FileExist(A_ScriptDir "\..\..\Lib\cTravel.ahk")) {
             ; Read travel class
             travelcontents := FileRead(A_ScriptDir "\..\..\Lib\cTravel.ahk")
             ; Replace classmarker with new class define
-            travelcontents := StrReplace(travelcontents, "/* <classmarker> */", 
-            "`r`n    /**`r`n" .
-            "     * Travel class for " classname "`r`n" .
-            "     * @type {" classname "}`r`n" .
-            "     */`r`n" .
-            "    " classname " := " classname "()`r`n`r`n" . 
-            "    /* <classmarker> */")
+            travelcontents := StrReplace(travelcontents, "/* <classmarker> */",
+                "`r`n    /**`r`n" . "     * Travel class for " classname "`r`n" .
+                "     * @type {" classname "}`r`n" . "     */`r`n" . "    " classname " := " classname "()`r`n`r`n" .
+                "    /* <classmarker> */")
 
-            travelcontents := StrReplace(travelcontents, " * <jsdocmarker>", 
-            " * @property {" classname "} " classname " Travel class for " zonename "`r`n" .
-            " * <jsdocmarker>")
+            travelcontents := StrReplace(travelcontents, " * <jsdocmarker>",
+                " * @property {" classname "} " classname " Travel class for " zonename "`r`n" .
+                " * <jsdocmarker>")
             ; Copy modified sample to new file
             FileDelete(A_ScriptDir "\..\..\Lib\cTravel.ahk")
             FileAppend(travelcontents, A_ScriptDir "\..\..\Lib\cTravel.ahk")

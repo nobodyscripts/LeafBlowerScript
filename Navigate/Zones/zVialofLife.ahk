@@ -61,7 +61,7 @@ Class VialofLife extends Zone {
         ; Button to travel to Vial of Life
         ;Button := Points.Areas.Events.VialofLife
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Vial of Life travel: Button not found.")

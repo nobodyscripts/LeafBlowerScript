@@ -2,7 +2,7 @@
 
 #Include cHotkeys.ahk
 
-global LBRWindowTitle
+Global LBRWindowTitle
 
 Class cHotkeysGames extends cHotkeys {
     IsGameHotkeys := true
@@ -27,7 +27,8 @@ Class cHotkeysGames extends cHotkeys {
     }
 
     OpenBorbVentures() {
-        ControlSend("{" this.GetHotkey("OpenBorbVentures") "}", , LBRWindowTitle)
+        ControlSend("{" this.GetHotkey("OpenBorbVentures") "}", ,
+            LBRWindowTitle)
     }
 
     OpenCards() {
@@ -51,7 +52,8 @@ Class cHotkeysGames extends cHotkeys {
     }
 
     TriggerBlazingSkull() {
-        ControlSend("{" this.GetHotkey("TriggerBlazingSkull") "}", , LBRWindowTitle)
+        ControlSend("{" this.GetHotkey("TriggerBlazingSkull") "}", ,
+            LBRWindowTitle)
     }
 
     TriggerGravity() {
@@ -59,7 +61,8 @@ Class cHotkeysGames extends cHotkeys {
     }
 
     TriggerSuitcase() {
-        ControlSend("{" this.GetHotkey("TriggerSuitcase") "}", , LBRWindowTitle)
+        ControlSend("{" this.GetHotkey("TriggerSuitcase") "}", , LBRWindowTitle
+        )
     }
 
     TriggerViolin() {
@@ -71,7 +74,8 @@ Class cHotkeysGames extends cHotkeys {
     }
 
     TriggerWobblyWings() {
-        ControlSend("{" this.GetHotkey("TriggerWobblyWings") "}", , LBRWindowTitle)
+        ControlSend("{" this.GetHotkey("TriggerWobblyWings") "}", ,
+            LBRWindowTitle)
     }
 
     TriggerSeeds() {
@@ -87,11 +91,13 @@ Class cHotkeysGames extends cHotkeys {
     }
 
     EquipDefaultGearLoadout() {
-        ControlSend("{" this.GetHotkey("EquipDefaultGearLoadout") "}", , LBRWindowTitle)
+        ControlSend("{" this.GetHotkey("EquipDefaultGearLoadout") "}", ,
+            LBRWindowTitle)
     }
 
     EquipTowerGearLoadout() {
-        ControlSend("{" this.GetHotkey("EquipTowerGearLoadout") "}", , LBRWindowTitle)
+        ControlSend("{" this.GetHotkey("EquipTowerGearLoadout") "}", ,
+            LBRWindowTitle)
     }
 
     ;These are not currently used so you can ignore the keybinds below

@@ -34,9 +34,12 @@ Class TheInnerCursedPyramid extends Zone {
         ; Scanning by leaf
         Local TheInnerCursedPyramidLeaf := this.FindTheInnerCursedPyramidZone()
         If (TheInnerCursedPyramidLeaf) {
-            this.ClickTravelButton(TheInnerCursedPyramidLeaf, delay + extradelay)
+            this.ClickTravelButton(TheInnerCursedPyramidLeaf, delay +
+                extradelay)
         } Else {
-            Log("The Inner Cursed Pyramid leaf not found while trying to travel.")
+            Log(
+                "The Inner Cursed Pyramid leaf not found while trying to travel."
+            )
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,7 +64,7 @@ Class TheInnerCursedPyramid extends Zone {
         ; Button to travel to The Inner Cursed Pyramid
         ;Button := Points.Areas.LeafG.TheInnerCursedPyramid
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Inner Cursed Pyramid travel: Button not found.")

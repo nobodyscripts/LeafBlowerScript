@@ -2,71 +2,72 @@
 
 
 Button_Click_GeneralSettings(thisGui, info) {
-    global settings, EnableLogging, NavigateTime, DisableZoneChecks,
+    Global settings, EnableLogging, NavigateTime, DisableZoneChecks,
         DisableSettingsChecks, TimestampLogs
 
-    settingsGUI := GUI(, "General Settings")
+    settingsGUI := Gui(, "General Settings")
     settingsGUI.Opt("+Owner +MinSize +MinSize500x")
     settingsGUI.BackColor := "0c0018"
 
-    if (EnableLogging = true) {
+    If (EnableLogging = true) {
         settingsGUI.Add("CheckBox", "vLogging ccfcfcf checked",
             "Enable Logging")
-    } else {
+    } Else {
         settingsGUI.Add("CheckBox", "vLogging ccfcfcf", "Enable Logging")
     }
 
-    if (TimestampLogs = true) {
+    If (TimestampLogs = true) {
         settingsGUI.Add("CheckBox", "vTimestampLogs ccfcfcf checked",
             "Enable Log Timestamps")
-    } else {
-        settingsGUI.Add("CheckBox", "vTimestampLogs ccfcfcf", "Enable Log Timestamps")
+    } Else {
+        settingsGUI.Add("CheckBox", "vTimestampLogs ccfcfcf",
+            "Enable Log Timestamps")
     }
-    
+
     settingsGUI.Add("Text", "ccfcfcf", "Navigate Time Delay (ms):")
     settingsGUI.AddEdit()
     If (IsInteger(NavigateTime) && NavigateTime > 0) {
         settingsGUI.Add("UpDown", "vNavigateTime Range1-9999", NavigateTime)
-    } else {
-        if (settings.sUseNobody) {
+    } Else {
+        If (settings.sUseNobody) {
             settingsGUI.Add("UpDown", "vNavigateTime Range1-9999", settings.defaultNobodySettings
                 .NavigateTime)
-        } else {
+        } Else {
             settingsGUI.Add("UpDown", "vNavigateTime Range1-9999", settings.defaultSettings
                 .NavigateTime)
         }
     }
 
-    if (DisableZoneChecks = true) {
+    If (DisableZoneChecks = true) {
         settingsGUI.Add("CheckBox", "vDisableZoneChecks ccfcfcf checked",
             "Disable Zone Checks")
-    } else {
+    } Else {
         settingsGUI.Add("CheckBox", "vDisableZoneChecks ccfcfcf",
             "Disable Zone Checks")
     }
 
 
-    if (DisableSettingsChecks = true) {
+    If (DisableSettingsChecks = true) {
         settingsGUI.Add("CheckBox", "vDisableSettingsChecks ccfcfcf checked",
             "Disable Game Settings Checks")
-    } else {
+    } Else {
         settingsGUI.Add("CheckBox", "vDisableSettingsChecks ccfcfcf",
             "Disable Game Settings Checks")
     }
 
-    if (CheckForUpdatesEnable = true) {
+    If (CheckForUpdatesEnable = true) {
         settingsGUI.Add("CheckBox", "vCheckForUpdatesEnable ccfcfcf checked",
             "Enable Check For Updates")
-    } else {
+    } Else {
         settingsGUI.Add("CheckBox", "vCheckForUpdatesEnable ccfcfcf",
             "Enable Check For Updates")
     }
 
-    if (CheckForUpdatesReleaseOnly = true) {
+    If (CheckForUpdatesReleaseOnly = true) {
         settingsGUI.Add("CheckBox",
             "vCheckForUpdatesReleaseOnly ccfcfcf checked",
             "Enable Check For Releases Only")
-    } else {
+    } Else {
         settingsGUI.Add("CheckBox", "vCheckForUpdatesReleaseOnly ccfcfcf",
             "Enable Check For Releases Only")
     }
@@ -79,7 +80,7 @@ Button_Click_GeneralSettings(thisGui, info) {
     settingsGUI.Show("w300")
 
     ProcessUserGeneralSettings(*) {
-        global EnableLogging, NavigateTime, DisableZoneChecks,
+        Global EnableLogging, NavigateTime, DisableZoneChecks,
             DisableSettingsChecks, TimestampLogs, settings,
             CheckForUpdatesEnable, CheckForUpdatesReleaseOnly
         values := settingsGUI.Submit()

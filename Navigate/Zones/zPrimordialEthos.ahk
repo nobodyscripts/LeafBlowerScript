@@ -61,7 +61,7 @@ Class PrimordialEthos extends Zone {
         ; Button to travel to Primordial Ethos
         ;Button := Points.Areas.SoulR.PrimordialEthos
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Primordial Ethos travel: Button not found.")

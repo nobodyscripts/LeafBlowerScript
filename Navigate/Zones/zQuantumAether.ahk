@@ -61,7 +61,7 @@ Class QuantumAether extends Zone {
         ; Button to travel to Quantum Aether
         ;Button := Points.Areas.QuarkA.QuantumAether
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Quantum Aether travel: Button not found.")

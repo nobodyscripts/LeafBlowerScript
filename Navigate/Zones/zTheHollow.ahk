@@ -61,7 +61,7 @@ Class TheHollow extends Zone {
         ; Button to travel to The Hollow
         ;Button := Points.Areas.SoulR.TheHollow
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Hollow travel: Button not found.")

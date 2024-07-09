@@ -1,16 +1,16 @@
 ﻿#Requires AutoHotkey v2.0
 
-global GFSSNoReset := 0
-global GFToKillPerCycle := 1
-global SSToKillPerCycle := 1
+Global GFSSNoReset := 0
+Global GFToKillPerCycle := 1
+Global SSToKillPerCycle := 1
 
 fFarmGFSS() {
     ResettingGF := false
-    global GFSSNoReset
+    Global GFSSNoReset
     GFSSBossSpammerStart()
-    loop {
-        if (!IsWindowActive()) {
-            break ; Kill if no game
+    Loop {
+        If (!IsWindowActive()) {
+            Break ; Kill if no game
         }
         GFKills := 0
         SSKills := 0
@@ -21,15 +21,15 @@ fFarmGFSS() {
         IsPrevTimerLong := IsBossTimerLong()
         Travel.ClosePanelIfActive()
 
-        while (SSToKillPerCycle != SSKills) {
-            if (!IsWindowActive()) {
-                break ; Kill if no game
+        While (SSToKillPerCycle != SSKills) {
+            If (!IsWindowActive()) {
+                Break ; Kill if no game
             }
-            while (GFToKillPerCycle != GFKills) {
-                if (!IsWindowActive()) {
-                    break ; Kill if no game
+            While (GFToKillPerCycle != GFKills) {
+                If (!IsWindowActive()) {
+                    Break ; Kill if no game
                 }
-                if (!IsInGF) {
+                If (!IsInGF) {
                     Log("GFSSFarm: Going to Green Flame")
                     GoToGF()
                     IsPrevTimerLong := IsBossTimerLong()
@@ -39,7 +39,7 @@ fFarmGFSS() {
                 }
                 IsTimerLong := IsBossTimerLong()
                 ; if state of timer has changed and is now off, we killed
-                if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+                If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
                     ; If the timer is longer, killed too quick to get a gap
                     GFKills++
                     Log("GFKill marked")
@@ -51,25 +51,23 @@ fFarmGFSS() {
                 IsPrevTimerLong := IsTimerLong
                 ; If boss killed us at gf assume we're weak and reset gf
                 ; If user set gf kills too high it'll hit this
-                if (IsAreaResetToGarden()) {
-                    if (GFSSNoReset) {
-                        break
+                If (IsAreaResetToGarden()) {
+                    If (GFSSNoReset) {
+                        Break
                     }
                     Log("GFSSFarm: User killed by GF boss, resetting.")
-                    ToolTip("Killed by GF boss, resetting",
-                        W / 2 - WinRelPosLargeW(70),
-                        H / 2)
+                    ToolTip("Killed by GF boss, resetting", W / 2 -
+                        WinRelPosLargeW(70), H / 2)
                     SetTimer(ToolTip, -200)
                     ResetGF()
                     ResettingGF := true
-                    break
+                    Break
                 }
-                ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills,
-                    W / 2 - WinRelPosLargeW(70),
-                    H / 2)
+                ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills, W / 2 -
+                    WinRelPosLargeW(70), H / 2)
                 SetTimer(ToolTip, -250)
             }
-            if (!IsInSS) {
+            If (!IsInSS) {
                 Log("GFSSFarm: Going to Soulseeker")
                 GoToSS()
                 Sleep(101)
@@ -79,7 +77,7 @@ fFarmGFSS() {
             }
             IsTimerLong := IsBossTimerLong()
             ; if state of timer has changed and is now off, we killed
-            if ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+            If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
                 ; If the timer is longer, killed too quick to get a gap
                 SSKills++
                 GFKills := 0
@@ -92,32 +90,28 @@ fFarmGFSS() {
             IsPrevTimerLong := IsTimerLong
             ; if boss killed us exit this loop, then let the master loop
             ; reset
-            if (IsAreaResetToGarden() && !ResettingGF) {
-                if (GFSSNoReset) {
-                    break
+            If (IsAreaResetToGarden() && !ResettingGF) {
+                If (GFSSNoReset) {
+                    Break
                 }
                 Log("GFSSFarm: Killed by SS boss, resetting.")
-                ToolTip("Killed by boss, resetting",
-                    W / 2 - WinRelPosLargeW(100),
-                    H / 2)
+                ToolTip("Killed by boss, resetting", W / 2 - WinRelPosLargeW(
+                    100), H / 2)
                 SetTimer(ToolTip, -1000)
-                break
+                Break
             }
-            ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills,
-                W / 2 - WinRelPosLargeW(70),
-                H / 2)
+            ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills, W / 2 -
+                WinRelPosLargeW(70), H / 2)
             SetTimer(ToolTip, -250)
 
         }
         ; if we're done looping or got killed reset ss
-        if (!ResettingGF && !GFSSNoReset) {
+        If (!ResettingGF && !GFSSNoReset) {
             Log("GFSSFarm: Have met SS Kill count, resetting.")
-            ToolTip("Resetting at: GF Kills " . GFKills .
-                " SS Kills " . SSKills,
-                W / 2 - WinRelPosLargeW(100),
-                H / 2)
+            ToolTip("Resetting at: GF Kills " . GFKills . " SS Kills " .
+                SSKills, W / 2 - WinRelPosLargeW(100), H / 2)
             SetTimer(ToolTip, -5000)
-            sleep(250)
+            Sleep(250)
             ResetSS()
         }
         ResettingGF := false

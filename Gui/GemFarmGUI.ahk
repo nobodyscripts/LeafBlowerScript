@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 Button_Click_GemFarm(thisGui, info) {
-    global Settings, GemFarmSleepAmount
+    Global Settings, GemFarmSleepAmount
 
     optionsGUI := Gui(, "Gem Suitcase Farm Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -13,20 +13,23 @@ Button_Click_GemFarm(thisGui, info) {
     If (IsInteger(GemFarmSleepAmount) && GemFarmSleepAmount > 0) {
         optionsGUI.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
             GemFarmSleepAmount)
-    } else {
-        if (settings.sUseNobody) {
+    } Else {
+        If (Settings.sUseNobody) {
             optionsGUI.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
-                settings.defaultNobodySettings.GemFarmSleepAmount)
-        } else {
+                Settings.defaultNobodySettings.GemFarmSleepAmount)
+        } Else {
             optionsGUI.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
-                settings.defaultSettings.GemFarmSleepAmount)
+                Settings.defaultSettings.GemFarmSleepAmount)
         }
     }
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunGemFarm)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click", RunSaveGemFarm)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click", ProcessGemFarmSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click", CloseGemFarmSettings)
+    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+        RunSaveGemFarm)
+    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+        ProcessGemFarmSettings)
+    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+        CloseGemFarmSettings)
 
     optionsGUI.Show("w300")
 
@@ -54,6 +57,6 @@ Button_Click_GemFarm(thisGui, info) {
     GemFarmSave() {
         values := optionsGUI.Submit()
         GemFarmSleepAmount := values.GemFarmSleepAmount
-        settings.SaveCurrentSettings()
+        Settings.SaveCurrentSettings()
     }
 }

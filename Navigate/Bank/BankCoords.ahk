@@ -2,7 +2,7 @@
 
 #Include ..\..\Lib\cPoints.ahk
 
-; 
+;
 /**
  * Bank points for buttons
  * @memberof module:cPoints

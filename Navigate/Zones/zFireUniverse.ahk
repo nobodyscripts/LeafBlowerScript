@@ -61,7 +61,7 @@ Class FireUniverse extends Zone {
         ; Button to travel to Fire Universe
         ;Button := Points.Areas.FireF.FireUniverse
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Fire Universe travel: Button not found.")

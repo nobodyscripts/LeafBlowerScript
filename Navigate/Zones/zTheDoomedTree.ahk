@@ -61,7 +61,7 @@ Class TheDoomedTree extends Zone {
         ; Button to travel to The Doomed Tree
         ;Button := Points.Areas.Events.TheDoomedTree
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("The Doomed Tree travel: Button not found.")

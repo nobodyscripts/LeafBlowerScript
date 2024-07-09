@@ -23,7 +23,7 @@ Class GameModeBasic extends cGameMode {
     Type := "Basic"
 
     RunCurrentStage() {
-        while (this.GetProgressStage() = "BasicLeaf") {
+        While (this.GetProgressStage() = "BasicLeaf") {
             StageBasicLeaf().RunTaskList()
         }
     }

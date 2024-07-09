@@ -61,7 +61,7 @@ Class Space extends Zone {
         ; Button to travel to Space
         ;Button := Points.Areas.LeafG.Space
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("Space travel: Button not found.")

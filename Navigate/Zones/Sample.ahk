@@ -61,7 +61,7 @@ Class Sample extends Zone {
         ; Button to travel to FullName
         ;Button := Points.Areas.<Galaxy>.Sample
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour() )
+        DebugLog("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Log("FullName travel: Button not found.")
