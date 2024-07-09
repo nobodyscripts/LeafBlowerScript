@@ -110,13 +110,11 @@ Class cTravel {
     ; Travel class for Mine
     Mine := Mine()
 
-
     /**
      * Travel class for AstralOasis
      * @type {AstralOasis}
      */
     AstralOasis := AstralOasis()
-
 
     /**
      * Travel class for BiotiteForest
@@ -124,13 +122,11 @@ Class cTravel {
      */
     BiotiteForest := BiotiteForest()
 
-
     /**
      * Travel class for BlackLeafHole
      * @type {BlackLeafHole}
      */
     BlackLeafHole := BlackLeafHole()
-
 
     /**
      * Travel class for BlackPlanetEdge
@@ -138,13 +134,11 @@ Class cTravel {
      */
     BlackPlanetEdge := BlackPlanetEdge()
 
-
     /**
      * Travel class for BluePlanetEdge
      * @type {BluePlanetEdge}
      */
     BluePlanetEdge := BluePlanetEdge()
-
 
     /**
      * Travel class for ButterflyField
@@ -152,13 +146,11 @@ Class cTravel {
      */
     ButterflyField := ButterflyField()
 
-
     /**
      * Travel class for CursedKokkaupunki
      * @type {CursedKokkaupunki}
      */
     CursedKokkaupunki := CursedKokkaupunki()
-
 
     /**
      * Travel class for DiceyMeadows
@@ -166,13 +158,11 @@ Class cTravel {
      */
     DiceyMeadows := DiceyMeadows()
 
-
     /**
      * Travel class for DimensionalTapestry
      * @type {DimensionalTapestry}
      */
     DimensionalTapestry := DimensionalTapestry()
-
 
     /**
      * Travel class for EnergyShrine
@@ -180,13 +170,11 @@ Class cTravel {
      */
     EnergyShrine := EnergyShrine()
 
-
     /**
      * Travel class for EnergySingularity
      * @type {EnergySingularity}
      */
     EnergySingularity := EnergySingularity()
-
 
     /**
      * Travel class for FarmField
@@ -194,13 +182,11 @@ Class cTravel {
      */
     FarmField := FarmField()
 
-
     /**
      * Travel class for FireFieldsPortal
      * @type {FireFieldsPortal}
      */
     FireFieldsPortal := FireFieldsPortal()
-
 
     /**
      * Travel class for FireUniverse
@@ -208,13 +194,11 @@ Class cTravel {
      */
     FireUniverse := FireUniverse()
 
-
     /**
      * Travel class for FlameBrazier
      * @type {FlameBrazier}
      */
     FlameBrazier := FlameBrazier()
-
 
     /**
      * Travel class for GlintingThicket
@@ -222,13 +206,11 @@ Class cTravel {
      */
     GlintingThicket := GlintingThicket()
 
-
     /**
      * Travel class for GreenPlanetEdge
      * @type {GreenPlanetEdge}
      */
     GreenPlanetEdge := GreenPlanetEdge()
-
 
     /**
      * Travel class for HomeGarden
@@ -236,13 +218,11 @@ Class cTravel {
      */
     HomeGarden := HomeGarden()
 
-
     /**
      * Travel class for Kokkaupunki
      * @type {Kokkaupunki}
      */
     Kokkaupunki := Kokkaupunki()
-
 
     /**
      * Travel class for LeafsinkHarbor
@@ -250,13 +230,11 @@ Class cTravel {
      */
     LeafsinkHarbor := LeafsinkHarbor()
 
-
     /**
      * Travel class for MountMoltenfurty
      * @type {MountMoltenfurty}
      */
     MountMoltenfurty := MountMoltenfurty()
-
 
     /**
      * Travel class for Mountain
@@ -264,13 +242,11 @@ Class cTravel {
      */
     Mountain := Mountain()
 
-
     /**
      * Travel class for NeighborsGarden
      * @type {NeighborsGarden}
      */
     NeighborsGarden := NeighborsGarden()
-
 
     /**
      * Travel class for PlanckScope
@@ -278,13 +254,11 @@ Class cTravel {
      */
     PlanckScope := PlanckScope()
 
-
     /**
      * Travel class for PlasmaForest
      * @type {PlasmaForest}
      */
     PlasmaForest := PlasmaForest()
-
 
     /**
      * Travel class for PrimordialEthos
@@ -292,13 +266,11 @@ Class cTravel {
      */
     PrimordialEthos := PrimordialEthos()
 
-
     /**
      * Travel class for PurplePlanetEdge
      * @type {PurplePlanetEdge}
      */
     PurplePlanetEdge := PurplePlanetEdge()
-
 
     /**
      * Travel class for QuantumAether
@@ -306,13 +278,11 @@ Class cTravel {
      */
     QuantumAether := QuantumAether()
 
-
     /**
      * Travel class for QuarkNexus
      * @type {QuarkNexus}
      */
     QuarkNexus := QuarkNexus()
-
 
     /**
      * Travel class for QuarkPortal
@@ -320,13 +290,11 @@ Class cTravel {
      */
     QuarkPortal := QuarkPortal()
 
-
     /**
      * Travel class for RedPlanetEdge
      * @type {RedPlanetEdge}
      */
     RedPlanetEdge := RedPlanetEdge()
-
 
     /**
      * Travel class for SoulCrypt
@@ -334,13 +302,11 @@ Class cTravel {
      */
     SoulCrypt := SoulCrypt()
 
-
     /**
      * Travel class for SoulForge
      * @type {SoulForge}
      */
     SoulForge := SoulForge()
-
 
     /**
      * Travel class for SoulPortal
@@ -348,13 +314,11 @@ Class cTravel {
      */
     SoulPortal := SoulPortal()
 
-
     /**
      * Travel class for SoulTemple
      * @type {SoulTemple}
      */
     SoulTemple := SoulTemple()
-
 
     /**
      * Travel class for Space
@@ -362,13 +326,11 @@ Class cTravel {
      */
     Space := Space()
 
-
     /**
      * Travel class for SparkBubble
      * @type {SparkBubble}
      */
     SparkBubble := SparkBubble()
-
 
     /**
      * Travel class for SparkPortal
@@ -376,13 +338,11 @@ Class cTravel {
      */
     SparkPortal := SparkPortal()
 
-
     /**
      * Travel class for SparkRange
      * @type {SparkRange}
      */
     SparkRange := SparkRange()
-
 
     /**
      * Travel class for THEVOID
@@ -390,13 +350,11 @@ Class cTravel {
      */
     THEVOID := THEVOID()
 
-
     /**
      * Travel class for TerrorGraveyard
      * @type {TerrorGraveyard}
      */
     TerrorGraveyard := TerrorGraveyard()
-
 
     /**
      * Travel class for TheAbandonedResearchStation
@@ -404,13 +362,11 @@ Class cTravel {
      */
     TheAbandonedResearchStation := TheAbandonedResearchStation()
 
-
     /**
      * Travel class for TheAbyss
      * @type {TheAbyss}
      */
     TheAbyss := TheAbyss()
-
 
     /**
      * Travel class for TheAncientSanctum
@@ -418,13 +374,11 @@ Class cTravel {
      */
     TheAncientSanctum := TheAncientSanctum()
 
-
     /**
      * Travel class for TheCelestialPlane
      * @type {TheCelestialPlane}
      */
     TheCelestialPlane := TheCelestialPlane()
-
 
     /**
      * Travel class for TheCheesePub
@@ -432,13 +386,11 @@ Class cTravel {
      */
     TheCheesePub := TheCheesePub()
 
-
     /**
      * Travel class for TheCoalMine
      * @type {TheCoalMine}
      */
     TheCoalMine := TheCoalMine()
-
 
     /**
      * Travel class for TheCursedPyramid
@@ -446,13 +398,11 @@ Class cTravel {
      */
     TheCursedPyramid := TheCursedPyramid()
 
-
     /**
      * Travel class for TheDarkGlade
      * @type {TheDarkGlade}
      */
     TheDarkGlade := TheDarkGlade()
-
 
     /**
      * Travel class for TheDoomedTree
@@ -460,13 +410,11 @@ Class cTravel {
      */
     TheDoomedTree := TheDoomedTree()
 
-
     /**
      * Travel class for TheExaltedBridge
      * @type {TheExaltedBridge}
      */
     TheExaltedBridge := TheExaltedBridge()
-
 
     /**
      * Travel class for TheFabricoftheLeafverse
@@ -474,13 +422,11 @@ Class cTravel {
      */
     TheFabricoftheLeafverse := TheFabricoftheLeafverse()
 
-
     /**
      * Travel class for TheFireTemple
      * @type {TheFireTemple}
      */
     TheFireTemple := TheFireTemple()
-
 
     /**
      * Travel class for TheHiddenSea
@@ -488,13 +434,11 @@ Class cTravel {
      */
     TheHiddenSea := TheHiddenSea()
 
-
     /**
      * Travel class for TheHollow
      * @type {TheHollow}
      */
     TheHollow := TheHollow()
-
 
     /**
      * Travel class for TheInnerCursedPyramid
@@ -502,13 +446,11 @@ Class cTravel {
      */
     TheInnerCursedPyramid := TheInnerCursedPyramid()
 
-
     /**
      * Travel class for TheLeafTower
      * @type {TheLeafTower}
      */
     TheLeafTower := TheLeafTower()
-
 
     /**
      * Travel class for TheLoneTree
@@ -516,13 +458,11 @@ Class cTravel {
      */
     TheLoneTree := TheLoneTree()
 
-
     /**
      * Travel class for TheMoon
      * @type {TheMoon}
      */
     TheMoon := TheMoon()
-
 
     /**
      * Travel class for TheMythicalGarden
@@ -530,13 +470,11 @@ Class cTravel {
      */
     TheMythicalGarden := TheMythicalGarden()
 
-
     /**
      * Travel class for TheShadowCavern
      * @type {TheShadowCavern}
      */
     TheShadowCavern := TheShadowCavern()
-
 
     /**
      * Travel class for TheVolcano
@@ -544,20 +482,17 @@ Class cTravel {
      */
     TheVolcano := TheVolcano()
 
-
     /**
      * Travel class for VialofLife
      * @type {VialofLife}
      */
     VialofLife := VialofLife()
 
-
     /**
      * Travel class for VilewoodCemetery
      * @type {VilewoodCemetery}
      */
     VilewoodCemetery := VilewoodCemetery()
-
 
     /**
      * Travel class for YourHouse
@@ -697,15 +632,71 @@ Class cTravel {
     ;@endregion
     ;@endregion
 
-    ;@region OpenAreasEvents()
+    ;@region OpenAreasLeafGalaxy()
     /**
-     * Opens the areas panel, events tab
+     * Opens the Leaf Galaxy panel
      * @param {number} extraDelay (optional): add ms to the sleep timers
      */
-    OpenAreasEvents(extraDelay := 0) {
+    OpenAreasLeafGalaxy(extraDelay := 0) {
         If (this.OpenAreas(false, extraDelay)) {
-            Return this.ResetScroll(Points.Areas.Favs.Tab, ;
-                Points.Areas.Events.Tab, extraDelay)
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.LeafG.Tab,
+                extraDelay)
+        }
+        Return false
+    }
+    ;@endregion
+
+    ;@region OpenAreasSacredNebula()
+    /**
+     * Opens the Sacred Nebula panel
+     * @param {number} extraDelay (optional): add ms to the sleep timers
+     */
+    OpenAreasSacredNebula(extraDelay := 0) {
+        If (this.OpenAreas(false, extraDelay)) {
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.SacredN.Tab,
+                extraDelay)
+        }
+        Return false
+    }
+    ;@endregion
+
+    ;@region OpenAreasEnergyBelt()
+    /**
+     * Opens the Energy Belt panel
+     * @param {number} extraDelay (optional): add ms to the sleep timers
+     */
+    OpenAreasEnergyBelt(extraDelay := 0) {
+        If (this.OpenAreas(false, extraDelay)) {
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.EnergyB.Tab,
+                extraDelay)
+        }
+        Return false
+    }
+    ;@endregion
+
+    ;@region OpenAreasFireFields()
+    /**
+     * Opens the Fire Fields panel
+     * @param {number} extraDelay (optional): add ms to the sleep timers
+     */
+    OpenAreasFireFields(extraDelay := 0) {
+        If (this.OpenAreas(false, extraDelay)) {
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.FireF.Tab,
+                extraDelay)
+        }
+        Return false
+    }
+    ;@endregion
+
+    ;@region OpenAreasSoulRealm()
+    /**
+     * Opens the Soul Realm panel
+     * @param {number} extraDelay (optional): add ms to the sleep timers
+     */
+    OpenAreasSoulRealm(extraDelay := 0) {
+        If (this.OpenAreas(false, extraDelay)) {
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.SoulR.Tab,
+                extraDelay)
         }
         Return false
     }
@@ -718,12 +709,22 @@ Class cTravel {
      */
     OpenAreasQuark(extraDelay := 0) {
         If (this.OpenAreas(false, extraDelay)) {
-            state := this.ResetScroll(Points.Areas.Favs.Tab, ;
-                Points.Areas.QuarkA.Tab, extraDelay)
-            If (state) {
-                this.ScrollAmountUp(2)
-                Sleep(NavigateTime + extraDelay)
-            }
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.QuarkA.Tab,
+                extraDelay)
+        }
+        Return false
+    }
+    ;@endregion
+
+    ;@region OpenAreasEvents()
+    /**
+     * Opens the areas panel, events tab
+     * @param {number} extraDelay (optional): add ms to the sleep timers
+     */
+    OpenAreasEvents(extraDelay := 0) {
+        If (this.OpenAreas(false, extraDelay)) {
+            Return this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.Events.Tab,
+                extraDelay)
         }
         Return false
     }
