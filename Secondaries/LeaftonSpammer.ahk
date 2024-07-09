@@ -29,7 +29,8 @@ fWindSpammer() {
             Log("Secondary: Wind Spammer exiting as no game.")
             Return
         }
-        If (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
+        If (IsWindowActive() && !IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()
+        ) {
             GameKeys.TriggerWind()
             If (BossFarmUsesSeeds) {
                 GameKeys.TriggerSeeds()

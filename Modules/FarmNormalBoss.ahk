@@ -33,7 +33,7 @@ fFarmNormalBoss(modecheck) {
             Killcount++
         }
         IsPrevTimerLong := IsTimerLong
-        If (IsAreaResetToGarden()) {
+        If (Travel.HomeGarden.IsAreaGarden()) {
             Log("BossFarm: User killed.")
             ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
@@ -73,7 +73,7 @@ fFarmNormalBossAndBrew(modecheck) {
             Killcount++
         }
         IsPrevTimerLong := IsTimerLong
-        If (IsAreaResetToGarden() && IsSpammerActive()) {
+        If (Travel.HomeGarden.IsAreaGarden() && IsSpammerActive()) {
             KillSpammer()
             Log("BossFarm: User killed.")
             ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
@@ -160,7 +160,7 @@ fNormalBossFarmWithBorbs(modecheck) {
             Log("BossBorbs: Did not find panel. Aborted.")
             Return
         }
-        If (IsAreaResetToGarden() && IsSpammerActive()) {
+        If (Travel.HomeGarden.IsAreaGarden() && IsSpammerActive()) {
             KillSpammer()
             Log("BossBorbs: User killed.")
             ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
@@ -250,7 +250,7 @@ fNormalBossFarmWithCards(modecheck) {
                 Log("BossCards Opening: Loop finishing.")
                 Break
             }
-            If (IsAreaResetToGarden() && IsSpammerActive()) {
+            If (Travel.HomeGarden.IsAreaGarden() && IsSpammerActive()) {
                 KillSpammer()
                 Log("BossCards: User killed.")
                 ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2

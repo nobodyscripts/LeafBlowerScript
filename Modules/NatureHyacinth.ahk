@@ -131,7 +131,7 @@ fFarmNormalBossAndNatureHyacinth() {
                 Killcount++
             }
             IsPrevTimerLong := IsTimerLong
-            If (IsAreaResetToGarden() && IsSpammerActive()) {
+            If (Travel.HomeGarden.IsAreaGarden() && IsSpammerActive()) {
                 If (HyacinthFarmBoss) KillSpammer()
                     Log("BossHyacinth: User killed.")
                 ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2
@@ -151,7 +151,7 @@ fFarmNormalBossAndNatureHyacinth() {
 
 OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID) {
     Sleep(NavigateTime)
-    While (!IsAreaResetToGarden()) {
+    While (!Travel.HomeGarden.IsAreaGarden()) {
         GoToFarmField()
     }
     Sleep(NavigateTime)

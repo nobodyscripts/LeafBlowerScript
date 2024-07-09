@@ -81,7 +81,7 @@ fFarmNatureBoss() {
             }
         }
         ; If boss killed us not much we can do, on user to address
-        If (IsAreaResetToGarden()) {
+        If (Travel.HomeGarden.IsAreaGarden()) {
             Log("NatureBoss: Killed by boss, aborting farm.")
             ToolTip("Killed by boss, exiting", W / 2, H / 2)
             SetTimer(ToolTip, -3000)

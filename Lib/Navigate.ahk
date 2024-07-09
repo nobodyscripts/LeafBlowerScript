@@ -27,55 +27,6 @@ Global DisableZoneChecks := false
 Global NavigateTime := 150
 Global LBRWindowTitle
 
-
-IsAreaResetToGarden() {
-    If (!Rects.Areas.GardenReset.PixelSearch("0x4A9754")) {
-        Return false
-    }
-    Return true
-}
-
-GoToHomeGarden() {
-    If (!IsWindowActive()) {
-        Log("No window found while trying to travel.")
-        Return false
-    }
-    Global DisableZoneChecks
-    i := 0
-    If (!DisableZoneChecks) {
-        While (!IsAreaSampleColour("0x4A9754") && i <= 4) {
-            Log("Traveling to Home Garden")
-            Travel.OpenAreas()
-            ; Click Home Garden button
-            Points.Areas.LeafG.HomeGarden.Click(NavigateTime)
-            Sleep(NavigateTime)
-            i++
-        }
-    }
-    If (IsAreaSampleColour("0x4A9754")) {
-        DebugLog("Travel success to Home Garden.")
-        Return true
-    } Else {
-        Log("Traveling to Home Garden. Attempt to blind travel with"
-            " slowed times.")
-        Travel.OpenAreas(true, 200)
-        Points.Areas.LeafG.HomeGarden.Click(NavigateTime + 200)
-        Sleep(NavigateTime + 200)
-        If (DisableZoneChecks) {
-            ; Checks are disabled so blindly trust we reached zone
-            Return true
-        }
-        If (IsAreaSampleColour("0x4A9754")) {
-            DebugLog("Blind travel success to Home Garden.")
-            Return true
-        } Else {
-            Log("Traveling to Home Garden failed, colour found was " GetAreaSampleColour()
-            )
-            Return false
-        }
-    }
-}
-
 GoToGF() {
     If (!IsWindowActive()) {
         Log("No window found while trying to travel.")
@@ -90,7 +41,7 @@ GoToGF() {
                 Return false
             }
             Log("Traveling to Flame Brazier (Green Flame)")
-            GoToAreaFireFieldsTab()
+            Travel.OpenAreasFireFields()
 
             ; Open Flame Brazier (GF zone)
             ; TODO Move point to Points
@@ -112,7 +63,7 @@ GoToGF() {
         Log("Traveling to Flame Brazier (Green Flame). Attempt to blind travel"
             " with slowed times.")
         ; TODO Replace below with travel and move to Points
-        GoToAreaFireFieldsTab(200)
+        Travel.OpenAreasFireFields(200)
         fSlowClickRelL(1680, 947, NavigateTime + 200) ; Open Flame Brazier (GF zone)
         Sleep(NavigateTime + 200)
         If (DisableZoneChecks) {
@@ -145,7 +96,7 @@ GoToSS() {
             }
             Log("Traveling to Flame Universe (Soulseeker)")
             ; TODO Replace below with travel and move to Points
-            GoToAreaFireFieldsTab()
+            Travel.OpenAreasFireFields()
             Travel.ScrollAmountDown(2, NavigateTime)
             fSlowClickRelL(1680, 988, NavigateTime) ; Open Flame Universe (SS zone)
             If (NavigateTime > 201) { ; Need a longer delay to load the slower map
@@ -163,7 +114,7 @@ GoToSS() {
         Log("Traveling to Flame Universe (Soulseeker). Attempt to blind travel"
             " with slowed times.")
         ; TODO Replace below with travel and move to Points
-        GoToAreaFireFieldsTab(200)
+        Travel.OpenAreasFireFields(200)
         Travel.ScrollAmountDown(2, NavigateTime + 200)
         fSlowClickRelL(1680, 988, NavigateTime + 200) ; Open Flame Universe (SS zone)
         Sleep(NavigateTime + 200)
@@ -197,7 +148,7 @@ GoToShadowCavern() {
             }
             Log("Traveling to Shadow Cavern")
             ; TODO Replace below with travel and move to Points
-            GoToAreaFireFieldsTab()
+            Travel.OpenAreasFireFields()
             ; Go to shadow cavern
             fSlowClickRelL(1670, 320, NavigateTime)
             ; Need a longer delay to load the slower map
@@ -216,7 +167,7 @@ GoToShadowCavern() {
         Log("Traveling to Shadow Cavern. Attempt to blind travel with slowed"
             " times.")
         ; TODO Replace below with travel and move to Points
-        GoToAreaFireFieldsTab(200)
+        Travel.OpenAreasFireFields(200)
         fSlowClickRelL(1670, 320, NavigateTime + 200) ; Go to shadow cavern
         Sleep(NavigateTime + 200)
         If (DisableZoneChecks) {
@@ -760,23 +711,6 @@ IsOnCardsFirstPanel() {
         Return true
     }
     Return false
-}
-
-GoToAreaFireFieldsTab(extraDelay := 0) {
-    i := 0
-    Travel.OpenAreas(false, extraDelay)
-
-    ; Click Favourites
-    Points.Areas.Favs.Tab.Click(NavigateTime + extraDelay)
-    Sleep(NavigateTime + extraDelay)
-
-    ; Open Fire Fields tab
-    Points.Areas.FireF.Tab.Click(NavigateTime + extraDelay)
-    Sleep(NavigateTime + extraDelay)
-
-    ; Repeat
-    Points.Areas.FireF.Tab.Click(NavigateTime + extraDelay)
-    Sleep(NavigateTime + extraDelay)
 }
 
 GoToLeafTower() {

@@ -25,47 +25,16 @@ Class HomeGarden extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
+        Log("Traveling to Home Garden")
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.LeafG.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
+        Points.Areas.LeafG.HomeGarden.Click(NavigateTime)
         Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local HomeGardenLeaf := this.FindHomeGardenZone()
-        If (HomeGardenLeaf) {
-            this.ClickTravelButton(HomeGardenLeaf, delay + extradelay)
-        } Else {
-            Log("Home Garden leaf not found while trying to travel.")
-        }
-        Sleep(delay + extradelay)
-        ; Delay to allow the map to change, otherwise we travel twice
     }
 
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindHomeGardenZone() {
-        ; Change this if used
-        ;return Rects.LeafG.HomeGardenTravel.PixelSearch("0xFFFFFF")
+    IsAreaGarden() {
+        If (!Rects.Areas.GardenReset.PixelSearch("0x4A9754")) {
+            Return false
+        }
         Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to Home Garden
-        ;Button := Points.Areas.LeafG.HomeGarden
-        Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Home Garden travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

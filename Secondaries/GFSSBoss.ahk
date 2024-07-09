@@ -36,7 +36,8 @@ fGFSSBoss() {
             Sleep(ArtifactSleepAmount)
             startTime := A_Now
         }
-        If (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
+        If (IsWindowActive() && !IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()
+        ) {
             If (BossFarmUsesSeeds) {
                 GameKeys.TriggerSeeds()
             }

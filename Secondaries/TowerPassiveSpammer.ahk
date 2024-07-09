@@ -28,10 +28,11 @@ fTowerPassiveSpammer() {
             Log("Secondary: Tower Passive Spammer exiting as no game.")
             Return
         }
-        If (IsAreaResetToGarden()) {
+        If (Travel.HomeGarden.IsAreaGarden()) {
             GoToLeafTower()
         }
-        If (IsWindowActive() && !IsBossTimerActive() && !IsAreaResetToGarden()) {
+        If (IsWindowActive() && !IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()
+        ) {
             GameKeys.TriggerBlazingSkull()
             GameKeys.TriggerWind()
             Sleep(ArtifactSleepAmount)

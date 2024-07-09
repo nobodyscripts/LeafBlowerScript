@@ -51,7 +51,7 @@ fFarmGFSS() {
                 IsPrevTimerLong := IsTimerLong
                 ; If boss killed us at gf assume we're weak and reset gf
                 ; If user set gf kills too high it'll hit this
-                If (IsAreaResetToGarden()) {
+                If (Travel.HomeGarden.IsAreaGarden()) {
                     If (GFSSNoReset) {
                         Break
                     }
@@ -90,7 +90,7 @@ fFarmGFSS() {
             IsPrevTimerLong := IsTimerLong
             ; if boss killed us exit this loop, then let the master loop
             ; reset
-            If (IsAreaResetToGarden() && !ResettingGF) {
+            If (Travel.HomeGarden.IsAreaGarden() && !ResettingGF) {
                 If (GFSSNoReset) {
                     Break
                 }
