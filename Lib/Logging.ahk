@@ -4,6 +4,8 @@ Global ScriptsLogFile, EnableLogging
 Global Verbose := (FileExist(A_ScriptDir "\IsNobody"))
 Global TimestampLogs := true
 
+; TODO Convert logging to class and use a file handle to keep file open
+
 /**
  * Logger, user disable possible, debugout regardless of setting to vscode.
  * Far more usable than outputting to tooltips or debugging using normal means
