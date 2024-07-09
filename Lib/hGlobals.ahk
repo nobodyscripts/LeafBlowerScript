@@ -15,3 +15,8 @@ Global X := Y := W := H := 0
 If (WinExist(LBRWindowTitle)) {
     WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
 }
+
+If (!IsSet(IsSecondary)) {
+    ; If not set, assume temp testing script
+    IsSecondary := false
+}

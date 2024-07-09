@@ -76,9 +76,4 @@ GameKeys.Hotkeys["EquipTowerGearLoadout"] := cHotkey("EquipTowerGearLoadout",
     Map("EN-US", "Numpad3", "EN-GB", "Numpad3", "Other", "Numpad3"), "Loadouts"
 )
 
-; If its not set then assume its a temp script
-If (!IsSet(IsSecondary)) {
-    IsSecondary := true
-}
-
 GameKeys.initHotkeys(IsSecondary)
