@@ -12,7 +12,7 @@ Button_Click_Mine(thisGui, info) {
         MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia,
         MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime,
         BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
-        BrewEnableScrolls, BrewEnableCardParts
+        BrewEnableScrolls, BrewEnableCardParts, BankEnableStorageUpgrade
 
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -52,6 +52,14 @@ Button_Click_Mine(thisGui, info) {
             "Enable Banks")
     } Else {
         optionsGUI.Add("CheckBox", "vMinerEnableBanks ccfcfcf", "Enable Banks")
+    }
+
+    If (BankEnableStorageUpgrade = true) {
+        optionsGUI.Add("CheckBox", "vBankEnableStorageUpgrade ccfcfcf checked",
+            "Enable Banks Storage Upgrade")
+    } Else {
+        optionsGUI.Add("CheckBox", "vBankEnableStorageUpgrade ccfcfcf",
+            "Enable Banks Storage Upgrade")
     }
     ;@endregion
 
@@ -453,6 +461,7 @@ Button_Click_Mine(thisGui, info) {
         BrewEnableMaterials := values.BrewEnableMaterials
         BrewEnableScrolls := values.BrewEnableScrolls
         BrewEnableCardParts := values.BrewEnableCardParts
+        BankEnableStorageUpgrade := values.BankEnableStorageUpgrade
         Settings.SaveCurrentSettings()
     }
 

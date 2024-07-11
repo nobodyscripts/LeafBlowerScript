@@ -212,6 +212,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added settings for brew to control which are clicked in that mode (shared
   with Normal Boss mode)
   - Added scroll brewing
+  - Added bank storage setting to mine gui (shared with bank)
 
 - GFSS
 
