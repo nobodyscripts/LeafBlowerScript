@@ -276,7 +276,6 @@ Class cPoint {
                 Sleep(17)
                 i++
             }
-            return
             Return
         }
         i := 1
