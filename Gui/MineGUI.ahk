@@ -15,7 +15,7 @@ Button_Click_Mine(thisGui, info) {
         BrewEnableScrolls, BrewEnableCardParts, BankEnableStorageUpgrade
 
     optionsGUI := Gui(, "Mine Maintainer Settings")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+Owner")
     optionsGUI.BackColor := "0c0018"
 
     ;@region Add controls
@@ -273,10 +273,10 @@ Button_Click_Mine(thisGui, info) {
 
     ;@region Cave settings
     If (MinerEnableCaves = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableCaves ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "ys vMinerEnableCaves ccfcfcf checked",
             "Enable Cave Diamond Drills")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableCaves ccfcfcf",
+        optionsGUI.Add("CheckBox", "ys vMinerEnableCaves ccfcfcf",
             "Enable Cave Diamond Drills")
     }
 
@@ -397,7 +397,7 @@ Button_Click_Mine(thisGui, info) {
         optionsGUI["MinerSphereCountLabel"].Opt("ccfaf21")
     }
 
-    optionsGUI.Show("w300")
+    optionsGUI.Show()
 
     ProcessMineSettings(*) {
         MineSave()

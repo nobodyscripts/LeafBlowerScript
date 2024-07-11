@@ -206,6 +206,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - Hotkeys
 
 - GUI
+  - Added second col for mine view to help those on lower resolutions
 
 - Mine
   - Modified brew travel to be more stable.
