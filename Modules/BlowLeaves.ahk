@@ -14,10 +14,7 @@ Class BlowLeaves extends cTask {
      * 
      */
     PreTask() {
-        MousePattern.SetThreeHorizontal()
-        MousePattern.SetFiveHorizontal()
-        MousePattern.SetSpiral()
-        MousePattern.SetSpiralReverse()
+        Log("Starting Blow Leaves task")
     }
 
     /**
@@ -25,15 +22,22 @@ Class BlowLeaves extends cTask {
      * @returns {Boolean} Return false to exit task loop early
      */
     Task() {
+        Log("Blow Leaves task loop")
+        MousePattern.SetThreeHorizontal()
         MousePattern.Task()
-
+        MousePattern.SetFiveHorizontal()
+        MousePattern.Task()
+        MousePattern.SetSpiral()
+        MousePattern.Task()
+        MousePattern.SetSpiralReverse()
+        MousePattern.Task()
     }
 
     /**
      * 
      */
     PostTask() {
-        MousePattern.SetNull()
+        Log("Ending Blow Leaves task")
     }
 
     /**

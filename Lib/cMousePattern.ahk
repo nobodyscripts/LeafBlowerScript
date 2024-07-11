@@ -7,19 +7,35 @@
 Global MousePattern := cMousePattern()
 
 Class cMousePattern {
+    /**
+     * Mouse movement pattern array of points to move mouse to
+     * @type {cPoint[]} cPoint Array
+     */
+    Pattern := []
 
-    Task := () => {}
+    /**
+     * Run mousemove on set of points in Pattern
+     * @param Interupt If true stop Task mid way
+     */
+    Task(Interupt) {
+        If (this.Pattern != []) {
+            first := true
+            For (point in this.Pattern) {
+                If (Interupt()) {
+                    Break
+                }
+                If (first) {
+                    ; Move instantly to first point
+                    point.MouseMove(0)
+                } Else {
+                    ; Otherwise move incrementally to point to 'smooth' motion
+                    point.MouseMoveInterpolateTo(50)
+                }
+            }
+        }
+    }
 
     SetThreeHorizontal() {
-        WSeg := W / 8
-        HSeg := H / 4
-        left1 := cPoint(WSeg, HSeg, false)
-        left2 := cPoint(WSeg, HSeg * 2, false)
-        left3 := cPoint(WSeg, HSeg * 3, false)
-        right1 := cPoint(WSeg * 7, HSeg, false)
-        right2 := cPoint(WSeg * 7, HSeg * 2, false)
-        right3 := cPoint(WSeg * 7, HSeg * 3, false)
-
         /**
          * |---------------------|
          * |  >>>>>>>>>>>>>>>>>  |
@@ -29,22 +45,36 @@ Class cMousePattern {
          * |  >>>>>>>>>>>>>>>>>  |
          * |---------------------|
          */
+        WSeg := W / 8
+        HSeg := H / 4
+        left1 := cPoint(WSeg, HSeg, false)
+        left2 := cPoint(WSeg, HSeg * 2, false)
+        left3 := cPoint(WSeg, HSeg * 3, false)
+        right1 := cPoint(WSeg * 7, HSeg, false)
+        right2 := cPoint(WSeg * 7, HSeg * 2, false)
+        right3 := cPoint(WSeg * 7, HSeg * 3, false)
+        this.Pattern := [left1, right1, right2, left2, left3, right3]
+    }
 
-        ; Top left
-        left1.MouseMove(0)
-        ; Top right
-        right1.MouseMoveInterpolateTo()
-        ; Mid right
-        right2.MouseMoveInterpolateTo()
-        ; Mid left
-        left2.MouseMoveInterpolateTo()
-        ; Bottom left
-        left3.MouseMoveInterpolateTo()
-        ; Bottom left
-        right3.MouseMoveInterpolateTo()
+    ThreeHorizontal() {
+        this.SetThreeHorizontal()
+        this.Task(false)
     }
 
     SetFiveHorizontal() {
+        /**
+         * |---------------------------------|
+         * |  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>  |
+         * |                              |  |
+         * |  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<  |
+         * |  |                              |
+         * |  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>  |
+         * |                              |  |
+         * |  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<  |
+         * |  |                              |
+         * |  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>  |
+         * |---------------------------------|
+         */
         WSeg := W / 8
         HSeg := H / 6
         left1 := cPoint(WSeg, HSeg, false)
@@ -57,40 +87,13 @@ Class cMousePattern {
         right3 := cPoint(WSeg * 7, HSeg * 3, false)
         right4 := cPoint(WSeg * 7, HSeg * 4, false)
         right5 := cPoint(WSeg * 7, HSeg * 5, false)
+        this.Pattern := [left1, right1, right2, left2, left3, right3, right4,
+            left4, left5, right5]
+    }
 
-        /**
-         * |---------------------------------|
-         * |  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>  |
-         * |                              |  |
-         * |  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<  |
-         * |  |                              |
-         * |  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>  |
-         * |                              |  |
-         * |  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<  |
-         * |  |                              |
-         * |  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>  |
-         * |---------------------------------|
-         */
-        ; Top left
-        left1.MouseMove(0)
-        ; Top right
-        right1.MouseMoveInterpolateTo()
-        ; Second row
-        right2.MouseMoveInterpolateTo()
-        ;
-        left2.MouseMoveInterpolateTo()
-        ; Mid row
-        left3.MouseMoveInterpolateTo()
-        ;
-        right3.MouseMoveInterpolateTo()
-        ; Fourth row
-        right4.MouseMoveInterpolateTo()
-        ;
-        left4.MouseMoveInterpolateTo()
-        ; Bottom row
-        left5.MouseMoveInterpolateTo()
-        ;
-        right5.MouseMoveInterpolateTo()
+    FiveHorizontal() {
+        this.SetFiveHorizontal()
+        this.Task(false)
     }
 
     SetSpiral() {
@@ -120,19 +123,13 @@ Class cMousePattern {
         right3 := cPoint(WSeg * 5, HSeg * 2, false)
         right4 := cPoint(WSeg * 5, HSeg * 4, false)
         right5 := cPoint(WSeg * 6, HSeg * 3, false)
+        this.Pattern := [left1, right1, right2, left2, left3, right3, right4,
+            left4, left5, right5]
+    }
 
-        ; Top left
-        left1.MouseMove(0)
-        ; Top right
-        right1.MouseMoveInterpolateTo()
-        right2.MouseMoveInterpolateTo()
-        left2.MouseMoveInterpolateTo()
-        left3.MouseMoveInterpolateTo()
-        right3.MouseMoveInterpolateTo()
-        right4.MouseMoveInterpolateTo()
-        left4.MouseMoveInterpolateTo()
-        left5.MouseMoveInterpolateTo()
-        right5.MouseMoveInterpolateTo()
+    Spiral() {
+        this.SetSpiral()
+        this.Task(false)
     }
 
     SetSpiralReverse() {
@@ -162,26 +159,40 @@ Class cMousePattern {
         right3 := cPoint(WSeg * 5, HSeg * 2, false)
         right4 := cPoint(WSeg * 5, HSeg * 4, false)
         right5 := cPoint(WSeg * 6, HSeg * 3, false)
-        
-        right5.MouseMove(0)
-        left5.MouseMoveInterpolateTo()
-        left4.MouseMoveInterpolateTo()
-        right4.MouseMoveInterpolateTo()
-        right3.MouseMoveInterpolateTo()
-        left3.MouseMoveInterpolateTo()
-        left2.MouseMoveInterpolateTo()
-        right2.MouseMoveInterpolateTo()
-        ; Top right
-        right1.MouseMoveInterpolateTo()
-        ; Top left
-        left1.MouseMoveInterpolateTo()
+        this.Pattern := [right5, left5, left4, right4, right3, left3, left2,
+            right2, right1, left1]
+    }
+
+    SpiralReverse() {
+        this.SetSpiralReverse()
+        this.Task(false)
     }
 
     SetBox() {
-
+        /**
+         * |---------------------------------|
+         * |                                 |
+         * |    >>>>>>>>>>>>>>>>>>>>>>>>>    |
+         * |    |                       |    |
+         * |    |                       |    |
+         * |    |                       |    |
+         * |    |                       |    |
+         * |    |                       |    |
+         * |    <<<<<<<<<<<<<<<<<<<<<<<<<    |
+         * |                                 |
+         * |---------------------------------|
+         */
+        WSeg := W / 8
+        HSeg := H / 6
+        left1 := cPoint(WSeg * 2, HSeg * 2, false)
+        left2 := cPoint(WSeg * 2, HSeg * 6, false)
+        right1 := cPoint(WSeg * 6, HSeg * 2, false)
+        right2 := cPoint(WSeg * 6, HSeg * 6, false)
+        this.Pattern := [left1, right1, right2, left2]
     }
 
-    SetNull() {
-        this.Task := () => {}
+    Box() {
+        this.SetBox()
+        this.Task(false)
     }
 }

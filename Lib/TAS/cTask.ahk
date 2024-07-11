@@ -18,7 +18,7 @@ Class cTask {
     ; @private Is task running
     _isRunning := false
     ; @private Contains state of cooldown period
-    _cooldownTimer := Timer()
+    _cooldownTimer := 0
 
     ; Period to run for (-1 to disable)
     RunFor := -1
@@ -71,8 +71,8 @@ Class cTask {
      * @returns {Boolean} Has run
      */
     Run() {
-        if(!IsWindowActive()) {
-            return false
+        If (!IsWindowActive() || this.IsOnCooldown() ) {
+            Return false
         }
         this._isRunning := true
         this.PreTask()
@@ -80,13 +80,13 @@ Class cTask {
         this.PostTask()
         this._startCooldown()
         this._isRunning := false
-        return true
+        Return true
     }
     ;@endregion
 
     ;@region RunIn()
     /**
-     * Run task in ms time
+     * Run task in ms time (Avoid using as breaks thread)
      * @param secs Delay period
      */
     RunIn(secs) {
@@ -96,7 +96,7 @@ Class cTask {
 
     ;@region LoopIn()
     /**
-     * Run task loop in ms time
+     * Run task loop in ms time (Avoid using as breaks thread)
      * @param seconds Delay period
      */
     LoopIn(seconds) {
@@ -111,19 +111,23 @@ Class cTask {
      * out
      */
     Loop() {
-        if(!IsWindowActive()) {
-            return false
+        If (!IsWindowActive() || this.IsOnCooldown()) {
+            Return false
         }
         this._isRunning := this._isLooping := true
         this._startTime := A_Now
         this.PreTask()
         ; Break if provided check, timer or manual stop change
-        While (this.StopWhen() && this._isLooping && this.WithinRunFor() && IsWindowActive()) {
+        While (this.StopWhen() && this._isLooping && this.WithinRunFor() &&
+            IsWindowActive()) {
+            Log(this.StopWhen() " " this.WithinRunFor())
             If (!this.Task()) {
                 Break
             }
         }
-        this.PostTask()
+        If (IsWindowActive()) {
+            this.PostTask()
+        }
         this._startCooldown()
         this._isLooping := this._isRunning := false
     }
@@ -158,10 +162,10 @@ Class cTask {
      * @returns {Boolean} State
      */
     IsOnCooldown() {
-        If (this.Cooldown = -1) {
+        If (this.Cooldown = -1 || this._cooldownTimer = 0) {
             Return false
         }
-        Return this._cooldownTimer.Running
+        Return DateDiff(A_Now, this._cooldownTimer, "Seconds") <= this._cooldownTimer
     }
     ;@endregion
 
@@ -183,7 +187,7 @@ Class cTask {
 
     ;@region Private Methods
     _startCooldown() {
-        this._cooldownTimer.CoolDownS(this.Cooldown, &bool)
+        this._cooldownTimer := A_Now
     }
     ;@endregion
     ;@endregion
