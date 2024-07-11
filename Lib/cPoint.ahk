@@ -277,6 +277,7 @@ Class cPoint {
                 i++
             }
             return
+            Return
         }
         i := 1
         Loop 20 {

@@ -936,8 +936,9 @@ Class cTravel {
         Artifacts := Points.Brew.Tab1.Artifacts
         Equipment := Points.Brew.Tab1.Equipment
         Materials := Points.Brew.Tab1.Materials
-        If (Artifacts.IsButton() || Equipment.IsButton() || Materials.IsButton()
-        ) {
+        Scrolls := Points.Brew.Tab1.Scrolls
+        If (Artifacts.IsButton() && Equipment.IsButton() && Materials.IsButton() &&
+            Scrolls.IsButton()) {
             Return true
         }
         Return false

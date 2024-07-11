@@ -274,7 +274,7 @@ fMineMaintainer() {
             If (Travel.OpenAlchemyGeneral()) {
                 BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &
                     BrewCutOffRunning)
-                While (BrewCutOffRunning) {
+                While (BrewCutOffRunning && Travel.IsAlchGeneralTab()) {
                     If (!SpamBrewButtons()) {
                         Break
                     }

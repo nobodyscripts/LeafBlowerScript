@@ -213,6 +213,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   with Normal Boss mode)
   - Added scroll brewing
   - Added bank storage setting to mine gui (shared with bank)
+  - Fix brew transmuting fuel to coal diamonds unintentionally
 
 - GFSS
 

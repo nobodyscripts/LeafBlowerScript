@@ -25,7 +25,6 @@ Global IsSecondary := false
 #Include Lib\CheckGameSettings.ahk
 #Include Lib\hModules.ahk
 
-
 SendMode("Input") ; Support for vm
 ; Can be Input, Event, Play, InputThenPlay if Input doesn't work for you
 
