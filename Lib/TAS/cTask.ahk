@@ -18,7 +18,7 @@ Class cTask {
     ; @private Is task running
     _isRunning := false
     ; @private Contains state of cooldown period
-    _cooldownState := false
+    _cooldownTimer := Timer()
 
     ; Period to run for (-1 to disable)
     RunFor := -1
@@ -27,7 +27,7 @@ Class cTask {
     ; What loadout the task needs (-1 if no loadout)
     Loadout := -1
     ; What Zone is needed for task
-    Zone := Zone().Any()
+    Zone := Zone()
     ; Progress stage to run task at
     Stage := cGameStage().Any()
     ;@endregion
@@ -68,14 +68,19 @@ Class cTask {
     ;@region Run()
     /**
      * Execute pretask, task and posttask once
+     * @returns {Boolean} Has run
      */
     Run() {
+        if(!IsWindowActive()) {
+            return false
+        }
         this._isRunning := true
         this.PreTask()
         this.Task()
         this.PostTask()
         this._startCooldown()
         this._isRunning := false
+        return true
     }
     ;@endregion
 
@@ -106,11 +111,14 @@ Class cTask {
      * out
      */
     Loop() {
+        if(!IsWindowActive()) {
+            return false
+        }
         this._isRunning := this._isLooping := true
         this._startTime := A_Now
         this.PreTask()
         ; Break if provided check, timer or manual stop change
-        While (this.StopWhen() && this._isLooping && this.WithinRunFor()) {
+        While (this.StopWhen() && this._isLooping && this.WithinRunFor() && IsWindowActive()) {
             If (!this.Task()) {
                 Break
             }
@@ -153,7 +161,7 @@ Class cTask {
         If (this.Cooldown = -1) {
             Return false
         }
-        Return this._cooldownState
+        Return this._cooldownTimer.Running
     }
     ;@endregion
 
@@ -175,7 +183,7 @@ Class cTask {
 
     ;@region Private Methods
     _startCooldown() {
-        Timer().CoolDownS(this.Cooldown, this._cooldownState)
+        this._cooldownTimer.CoolDownS(this.Cooldown, &bool)
     }
     ;@endregion
     ;@endregion

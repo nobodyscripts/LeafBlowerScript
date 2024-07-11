@@ -15,6 +15,7 @@ Class cGameMode {
     GetProgressStage() {
         ; This needs to reflect what stage the game is in
         this.Stage := this.GameState.LoadCurrent()
+        return true
     }
 }
 
@@ -23,7 +24,7 @@ Class GameModeBasic extends cGameMode {
     Type := "Basic"
 
     RunCurrentStage() {
-        While (this.GetProgressStage() = "BasicLeaf") {
+        While (this.GetProgressStage() && this.Stage.BasicLeaf) {
             StageBasicLeaf().RunTaskList()
         }
     }

@@ -2,7 +2,6 @@
 
 #Include cHotkeys.ahk
 
-
 ; ------------------- Keybinds -------------------
 
 ; Customise these to match your keybinds or change to these ingame
@@ -70,4 +69,6 @@ Scriptkeys.Hotkeys["TowerPassive"] := cHotkey("TowerPassive", Map("EN-US",
 Scriptkeys.Hotkeys["Leafton"] := cHotkey("Leafton", Map("EN-US", "PgDn",
     "EN-GB", "PgDn", "Other", "PgDn"), "Default")
 
-Scriptkeys.initHotkeys(IsSecondary)
+If (IsSet(DisableScriptKeysInit)) {
+    Scriptkeys.initHotkeys(IsSecondary)
+}

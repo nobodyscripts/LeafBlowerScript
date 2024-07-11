@@ -9,19 +9,21 @@ Class cGameController {
     GS := GameState()
 
     Run() {
-        fCheckGameSettings()
+        ;fCheckGameSettings()
+        ; This needs converting to load the raw > base64 > json data
+        ; At the moment loads raw
         var := this.GS.GetCurrentGameMode()
         Switch var {
             Case "Basic":
-                Return GameModeBasic(this.GS)
+                Return GameModeBasic(this.GS).RunCurrentStage()
             Case "ChallengeBasic":
-                Return GameModeChallengeBasic(this.GS)
+                Return GameModeChallengeBasic(this.GS).RunCurrentStage()
             Case "ChallengeGem":
-                Return GameModeChallengeGem(this.GS)
+                Return GameModeChallengeGem(this.GS).RunCurrentStage()
             Case "OnlineChallenge":
-                Return GameModeOnlineChallenge(this.GS)
+                Return GameModeOnlineChallenge(this.GS).RunCurrentStage()
             default:
-                Return GameModeBasic(this.GS)
+                Return GameModeBasic(this.GS).RunCurrentStage()
         }
     }
 }

@@ -5,16 +5,19 @@
 
 Class BlowLeaves extends cTask {
     RunFor := 60
-    Cooldown := -1
+    Cooldown := 20
     Loadout := -1
-    Zone := Zone().Any()
+    Zone := Zone()
     GameStage := cGameStage().Any()
 
     /**
      * 
      */
     PreTask() {
+        MousePattern.SetThreeHorizontal()
         MousePattern.SetFiveHorizontal()
+        MousePattern.SetSpiral()
+        MousePattern.SetSpiralReverse()
     }
 
     /**
@@ -38,6 +41,5 @@ Class BlowLeaves extends cTask {
      * @returns {Boolean} Return false to exit task loop early
      */
     StopWhen() {
-        Throw Error("No StopWhen() set")
     }
 }

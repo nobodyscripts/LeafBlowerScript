@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0
+#SingleInstance Force
 
 #Include Lib\hTas.ahk
 #Include Lib\hModules.ahk
 
 Global ScriptsLogFile := A_ScriptDir "\TAS.Log"
 Global IsSecondary := false
+Global DisableGameKeysInit := true
+Global DisableScriptKeysInit := true
 
 If (WinExist(LBRWindowTitle)) {
     If (!WinActive(LBRWindowTitle)) {

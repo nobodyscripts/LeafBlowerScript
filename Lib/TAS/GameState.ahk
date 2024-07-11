@@ -14,7 +14,9 @@ Class GameState {
     SaveData := {}
 
     LoadCurrent() {
-        Return {}
+        Return {
+            BasicLeaf: true
+        }
     }
 
     GetCurrentGameMode() {

@@ -262,6 +262,30 @@ Class cPoint {
         MouseMove(this.x, this.y, speed, relative)
     }
 
+
+    MouseMoveInterpolateTo() {
+        MouseGetPos(&startx, &starty)
+        travelx := (this.x - startx) / 20
+        travely := (this.y - starty) / 20
+        If (travely != 0 && travelx = 0) {
+            travelx := (this.x - startx) / 10
+            travely := (this.y - starty) / 10
+            i := 1
+            Loop 10 {
+                MouseMove(startx + (travelx * i), starty + (travely * i), 50)
+                Sleep(17)
+                i++
+            }
+            return
+        }
+        i := 1
+        Loop 20 {
+            MouseMove(startx + (travelx * i), starty + (travely * i), 50)
+            Sleep(17)
+            i++
+        }
+    }
+
     /**
      * Point to loggable format
      * @returns {String} 
