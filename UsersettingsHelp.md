@@ -277,6 +277,15 @@ and BankDepositTime.
 LeaftonRunOnceEnable: (Default) false  
 Cycles through the floor of Leafton once, then exits, ideal for refreshing max.
 
+LeaftonEnableBrewing: (Default) true  
+Enable brewing when cycle time allows during crafting periods of Leafton
+
+LeaftonBrewCycleTime: (Default) 10  
+Time between brewing periods (seconds)
+
+LeaftonBrewCutOffTime: (Default) 30  
+Time brewing periods continue for (seconds)
+
 ## Tower Mode Passive
 
 TowerPassiveBanksEnabled: (Default) true  
@@ -374,5 +383,10 @@ Enable brewing of card parts during brew usage in mine maintainer and boss farm.
 ## Debug
 
 Debug: (Default) false  
-Extra debug logging and testing modes, not recommended for users due to large
+Extra debug logging and testing modes, not recommended for users due to heavy
 log usage, could cause file size issues.
+
+Verbose: (Default) false  
+Extra detailed debug logging, not recommended for users due to very heavy
+log usage, could cause file size issues. Remember to clear the logs if not
+required for testing or debugging.

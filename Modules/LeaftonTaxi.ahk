@@ -15,6 +15,9 @@ Global BankEnableSRDeposit := true
 Global BankEnableQADeposit := true
 Global BankDepositTime := 5
 Global NavigateTime := 150
+Global LeaftonEnableBrewing := true
+Global LeaftonBrewCycleTime := 10
+Global LeaftonBrewCutOffTime := 30
 
 fLeaftonTaxi() {
     Global BankDepositTime
@@ -32,12 +35,18 @@ fLeaftonTaxi() {
     craftStopCoord := Points.Crafting.Stop
     HasRun := false
     StopRunning := false
+    /** @type {Timer} */
+    BrewCycleTimer := Timer()
+    /** @type {Timer} */
+    BrewCutOffTimer := Timer()
+
     Travel.OpenPets()
     Sleep(NavigateTime)
     If (LeaftonBanksEnabled) {
         BankSinglePass()
     }
     Loop {
+        ;@region Banks
         If (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             LeaftonBanksEnabled) {
             Log("Leafton: Bank Maintainer starting.")
@@ -47,6 +56,31 @@ fLeaftonTaxi() {
             ToolTip(, , , 4)
             starttime := A_Now
         }
+        ;@endregion
+
+        ;@region Brew
+        If (IsWindowActive() && LeaftonEnableBrewing && !BrewCycleTimer.Running) {
+            Log("Leafton: Brewing")
+            If (Travel.OpenAlchemyGeneral()) {
+                DebugLog("Traveled brew")
+                BrewCutOffTimer.CoolDownS(LeaftonBrewCutOffTime, &
+                    BrewCutOffRunning)
+                While (BrewCutOffRunning && Travel.IsAlchGeneralTab()) {
+                    DebugLog("Brewing")
+                    If (!SpamBrewButtons()) {
+                        DebugLog("Brew ending")
+                        Break
+                    }
+                }
+                BrewCycleTimer.CoolDownS(LeaftonBrewCycleTime, &BrewCycleRunning)
+                Sleep(NavigateTime)
+                Travel.ClosePanelIfActive()
+            } Else {
+                Log("Leafton Brew: Travel to Alch general tab failed after 4" .
+                    " attempts.")
+            }
+        }
+        ;@endregion
         If (!IsWindowActive() || StopRunning) {
             Log("No window or stop called.")
             Break
@@ -89,6 +123,10 @@ fLeaftonTaxi() {
                 }
                 If (LeaftonCraftEnabled && craftStopCoord.IsButtonActive()) {
                     craftStopCoord.ClickOffset(, , 17)
+                }
+                ; If button isn't there allow cycle to brew
+                if (LeaftonCraftEnabled && craftStopCoord.IsBackground() && !BrewCycleTimer.Running) {
+                    break
                 }
             }
             If (LeaftonCraftEnabled) {

@@ -207,6 +207,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 - GUI
   - Added second col for mine view to help those on lower resolutions
+  - Added options to control Debug and Verbose in general settings
 
 - Mine
   - Modified brew travel to be more stable.
@@ -229,6 +230,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   with Mine mode)
   - Added scroll brewing
 
+- Leafton
+  - Added brewing with standalone settings
+
 ## TODO
 
 - Check settings from options.dat as bootup tests
@@ -242,6 +246,7 @@ dressing.
 borderless fullscreen
 - Automated challenges (early game scripts/TAS)
 - Convert borbventures gui to checkboxes for item selection  
+- Transmute and reset relics
 
 - Features:
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.

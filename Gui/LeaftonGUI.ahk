@@ -6,7 +6,7 @@
  */
 Button_Click_Leafton(thisGui, info) {
     Global settings, LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
-        LeaftonRunOnceEnabled
+        LeaftonRunOnceEnabled, LeaftonEnableBrewing, LeaftonBrewCycleTime, LeaftonBrewCutOffTime
 
     optionsGUI := Gui(, "Leafton Settings")
     optionsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -42,6 +42,42 @@ Button_Click_Leafton(thisGui, info) {
     } Else {
         optionsGUI.Add("CheckBox", "vLeaftonRunOnceEnabled ccfcfcf",
             "Enable Leafton Run Once")
+    }
+
+    If (LeaftonEnableBrewing = true) {
+        optionsGUI.Add("CheckBox", "vLeaftonEnableBrewing ccfcfcf checked",
+            "Enable Leafton Brewing")
+    } Else {
+        optionsGUI.Add("CheckBox", "vLeaftonEnableBrewing ccfcfcf",
+            "Enable Leafton Brewing")
+    }
+    
+    optionsGUI.Add("Text", "ccfcfcf", "Leafton Brew Cycle Time (s):")
+    optionsGUI.AddEdit()
+    If (IsInteger(LeaftonBrewCycleTime) && LeaftonBrewCycleTime > 0) {
+        optionsGUI.Add("UpDown", "vLeaftonBrewCycleTime Range1-9999", LeaftonBrewCycleTime)
+    } Else {
+        If (settings.sUseNobody) {
+            optionsGUI.Add("UpDown", "vLeaftonBrewCycleTime Range1-9999", settings.defaultNobodySettings
+                .LeaftonBrewCycleTime)
+        } Else {
+            optionsGUI.Add("UpDown", "vLeaftonBrewCycleTime Range1-9999", settings.defaultSettings
+                .LeaftonBrewCycleTime)
+        }
+    }
+    
+    optionsGUI.Add("Text", "ccfcfcf", "Leafton Brew Period Cutoff (s):")
+    optionsGUI.AddEdit()
+    If (IsInteger(LeaftonBrewCutOffTime) && LeaftonBrewCutOffTime > 0) {
+        optionsGUI.Add("UpDown", "vLeaftonBrewCutOffTime Range1-9999", LeaftonBrewCutOffTime)
+    } Else {
+        If (settings.sUseNobody) {
+            optionsGUI.Add("UpDown", "vLeaftonBrewCutOffTime Range1-9999", settings.defaultNobodySettings
+                .LeaftonBrewCutOffTime)
+        } Else {
+            optionsGUI.Add("UpDown", "vLeaftonBrewCutOffTime Range1-9999", settings.defaultSettings
+                .LeaftonBrewCutOffTime)
+        }
     }
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunLeafton)
@@ -81,6 +117,9 @@ Button_Click_Leafton(thisGui, info) {
         LeaftonSpamsWind := values.LeaftonSpamsWind
         LeaftonBanksEnabled := values.LeaftonBanksEnabled
         LeaftonRunOnceEnabled := values.LeaftonRunOnceEnabled
+        LeaftonEnableBrewing := values.LeaftonEnableBrewing
+        LeaftonBrewCycleTime := values.LeaftonBrewCycleTime
+        LeaftonBrewCutOffTime := values.LeaftonBrewCutOffTime
         settings.SaveCurrentSettings()
     }
 }

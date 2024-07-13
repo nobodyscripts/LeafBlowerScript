@@ -4,7 +4,9 @@
 ; Loads UserSettings.ini values for the rest of the script to use
 
 ;@region Globals definition
-Global EnableLogging := Debug := false
+Global EnableLogging := false
+Global Debug := false
+Global Verbose := false
 Global DisableZoneChecks := DisableSettingsChecks := false
 Global TimestampLogs := true
 
@@ -37,7 +39,8 @@ Global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit,
     BankRunsSpammer, BankDepositTime, BankEnableStorageUpgrade
 
 Global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
-    LeaftonRunOnceEnabled
+    LeaftonRunOnceEnabled, LeaftonEnableBrewing, LeaftonBrewCycleTime,
+    LeaftonBrewCutOffTime
 
 Global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
 
@@ -55,7 +58,20 @@ Global BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
     BrewEnableScrolls, BrewEnableCardParts
 ;@endregion
 
+/**
+ * Single instance of a script setting object
+ * @property Name Name of the setting and global var name
+ * @property DefaultValue Default value for non developers
+ * @property NobodyDefaultValue Default value for developer
+ * @property DataType Internal custom datatype string {bool | int | arrborbv}
+ * @property Category Ini file category heading
+ * @method __new Constructor
+ * @method ValueToString Converts value to file writable string
+ * @method SetCommaDelimStrToArr Set global of this.Name to an array of value
+ * split by comma
+ */
 Class singleSetting {
+    ;@region Properties
     /**
      * Name of the setting and global var name
      * @type {String} 
@@ -81,7 +97,9 @@ Class singleSetting {
      * @type {String} 
      */
     Category := "Default"
+    ;@endregion
 
+    ;@region __new()
     /**
      * Constructs class and provides object back, has defaults for all except 
      * iName
@@ -102,8 +120,9 @@ Class singleSetting {
         this.Category := iCategory
         Return this
     }
+    ;@endregion
 
-
+    ;@region ValueToString()
     /**
      * Convert value to file writable string
      * @param {Any} value Defaults to getting value of the global variable
@@ -119,17 +138,41 @@ Class singleSetting {
                 Return value
         }
     }
+    ;@endregion
 
+    ;@region SetCommaDelimStrToArr()
+    /**
+     * Set global of this.Name to an array of value split by comma
+     * @param var Value comma seperated string to split into array
+     */
     SetCommaDelimStrToArr(var) {
         %this.Name% := StrSplit(var, " ", ",.")
     }
+    ;@endregion
 }
 
 /**
  * cSettings - Stores settings data
+ * @property sFilename Full file path to ini file for settings
+ * @property sFileSection Ini section heading for settings
+ * @property sUseNobody Use developer default settings toggle
+ * @property Map Map to store singleSettings objects per global var name
+ * @method initSettings Load Map with defaults, check if file, load if possible,
+ * return loaded state
+ * @method loadSettings Load script settings into global vars, runs UpdateSettings
+ * first to add missing settings rather than reset to defaults if some settings
+ * exist
+ * @method UpdateSettings Adds missing settings using defaults if some settings 
+ * don't exist
+ * @method WriteDefaults Write default settings to ini file, does not wipe other
+ * removed settings
+ * @method SaveCurrentSettings Save current Map to ini file converting to format
+ * safe for storage
+ * @method WriteToIni Write (key, value) to ini file within (section) heading
+ * @method IniToVar Reads ini value for (name) in (section) from (file) and 
+ * returns as string or Boolean
  */
 Class cSettings {
-
     ;@region Properties
     /**
      * Full file path to ini file for settings
@@ -153,6 +196,7 @@ Class cSettings {
     Map := Map()
     ;@endregion
 
+    ;@region initSettings()
     /**
      * Load Map with defaults, check if file, load if possible, return loaded 
      * state
@@ -181,6 +225,8 @@ Class cSettings {
         this.Map["CheckForUpdatesLastCheck"] := singleSetting(
             "CheckForUpdatesLastCheck", 0, 0, "int", "Updates")
         this.Map["Debug"] := singleSetting("Debug", false, true, "bool",
+            "Debug")
+        this.Map["Verbose"] := singleSetting("Verbose", false, true, "bool",
             "Debug")
         this.Map["NavigateTime"] := singleSetting("NavigateTime", 101, 101,
             "int", "Default")
@@ -292,6 +338,12 @@ Class cSettings {
             true, true, "bool", "Leafton")
         this.Map["LeaftonRunOnceEnabled"] := singleSetting(
             "LeaftonRunOnceEnabled", false, false, "bool", "Leafton")
+        this.Map["LeaftonEnableBrewing"] := singleSetting(
+            "LeaftonEnableBrewing", false, false, "bool", "Leafton")
+        this.Map["LeaftonBrewCycleTime"] := singleSetting(
+            "LeaftonBrewCycleTime", 10, 10, "int", "Leafton")
+        this.Map["LeaftonBrewCutOffTime"] := singleSetting(
+            "LeaftonBrewCutOffTime", 30, 30, "int", "Leafton")
         this.Map["TowerPassiveBanksEnabled"] := singleSetting(
             "TowerPassiveBanksEnabled", true, true, "bool", "TowerPassive")
         this.Map["TowerPassiveCraftEnabled"] := singleSetting(
@@ -384,7 +436,9 @@ Class cSettings {
             Return true
         }
     }
+    ;@endregion
 
+    ;@region loadSettings()
     /**
      * Load script settings into global vars, runs UpdateSettings first to add
      * missing settings rather than reset to defaults if some settings exist
@@ -394,6 +448,7 @@ Class cSettings {
         ;@region Globals
         Global EnableLogging := false
         Global Debug := false
+        Global Verbose := false
         Global TimestampLogs
 
         Global CheckForUpdatesEnable, CheckForUpdatesReleaseOnly,
@@ -426,7 +481,8 @@ Class cSettings {
             BankRunsSpammer, BankDepositTime, BankEnableStorageUpgrade
 
         Global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
-            LeaftonRunOnceEnabled
+            LeaftonRunOnceEnabled, LeaftonEnableBrewing, LeaftonBrewCycleTime,
+            LeaftonBrewCutOffTime
 
         Global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled
 
@@ -473,7 +529,9 @@ Class cSettings {
         }
         Return true
     }
+    ;@endregion
 
+    ;@region UpdateSettings()
     /**
      * Adds missing settings using defaults if some settings don't exist
      */
@@ -495,7 +553,9 @@ Class cSettings {
             }
         }
     }
+    ;@endregion
 
+    ;@region WriteDefaults()
     /**
      * Write default settings to ini file, does not wipe other removed settings
      * @param isnobody Flag for developer default settings
@@ -515,7 +575,9 @@ Class cSettings {
             }
         }
     }
+    ;@endregion
 
+    ;@region SaveCurrentSettings()
     /**
      * Save current Map to ini file converting to format safe for storage
      */
@@ -525,7 +587,9 @@ Class cSettings {
                 this.Map[setting].ValueToString(), this.Map[setting].Category)
         }
     }
+    ;@endregion
 
+    ;@region WriteToIni()
     /**
      * Write (key, value) to ini file within (section) heading
      * @param key Name of setting
@@ -535,7 +599,9 @@ Class cSettings {
     WriteToIni(key, value, section := this.sFileSection) {
         IniWrite(value, this.sFilename, section, key)
     }
+    ;@endregion
 
+    ;@region IniToVar()
     /**
      * Reads ini value for (name) in (section) from (file) and returns as 
      * string or Boolean
@@ -555,4 +621,5 @@ Class cSettings {
                 Return var
         }
     }
+    ;@endregion
 }
