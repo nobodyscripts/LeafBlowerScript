@@ -20,3 +20,5 @@ If (!IsSet(IsSecondary)) {
     ; If not set, assume temp testing script
     IsSecondary := false
 }
+
+InitSettingsCheck()

@@ -27,6 +27,7 @@ Class cMousePattern {
                 If (first) {
                     ; Move instantly to first point
                     point.MouseMove(0)
+                    first := false
                 } Else {
                     ; Otherwise move incrementally to point to 'smooth' motion
                     point.MouseMoveInterpolateTo(50)

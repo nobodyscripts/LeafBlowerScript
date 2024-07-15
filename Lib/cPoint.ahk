@@ -263,7 +263,7 @@ Class cPoint {
     }
 
 
-    MouseMoveInterpolateTo() {
+    MouseMoveInterpolateTo(speed := 50, sleepperiod := 17) {
         MouseGetPos(&startx, &starty)
         travelx := (this.x - startx) / 20
         travely := (this.y - starty) / 20
@@ -272,16 +272,16 @@ Class cPoint {
             travely := (this.y - starty) / 10
             i := 1
             Loop 10 {
-                MouseMove(startx + (travelx * i), starty + (travely * i), 50)
-                Sleep(17)
+                MouseMove(startx + (travelx * i), starty + (travely * i), speed)
+                Sleep(sleepperiod)
                 i++
             }
             Return
         }
         i := 1
         Loop 20 {
-            MouseMove(startx + (travelx * i), starty + (travely * i), 50)
-            Sleep(17)
+            MouseMove(startx + (travelx * i), starty + (travely * i), speed)
+            Sleep(sleepperiod)
             i++
         }
     }

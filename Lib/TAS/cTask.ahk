@@ -120,7 +120,6 @@ Class cTask {
         ; Break if provided check, timer or manual stop change
         While (this.StopWhen() && this._isLooping && this.WithinRunFor() &&
             IsWindowActive()) {
-            Log(this.StopWhen() " " this.WithinRunFor())
             If (!this.Task()) {
                 Break
             }

@@ -5,7 +5,6 @@
 Global LBRWindowTitle
 Global LastWindowNotActiveTimer := A_Now
 
-InitSettingsCheck()
 
 InitSettingsCheck() {
     Global LBRWindowTitle, DisableSettingsChecks, ScriptsLogFile
