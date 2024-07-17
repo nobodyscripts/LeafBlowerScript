@@ -4,6 +4,15 @@ Global ScriptsLogFile, EnableLogging
 Global Verbose := (FileExist(A_ScriptDir "\IsNobody"))
 Global TimestampLogs := true
 
+If (!IsSet(ScriptsLogFile)) {
+    Global ScriptsLogFile := A_ScriptDir "\" StrReplace(A_ScriptName, ".ahk",
+        "") ".Log"
+}
+
+If (!IsSet(Debug)) {
+    Global Debug := true
+}
+
 ; TODO Convert logging to class and use a file handle to keep file open
 
 /**
@@ -105,7 +114,7 @@ StackLog() {
  * @param {Error} error 
  */
 ErrorLog(error) {
-    DebugLog("Error:" error.Message "`n ErrorExtra: " error.Extra "`nStack: " error()
+    DebugLog("Error:" error.Message "`n ErrorExtra: " error.Extra "`nStack: " error
         .Stack)
 }
 
