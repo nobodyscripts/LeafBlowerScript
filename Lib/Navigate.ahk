@@ -232,7 +232,7 @@ GoToNatureBoss() {
                 Return false
             }
             Log("Traveling to The Doomed Tree")
-            While (!IsOnEventAreaPanel()) {
+            While (!Travel.IsOnEventPanel()) {
                 Travel.OpenAreasEvents(100)
             }
             Sleep(NavigateTime)
@@ -254,7 +254,7 @@ GoToNatureBoss() {
     } Else {
         Log("Traveling to The Doomed Tree. Attempt to blind travel with slowed"
             " times.")
-        While (!IsOnEventAreaPanel()) {
+        While (!Travel.IsOnEventPanel()) {
             Travel.OpenAreasEvents(200)
         }
         Sleep(NavigateTime + 200)
@@ -292,17 +292,6 @@ NatureBossButtonClick() {
     }
 }
 
-IsOnEventAreaPanel() {
-    button := Points.Areas.Events.NatureBoss
-    button2 := Points.Areas.Events.NatureBoss2
-    If (button.IsButton()) {
-        Return true
-    } Else If (button2.IsButton()) {
-        Return true
-    } Else {
-        Return false
-    }
-}
 
 GoToCheeseBoss() {
     button := Points.Areas.Events.CursedHalloween

@@ -730,6 +730,22 @@ Class cTravel {
     }
     ;@endregion
 
+    ;@region IsOnEventAreaPanel()
+    /**
+     * Is event area panel open
+     * @returns {Boolean} 
+     */
+    IsOnEventPanel() {
+        If (Points.Areas.Events.NatureBoss.IsButton()) {
+            Return true
+        } Else If (Points.Areas.Events.NatureBoss2.IsButton()) {
+            Return true
+        } Else {
+            Return false
+        }
+    }
+    ;@endregion
+
     ;@region OpenGemShop()
     /**
      * Open Gem panel, closes others first
