@@ -28,7 +28,7 @@ fLeaftonTaxi() {
     GoToAnteLeafton()
     starttime := A_Now
     If (LeaftonSpamsWind) {
-        LeaftonSpammerStart()
+        Spammer().LeaftonStart()
     }
     centerCoord := Points.Leafton.Center
     startCoord := Points.Leafton.Start
@@ -138,7 +138,7 @@ fLeaftonTaxi() {
         }
         ToolTip(, , , 4)
     }
-    KillLeaftonSpammer()
+    Spammer().KillLeafton()
     If (StopRunning) {
         cReload()
     }
@@ -147,14 +147,14 @@ fLeaftonTaxi() {
 LeaftonTaxiSinglePassStart() {
     GoToAnteLeafton()
     If (LeaftonSpamsWind) {
-        LeaftonSpammerStart()
+        Spammer().LeaftonStart()
     }
     Travel.OpenPets()
     Sleep(NavigateTime)
 }
 
 LeaftonTaxiSinglePassEnd() {
-    KillLeaftonSpammer()
+    Spammer().KillLeafton()
 }
 
 LeaftonTaxiSinglePass() {

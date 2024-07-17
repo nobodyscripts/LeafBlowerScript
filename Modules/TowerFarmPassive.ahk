@@ -23,7 +23,7 @@ fTowerFarm() {
     GoToLeafTower()
     starttime := A_Now
     craftStopCoord := Points.Crafting.Stop
-    TowerPassiveSpammerStart()
+    Spammer().TowerPassiveStart()
     If (TowerPassiveBanksEnabled) {
         Travel.OpenPets()
         Sleep(NavigateTime)
@@ -66,5 +66,5 @@ fTowerFarm() {
         }
     }
     ToolTip(, , , 5)
-    KillTowerPassiveSpammer()
+    Spammer().KillTowerPassive()
 }

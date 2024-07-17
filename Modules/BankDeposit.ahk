@@ -22,7 +22,7 @@ fBankAutoDeposit() {
         BankDepositTime := 0.017
     }
     If (BankRunsSpammer) {
-        NormalBossSpammerStart()
+        Spammer().NormalBossStart()
     }
     Travel.OpenBank()
     ToolTip("Bank Maintainer Active", Window.W / 2 - Window.RelW(100), Window.H /
