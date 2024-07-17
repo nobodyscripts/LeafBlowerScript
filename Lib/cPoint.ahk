@@ -218,7 +218,15 @@ Class cPoint {
      * @param {Integer} [clickdelay=34] Delay for mouseclick
      */
     Click(clickdelay := 34) {
-        fCustomClick(this.x, this.y, clickdelay)
+        If (!Window.IsActive()) {
+            Log("No window found while trying to click at " this.x " * " this.y
+            )
+            Return false
+        }
+        MouseClick("left", this.x, this.y, , , "D")
+        Sleep(clickdelay)
+        MouseClick("left", this.x, this.y, , , "U")
+        VerboseLog("Clicking at " this.toStringDisplay())
     }
 
     /**
@@ -230,7 +238,15 @@ Class cPoint {
      * @param {Integer} [clickdelay=34] Delay for mouseclick
      */
     ClickOffset(xOffset := 1, yOffset := 1, clickdelay := 34) {
-        fCustomClick(this.x + xOffset, this.y + yOffset, clickdelay)
+        If (!Window.IsActive()) {
+            Log("No window found while trying to click at " this.x + xOffset " * " this
+                .y + yOffset)
+            Return false
+        }
+        MouseClick("left", this.x + xOffset, this.y + yOffset, , , "D")
+        Sleep(clickdelay)
+        MouseClick("left", this.x + xOffset, this.y + yOffset, , , "U")
+        VerboseLog("Clicking at " this.toStringDisplay(xOffset, yOffset))
     }
 
     /**
@@ -272,7 +288,8 @@ Class cPoint {
             travely := (this.y - starty) / 10
             i := 1
             Loop 10 {
-                MouseMove(startx + (travelx * i), starty + (travely * i), speed)
+                MouseMove(startx + (travelx * i), starty + (travely * i), speed
+                )
                 Sleep(sleepperiod)
                 i++
             }
@@ -298,8 +315,9 @@ Class cPoint {
      * Point to loggable format to 2 decimal places
      * @returns {String} 
      */
-    toStringDisplay() {
-        Return "X: " Format("{:#.2f}", this.x) " Y: " Format("{:#.2f}", this.y)
+    toStringDisplay(xOffset := 0, yOffset := 0) {
+        Return "X: " Format("{:#.2f}", this.x + xOffset) " Y: " Format(
+            "{:#.2f}", this.y + yOffset)
     }
 
     /**
