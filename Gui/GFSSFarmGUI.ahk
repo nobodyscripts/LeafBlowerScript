@@ -62,14 +62,14 @@ Button_Click_GFSS(thisGui, info) {
 
     RunGFSS(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fGFSSStart()
     }
 
     RunSaveGFSS(*) {
         GFSSSave()
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fGFSSStart()
     }
 

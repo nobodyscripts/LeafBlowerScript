@@ -7,7 +7,7 @@ Global GFSSSpammerPID := 0
 
 NormalBossSpammerStart() {
     Global SpammerPID
-    If (IsWindowActive()) {
+    If (Window.IsActive()) {
         Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\NormalBoss.ahk"', , , &
             OutPid)
         SpammerPID := OutPid
@@ -38,7 +38,7 @@ KillSpammer() {
 
 LeaftonSpammerStart() {
     Global WindSpammerPID
-    If (IsWindowActive()) {
+    If (Window.IsActive()) {
         Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\LeaftonSpammer.ahk"', , , &
             OutPid)
         WindSpammerPID := OutPid
@@ -69,7 +69,7 @@ KillLeaftonSpammer() {
 
 TowerPassiveSpammerStart() {
     Global TowerPassiveSpammerPID
-    If (IsWindowActive()) {
+    If (Window.IsActive()) {
         Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\TowerPassiveSpammer.ahk"', , , &
             OutPid)
         TowerPassiveSpammerPID := OutPid
@@ -102,7 +102,7 @@ KillTowerPassiveSpammer() {
 
 GFSSBossSpammerStart() {
     Global GFSSSpammerPID
-    If (IsWindowActive()) {
+    If (Window.IsActive()) {
         Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\GFSSBoss.ahk"', , , &
             OutPid)
         GFSSSpammerPID := OutPid

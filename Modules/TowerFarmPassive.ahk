@@ -27,37 +27,37 @@ fTowerFarm() {
     If (TowerPassiveBanksEnabled) {
         Travel.OpenPets()
         Sleep(NavigateTime)
-        ToolTip("Tower Passive, Bank Maintainer Active", W / 2, WinRelPosLargeH(
+        ToolTip("Tower Passive, Bank Maintainer Active", Window.W / 2, Window.RelH(
             200), 4)
         BankSinglePass()
         ToolTip(, , , 4)
     }
     Travel.ClosePanelIfActive()
-    ToolTip("Tower Farm Passive Active", W / 2, H / 2, 5)
+    ToolTip("Tower Farm Passive Active", Window.W / 2, Window.H / 2, 5)
     Loop {
         If (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             TowerPassiveBanksEnabled) {
             Log("TowerPassive: Bank Maintainer starting.")
-            ToolTip("Tower Passive, Bank Maintainer Active", W / 2,
-                WinRelPosLargeH(200), 4)
+            ToolTip("Tower Passive, Bank Maintainer Active", Window.W / 2,
+                Window.RelH(200), 4)
             BankSinglePass()
             ToolTip(, , , 4)
             starttime := A_Now
         }
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Break
         }
         If (TowerPassiveCraftEnabled) {
             Sleep(NavigateTime)
             Travel.OpenCrafting()
             Sleep(NavigateTime)
-            If (!IsPanelActive()) {
+            If (!Window.IsPanel()) {
                 Travel.OpenCrafting()
                 Sleep(NavigateTime)
             }
         }
         While (DateDiff(A_Now, starttime, "Seconds") < BankDepositTime * 60) {
-            If (!IsWindowActive()) {
+            If (!Window.IsActive()) {
                 Break
             }
             If (TowerPassiveCraftEnabled && craftStopCoord.IsButtonActive()) {

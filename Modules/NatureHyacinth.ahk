@@ -57,12 +57,12 @@ fFarmNormalBossAndNatureHyacinth() {
         PlantButton := cPoint(1380, 750)
     }
     Loop {
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Log("BossHyacinth: Exiting as no game.")
             cReload() ; Kill if no game
             Break
         }
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             Log(
                 "BossHyacinth: Did not find panel. Aborted farming. Violins active"
             )
@@ -74,8 +74,8 @@ fFarmNormalBossAndNatureHyacinth() {
                 KillSpammer() ; Need to halt any WW spam
             }
             Log("BossHyacinth: Bank Maintainer starting.")
-            ToolTip("BossHyacinth Bank Maintainer Active", W / 2,
-                WinRelPosLargeH(200), 4)
+            ToolTip("BossHyacinth Bank Maintainer Active", Window.W / 2, Window
+                .RelH(200), 4)
             BankSinglePass()
             Sleep(NavigateTime)
             ToolTip(, , , 4)
@@ -109,12 +109,11 @@ fFarmNormalBossAndNatureHyacinth() {
                     ; Run out of seeds so exiting
                     If (HyacinthFarmBoss) KillSpammer()
                         Log("BossHyacinth: Plants exausted. Exiting.")
-                    ToolTip("Plants exausted. Exiting.", W / 2, H / 2 +
-                        WinRelPosLargeH(50), 2)
+                    ToolTip("Plants exausted. Exiting.", Window.W / 2, Window.H /
+                        2 + Window.RelH(50), 2)
                     SetTimer(ToolTip.Bind(, , , 2), -3000)
                     Break
                 }
-
             }
             Sleep(NavigateTime)
         }
@@ -134,16 +133,16 @@ fFarmNormalBossAndNatureHyacinth() {
             If (Travel.HomeGarden.IsAreaGarden() && IsSpammerActive()) {
                 If (HyacinthFarmBoss) KillSpammer()
                     Log("BossHyacinth: User killed.")
-                ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2
-                )
+                ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
+                    50), 2)
                 SetTimer(ToolTip.Bind(, , , 2), -3000)
                 Return
             }
-            ToolTip("Hyacinth on, Kills: " . Killcount, W / 2 - WinRelPosLargeW(
-                150), H / 2 + WinRelPosLargeH(150), 1)
+            ToolTip("Hyacinth on, Kills: " . Killcount, Window.W / 2 - Window.RelW(
+                150), Window.H / 2 + Window.RelH(150), 1)
         } Else {
-            ToolTip("Hyacinth on, BossFarmUsesWobblyWings disabled.", W / 2 -
-                WinRelPosLargeW(150), H / 2 + WinRelPosLargeH(150), 1)
+            ToolTip("Hyacinth on, BossFarmUsesWobblyWings disabled.", Window.W /
+                2 - Window.RelW(150), Window.H / 2 + Window.RelH(150), 1)
         }
     }
     ToolTip(, , , 1)

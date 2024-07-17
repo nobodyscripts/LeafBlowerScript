@@ -405,14 +405,14 @@ Button_Click_Mine(thisGui, info) {
 
     RunMine(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fMineStart()
     }
 
     RunSaveMine(*) {
         MineSave()
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fMineStart()
     }
 

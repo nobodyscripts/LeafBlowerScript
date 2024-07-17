@@ -41,7 +41,7 @@ Button_Click_TowerPassive(thisGui, info) {
 
     RunTowerPassive(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fTowerPassiveStart()
     }
 

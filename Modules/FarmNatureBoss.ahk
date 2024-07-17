@@ -8,8 +8,8 @@ fFarmNatureBoss() {
         Log("NatureBoss: Traveling to The Doomed Tree failed."
             " Nature season not active.")
         ToolTip("Could not travel to nature boss zone`n"
-            "Please use the artifact to enable nature season", W / 2 -
-            WinRelPosLargeW(100), H / 2)
+            "Please use the artifact to enable nature season", Window.W / 2 -
+            Window.RelW(100), Window.H / 2)
         SetTimer(ToolTip, -5000)
         Return
     }
@@ -20,7 +20,7 @@ fFarmNatureBoss() {
     IsInShadowCavern := false
 
     Loop {
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Break ; Kill early if no game
         }
         CurrentAliveState := IsNatureBossAlive()
@@ -30,13 +30,13 @@ fFarmNatureBoss() {
         If (!CurrentAliveState && IsBossTimerActive()) {
             If (!IsInShadowCavern) {
                 Log("NatureBoss: Going to Shadow Cavern to spam violins.")
-                ToolTip("Going to Shadow Cavern", W / 2 - WinRelPosLargeW(100),
-                    H / 2)
+                ToolTip("Going to Shadow Cavern", Window.W / 2 - Window.RelW(
+                    100), Window.H / 2)
                 SetTimer(ToolTip, -250)
                 If (!GoToShadowCavern()) {
                     Log("NatureBoss: Traveling to Shadow Cavern failed.")
-                    ToolTip("Traveling to Shadow Cavern failed.", W / 2 -
-                        WinRelPosLargeW(100), H / 2)
+                    ToolTip("Traveling to Shadow Cavern failed.", Window.W / 2 -
+                        Window.RelW(100), Window.H / 2)
                     SetTimer(ToolTip, -5000)
                     Return
                 }
@@ -44,22 +44,23 @@ fFarmNatureBoss() {
                 Killcount++
                 IsInShadowCavern := true
 
-                ToolTip("Kills: " . Killcount, W / 2, H / 2 + WinRelPosLargeH(
-                    50))
+                ToolTip("Kills: " . Killcount, Window.W / 2, Window.H / 2 +
+                    Window.RelH(50))
                 SetTimer(ToolTip, -200)
             }
             Loop {
-                If (!IsWindowActive()) {
+                If (!Window.IsActive()) {
                     Break ; Kill early if no game
                 }
                 If (IsNatureBossTimerActive()) {
-                    ToolTip("Using violins", W / 2, H / 2)
+                    ToolTip("Using violins", Window.W / 2, Window.H / 2)
                     SetTimer(ToolTip, -250)
                     GameKeys.TriggerViolin()
                     Sleep(71)
                 } Else {
                     Log("NatureBoss: Traveling to The Doomed Tree.")
-                    ToolTip("Returning to The Doomed Tree", W / 2, H / 2)
+                    ToolTip("Returning to The Doomed Tree", Window.W / 2,
+                        Window.H / 2)
                     SetTimer(ToolTip, -250)
                     ; Timers reset send user back
                     If (!GoToNatureBoss()) {
@@ -67,7 +68,7 @@ fFarmNatureBoss() {
                             " Nature season not active.")
                         ToolTip("Could not travel to The Doomed Tree zone`n"
                             "Please use the artifact to enable nature season",
-                            W / 2 - WinRelPosLargeW(100), H / 2)
+                            Window.W / 2 - Window.RelW(100), Window.H / 2)
                         SetTimer(ToolTip, -5000)
                         Return
                     }
@@ -83,11 +84,12 @@ fFarmNatureBoss() {
         ; If boss killed us not much we can do, on user to address
         If (Travel.HomeGarden.IsAreaGarden()) {
             Log("NatureBoss: Killed by boss, aborting farm.")
-            ToolTip("Killed by boss, exiting", W / 2, H / 2)
+            ToolTip("Killed by boss, exiting", Window.W / 2, Window.H / 2)
             SetTimer(ToolTip, -3000)
             Break
         }
-        ToolTip("Kills: " . Killcount, W / 2, H / 2 + WinRelPosLargeH(50))
+        ToolTip("Kills: " . Killcount, Window.W / 2, Window.H / 2 + Window.RelH(
+            50))
         SetTimer(ToolTip, -200)
     }
 }
@@ -95,12 +97,12 @@ fFarmNatureBoss() {
 IsNatureBossAlive() {
     ;2ce8f5
     ; 852 250 (1440)
-    If (IsPanelActive()) {
+    If (Window.IsPanel()) {
         Log("IsNatureBossAlive: Was checked while panel was active.")
     }
     Try {
         ; TODO Move point to Points
-        found := PixelGetColor(WinRelPosLargeW(852), WinRelPosLargeH(250))
+        found := PixelGetColor(Window.RelW(852), Window.RelH(250))
         ; Timer pixel search
         If (found = "0x2CE8F5") {
             Return true ; Found colour
@@ -128,18 +130,16 @@ IsNatureBossTimerActive() {
         If (!cPoint(1693, 960).IsBackground()) {
             ; font 1
             ; TODO Move rect to Rects
-            found := PixelSearch(&OutX, &OutY, WinRelPosLargeW(1574),
-                WinRelPosLargeH(965), WinRelPosLargeW(1642), WinRelPosLargeH(
-                    1009), "0xFFFFFF", 0)
+            found := PixelSearch(&OutX, &OutY, Window.RelW(1574), Window.RelH(
+                965), Window.RelW(1642), Window.RelH(1009), "0xFFFFFF", 0)
             If (found and OutX != 0) {
                 Return true ; Found colour
             }
         } Else {
             ; font 0
             ; TODO Move rect to Rects
-            found := PixelSearch(&OutX, &OutY, WinRelPosLargeW(1525),
-                WinRelPosLargeH(965), WinRelPosLargeW(1660), WinRelPosLargeH(
-                    985), "0xFFFFFF", 0)
+            found := PixelSearch(&OutX, &OutY, Window.RelW(1525), Window.RelH(
+                965), Window.RelW(1660), Window.RelH(985), "0xFFFFFF", 0)
             ; Timer pixel search
             If (found and OutX != 0) {
                 Return true ; Found colour

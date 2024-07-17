@@ -39,14 +39,14 @@ Button_Click_GemFarm(thisGui, info) {
 
     RunGemFarm(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fGemFarmStart()
     }
 
     RunSaveGemFarm(*) {
         GemFarmSave()
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fGemFarmStart()
     }
 

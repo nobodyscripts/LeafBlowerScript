@@ -9,7 +9,7 @@ Global IsSecondary := true
 #Include ..\Lib\hGlobals.ahk
 #Include ..\Lib\ScriptSettings.ahk
 #Include ..\Lib\Functions.ahk
-#Include ..\Lib\SettingsCheck.ahk
+#Include ..\Lib\cGameWindow.ahk
 #Include ..\Lib\Navigate.ahk
 #Include ..\Lib\cHotkeysInitGame.ahk
 
@@ -19,23 +19,24 @@ settings.initSettings(true)
 
 Log("Secondary: Tower Passive Started")
 
-GameWindowExist()
 fTowerPassiveSpammer()
-
 fTowerPassiveSpammer() {
     Loop {
-        If (!IsWindowActive()) {
+        If (!Window.Exist()) {
             Log("Secondary: Tower Passive Spammer exiting as no game.")
             Return
         }
-        If (Travel.HomeGarden.IsAreaGarden()) {
-            GoToLeafTower()
-        }
-        If (IsWindowActive() && !IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()
-        ) {
-            GameKeys.TriggerBlazingSkull()
-            GameKeys.TriggerWind()
-            Sleep(ArtifactSleepAmount)
+        If (!Window.IsActive()) {
+            Window.Activate()
+        } Else {
+            If (Travel.HomeGarden.IsAreaGarden()) {
+                GoToLeafTower()
+            }
+            If (!IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()) {
+                GameKeys.TriggerBlazingSkull()
+                GameKeys.TriggerWind()
+                Sleep(ArtifactSleepAmount)
+            }
         }
     }
 }

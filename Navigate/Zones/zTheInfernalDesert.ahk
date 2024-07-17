@@ -39,8 +39,8 @@ Class TheInfernalDesert extends Zone {
 
     ClickTravelButton(coord, delay) {
         ; Button to travel to The Infernal Desert
-        Button := cPoint(coord[1] + WinRelPosLargeW(225), coord[2] +
-            WinRelPosLargeH(5), false)
+        Button := cPoint(coord[1] + Window.RelW(225), coord[2] + Window.RelH(5),
+            false)
         DebugLog(Button.GetColour() " " Button.IsButton() " " Button.IsButtonActive()
         )
         ; If no button we are misaligned

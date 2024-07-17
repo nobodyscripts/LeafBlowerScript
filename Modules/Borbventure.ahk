@@ -24,12 +24,12 @@ fBorbVentureJuiceFarm() {
             "myth/leg nothing will start.")
     }
     Loop {
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Log("Borbv: Exiting as no game.")
             cReload()
             Return
         }
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             Log("Borbv: Did not find panel. Aborted.")
             cReload()
             Return
@@ -67,11 +67,11 @@ BVMainLoop() {
         Return
     }
     For arrowY in arrows {
-        If (arrowY && IsWindowActive()) {
+        If (arrowY && Window.IsActive()) {
             arrowCount++
             ; If slot is active, we don't care what it is
-            StartButton := cPoint(WinRelPosLargeW(1855), arrowY, false)
-            CancelButton := cPoint(WinRelPosLargeW(2100), arrowY, false)
+            StartButton := cPoint(Window.RelW(1855), arrowY, false)
+            CancelButton := cPoint(Window.RelW(2100), arrowY, false)
             If (StartButton.IsBackground() && !CancelButton.IsBackground()) {
                 ; If slots cancel button exists, assume active. This lets us
                 ; pause refreshing until something new happens to avoid wastage
@@ -84,9 +84,8 @@ BVMainLoop() {
 
                     VerboseLog("Can scan slot " arrowCount)
                     ; If slot has an item we want add it to the target list
-                    If (BVScanSlotItem(WinRelPosLargeW(1313), arrowY -
-                        WinRelPosLargeH(17), WinRelPosLargeW(1347), arrowY +
-                        WinRelPosLargeH(20))) {
+                    If (BVScanSlotItem(Window.RelW(1313), arrowY - Window.RelH(
+                        17), Window.RelW(1347), arrowY + Window.RelH(20))) {
                         VerboseLog("Found item added to target items.")
                         targetItemsYArray.Push(arrowY)
                     }
@@ -126,9 +125,10 @@ BVMainLoop() {
     If (Debug) {
         ToolTip("Found " . activeSlots . " active slots`n"
             "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows " arrowCount ", Target items " targetItemsYArray
-            .Length, W / 2.2, H / 6.5, 1)
+            .Length, Window.W / 2.2, Window.H / 6.5, 1)
     } Else {
-        ToolTip("Found " . activeSlots . " active slots", W / 2.2, H / 6.2, 1)
+        ToolTip("Found " . activeSlots . " active slots", Window.W / 2.2,
+            Window.H / 6.2, 1)
     }
     If (AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started)) {
         ; If we have not filled all available slots refresh
@@ -149,8 +149,8 @@ AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started) {
 
 BVStartItemFromSlot(SlotY) {
     DebugLog("Attempting to start bv on slot with y " SlotY)
-    StartButton := cPoint(WinRelPosLargeW(1864), SlotY, false)
-    If (SlotY != 0 && IsWindowActive() && StartButton.IsButtonInactive()) {
+    StartButton := cPoint(Window.RelW(1864), SlotY, false)
+    If (SlotY != 0 && Window.IsActive() && StartButton.IsButtonInactive()) {
         ; Don't try to start more if we're full even if another is
         ; detected
         ; If slots inactive, its ready to start,
@@ -158,7 +158,7 @@ BVStartItemFromSlot(SlotY) {
         ; Click team slot 1
         bvSleepTime := 72
         ; Click team slot 1
-        BorbSlot1 := cPoint(WinRelPosLargeW(1608), SlotY, false)
+        BorbSlot1 := cPoint(Window.RelW(1608), SlotY, false)
         BorbSlot1.ClickOffset(2, 0, bvSleepTime)
         Sleep(bvSleepTime)
         a := b := c := 0
@@ -168,7 +168,7 @@ BVStartItemFromSlot(SlotY) {
             Sleep(bvSleepTime)
         }
         ; Click team slot 2
-        BorbSlot2 := cPoint(WinRelPosLargeW(1728), SlotY, false)
+        BorbSlot2 := cPoint(Window.RelW(1728), SlotY, false)
         BorbSlot2.ClickOffset(2, 0, bvSleepTime)
         Sleep(bvSleepTime)
         While (BorbSlot2.IsButtonActive() && b < 2) {
@@ -177,7 +177,7 @@ BVStartItemFromSlot(SlotY) {
             Sleep(bvSleepTime)
         }
         ; Click Start
-        StartButton2 := cPoint(WinRelPosLargeW(1850), SlotY, false)
+        StartButton2 := cPoint(Window.RelW(1850), SlotY, false)
         StartButton2.ClickOffset(61, 0, bvSleepTime)
         Sleep(bvSleepTime)
         While (StartButton2.IsButtonActive() && c < 2) {
@@ -267,7 +267,7 @@ BVColourToItem(colour) {
  * @returns {string} Returns raw from Pixelgetcolor, can be false
  */
 BVScanSlotRarity(arrowY) {
-    rarity := cPoint(WinRelPosLargeW(331), arrowY, false).GetColour()
+    rarity := cPoint(Window.RelW(331), arrowY, false).GetColour()
     VerboseLog("Slot rarity " rarity)
     Return rarity
 }
@@ -288,13 +288,13 @@ BVCachedArrowsLocations() {
     If (locations != false) {
         ; if first two cached locations are correct, return the rest, otherwise
         ; refresh
-        If (locations.Length >= 6 && PixelGetColor(WinRelPosLargeW(1280),
-            locations[1]) = "0x1989B8" && PixelGetColor(WinRelPosLargeW(1280),
-                locations[2]) = "0x1989B8" && PixelGetColor(WinRelPosLargeW(
-                    1280), locations[3]) = "0x1989B8" && PixelGetColor(
-                        WinRelPosLargeW(1280), locations[4]) = "0x1989B8" &&
-            PixelGetColor(WinRelPosLargeW(1280), locations[5]) = "0x1989B8" &&
-            PixelGetColor(WinRelPosLargeW(1280), locations[6]) = "0x1989B8") {
+        If (locations.Length >= 6 && PixelGetColor(Window.RelW(1280), locations[
+            1]) = "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[2]) =
+            "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[3]) =
+            "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[4]) =
+            "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[5]) =
+            "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[6]) =
+            "0x1989B8") {
             Return locations
         }
 

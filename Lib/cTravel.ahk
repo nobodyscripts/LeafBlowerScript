@@ -518,14 +518,14 @@ Class cTravel {
         this.ClosePanelIfActive()
         action() ; Open location in func
         Sleep(NavTime)
-        VerboseLog("Panel opened " BinaryToStr(IsPanelActive()))
+        VerboseLog("Panel opened " BinaryToStr(Window.IsPanel()))
         i := 0
         While (!test() && i <= 4) {
             action() ; Open location in func
             Sleep(NavTime)
             i++
         }
-        Return IsPanelActive()
+        Return Window.IsPanel()
     }
 
     ;@region ResetScroll()
@@ -573,10 +573,10 @@ Class cTravel {
      */
     ScrollAmountDown(amount := 1, extraDelay := 0) {
         While (amount > 0) {
-            If (!IsWindowActive() || !IsPanelActive()) {
+            If (!Window.IsActive() || !Window.IsPanel()) {
                 Break
             } Else {
-                ControlClick(, LBRWindowTitle, , "WheelDown")
+                ControlClick(, Window.Title, , "WheelDown")
                 Sleep(NavigateTime + extraDelay)
                 amount--
             }
@@ -592,10 +592,10 @@ Class cTravel {
      */
     ScrollAmountUp(amount := 1, extraDelay := 0) {
         While (amount > 0) {
-            If (!IsWindowActive() || !IsPanelActive()) {
+            If (!Window.IsActive() || !Window.IsPanel()) {
                 Break
             } Else {
-                ControlClick(, LBRWindowTitle, , "WheelUp")
+                ControlClick(, Window.Title, , "WheelUp")
                 Sleep(NavigateTime + extraDelay)
                 amount--
             }
@@ -612,8 +612,8 @@ Class cTravel {
      */
     OpenAreas(reset := false, delay := 0) {
         VerboseLog("Openareas")
-        active := this._OpenAny(GameKeys.OpenAreas.Bind(GameKeys),
-            IsPanelActive, delay)
+        active := this._OpenAny(GameKeys.OpenAreas.Bind(GameKeys), Window.IsPanel
+            .Bind(Window), delay)
         If (reset && active) {
             this.ResetAreaScroll(delay)
         }
@@ -739,8 +739,8 @@ Class cTravel {
      */
     OpenGemShop(reset := false, delay := 0) {
         VerboseLog("OpenGemShop")
-        active := this._OpenAny(GameKeys.OpenGemShop.Bind(GameKeys),
-            IsPanelActive, delay)
+        active := this._OpenAny(GameKeys.OpenGemShop.Bind(GameKeys), Window.IsPanel
+            .Bind(Window), delay)
         If (reset && active) {
             this.ResetGemShopScroll(delay)
         }
@@ -769,8 +769,8 @@ Class cTravel {
     OpenTrades(delay := 0) {
         ; No tabs so no reset
         VerboseLog("OpenTrades")
-        Return this._OpenAny(GameKeys.OpenTrades.Bind(GameKeys), IsPanelActive,
-            delay)
+        Return this._OpenAny(GameKeys.OpenTrades.Bind(GameKeys), Window.IsPanel
+            .Bind(Window), delay)
     }
     ;@endregion
 
@@ -783,8 +783,8 @@ Class cTravel {
      */
     OpenPets(reset := false, delay := 0) {
         VerboseLog("OpenPets")
-        active := this._OpenAny(GameKeys.OpenPets.Bind(GameKeys), IsPanelActive,
-            delay)
+        active := this._OpenAny(GameKeys.OpenPets.Bind(GameKeys), Window.IsPanel
+            .Bind(Window), delay)
         If (reset && active) {
             this.ResetPetScroll(delay)
         }
@@ -811,8 +811,8 @@ Class cTravel {
      */
     OpenBank(delay := 0) {
         VerboseLog("OpenBank")
-        Return this._OpenAny(GameKeys.OpenBank.Bind(GameKeys), IsPanelActive,
-            delay)
+        Return this._OpenAny(GameKeys.OpenBank.Bind(GameKeys), Window.IsPanel.Bind(
+            Window), delay)
     }
     ;@endregion
 
@@ -827,7 +827,7 @@ Class cTravel {
     OpenBorbVentures(reset := false, delay := 0) {
         VerboseLog("OpenBorbVentures")
         active := this._OpenAny(GameKeys.OpenBorbVentures.Bind(GameKeys),
-            IsPanelActive, delay)
+            Window.IsPanel.Bind(Window), delay)
         If (reset && active) {
             this.ResetBorbVScroll(delay)
         }
@@ -882,8 +882,8 @@ Class cTravel {
      */
     OpenCards(reset := false, delay := 0) {
         VerboseLog("OpenCards")
-        active := this._OpenAny(GameKeys.OpenCards.Bind(GameKeys),
-            IsPanelActive, delay)
+        active := this._OpenAny(GameKeys.OpenCards.Bind(GameKeys), Window.IsPanel
+            .Bind(Window), delay)
         If (reset && active) {
             ; TODO this one needs a custom reset
             this.ResetAreaScroll(delay)
@@ -899,8 +899,8 @@ Class cTravel {
      */
     OpenAlchemy(reset := false, delay := 0) {
         VerboseLog("OpenAlchemy")
-        active := this._OpenAny(GameKeys.OpenAlchemy.Bind(GameKeys),
-            IsPanelActive, delay)
+        active := this._OpenAny(GameKeys.OpenAlchemy.Bind(GameKeys), Window.IsPanel
+            .Bind(Window), delay)
         If (reset && active) {
             this.ResetAreaScroll(delay)
         }
@@ -930,7 +930,7 @@ Class cTravel {
     }
 
     IsAlchGeneralTab() {
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             Return false
         }
         Artifacts := Points.Brew.Tab1.Artifacts
@@ -952,8 +952,8 @@ Class cTravel {
      */
     OpenCrafting(reset := false, delay := 0) {
         VerboseLog("OpenCrafting")
-        active := this._OpenAny(GameKeys.OpenCrafting.Bind(GameKeys),
-            IsPanelActive, delay)
+        active := this._OpenAny(GameKeys.OpenCrafting.Bind(GameKeys), Window.IsPanel
+            .Bind(Window), delay)
         If (reset && active) {
             this.ResetAreaScroll(delay)
         }
@@ -968,8 +968,8 @@ Class cTravel {
      */
     OpenMining(reset := false, delay := 0) {
         VerboseLog("OpenMining")
-        active := this._OpenAny(GameKeys.OpenMining.Bind(GameKeys),
-            IsPanelActive, delay)
+        active := this._OpenAny(GameKeys.OpenMining.Bind(GameKeys), Window.IsPanel
+            .Bind(Window), delay)
         If (reset && active) {
             this.ResetAreaScroll(delay)
         }
@@ -985,8 +985,8 @@ Class cTravel {
      */
     OpenGoldPortal(delay := 0) {
         VerboseLog("OpenGoldPortal")
-        active := this._OpenAny(GameKeys.OpenGoldPortal.Bind(GameKeys),
-            IsPanelActive, delay)
+        active := this._OpenAny(GameKeys.OpenGoldPortal.Bind(GameKeys), Window.IsPanel
+            .Bind(Window), delay)
         Return active
     }
     ;@endregion
@@ -1005,7 +1005,7 @@ Class cTravel {
             this.ResetAreaScroll()
         }
         Sleep(NavigateTime)
-        Return IsPanelActive()
+        Return Window.IsPanel()
     }
 
     ;@region Close panel
@@ -1018,7 +1018,7 @@ Class cTravel {
     ClosePanel() {
         GameKeys.ClosePanel()
         Sleep(NavigateTime)
-        Return IsPanelActive()
+        Return Window.IsPanel()
     }
 
     /**
@@ -1028,11 +1028,11 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     ClosePanelIfActive() {
-        If (IsPanelActive()) {
+        If (Window.IsPanel()) {
             this.ClosePanel()
             Sleep(NavigateTime)
         }
-        Return IsPanelActive()
+        Return Window.IsPanel()
     }
     ;@endregion
 

@@ -25,10 +25,9 @@
 
 Global DisableZoneChecks := false
 Global NavigateTime := 150
-Global LBRWindowTitle
 
 GoToGF() {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -36,7 +35,7 @@ GoToGF() {
     i := 0
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x121328") && i <= 4) {
-            If (!IsWindowActive()) {
+            If (!Window.IsActive()) {
                 Log("No window found while trying to travel.")
                 Return false
             }
@@ -82,7 +81,7 @@ GoToGF() {
 }
 
 GoToSS() {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -90,7 +89,7 @@ GoToSS() {
     i := 0
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x17190F") && i <= 4) {
-            If (!IsWindowActive()) {
+            If (!Window.IsActive()) {
                 Log("No window found while trying to travel.")
                 Return false
             }
@@ -134,7 +133,7 @@ GoToSS() {
 }
 
 GoToShadowCavern() {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -142,7 +141,7 @@ GoToShadowCavern() {
     i := 0
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x260000") && i <= 4) {
-            If (!IsWindowActive()) {
+            If (!Window.IsActive()) {
                 Log("No window found while trying to travel.")
                 Return false
             }
@@ -186,7 +185,7 @@ GoToShadowCavern() {
 }
 
 GotoResetSS() {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -220,7 +219,7 @@ ResetGF() {
 }
 
 GoToNatureBoss() {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -228,7 +227,7 @@ GoToNatureBoss() {
     i := 0
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x090B10") && i <= 4) {
-            If (!IsWindowActive()) {
+            If (!Window.IsActive()) {
                 Log("No window found while trying to travel.")
                 Return false
             }
@@ -307,7 +306,7 @@ IsOnEventAreaPanel() {
 
 GoToCheeseBoss() {
     button := Points.Areas.Events.CursedHalloween
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -315,7 +314,7 @@ GoToCheeseBoss() {
     i := 0
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x150412") && i <= 4) {
-            If (!IsWindowActive()) {
+            If (!Window.IsActive()) {
                 Log("No window found while trying to travel.")
                 Return false
             }
@@ -367,7 +366,7 @@ GoToCheeseBoss() {
 
 GoToFarmField() {
     button := Points.Areas.Events.FarmField
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -386,7 +385,7 @@ GoToFarmField() {
         ; breaking
         While ((IsAreaSampleColour("0x4A9754") && !IsBossTimerActive()) && i <=
             4) {
-            If (!IsWindowActive()) {
+            If (!Window.IsActive()) {
                 Log("No window found while trying to travel.")
                 Return false
             }
@@ -440,7 +439,7 @@ GoToFarmField() {
 }
 
 GoToAstralOasis() {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -449,7 +448,7 @@ GoToAstralOasis() {
     button := Points.Areas.QuarkA.AstralOasis
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x000108") && i <= 4) {
-            If (!IsWindowActive()) {
+            If (!Window.IsActive()) {
                 Log("No window found while trying to travel.")
                 Return false
             }
@@ -493,7 +492,7 @@ GoToAstralOasis() {
 }
 
 GoToDimentionalTapestry() {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -502,7 +501,7 @@ GoToDimentionalTapestry() {
     button := Points.Areas.Events.DimentionalTapestry
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x37356B") && i <= 4) {
-            If (!IsWindowActive()) {
+            If (!Window.IsActive()) {
                 Log("No window found while trying to travel.")
                 Return false
             }
@@ -547,7 +546,7 @@ GoToDimentionalTapestry() {
 }
 
 GoToPlankScope() {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -557,7 +556,7 @@ GoToPlankScope() {
     button2 := Points.Areas.Events.PlankScope2
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x0B1E32") && i <= 4) {
-            If (!IsWindowActive()) {
+            If (!Window.IsActive()) {
                 Log("No window found while trying to travel.")
                 Return false
             }
@@ -601,7 +600,7 @@ GoToPlankScope() {
 }
 
 SingleAnteLeaftonTravel(extradelay := 0) {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -620,7 +619,7 @@ SingleAnteLeaftonTravel(extradelay := 0) {
 }
 
 GoToAnteLeafton() {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -658,7 +657,7 @@ GoToAnteLeafton() {
 }
 
 GotoCardsFirstTab() {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to travel.")
         Return false
     }
@@ -666,8 +665,8 @@ GotoCardsFirstTab() {
     i := 0
     button := Points.Card.PacksTab
     If (!DisableZoneChecks) {
-        While (!IsOnCardsFirstPanel() && IsWindowActive() && i <= 4) {
-            If (!IsWindowActive()) {
+        While (!IsOnCardsFirstPanel() && Window.IsActive() && i <= 4) {
+            If (!Window.IsActive()) {
                 Log("No window found while trying to travel.")
                 Return false
             }
@@ -726,8 +725,8 @@ GoToLeafTower() {
         Log("TowerBoost: Could not find tower leaf to open area.")
         Return false
     }
-    LeafsingButton := cPoint(spot[1] + WinRelPosLargeW(69), spot[2] -
-        WinRelPosLargeH(160), false)
+    LeafsingButton := cPoint(spot[1] + Window.RelW(69), spot[2] - Window.RelH(
+        160), false)
     ; Open leafsing harbor to allow max level reset
     If (LeafsingButton.IsBackground()) {
         ; Background colour found
@@ -737,8 +736,8 @@ GoToLeafTower() {
     LeafsingButton.Click(101)
     Sleep(201)
 
-    TowerMax := cPoint(spot[1] + WinRelPosLargeW(460), spot[2] +
-        WinRelPosLargeH(60), false)
+    TowerMax := cPoint(spot[1] + Window.RelW(460), spot[2] + Window.RelH(60),
+        false)
     ; Max Tower level
     If (!TowerMax.IsButtonActive()) {
         Log("Error 31: Tower max detection failed. Alignment3.")
@@ -747,8 +746,8 @@ GoToLeafTower() {
     TowerMax.Click(101)
     Sleep(101)
 
-    TowerArea := cPoint(spot[1] + WinRelPosLargeW(69), spot[2] -
-        WinRelPosLargeH(5), false)
+    TowerArea := cPoint(spot[1] + Window.RelW(69), spot[2] - Window.RelH(5),
+        false)
     ; Select Tower area
     If (!TowerArea.IsButtonActive()) {
         Log("Error 32: Tower area detection failed. Could not find "

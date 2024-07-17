@@ -91,7 +91,7 @@ fMineMaintainer() {
     /** @type {Timer} */
     BrewCutOffTimer := Timer()
 
-    ToolTip("Mine Maintainer Active", W / 2, WinRelPosLargeH(200), 4)
+    ToolTip("Mine Maintainer Active", Window.W / 2, Window.RelH(200), 4)
     ; Log mine settings for remote debugging
     MineLogSettings()
     If (MinerEnableLeafton) {
@@ -103,14 +103,14 @@ fMineMaintainer() {
     Travel.Mine.GoTo()
     Loop {
         ;@region Loop
-        If (IsWindowActive() && MinerEnableLeafton) {
+        If (Window.IsActive() && MinerEnableLeafton) {
             LeaftonTaxiSinglePass()
         }
-        If (IsWindowActive() && !IsPanelActive()) {
+        If (Window.IsActive() && !Window.IsPanel()) {
             Travel.Mine.GoTo()
         }
         ;@region Veins
-        If (IsWindowActive() && IsPanelActive() && (MinerEnableVeins ||
+        If (Window.IsActive() && Window.IsPanel() && (MinerEnableVeins ||
             MinerEnableVeinRemoval)) {
             i := 1
             DebugLog("Opening veins tab")
@@ -139,7 +139,7 @@ fMineMaintainer() {
         ;@endregion
 
         ;@region Vein upgrade
-        If (IsWindowActive() && IsPanelActive() && Travel.Mine.IsOnTabVein() &&
+        If (Window.IsActive() && Window.IsPanel() && Travel.Mine.IsOnTabVein() &&
             VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
             Log("Upgrading vein")
             VeinUpgradeButton.ClickOffset(NavigateTime)
@@ -147,7 +147,7 @@ fMineMaintainer() {
         ;@endregion
 
         ;@region Transmute
-        If (IsWindowActive() && isAnyTransmuteEnabled() && IsPanelActive()) {
+        If (Window.IsActive() && isAnyTransmuteEnabled() && Window.IsPanel()) {
             If (Firstpass || DateDiff(A_Now, TransmuteTime, "Seconds") >=
                 MinerTransmuteTimer) {
                 TransmuteTime := A_Now
@@ -172,7 +172,7 @@ fMineMaintainer() {
         ;@endregion
 
         ;@region Fuel
-        If (MinerEnableFreeRefuel && IsWindowActive() && IsPanelActive()) {
+        If (MinerEnableFreeRefuel && Window.IsActive() && Window.IsPanel()) {
             If (Firstpass || DateDiff(A_Now, RefuelTime, "Seconds") >=
                 MinerRefuelTimer * 60) {
                 RefuelTime := A_Now
@@ -197,7 +197,7 @@ fMineMaintainer() {
         ;@endregion
 
         ;@region Sphere
-        If (IsWindowActive() && IsPanelActive() && MinerEnableSphereUse) {
+        If (Window.IsActive() && Window.IsPanel() && MinerEnableSphereUse) {
             If (Firstpass || DateDiff(A_Now, SphereTime, "Seconds") >=
                 MinerSphereTimer * 60) {
                 SphereTime := A_Now
@@ -224,18 +224,18 @@ fMineMaintainer() {
         ;@endregion
 
         ;@region Banks
-        If (IsWindowActive() && IsPanelActive() && MinerEnableBanks) {
+        If (Window.IsActive() && Window.IsPanel() && MinerEnableBanks) {
             If (Firstpass || DateDiff(A_Now, BankTime, "Seconds") >=
                 BankDepositTime * 60) {
                 ToolTip(, , , 4)
                 Log("Mine: Bank Maintainer starting.")
-                ToolTip("Mine Bank Maintainer Active", W / 2, WinRelPosLargeH(
+                ToolTip("Mine Bank Maintainer Active", Window.W / 2, Window.RelH(
                     200), 4)
                 Sleep(NavigateTime)
                 BankSinglePass()
                 ToolTip(, , , 4)
-                ToolTip("Mine Maintainer Active", W / 2, WinRelPosLargeH(200),
-                    4)
+                ToolTip("Mine Maintainer Active", Window.W / 2, Window.RelH(200
+                ), 4)
                 BankTime := A_Now
                 ; Single pass does try to close, this is redundancy
                 Travel.ClosePanelIfActive()
@@ -245,11 +245,11 @@ fMineMaintainer() {
         ;@endregion
 
         ;@region Caves
-        If (IsWindowActive() && IsPanelActive() && MinerEnableCaves) {
+        If (Window.IsActive() && Window.IsPanel() && MinerEnableCaves) {
             If (Firstpass || DateDiff(A_Now, CavesTime, "Seconds") >=
                 MinerCaveTimer * 60) {
                 i := 1
-                While (!Travel.Mine.IsOnTabMines() && i <= 4 && IsPanelActive()
+                While (!Travel.Mine.IsOnTabMines() && i <= 4 && Window.IsPanel()
                 ) {
                     MinesTab.Click(NavigateTime)
                     Sleep(NavigateTime)
@@ -269,7 +269,7 @@ fMineMaintainer() {
         ;@endregion
 
         ;@region Brew
-        If (IsWindowActive() && MinerEnableBrewing && !BrewCycleTimer.Running) {
+        If (Window.IsActive() && MinerEnableBrewing && !BrewCycleTimer.Running) {
             Log("Mine: Brewing")
             If (Travel.OpenAlchemyGeneral()) {
                 BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &
@@ -307,7 +307,7 @@ isAnyTransmuteEnabled() {
 TransmuteAllCoalBars() {
     If (MinerEnableTransmute) {
         TransmuteButton := Points.Mine.Transmute.AllCBarsToCDias
-        While (IsWindowActive() && IsPanelActive() && TransmuteButton.IsButtonActive() &&
+        While (Window.IsActive() && Window.IsPanel() && TransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             TransmuteButton.ClickOffset()
             DebugLog("Transmuted all coal bars to coal diamonds")
@@ -316,7 +316,7 @@ TransmuteAllCoalBars() {
     }
     If (MinerEnableTransmuteSdia) {
         SdiaTransmuteButton := Points.Mine.Transmute.AllCDiasToSDias
-        While (IsWindowActive() && IsPanelActive() && SdiaTransmuteButton.IsButtonActive() &&
+        While (Window.IsActive() && Window.IsPanel() && SdiaTransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             SdiaTransmuteButton.ClickOffset()
             DebugLog("Transmuted all coal diamonds to shiny diamonds")
@@ -325,7 +325,7 @@ TransmuteAllCoalBars() {
     }
     If (MinerEnableTransmuteFuel) {
         FuelTransmuteButton := Points.Mine.Transmute.AllCDiasToFuel
-        While (IsWindowActive() && IsPanelActive() && FuelTransmuteButton.IsButtonActive() &&
+        While (Window.IsActive() && Window.IsPanel() && FuelTransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             FuelTransmuteButton.ClickOffset()
             DebugLog("Transmuted all coal diamonds to fuel")
@@ -334,7 +334,7 @@ TransmuteAllCoalBars() {
     }
     If (MinerEnableTransmuteSphere) {
         SphereTransmuteButton := Points.Mine.Transmute.AllCDiasToSpheres
-        While (IsWindowActive() && IsPanelActive() && SphereTransmuteButton.IsButtonActive() &&
+        While (Window.IsActive() && Window.IsPanel() && SphereTransmuteButton.IsButtonActive() &&
             Travel.Mine.IsOnTabTrans()) {
             SphereTransmuteButton.ClickOffset()
             DebugLog("Transmuted all coal diamonds to spheres")
@@ -343,8 +343,8 @@ TransmuteAllCoalBars() {
     }
     If (MinerEnableTransmuteSdiaToCDia) {
         SdiaToCBTransmuteButton := Points.Mine.Transmute.AllSDiasToCDia
-        While (IsWindowActive() && IsPanelActive() && SdiaToCBTransmuteButton.IsButtonActive() &&
-            Travel.Mine.IsOnTabTrans()) {
+        While (Window.IsActive() && Window.IsPanel() && SdiaToCBTransmuteButton
+            .IsButtonActive() && Travel.Mine.IsOnTabTrans()) {
             SdiaToCBTransmuteButton.ClickOffset()
             DebugLog("Transmuted all shiny diamonds to coal diamonds")
             Sleep(NavigateTime)
@@ -356,7 +356,8 @@ TransmuteAllCoalBars() {
 ;@region Drill Functions
 CollectFreeDrillFuel() {
     FuelButton := Points.Mine.FreeFuel
-    While (IsWindowActive() && IsPanelActive() && FuelButton.IsButtonActive()) {
+    While (Window.IsActive() && Window.IsPanel() && FuelButton.IsButtonActive()
+    ) {
         FuelButton.ClickOffset()
         Sleep(NavigateTime)
     }
@@ -374,7 +375,7 @@ UseDrillSphereLoop() {
     tempCount := MinerSphereCount
 
     If (MinerSphereCount > 0) {
-        While (IsWindowActive() && IsPanelActive() && ;
+        While (Window.IsActive() && Window.IsPanel() && ;
             SphereButton.IsButtonActive() && tempCount > 0) {
             If (MinerSphereModifier > 1) {
                 ; limited count, with modifier
@@ -392,7 +393,7 @@ UseDrillSphereLoop() {
     } Else {
         If (!MinerSphereGreedyUse) {
             ; Inf use, no greedy
-            While (IsWindowActive() && IsPanelActive() && ;
+            While (Window.IsActive() && Window.IsPanel() && ;
                 SphereButton.IsButtonActive()) {
                 If (MinerSphereModifier > 1) {
                     AmountToModifier(MinerSphereModifier)
@@ -422,37 +423,37 @@ EnhanceVeins() {
     slot4 := Points.Mine.Vein.Slot4.Enhance
     slot5 := Points.Mine.Vein.Slot5.Enhance
     slot6 := Points.Mine.Vein.Slot6.Enhance
-    While (IsWindowActive() && IsPanelActive() && !slot1.IsBackground()) {
+    While (Window.IsActive() && Window.IsPanel() && !slot1.IsBackground()) {
         If (slot1.IsButtonActive()) {
             slot1.ClickOffset(5, 5, 34)
             Sleep(NavigateTime)
         }
     }
-    While (IsWindowActive() && IsPanelActive() && !slot2.IsBackground()) {
+    While (Window.IsActive() && Window.IsPanel() && !slot2.IsBackground()) {
         If (slot2.IsButtonActive()) {
             slot2.ClickOffset(5, 5, 34)
             Sleep(NavigateTime)
         }
     }
-    While (IsWindowActive() && IsPanelActive() && !slot3.IsBackground()) {
+    While (Window.IsActive() && Window.IsPanel() && !slot3.IsBackground()) {
         If (slot3.IsButtonActive()) {
             slot3.ClickOffset(5, 5, 34)
             Sleep(NavigateTime)
         }
     }
-    While (IsWindowActive() && IsPanelActive() && !slot4.IsBackground()) {
+    While (Window.IsActive() && Window.IsPanel() && !slot4.IsBackground()) {
         If (slot4.IsButtonActive()) {
             slot4.ClickOffset(5, 5, 34)
             Sleep(NavigateTime)
         }
     }
-    While (IsWindowActive() && IsPanelActive() && !slot5.IsBackground()) {
+    While (Window.IsActive() && Window.IsPanel() && !slot5.IsBackground()) {
         If (slot5.IsButtonActive()) {
             slot5.ClickOffset(5, 5, 34)
             Sleep(NavigateTime)
         }
     }
-    While (IsWindowActive() && IsPanelActive() && !slot6.IsBackground()) {
+    While (Window.IsActive() && Window.IsPanel() && !slot6.IsBackground()) {
         If (slot6.IsButtonActive()) {
             slot6.ClickOffset(5, 5, 34)
             Sleep(NavigateTime)
@@ -543,7 +544,7 @@ RemoveSingleVein() {
 VeinCancelConfirm() {
     CancelConfirm := Points.Mine.Vein.CancelConfirm
     l := 0
-    While (!CancelConfirm.IsBackground() && l < 10 && IsWindowActive()) {
+    While (!CancelConfirm.IsBackground() && l < 10 && Window.IsActive()) {
         CancelConfirm.ClickOffset()
         Sleep(NavigateTime + 50)
         l++

@@ -108,13 +108,13 @@ Button_Click_Bank(thisGui, info) {
     RunSaveBank(*) {
         SaveBank()
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fBankStart()
     }
 
     RunBank(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fBankStart()
     }
 

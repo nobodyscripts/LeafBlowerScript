@@ -8,7 +8,7 @@ Global IsSecondary := true
 #Include ..\Lib\hGlobals.ahk
 #Include ..\Lib\ScriptSettings.ahk
 #Include ..\Lib\Functions.ahk
-#Include ..\Lib\SettingsCheck.ahk
+#Include ..\Lib\cGameWindow.ahk
 #Include ..\Lib\Navigate.ahk
 #Include ..\Lib\cHotkeysInitGame.ahk
 
@@ -20,37 +20,39 @@ settings.initSettings(true)
 
 Log("Secondary: GFSS Boss Started")
 
-GameWindowExist()
 fGFSSBoss()
-
 fGFSSBoss() {
     startTime := A_Now
     Loop {
-        If (!IsWindowActive()) {
-            Log("GFSSBoss: Exiting as no game.")
+        If (!Window.Exist()) {
+            Log("Secondary: GFSS Spammer exiting as no game.")
             Return
         }
-        If ((IsWindowActive() && IsBossTimerActive()) || (IsWindowActive() &&
-            DateDiff(A_Now, startTime, "Seconds") >= 30)) {
-            GameKeys.TriggerViolin()
-            Sleep(ArtifactSleepAmount)
-            startTime := A_Now
-        }
-        If (IsWindowActive() && !IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()
-        ) {
-            If (BossFarmUsesSeeds) {
-                GameKeys.TriggerSeeds()
-            }
-            If (IsAreaGFOrSS()) {
-                GameKeys.TriggerGravity()
-                GameKeys.TriggerWind()
+        If (!Window.IsActive()) {
+            Window.Activate()
+        } Else {
+            If (IsBossTimerActive() || DateDiff(A_Now, startTime, "Seconds") >=
+                30) {
+                GameKeys.TriggerViolin()
                 Sleep(ArtifactSleepAmount)
-            } Else {
-                If (BossFarmUsesWind) {
+                startTime := A_Now
+            }
+            If (!IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()) {
+                If (BossFarmUsesSeeds) {
+                    GameKeys.TriggerSeeds()
+                }
+                If (IsAreaGFOrSS()) {
+                    GameKeys.TriggerGravity()
                     GameKeys.TriggerWind()
                     Sleep(ArtifactSleepAmount)
+                } Else {
+                    If (BossFarmUsesWind) {
+                        GameKeys.TriggerWind()
+                        Sleep(ArtifactSleepAmount)
+                    }
                 }
             }
         }
+
     }
 }

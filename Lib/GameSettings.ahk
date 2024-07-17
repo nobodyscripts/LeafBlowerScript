@@ -6,7 +6,7 @@
  * Update game settings to match scripts needs
  */
 fGameSettings(*) {
-    If (WinExist(LBRWindowTitle)) {
+    If (Window.Exist()) {
         MsgBox("CLOSE GAME BEFORE RUNNING GAME SETTINGS CHANGE SCRIPT`n"
             "Script aborted")
         cReload()

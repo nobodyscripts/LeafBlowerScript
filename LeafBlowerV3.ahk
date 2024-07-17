@@ -17,7 +17,7 @@ Global IsSecondary := false
 #Include Lib\ScriptSettings.ahk
 #Include Lib\Functions.ahk
 #Include Lib\Navigate.ahk
-#Include Lib\SettingsCheck.ahk
+#Include Lib\cGameWindow.ahk
 #Include Lib\Spammers.ahk
 #Include Lib\cHotkeysInitGame.ahk
 #Include Lib\cHotkeysInitScript.ahk
@@ -84,7 +84,7 @@ Run this file to load script
 
 CreateScriptHotkeys() {
     Hotkey("*" Scriptkeys.GetHotkey("AutoClicker"), fAutoClicker)
-    HotIfWinActive(LBRWindowTitle)
+    HotIfWinActive(Window.Title)
     Hotkey("*" Scriptkeys.GetHotkey("Exit"), fExitApp)
     Hotkey("*" Scriptkeys.GetHotkey("Reload"), fReloadApp)
     Hotkey("*" Scriptkeys.GetHotkey("Cards"), fCardsStart)
@@ -126,12 +126,12 @@ fReloadApp(*) {
     }
     If (bvAutostartDisabled = true) {
         ; TODO move point to Points
-        fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
+        fCustomClick(Window.RelW(591), Window.RelH(1100), 34)
     }
     If (GemFarmActive) {
         GemFarmActive := false
         ToolTip(, , , 15)
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             cReload()
             Return
         }
@@ -171,7 +171,7 @@ fCardsStart(*) { ; Open cards clicker
     ResetModifierKeys() ; Twice for good luck
     Sleep(34)
     If on3 := !on3 {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -201,7 +201,7 @@ fGemFarmStart(*) { ; Gem farm using suitcase
     Log("F4: Pressed")
     InitScriptHotKey()
     If on4 := !on4 {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -209,7 +209,7 @@ fGemFarmStart(*) { ; Gem farm using suitcase
     } Else {
         GemFarmActive := false
         ToolTip(, , , 15)
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             cReload()
             Return
         }
@@ -234,7 +234,7 @@ fTowerBoostStart(*) { ; Tower 72hr boost loop
     Log("F5: Pressed")
     InitScriptHotKey()
     If on5 := !on5 {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -253,7 +253,7 @@ fBorbvStart(*) { ; Borb pink juice farm in borbventures
     Log("F6: Pressed")
     InitScriptHotKey()
     If on6 := !on6 {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -261,7 +261,7 @@ fBorbvStart(*) { ; Borb pink juice farm in borbventures
     } Else {
         If (bvAutostartDisabled = true && Travel.GotoBorbVFirstTab()) {
             ; TODO move point to Points
-            fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
+            fCustomClick(Window.RelW(591), Window.RelH(1100), 34)
         }
         ToolTip()
         cReload()
@@ -273,7 +273,7 @@ fClawStart(*) { ; Claw pumpkin farm
     Log("F7: Pressed")
     InitScriptHotKey()
     If on7 := !on7 {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -286,7 +286,7 @@ fGFSSStart(*) { ; Green Flame/Soulseeker farm
     Log("F8: Pressed")
     InitScriptHotKey()
     If on8 := !on8 {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -315,8 +315,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
             If (bvAutostartDisabled = true) {
                 If (!IsBVAutoStartOn()) {
                     ; TODO move point to Points
-                    fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100),
-                        34)
+                    fCustomClick(Window.RelW(591), Window.RelH(1100), 34)
                 }
             }
             on9 := 4 ; Boss mode with cards
@@ -344,7 +343,7 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
             Return
         default:
             on9 := 1 ; Normal boss mode
-            If (!CheckGameSettingsCorrect()) {
+            If (!Window.AreGameSettingsCorrect()) {
                 cReload()
                 Return
             }
@@ -359,7 +358,7 @@ fNatureBossStart(*) { ; Farm nature boss using violins
     Log("F10: Pressed")
     InitScriptHotKey()
     If (on10 := !on10) {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -370,7 +369,7 @@ fNatureBossStart(*) { ; Farm nature boss using violins
 fAutoClicker(*) {
     Static on11 := false
     Log("F11: Pressed")
-    ;GameWindowExist()
+    ;Window.Exist()
     If (on11 := !on11) {
         While (on11) {
             MouseClick("left", , , , , "D")
@@ -390,22 +389,22 @@ fAutoClicker(*) {
 }
 
 fGameResize(*) {
-    Global X, Y, W, H, DisableSettingsChecks
+    Global DisableSettingsChecks
     Log("F12: Pressed")
-    If (!GameWindowExist()) {
+    If (!Window.Exist()) {
         Return
     }
-    If (WinGetMinMax(LBRWindowTitle) != 0) {
-        WinRestore(LBRWindowTitle)
+    If (WinGetMinMax(Window.Title) != 0) {
+        WinRestore(Window.Title)
     }
     ; Changes size of client window for windows 11
-    WinMove(, , 1294, 703, LBRWindowTitle)
-    WinWait(LBRWindowTitle)
-    GameWindowExist()
-    If (W != "1278" || H != "664") {
+    WinMove(, , 1294, 703, Window.Title)
+    WinWait(Window.Title)
+    Window.Exist()
+    If (Window.W != "1278" || Window.H != "664") {
         Log(
-            "Resized window to 1294*703 client size should be 1278*664, found: " W "*" H
-        )
+            "Resized window to 1294*703 client size should be 1278*664, found: " Window
+            .W "*" Window.H)
     }
     fCheckGameSettings()
 }
@@ -416,7 +415,7 @@ fMineStart(*) {
     Log("Insert: Pressed")
     InitScriptHotKey()
     If (on13 := !on13) {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -437,7 +436,7 @@ fHyacinthStart(*) {
     Log("Home: Pressed")
     InitScriptHotKey()
     If (on14 := !on14) {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -456,7 +455,7 @@ fBankStart(*) {
     Log("PgUp: Pressed")
     InitScriptHotKey()
     If (on16 := !on16) {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -477,7 +476,7 @@ fCursedCheeseStart(*) {
     Log("Del: Pressed")
     InitScriptHotKey()
     If (on18 := !on18) {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -497,7 +496,7 @@ fTowerPassiveStart(*) {
     Log("End: Pressed")
     InitScriptHotKey()
     If (on15 := !on15) {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
@@ -516,7 +515,7 @@ fLeaftonStart(*) {
     Log("PgDn: Pressed")
     InitScriptHotKey()
     If (on17 := !on17) {
-        If (!CheckGameSettingsCorrect()) {
+        If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }

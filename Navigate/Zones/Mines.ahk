@@ -26,7 +26,7 @@ Class Mine extends Zone {
                 Points.Mine.Tab1Vein.Click()
                 Sleep(NavigateTime)
             }
-            Return IsPanelActive()
+            Return Window.IsPanel()
         }
     }
     ;@endregion

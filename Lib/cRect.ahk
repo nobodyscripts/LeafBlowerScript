@@ -21,12 +21,11 @@
 Class cRect {
     x1 {
         get {
-            Global W
-            If (this.relative && IsSet(W)) {
-                Return this._x1 / 2560 * W
+            If (this.relative && Window.W != 0) {
+                Return this._x1 / 2560 * Window.W
             } Else {
-                If (!IsSet(W)) {
-                    Log("ERR: W not set")
+                If (Window.W = 0) {
+                    Log("ERR: Window.W not set")
                 }
                 Return this._x1
             }
@@ -39,12 +38,11 @@ Class cRect {
 
     y1 {
         get {
-            Global H
-            If (this.relative && IsSet(H)) {
-                Return this._y1 / 1369 * H
+            If (this.relative && Window.H != 0) {
+                Return this._y1 / 1369 * Window.H
             } Else {
-                If (!IsSet(H)) {
-                    Log("ERR: H not set")
+                If (Window.H = 0) {
+                    Log("ERR: Window.H not set")
                 }
                 Return this._y1
             }
@@ -57,12 +55,11 @@ Class cRect {
 
     x2 {
         get {
-            Global W
-            If (this.relative && IsSet(W)) {
-                Return this._x2 / 2560 * W
+            If (this.relative && Window.W != 0) {
+                Return this._x2 / 2560 * Window.W
             } Else {
-                If (!IsSet(W)) {
-                    Log("ERR: W not set")
+                If (Window.W = 0) {
+                    Log("ERR: Window.W not set")
                 }
                 Return this._x2
             }
@@ -75,12 +72,11 @@ Class cRect {
 
     y2 {
         get {
-            Global H
-            If (this.relative && IsSet(H)) {
-                Return this._y2 / 1369 * H
+            If (this.relative && Window.H != 0) {
+                Return this._y2 / 1369 * Window.H
             } Else {
-                If (!IsSet(H)) {
-                    Log("ERR: H not set")
+                If (Window.H = 0) {
+                    Log("ERR: Window.H not set")
                 }
                 Return this._y2
             }

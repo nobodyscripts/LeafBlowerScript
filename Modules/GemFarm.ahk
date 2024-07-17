@@ -12,7 +12,6 @@ fGemFarmSuitcase() {
     Global TradesAutoRefreshOldState
     Global TradesDetailedModeOldState
     Global GemFarmSleepAmount, HadToHideNotifs, GemFarmActive
-    Global X, Y, W, H
     DetailedToggle := Points.GemFarm.DetailedToggle
     NotifArrow := Points.Misc.NotifArrow
     AutoRefreshToggle := Points.GemFarm.AutoRefreshToggle
@@ -25,13 +24,13 @@ fGemFarmSuitcase() {
         }
         Log("GemFarm: Could not find The Infernal Desert area. Aborted travel."
         )
-        ToolTip("Could not find The Infernal Desert area`nUse F4 to finish", W /
-            2 - WinRelPosLargeW(100), H / 2, 3)
+        ToolTip("Could not find The Infernal Desert area`nUse F4 to finish",
+            Window.W / 2 - Window.RelW(100), Window.H / 2, 3)
         Return
     }
 
     ; Disable notifications while doing bearo and auto refresh check
-    If (IsWindowActive() && IsNotificationActive()) {
+    If (Window.IsActive() && IsNotificationActive()) {
         Log("GemFarm: Found notifications on and toggled off.")
         ; Notifications were blocking, close notifications
         NotifArrow.Click(NavigateTime)
@@ -42,7 +41,7 @@ fGemFarmSuitcase() {
     ; Removes bearo from your pet team if its active
     RemoveBearo()
     Sleep(NavigateTime)
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         If (Debug) {
             MsgBox("GemFarm: Exiting as no game.")
         }
@@ -58,25 +57,25 @@ fGemFarmSuitcase() {
 
     ; Disable auto refresh if its on based on timer at top of panel
     TradesAutoRefreshOldState := IsTradeAutoRefreshOn()
-    If (TradesAutoRefreshOldState && IsWindowActive() && IsPanelActive()) {
+    If (TradesAutoRefreshOldState && Window.IsActive() && Window.IsPanel()) {
         Log("GemFarm: Auto refresh found on. Toggled off.")
         ; Auto refresh button
         AutoRefreshToggle.Click(101)
     }
     ; Notifications are ok now
-    If (HadToHideNotifs && IsWindowActive()) {
+    If (HadToHideNotifs && Window.IsActive()) {
         Log("GemFarm: Reenabling notifications.")
         ; Notification button
         NotifArrow.Click(NavigateTime)
         Sleep(NavigateTime)
         HadToHideNotifs := false
         ; Return to trades as it'll close
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             Travel.OpenTrades()
             Sleep(NavigateTime)
         }
     }
-    If (!IsPanelActive()) {
+    If (!Window.IsPanel()) {
         Travel.OpenTrades()
         Sleep(NavigateTime)
     }
@@ -84,16 +83,16 @@ fGemFarmSuitcase() {
     Sleep(NavigateTime)
     ; Detailed mode check, we need it off for alignment of fill trades
     TradesDetailedModeOldState := IsTradeDetailedModeOn()
-    If (IsWindowActive() && IsPanelActive() && IsTradeDetailedModeOn()) {
+    If (Window.IsActive() && Window.IsPanel() && IsTradeDetailedModeOn()) {
         Log("GemFarm: Detailed mode found on. Toggled off.")
         ; Disable detailed mode if its on based on gap between blue arrows
         VerboseLog("DetailedToggle")
         DetailedToggle.Click(NavigateTime)
-        ToolTip("Toggled off details", W / 2 - WinRelPosLargeW(50), H / 2 +
-            WinRelPosLargeH(20), 3)
+        ToolTip("Toggled off details", Window.W / 2 - Window.RelW(50), Window.H /
+            2 + Window.RelH(20), 3)
         SetTimer(ToolTip.Bind(, , , 3), -1000)
     }
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         If (Debug) {
             MsgBox("GemFarm: Exiting as no game.")
         }
@@ -112,26 +111,24 @@ fGemFarmSuitcase() {
     }
 
     ; We try to fill trades, if that returns false exit out
-    If (IsWindowActive() && IsPanelActive() && !FillTradeSlots()) {
+    If (Window.IsActive() && Window.IsPanel() && !FillTradeSlots()) {
         If (Debug) {
             MsgBox("GemFarm: Failed to fill trade slots. Exited.")
         }
         Log("GemFarm: Failed to fill trade slots. Exited.")
         ToolTip("Failed to fill trade slots, exiting.`nPress F4 to close and "
-            "then retry GemFarm.", W / 2 - WinRelPosLargeW(100), H / 2, 5)
+            "then retry GemFarm.", Window.W / 2 - Window.RelW(100), Window.H /
+            2, 5)
         SetTimer(ToolTip.Bind(, , , 5), -1000)
         Return
     }
-    MouseMove(W / 2, WinRelPosLargeH(800))
+    MouseMove(Window.W / 2, Window.RelH(800))
     sCount := 0
     fCount := 0
     GemFarmActive := true
     Log("GemFarm: Starting main loop.")
     While (GemFarmActive) {
-        WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
-        ; Update window size
-
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             ToolTip(, , , 15)
             If (Debug) {
                 MsgBox("GemFarm: Exiting as no game.")
@@ -141,11 +138,11 @@ fGemFarmSuitcase() {
             Return
         }
 
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             ToolTip(, , , 15)
             If (Debug) {
                 MsgBox("GemFarm: Did not find panel. Aborted.")
-                MakeWindowActive()
+                Window.Activate()
             }
             Log("GemFarm: Did not find panel. Aborted.")
             Break
@@ -175,8 +172,8 @@ fGemFarmSuitcase() {
                         }
                     }
                     ToolTip("Used suitcases " sCount " times.`n"
-                        "Failed to use suitcases " fCount " times.", W / 2 -
-                        WinRelPosLargeW(100), H / 2, 15)
+                        "Failed to use suitcases " fCount " times.", Window.W /
+                        2 - Window.RelW(100), Window.H / 2, 15)
 
                 }
             }
@@ -199,8 +196,8 @@ RemoveBearo() {
     coord := Rects.GemFarm.BearoSearch.PixelSearch("0x64747A")
     If (coord) {
         Log("GemFarm: Bearo found and removed.")
-        ToolTip("Bearo found and removed", W / 2 - WinRelPosLargeW(100), H / 2 -
-            WinRelPosLargeH(140), 16)
+        ToolTip("Bearo found and removed", Window.W / 2 - Window.RelW(100),
+            Window.H / 2 - Window.RelH(140), 16)
         SetTimer(ToolTip.Bind(, , , 16), -1000)
         HadToRemoveBearo := true
         Sleep(NavigateTime)
@@ -220,17 +217,18 @@ FillTradeSlots() {
     Button := Points.GemFarm.Start2
     i := 200
     Log("GemFarm: Filling trade slots for suitcase farming.")
-    ToolTip("Filling trade slots", W / 2 - WinRelPosLargeW(140), H / 2)
+    ToolTip("Filling trade slots", Window.W / 2 - Window.RelW(140), Window.H /
+        2)
     SetTimer(ToolTip, -1000)
     While i > 0 {
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Log("GemFarm: Fill trades exiting as no game.")
             cReload() ; Kill the loop if the window closes
             i := 0
             Return false
         }
 
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             Log("GemFarm: Fill Trade slots did not find panel. Aborted.")
             i := 0
             Return false

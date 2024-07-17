@@ -71,7 +71,7 @@ Class cTask {
      * @returns {Boolean} Has run
      */
     Run() {
-        If (!IsWindowActive() || this.IsOnCooldown() ) {
+        If (!Window.IsActive() || this.IsOnCooldown()) {
             Return false
         }
         this._isRunning := true
@@ -111,7 +111,7 @@ Class cTask {
      * out
      */
     Loop() {
-        If (!IsWindowActive() || this.IsOnCooldown()) {
+        If (!Window.IsActive() || this.IsOnCooldown()) {
             Return false
         }
         this._isRunning := this._isLooping := true
@@ -119,12 +119,12 @@ Class cTask {
         this.PreTask()
         ; Break if provided check, timer or manual stop change
         While (this.StopWhen() && this._isLooping && this.WithinRunFor() &&
-            IsWindowActive()) {
+            Window.IsActive()) {
             If (!this.Task()) {
                 Break
             }
         }
-        If (IsWindowActive()) {
+        If (Window.IsActive()) {
             this.PostTask()
         }
         this._startCooldown()

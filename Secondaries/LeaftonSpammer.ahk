@@ -9,7 +9,7 @@ Global IsSecondary := true
 #Include ..\Lib\hGlobals.ahk
 #Include ..\Lib\ScriptSettings.ahk
 #Include ..\Lib\Functions.ahk
-#Include ..\Lib\SettingsCheck.ahk
+#Include ..\Lib\cGameWindow.ahk
 #Include ..\Lib\Navigate.ahk
 #Include ..\Lib\cHotkeysInitGame.ahk
 
@@ -20,22 +20,23 @@ settings.initSettings(true)
 
 Log("Secondary: Wind Spammer Started")
 
-GameWindowExist()
 fWindSpammer()
-
 fWindSpammer() {
     Loop {
-        If (!IsWindowActive()) {
+        If (!Window.Exist()) {
             Log("Secondary: Wind Spammer exiting as no game.")
             Return
         }
-        If (IsWindowActive() && !IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()
-        ) {
-            GameKeys.TriggerWind()
-            If (BossFarmUsesSeeds) {
-                GameKeys.TriggerSeeds()
+        If (!Window.IsActive()) {
+            Window.Activate()
+        } Else {
+            If (!IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()) {
+                GameKeys.TriggerWind()
+                If (BossFarmUsesSeeds) {
+                    GameKeys.TriggerSeeds()
+                }
+                Sleep(ArtifactSleepAmount)
             }
-            Sleep(ArtifactSleepAmount)
         }
     }
 }

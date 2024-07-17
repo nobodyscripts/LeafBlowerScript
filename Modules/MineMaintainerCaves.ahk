@@ -6,7 +6,7 @@
 CavesSinglePass() {
     id := 1
     Buttons := GetCaveTabButtons()
-    If (!IsPanelActive()) {
+    If (!Window.IsPanel()) {
         Return
     }
     If (!Points.Mine.Cave.Select1.IsButton()) {
@@ -15,7 +15,7 @@ CavesSinglePass() {
     For button in Buttons {
         While (!IsCaveSelected(id)) {
             ; until the caves selected redundantly click
-            If (!IsPanelActive()) {
+            If (!Window.IsPanel()) {
                 Return
             }
             button.ClickOffset(5, 5, 51)

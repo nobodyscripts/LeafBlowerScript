@@ -46,8 +46,8 @@ Class cMousePattern {
          * |  >>>>>>>>>>>>>>>>>  |
          * |---------------------|
          */
-        WSeg := W / 8
-        HSeg := H / 4
+        WSeg := Window.W / 8
+        HSeg := Window.H / 4
         left1 := cPoint(WSeg, HSeg, false)
         left2 := cPoint(WSeg, HSeg * 2, false)
         left3 := cPoint(WSeg, HSeg * 3, false)
@@ -76,8 +76,8 @@ Class cMousePattern {
          * |  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>  |
          * |---------------------------------|
          */
-        WSeg := W / 8
-        HSeg := H / 6
+        WSeg := Window.W / 8
+        HSeg := Window.H / 6
         left1 := cPoint(WSeg, HSeg, false)
         left2 := cPoint(WSeg, HSeg * 2, false)
         left3 := cPoint(WSeg, HSeg * 3, false)
@@ -111,8 +111,8 @@ Class cMousePattern {
          * |  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<  |
          * |---------------------------------|
          */
-        WSeg := W / 8
-        HSeg := H / 6
+        WSeg := Window.W / 8
+        HSeg := Window.H / 6
 
         left1 := cPoint(WSeg, HSeg, false)
         left2 := cPoint(WSeg, HSeg * 5, false)
@@ -147,8 +147,8 @@ Class cMousePattern {
          * |  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<  |
          * |---------------------------------|
          */
-        WSeg := W / 8
-        HSeg := H / 6
+        WSeg := Window.W / 8
+        HSeg := Window.H / 6
 
         left1 := cPoint(WSeg, HSeg, false)
         left2 := cPoint(WSeg, HSeg * 5, false)
@@ -183,8 +183,8 @@ Class cMousePattern {
          * |                                 |
          * |---------------------------------|
          */
-        WSeg := W / 8
-        HSeg := H / 6
+        WSeg := Window.W / 8
+        HSeg := Window.H / 6
         left1 := cPoint(WSeg * 2, HSeg * 2, false)
         left2 := cPoint(WSeg * 2, HSeg * 6, false)
         right1 := cPoint(WSeg * 6, HSeg * 2, false)

@@ -4,7 +4,7 @@ Global TowerFarmActive
 TowerFarmActive := false
 
 fTimeWarpAndRaiseTower() {
-    Global X, Y, W, H, TowerFarmActive
+    Global TowerFarmActive
     GemTest := true
     If (GemTest) {
         Travel.OpenGemShop()
@@ -23,7 +23,8 @@ fTimeWarpAndRaiseTower() {
         ; TODO Move point to Points
         If (!cPoint(1790, 643).IsButtonActive()) {
             ToolTip("No 72hr boosts to use, exiting.`n"
-                "Use F5 to finish", W / 2 - WinRelPosLargeW(100), H / 2)
+                "Use F5 to finish", Window.W / 2 - Window.RelW(100), Window.H /
+                2)
             Log("TowerBoost: Found no 72 hour boosts, exiting.")
             Return
         }
@@ -37,7 +38,7 @@ fTimeWarpAndRaiseTower() {
     Log("TowerBoost: Starting main loop.")
     Loop {
         ; Check if: lost focus, close or crash and break if so
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Break
         }
         ; Look for colour of a segment of the rightmost tower leaf c5d8e0
@@ -49,8 +50,8 @@ fTimeWarpAndRaiseTower() {
             ; Not found
             Log("TowerBoost: Could not find tower zone.")
             ToolTip("Could not find tower area`nUse F5 to finish"
-                "`nApplied default loadout", W / 2 - WinRelPosLargeW(100), H /
-                2)
+                "`nApplied default loadout", Window.W / 2 - Window.RelW(100),
+                Window.H / 2)
             Log("TowerBoost: Equiping default loadout")
             GameKeys.EquipDefaultGearLoadout()
             Break
@@ -62,56 +63,56 @@ fTimeWarpAndRaiseTower() {
         ; 1664 646 < Leaksink Relative: 69 -132
 
         ; Open leafsing harbor to allow max level reset
-        If (cPoint(found[1] + WinRelPosLargeW(69), found[2] - WinRelPosLargeH(
-            132), false).IsBackground()) {
+        If (cPoint(found[1] + Window.RelW(69), found[2] - Window.RelH(132),
+            false).IsBackground()) {
             ; Background colour found
             Log("Error 30: Tower alt area detection failed. Alignment2.")
             ToolTip("Alignment issue 2, could not continue`n"
-                "Use F5 to finish`nApplied default loadout", W / 2 -
-                WinRelPosLargeW(100), H / 2)
+                "Use F5 to finish`nApplied default loadout", Window.W / 2 -
+                Window.RelW(100), Window.H / 2)
             Log("TowerBoost: Equiping default loadout")
             GameKeys.EquipDefaultGearLoadout()
             Break
         }
         ; TODO Move to cPoint
-        fCustomClick(found[1] + WinRelPosLargeW(69), found[2] - WinRelPosLargeH(
-            132), 101)
+        fCustomClick(found[1] + Window.RelW(69), found[2] - Window.RelH(132),
+            101)
         Sleep(101)
 
         ; Max Tower level
-        If (!cPoint(found[1] + WinRelPosLargeW(471), found[2] + WinRelPosLargeH(
-            67), false).IsButtonActive()) {
+        If (!cPoint(found[1] + Window.RelW(471), found[2] + Window.RelH(67),
+            false).IsButtonActive()) {
             Log("Error 31: Tower max detection failed. Alignment3.")
             ToolTip("Alignment issue 3, could not continue`n"
-                "Use F5 to finish`nApplied default loadout", W / 2 -
-                WinRelPosLargeW(100), H / 2)
+                "Use F5 to finish`nApplied default loadout", Window.W / 2 -
+                Window.RelW(100), Window.H / 2)
             Log("TowerBoost: Equiping default loadout")
             GameKeys.EquipDefaultGearLoadout()
             Break
         }
         ; TODO Move to cPoint
-        fCustomClick(found[1] + WinRelPosLargeW(471), found[2] +
-            WinRelPosLargeH(67), 101)
+        fCustomClick(found[1] + Window.RelW(471), found[2] + Window.RelH(67),
+            101)
         Sleep(101)
 
         ; Select Tower area
-        If (!cPoint(found[1] + WinRelPosLargeW(69), found[2] + WinRelPosLargeH(
-            5), false).IsButtonActive()) {
+        If (!cPoint(found[1] + Window.RelW(69), found[2] + Window.RelH(5),
+            false).IsButtonActive()) {
 
-            ToolTip(" ", found[1] + WinRelPosLargeW(69), found[2] +
-                WinRelPosLargeH(5), 4)
+            ToolTip(" ", found[1] + Window.RelW(69), found[2] + Window.RelH(5),
+                4)
 
             Log("Error 32: Tower area detection failed. Alignment4.")
             ToolTip("Alignment issue 4, could not continue`n"
-                "Use F5 to finish`nApplied default loadout", W / 2 -
-                WinRelPosLargeW(100), H / 2)
+                "Use F5 to finish`nApplied default loadout", Window.W / 2 -
+                Window.RelW(100), Window.H / 2)
             Log("TowerBoost: Equiping default loadout")
             GameKeys.EquipDefaultGearLoadout()
             Break
         }
         ; TODO Move to cPoint
-        fCustomClick(found[1] + WinRelPosLargeW(69), found[2] + WinRelPosLargeH(
-            5), 101)
+        fCustomClick(found[1] + Window.RelW(69), found[2] + Window.RelH(5), 101
+        )
         Sleep(101)
 
         Travel.OpenGemShop()
@@ -120,8 +121,8 @@ fTimeWarpAndRaiseTower() {
         If (!cPoint(1810, 1177).IsButtonActive()) {
             Log("Error 33: Gem purchase detection failed. Alignment5.")
             ToolTip("Alignment issue 5, could not continue`n"
-                "Use F5 to finish`nApplied default loadout", W / 2 -
-                WinRelPosLargeW(100), H / 2)
+                "Use F5 to finish`nApplied default loadout", Window.W / 2 -
+                Window.RelW(100), Window.H / 2)
             Log("TowerBoost: Equiping default loadout")
             GameKeys.EquipDefaultGearLoadout()
             Break
@@ -139,8 +140,8 @@ fTimeWarpAndRaiseTower() {
         } Else {
             Log("TowerBoost: No boosts remaining. Exiting.")
             ToolTip("Run out of 72hr boosts to use`n"
-                "Use F5 to finish`nApplied default loadout", W / 2 -
-                WinRelPosLargeW(100), H / 2)
+                "Use F5 to finish`nApplied default loadout", Window.W / 2 -
+                Window.RelW(100), Window.H / 2)
             Log("TowerBoost: Equiping default loadout")
             GameKeys.EquipDefaultGearLoadout()
             Break

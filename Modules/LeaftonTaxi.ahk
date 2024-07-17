@@ -50,7 +50,7 @@ fLeaftonTaxi() {
         If (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             LeaftonBanksEnabled) {
             Log("Leafton: Bank Maintainer starting.")
-            ToolTip("Leafton Bank Maintainer Active", W / 2, WinRelPosLargeH(
+            ToolTip("Leafton Bank Maintainer Active", Window.W / 2, Window.RelH(
                 200), 4)
             BankSinglePass()
             ToolTip(, , , 4)
@@ -59,7 +59,8 @@ fLeaftonTaxi() {
         ;@endregion
 
         ;@region Brew
-        If (IsWindowActive() && LeaftonEnableBrewing && !BrewCycleTimer.Running) {
+        If (Window.IsActive() && LeaftonEnableBrewing && !BrewCycleTimer.Running
+        ) {
             Log("Leafton: Brewing")
             If (Travel.OpenAlchemyGeneral()) {
                 DebugLog("Traveled brew")
@@ -72,7 +73,8 @@ fLeaftonTaxi() {
                         Break
                     }
                 }
-                BrewCycleTimer.CoolDownS(LeaftonBrewCycleTime, &BrewCycleRunning)
+                BrewCycleTimer.CoolDownS(LeaftonBrewCycleTime, &
+                    BrewCycleRunning)
                 Sleep(NavigateTime)
                 Travel.ClosePanelIfActive()
             } Else {
@@ -81,11 +83,11 @@ fLeaftonTaxi() {
             }
         }
         ;@endregion
-        If (!IsWindowActive() || StopRunning) {
+        If (!Window.IsActive() || StopRunning) {
             Log("No window or stop called.")
             Break
         }
-        ToolTip("Leafton Active", W / 2, WinRelPosLargeH(200), 4)
+        ToolTip("Leafton Active", Window.W / 2, Window.RelH(200), 4)
         If (IsAreaBlack() && IsBossTimerActive()) {
             If (!startCoord.IsBackground()) {
                 centerCoord.Click()
@@ -104,17 +106,17 @@ fLeaftonTaxi() {
                 StopRunning := true
             }
             While (!IsBossTimerActive()) {
-                If (!IsWindowActive() || DateDiff(A_Now, starttime, "Seconds") >=
+                If (!Window.IsActive() || DateDiff(A_Now, starttime, "Seconds") >=
                     BankDepositTime * 60) {
                     Break
                 }
-                If (LeaftonCraftEnabled && !IsPanelActive()) {
+                If (LeaftonCraftEnabled && !Window.IsPanel()) {
                     Sleep(NavigateTime)
                     Travel.OpenCrafting()
                     Sleep(NavigateTime)
                     Points.Crafting.Tab1.ClickOffset()
                     Sleep(NavigateTime)
-                    If (!IsPanelActive()) {
+                    If (!Window.IsPanel()) {
                         Travel.OpenCrafting()
                         Sleep(NavigateTime)
                         Points.Crafting.Tab1.ClickOffset()
@@ -125,8 +127,9 @@ fLeaftonTaxi() {
                     craftStopCoord.ClickOffset(, , 17)
                 }
                 ; If button isn't there allow cycle to brew
-                if (LeaftonCraftEnabled && craftStopCoord.IsBackground() && !BrewCycleTimer.Running) {
-                    break
+                If (LeaftonCraftEnabled && craftStopCoord.IsBackground() && !
+                    BrewCycleTimer.Running) {
+                    Break
                 }
             }
             If (LeaftonCraftEnabled) {
@@ -157,7 +160,7 @@ LeaftonTaxiSinglePassEnd() {
 LeaftonTaxiSinglePass() {
     centerCoord := Points.Leafton.Center
     startCoord := Points.Leafton.Start
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Return false
     }
 

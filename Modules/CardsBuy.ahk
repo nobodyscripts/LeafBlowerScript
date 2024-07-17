@@ -9,15 +9,13 @@ Global CardsDontBuyRare := true
 Global CardsDontBuyLeg := true
 
 CardBuySinglePass() {
-    Global HadToHideNotifs, W, H, X, Y
+    Global HadToHideNotifs
     ; Check if lost focus, close or crash and break if so
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Return
     }
-    WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
-    ; Update window size
 
-    If (!IsPanelActive()) {
+    If (!Window.IsPanel()) {
         Log("Card buying: Did not find panel. Aborted.")
         Return
     }
@@ -50,15 +48,13 @@ CardBuySinglePass() {
 }
 
 CardBuyLoop() {
-    Global HadToHideNotifs, W, H, X, Y, Debug
+    Global HadToHideNotifs, Debug
     Loop {
         ; Check if lost focus, close or crash and break if so
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Break
         }
-        WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
-        ; Update window size
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             Log("Card buying: Did not find panel. Aborted.")
             Return
         }

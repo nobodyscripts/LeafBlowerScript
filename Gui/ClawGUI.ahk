@@ -46,14 +46,14 @@ Button_Click_Claw(thisGui, info) {
 
     RunClaw(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fClawStart()
     }
 
     RunSaveClaw(*) {
         ClawSave()
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fClawStart()
     }
 

@@ -9,7 +9,7 @@ fFarmGFSS() {
     Global GFSSNoReset
     GFSSBossSpammerStart()
     Loop {
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Break ; Kill if no game
         }
         GFKills := 0
@@ -22,11 +22,11 @@ fFarmGFSS() {
         Travel.ClosePanelIfActive()
 
         While (SSToKillPerCycle != SSKills) {
-            If (!IsWindowActive()) {
+            If (!Window.IsActive()) {
                 Break ; Kill if no game
             }
             While (GFToKillPerCycle != GFKills) {
-                If (!IsWindowActive()) {
+                If (!Window.IsActive()) {
                     Break ; Kill if no game
                 }
                 If (!IsInGF) {
@@ -56,15 +56,15 @@ fFarmGFSS() {
                         Break
                     }
                     Log("GFSSFarm: User killed by GF boss, resetting.")
-                    ToolTip("Killed by GF boss, resetting", W / 2 -
-                        WinRelPosLargeW(70), H / 2)
+                    ToolTip("Killed by GF boss, resetting", Window.W / 2 -
+                        Window.RelW(70), Window.H / 2)
                     SetTimer(ToolTip, -200)
                     ResetGF()
                     ResettingGF := true
                     Break
                 }
-                ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills, W / 2 -
-                    WinRelPosLargeW(70), H / 2)
+                ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills, Window
+                    .W / 2 - Window.RelW(70), Window.H / 2)
                 SetTimer(ToolTip, -250)
             }
             If (!IsInSS) {
@@ -95,13 +95,13 @@ fFarmGFSS() {
                     Break
                 }
                 Log("GFSSFarm: Killed by SS boss, resetting.")
-                ToolTip("Killed by boss, resetting", W / 2 - WinRelPosLargeW(
-                    100), H / 2)
+                ToolTip("Killed by boss, resetting", Window.W / 2 - Window.RelW(
+                    100), Window.H / 2)
                 SetTimer(ToolTip, -1000)
                 Break
             }
-            ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills, W / 2 -
-                WinRelPosLargeW(70), H / 2)
+            ToolTip(" GF Kills " . GFKills . " SS Kills " . SSKills, Window.W /
+                2 - Window.RelW(70), Window.H / 2)
             SetTimer(ToolTip, -250)
 
         }
@@ -109,7 +109,7 @@ fFarmGFSS() {
         If (!ResettingGF && !GFSSNoReset) {
             Log("GFSSFarm: Have met SS Kill count, resetting.")
             ToolTip("Resetting at: GF Kills " . GFKills . " SS Kills " .
-                SSKills, W / 2 - WinRelPosLargeW(100), H / 2)
+                SSKills, Window.W / 2 - Window.RelW(100), Window.H / 2)
             SetTimer(ToolTip, -5000)
             Sleep(250)
             ResetSS()

@@ -18,7 +18,7 @@ fFarmNormalBoss(modecheck) {
         If (on9 != modecheck) {
             Return
         }
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Log("BossFarm: Exiting as no game.")
             cReload() ; Kill early if no game
             Return
@@ -35,11 +35,12 @@ fFarmNormalBoss(modecheck) {
         IsPrevTimerLong := IsTimerLong
         If (Travel.HomeGarden.IsAreaGarden()) {
             Log("BossFarm: User killed.")
-            ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
+            ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
+                50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
         }
-        ToolTip("Kills: " . Killcount, W / 2 - WinRelPosLargeW(50), H / 2 +
-            WinRelPosLargeH(20), 1)
+        ToolTip("Kills: " . Killcount, Window.W / 2 - Window.RelW(50), Window.H /
+            2 + Window.RelH(20), 1)
     }
     ToolTip(, , , 1)
 }
@@ -55,12 +56,12 @@ fFarmNormalBossAndBrew(modecheck) {
         If (on9 != modecheck) {
             Break
         }
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Log("BossBrew: Exiting as no game.")
             cReload() ; Kill if no game
             Break
         }
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             Log("BossBrew: Did not find panel. Aborted brewing. Violins active"
             )
             Break
@@ -76,18 +77,19 @@ fFarmNormalBossAndBrew(modecheck) {
         If (Travel.HomeGarden.IsAreaGarden() && IsSpammerActive()) {
             KillSpammer()
             Log("BossFarm: User killed.")
-            ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
+            ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
+                50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
             Return
         }
-        ToolTip("Brewing on, Kills: " . Killcount, W / 2 - WinRelPosLargeW(150),
-            H / 2 + WinRelPosLargeH(20), 1)
+        ToolTip("Brewing on, Kills: " . Killcount, Window.W / 2 - Window.RelW(
+            150), Window.H / 2 + Window.RelH(20), 1)
     }
     ToolTip(, , , 1)
 }
 
 SpamBrewButtons() {
-    If (!IsPanelActive()) {
+    If (!Window.IsPanel()) {
         Log("SpamBrewButtons: Did not find panel. Aborted.")
         Return false
     }
@@ -132,8 +134,8 @@ fNormalBossFarmWithBorbs(modecheck) {
 
     If (!Travel.GotoBorbVFirstTab()) {
         Log("Borbv: Failed to travel, aborting.")
-        ToolTip("Failed to open Borbv, exiting.", W / 2, H / 2 +
-            WinRelPosLargeH(50), 5)
+        ToolTip("Failed to open Borbv, exiting.", Window.W / 2, Window.H / 2 +
+            Window.RelH(50), 5)
         SetTimer(ToolTip.Bind(, , , 5), -3000)
         Return
     }
@@ -142,7 +144,7 @@ fNormalBossFarmWithBorbs(modecheck) {
     bvAutostartDisabled := false
     If (IsBVAutoStartOn()) {
         ; TODO move point to Points
-        fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
+        fCustomClick(Window.RelW(591), Window.RelH(1100), 34)
         bvAutostartDisabled := true
     }
     Killcount := 0
@@ -151,24 +153,25 @@ fNormalBossFarmWithBorbs(modecheck) {
         If (on9 != modecheck) {
             Return
         }
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Log("BossBorbs: Exiting as no game.")
             cReload()
             Return
         }
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             Log("BossBorbs: Did not find panel. Aborted.")
             Return
         }
         If (Travel.HomeGarden.IsAreaGarden() && IsSpammerActive()) {
             KillSpammer()
             Log("BossBorbs: User killed.")
-            ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2)
+            ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
+                50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
             Return
         }
-        ToolTip("Borbfarm on, Kills: " . Killcount, W / 2 - WinRelPosLargeW(150
-        ), H / 1.2, 4)
+        ToolTip("Borbfarm on, Kills: " . Killcount, Window.W / 2 - Window.RelW(
+            150), Window.H / 1.2, 4)
         BVMainLoop()
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
@@ -180,7 +183,7 @@ fNormalBossFarmWithBorbs(modecheck) {
     }
     If (bvAutostartDisabled = true && !IsBVAutoStartOn()) {
         ; TODO move point to Points
-        fCustomClick(WinRelPosLargeW(591), WinRelPosLargeH(1100), 34)
+        fCustomClick(Window.RelW(591), Window.RelH(1100), 34)
     }
     ToolTip(, , , 4)
 }
@@ -188,7 +191,7 @@ fNormalBossFarmWithBorbs(modecheck) {
 fNormalBossFarmWithCards(modecheck) {
     ToolTip(, , , 4)
     ToolTip()
-    Global HadToHideNotifs, W, H, X, Y, on9
+    Global HadToHideNotifs, on9
     Killcount := 0
 
     If (IsNotificationActive()) {
@@ -210,12 +213,12 @@ fNormalBossFarmWithCards(modecheck) {
         If (on9 != modecheck) {
             Return
         }
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Log("BossCards: Exiting as no game.")
             cReload() ; Kill if no game
             Return
         }
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             Log("BossCards: Did not find panel. Aborted.")
             Break
         }
@@ -229,8 +232,8 @@ fNormalBossFarmWithCards(modecheck) {
             Log("BossCards: Exiting.")
             Return
         }
-        ToolTip("Boss farm with cards active", W / 2 - WinRelPosLargeW(150), H /
-            2 + WinRelPosLargeH(320), 9)
+        ToolTip("Boss farm with cards active", Window.W / 2 - Window.RelW(150),
+            Window.H / 2 + Window.RelH(320), 9)
         If (CardsBuyEnabled) {
             Log("BossCards buy: Loop starting.")
             CardBuyLoop()
@@ -253,8 +256,8 @@ fNormalBossFarmWithCards(modecheck) {
             If (Travel.HomeGarden.IsAreaGarden() && IsSpammerActive()) {
                 KillSpammer()
                 Log("BossCards: User killed.")
-                ToolTip("Killed by boss", W / 2, H / 2 + WinRelPosLargeH(50), 2
-                )
+                ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
+                    50), 2)
                 SetTimer(ToolTip.Bind(, , , 2), -3000)
                 Return
             }
@@ -265,8 +268,8 @@ fNormalBossFarmWithCards(modecheck) {
                 Killcount++
             }
             IsPrevTimerLong := IsTimerLong
-            ToolTip("Cardfarm on, Kills: " . Killcount, W / 2 - WinRelPosLargeW(
-                150), H / 1.2, 4)
+            ToolTip("Cardfarm on, Kills: " . Killcount, Window.W / 2 - Window.RelW(
+                150), Window.H / 1.2, 4)
         }
     }
     ToolTip(, , , 4)
@@ -279,7 +282,7 @@ fNormalBossFarmWithCards(modecheck) {
     ResetModifierKeys() ; Cleanup incase of broken loop
     Log("BossCards: Stopped.")
     ToolTip("Card opening aborted`nFound no active buttons.`nF3 to remove note",
-        W / 2 - WinRelPosLargeH(170), H / 2)
+        Window.W / 2 - Window.RelH(170), Window.H / 2)
     SetTimer(ToolTip, -500)
 
 }

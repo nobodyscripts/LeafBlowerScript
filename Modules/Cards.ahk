@@ -21,7 +21,7 @@ Global CardsGreedyOpen := false
 Global CardsGreedyBuy := false
 
 fOpenCardLoop() {
-    Global HadToHideNotifs, W, H, X, Y
+    Global HadToHideNotifs
 
     If (IsNotificationActive()) {
         Log("Cards: Found notification covering button and hid"
@@ -39,11 +39,11 @@ fOpenCardLoop() {
     }
 
     Loop {
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Log("Cards: Did not find game. Aborted.")
             Return ; Kill if no game
         }
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             Log("Card Opening: Did not find panel. Aborted.")
             Break
         }
@@ -82,23 +82,21 @@ fOpenCardLoop() {
     ResetModifierKeys() ; Cleanup incase needed
     Log("Cards: Stopped.")
     ToolTip("Card opening aborted`nFound no active buttons.`nF3 to remove note",
-        W / 2 - WinRelPosLargeW(170), H / 2)
+        Window.W / 2 - Window.RelW(170), Window.H / 2)
 }
 
 CardsOpenSinglePass() {
-    Global HadToHideNotifs, W, H, X, Y
+    Global HadToHideNotifs
     ; Check if lost focus, close or crash and break if so
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("Card opening: Did not find game. Aborted.")
-        MakeWindowActive()
+        Window.Activate()
         ;return false ; Kill if no game
     }
-    WinGetClientPos(&X, &Y, &W, &H, LBRWindowTitle)
-    ; Update window size
 
     ; Use the transparent check to make sure we have a panel, otherwise
     ; we'll close notifications for no reason and get into a loop
-    If (!IsPanelActive()) {
+    If (!Window.IsPanel()) {
         Log("Card opening: Did not find panel. Aborted.")
         Return false
     }
@@ -147,7 +145,7 @@ CardsOpenSinglePass() {
 
 CardOpenerRel(quality, offset, amount) {
     Global HaveWarnedDisplayRewards, Debug, CardsGreedyOpen
-    offset := WinRelPosLargeH(offset)
+    offset := Window.RelH(offset)
     Switch quality {
         Case 1:
             button := Points.Card.OpenCommon
@@ -167,7 +165,7 @@ CardOpenerRel(quality, offset, amount) {
     ; Check if button is active, if not we can skip
     AmountToModifier(amount)
     Sleep(NavigateTime)
-    If (button.IsButtonActive() && IsWindowActive()) {
+    If (button.IsButtonActive() && Window.IsActive()) {
         ; Pack open
         button.ClickOffset(, offset, clickdelay)
         Sleep(CardsSleepAmount)
@@ -177,8 +175,9 @@ CardOpenerRel(quality, offset, amount) {
                 Log("Warning: Found 'Settings/Gameplay/Display "
                     "Reward Dialogs' is on.")
                 ToolTip("Warning: Card opening found Settings/Gameplay/Display"
-                    " Reward Dialogs is on.`nSpeed up opening by disabling.", W /
-                    2 - WinRelPosLargeW(450), H / 2 - WinRelPosLargeH(70))
+                    " Reward Dialogs is on.`nSpeed up opening by disabling.",
+                    Window.W / 2 - Window.RelW(450), Window.H / 2 - Window.RelH(
+                        70))
                 HaveWarnedDisplayRewards := true
             }
             Points.Misc.PanelClose.Click(72)
@@ -195,7 +194,7 @@ CardOpenerRel(quality, offset, amount) {
 
 ; Seperate buyer to have faster turnover
 CardBuyerRel(quality, offset, amount) {
-    offset := WinRelPosLargeH(offset)
+    offset := Window.RelH(offset)
     Switch quality {
         Case 1:
             button := Points.Card.BuyCommon
@@ -216,7 +215,7 @@ CardBuyerRel(quality, offset, amount) {
     } Else {
         AmountToModifier(amount)
         Sleep(CardsSleepBuyAmount)
-        If (!button.IsButtonInactive() && IsWindowActive()) {
+        If (!button.IsButtonInactive() && Window.IsActive()) {
             button.ClickOffset(, offset, CardsSleepBuyAmount)
             ; Legendary pack open
             Sleep(CardsSleepBuyAmount)

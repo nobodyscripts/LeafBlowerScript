@@ -65,7 +65,7 @@ Button_Click_GameHotkeys(*) {
     }
 
     ApplyNewHotkeysToGame(*) {
-        If (WinExist(LBRWindowTitle)) {
+        If (Window.Exist()) {
             MsgBox(
                 "CLOSE GAME BEFORE RUNNING APPLY SCRIPT`r`nChanges not saved.")
             Return

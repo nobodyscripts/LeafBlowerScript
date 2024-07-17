@@ -25,14 +25,15 @@ fBankAutoDeposit() {
         NormalBossSpammerStart()
     }
     Travel.OpenBank()
-    ToolTip("Bank Maintainer Active", W / 2 - WinRelPosLargeW(100), H / 2, 4)
+    ToolTip("Bank Maintainer Active", Window.W / 2 - Window.RelW(100), Window.H /
+        2, 4)
     Loop {
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Break
         }
         i := 0
         While (i < 6) {
-            If (!IsWindowActive() || !IsPanelActive()) {
+            If (!Window.IsActive() || !Window.IsPanel()) {
                 Break
             }
             ResetBankScroll()
@@ -43,7 +44,7 @@ fBankAutoDeposit() {
                     Sleep(NavigateTime)
                 }
                 Loop {
-                    If (!IsWindowActive() || !IsPanelActive()) {
+                    If (!Window.IsActive() || !Window.IsPanel()) {
                         Break
                     }
                     If (DepositRESS.IsButtonActive()) {
@@ -55,7 +56,7 @@ fBankAutoDeposit() {
                 }
                 If (BankEnableStorageUpgrade) {
                     Loop {
-                        If (!IsWindowActive() || !IsPanelActive()) {
+                        If (!Window.IsActive() || !Window.IsPanel()) {
                             Break
                         }
                         If (UpgradeButton.IsButtonActive()) {
@@ -78,13 +79,13 @@ BankSinglePass() {
     UpgradeButton := Points.Bank.UpgradeStorage
     Travel.OpenBank()
     Sleep(NavigateTime + 100)
-    If (!IsPanelActive()) {
+    If (!Window.IsPanel()) {
         Travel.OpenBank()
         Sleep(NavigateTime)
     }
     i := 0
     While (i < 6) {
-        If (!IsWindowActive() || !IsPanelActive()) {
+        If (!Window.IsActive() || !Window.IsPanel()) {
             Break
         }
         ResetBankScroll()
@@ -95,7 +96,7 @@ BankSinglePass() {
                 Sleep(NavigateTime)
             }
             Loop {
-                If (!IsWindowActive() || !IsPanelActive()) {
+                If (!Window.IsActive() || !Window.IsPanel()) {
                     Break
                 }
                 If (DepositRESS.IsButtonActive()) {
@@ -107,7 +108,7 @@ BankSinglePass() {
             }
             If (BankEnableStorageUpgrade) {
                 Loop {
-                    If (!IsWindowActive() || !IsPanelActive()) {
+                    If (!Window.IsActive() || !Window.IsPanel()) {
                         Break
                     }
                     If (UpgradeButton.IsButtonActive()) {
@@ -212,7 +213,7 @@ ResetBankScroll() {
     Deposit := Points.Bank.DepositRESS
     UpgStorage := Points.Bank.UpgradeStorage
     While (!Deposit.IsButton() && !UpgStorage.IsButton()) {
-        If (!IsWindowActive() || !IsPanelActive() || maxIter <= 1) {
+        If (!Window.IsActive() || !Window.IsPanel() || maxIter <= 1) {
             Return
         }
         Travel.ScrollAmountUp(1)

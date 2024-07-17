@@ -13,10 +13,10 @@ fClawFarm() {
     GameKeys.RefreshTrades()
     Sleep(150)
     Loop {
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Return ; Kill if no game
         }
-        If (!IsPanelActive()) {
+        If (!Window.IsPanel()) {
             Log("Claw: Did not find panel. Aborted. ")
             Return
         }
@@ -66,14 +66,13 @@ ClawGetHookLocation(ScreenX) {
     ;2042 400 bottom right Hook area 1440
     Try {
         If (ClawCheckSizeOffset > 0) {
-            found := PixelSearch(&OutX, &OutY, ScreenX - WinRelPosLargeW(20 +
-                ClawCheckSizeOffset), WinRelPosLargeH(371), ScreenX +
-                WinRelPosLargeW(20 + ClawCheckSizeOffset), WinRelPosLargeH(373),
-                "0x8B9BB4", 0)
+            found := PixelSearch(&OutX, &OutY, ScreenX - Window.RelW(20 +
+                ClawCheckSizeOffset), Window.RelH(371), ScreenX + Window.RelW(
+                    20 + ClawCheckSizeOffset), Window.RelH(373), "0x8B9BB4", 0)
         } Else {
-            found := PixelSearch(&OutX, &OutY, ScreenX - WinRelPosLargeW(20),
-                WinRelPosLargeH(346), ScreenX + WinRelPosLargeW(20),
-                WinRelPosLargeH(400), "0x8B9BB4", 0)
+            found := PixelSearch(&OutX, &OutY, ScreenX - Window.RelW(20),
+                Window.RelH(346), ScreenX + Window.RelW(20), Window.RelH(400),
+                "0x8B9BB4", 0)
         }
         ; Hook pixel search
         If (found and OutX != 0) {
@@ -89,18 +88,18 @@ ClawGetHookLocation(ScreenX) {
 
 IsClawAboveLocation(ScreenX) {
     ;374 height to check
-    If (!cPoint(ScreenX, WinRelPosLargeH(374), false).IsBackground()) {
+    If (!cPoint(ScreenX, Window.RelH(374), false).IsBackground()) {
         Return true
     }
     Return false
 }
 
 ClawCheck(TargetX, offset := 0, delay := 0) {
-    If (IsClawAboveLocation(TargetX - WinRelPosLargeW(offset)) && TargetX != 0) {
+    If (IsClawAboveLocation(TargetX - Window.RelW(offset)) && TargetX != 0) {
         Sleep(delay)
         GameKeys.RefreshTrades()
         Log("Trying to catch, Offset " offset " Delay " delay " X " TargetX -
-            WinRelPosLargeW(offset))
+            Window.RelW(offset))
         Return true
     }
     Return false

@@ -9,11 +9,7 @@ Global IsSecondary := false
 Global DisableGameKeysInit := true
 Global DisableScriptKeysInit := true
 
-If (WinExist(LBRWindowTitle)) {
-    If (!WinActive(LBRWindowTitle)) {
-        WinActivate(LBRWindowTitle)
-    }
-} Else {
+If (!Window.Activate()) {
     Return
 }
 

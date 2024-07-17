@@ -142,7 +142,7 @@ Button_Click_BossFarm(thisGui, info) {
 
     RunBossFarm(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fBossFarmStart(0)
     }
 
@@ -153,7 +153,7 @@ Button_Click_BossFarm(thisGui, info) {
 
     RunBossFarmBrew(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fBossFarmStart(1)
     }
 
@@ -164,7 +164,7 @@ Button_Click_BossFarm(thisGui, info) {
 
     RunBossFarmBorbs(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fBossFarmStart(2)
     }
 
@@ -175,7 +175,7 @@ Button_Click_BossFarm(thisGui, info) {
 
     RunBossFarmCards(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fBossFarmStart(3)
     }
 

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0
 
 #Include Navigate.ahk
-#Include SettingsCheck.ahk
 #Include cGameWindow.ahk
 #Include cColours.ahk
 #Include cTravel.ahk
@@ -39,7 +38,7 @@ Class Zone {
      * @returns {Boolean} True if travel success, false if travel failed
      */
     GoTo() {
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Log("No window found while trying to travel.")
             Return false
         }
@@ -51,7 +50,7 @@ Class Zone {
             ; there and can recheck if travels failed
             While (!this.IsZoneColour() && this.BossTimer = !IsBossTimerActive() &&
                 i <= 4) {
-                If (!IsWindowActive()) {
+                If (!Window.IsActive()) {
                     Log("No window found while trying to travel.")
                     Return false
                 }

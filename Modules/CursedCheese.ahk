@@ -6,8 +6,8 @@ fFarmCheeseBoss() {
         Log("CheeseBoss: Traveling to Cursed Halloween failed."
             " Cheese season not active.")
         ToolTip("Could not travel to Cheese boss zone`n"
-            "Please use the artifact to enable Cheese season", W / 2 -
-            WinRelPosLargeW(100), H / 2)
+            "Please use the artifact to enable Cheese season", Window.W / 2 -
+            Window.RelW(100), Window.H / 2)
         SetTimer(ToolTip, -5000)
         Return
     }
@@ -18,7 +18,7 @@ fFarmCheeseBoss() {
     IsInCursedHalloween := false
 
     Loop {
-        If (!IsWindowActive()) {
+        If (!Window.IsActive()) {
             Break ; Kill early if no game
         }
         CurrentAliveState := IsCheeseBossAlive()
@@ -28,13 +28,13 @@ fFarmCheeseBoss() {
         If (!CurrentAliveState && IsBossTimerActive()) {
             If (!IsInCursedHalloween) {
                 Log("CheeseBoss: Going to Cursed Halloween to spam violins.")
-                ToolTip("Going to Cursed Halloween", W / 2 - WinRelPosLargeW(
-                    100), H / 2)
+                ToolTip("Going to Cursed Halloween", Window.W / 2 - Window.RelW(
+                    100), Window.H / 2)
                 SetTimer(ToolTip, -250)
                 If (!GoToShadowCavern()) {
                     Log("CheeseBoss: Traveling to Cursed Halloween failed.")
-                    ToolTip("Traveling to Cursed Halloween failed.", W / 2 -
-                        WinRelPosLargeW(100), H / 2)
+                    ToolTip("Traveling to Cursed Halloween failed.", Window.W /
+                        2 - Window.RelW(100), Window.H / 2)
                     SetTimer(ToolTip, -5000)
                     Return
                 }
@@ -42,22 +42,23 @@ fFarmCheeseBoss() {
                 Killcount++
                 IsInCursedHalloween := true
 
-                ToolTip("Kills: " . Killcount, W / 2, H / 2 + WinRelPosLargeH(
-                    50))
+                ToolTip("Kills: " . Killcount, Window.W / 2, Window.H / 2 +
+                    Window.RelH(50))
                 SetTimer(ToolTip, -200)
             }
             Loop {
-                If (!IsWindowActive()) {
+                If (!Window.IsActive()) {
                     Break ; Kill early if no game
                 }
                 If (IsCheeseBossTimerActive()) {
-                    ToolTip("Using violins", W / 2, H / 2)
+                    ToolTip("Using violins", Window.W / 2, Window.H / 2)
                     SetTimer(ToolTip, -250)
                     GameKeys.TriggerViolin()
                     Sleep(71)
                 } Else {
                     Log("CheeseBoss: Traveling to Cursed Halloween.")
-                    ToolTip("Returning to Cursed Halloween", W / 2, H / 2)
+                    ToolTip("Returning to Cursed Halloween", Window.W / 2,
+                        Window.H / 2)
                     SetTimer(ToolTip, -250)
                     ; Timers reset send user back
                     If (!GoToCheeseBoss()) {
@@ -65,7 +66,7 @@ fFarmCheeseBoss() {
                             " Cheese season not active.")
                         ToolTip("Could not travel to Cursed Halloween zone`n"
                             "Please use the artifact to enable Nature season",
-                            W / 2 - WinRelPosLargeW(100), H / 2)
+                            Window.W / 2 - Window.RelW(100), Window.H / 2)
                         SetTimer(ToolTip, -5000)
                         Return
                     }
@@ -81,11 +82,12 @@ fFarmCheeseBoss() {
         ; If boss killed us not much we can do, on user to address
         If (Travel.HomeGarden.IsAreaGarden()) {
             Log("CheeseBoss: Killed by boss, aborting farm.")
-            ToolTip("Killed by boss, exiting", W / 2, H / 2)
+            ToolTip("Killed by boss, exiting", Window.W / 2, Window.H / 2)
             SetTimer(ToolTip, -3000)
             Break
         }
-        ToolTip("Kills: " . Killcount, W / 2, H / 2 + WinRelPosLargeH(50))
+        ToolTip("Kills: " . Killcount, Window.W / 2, Window.H / 2 + Window.RelH(
+            50))
         SetTimer(ToolTip, -200)
     }
 }
@@ -99,9 +101,8 @@ IsCheeseBossTimerActive() {
     ; ONLY WORKS ON THE AREA SCREEN IN THE EVENT TAB
 
     Try {
-        found := PixelSearch(&OutX, &OutY, WinRelPosLargeW(1550),
-            WinRelPosLargeH(345), WinRelPosLargeW(1660), WinRelPosLargeH(370),
-            "0xFFFFFF", 0)
+        found := PixelSearch(&OutX, &OutY, Window.RelW(1550), Window.RelH(345),
+            Window.RelW(1660), Window.RelH(370), "0xFFFFFF", 0)
         If (found and OutX != 0) {
             Return true ; Found colour
         }

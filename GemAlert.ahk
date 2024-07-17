@@ -5,7 +5,7 @@
 #Include Lib\Functions.ahk
 #Include Lib\Navigate.ahk
 #Include Lib\ScriptSettings.ahk
-#Include Lib\SettingsCheck.ahk
+#Include Lib\cGameWindow.ahk
 
 Global ScriptsLogFile := A_ScriptDir "\GemAlert.Log"
 Global NavigateTime := 150
@@ -19,26 +19,25 @@ GemAlert()
  * tab is available for users
  */
 GemAlert() {
-    If (!GameWindowExist()) {
+    If (!Window.Exist()) {
         ExitApp()
     }
-
-    If (!IsWindowActive()) {
-        WinActivate(LBRWindowTitle)
-        Sleep(NavigateTime)
-    }
-    If (IsPanelActive()) {
+    Window.Activate()
+    Sleep(NavigateTime)
+    If (Window.IsPanel()) {
         localClosePanel()
         Sleep(NavigateTime)
     }
+    Log("Opening Mine")
     localOpenMining()
     Sleep(NavigateTime)
     Loop {
-        If (!GameWindowExist()) {
+        If (!Window.Exist()) {
             Break
         }
-        If (WinActive(LBRWindowTitle)) {
-            If (!IsPanelActive()) {
+        If (Window.IsActive()) {
+            If (!Window.IsPanel()) {
+                Log("Opening Mine 2 " Window.IsPanel())
                 localOpenMining()
                 Sleep(NavigateTime)
             } Else {
@@ -72,9 +71,9 @@ FindVeinsWithBars2() {
 }
 
 localOpenMining() {
-    ControlSend("{l}", , LBRWindowTitle)
+    ControlSend("{l}", , Window.Title)
 }
 
 localClosePanel() {
-    ControlSend("{Esc}", , LBRWindowTitle)
+    ControlSend("{Esc}", , Window.Title)
 }

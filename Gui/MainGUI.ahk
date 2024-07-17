@@ -27,32 +27,32 @@ Button_Click_Reload(thisGui, info) {
 }
 
 Button_Click_TowerBoost(thisGui, info) {
-    WinActivate(LBRWindowTitle)
+    Window.Activate()
     fTowerBoostStart()
 }
 
 Button_Click_NatureBoss(thisGui, info) {
-    WinActivate(LBRWindowTitle)
+    Window.Activate()
     fNatureBossStart()
 }
 
 Button_Click_Resize(thisGui, info) {
-    WinActivate(LBRWindowTitle)
+    Window.Activate()
     fGameResize()
 }
 
 Button_Click_CursedCheese(thisGui, info) {
-    WinActivate(LBRWindowTitle)
+    Window.Activate()
     fCursedCheeseStart()
 }
 
 Button_Click_SuitcaseSpam(thisGui, info) {
-    WinActivate(LBRWindowTitle)
+    Window.Activate()
     fSuitcaseSpam()
 }
 
 Button_Click_PrestigeSpammer(thisGui, info) {
-    WinActivate(LBRWindowTitle)
+    Window.Activate()
     fPrestigeSpammer()
 }
 

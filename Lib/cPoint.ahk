@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0
 
 #Include cColours.ahk
-#Include SettingsCheck.ahk
 #Include cGameWindow.ahk
 
 /**
@@ -58,19 +57,18 @@ Global Debug := false
  */
 Class cPoint {
     /**
-     * If W has a value returns relative coord
+     * If Window.W has a value returns relative coord
      * otherwise returns raw value
      * @type {Integer}
      * @public
      */
     x {
         get {
-            Global W
-            If (this.relative && IsSet(W)) {
-                Return this._x / 2560 * W
+            If (this.relative && Window.W != 0) {
+                Return this._x / 2560 * Window.W
             } Else {
-                If (!IsSet(W)) {
-                    Log("ERR: W not set")
+                If (Window.W = 0) {
+                    Log("ERR: Window.W not set")
                 }
                 Return this._x
             }
@@ -82,19 +80,18 @@ Class cPoint {
     }
 
     /**
-     * If H has a value returns relative coord
+     * If Window.H has a value returns relative coord
      * otherwise returns raw value
      * @type {Integer}
      * @public
      */
     y {
         get {
-            Global H
-            If (this.relative && IsSet(H)) {
-                Return this._y / 1369 * H
+            If (this.relative && Window.H != 0) {
+                Return this._y / 1369 * Window.H
             } Else {
-                If (!IsSet(H)) {
-                    Log("ERR: H not set")
+                If (Window.H = 0) {
+                    Log("ERR: Window.H not set")
                 }
                 Return this._y
             }
@@ -380,7 +377,7 @@ Class cPoint {
     ClickOffsetWhileColour(colour, maxLoops := 20, offsetX := 1, offsetY := 1,
         delay := 54, interval := 50) {
         i := maxLoops
-        While (IsWindowActive() && this.IsColour(colour)) {
+        While (Window.IsActive() && this.IsColour(colour)) {
             this.ClickOffset(offsetX, offsetY, delay)
             Sleep(interval)
             i--
@@ -407,7 +404,7 @@ Class cPoint {
     ClickOffsetUntilColour(colour, maxLoops := 20, offsetX := 1, offsetY := 1,
         delay := 54, interval := 50) {
         i := maxLoops
-        While (IsWindowActive() && !this.IsColour(colour)) {
+        While (Window.IsActive() && !this.IsColour(colour)) {
             this.ClickOffset(offsetX, offsetY, delay)
             Sleep(interval)
             i--
@@ -430,7 +427,7 @@ Class cPoint {
      */
     WaitWhileColour(colour, maxLoops := 20, interval := 50) {
         i := maxLoops
-        While (IsWindowActive() && this.GetColour() = colour) {
+        While (Window.IsActive() && this.GetColour() = colour) {
             Sleep(interval)
             i--
             If (i = 0) {
@@ -455,7 +452,7 @@ Class cPoint {
      */
     WaitUntilColour(colour, maxLoops := 20, interval := 50) {
         i := maxLoops
-        While (IsWindowActive() && this.GetColour() != colour) {
+        While (Window.IsActive() && this.GetColour() != colour) {
             Sleep(interval)
             i--
             If (i = 0) {
@@ -480,7 +477,7 @@ Class cPoint {
      */
     GreedyModifierClick(sleeptime := 54, delay := 54, startAt := 25000) {
         AmountArr := ["25000", "2500", "1000", "250", "100", "25", "10", "1"]
-        If (!IsWindowActive() || !IsPanelActive() || !this.IsButtonActive()) {
+        If (!Window.IsActive() || !Window.IsPanel() || !this.IsButtonActive()) {
             Return
         }
         For Amount in AmountArr {
@@ -488,7 +485,7 @@ Class cPoint {
                 AmountToModifier(Amount)
                 VerboseLog("GreedyModifierClick amount " Amount)
                 Sleep(NavigateTime)
-                While (IsWindowActive() && IsPanelActive() && this.IsButtonActive()
+                While (Window.IsActive() && Window.IsPanel() && this.IsButtonActive()
                 ) {
                     this.ClickOffset(5, 5, delay)
                     Sleep(sleeptime)
@@ -518,7 +515,7 @@ Class cPoint {
      */
     ClientToScreencPoint(hWnd?) {
         ptr := Buffer(8), NumPut("int", this.x, "int", this.y, ptr)
-        DllCall("ClientToScreen", "ptr", WinExist(LBRWindowTitle), "ptr", ptr)
+        DllCall("ClientToScreen", "ptr", WinExist(Window.Title), "ptr", ptr)
         sx := NumGet(ptr, 0, "int"), sy := NumGet(ptr, 4, "int")
         Return cPoint(sx, sy, false)
     }

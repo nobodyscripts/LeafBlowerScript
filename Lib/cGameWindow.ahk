@@ -5,10 +5,34 @@
 /**
  * Game Window management class
  * @module cGameWindow
- * @property {Type} property Desc
- * @method Name Desc
+ * @property {String} Title Window title description string, as used to match 
+ * windows in ahk
+ * @property {Integer} W Width
+ * @property {Integer} H Height
+ * @property {Integer} X Horizontal position
+ * @property {Integer} Y Vertical position
+ * @method __New Constructor
+ * @method RelW Convert from 2560*1369 client resolution to current resolution
+ * @method RelH Convert from 2560*1369 client resolution to current resolution
+ * @method Activate Activate window
+ * @method IsActive Check if window active focus
+ * @method Exist Check if window exists
+ * @method IsPanel Check if game has panel open
+ * @method AreGameSettingsCorrect Runtime settings checks
+ * @method IsPanelTransparent
+ * @method IsPanelTransparentCorrectCheck
+ * @method IsAspectRatioCorrect
+ * @method IsAspectRatioCorrectCheck
+ * @method IsPanelSmoothed
+ * @method IsPanelSmoothedCheck
+ * @method IsDarkBackgroundOn
+ * @method IsDarkBackgroundCheck
+ * @method IsTreesSetCheck
+ * @method IsAFKOn
+ * @method AFKFix
  */
 Class cGameWindow {
+    ;@region Properties
     /** @type {String} Window title description string, as used to match windows
      * in ahk
      */
@@ -19,12 +43,18 @@ Class cGameWindow {
     W := 0
     /** @type {Integer} Window Height */
     H := 0
-    /** @type {Integer} Window Position X */
+    /** @type {Integer} Window Horizontal Position X */
     X := 0
-    /** @type {Integer} Window Position Y */
+    /** @type {Integer} Window Vertical Position Y */
     Y := 0
+    ;@endregion
 
     ;@region __New()
+    /**
+     * Create new GameWindow class to handle window size and checks
+     * @constructor
+     * @param {String} Title AHK formatted window selection string
+     */
     __New(Title := "") {
         If (Title != "") {
             this.Title := Title
@@ -33,6 +63,7 @@ Class cGameWindow {
     }
     ;@endregion
 
+    ;@region Relative Coordinates
     ; Convert positions from 2560*1369 client resolution to current resolution to
     ; allow higher accuracy
     RelW(PosW) {
@@ -44,8 +75,14 @@ Class cGameWindow {
     RelH(PosH) {
         Return PosH / 1369 * this.H
     }
+    ;@endregion
 
     ;@region Activate()
+    /**
+     * Activate window
+     * (Updates GameWindow properties when used)
+     * @returns {Boolean} Does window exist (and is therefore activated)
+     */
     Activate() {
         If (!this.Exist()) {
             Log("Error: Window doesn't exist.")
@@ -58,6 +95,12 @@ Class cGameWindow {
     }
     ;@endregion
 
+    ;@region IsActive()
+    /**
+     * Is Game Window active
+     * (Updates GameWindow properties when used)
+     * @returns {Boolean} False if !exist or !active
+     */
     IsActive() {
         If (!this.Exist()) {
             If (this.LastLogged = 0) {
@@ -86,9 +129,12 @@ Class cGameWindow {
         }
         Return true
     }
+    ;@endregion
 
+    ;@region Exist()
     /**
-     * Fill xywh values and return bool of existance of lbr window
+     * Fill xywh values and return bool of existance of window
+     * (Updates GameWindow properties when used)
      * @returns {Boolean} Does this.Title exist
      */
     Exist() {
@@ -111,7 +157,13 @@ Class cGameWindow {
         this.X := this.Y := this.W := this.H := 0
         Return false
     }
+    ;@endregion
 
+    ;@region AreGameSettingsCorrect()
+    /**
+     * Check if essential game settings are correct during runtime
+     * @returns {Boolean} true/false
+     */
     AreGameSettingsCorrect() {
         Global DisableSettingsChecks
         If (DisableSettingsChecks) {
@@ -143,49 +195,47 @@ Class cGameWindow {
         }
         Return true
     }
+    ;@endregion
 
-
+    ;@region IsPanel()
     /**
      * Check for panel being open
-     * @returns {number} True/False, True if a main panel is active
+     * @returns {Boolean} True/False, True if a main panel is active
      */
     IsPanel() {
-        Return !this.IsPanelTransparent()
-    }
-
-
-    /**
-     * Check for panel being non standard background colour
-     * @returns {number} True/False, True if a main panel is transparent
-     */
-    IsPanelTransparent() {
         Try {
             targetColour := Points.Misc.PanelBG.GetColour()
             ; If its afk mode return as well, let afk check handle
             If (targetColour = Colours().Background || targetColour = Colours()
                 .BackgroundAFK) {
                 ; Found panel background colour
-                Return false
+                Return true
             }
             If (targetColour = Colours().BackgroundSpotify) {
                 Log(
                     "Spotify colour warp detected, please avoid using spotify desktop."
                 )
-                Return false
+                Return true
             }
         } Catch As exc {
             Log("Error 19: Panel transparency check failed - " exc.Message)
             MsgBox("Could not conduct the search due to the following error:`n" exc
                 .Message)
         }
-        Return true
+        Return false
     }
+    ;@endregion
 
+    ;@region IsPanelTransparentCorrectCheck()
+    /**
+     * Check if panel is transparent and generate user errors based on setting
+     * @returns {Boolean} 
+     */
     IsPanelTransparentCorrectCheck() {
         If (!this.IsActive()) {
             Return false ; Kill if no game
         }
-        If (this.IsPanelTransparent()) {
+        If (!this.IsPanel()) {
             MsgBox("Error: It appears you may be using menu transparency,"
                 " please set to 100% then F2 to reload().`nSee Readme.md"
                 " for other required settings.")
@@ -194,7 +244,13 @@ Class cGameWindow {
             Return true
         }
     }
+    ;@endregion
 
+    ;@region IsAspectRatioCorrect()
+    /**
+     * Is game set to the right render mode and thus resizable
+     * @returns {Boolean} 
+     */
     IsAspectRatioCorrect() {
         ;54 1328 (lower left of lower left hide button)
         ;2425 51 (top right of top right hide button)
@@ -213,7 +269,13 @@ Class cGameWindow {
         DebugLog("Aspect ratio check found unknown colour " sampleColour)
         Return false
     }
+    ;@endregion
 
+    ;@region IsAspectRatioCorrectCheck()
+    /**
+     * Tests render mode and presents user errors based on setting
+     * @returns {Boolean} 
+     */
     IsAspectRatioCorrectCheck() {
         If (!this.IsActive()) {
             Return false ; Kill if no game
@@ -231,7 +293,13 @@ Class cGameWindow {
             Return true
         }
     }
+    ;@endregion
 
+    ;@region IsPanelSmoothed()
+    /**
+     * Is game set to the right smoothing mode and not blurry
+     * @returns {Boolean} 
+     */
     IsPanelSmoothed() {
         Try {
             sampleColour := Points.Misc.PanelBG2.GetColour()
@@ -249,7 +317,13 @@ Class cGameWindow {
         }
         Return false
     }
+    ;@endregion
 
+    ;@region IsPanelSmoothedCheck()
+    /**
+     * Tests smoothing mode and presents user errors based on setting
+     * @returns {Boolean} 
+     */
     IsPanelSmoothedCheck() {
         If (!this.IsActive()) {
             Return false ; Kill if no game
@@ -263,7 +337,13 @@ Class cGameWindow {
             " settings.")
         Return false
     }
+    ;@endregion
 
+    ;@region IsDarkBackgroundOn()
+    /**
+     * Is game set to the right dark background mode and not shaded
+     * @returns {Boolean} 
+     */
     IsDarkBackgroundOn() {
         Try {
             sampleColour := Points.Misc.AspectRatio1.GetColour()
@@ -282,7 +362,13 @@ Class cGameWindow {
         }
         Return false
     }
+    ;@endregion
 
+    ;@region IsDarkBackgroundCheck()
+    /**
+     * Tests dark background mode and presents user errors based on setting
+     * @returns {Boolean} 
+     */
     IsDarkBackgroundCheck() {
         If (!this.IsActive()) {
             Return false ; Kill if no game
@@ -297,7 +383,13 @@ Class cGameWindow {
 
         Return false
     }
+    ;@endregion
 
+    ;@region IsTreesSetCheck()
+    /**
+     * Tests if trees are visible and presents user errors based on setting
+     * @returns {Boolean} 
+     */
     IsTreesSetCheck() {
         Travel.OpenAreas(true, 300)
         Points.Areas.LeafG.HomeGarden.Click(NavigateTime + 300)
@@ -311,9 +403,14 @@ Class cGameWindow {
                 " required settings.")
             Return false
         }
-
     }
+    ;@endregion
 
+    ;@region IsAFKOn()
+    /**
+     * Tests auto afk and presents user errors based on setting
+     * @returns {Boolean} 
+     */
     IsAFKOn() {
         Try {
             sampleColour := Points.Misc.AspectRatio1.GetColour()
@@ -331,8 +428,14 @@ Class cGameWindow {
         }
         Return false
     }
+    ;@endregion
 
     ;@region AFKFix()
+    /**
+     * Click in the corner of the screen if afk is detected, prevents issues
+     * when game is out of focus and refocused but afk stays on
+     * @returns {Boolean} 
+     */
     AFKFix() {
         If (!this.IsActive()) {
             Return false ; Kill if no game

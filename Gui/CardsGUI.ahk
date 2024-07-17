@@ -369,14 +369,14 @@ Button_Click_Cards(thisGui, info) {
 
     RunCards(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fCardsStart()
     }
 
     RunSaveCards(*) {
         CardsSave()
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fCardsStart()
     }
 

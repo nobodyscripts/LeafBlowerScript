@@ -5,41 +5,24 @@
 #Include cPoints.ahk
 #Include cRects.ahk
 
-Global LBRWindowTitle
 
 ; ------------------- Functions -------------------
 
-; Convert positions from 2560*1369 client resolution to current resolution to
-; allow higher accuracy
-WinRelPosLargeW(PosW2) {
-    Global W
-    Return PosW2 / 2560 * W
-}
-
-; Convert positions from 2560*1369 client resolution to current resolution to
-; allow higher accuracy
-WinRelPosLargeH(PosH2) {
-    Global H
-    Return PosH2 / 1369 * H
-}
-
 ; Custom clicking function, uses 2560*1369 relative coords
 fSlowClickRelL(clickX, clickY, delay := 34) {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to Lclick at " clickX " * " clickY
-            "`n Rel: " WinRelPosLargeW(clickX) " * " WinRelPosLargeH(clickY))
+            "`n Rel: " Window.RelW(clickX) " * " Window.RelH(clickY))
         Return false
     }
-    MouseClick("left", WinRelPosLargeW(clickX), WinRelPosLargeH(clickY), , ,
-        "D")
+    MouseClick("left", Window.RelW(clickX), Window.RelH(clickY), , , "D")
     Sleep(delay)
-    MouseClick("left", WinRelPosLargeW(clickX), WinRelPosLargeH(clickY), , ,
-        "U")
+    MouseClick("left", Window.RelW(clickX), Window.RelH(clickY), , , "U")
 }
 
 ; Custom clicking function, uses given coords no relative correction
 fCustomClick(clickX, clickY, delay := 34) {
-    If (!IsWindowActive()) {
+    If (!Window.IsActive()) {
         Log("No window found while trying to click at " clickX " * " clickY)
         Return false
     }
@@ -52,10 +35,10 @@ fCustomClick(clickX, clickY, delay := 34) {
 ResetModifierKeys() {
     ; Cleanup incase still held, ahk cannot tell if the key has been sent as up
     ; getkeystate reports the key, not what lbr has been given
-    If (IsWindowActive()) {
-        ControlSend("{Control up}", , LBRWindowTitle)
-        ControlSend("{Alt up}", , LBRWindowTitle)
-        ControlSend("{Shift up}", , LBRWindowTitle)
+    If (Window.IsActive()) {
+        ControlSend("{Control up}", , Window.Title)
+        ControlSend("{Alt up}", , Window.Title)
+        ControlSend("{Shift up}", , Window.Title)
     }
 }
 
@@ -67,37 +50,37 @@ AmountToModifier(num) {
     */
     Switch num {
         Case 10:
-            ControlSend("{Control up}", , LBRWindowTitle)
-            ControlSend("{Alt up}", , LBRWindowTitle)
-            ControlSend("{Shift down}", , LBRWindowTitle)
+            ControlSend("{Control up}", , Window.Title)
+            ControlSend("{Alt up}", , Window.Title)
+            ControlSend("{Shift down}", , Window.Title)
         Case 25:
-            ControlSend("{Control down}", , LBRWindowTitle)
-            ControlSend("{Alt up}", , LBRWindowTitle)
-            ControlSend("{Shift up}", , LBRWindowTitle)
+            ControlSend("{Control down}", , Window.Title)
+            ControlSend("{Alt up}", , Window.Title)
+            ControlSend("{Shift up}", , Window.Title)
         Case 100:
-            ControlSend("{Control up}", , LBRWindowTitle)
-            ControlSend("{Alt down}", , LBRWindowTitle)
-            ControlSend("{Shift up}", , LBRWindowTitle)
+            ControlSend("{Control up}", , Window.Title)
+            ControlSend("{Alt down}", , Window.Title)
+            ControlSend("{Shift up}", , Window.Title)
         Case 250:
-            ControlSend("{Control down}", , LBRWindowTitle)
-            ControlSend("{Alt up}", , LBRWindowTitle)
-            ControlSend("{Shift down}", , LBRWindowTitle)
+            ControlSend("{Control down}", , Window.Title)
+            ControlSend("{Alt up}", , Window.Title)
+            ControlSend("{Shift down}", , Window.Title)
         Case 1000:
-            ControlSend("{Control up}", , LBRWindowTitle)
-            ControlSend("{Alt down}", , LBRWindowTitle)
-            ControlSend("{Shift down}", , LBRWindowTitle)
+            ControlSend("{Control up}", , Window.Title)
+            ControlSend("{Alt down}", , Window.Title)
+            ControlSend("{Shift down}", , Window.Title)
         Case 2500:
-            ControlSend("{Control down}", , LBRWindowTitle)
-            ControlSend("{Alt down}", , LBRWindowTitle)
-            ControlSend("{Shift up}", , LBRWindowTitle)
+            ControlSend("{Control down}", , Window.Title)
+            ControlSend("{Alt down}", , Window.Title)
+            ControlSend("{Shift up}", , Window.Title)
         Case 25000:
-            ControlSend("{Control down}", , LBRWindowTitle)
-            ControlSend("{Alt down}", , LBRWindowTitle)
-            ControlSend("{Shift down}", , LBRWindowTitle)
+            ControlSend("{Control down}", , Window.Title)
+            ControlSend("{Alt down}", , Window.Title)
+            ControlSend("{Shift down}", , Window.Title)
         default:
-            ControlSend("{Control up}", , LBRWindowTitle)
-            ControlSend("{Alt up}", , LBRWindowTitle)
-            ControlSend("{Shift up}", , LBRWindowTitle)
+            ControlSend("{Control up}", , Window.Title)
+            ControlSend("{Alt up}", , Window.Title)
+            ControlSend("{Shift up}", , Window.Title)
     }
 }
 
@@ -253,7 +236,7 @@ cReload() {
 }
 
 ReloadIfNoGame() {
-    If (!GameWindowExist() || !IsWindowActive()) {
+    If (!Window.Exist() || !Window.IsActive()) {
         cReload() ; Kill if no game
         Return
     }

@@ -62,14 +62,14 @@ Button_Click_BorbVenture(thisGui, info) {
 
     RunBorbv(*) {
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fBorbvStart()
     }
 
     RunSaveBorbv(*) {
         BorbvSave()
         optionsGUI.Hide()
-        WinActivate(LBRWindowTitle)
+        Window.Activate()
         fBorbvStart()
     }
 
