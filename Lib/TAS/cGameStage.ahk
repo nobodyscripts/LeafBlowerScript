@@ -31,7 +31,7 @@ Class cGameStage {
     }
 
     RunTaskList() {
-        if (this.TaskList = []) {
+        If (this.TaskList = []) {
             Throw Error("No task list set on game stage")
         }
 

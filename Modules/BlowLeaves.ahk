@@ -32,9 +32,9 @@ Class BlowLeaves extends cTask {
         MousePattern.Task(InteruptMousePattern)
 
         InteruptMousePattern() {
-            return false
+            Return false
         }
-        return true
+        Return true
     }
 
     /**
@@ -49,6 +49,6 @@ Class BlowLeaves extends cTask {
      * @returns {Boolean} Return false to exit task loop early
      */
     StopWhen() {
-        return true
+        Return true
     }
 }

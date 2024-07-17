@@ -15,7 +15,7 @@ Class cGameMode {
     GetProgressStage() {
         ; This needs to reflect what stage the game is in
         this.Stage := this.GameState.LoadCurrent()
-        return true
+        Return true
     }
 }
 
