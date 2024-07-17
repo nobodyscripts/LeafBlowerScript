@@ -2,6 +2,7 @@
 
 #Include Navigate.ahk
 #Include SettingsCheck.ahk
+#Include cGameWindow.ahk
 #Include cColours.ahk
 #Include cTravel.ahk
 

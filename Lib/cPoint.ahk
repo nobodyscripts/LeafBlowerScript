@@ -2,6 +2,7 @@
 
 #Include cColours.ahk
 #Include SettingsCheck.ahk
+#Include cGameWindow.ahk
 
 /**
  * Debug flag for DebugLog
