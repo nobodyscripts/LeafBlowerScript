@@ -652,9 +652,9 @@ GotoCardsFirstTab() {
     }
     Global DisableZoneChecks
     i := 0
-    button := Points.Card.PacksTab
+    button := Points.Card.Tab.Packs
     If (!DisableZoneChecks) {
-        While (!IsOnCardsFirstPanel() && Window.IsActive() && i <= 4) {
+        While (!Travel.Cards.IsOnPacks() && Window.IsActive() && i <= 4) {
             If (!Window.IsActive()) {
                 Log("No window found while trying to travel.")
                 Return false
@@ -668,7 +668,7 @@ GotoCardsFirstTab() {
             i++
         }
     }
-    If (IsOnCardsFirstPanel()) {
+    If (Travel.Cards.IsOnPacks()) {
         DebugLog("Travel success to Cards First Tab.")
         Return true
     } Else {
@@ -684,7 +684,7 @@ GotoCardsFirstTab() {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
-        If (IsOnCardsFirstPanel()) {
+        If (Travel.Cards.IsOnPacks()) {
             DebugLog("Blind travel success to Cards First Tab.")
             Return true
         } Else {
@@ -692,13 +692,6 @@ GotoCardsFirstTab() {
             Return false
         }
     }
-}
-
-IsOnCardsFirstPanel() {
-    If (Points.Card.OddsButton.IsButtonActive()) {
-        Return true
-    }
-    Return false
 }
 
 GoToLeafTower() {

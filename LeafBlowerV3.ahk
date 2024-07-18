@@ -59,7 +59,8 @@ Run this file to load script
 
 ; ------------------- Script Triggers -------------------
 
-/* Numpad1:: {
+/*
+Numpad1:: {
     screenx := screeny := windowx := windowy := clientx := clienty := 0
     CoordMode("Mouse", "Screen")
     MouseGetPos(&screenx, &screeny)
@@ -73,14 +74,16 @@ Run this file to load script
         "Client:`t" clientx ", " clienty "`n"
         "Color:`t#" SubStr(PixelGetColor(screenx, screeny), 3)
     )
-} */
-
-/* Numpad2:: {
+}
+Numpad2:: {
     testArea := RelSampleArea()
     testArea.SetCoordRel(470, 290, 819, 448)
     results := testArea.OCRArea()
     MsgBox(results.Text)
-} */
+}
+Numpad0:: {
+    Log(Points.Misc.ZoneSample.GetColour())
+}*/
 
 CreateScriptHotkeys() {
     Hotkey("*" Scriptkeys.GetHotkey("AutoClicker"), fAutoClicker)

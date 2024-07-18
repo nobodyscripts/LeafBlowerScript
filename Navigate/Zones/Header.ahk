@@ -3,6 +3,7 @@
 
 #Include Mines.ahk
 
+#include cZoneCards.ahk
 
 #Include zAstralOasis.ahk
 #Include zBiotiteForest.ahk

@@ -40,7 +40,7 @@
 			" * @property {Type} property Desc",
 			" * @method Name Desc",
 			" */",
-			"Class $1() {",
+			"Class $1 {",
 			"\t/** @type {Type} Desc */",
 			"\tproperty := 0",
 			"",

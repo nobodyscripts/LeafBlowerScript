@@ -73,8 +73,62 @@ Class Zone {
                 DebugLog("Blind travel success to " this.Name)
                 Return true
             } Else {
-                Log("Traveling to " this.Name " failed, colour found was " this
-                    .GetZoneColour())
+                Log("Traveling to " this.Name " failed, " this.CurrentZoneString()
+                )
+                Return false
+            }
+        }
+    }
+    ;@endregion
+
+    ;@region _GoToArea()
+    /**
+     * Go to the zone base function, uses other functions to target travel
+     * @param Attempt Func(delay, [scrolldelay],
+     * [extradelay]) To attempt travel
+     * @example AttemptTravel(delay, scrolldelay := 0, extradelay := 0) { }
+     * @param Check Func(Name) To confirm travel, true if success 
+     * @example this.IsZone(Name)
+     * @param Name Zone name or feature name for display purposes and colour
+     * checks
+     * @returns {Boolean} True if travel success, false if travel failed
+     */
+    _GoToArea(Attempt, Check, Name) {
+        If (!Window.IsActive()) {
+            Log("No window found while trying to travel.")
+            Return false
+        }
+        Global DisableZoneChecks
+        i := 0
+        If (!DisableZoneChecks) {
+            Log("Traveling to " Name)
+            ; Advantage of this sample check is script doesn't travel if already
+            ; there and can recheck if travels failed
+            While (!Check(Name) && i <= 4) {
+                If (!Window.IsActive()) {
+                    Log("No window found while trying to travel.")
+                    Return false
+                }
+                Attempt(NavigateTime)
+                i++
+            }
+        }
+        If (Check(Name)) {
+            DebugLog("Travel success to " Name)
+            Return true
+        } Else {
+            Log("Traveling to " Name ". Attempt to blind travel with"
+                " slowed times.")
+            Attempt(NavigateTime, 50, 200)
+            If (DisableZoneChecks) {
+                ; Checks are disabled so blindly trust we reached zone
+                Return true
+            }
+            If (Check(Name)) {
+                DebugLog("Blind travel success to " Name)
+                Return true
+            } Else {
+                Log("Traveling to " Name " failed, " this.CurrentZoneString())
                 Return false
             }
         }
@@ -112,10 +166,30 @@ Class Zone {
             ; Found target colour
             Return true
         }
-        DebugLog("IsZoneColour: Not in target zone, colour: " sampleColour)
+        DebugLog("IsZoneColour: Not in target zone, " this.CurrentZoneString())
         Return false
     }
     ;@endregion
+
+    ;@region IsZone()
+    /**
+     * Checks if zone is currently set to the zone required based on 
+     * name matched to colour lookup
+     * @returns {Boolean} 
+     */
+    IsZone(Name) {
+        colour := this.GetZoneColour()
+        curName := this.GetNameByColour(colour)
+        If (curName = Name) {
+            ; Found target zone
+            Return true
+        }
+        ; TODO add this debug to the other funcs
+        DebugLog("IsZoneName: Not in target zone, " this.CurrentZoneString())
+        Return false
+    }
+    ;@endregion
+
 
     ;@region GetZoneColour()
     /**
@@ -135,6 +209,17 @@ Class Zone {
      */
     GetColourByName(name) {
         Return Colours().GetColourByZone(name)
+    }
+    ;@endregion
+
+    ;@region GetNameByColour()
+    /**
+     * Gets the zone with matching colour sample
+     * @param colour Colour string for zone check
+     * @returns {String} Full name string of zone found in ZoneColours
+     */
+    GetNameByColour(colour) {
+        Return Colours().GetZoneByColour(colour)
     }
     ;@endregion
 
@@ -169,4 +254,14 @@ Class Zone {
         Travel.ScrollAmountUp(amount, extraDelay)
     }
     ;@endregion
+
+    /**
+     * Debug string of current zone
+     * @returns {String} Name: <zone name> Colour: <zone colour>
+     */
+    CurrentZoneString() {
+        colour := this.GetZoneColour()
+        curName := this.GetNameByColour(colour)
+        Return "Name: " curName " colour: " colour
+    }
 }

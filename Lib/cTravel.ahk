@@ -29,6 +29,8 @@ Global Travel := cTravel()
  * @method ClosePanelIfActive Closes open panel only if open
  * @method OpenSettings Open settings panel
  * 
+ * @property {cZoneCards} Cards Travel class for Cards feature
+ * 
  * @property {TheInfernalDesert} TheInfernalDesert Travel class for 
  * TheInfernalDesert
  * @property {CursedHalloween} CursedHalloween Travel class for Cursed Halloween
@@ -100,15 +102,23 @@ Global Travel := cTravel()
  * <jsdocmarker>
  */
 Class cTravel {
+    ;@region Features classes definition
+    ; Travel class for Mine
+    Mine := Mine()
+
+    /**
+     * Travel class for Cards
+     * @type {cZoneCards}
+     */
+    Cards := cZoneCards()
+    ;@endregion
+
     ;@region Travel classes definition
     ; Travel class for TheInfernalDesert
     TheInfernalDesert := TheInfernalDesert()
 
     ; Travel class for Cursed Halloween
     CursedHalloween := CursedHalloween()
-
-    ; Travel class for Mine
-    Mine := Mine()
 
     /**
      * Travel class for AstralOasis
@@ -730,7 +740,7 @@ Class cTravel {
     }
     ;@endregion
 
-    ;@region IsOnEventAreaPanel()
+    ;@region IsOnEventPanel()
     /**
      * Is event area panel open
      * @returns {Boolean} 
