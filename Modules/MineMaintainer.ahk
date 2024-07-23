@@ -98,7 +98,7 @@ fMineMaintainer() {
         LeaftonTaxiSinglePassStart()
         Sleep(NavigateTime)
     } Else If (MinerEnableSpammer) {
-        Spammer().NormalBossStart()
+        Spammer.NormalBossStart()
     }
     Travel.Mine.GoTo()
     Loop {
@@ -293,7 +293,7 @@ fMineMaintainer() {
     If (MinerEnableLeafton) {
         LeaftonTaxiSinglePassEnd()
     } Else If (MinerEnableSpammer) {
-        Spammer().KillNormalBoss()
+        Spammer.KillNormalBoss()
     }
 }
 

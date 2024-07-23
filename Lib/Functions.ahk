@@ -243,7 +243,7 @@ ReloadIfNoGame() {
 }
 
 InitScriptHotKey() {
-    Spammer().KillAllSpammers()
+    Spammer.KillAllSpammers()
     ReloadIfNoGame()
     ResetModifierKeys() ; Cleanup incase needed
 }

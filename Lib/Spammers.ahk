@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0
 
-Global SpammerPID := 0
-Global WindSpammerPID := 0
-Global TowerPassiveSpammerPID := 0
-Global GFSSSpammerPID := 0
+Global Spammer := cSpammer()
 
 /**
  * Spammer control spammers/secondary scripts which run in the background or 
  * perform alt tasks as if multithreaded
- * @module Spammer
+ * @module cSpammer
  * @method KillAllSpammers Kill all secondary/spammer processes
  * @method NormalBossStart Start normal boss spammer
  * @method IsNormalBossActive Is Normal boss spammer active
@@ -23,8 +20,11 @@ Global GFSSSpammerPID := 0
  * @method IsGFSSActive Is green flame and spectralseeker spammer active
  * @method KillGFSS Kill process of green flame and spectralseeker spammer
  */
-Class Spammer {
-
+Class cSpammer {
+    NormalBossPID := 0
+    WindPID := 0
+    TowerPassivePID := 0
+    GFSSPID := 0
     ;@region KillAllSpammers()
     /**
      * Kill all secondary/spammer processes
@@ -64,9 +64,9 @@ Class Spammer {
      * @returns {Boolean} 
      */
     IsNormalBossActive() {
-        If ((this.NormalBossPID && ProcessExist(this.NormalBossPID)) ||
-            WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey"
-            )) {
+        If ((this.NormalBossPID && ProcessExist(this.NormalBossPID
+        )) || WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey"
+        )) {
             Return true
         }
         Return false

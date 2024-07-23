@@ -108,7 +108,7 @@ CreateScriptHotkeys() {
 }
 
 fExitApp(*) {
-    Spammer().KillAllSpammers()
+    Spammer.KillAllSpammers()
     Log("F1: Pressed")
     ; Wildcard shortcut * to allow functions to work while looping with
     ; modifiers held
@@ -121,7 +121,7 @@ fReloadApp(*) {
     Global HadToHideNotifs, HadToRemoveBearo, GemFarmActive, TowerFarmActive,
         bvAutostartDisabled
     ; Toggle notifs to handle multiple situations where its toggled
-    Spammer().KillAllSpammers()
+    Spammer.KillAllSpammers()
     If (HadToHideNotifs) {
         Log("F2: Reenabling notifications.")
         Points.Misc.NotifArrow.Click(101)

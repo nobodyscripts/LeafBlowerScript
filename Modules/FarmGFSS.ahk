@@ -7,7 +7,7 @@ Global SSToKillPerCycle := 1
 fFarmGFSS() {
     ResettingGF := false
     Global GFSSNoReset
-    Spammer().GFSSBossStart()
+    Spammer.GFSSBossStart()
     Loop {
         If (!Window.IsActive()) {
             Break ; Kill if no game

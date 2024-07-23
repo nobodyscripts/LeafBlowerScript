@@ -40,7 +40,7 @@ fFarmNormalBossAndNatureHyacinth() {
         bossfarm := true
         GameKeys.TriggerWobblyWings()
         Sleep(NavigateTime)
-        Spammer().NormalBossStart()
+        Spammer.NormalBossStart()
     }
     ; works for font 0 and font 1
     ; 530 425 harvest
@@ -71,7 +71,7 @@ fFarmNormalBossAndNatureHyacinth() {
         If (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             HyacinthBanksEnabled) {
             If (bossfarm) {
-                Spammer().KillNormalBoss() ; Need to halt any WW spam
+                Spammer.KillNormalBoss() ; Need to halt any WW spam
             }
             Log("BossHyacinth: Bank Maintainer starting.")
             ToolTip("BossHyacinth Bank Maintainer Active", Window.W / 2, Window
@@ -82,7 +82,7 @@ fFarmNormalBossAndNatureHyacinth() {
             starttime := A_Now
             OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID)
             If (bossfarm) {
-                Spammer().NormalBossStart() ; Restart spammer now we can travel
+                Spammer.NormalBossStart() ; Restart spammer now we can travel
             }
             Sleep(NavigateTime)
         }
@@ -107,7 +107,7 @@ fFarmNormalBossAndNatureHyacinth() {
                 } Else If (HyacinthUseNextAvailableFlower && flowerTypesUsed >=
                     16) {
                     ; Run out of seeds so exiting
-                    If (HyacinthFarmBoss) Spammer().KillNormalBoss()
+                    If (HyacinthFarmBoss) Spammer.KillNormalBoss()
                         Log("BossHyacinth: Plants exausted. Exiting.")
                     ToolTip("Plants exausted. Exiting.", Window.W / 2, Window.H /
                         2 + Window.RelH(50), 2)
@@ -130,9 +130,9 @@ fFarmNormalBossAndNatureHyacinth() {
                 Killcount++
             }
             IsPrevTimerLong := IsTimerLong
-            If (Travel.HomeGarden.IsAreaGarden() && Spammer().IsNormalBossActive()
+            If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()
             ) {
-                If (HyacinthFarmBoss) Spammer().KillNormalBoss()
+                If (HyacinthFarmBoss) Spammer.KillNormalBoss()
                     Log("BossHyacinth: User killed.")
                 ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                     50), 2)

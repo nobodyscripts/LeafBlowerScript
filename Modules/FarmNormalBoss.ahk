@@ -13,7 +13,7 @@ fFarmNormalBoss(modecheck) {
     Global on9
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
-    Spammer().NormalBossStart()
+    Spammer.NormalBossStart()
     Loop {
         If (on9 != modecheck) {
             Return
@@ -51,7 +51,7 @@ fFarmNormalBossAndBrew(modecheck) {
     Killcount := 0
     Travel.OpenAlchemyGeneral()
     IsPrevTimerLong := IsBossTimerLong()
-    Spammer().NormalBossStart()
+    Spammer.NormalBossStart()
     Loop {
         If (on9 != modecheck) {
             Break
@@ -74,8 +74,8 @@ fFarmNormalBossAndBrew(modecheck) {
             Killcount++
         }
         IsPrevTimerLong := IsTimerLong
-        If (Travel.HomeGarden.IsAreaGarden() && Spammer().IsNormalBossActive()) {
-            Spammer().KillNormalBoss()
+        If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()) {
+            Spammer.KillNormalBoss()
             Log("BossFarm: User killed.")
             ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                 50), 2)
@@ -140,7 +140,7 @@ fNormalBossFarmWithBorbs(modecheck) {
         Return
     }
 
-    Spammer().NormalBossStart()
+    Spammer.NormalBossStart()
     bvAutostartDisabled := false
     If (IsBVAutoStartOn()) {
         ; TODO move point to Points
@@ -162,8 +162,8 @@ fNormalBossFarmWithBorbs(modecheck) {
             Log("BossBorbs: Did not find panel. Aborted.")
             Return
         }
-        If (Travel.HomeGarden.IsAreaGarden() && Spammer().IsNormalBossActive()) {
-            Spammer().KillNormalBoss()
+        If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()) {
+            Spammer.KillNormalBoss()
             Log("BossBorbs: User killed.")
             ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                 50), 2)
@@ -207,7 +207,7 @@ fNormalBossFarmWithCards(modecheck) {
         Return
     }
 
-    Spammer().NormalBossStart()
+    Spammer.NormalBossStart()
     IsPrevTimerLong := IsBossTimerLong()
     Loop {
         If (on9 != modecheck) {
@@ -253,9 +253,9 @@ fNormalBossFarmWithCards(modecheck) {
                 Log("BossCards Opening: Loop finishing.")
                 Break
             }
-            If (Travel.HomeGarden.IsAreaGarden() && Spammer().IsNormalBossActive()
+            If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()
             ) {
-                Spammer().KillNormalBoss()
+                Spammer.KillNormalBoss()
                 Log("BossCards: User killed.")
                 ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                     50), 2)
