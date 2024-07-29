@@ -13,29 +13,29 @@ Deprecated() {
  */
 UpdateDebugLevel() {
     Global EnableLogging, Debug, Verbose
-    if (FileExist(A_ScriptDir "\IsNobody")) {
+    If (FileExist(A_ScriptDir "\IsNobody")) {
         Out.DebugLevel := 3
         Out.I("Set debug output to full.")
-        return
+        Return
     }
-    if (Verbose) {
+    If (Verbose) {
         Out.DebugLevel := 2
         Out.I("Set debug output to verbose.")
-        return
+        Return
     }
-    if (Debug) {
+    If (Debug) {
         Out.DebugLevel := 1
         Out.I("Set debug output to debug.")
-        return
+        Return
     }
-    if (EnableLogging) {
+    If (EnableLogging) {
         Out.DebugLevel := 0
         Out.I("Set debug output to important only.")
-        return
-    } else {
+        Return
+    } Else {
         Out.DebugLevel := -1
         Out.I("Set debug output to none.")
-        return
+        Return
     }
 }
 
@@ -68,6 +68,7 @@ Class cLog {
     /**
      * Constructor for logging object, opens file handle when created
      * @param {String} [FileName] Sets this.FileName, defaults to scriptname.Log
+     * Overwrites to ..\Secondaries.log if IsSecondary
      * @param {Integer} [Timestamp=true] Sets if timestamps should be used
      * @param {Integer} [DebugLevel=0] Int to select the debug output level for logging
      * -1 disabled (Msgboxs errors on failure)
@@ -84,12 +85,16 @@ Class cLog {
         } Else {
             this.FileName := FileName
         }
+        If (IsSecondary) {
+            this.FileName := A_ScriptDir "\..\Secondaries.log"
+        }
         this.Timestamp := Timestamp
         this.DebugLevel := DebugLevel
         this._Buffer := UseBuffer
         If (this._Buffer) {
             Try {
                 this._FileHandle := FileOpen(this.FileName, "a-d")
+                OutputDebug("Logging to " this.FileName "`r`n")
             } Catch (Error) {
                 MsgBox("Could not open " this.FileName " to write logs to.`r`n"
                 )
