@@ -36,7 +36,7 @@ Class SoulCrypt extends Zone {
         If (SoulCryptLeaf) {
             this.ClickTravelButton(SoulCryptLeaf, delay + extradelay)
         } Else {
-            Log("Soul Crypt leaf not found while trying to travel.")
+            Out.I("Soul Crypt leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class SoulCrypt extends Zone {
         ; Button to travel to Soul Crypt
         ;Button := Points.Areas.SoulR.SoulCrypt
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Soul Crypt travel: Button not found.")
+            Out.I("Soul Crypt travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

@@ -36,7 +36,7 @@ Class SparkRange extends Zone {
         If (SparkRangeLeaf) {
             this.ClickTravelButton(SparkRangeLeaf, delay + extradelay)
         } Else {
-            Log("Spark Range leaf not found while trying to travel.")
+            Out.I("Spark Range leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class SparkRange extends Zone {
         ; Button to travel to Spark Range
         ;Button := Points.Areas.SacredN.SparkRange
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Spark Range travel: Button not found.")
+            Out.I("Spark Range travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

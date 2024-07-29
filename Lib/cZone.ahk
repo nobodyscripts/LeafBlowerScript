@@ -39,19 +39,19 @@ Class Zone {
      */
     GoTo() {
         If (!Window.IsActive()) {
-            Log("No window found while trying to travel.")
+            Out.I("No window found while trying to travel.")
             Return false
         }
         Global DisableZoneChecks
         i := 0
         If (!DisableZoneChecks) {
-            Log("Traveling to " this.Name)
+            Out.I("Traveling to " this.Name)
             ; Advantage of this sample check is script doesn't travel if already
             ; there and can recheck if travels failed
             While (!this.IsZoneColour() && this.BossTimer = !IsBossTimerActive() &&
                 i <= 4) {
                 If (!Window.IsActive()) {
-                    Log("No window found while trying to travel.")
+                    Out.I("No window found while trying to travel.")
                     Return false
                 }
                 this.AttemptTravel(NavigateTime)
@@ -59,10 +59,10 @@ Class Zone {
             }
         }
         If (this.IsZoneColour()) {
-            DebugLog("Travel success to " this.Name)
+            Out.D("Travel success to " this.Name)
             Return true
         } Else {
-            Log("Traveling to " this.Name ". Attempt to blind travel with"
+            Out.I("Traveling to " this.Name ". Attempt to blind travel with"
                 " slowed times.")
             this.AttemptTravel(NavigateTime, 50, 200)
             If (DisableZoneChecks) {
@@ -70,10 +70,10 @@ Class Zone {
                 Return true
             }
             If (this.IsZoneColour()) {
-                DebugLog("Blind travel success to " this.Name)
+                Out.D("Blind travel success to " this.Name)
                 Return true
             } Else {
-                Log("Traveling to " this.Name " failed, " this.CurrentZoneString()
+                Out.I("Traveling to " this.Name " failed, " this.CurrentZoneString()
                 )
                 Return false
             }
@@ -95,18 +95,18 @@ Class Zone {
      */
     _GoToArea(Attempt, Check, Name) {
         If (!Window.IsActive()) {
-            Log("No window found while trying to travel.")
+            Out.I("No window found while trying to travel.")
             Return false
         }
         Global DisableZoneChecks
         i := 0
         If (!DisableZoneChecks) {
-            Log("Traveling to " Name)
+            Out.I("Traveling to " Name)
             ; Advantage of this sample check is script doesn't travel if already
             ; there and can recheck if travels failed
             While (!Check(Name) && i <= 4) {
                 If (!Window.IsActive()) {
-                    Log("No window found while trying to travel.")
+                    Out.I("No window found while trying to travel.")
                     Return false
                 }
                 Attempt(NavigateTime)
@@ -114,10 +114,10 @@ Class Zone {
             }
         }
         If (Check(Name)) {
-            DebugLog("Travel success to " Name)
+            Out.D("Travel success to " Name)
             Return true
         } Else {
-            Log("Traveling to " Name ". Attempt to blind travel with"
+            Out.I("Traveling to " Name ". Attempt to blind travel with"
                 " slowed times.")
             Attempt(NavigateTime, 50, 200)
             If (DisableZoneChecks) {
@@ -125,10 +125,11 @@ Class Zone {
                 Return true
             }
             If (Check(Name)) {
-                DebugLog("Blind travel success to " Name)
+                Out.D("Blind travel success to " Name)
                 Return true
             } Else {
-                Log("Traveling to " Name " failed, " this.CurrentZoneString())
+                Out.I("Traveling to " Name " failed, " this.CurrentZoneString()
+                )
                 Return false
             }
         }
@@ -166,7 +167,7 @@ Class Zone {
             ; Found target colour
             Return true
         }
-        DebugLog("IsZoneColour: Not in target zone, " this.CurrentZoneString())
+        Out.D("IsZoneColour: Not in target zone, " this.CurrentZoneString())
         Return false
     }
     ;@endregion
@@ -185,7 +186,7 @@ Class Zone {
             Return true
         }
         ; TODO add this debug to the other funcs
-        DebugLog("IsZoneName: Not in target zone, " this.CurrentZoneString())
+        Out.D("IsZoneName: Not in target zone, " this.CurrentZoneString())
         Return false
     }
     ;@endregion

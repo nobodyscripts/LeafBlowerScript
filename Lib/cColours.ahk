@@ -261,7 +261,7 @@ Class Colours {
         If (this.ZoneColours.Has(name)) {
             Return this.ZoneColours[name]
         }
-        Log("GetColourByZone could not find zone: " name)
+        Out.I("GetColourByZone could not find zone: " name)
     }
     ;@endregion
 

@@ -36,7 +36,7 @@ Class BiotiteForest extends Zone {
         If (BiotiteForestLeaf) {
             this.ClickTravelButton(BiotiteForestLeaf, delay + extradelay)
         } Else {
-            Log("Biotite Forest leaf not found while trying to travel.")
+            Out.I("Biotite Forest leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class BiotiteForest extends Zone {
         ; Button to travel to Biotite Forest
         ;Button := Points.Areas.SacredN.BiotiteForest
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Biotite Forest travel: Button not found.")
+            Out.I("Biotite Forest travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

@@ -19,7 +19,7 @@ fFarmNormalBoss(modecheck) {
             Return
         }
         If (!Window.IsActive()) {
-            Log("BossFarm: Exiting as no game.")
+            Out.I("BossFarm: Exiting as no game.")
             cReload() ; Kill early if no game
             Return
         }
@@ -27,14 +27,14 @@ fFarmNormalBoss(modecheck) {
         ; if state of timer has changed and is now off, we killed
         If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
             ; If the timer is longer, killed too quick to get a gap
-            ; Log("Kill timerlast " TimerLastCheckStatus " timer cur "
+            ; Out.I("Kill timerlast " TimerLastCheckStatus " timer cur "
             ; TimerCurrentState " waslong " IsPrevTimerLong
             ; " islong " IsTimerLong)
             Killcount++
         }
         IsPrevTimerLong := IsTimerLong
         If (Travel.HomeGarden.IsAreaGarden()) {
-            Log("BossFarm: User killed.")
+            Out.I("BossFarm: User killed.")
             ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                 50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
@@ -57,12 +57,13 @@ fFarmNormalBossAndBrew(modecheck) {
             Break
         }
         If (!Window.IsActive()) {
-            Log("BossBrew: Exiting as no game.")
+            Out.I("BossBrew: Exiting as no game.")
             cReload() ; Kill if no game
             Break
         }
         If (!Window.IsPanel()) {
-            Log("BossBrew: Did not find panel. Aborted brewing. Violins active"
+            Out.I(
+                "BossBrew: Did not find panel. Aborted brewing. Violins active"
             )
             Break
         }
@@ -76,7 +77,7 @@ fFarmNormalBossAndBrew(modecheck) {
         IsPrevTimerLong := IsTimerLong
         If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()) {
             Spammer.KillNormalBoss()
-            Log("BossFarm: User killed.")
+            Out.I("BossFarm: User killed.")
             ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                 50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
@@ -90,7 +91,7 @@ fFarmNormalBossAndBrew(modecheck) {
 
 SpamBrewButtons() {
     If (!Window.IsPanel()) {
-        Log("SpamBrewButtons: Did not find panel. Aborted.")
+        Out.I("SpamBrewButtons: Did not find panel. Aborted.")
         Return false
     }
     ; Artifacts
@@ -133,7 +134,7 @@ fNormalBossFarmWithBorbs(modecheck) {
     Killcount := 0
 
     If (!Travel.GotoBorbVFirstTab()) {
-        Log("Borbv: Failed to travel, aborting.")
+        Out.I("Borbv: Failed to travel, aborting.")
         ToolTip("Failed to open Borbv, exiting.", Window.W / 2, Window.H / 2 +
             Window.RelH(50), 5)
         SetTimer(ToolTip.Bind(, , , 5), -3000)
@@ -154,17 +155,17 @@ fNormalBossFarmWithBorbs(modecheck) {
             Return
         }
         If (!Window.IsActive()) {
-            Log("BossBorbs: Exiting as no game.")
+            Out.I("BossBorbs: Exiting as no game.")
             cReload()
             Return
         }
         If (!Window.IsPanel()) {
-            Log("BossBorbs: Did not find panel. Aborted.")
+            Out.I("BossBorbs: Did not find panel. Aborted.")
             Return
         }
         If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()) {
             Spammer.KillNormalBoss()
-            Log("BossBorbs: User killed.")
+            Out.I("BossBorbs: User killed.")
             ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                 50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
@@ -195,7 +196,7 @@ fNormalBossFarmWithCards(modecheck) {
     Killcount := 0
 
     If (IsNotificationActive()) {
-        Log("Card opening: Found notification covering button and hid"
+        Out.I("Card opening: Found notification covering button and hid"
             " notifications.")
         Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := true
@@ -203,7 +204,7 @@ fNormalBossFarmWithCards(modecheck) {
 
     If (!GotoCardsFirstTab()) {
         ; We still failed to travel
-        Log("BossCards: Failed to open cards first tab")
+        Out.I("BossCards: Failed to open cards first tab")
         Return
     }
 
@@ -214,31 +215,31 @@ fNormalBossFarmWithCards(modecheck) {
             Return
         }
         If (!Window.IsActive()) {
-            Log("BossCards: Exiting as no game.")
+            Out.I("BossCards: Exiting as no game.")
             cReload() ; Kill if no game
             Return
         }
         If (!Window.IsPanel()) {
-            Log("BossCards: Did not find panel. Aborted.")
+            Out.I("BossCards: Did not find panel. Aborted.")
             Break
         }
         If (IsNotificationActive()) {
-            Log("BossCards: Found notification covering button and hid"
+            Out.I("BossCards: Found notification covering button and hid"
                 " notifications.")
             Points.Misc.NotifArrow.Click(101)
             HadToHideNotifs := true
         }
         If (!CardButtonsActive()) {
-            Log("BossCards: Exiting.")
+            Out.I("BossCards: Exiting.")
             Return
         }
         ToolTip("Boss farm with cards active", Window.W / 2 - Window.RelW(150),
             Window.H / 2 + Window.RelH(320), 9)
         If (CardsBuyEnabled) {
-            Log("BossCards buy: Loop starting.")
+            Out.I("BossCards buy: Loop starting.")
             CardBuyLoop()
         } Else {
-            Log("BossCards buy: Disabled.")
+            Out.I("BossCards buy: Disabled.")
         }
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
@@ -247,16 +248,16 @@ fNormalBossFarmWithCards(modecheck) {
             Killcount++
         }
         IsPrevTimerLong := IsTimerLong
-        Log("BossCards Opening: Loop starting.")
+        Out.I("BossCards Opening: Loop starting.")
         Loop {
             If (!CardsOpenSinglePass()) {
-                Log("BossCards Opening: Loop finishing.")
+                Out.I("BossCards Opening: Loop finishing.")
                 Break
             }
             If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()
             ) {
                 Spammer.KillNormalBoss()
-                Log("BossCards: User killed.")
+                Out.I("BossCards: User killed.")
                 ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                     50), 2)
                 SetTimer(ToolTip.Bind(, , , 2), -3000)
@@ -276,12 +277,12 @@ fNormalBossFarmWithCards(modecheck) {
     ToolTip(, , , 4)
     ToolTip()
     If (HadToHideNotifs) {
-        Log("BossCards: Reenabling notifications.")
+        Out.I("BossCards: Reenabling notifications.")
         Points.Misc.NotifArrow.Click(17)
         HadToHideNotifs := false
     }
     ResetModifierKeys() ; Cleanup incase of broken loop
-    Log("BossCards: Stopped.")
+    Out.I("BossCards: Stopped.")
     ToolTip("Card opening aborted`nFound no active buttons.`nF3 to remove note",
         Window.W / 2 - Window.RelH(170), Window.H / 2)
     SetTimer(ToolTip, -500)

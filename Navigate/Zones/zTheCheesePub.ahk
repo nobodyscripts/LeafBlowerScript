@@ -36,7 +36,7 @@ Class TheCheesePub extends Zone {
         If (TheCheesePubLeaf) {
             this.ClickTravelButton(TheCheesePubLeaf, delay + extradelay)
         } Else {
-            Log("The Cheese Pub leaf not found while trying to travel.")
+            Out.I("The Cheese Pub leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheCheesePub extends Zone {
         ; Button to travel to The Cheese Pub
         ;Button := Points.Areas.LeafG.TheCheesePub
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Cheese Pub travel: Button not found.")
+            Out.I("The Cheese Pub travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

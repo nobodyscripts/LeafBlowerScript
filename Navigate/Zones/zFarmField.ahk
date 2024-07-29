@@ -36,7 +36,7 @@ Class FarmField extends Zone {
         If (FarmFieldLeaf) {
             this.ClickTravelButton(FarmFieldLeaf, delay + extradelay)
         } Else {
-            Log("Farm Field leaf not found while trying to travel.")
+            Out.I("Farm Field leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class FarmField extends Zone {
         ; Button to travel to Farm Field
         ;Button := Points.Areas.Events.FarmField
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Farm Field travel: Button not found.")
+            Out.I("Farm Field travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

@@ -36,7 +36,7 @@ Class TheShadowCavern extends Zone {
         If (TheShadowCavernLeaf) {
             this.ClickTravelButton(TheShadowCavernLeaf, delay + extradelay)
         } Else {
-            Log("The Shadow Cavern leaf not found while trying to travel.")
+            Out.I("The Shadow Cavern leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheShadowCavern extends Zone {
         ; Button to travel to The Shadow Cavern
         ;Button := Points.Areas.FireF.TheShadowCavern
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Shadow Cavern travel: Button not found.")
+            Out.I("The Shadow Cavern travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

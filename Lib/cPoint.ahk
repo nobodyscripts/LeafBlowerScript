@@ -68,7 +68,7 @@ Class cPoint {
                 Return this._x / 2560 * Window.W
             } Else {
                 If (Window.W = 0) {
-                    Log("ERR: Window.W not set")
+                    Out.I("ERR: Window.W not set")
                 }
                 Return this._x
             }
@@ -91,7 +91,7 @@ Class cPoint {
                 Return this._y / 1369 * Window.H
             } Else {
                 If (Window.H = 0) {
-                    Log("ERR: Window.H not set")
+                    Out.I("ERR: Window.H not set")
                 }
                 Return this._y
             }
@@ -146,7 +146,7 @@ Class cPoint {
         If (Colours().IsButton(targetColour)) {
             Return true
         }
-        VerboseLog("cPoint.IsButton: " this.toStringDisplay() " is now " targetColour
+        Out.V("cPoint.IsButton: " this.toStringDisplay() " is now " targetColour
         )
         Return false
     }
@@ -160,7 +160,7 @@ Class cPoint {
         If (Colours().IsButtonActive(targetColour)) {
             Return true
         }
-        VerboseLog("cPoint.IsButtonActive: " this.toStringDisplay() " is now " targetColour
+        Out.V("cPoint.IsButtonActive: " this.toStringDisplay() " is now " targetColour
         )
 
         Return false
@@ -175,7 +175,7 @@ Class cPoint {
         If (Colours().IsButtonInactive(targetColour)) {
             Return true
         }
-        VerboseLog("cPoint.IsButtonInactive: " this.toStringDisplay() " is now " targetColour
+        Out.V("cPoint.IsButtonInactive: " this.toStringDisplay() " is now " targetColour
         )
 
         Return false
@@ -190,7 +190,7 @@ Class cPoint {
         If (Colours().IsBackground(targetColour)) {
             Return true
         }
-        VerboseLog("cPoint.IsBackground: " this.toStringDisplay() " is now " targetColour
+        Out.V("cPoint.IsBackground: " this.toStringDisplay() " is now " targetColour
         )
 
         Return false
@@ -205,7 +205,7 @@ Class cPoint {
         If (Colours().IsButtonOffPanel(targetColour)) {
             Return true
         }
-        VerboseLog("cPoint.IsButtonOffPanel: " this.toStringDisplay() " is now " targetColour
+        Out.V("cPoint.IsButtonOffPanel: " this.toStringDisplay() " is now " targetColour
         )
 
         Return false
@@ -217,14 +217,14 @@ Class cPoint {
      */
     Click(clickdelay := 34) {
         If (!Window.IsActive()) {
-            Log("No window found while trying to click at " this.x " * " this.y
-            )
+            Out.I("No window found while trying to click at " this.x " * " this
+                .y)
             Return false
         }
         MouseClick("left", this.x, this.y, , , "D")
         Sleep(clickdelay)
         MouseClick("left", this.x, this.y, , , "U")
-        VerboseLog("Clicking at " this.toStringDisplay())
+        Out.V("Clicking at " this.toStringDisplay())
     }
 
     /**
@@ -237,14 +237,14 @@ Class cPoint {
      */
     ClickOffset(xOffset := 1, yOffset := 1, clickdelay := 34) {
         If (!Window.IsActive()) {
-            Log("No window found while trying to click at " this.x + xOffset " * " this
+            Out.I("No window found while trying to click at " this.x + xOffset " * " this
                 .y + yOffset)
             Return false
         }
         MouseClick("left", this.x + xOffset, this.y + yOffset, , , "D")
         Sleep(clickdelay)
         MouseClick("left", this.x + xOffset, this.y + yOffset, , , "U")
-        VerboseLog("Clicking at " this.toStringDisplay(xOffset, yOffset))
+        Out.V("Clicking at " this.toStringDisplay(xOffset, yOffset))
     }
 
     /**
@@ -334,7 +334,7 @@ Class cPoint {
         Try {
             fetchedColour := PixelGetColor(this.x, this.y)
         } Catch As exc {
-            Log("Error 36: GetColour check failed - " exc.Message)
+            Out.I("Error 36: GetColour check failed - " exc.Message)
             MsgBox("Could not GetColour due to the following error:`n" exc.Message
             )
         }
@@ -385,7 +385,7 @@ Class cPoint {
                 Return false
             }
         }
-        VerboseLog("ClickOffsetWhileColour: " this.toStringWColour())
+        Out.V("ClickOffsetWhileColour: " this.toStringWColour())
         Return true
     }
 
@@ -409,7 +409,7 @@ Class cPoint {
             Sleep(interval)
             i--
             If (i = 0) {
-                VerboseLog("ClickOffsetUntilColour: Hit max clicks " this.toStringWColour()
+                Out.V("ClickOffsetUntilColour: Hit max clicks " this.toStringWColour()
                 )
                 Return false
             }
@@ -434,7 +434,7 @@ Class cPoint {
                 Break
             }
         }
-        VerboseLog("WaitWhileColour: " this.toStringWColour())
+        Out.V("WaitWhileColour: " this.toStringWColour())
         If (this.GetColour() != colour) {
             Return true
         } Else {
@@ -459,7 +459,7 @@ Class cPoint {
                 Break
             }
         }
-        VerboseLog("WaitUntilColour: " this.toStringWColour())
+        Out.V("WaitUntilColour: " this.toStringWColour())
         If (this.GetColour() = colour) {
             Return true
         } Else {
@@ -483,7 +483,7 @@ Class cPoint {
         For Amount in AmountArr {
             If (Amount <= startAt) {
                 AmountToModifier(Amount)
-                VerboseLog("GreedyModifierClick amount " Amount)
+                Out.V("GreedyModifierClick amount " Amount)
                 Sleep(NavigateTime)
                 While (Window.IsActive() && Window.IsPanel() && this.IsButtonActive()
                 ) {

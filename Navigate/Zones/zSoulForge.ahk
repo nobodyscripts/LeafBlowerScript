@@ -36,7 +36,7 @@ Class SoulForge extends Zone {
         If (SoulForgeLeaf) {
             this.ClickTravelButton(SoulForgeLeaf, delay + extradelay)
         } Else {
-            Log("Soul Forge leaf not found while trying to travel.")
+            Out.I("Soul Forge leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class SoulForge extends Zone {
         ; Button to travel to Soul Forge
         ;Button := Points.Areas.SoulR.SoulForge
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Soul Forge travel: Button not found.")
+            Out.I("Soul Forge travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

@@ -36,7 +36,7 @@ Class FlameBrazier extends Zone {
         If (FlameBrazierLeaf) {
             this.ClickTravelButton(FlameBrazierLeaf, delay + extradelay)
         } Else {
-            Log("Flame Brazier leaf not found while trying to travel.")
+            Out.I("Flame Brazier leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class FlameBrazier extends Zone {
         ; Button to travel to Flame Brazier
         ;Button := Points.Areas.FireF.FlameBrazier
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Flame Brazier travel: Button not found.")
+            Out.I("Flame Brazier travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

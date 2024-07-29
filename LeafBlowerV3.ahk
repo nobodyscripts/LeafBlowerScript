@@ -46,7 +46,7 @@ If (!settings.initSettings()) {
         ExitApp()
     }
 }
-Log("Script loaded")
+Out.I("Script loaded")
 RunGui()
 ; Setup script hotkeys
 CreateScriptHotkeys()
@@ -68,7 +68,7 @@ Numpad1:: {
     MouseGetPos(&windowx, &windowy)
     CoordMode("Mouse", "Client")
     MouseGetPos(&clientx, &clienty)
-    Log(
+    Out.I(
         "Screen:`t" screenx ", " screeny "`n"
         "Window:`t" windowx ", " windowy "`n"
         "Client:`t" clientx ", " clienty "`n"
@@ -82,7 +82,7 @@ Numpad2:: {
     MsgBox(results.Text)
 }
 Numpad0:: {
-    Log(Points.Misc.ZoneSample.GetColour())
+    Out.I(Points.Misc.ZoneSample.GetColour())
 }*/
 
 CreateScriptHotkeys() {
@@ -109,7 +109,7 @@ CreateScriptHotkeys() {
 
 fExitApp(*) {
     Spammer.KillAllSpammers()
-    Log("F1: Pressed")
+    Out.I("F1: Pressed")
     ; Wildcard shortcut * to allow functions to work while looping with
     ; modifiers held
     ResetModifierKeys() ; Cleanup incase needed
@@ -123,7 +123,7 @@ fReloadApp(*) {
     ; Toggle notifs to handle multiple situations where its toggled
     Spammer.KillAllSpammers()
     If (HadToHideNotifs) {
-        Log("F2: Reenabling notifications.")
+        Out.I("F2: Reenabling notifications.")
         Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := false
     }
@@ -141,11 +141,11 @@ fReloadApp(*) {
         Travel.OpenTrades()
         Sleep(34)
         If (HadToRemoveBearo) {
-            Log("F2: Equiping default loadout to reapply Bearo")
+            Out.I("F2: Equiping default loadout to reapply Bearo")
             GameKeys.EquipDefaultGearLoadout()
             HadToRemoveBearo := false
         }
-        Log("F2: Resetting auto refresh and detailed mode.")
+        Out.I("F2: Resetting auto refresh and detailed mode.")
         ResetToPriorAutoRefresh()
         ResetToPriorDetailedMode()
         cReload()
@@ -153,12 +153,12 @@ fReloadApp(*) {
     }
     If (TowerFarmActive) {
         TowerFarmActive := false
-        Log("F2: Equiping default loadout.")
+        Out.I("F2: Equiping default loadout.")
         GameKeys.EquipDefaultGearLoadout()
         cReload()
         Return
     }
-    Log("F2: Pressed, reloading...")
+    Out.I("F2: Pressed, reloading...")
     Sleep(2)
     ResetModifierKeys() ; Cleanup incase needed
     ResetModifierKeys() ; Twice for good luck
@@ -168,7 +168,7 @@ fReloadApp(*) {
 fCardsStart(*) { ; Open cards clicker
     Global HadToHideNotifs
     Static on3 := false
-    Log("F3: Pressed")
+    Out.I("F3: Pressed")
     InitScriptHotKey()
     Sleep(34)
     ResetModifierKeys() ; Twice for good luck
@@ -181,7 +181,7 @@ fCardsStart(*) { ; Open cards clicker
         fOpenCardLoop()
     } Else {
         If (HadToHideNotifs) {
-            Log("Cards: Reenabling notifications.")
+            Out.I("Cards: Reenabling notifications.")
             Points.Misc.NotifArrow.Click(101)
             HadToHideNotifs := false
         }
@@ -201,7 +201,7 @@ fCardsStart(*) { ; Open cards clicker
 fGemFarmStart(*) { ; Gem farm using suitcase
     Global HadToRemoveBearo, GemFarmActive
     Static on4 := false
-    Log("F4: Pressed")
+    Out.I("F4: Pressed")
     InitScriptHotKey()
     If on4 := !on4 {
         If (!Window.AreGameSettingsCorrect()) {
@@ -219,11 +219,11 @@ fGemFarmStart(*) { ; Gem farm using suitcase
         Travel.OpenTrades()
         Sleep(34)
         If (HadToRemoveBearo) {
-            Log("F4: Equiping default loadout to reapply Bearo")
+            Out.I("F4: Equiping default loadout to reapply Bearo")
             GameKeys.EquipDefaultGearLoadout()
             HadToRemoveBearo := false
         }
-        Log("F4: Resetting auto refresh and detailed mode.")
+        Out.I("F4: Resetting auto refresh and detailed mode.")
         ResetToPriorAutoRefresh()
         ResetToPriorDetailedMode()
         cReload()
@@ -234,7 +234,7 @@ fTowerBoostStart(*) { ; Tower 72hr boost loop
     Global TowerFarmActive
     TowerFarmActive := true
     Static on5 := false
-    Log("F5: Pressed")
+    Out.I("F5: Pressed")
     InitScriptHotKey()
     If on5 := !on5 {
         If (!Window.AreGameSettingsCorrect()) {
@@ -244,7 +244,7 @@ fTowerBoostStart(*) { ; Tower 72hr boost loop
         fTimeWarpAndRaiseTower()
     } Else {
         TowerFarmActive := false
-        Log("TowerBoost: Equiping default loadout.")
+        Out.I("TowerBoost: Equiping default loadout.")
         GameKeys.EquipDefaultGearLoadout()
         cReload()
     }
@@ -253,7 +253,7 @@ fTowerBoostStart(*) { ; Tower 72hr boost loop
 fBorbvStart(*) { ; Borb pink juice farm in borbventures
     Static on6 := false
     Global bvAutostartDisabled
-    Log("F6: Pressed")
+    Out.I("F6: Pressed")
     InitScriptHotKey()
     If on6 := !on6 {
         If (!Window.AreGameSettingsCorrect()) {
@@ -273,7 +273,7 @@ fBorbvStart(*) { ; Borb pink juice farm in borbventures
 
 fClawStart(*) { ; Claw pumpkin farm
     Static on7 := false
-    Log("F7: Pressed")
+    Out.I("F7: Pressed")
     InitScriptHotKey()
     If on7 := !on7 {
         If (!Window.AreGameSettingsCorrect()) {
@@ -286,7 +286,7 @@ fClawStart(*) { ; Claw pumpkin farm
 
 fGFSSStart(*) { ; Green Flame/Soulseeker farm
     Static on8 := false
-    Log("F8: Pressed")
+    Out.I("F8: Pressed")
     InitScriptHotKey()
     If on8 := !on8 {
         If (!Window.AreGameSettingsCorrect()) {
@@ -299,7 +299,7 @@ fGFSSStart(*) { ; Green Flame/Soulseeker farm
 
 fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
     Global on9, HadToHideNotifsF9, bvAutostartDisabled
-    Log("F9: Pressed")
+    Out.I("F9: Pressed")
     InitScriptHotKey()
     Thread('Interrupt', 0)  ; Make all threads always-interruptible.
     If (GUIMode != -1 && IsNumber(GUIMode)) {
@@ -308,11 +308,11 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
     Switch on9 {
         Case 1:
             on9 := 2 ; Brew and boss mode
-            Log("F9: Brew and Boss Activated")
+            Out.I("F9: Brew and Boss Activated")
             fFarmNormalBossAndBrew(on9)
         Case 2:
             on9 := 3 ; Boss mode with borbventures
-            Log("F9: Borbventures and Boss Activated")
+            Out.I("F9: Borbventures and Boss Activated")
             fNormalBossFarmWithBorbs(on9)
         Case 3:
             If (bvAutostartDisabled = true) {
@@ -323,11 +323,11 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
             }
             on9 := 4 ; Boss mode with cards
             If (CardsBossFarmEnabled || GUIMode != -1) {
-                Log("F9: Cards and Boss Activated")
+                Out.I("F9: Cards and Boss Activated")
                 fNormalBossFarmWithCards(on9)
             } Else {
                 on9 := 0 ; Disabled
-                Log("F9: Resetting with cards disabled")
+                Out.I("F9: Resetting with cards disabled")
                 Travel.ClosePanelIfActive()
                 cReload()
                 Return
@@ -335,11 +335,11 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
         Case 4:
             on9 := 0 ; Disabled
             If (HadToHideNotifsF9) {
-                Log("F9: Reenabling notifications")
+                Out.I("F9: Reenabling notifications")
                 Points.Misc.NotifArrow.Click(101)
                 HadToHideNotifsF9 := false
             }
-            Log("F9: Resetting")
+            Out.I("F9: Resetting")
             ResetModifierKeys() ; Cleanup incase needed
             Travel.ClosePanelIfActive()
             cReload()
@@ -351,14 +351,14 @@ fBossFarmStart(GUIMode := -1, *) { ; Farm bosses using violins
                 Return
             }
             Travel.ClosePanelIfActive()
-            Log("F9: Boss Farm Activated")
+            Out.I("F9: Boss Farm Activated")
             fFarmNormalBoss(on9)
     }
 }
 
 fNatureBossStart(*) { ; Farm nature boss using violins
     Static on10 := false
-    Log("F10: Pressed")
+    Out.I("F10: Pressed")
     InitScriptHotKey()
     If (on10 := !on10) {
         If (!Window.AreGameSettingsCorrect()) {
@@ -371,7 +371,7 @@ fNatureBossStart(*) { ; Farm nature boss using violins
 
 fAutoClicker(*) {
     Static on11 := false
-    Log("F11: Pressed")
+    Out.I("F11: Pressed")
     ;Window.Exist()
     If (on11 := !on11) {
         While (on11) {
@@ -393,7 +393,7 @@ fAutoClicker(*) {
 
 fGameResize(*) {
     Global DisableSettingsChecks
-    Log("F12: Pressed")
+    Out.I("F12: Pressed")
     If (!Window.Exist()) {
         Return
     }
@@ -405,7 +405,7 @@ fGameResize(*) {
     WinWait(Window.Title)
     Window.Exist()
     If (Window.W != "1278" || Window.H != "664") {
-        Log(
+        Out.I(
             "Resized window to 1294*703 client size should be 1278*664, found: " Window
             .W "*" Window.H)
     }
@@ -415,17 +415,17 @@ fGameResize(*) {
 
 fMineStart(*) {
     Static on13 := false
-    Log("Insert: Pressed")
+    Out.I("Insert: Pressed")
     InitScriptHotKey()
     If (on13 := !on13) {
         If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
-        Log("Insert: Mine Mantainer Activated")
+        Out.I("Insert: Mine Mantainer Activated")
         fMineMaintainer()
     } Else {
-        Log("Insert: Resetting")
+        Out.I("Insert: Resetting")
         cReload()
         Return
     }
@@ -436,18 +436,18 @@ fHyacinthStart(*) {
     Static on14 := false
     Global HyacinthFarmActive
     HyacinthFarmActive := true
-    Log("Home: Pressed")
+    Out.I("Home: Pressed")
     InitScriptHotKey()
     If (on14 := !on14) {
         If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
-        Log("Home: Hyacinth + Boss Activated")
+        Out.I("Home: Hyacinth + Boss Activated")
         fFarmNormalBossAndNatureHyacinth()
     } Else {
         HyacinthFarmActive := false
-        Log("Home: Resetting")
+        Out.I("Home: Resetting")
         cReload()
         Return
     }
@@ -455,18 +455,18 @@ fHyacinthStart(*) {
 
 fBankStart(*) {
     Static on16 := false
-    Log("PgUp: Pressed")
+    Out.I("PgUp: Pressed")
     InitScriptHotKey()
     If (on16 := !on16) {
         If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
-        Log("PgUp: Bank Maintainer Activated")
+        Out.I("PgUp: Bank Maintainer Activated")
         fBankAutoDeposit()
     } Else {
         ToolTip(, , , 4)
-        Log("PgUp: Resetting")
+        Out.I("PgUp: Resetting")
         cReload()
         Return
     }
@@ -476,18 +476,18 @@ fCursedCheeseStart(*) {
     ; Cursed Cheese Farm
     Static on18 := false
 
-    Log("Del: Pressed")
+    Out.I("Del: Pressed")
     InitScriptHotKey()
     If (on18 := !on18) {
         If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
-        Log("Del: Cursed Chees Activated")
+        Out.I("Del: Cursed Chees Activated")
         fFarmCheeseBoss()
     } Else {
         ToolTip(, , , 4)
-        Log("Del: Resetting")
+        Out.I("Del: Resetting")
         cReload()
         Return
     }
@@ -496,18 +496,18 @@ fCursedCheeseStart(*) {
 fTowerPassiveStart(*) {
     Static on15 := false
 
-    Log("End: Pressed")
+    Out.I("End: Pressed")
     InitScriptHotKey()
     If (on15 := !on15) {
         If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
-        Log("End: Tower Farm Passive Activated")
+        Out.I("End: Tower Farm Passive Activated")
         fTowerFarm()
     } Else {
         ToolTip(, , , 4)
-        Log("End: Resetting")
+        Out.I("End: Resetting")
         cReload()
         Return
     }
@@ -515,23 +515,23 @@ fTowerPassiveStart(*) {
 
 fLeaftonStart(*) {
     Static on17 := false
-    Log("PgDn: Pressed")
+    Out.I("PgDn: Pressed")
     InitScriptHotKey()
     If (on17 := !on17) {
         If (!Window.AreGameSettingsCorrect()) {
             cReload()
             Return
         }
-        Log("PgDn: Leafton Autotaxi Activated")
+        Out.I("PgDn: Leafton Autotaxi Activated")
         fLeaftonTaxi()
     } Else {
         ToolTip(, , , 4)
-        Log("PgDn: Resetting")
+        Out.I("PgDn: Resetting")
         cReload()
         Return
     }
 }
 
 ExitFunc(ExitReason, ExitCode) {
-    Log("Script exiting. Due to " ExitReason ".")
+    Out.I("Script exiting. Due to " ExitReason ".")
 }

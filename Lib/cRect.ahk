@@ -25,7 +25,7 @@ Class cRect {
                 Return this._x1 / 2560 * Window.W
             } Else {
                 If (Window.W = 0) {
-                    Log("ERR: Window.W not set")
+                    Out.I("ERR: Window.W not set")
                 }
                 Return this._x1
             }
@@ -42,7 +42,7 @@ Class cRect {
                 Return this._y1 / 1369 * Window.H
             } Else {
                 If (Window.H = 0) {
-                    Log("ERR: Window.H not set")
+                    Out.I("ERR: Window.H not set")
                 }
                 Return this._y1
             }
@@ -59,7 +59,7 @@ Class cRect {
                 Return this._x2 / 2560 * Window.W
             } Else {
                 If (Window.W = 0) {
-                    Log("ERR: Window.W not set")
+                    Out.I("ERR: Window.W not set")
                 }
                 Return this._x2
             }
@@ -76,7 +76,7 @@ Class cRect {
                 Return this._y2 / 1369 * Window.H
             } Else {
                 If (Window.H = 0) {
-                    Log("ERR: Window.H not set")
+                    Out.I("ERR: Window.H not set")
                 }
                 Return this._y2
             }
@@ -165,9 +165,9 @@ Class cRect {
             If (found and OutX != 0) {
                 Return [OutX, OutY] ; Found colour
             }
-            VerboseLog("PixelSearch false: " colour " not found")
+            Out.V("PixelSearch false: " colour " not found")
         } Catch As exc {
-            Log("Error 8: PixelSearch search failed - " exc.Message)
+            Out.I("Error 8: PixelSearch search failed - " exc.Message)
             MsgBox("Could not conduct the search due to the following error:`n" exc
                 .Message)
         }

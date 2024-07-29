@@ -36,7 +36,7 @@ Class Mountain extends Zone {
         If (MountainLeaf) {
             this.ClickTravelButton(MountainLeaf, delay + extradelay)
         } Else {
-            Log("Mountain leaf not found while trying to travel.")
+            Out.I("Mountain leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class Mountain extends Zone {
         ; Button to travel to Mountain
         ;Button := Points.Areas.LeafG.Mountain
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Mountain travel: Button not found.")
+            Out.I("Mountain travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

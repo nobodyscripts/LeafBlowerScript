@@ -36,7 +36,7 @@ Class TheDarkGlade extends Zone {
         If (TheDarkGladeLeaf) {
             this.ClickTravelButton(TheDarkGladeLeaf, delay + extradelay)
         } Else {
-            Log("The Dark Glade leaf not found while trying to travel.")
+            Out.I("The Dark Glade leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheDarkGlade extends Zone {
         ; Button to travel to The Dark Glade
         ;Button := Points.Areas.LeafG.TheDarkGlade
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Dark Glade travel: Button not found.")
+            Out.I("The Dark Glade travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

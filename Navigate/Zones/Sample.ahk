@@ -36,7 +36,7 @@ Class Sample extends Zone {
         If (SampleLeaf) {
             this.ClickTravelButton(SampleLeaf, delay + extradelay)
         } Else {
-            Log("FullName leaf not found while trying to travel.")
+            Out.I("FullName leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class Sample extends Zone {
         ; Button to travel to FullName
         ;Button := Points.Areas.<Galaxy>.Sample
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("FullName travel: Button not found.")
+            Out.I("FullName travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

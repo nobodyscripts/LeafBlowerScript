@@ -22,7 +22,7 @@ settings.initSettings(true)
 
 OnExit(CleanupTimer)
 
-Log("Secondary: Normal Boss Started")
+Out.I("Secondary: Normal Boss Started")
 
 fNormalBoss()
 fNormalBoss() {
@@ -34,7 +34,7 @@ fNormalBoss() {
     }
     Loop {
         If (!Window.Exist()) {
-            Log("Secondary: Normal Boss Spammer exiting as no game.")
+            Out.I("Secondary: Normal Boss Spammer exiting as no game.")
             Return
         }
         If (!Window.IsActive()) {

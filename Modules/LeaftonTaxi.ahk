@@ -49,7 +49,7 @@ fLeaftonTaxi() {
         ;@region Banks
         If (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             LeaftonBanksEnabled) {
-            Log("Leafton: Bank Maintainer starting.")
+            Out.I("Leafton: Bank Maintainer starting.")
             ToolTip("Leafton Bank Maintainer Active", Window.W / 2, Window.RelH(
                 200), 4)
             BankSinglePass()
@@ -61,15 +61,15 @@ fLeaftonTaxi() {
         ;@region Brew
         If (Window.IsActive() && LeaftonEnableBrewing && !BrewCycleTimer.Running
         ) {
-            Log("Leafton: Brewing")
+            Out.I("Leafton: Brewing")
             If (Travel.OpenAlchemyGeneral()) {
-                DebugLog("Traveled brew")
+                Out.D("Traveled brew")
                 BrewCutOffTimer.CoolDownS(LeaftonBrewCutOffTime, &
                     BrewCutOffRunning)
                 While (BrewCutOffRunning && Travel.IsAlchGeneralTab()) {
-                    DebugLog("Brewing")
+                    Out.D("Brewing")
                     If (!SpamBrewButtons()) {
-                        DebugLog("Brew ending")
+                        Out.D("Brew ending")
                         Break
                     }
                 }
@@ -78,13 +78,13 @@ fLeaftonTaxi() {
                 Sleep(NavigateTime)
                 Travel.ClosePanelIfActive()
             } Else {
-                Log("Leafton Brew: Travel to Alch general tab failed after 4" .
+                Out.I("Leafton Brew: Travel to Alch general tab failed after 4" .
                     " attempts.")
             }
         }
         ;@endregion
         If (!Window.IsActive() || StopRunning) {
-            Log("No window or stop called.")
+            Out.I("No window or stop called.")
             Break
         }
         ToolTip("Leafton Active", Window.W / 2, Window.RelH(200), 4)
@@ -167,12 +167,12 @@ LeaftonTaxiSinglePass() {
     If (IsAreaBlack() && IsBossTimerActive()) {
         Travel.ClosePanelIfActive()
         If (!startCoord.IsBackground()) {
-            VerboseLog("Center Click")
+            Out.V("Center Click")
             centerCoord.Click()
         }
         Sleep(NavigateTime)
         If (startCoord.IsButtonActive()) {
-            Log("Starting Leafton Pit")
+            Out.I("Starting Leafton Pit")
             startCoord.Click()
             Sleep(NavigateTime)
         }

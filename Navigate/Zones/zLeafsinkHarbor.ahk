@@ -36,7 +36,7 @@ Class LeafsinkHarbor extends Zone {
         If (LeafsinkHarborLeaf) {
             this.ClickTravelButton(LeafsinkHarborLeaf, delay + extradelay)
         } Else {
-            Log("Leafsink Harbor leaf not found while trying to travel.")
+            Out.I("Leafsink Harbor leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class LeafsinkHarbor extends Zone {
         ; Button to travel to Leafsink Harbor
         ;Button := Points.Areas.LeafG.LeafsinkHarbor
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Leafsink Harbor travel: Button not found.")
+            Out.I("Leafsink Harbor travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

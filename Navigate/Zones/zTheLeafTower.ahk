@@ -36,7 +36,7 @@ Class TheLeafTower extends Zone {
         If (TheLeafTowerLeaf) {
             this.ClickTravelButton(TheLeafTowerLeaf, delay + extradelay)
         } Else {
-            Log("The Leaf Tower leaf not found while trying to travel.")
+            Out.I("The Leaf Tower leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheLeafTower extends Zone {
         ; Button to travel to The Leaf Tower
         ;Button := Points.Areas.LeafG.TheLeafTower
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Leaf Tower travel: Button not found.")
+            Out.I("The Leaf Tower travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

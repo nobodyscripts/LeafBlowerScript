@@ -36,7 +36,7 @@ Class TheFireTemple extends Zone {
         If (TheFireTempleLeaf) {
             this.ClickTravelButton(TheFireTempleLeaf, delay + extradelay)
         } Else {
-            Log("The Fire Temple leaf not found while trying to travel.")
+            Out.I("The Fire Temple leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheFireTemple extends Zone {
         ; Button to travel to The Fire Temple
         ;Button := Points.Areas.FireF.TheFireTemple
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Fire Temple travel: Button not found.")
+            Out.I("The Fire Temple travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

@@ -28,7 +28,7 @@ Global NavigateTime := 150
 
 GoToGF() {
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     Global DisableZoneChecks
@@ -36,10 +36,10 @@ GoToGF() {
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x121328") && i <= 4) {
             If (!Window.IsActive()) {
-                Log("No window found while trying to travel.")
+                Out.I("No window found while trying to travel.")
                 Return false
             }
-            Log("Traveling to Flame Brazier (Green Flame)")
+            Out.I("Traveling to Flame Brazier (Green Flame)")
             Travel.OpenAreasFireFields()
 
             ; Open Flame Brazier (GF zone)
@@ -56,10 +56,11 @@ GoToGF() {
         }
     }
     If (IsAreaSampleColour("0x121328")) {
-        DebugLog("Travel success to Flame Brazier (Green Flame).")
+        Out.D("Travel success to Flame Brazier (Green Flame).")
         Return true
     } Else {
-        Log("Traveling to Flame Brazier (Green Flame). Attempt to blind travel"
+        Out.I(
+            "Traveling to Flame Brazier (Green Flame). Attempt to blind travel"
             " with slowed times.")
         ; TODO Replace below with travel and move to Points
         Travel.OpenAreasFireFields(200)
@@ -70,10 +71,10 @@ GoToGF() {
             Return true
         }
         If (IsAreaSampleColour("0x121328")) {
-            DebugLog("Blind travel success to Flame Brazier (Green Flame).")
+            Out.D("Blind travel success to Flame Brazier (Green Flame).")
             Return true
         } Else {
-            Log("Traveling to Flame Brazier (Green Flame) failed,"
+            Out.I("Traveling to Flame Brazier (Green Flame) failed,"
                 " colour found was " GetAreaSampleColour())
             Return false
         }
@@ -82,7 +83,7 @@ GoToGF() {
 
 GoToSS() {
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     Global DisableZoneChecks
@@ -90,10 +91,10 @@ GoToSS() {
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x17190F") && i <= 4) {
             If (!Window.IsActive()) {
-                Log("No window found while trying to travel.")
+                Out.I("No window found while trying to travel.")
                 Return false
             }
-            Log("Traveling to Flame Universe (Soulseeker)")
+            Out.I("Traveling to Flame Universe (Soulseeker)")
             ; TODO Replace below with travel and move to Points
             Travel.OpenAreasFireFields()
             Travel.ScrollAmountDown(2, NavigateTime)
@@ -107,10 +108,11 @@ GoToSS() {
         }
     }
     If (IsAreaSampleColour("0x17190F")) {
-        DebugLog("Travel success to Flame Universe (Soulseeker).")
+        Out.D("Travel success to Flame Universe (Soulseeker).")
         Return true
     } Else {
-        Log("Traveling to Flame Universe (Soulseeker). Attempt to blind travel"
+        Out.I(
+            "Traveling to Flame Universe (Soulseeker). Attempt to blind travel"
             " with slowed times.")
         ; TODO Replace below with travel and move to Points
         Travel.OpenAreasFireFields(200)
@@ -122,10 +124,10 @@ GoToSS() {
             Return true
         }
         If (IsAreaSampleColour("0x17190F")) {
-            DebugLog("Blind travel success to Flame Universe (Soulseeker).")
+            Out.D("Blind travel success to Flame Universe (Soulseeker).")
             Return true
         } Else {
-            Log("Traveling to Flame Universe (Soulseeker) failed,"
+            Out.I("Traveling to Flame Universe (Soulseeker) failed,"
                 " colour found was " GetAreaSampleColour())
             Return false
         }
@@ -134,7 +136,7 @@ GoToSS() {
 
 GoToShadowCavern() {
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     Global DisableZoneChecks
@@ -142,10 +144,10 @@ GoToShadowCavern() {
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x260000") && i <= 4) {
             If (!Window.IsActive()) {
-                Log("No window found while trying to travel.")
+                Out.I("No window found while trying to travel.")
                 Return false
             }
-            Log("Traveling to Shadow Cavern")
+            Out.I("Traveling to Shadow Cavern")
             ; TODO Replace below with travel and move to Points
             Travel.OpenAreasFireFields()
             ; Go to shadow cavern
@@ -160,10 +162,10 @@ GoToShadowCavern() {
         }
     }
     If (IsAreaSampleColour("0x260000")) {
-        DebugLog("Travel success to shadow cavern.")
+        Out.D("Travel success to shadow cavern.")
         Return true
     } Else {
-        Log("Traveling to Shadow Cavern. Attempt to blind travel with slowed"
+        Out.I("Traveling to Shadow Cavern. Attempt to blind travel with slowed"
             " times.")
         ; TODO Replace below with travel and move to Points
         Travel.OpenAreasFireFields(200)
@@ -174,10 +176,10 @@ GoToShadowCavern() {
             Return true
         }
         If (IsAreaSampleColour("0x260000")) {
-            DebugLog("Blind travel success to shadow cavern.")
+            Out.D("Blind travel success to shadow cavern.")
             Return true
         } Else {
-            Log("Traveling to Shadow Cavern failed, colour found was " GetAreaSampleColour()
+            Out.I("Traveling to Shadow Cavern failed, colour found was " GetAreaSampleColour()
             )
             Return false
         }
@@ -186,13 +188,13 @@ GoToShadowCavern() {
 
 GotoResetSS() {
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     GoToShadowCavern()
     Travel.ClosePanelIfActive()
     button := Points.Areas.FireF.BorbianaJones
-    Log(button.GetColour())
+    Out.I(button.GetColour())
     ; Go to Borbiana Jones screen
     If (button.IsColour("0x60F811")) {
         button.Click(NavigateTime)
@@ -220,7 +222,7 @@ ResetGF() {
 
 GoToNatureBoss() {
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     Global DisableZoneChecks
@@ -228,16 +230,16 @@ GoToNatureBoss() {
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x090B10") && i <= 4) {
             If (!Window.IsActive()) {
-                Log("No window found while trying to travel.")
+                Out.I("No window found while trying to travel.")
                 Return false
             }
-            Log("Traveling to The Doomed Tree")
+            Out.I("Traveling to The Doomed Tree")
             While (!Travel.IsOnEventPanel()) {
                 Travel.OpenAreasEvents(100)
             }
             Sleep(NavigateTime)
             If (!NatureBossButtonClick()) {
-                Log("Nature event inactive, no button found.")
+                Out.I("Nature event inactive, no button found.")
                 Return false
             }
             If (NavigateTime < 201) {
@@ -249,17 +251,18 @@ GoToNatureBoss() {
         }
     }
     If (IsAreaSampleColour("0x090B10")) {
-        DebugLog("Travel success to The Doomed Tree.")
+        Out.D("Travel success to The Doomed Tree.")
         Return true
     } Else {
-        Log("Traveling to The Doomed Tree. Attempt to blind travel with slowed"
+        Out.I(
+            "Traveling to The Doomed Tree. Attempt to blind travel with slowed"
             " times.")
         While (!Travel.IsOnEventPanel()) {
             Travel.OpenAreasEvents(200)
         }
         Sleep(NavigateTime + 200)
         If (!NatureBossButtonClick()) {
-            Log("Nature event inactive, no button found.")
+            Out.I("Nature event inactive, no button found.")
             Return false
         }
         Sleep(NavigateTime + 200)
@@ -268,10 +271,10 @@ GoToNatureBoss() {
             Return true
         }
         If (IsAreaSampleColour("0x090B10")) {
-            DebugLog("Blind travel success to The Doomed Tree.")
+            Out.D("Blind travel success to The Doomed Tree.")
             Return true
         } Else {
-            Log("Traveling to The Doomed Tree failed, colour found was " GetAreaSampleColour()
+            Out.I("Traveling to The Doomed Tree failed, colour found was " GetAreaSampleColour()
             )
             Return false
         }
@@ -296,7 +299,7 @@ NatureBossButtonClick() {
 GoToCheeseBoss() {
     button := Points.Areas.Events.CursedHalloween
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     Global DisableZoneChecks
@@ -304,17 +307,17 @@ GoToCheeseBoss() {
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x150412") && i <= 4) {
             If (!Window.IsActive()) {
-                Log("No window found while trying to travel.")
+                Out.I("No window found while trying to travel.")
                 Return false
             }
-            Log("Traveling to Cursed Halloween")
+            Out.I("Traveling to Cursed Halloween")
             Travel.OpenAreasEvents()
             Sleep(NavigateTime)
             If (!button.IsBackground()) {
                 ; Open Cheese boss area
                 button.Click(NavigateTime)
             } Else {
-                Log("Halloween event inactive, no button found.")
+                Out.I("Halloween event inactive, no button found.")
                 Return false
             }
             Sleep(NavigateTime)
@@ -322,10 +325,10 @@ GoToCheeseBoss() {
         }
     }
     If (IsAreaSampleColour("0x150412")) {
-        DebugLog("Travel success to Cursed Halloween.")
+        Out.D("Travel success to Cursed Halloween.")
         Return true
     } Else {
-        Log(
+        Out.I(
             "Traveling to Cursed Halloween. Attempt to blind travel with slowed"
             " times.")
         Travel.OpenAreasEvents(200)
@@ -334,7 +337,7 @@ GoToCheeseBoss() {
             ; Open Cheese boss area
             button.Click(NavigateTime + 200)
         } Else {
-            Log("Halloween event inactive, no button found.")
+            Out.I("Halloween event inactive, no button found.")
             Return false
         }
         Sleep(NavigateTime + 200)
@@ -343,10 +346,10 @@ GoToCheeseBoss() {
             Return true
         }
         If (IsAreaSampleColour("0x150412")) {
-            DebugLog("Blind travel success to Cursed Halloween.")
+            Out.D("Blind travel success to Cursed Halloween.")
             Return true
         } Else {
-            Log("Traveling to Cursed Halloween, colour found was " GetAreaSampleColour()
+            Out.I("Traveling to Cursed Halloween, colour found was " GetAreaSampleColour()
             )
             Return false
         }
@@ -356,7 +359,7 @@ GoToCheeseBoss() {
 GoToFarmField() {
     button := Points.Areas.Events.FarmField
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     Global DisableZoneChecks
@@ -364,7 +367,7 @@ GoToFarmField() {
     i := 0
     ; This ones messy because the colour matches home garden
     If (!DisableZoneChecks) {
-        Log("Traveling to Farm Field")
+        Out.I("Traveling to Farm Field")
         ; If farmfields we'll see the green + timer
         If (IsAreaSampleColour("0x4A9754") && IsBossTimerActive()) {
             Sleep(NavigateTime)
@@ -375,7 +378,7 @@ GoToFarmField() {
         While ((IsAreaSampleColour("0x4A9754") && !IsBossTimerActive()) && i <=
             4) {
             If (!Window.IsActive()) {
-                Log("No window found while trying to travel.")
+                Out.I("No window found while trying to travel.")
                 Return false
             }
             Travel.OpenAreasEvents()
@@ -400,10 +403,10 @@ GoToFarmField() {
         }
     }
     If (IsAreaSampleColour("0x4A9754") && IsBossTimerActive()) {
-        DebugLog("Travel success to Farm Field.")
+        Out.D("Travel success to Farm Field.")
         Return true
     } Else {
-        Log("Traveling to Farm Field. Attempt to blind travel with slowed"
+        Out.I("Traveling to Farm Field. Attempt to blind travel with slowed"
             " times.")
         Travel.OpenAreasEvents(200)
         If (button.IsBackground()) {
@@ -417,10 +420,10 @@ GoToFarmField() {
             Return true
         }
         If (IsAreaSampleColour("0x4A9754")) {
-            DebugLog("Blind travel success to Farm Field.")
+            Out.D("Blind travel success to Farm Field.")
             Return true
         } Else {
-            Log("Traveling to Farm Field failed, colour found was " GetAreaSampleColour()
+            Out.I("Traveling to Farm Field failed, colour found was " GetAreaSampleColour()
             )
             Return false
         }
@@ -429,7 +432,7 @@ GoToFarmField() {
 
 GoToAstralOasis() {
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     Global DisableZoneChecks
@@ -438,10 +441,10 @@ GoToAstralOasis() {
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x000108") && i <= 4) {
             If (!Window.IsActive()) {
-                Log("No window found while trying to travel.")
+                Out.I("No window found while trying to travel.")
                 Return false
             }
-            Log("Traveling to Astral Oasis (Quark Boss 1)")
+            Out.I("Traveling to Astral Oasis (Quark Boss 1)")
             Travel.OpenAreasQuark()
             If (!button.IsBackground()) {
                 button.ClickOffset(5, 0, NavigateTime)
@@ -453,10 +456,11 @@ GoToAstralOasis() {
         }
     }
     If (IsAreaSampleColour("0x000108")) {
-        DebugLog("Blind travel success to Astral Oasis (Quark Boss 1).")
+        Out.D("Blind travel success to Astral Oasis (Quark Boss 1).")
         Return true
     } Else {
-        Log("Traveling to Astral Oasis (Quark Boss 1). Attempt to blind travel"
+        Out.I(
+            "Traveling to Astral Oasis (Quark Boss 1). Attempt to blind travel"
             " with slowed times.")
         Travel.OpenAreasQuark(200)
         If (!button.IsBackground()) {
@@ -470,10 +474,10 @@ GoToAstralOasis() {
             Return true
         }
         If (IsAreaSampleColour("0x000108")) {
-            DebugLog("Blind travel success to Astral Oasis (Quark Boss 1).")
+            Out.D("Blind travel success to Astral Oasis (Quark Boss 1).")
             Return true
         } Else {
-            Log("Traveling to Astral Oasis (Quark Boss 1) failed, colour"
+            Out.I("Traveling to Astral Oasis (Quark Boss 1) failed, colour"
                 " found was " GetAreaSampleColour())
             Return false
         }
@@ -482,7 +486,7 @@ GoToAstralOasis() {
 
 GoToDimentionalTapestry() {
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     Global DisableZoneChecks
@@ -491,10 +495,10 @@ GoToDimentionalTapestry() {
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x37356B") && i <= 4) {
             If (!Window.IsActive()) {
-                Log("No window found while trying to travel.")
+                Out.I("No window found while trying to travel.")
                 Return false
             }
-            Log("Traveling to Dimentional Tapestry (Quark Boss 2)")
+            Out.I("Traveling to Dimentional Tapestry (Quark Boss 2)")
             Travel.OpenAreasQuark()
             If (!button.IsBackground()) {
                 button.ClickOffset(5, 0, NavigateTime)
@@ -506,10 +510,10 @@ GoToDimentionalTapestry() {
         }
     }
     If (IsAreaSampleColour("0x37356B")) {
-        DebugLog("Travel success to Dimentional Tapestry (Quark Boss 2).")
+        Out.D("Travel success to Dimentional Tapestry (Quark Boss 2).")
         Return true
     } Else {
-        Log("Traveling to Dimentional Tapestry (Quark Boss 2). Attempt to"
+        Out.I("Traveling to Dimentional Tapestry (Quark Boss 2). Attempt to"
             " blind travel with slowed times.")
         Travel.OpenAreasQuark(200)
         If (!button.IsBackground()) {
@@ -523,11 +527,11 @@ GoToDimentionalTapestry() {
             Return true
         }
         If (IsAreaSampleColour("0x37356B")) {
-            DebugLog(
+            Out.D(
                 "Blind travel success to Dimentional Tapestry (Quark Boss 2).")
             Return true
         } Else {
-            Log("Traveling to Dimentional Tapestry (Quark Boss 2) failed,"
+            Out.I("Traveling to Dimentional Tapestry (Quark Boss 2) failed,"
                 " colour found was " GetAreaSampleColour())
             Return false
         }
@@ -536,7 +540,7 @@ GoToDimentionalTapestry() {
 
 GoToPlankScope() {
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     Global DisableZoneChecks
@@ -546,10 +550,10 @@ GoToPlankScope() {
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x0B1E32") && i <= 4) {
             If (!Window.IsActive()) {
-                Log("No window found while trying to travel.")
+                Out.I("No window found while trying to travel.")
                 Return false
             }
-            Log("Traveling to Plank Scope (Quark Boss 3)")
+            Out.I("Traveling to Plank Scope (Quark Boss 3)")
             Travel.OpenAreasQuark()
             If (button.IsButtonActive()) {
                 button.ClickOffset(5, , NavigateTime)
@@ -561,10 +565,11 @@ GoToPlankScope() {
         }
     }
     If (IsAreaSampleColour("0x0B1E32")) {
-        DebugLog("Travel success to Plank Scope (Quark Boss 3).")
+        Out.D("Travel success to Plank Scope (Quark Boss 3).")
         Return true
     } Else {
-        Log("Traveling to Plank Scope (Quark Boss 3). Attempt to blind travel"
+        Out.I(
+            "Traveling to Plank Scope (Quark Boss 3). Attempt to blind travel"
             " with slowed times.")
         Travel.OpenAreasQuark(200)
         If (button.IsButtonActive()) {
@@ -578,10 +583,10 @@ GoToPlankScope() {
             Return true
         }
         If (IsAreaSampleColour("0x0B1E32")) {
-            DebugLog("Blind travel success to Plank Scope (Quark Boss 3).")
+            Out.D("Blind travel success to Plank Scope (Quark Boss 3).")
             Return true
         } Else {
-            Log("Traveling to Plank Scope (Quark Boss 3) failed, colour"
+            Out.I("Traveling to Plank Scope (Quark Boss 3) failed, colour"
                 " found was " GetAreaSampleColour())
             Return false
         }
@@ -590,10 +595,10 @@ GoToPlankScope() {
 
 SingleAnteLeaftonTravel(extradelay := 0) {
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
-    Log("Traveling to Ante Leafton")
+    Out.I("Traveling to Ante Leafton")
     Travel.ClosePanelIfActive()
     Travel.OpenAreasQuark(extradelay)
     Travel.ScrollAmountDown(2)
@@ -609,7 +614,7 @@ SingleAnteLeaftonTravel(extradelay := 0) {
 
 GoToAnteLeafton() {
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     Global DisableZoneChecks
@@ -622,12 +627,12 @@ GoToAnteLeafton() {
             i++
         }
         If (IsAreaBlack() && IsBossTimerActive()) {
-            DebugLog("Travel success to Ante Leafton.")
+            Out.D("Travel success to Ante Leafton.")
             Return true
         }
     }
     If (!IsAreaBlack() || !IsBossTimerActive()) {
-        Log("Traveling to Ante Leafton. Attempt to blind travel"
+        Out.I("Traveling to Ante Leafton. Attempt to blind travel"
             " with slowed times.")
         SingleAnteLeaftonTravel(200)
         If (DisableZoneChecks) {
@@ -635,10 +640,10 @@ GoToAnteLeafton() {
             Return true
         }
         If (IsAreaSampleColour("0x000000")) {
-            DebugLog("Blind travel success to Ante Leafton.")
+            Out.D("Blind travel success to Ante Leafton.")
             Return true
         } Else {
-            Log("Traveling to Ante Leafton failed, colour"
+            Out.I("Traveling to Ante Leafton failed, colour"
                 " found was " GetAreaSampleColour())
             Return false
         }
@@ -647,7 +652,7 @@ GoToAnteLeafton() {
 
 GotoCardsFirstTab() {
     If (!Window.IsActive()) {
-        Log("No window found while trying to travel.")
+        Out.I("No window found while trying to travel.")
         Return false
     }
     Global DisableZoneChecks
@@ -656,10 +661,10 @@ GotoCardsFirstTab() {
     If (!DisableZoneChecks) {
         While (!Travel.Cards.IsOnPacks() && Window.IsActive() && i <= 4) {
             If (!Window.IsActive()) {
-                Log("No window found while trying to travel.")
+                Out.I("No window found while trying to travel.")
                 Return false
             }
-            Log("Opening cards, packs (first) tab.")
+            Out.I("Opening cards, packs (first) tab.")
             Travel.OpenCards()
             Sleep(NavigateTime)
             button.Click(NavigateTime)
@@ -669,11 +674,11 @@ GotoCardsFirstTab() {
         }
     }
     If (Travel.Cards.IsOnPacks()) {
-        DebugLog("Travel success to Cards First Tab.")
+        Out.D("Travel success to Cards First Tab.")
         Return true
     } Else {
         ; Attempt to blind travel with slowed times
-        Log("Opening cards, packs (first) tab. Attempt to blind travel with"
+        Out.I("Opening cards, packs (first) tab. Attempt to blind travel with"
             " slowed times.")
         Travel.OpenCards(, 200)
         Sleep(NavigateTime + 200)
@@ -685,10 +690,10 @@ GotoCardsFirstTab() {
             Return true
         }
         If (Travel.Cards.IsOnPacks()) {
-            DebugLog("Blind travel success to Cards First Tab.")
+            Out.D("Blind travel success to Cards First Tab.")
             Return true
         } Else {
-            Log("GotoCardsFirstTab: Not at cards first tab")
+            Out.I("GotoCardsFirstTab: Not at cards first tab")
             Return false
         }
     }
@@ -704,7 +709,7 @@ GoToLeafTower() {
     spot := Rects.Areas.LeafTower.PixelSearch("0xC5D8E0")
     If (!spot) {
         ; Not found
-        Log("TowerBoost: Could not find tower leaf to open area.")
+        Out.I("TowerBoost: Could not find tower leaf to open area.")
         Return false
     }
     LeafsingButton := cPoint(spot[1] + Window.RelW(69), spot[2] - Window.RelH(
@@ -712,7 +717,7 @@ GoToLeafTower() {
     ; Open leafsing harbor to allow max level reset
     If (LeafsingButton.IsBackground()) {
         ; Background colour found
-        Log("Error 30: Tower alt area detection failed. Alignment2.")
+        Out.I("Error 30: Tower alt area detection failed. Alignment2.")
         Return false
     }
     LeafsingButton.Click(101)
@@ -722,7 +727,7 @@ GoToLeafTower() {
         false)
     ; Max Tower level
     If (!TowerMax.IsButtonActive()) {
-        Log("Error 31: Tower max detection failed. Alignment3.")
+        Out.I("Error 31: Tower max detection failed. Alignment3.")
         Return false
     }
     TowerMax.Click(101)
@@ -732,7 +737,7 @@ GoToLeafTower() {
         false)
     ; Select Tower area
     If (!TowerArea.IsButtonActive()) {
-        Log("Error 32: Tower area detection failed. Could not find "
+        Out.I("Error 32: Tower area detection failed. Could not find "
             " Leaf Tower Travel Button.")
         Return
     }

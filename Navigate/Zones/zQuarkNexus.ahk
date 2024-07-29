@@ -36,7 +36,7 @@ Class QuarkNexus extends Zone {
         If (QuarkNexusLeaf) {
             this.ClickTravelButton(QuarkNexusLeaf, delay + extradelay)
         } Else {
-            Log("Quark Nexus leaf not found while trying to travel.")
+            Out.I("Quark Nexus leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class QuarkNexus extends Zone {
         ; Button to travel to Quark Nexus
         ;Button := Points.Areas.QuarkA.QuarkNexus
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Quark Nexus travel: Button not found.")
+            Out.I("Quark Nexus travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

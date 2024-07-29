@@ -3,7 +3,7 @@
 fFarmCheeseBoss() {
     ; Check zone is available
     If (!GoToCheeseBoss()) {
-        Log("CheeseBoss: Traveling to Cursed Halloween failed."
+        Out.I("CheeseBoss: Traveling to Cursed Halloween failed."
             " Cheese season not active.")
         ToolTip("Could not travel to Cheese boss zone`n"
             "Please use the artifact to enable Cheese season", Window.W / 2 -
@@ -27,12 +27,12 @@ fFarmCheeseBoss() {
         ; still a timer, we need to use a violin
         If (!CurrentAliveState && IsBossTimerActive()) {
             If (!IsInCursedHalloween) {
-                Log("CheeseBoss: Going to Cursed Halloween to spam violins.")
+                Out.I("CheeseBoss: Going to Cursed Halloween to spam violins.")
                 ToolTip("Going to Cursed Halloween", Window.W / 2 - Window.RelW(
                     100), Window.H / 2)
                 SetTimer(ToolTip, -250)
                 If (!GoToShadowCavern()) {
-                    Log("CheeseBoss: Traveling to Cursed Halloween failed.")
+                    Out.I("CheeseBoss: Traveling to Cursed Halloween failed.")
                     ToolTip("Traveling to Cursed Halloween failed.", Window.W /
                         2 - Window.RelW(100), Window.H / 2)
                     SetTimer(ToolTip, -5000)
@@ -56,13 +56,14 @@ fFarmCheeseBoss() {
                     GameKeys.TriggerViolin()
                     Sleep(71)
                 } Else {
-                    Log("CheeseBoss: Traveling to Cursed Halloween.")
+                    Out.I("CheeseBoss: Traveling to Cursed Halloween.")
                     ToolTip("Returning to Cursed Halloween", Window.W / 2,
                         Window.H / 2)
                     SetTimer(ToolTip, -250)
                     ; Timers reset send user back
                     If (!GoToCheeseBoss()) {
-                        Log("CheeseBoss: Traveling to Cursed Halloween failed."
+                        Out.I(
+                            "CheeseBoss: Traveling to Cursed Halloween failed."
                             " Cheese season not active.")
                         ToolTip("Could not travel to Cursed Halloween zone`n"
                             "Please use the artifact to enable Nature season",
@@ -81,7 +82,7 @@ fFarmCheeseBoss() {
         }
         ; If boss killed us not much we can do, on user to address
         If (Travel.HomeGarden.IsAreaGarden()) {
-            Log("CheeseBoss: Killed by boss, aborting farm.")
+            Out.I("CheeseBoss: Killed by boss, aborting farm.")
             ToolTip("Killed by boss, exiting", Window.W / 2, Window.H / 2)
             SetTimer(ToolTip, -3000)
             Break
@@ -107,7 +108,7 @@ IsCheeseBossTimerActive() {
             Return true ; Found colour
         }
     } Catch As exc {
-        Log("CheeseBoss: IsCheeseBossTimerActive check failed with error - " exc
+        Out.I("CheeseBoss: IsCheeseBossTimerActive check failed with error - " exc
             .Message)
         MsgBox("Could not conduct the search due to the following error:`n" exc
             .Message)

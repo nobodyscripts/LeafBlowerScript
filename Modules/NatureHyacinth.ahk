@@ -58,12 +58,12 @@ fFarmNormalBossAndNatureHyacinth() {
     }
     Loop {
         If (!Window.IsActive()) {
-            Log("BossHyacinth: Exiting as no game.")
+            Out.I("BossHyacinth: Exiting as no game.")
             cReload() ; Kill if no game
             Break
         }
         If (!Window.IsPanel()) {
-            Log(
+            Out.I(
                 "BossHyacinth: Did not find panel. Aborted farming. Violins active"
             )
             Break
@@ -73,7 +73,7 @@ fFarmNormalBossAndNatureHyacinth() {
             If (bossfarm) {
                 Spammer.KillNormalBoss() ; Need to halt any WW spam
             }
-            Log("BossHyacinth: Bank Maintainer starting.")
+            Out.I("BossHyacinth: Bank Maintainer starting.")
             ToolTip("BossHyacinth Bank Maintainer Active", Window.W / 2, Window
                 .RelH(200), 4)
             BankSinglePass()
@@ -108,7 +108,7 @@ fFarmNormalBossAndNatureHyacinth() {
                     16) {
                     ; Run out of seeds so exiting
                     If (HyacinthFarmBoss) Spammer.KillNormalBoss()
-                        Log("BossHyacinth: Plants exausted. Exiting.")
+                        Out.I("BossHyacinth: Plants exausted. Exiting.")
                     ToolTip("Plants exausted. Exiting.", Window.W / 2, Window.H /
                         2 + Window.RelH(50), 2)
                     SetTimer(ToolTip.Bind(, , , 2), -3000)
@@ -133,7 +133,7 @@ fFarmNormalBossAndNatureHyacinth() {
             If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()
             ) {
                 If (HyacinthFarmBoss) Spammer.KillNormalBoss()
-                    Log("BossHyacinth: User killed.")
+                    Out.I("BossHyacinth: User killed.")
                 ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                     50), 2)
                 SetTimer(ToolTip.Bind(, , , 2), -3000)

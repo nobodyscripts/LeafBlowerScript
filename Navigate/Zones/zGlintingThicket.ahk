@@ -36,7 +36,7 @@ Class GlintingThicket extends Zone {
         If (GlintingThicketLeaf) {
             this.ClickTravelButton(GlintingThicketLeaf, delay + extradelay)
         } Else {
-            Log("Glinting Thicket leaf not found while trying to travel.")
+            Out.I("Glinting Thicket leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class GlintingThicket extends Zone {
         ; Button to travel to Glinting Thicket
         ;Button := Points.Areas.LeafG.GlintingThicket
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Glinting Thicket travel: Button not found.")
+            Out.I("Glinting Thicket travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

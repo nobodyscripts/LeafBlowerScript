@@ -25,7 +25,7 @@ Class HomeGarden extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Log("Traveling to Home Garden")
+        Out.I("Traveling to Home Garden")
         Travel.OpenAreas(true, extradelay)
         Points.Areas.LeafG.HomeGarden.Click(NavigateTime)
         Sleep(delay + extradelay)

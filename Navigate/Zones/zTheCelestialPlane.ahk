@@ -36,7 +36,7 @@ Class TheCelestialPlane extends Zone {
         If (TheCelestialPlaneLeaf) {
             this.ClickTravelButton(TheCelestialPlaneLeaf, delay + extradelay)
         } Else {
-            Log("The Celestial Plane leaf not found while trying to travel.")
+            Out.I("The Celestial Plane leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheCelestialPlane extends Zone {
         ; Button to travel to The Celestial Plane
         ;Button := Points.Areas.LeafG.TheCelestialPlane
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Celestial Plane travel: Button not found.")
+            Out.I("The Celestial Plane travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

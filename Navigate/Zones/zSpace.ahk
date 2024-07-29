@@ -36,7 +36,7 @@ Class Space extends Zone {
         If (SpaceLeaf) {
             this.ClickTravelButton(SpaceLeaf, delay + extradelay)
         } Else {
-            Log("Space leaf not found while trying to travel.")
+            Out.I("Space leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class Space extends Zone {
         ; Button to travel to Space
         ;Button := Points.Areas.LeafG.Space
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Space travel: Button not found.")
+            Out.I("Space travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

@@ -16,11 +16,11 @@ Class cHotkeys {
     initHotkeys(secondary := false) {
         If (!secondary) {
             If (!FileExist(this.sFilename)) {
-                Log("No " this.sFilename " found, writing default file.")
+                Out.I("No " this.sFilename " found, writing default file.")
                 this.WriteHotkeyDefaults()
             }
             If (this.loadHotkeys()) {
-                Log("Loaded " this.sFilename ".")
+                Out.I("Loaded " this.sFilename ".")
             } Else {
                 Return false
             }
@@ -32,7 +32,7 @@ Class cHotkeys {
                 this.sFilename := A_ScriptDir "\..\UserHotkeys.ini"
             }
             If (this.loadHotkeys()) {
-                Log("Loaded " this.sFilename ".")
+                Out.I("Loaded " this.sFilename ".")
             } Else {
                 Return false
             }
@@ -42,7 +42,7 @@ Class cHotkeys {
 
     loadHotkeys() {
         KeyboardLayout := GetKeyboardLayout()
-        Log("Keyboard layout detected as " KeyboardLayout ".")
+        Out.I("Keyboard layout detected as " KeyboardLayout ".")
 
         For (Key in this.Hotkeys) {
             Try {
@@ -59,11 +59,11 @@ Class cHotkeys {
                     MsgBox("Error 35: LoadHotkeys failed - " exc.Message "`n" exc
                         .Extra)
                 } Else {
-                    Log("Error 35: LoadHotkeys failed - " exc.Message)
+                    Out.I("Error 35: LoadHotkeys failed - " exc.Message)
                 }
                 MsgBox("Could not load all Hotkeys, making new default " this.sFilename
                 )
-                Log("Attempting to write a new default " this.sFilename ".")
+                Out.I("Attempting to write a new default " this.sFilename ".")
                 this.WriteHotkeyDefaults()
                 Return false
             }
@@ -77,7 +77,7 @@ Class cHotkeys {
         } Else If (this.Hotkeys[key].GetDefaultValue()) {
             Return this.Hotkeys[key].GetDefaultValue()
         }
-        Log("Error: Did not have a hotkey for " key)
+        Out.I("Error: Did not have a hotkey for " key)
         Return false
     }
 
@@ -87,7 +87,7 @@ Class cHotkeys {
         } Else If (this.Hotkeys[key].GetDefaultValueVK()) {
             Return this.Hotkeys[key].GetDefaultValueVK()
         }
-        Log("Error: Did not have a hotkeyVk for " key)
+        Out.I("Error: Did not have a hotkeyVk for " key)
         Return false
     }
 
@@ -109,7 +109,7 @@ Class cHotkeys {
     }
 
     WriteHotkeyDefaults() {
-        Log("Writing new default hotkeys file.")
+        Out.I("Writing new default hotkeys file.")
 
         For (Key in this.Hotkeys) {
             this.WriteToIni(this.Hotkeys[Key].Name, this.Hotkeys[Key].GetDefaultValue(),

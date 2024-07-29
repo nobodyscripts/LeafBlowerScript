@@ -36,7 +36,7 @@ Class GreenPlanetEdge extends Zone {
         If (GreenPlanetEdgeLeaf) {
             this.ClickTravelButton(GreenPlanetEdgeLeaf, delay + extradelay)
         } Else {
-            Log("Green Planet Edge leaf not found while trying to travel.")
+            Out.I("Green Planet Edge leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class GreenPlanetEdge extends Zone {
         ; Button to travel to Green Planet Edge
         ;Button := Points.Areas.EnergyB.GreenPlanetEdge
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Green Planet Edge travel: Button not found.")
+            Out.I("Green Planet Edge travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

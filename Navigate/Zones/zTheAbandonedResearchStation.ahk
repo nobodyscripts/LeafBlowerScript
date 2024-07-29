@@ -37,7 +37,7 @@ Class TheAbandonedResearchStation extends Zone {
             this.ClickTravelButton(TheAbandonedResearchStationLeaf, delay +
                 extradelay)
         } Else {
-            Log(
+            Out.I(
                 "The Abandoned Research Station leaf not found while trying to travel."
             )
         }
@@ -64,10 +64,10 @@ Class TheAbandonedResearchStation extends Zone {
         ; Button to travel to The Abandoned Research Station
         ;Button := Points.Areas.LeafG.TheAbandonedResearchStation
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Abandoned Research Station travel: Button not found.")
+            Out.I("The Abandoned Research Station travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

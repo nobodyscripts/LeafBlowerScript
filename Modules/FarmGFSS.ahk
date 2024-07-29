@@ -16,7 +16,7 @@ fFarmGFSS() {
         SSKills := 0
         IsInGF := true
         IsInSS := false
-        Log("GFSSFarm: Going to Green Flame")
+        Out.I("GFSSFarm: Going to Green Flame")
         GoToGF()
         IsPrevTimerLong := IsBossTimerLong()
         Travel.ClosePanelIfActive()
@@ -30,7 +30,7 @@ fFarmGFSS() {
                     Break ; Kill if no game
                 }
                 If (!IsInGF) {
-                    Log("GFSSFarm: Going to Green Flame")
+                    Out.I("GFSSFarm: Going to Green Flame")
                     GoToGF()
                     IsPrevTimerLong := IsBossTimerLong()
                     Travel.ClosePanelIfActive()
@@ -42,9 +42,9 @@ fFarmGFSS() {
                 If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
                     ; If the timer is longer, killed too quick to get a gap
                     GFKills++
-                    Log("GFKill marked")
+                    Out.I("GFKill marked")
                 }
-                /* DebugLog("GFKill timerlast " TimerLastCheckStatus " timer
+                /* Out.D("GFKill timerlast " TimerLastCheckStatus " timer
                 cur " TimerCurrentState " waslong " IsPrevTimerLong " islong "
                 IsTimerLong)
                 */
@@ -55,7 +55,7 @@ fFarmGFSS() {
                     If (GFSSNoReset) {
                         Break
                     }
-                    Log("GFSSFarm: User killed by GF boss, resetting.")
+                    Out.I("GFSSFarm: User killed by GF boss, resetting.")
                     ToolTip("Killed by GF boss, resetting", Window.W / 2 -
                         Window.RelW(70), Window.H / 2)
                     SetTimer(ToolTip, -200)
@@ -68,7 +68,7 @@ fFarmGFSS() {
                 SetTimer(ToolTip, -250)
             }
             If (!IsInSS) {
-                Log("GFSSFarm: Going to Soulseeker")
+                Out.I("GFSSFarm: Going to Soulseeker")
                 GoToSS()
                 Sleep(101)
                 Travel.ClosePanelIfActive()
@@ -81,9 +81,9 @@ fFarmGFSS() {
                 ; If the timer is longer, killed too quick to get a gap
                 SSKills++
                 GFKills := 0
-                Log("SSKill marked")
+                Out.I("SSKill marked")
             }
-            /* DebugLog("SSKill timerlast " TimerLastCheckStatus " timer cur "
+            /* Out.D("SSKill timerlast " TimerLastCheckStatus " timer cur "
                     TimerCurrentState " waslong " IsPrevTimerLong
                     " islong " IsTimerLong)
             */
@@ -94,7 +94,7 @@ fFarmGFSS() {
                 If (GFSSNoReset) {
                     Break
                 }
-                Log("GFSSFarm: Killed by SS boss, resetting.")
+                Out.I("GFSSFarm: Killed by SS boss, resetting.")
                 ToolTip("Killed by boss, resetting", Window.W / 2 - Window.RelW(
                     100), Window.H / 2)
                 SetTimer(ToolTip, -1000)
@@ -107,7 +107,7 @@ fFarmGFSS() {
         }
         ; if we're done looping or got killed reset ss
         If (!ResettingGF && !GFSSNoReset) {
-            Log("GFSSFarm: Have met SS Kill count, resetting.")
+            Out.I("GFSSFarm: Have met SS Kill count, resetting.")
             ToolTip("Resetting at: GF Kills " . GFKills . " SS Kills " .
                 SSKills, Window.W / 2 - Window.RelW(100), Window.H / 2)
             SetTimer(ToolTip, -5000)

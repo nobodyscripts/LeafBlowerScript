@@ -36,7 +36,7 @@ Class SoulPortal extends Zone {
         If (SoulPortalLeaf) {
             this.ClickTravelButton(SoulPortalLeaf, delay + extradelay)
         } Else {
-            Log("Soul Portal leaf not found while trying to travel.")
+            Out.I("Soul Portal leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class SoulPortal extends Zone {
         ; Button to travel to Soul Portal
         ;Button := Points.Areas.FireF.SoulPortal
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Soul Portal travel: Button not found.")
+            Out.I("Soul Portal travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

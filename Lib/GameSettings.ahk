@@ -22,12 +22,12 @@ fGameSettings(*) {
             "yyyy MM dd '-' HH'-'mm'-'ss") ".dat")
 
     If (SetGameSettings(ActiveGameSettingsPath, stringJson, backupfile)) {
-        Log("Game Settings file updated at " ActiveGameSettingsPath "`r`n"
+        Out.I("Game Settings file updated at " ActiveGameSettingsPath "`r`n"
             "Backup file made: " backupfile)
         MsgBox("Game Settings file updated at " ActiveGameSettingsPath "`r`n"
             "Backup file made: " backupfile)
     } Else {
-        Log("Error: Game Settings file not found at " ActiveGameSettingsPath "`r`n"
+        Out.I("Error: Game Settings file not found at " ActiveGameSettingsPath "`r`n"
         )
         MsgBox("Error: Game Settings file not found at " ActiveGameSettingsPath
         )
@@ -37,7 +37,7 @@ fGameSettings(*) {
 ConvertGameSettingsToJson(filename) {
     settingsfile := GetGameSettings(filename)
     If (!settingsfile) {
-        Log("Error: No Game Settings found in " settingsfile)
+        Out.I("Error: No Game Settings found in " settingsfile)
         Return false
     }
     Return jsongo.Parse(settingsfile)
@@ -48,11 +48,11 @@ GetGameSettings(filename) {
         If (FileExist(filename)) {
             Return FileRead(filename)
         } Else {
-            Log("Error: Game Settings file not found at " filename "`r`n")
+            Out.I("Error: Game Settings file not found at " filename "`r`n")
             MsgBox("Error: Game Settings file not found at " filename)
         }
     } Catch As exc {
-        Log("Error: Error opening file " filename " - " exc.Message "`r`n")
+        Out.I("Error: Error opening file " filename " - " exc.Message "`r`n")
         MsgBox("Error: Error opening file " filename " - " exc.Message)
     }
     Return false
@@ -65,13 +65,13 @@ SetGameSettings(filename, data, backupName) {
                 If (!FileExist(backupName)) {
                     FileMove(filename, backupName)
                 } Else {
-                    Log(
+                    Out.I(
                         "Warn: Backup already exists, overwriting main options.dat"
                     )
                     FileDelete(filename)
                 }
             } Catch As exc {
-                Log("Error: Error moving file " filename " to " backupName " - " exc
+                Out.I("Error: Error moving file " filename " to " backupName " - " exc
                     .Message "`r`n")
                 MsgBox("Error: Error moving file " filename " to " backupName " - " exc
                     .Message)
@@ -80,7 +80,7 @@ SetGameSettings(filename, data, backupName) {
         FileAppend(data, filename)
         Return true
     } Catch As exc {
-        Log("Error: Error writing file " filename " - " exc.Message "`r`n")
+        Out.I("Error: Error writing file " filename " - " exc.Message "`r`n")
         MsgBox("Error: Error writing file " filename " - " exc.Message)
     }
     Return false
@@ -293,7 +293,7 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         GameKeys.GetHotkeyVK("OpenGemShop") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenTrades") + 0.0]
 
-    VerboseLog("Script keys set to: " ArrToCommaDelimStr(aInUse))
+    Out.V("Script keys set to: " ArrToCommaDelimStr(aInUse))
     For (key in notRequiredHotkeys) {
         jsonData[key]['value'] := ResetIncorrectHotkey(jsonData[key]['value'],
             aInUse)
@@ -306,12 +306,12 @@ ResetIncorrectHotkey(var, aInUse) {
         Return -1.0
     }
     If (var != "") {
-        VerboseLog("Checking key " var ": " GetKeyName(Format("vk{:X}", var)))
+        Out.V("Checking key " var ": " GetKeyName(Format("vk{:X}", var)))
     }
     For (key in aInUse) {
         If (var = key) {
             If (var != "") {
-                DebugLog("Had to reset keybind " var ": " GetKeyName(Format(
+                Out.D("Had to reset keybind " var ": " GetKeyName(Format(
                     "vk{:X}", var)))
             }
             var := -1.0

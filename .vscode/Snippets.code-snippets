@@ -10,7 +10,7 @@
 	// 	"scope": "javascript,typescript",
 	// 	"prefix": "log",
 	// 	"body": [
-	// 		"console.log('$1');",
+	// 		"console.Out.I('$1');",
 	// 		"$2"
 	// 	],
 	// 	"description": "Log output to console"
@@ -103,7 +103,7 @@
 		"scope": "ahk2",
 		"prefix": "log",
 		"body": [
-			"Log(${1:message})",
+			"Out.I(${1:message})",
 			"$2"
 		],
 		"description": "Log message"
@@ -112,7 +112,7 @@
 		"scope": "ahk2",
 		"prefix": "dlog",
 		"body": [
-			"DebugLog(${1:message})",
+			"Out.D(${1:message})",
 			"$2"
 		],
 		"description": "DebugLog message"
@@ -121,7 +121,7 @@
 		"scope": "ahk2",
 		"prefix": "vlog",
 		"body": [
-			"VerboseLog(${1:message})",
+			"Out.V(${1:message})",
 			"$2"
 		],
 		"description": "VerboseLog message"

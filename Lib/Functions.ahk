@@ -11,7 +11,7 @@
 ; Custom clicking function, uses 2560*1369 relative coords
 fSlowClickRelL(clickX, clickY, delay := 34) {
     If (!Window.IsActive()) {
-        Log("No window found while trying to Lclick at " clickX " * " clickY
+        Out.I("No window found while trying to Lclick at " clickX " * " clickY
             "`n Rel: " Window.RelW(clickX) " * " Window.RelH(clickY))
         Return false
     }
@@ -23,13 +23,13 @@ fSlowClickRelL(clickX, clickY, delay := 34) {
 ; Custom clicking function, uses given coords no relative correction
 fCustomClick(clickX, clickY, delay := 34) {
     If (!Window.IsActive()) {
-        Log("No window found while trying to click at " clickX " * " clickY)
+        Out.I("No window found while trying to click at " clickX " * " clickY)
         Return false
     }
     MouseClick("left", clickX, clickY, , , "D")
     Sleep(delay)
     MouseClick("left", clickX, clickY, , , "U")
-    VerboseLog("Clicking at " cPoint(clickX, clickY, false).toStringDisplay())
+    Out.V("Clicking at " cPoint(clickX, clickY, false).toStringDisplay())
 }
 
 ResetModifierKeys() {
@@ -157,7 +157,7 @@ LineGetColourInstances(x1, y1, x2, y2) {
             Return foundArr
         }
     } Catch As exc {
-        Log("Error 9: LineGetColourInstances check failed - " exc.Message)
+        Out.I("Error 9: LineGetColourInstances check failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n" exc
             .Message)
     }
@@ -185,7 +185,7 @@ LineGetColourInstancesOffsetV(x, y1, y2, colour, splitCount := 20) {
         yBot := y1 + ((splitCur + 1) * splitSize)
         result := cRect(x, yTop, x, yBot).PixelSearch(colour)
         If (result) {
-            ; DebugLog("Found in segment " splitCur " at " result[1] " by " result[2])
+            ; Out.D("Found in segment " splitCur " at " result[1] " by " result[2])
             found++
             foundArr.Push(result[2])
         }

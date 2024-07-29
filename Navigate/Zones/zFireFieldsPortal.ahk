@@ -36,7 +36,7 @@ Class FireFieldsPortal extends Zone {
         If (FireFieldsPortalLeaf) {
             this.ClickTravelButton(FireFieldsPortalLeaf, delay + extradelay)
         } Else {
-            Log("Fire Fields Portal leaf not found while trying to travel.")
+            Out.I("Fire Fields Portal leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class FireFieldsPortal extends Zone {
         ; Button to travel to Fire Fields Portal
         ;Button := Points.Areas.EnergyB.FireFieldsPortal
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Fire Fields Portal travel: Button not found.")
+            Out.I("Fire Fields Portal travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

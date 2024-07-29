@@ -8,11 +8,11 @@ fBorbVentureJuiceFarm() {
     Global bvAutostartDisabled, BVBlockMythLeg
 
     If (!Travel.GotoBorbVFirstTab()) {
-        Log("Borbv: Failed to travel, aborting.")
+        Out.I("Borbv: Failed to travel, aborting.")
         Return
     }
 
-    Log("Borbv: Main loop starting.")
+    Out.I("Borbv: Main loop starting.")
     bvAutostartDisabled := false
     If (IsBVAutoStartOn()) {
         Points.Borbventures.AutoStartFont0.Click()
@@ -20,17 +20,17 @@ fBorbVentureJuiceFarm() {
     }
     If (BVBlockMythLeg) {
         ; Add note so that every time i turn it on and nothing starts i know why
-        Log("Warning: BVBlockMythLeg is on, if all available trades are " .
+        Out.I("Warning: BVBlockMythLeg is on, if all available trades are " .
             "myth/leg nothing will start.")
     }
     Loop {
         If (!Window.IsActive()) {
-            Log("Borbv: Exiting as no game.")
+            Out.I("Borbv: Exiting as no game.")
             cReload()
             Return
         }
         If (!Window.IsPanel()) {
-            Log("Borbv: Did not find panel. Aborted.")
+            Out.I("Borbv: Did not find panel. Aborted.")
             cReload()
             Return
         }
@@ -40,7 +40,7 @@ fBorbVentureJuiceFarm() {
         ; TODO Move point to Points
         cPoint(591, 1100).Click()
     }
-    Log("Borbv: Aborted.")
+    Out.I("Borbv: Aborted.")
     ToolTip()
 }
 
@@ -60,7 +60,7 @@ BVMainLoop() {
     ; relative to that position
     targetItemsYArray := []
     arrows := BVCachedArrowsLocations()
-    VerboseLog("Y positions of arrows: " ArrToCommaDelimStr(arrows))
+    Out.V("Y positions of arrows: " ArrToCommaDelimStr(arrows))
     arrowCount := 0
     activeSlots := 0
     If (!arrows) {
@@ -75,18 +75,18 @@ BVMainLoop() {
             If (StartButton.IsBackground() && !CancelButton.IsBackground()) {
                 ; If slots cancel button exists, assume active. This lets us
                 ; pause refreshing until something new happens to avoid wastage
-                VerboseLog("Found active slot.")
+                Out.V("Found active slot.")
                 activeSlots++
             } Else {
                 If ((BVScanSlotRarity(arrowY) != "0x9E10C1" && BVScanSlotRarity(
                     arrowY) != "0xE1661A" && BVBlockMythLeg) || !BVBlockMythLeg
                 ) {
 
-                    VerboseLog("Can scan slot " arrowCount)
+                    Out.V("Can scan slot " arrowCount)
                     ; If slot has an item we want add it to the target list
                     If (BVScanSlotItem(Window.RelW(1313), arrowY - Window.RelH(
                         17), Window.RelW(1347), arrowY + Window.RelH(20))) {
-                        VerboseLog("Found item added to target items.")
+                        Out.V("Found item added to target items.")
                         targetItemsYArray.Push(arrowY)
                     }
                 }
@@ -96,12 +96,12 @@ BVMainLoop() {
     detailedMode := false
     ; If we have more than 4 arrows details mode is on
     If (arrowCount >= 6) {
-        DebugLog("Found detailed mode off.")
+        Out.D("Found detailed mode off.")
         detailedMode := true
     }
     ; Check for only if scroll is not at the top
     If (!detailedMode && !IsBVScrollAblePanelAtTop()) {
-        DebugLog("Reset scroll.")
+        Out.D("Reset scroll.")
         Travel.ResetBorbVScroll()
         Sleep(34)
         Return ; If we had to reset we should restart function and rescan
@@ -117,7 +117,7 @@ BVMainLoop() {
         If (AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started
         )) {
             If (BVStartItemFromSlot(SlotY)) {
-                VerboseLog("Found item, added to started.")
+                Out.V("Found item, added to started.")
                 started++
             }
         }
@@ -148,7 +148,7 @@ AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started) {
 }
 
 BVStartItemFromSlot(SlotY) {
-    DebugLog("Attempting to start bv on slot with y " SlotY)
+    Out.D("Attempting to start bv on slot with y " SlotY)
     StartButton := cPoint(Window.RelW(1864), SlotY, false)
     If (SlotY != 0 && Window.IsActive() && StartButton.IsButtonInactive()) {
         ; Don't try to start more if we're full even if another is
@@ -225,12 +225,12 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
         For colour in BVItemsArr {
             found := PixelSearch(&OutX, &OutY, X1, Y1, X2, Y2, colour, 0)
             If (found and OutX != 0) {
-                VerboseLog("Found item thats useful " OutX " " OutY " " colour)
+                Out.V("Found item thats useful " OutX " " OutY " " colour)
                 Return OutY
             }
         }
     } Catch As exc {
-        Log("Borbv: ScanSlotItem failed to scan - " exc.Message)
+        Out.I("Borbv: ScanSlotItem failed to scan - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n" exc
             .Message)
     }
@@ -268,14 +268,14 @@ BVColourToItem(colour) {
  */
 BVScanSlotRarity(arrowY) {
     rarity := cPoint(Window.RelW(331), arrowY, false).GetColour()
-    VerboseLog("Slot rarity " rarity)
+    Out.V("Slot rarity " rarity)
     Return rarity
 }
 
 IsBVAutoStartOn() {
     font0 := !Points.Borbventures.AutoStartFont0.IsButtonActive()
     font1 := !Points.Borbventures.AutoStartFont1.IsButtonActive()
-    DebugLog("BVAutostart: Font 0 check " BinaryToStr(font0)
+    Out.D("BVAutostart: Font 0 check " BinaryToStr(font0)
         ", Font 1 check " BinaryToStr(font1))
     If (font0 || font1) {
         Return false

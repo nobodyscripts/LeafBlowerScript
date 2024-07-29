@@ -36,7 +36,7 @@ Class CursedKokkaupunki extends Zone {
         If (CursedKokkaupunkiLeaf) {
             this.ClickTravelButton(CursedKokkaupunkiLeaf, delay + extradelay)
         } Else {
-            Log("Cursed Kokkaupunki leaf not found while trying to travel.")
+            Out.I("Cursed Kokkaupunki leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class CursedKokkaupunki extends Zone {
         ; Button to travel to Cursed Kokkaupunki
         ;Button := Points.Areas.LeafG.CursedKokkaupunki
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Cursed Kokkaupunki travel: Button not found.")
+            Out.I("Cursed Kokkaupunki travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

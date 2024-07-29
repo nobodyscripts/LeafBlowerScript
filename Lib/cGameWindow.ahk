@@ -85,7 +85,7 @@ Class cGameWindow {
      */
     Activate() {
         If (!this.Exist()) {
-            Log("Error: Window doesn't exist.")
+            Out.I("Error: Window doesn't exist.")
             Return false ; Don't check further
         }
         If (!WinActive(this.Title)) {
@@ -105,11 +105,11 @@ Class cGameWindow {
         If (!this.Exist()) {
             If (this.LastLogged = 0) {
                 this.LastLogged := A_Now
-                Log("Error: Window doesn't exist.")
+                Out.I("Error: Window doesn't exist.")
                 Return false
             }
             If (DateDiff(A_Now, this.LastLogged, "Seconds") >= 10) {
-                Log("Error: Window doesn't exist.")
+                Out.I("Error: Window doesn't exist.")
                 this.LastLogged := A_Now
             }
             Return false
@@ -118,11 +118,11 @@ Class cGameWindow {
             ; Because this can be spammed lets limit rate the error log
             If (this.LastLogged = 0) {
                 this.LastLogged := A_Now
-                DebugLog("Window not active.")
+                Out.D("Window not active.")
                 Return false
             }
             If (DateDiff(A_Now, this.LastLogged, "Seconds") >= 10) {
-                DebugLog("Window not active.")
+                Out.D("Window not active.")
                 this.LastLogged := A_Now
             }
             Return false
@@ -146,10 +146,10 @@ Class cGameWindow {
                 this.W := valW
                 this.H := valH
             } Catch As err {
-                Log(
+                Out.I(
                     "Error: Window doesn't exist. Error getting client position."
                 )
-                ErrorLog(err)
+                Out.E(err)
                 Return false
             }
             Return true
@@ -178,19 +178,19 @@ Class cGameWindow {
         ; Cannot check font here as it might not be correct res
         ; Changing res every activation would be annoying
         If (!this.IsAspectRatioCorrectCheck()) {
-            Log("Error 15: Failed settings check at rendering mode.")
+            Out.I("Error 15: Failed settings check at rendering mode.")
             Return false
         }
         If (!this.IsPanelTransparentCorrectCheck()) {
-            Log("Error 16: Failed settings check at transparency.")
+            Out.I("Error 16: Failed settings check at transparency.")
             Return false
         }
         If (!this.IsPanelSmoothedCheck()) {
-            Log("Error 17: Failed settings check at smooth graphics.")
+            Out.I("Error 17: Failed settings check at smooth graphics.")
             Return false
         }
         If (!this.IsDarkBackgroundCheck()) {
-            Log("Error 18: Failed settings check at dark dialog background.")
+            Out.I("Error 18: Failed settings check at dark dialog background.")
             Return false
         }
         Return true
@@ -212,13 +212,13 @@ Class cGameWindow {
                 Return true
             }
             If (targetColour = Colours().BackgroundSpotify) {
-                Log(
+                Out.I(
                     "Spotify colour warp detected, please avoid using spotify desktop."
                 )
                 Return true
             }
         } Catch As exc {
-            Log("Error 19: Panel transparency check failed - " exc.Message)
+            Out.I("Error 19: Panel transparency check failed - " exc.Message)
             MsgBox("Could not conduct the search due to the following error:`n" exc
                 .Message)
         }
@@ -262,11 +262,11 @@ Class cGameWindow {
                 Return true
             }
         } Catch As exc {
-            Log("Error 20: Render Mode check failed - " exc.Message)
+            Out.I("Error 20: Render Mode check failed - " exc.Message)
             MsgBox("Could not conduct the search due to the following error:`n" exc
                 .Message)
         }
-        DebugLog("Aspect ratio check found unknown colour " sampleColour)
+        Out.D("Aspect ratio check found unknown colour " sampleColour)
         Return false
     }
     ;@endregion
@@ -281,7 +281,7 @@ Class cGameWindow {
             Return false ; Kill if no game
         }
         If (!this.IsAspectRatioCorrect()) {
-            Log("Error 21: Alternative rendering check failed.")
+            Out.I("Error 21: Alternative rendering check failed.")
             MsgBox("Error: It appears you may be using normal render mode,"
                 " please set Alternative on then F2 to reload() at the bottom of"
                 " settings.`nSee Readme.md for other required settings.")
@@ -305,13 +305,13 @@ Class cGameWindow {
             sampleColour := Points.Misc.PanelBG2.GetColour()
             sampleColour2 := Points.Misc.PanelBG3.GetColour()
             If (sampleColour != sampleColour2) {
-                DebugLog("Smoothed graphics check found " sampleColour " " sampleColour2
+                Out.D("Smoothed graphics check found " sampleColour " " sampleColour2
                 )
                 ; Found smoothing
                 Return true
             }
         } Catch As exc {
-            Log("Error 25: Panel smoothing check failed - " exc.Message)
+            Out.I("Error 25: Panel smoothing check failed - " exc.Message)
             MsgBox("Could not conduct the search due to the following error:`n" exc
                 .Message)
         }
@@ -331,7 +331,7 @@ Class cGameWindow {
         If (!this.IsPanelSmoothed()) {
             Return true
         }
-        Log("Error 26: Smooth graphics check failed.")
+        Out.I("Error 26: Smooth graphics check failed.")
         MsgBox("Error: It appears you are using Smooth Graphics, please set"
             " to off then F2 to reload().`nSee Readme.md for other required"
             " settings.")
@@ -350,13 +350,13 @@ Class cGameWindow {
             sampleColour2 := Points.Misc.AspectRatio2.GetColour()
             If (Colours().IsButtonDarkened(sampleColour) || Colours().IsButtonDarkened(
                 sampleColour2)) {
-                DebugLog("Corner buttons found with Dark Dialog Background on."
-                )
+                Out.D("Corner buttons found with Dark Dialog Background on.")
                 ; Found dark mode
                 Return true
             }
         } Catch As exc {
-            Log("Error 6: Dark Dialog Background check failed - " exc.Message)
+            Out.I("Error 6: Dark Dialog Background check failed - " exc.Message
+            )
             MsgBox("Could not conduct the search due to the following error:`n" exc
                 .Message)
         }
@@ -376,7 +376,7 @@ Class cGameWindow {
         If (!this.IsDarkBackgroundOn()) {
             Return true
         }
-        Log("Error 27: Dark Dialog Background check failed.")
+        Out.I("Error 27: Dark Dialog Background check failed.")
         MsgBox("Error: It appears you are using Dark Dialog Background, please"
             " set to off then F2 to reload().`nSee Readme.md for other"
             " required settings.")
@@ -397,7 +397,7 @@ Class cGameWindow {
         If (Travel.HomeGarden.IsActive()) {
             Return true
         } Else {
-            Log("Error 28: Trees check failed. " GetAreaSampleColour())
+            Out.I("Error 28: Trees check failed. " GetAreaSampleColour())
             MsgBox("Error: It appears you are using Trees, please set to"
                 " off then F2 to reload().`nSee Readme.md for other"
                 " required settings.")
@@ -417,12 +417,12 @@ Class cGameWindow {
             sampleColour2 := Points.Misc.AspectRatio2.GetColour()
             If (Colours().IsButtonAFK(sampleColour) || Colours().IsButtonAFK(
                 sampleColour2)) {
-                DebugLog("IsAFKOn: Corner buttons found with AFK on.")
+                Out.D("IsAFKOn: Corner buttons found with AFK on.")
                 ; Found dark mode
                 Return true
             }
         } Catch As exc {
-            Log("Error 34: AFK check failed - " exc.Message)
+            Out.I("Error 34: AFK check failed - " exc.Message)
             MsgBox("Could not conduct the search due to the following error:`n" exc
                 .Message)
         }
@@ -443,7 +443,7 @@ Class cGameWindow {
         If (!this.IsAFKOn()) {
             Return true
         }
-        Log("Warning 1: AFK found enabled.")
+        Out.I("Warning 1: AFK found enabled.")
         Points.Misc.BlankBG.Click()
         Return false
     }

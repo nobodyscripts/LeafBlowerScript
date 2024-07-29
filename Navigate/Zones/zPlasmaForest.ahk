@@ -36,7 +36,7 @@ Class PlasmaForest extends Zone {
         If (PlasmaForestLeaf) {
             this.ClickTravelButton(PlasmaForestLeaf, delay + extradelay)
         } Else {
-            Log("Plasma Forest leaf not found while trying to travel.")
+            Out.I("Plasma Forest leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class PlasmaForest extends Zone {
         ; Button to travel to Plasma Forest
         ;Button := Points.Areas.EnergyB.PlasmaForest
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Plasma Forest travel: Button not found.")
+            Out.I("Plasma Forest travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

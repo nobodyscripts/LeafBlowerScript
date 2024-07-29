@@ -36,7 +36,7 @@ Class SparkPortal extends Zone {
         If (SparkPortalLeaf) {
             this.ClickTravelButton(SparkPortalLeaf, delay + extradelay)
         } Else {
-            Log("Spark Portal leaf not found while trying to travel.")
+            Out.I("Spark Portal leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class SparkPortal extends Zone {
         ; Button to travel to Spark Portal
         ;Button := Points.Areas.SacredN.SparkPortal
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Spark Portal travel: Button not found.")
+            Out.I("Spark Portal travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

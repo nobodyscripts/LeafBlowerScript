@@ -36,7 +36,7 @@ Class MountMoltenfurty extends Zone {
         If (MountMoltenfurtyLeaf) {
             this.ClickTravelButton(MountMoltenfurtyLeaf, delay + extradelay)
         } Else {
-            Log("Mount Moltenfurty leaf not found while trying to travel.")
+            Out.I("Mount Moltenfurty leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class MountMoltenfurty extends Zone {
         ; Button to travel to Mount Moltenfurty
         ;Button := Points.Areas.FireF.MountMoltenfurty
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Mount Moltenfurty travel: Button not found.")
+            Out.I("Mount Moltenfurty travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

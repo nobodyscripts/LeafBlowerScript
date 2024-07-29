@@ -36,7 +36,7 @@ Class ButterflyField extends Zone {
         If (ButterflyFieldLeaf) {
             this.ClickTravelButton(ButterflyFieldLeaf, delay + extradelay)
         } Else {
-            Log("Butterfly Field leaf not found while trying to travel.")
+            Out.I("Butterfly Field leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class ButterflyField extends Zone {
         ; Button to travel to Butterfly Field
         ;Button := Points.Areas.Events.ButterflyField
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Butterfly Field travel: Button not found.")
+            Out.I("Butterfly Field travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

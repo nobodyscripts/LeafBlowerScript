@@ -206,25 +206,25 @@ Class UpdateChecker {
             If (FileExist(this.CurrentJsonFile)) {
                 filecontents := FileRead(this.CurrentJsonFile)
             } Else {
-                Log("Error: Version file not found at " this.CurrentJsonFile "`r`n"
+                Out.I("Error: Version file not found at " this.CurrentJsonFile "`r`n"
                 )
                 MsgBox("Error: Version file not found at " this.CurrentJsonFile
                 )
                 Return false
             }
         } Catch As exc {
-            Log("Error: Error opening version file " this.CurrentJsonFile " - " exc
+            Out.I("Error: Error opening version file " this.CurrentJsonFile " - " exc
                 .Message "`r`n")
             MsgBox("Error: Error opening version file " this.CurrentJsonFile " - " exc
                 .Message)
             Return false
         }
         If (!filecontents) {
-            Log("Error: No version file found in " this.CurrentJsonFile)
+            Out.I("Error: No version file found in " this.CurrentJsonFile)
             Return false
         }
 
-        Log("Local:`r`n" filecontents)
+        Out.I("Local:`r`n" filecontents)
         Return jsongo.Parse(filecontents)
     }
 
@@ -237,10 +237,10 @@ Class UpdateChecker {
             whr.Send()
             ; Using 'true' above and the call below allows the script to remain responsive.
             whr.WaitForResponse()
-            Log("Remote:`r`n" whr.ResponseText)
+            Out.I("Remote:`r`n" whr.ResponseText)
             Return jsongo.Parse(whr.ResponseText)
         } Catch As exc {
-            Log("CheckForUpdates: GetWebJson, Error fetching version.json - " exc
+            Out.I("CheckForUpdates: GetWebJson, Error fetching version.json - " exc
                 .Message "`r`n")
             MsgBox(
                 "CheckForUpdates: GetWebJson, Error fetching version.json:`n" exc

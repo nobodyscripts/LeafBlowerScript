@@ -36,7 +36,7 @@ Class TheCoalMine extends Zone {
         If (TheCoalMineLeaf) {
             this.ClickTravelButton(TheCoalMineLeaf, delay + extradelay)
         } Else {
-            Log("The Coal Mine leaf not found while trying to travel.")
+            Out.I("The Coal Mine leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheCoalMine extends Zone {
         ; Button to travel to The Coal Mine
         ;Button := Points.Areas.FireF.TheCoalMine
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Coal Mine travel: Button not found.")
+            Out.I("The Coal Mine travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

@@ -37,7 +37,7 @@ Class TheFabricoftheLeafverse extends Zone {
             this.ClickTravelButton(TheFabricoftheLeafverseLeaf, delay +
                 extradelay)
         } Else {
-            Log(
+            Out.I(
                 "The Fabric of the Leafverse leaf not found while trying to travel."
             )
         }
@@ -64,10 +64,10 @@ Class TheFabricoftheLeafverse extends Zone {
         ; Button to travel to The Fabric of the Leafverse
         ;Button := Points.Areas.SoulR.TheFabricoftheLeafverse
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Fabric of the Leafverse travel: Button not found.")
+            Out.I("The Fabric of the Leafverse travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

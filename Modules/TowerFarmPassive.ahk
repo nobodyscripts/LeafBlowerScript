@@ -37,7 +37,7 @@ fTowerFarm() {
     Loop {
         If (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
             TowerPassiveBanksEnabled) {
-            Log("TowerPassive: Bank Maintainer starting.")
+            Out.I("TowerPassive: Bank Maintainer starting.")
             ToolTip("Tower Passive, Bank Maintainer Active", Window.W / 2,
                 Window.RelH(200), 4)
             BankSinglePass()

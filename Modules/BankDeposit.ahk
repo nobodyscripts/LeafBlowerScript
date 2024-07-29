@@ -204,7 +204,7 @@ IsOnBankTab(buttonTab) {
     If (colour = "0x82805D" || colour = "0xA8EC7F") {
         Return true
     }
-    DebugLog("IsOnBankTab false: found " colour)
+    Out.D("IsOnBankTab false: found " colour)
     Return false
 }
 

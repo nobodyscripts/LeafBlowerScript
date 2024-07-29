@@ -24,7 +24,7 @@ fOpenCardLoop() {
     Global HadToHideNotifs
 
     If (IsNotificationActive()) {
-        Log("Cards: Found notification covering button and hid"
+        Out.I("Cards: Found notification covering button and hid"
             " notifications.")
         Points.Misc.NotifArrow.Click(101)
         Sleep(72)
@@ -34,53 +34,53 @@ fOpenCardLoop() {
 
     If (!GotoCardsFirstTab()) {
         ; We still failed to travel
-        Log("Cards: Failed to open cards first tab")
+        Out.I("Cards: Failed to open cards first tab")
         Return
     }
 
     Loop {
         If (!Window.IsActive()) {
-            Log("Cards: Did not find game. Aborted.")
+            Out.I("Cards: Did not find game. Aborted.")
             Return ; Kill if no game
         }
         If (!Window.IsPanel()) {
-            Log("Card Opening: Did not find panel. Aborted.")
+            Out.I("Card Opening: Did not find panel. Aborted.")
             Break
         }
         If (IsNotificationActive()) {
-            Log("Card Opening: Found notification covering button and hid"
+            Out.I("Card Opening: Found notification covering button and hid"
                 " notifications.")
             Points.Misc.NotifArrow.Click(101)
             HadToHideNotifs := true
         }
         If (!CardsPermaLoop && !CardButtonsActive()) {
-            Log("Cards: Found no active buttons. Exiting.")
+            Out.I("Cards: Found no active buttons. Exiting.")
             Break
         } Else If (!CardButtonsActive()) {
-            Log("CardsLoop: Found no active buttons. Looping.")
+            Out.I("CardsLoop: Found no active buttons. Looping.")
         }
         If (CardsBuyEnabled) {
-            Log("Card Buy: Loop starting.")
+            Out.I("Card Buy: Loop starting.")
             CardBuyLoop()
         } Else {
-            Log("Card Buy: Disabled.")
+            Out.I("Card Buy: Disabled.")
         }
-        Log("Card Opening: Loop starting.")
+        Out.I("Card Opening: Loop starting.")
         Loop {
             value := CardsOpenSinglePass()
             If (!value) {
-                Log("Card Opening: Loop finishing.")
+                Out.I("Card Opening: Loop finishing.")
                 Break
             }
         }
     }
     If (HadToHideNotifs) {
-        Log("Cards: Reenabling notifications.")
+        Out.I("Cards: Reenabling notifications.")
         Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := false
     }
     ResetModifierKeys() ; Cleanup incase needed
-    Log("Cards: Stopped.")
+    Out.I("Cards: Stopped.")
     ToolTip("Card opening aborted`nFound no active buttons.`nF3 to remove note",
         Window.W / 2 - Window.RelW(170), Window.H / 2)
 }
@@ -89,7 +89,7 @@ CardsOpenSinglePass() {
     Global HadToHideNotifs
     ; Check if lost focus, close or crash and break if so
     If (!Window.IsActive()) {
-        Log("Card opening: Did not find game. Aborted.")
+        Out.I("Card opening: Did not find game. Aborted.")
         Window.Activate()
         ;return false ; Kill if no game
     }
@@ -97,12 +97,12 @@ CardsOpenSinglePass() {
     ; Use the transparent check to make sure we have a panel, otherwise
     ; we'll close notifications for no reason and get into a loop
     If (!Window.IsPanel()) {
-        Log("Card opening: Did not find panel. Aborted.")
+        Out.I("Card opening: Did not find panel. Aborted.")
         Return false
     }
     ; Close notifications if they are getting in the way
     If (IsNotificationActive()) {
-        Log("Card opening: Found notification covering button and hid"
+        Out.I("Card opening: Found notification covering button and hid"
             " notifications.")
         Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := true
@@ -137,7 +137,7 @@ CardsOpenSinglePass() {
     }
 
     If (!CommonButtonActive && !RareButtonActive && !LegendaryButtonActive) {
-        Log("Card Opening: No packs to open.")
+        Out.I("Card Opening: No packs to open.")
         Return false
     }
     Return true
@@ -159,7 +159,7 @@ CardOpenerRel(quality, offset, amount) {
     clickdelay := (CardsSleepAmount > 101) ? 54 : CardsSleepAmount
     If (CardsGreedyOpen) {
         button.GreedyModifierClick(CardsSleepAmount, clickdelay, amount)
-        VerboseLog("Greedy opening " CardQualityToStr(quality) " quality card")
+        Out.V("Greedy opening " CardQualityToStr(quality) " quality card")
         Return false
     }
     ; Check if button is active, if not we can skip
@@ -172,7 +172,7 @@ CardOpenerRel(quality, offset, amount) {
         Local i := 0
         While (IsScrollAblePanelAtTop() && i <= 5) {
             If (!HaveWarnedDisplayRewards) {
-                Log("Warning: Found 'Settings/Gameplay/Display "
+                Out.I("Warning: Found 'Settings/Gameplay/Display "
                     "Reward Dialogs' is on.")
                 ToolTip("Warning: Card opening found Settings/Gameplay/Display"
                     " Reward Dialogs is on.`nSpeed up opening by disabling.",
@@ -184,9 +184,9 @@ CardOpenerRel(quality, offset, amount) {
             Sleep(150)
             i++
         }
-        VerboseLog("Attempted to open " CardQualityToStr(quality) " type card")
+        Out.V("Attempted to open " CardQualityToStr(quality) " type card")
     } Else {
-        VerboseLog("Could not open " CardQualityToStr(quality) " type card")
+        Out.V("Could not open " CardQualityToStr(quality) " type card")
     }
     ; Deliberate second check to return new state
     Return button.IsButtonActive()
@@ -210,7 +210,7 @@ CardBuyerRel(quality, offset, amount) {
         ResetModifierKeys()
         button.GreedyModifierClick(CardsSleepBuyAmount, CardsSleepBuyAmount,
             amount)
-        DebugLog("Greedy buy " CardQualityToStr(quality) " quality card")
+        Out.D("Greedy buy " CardQualityToStr(quality) " quality card")
         Return false
     } Else {
         AmountToModifier(amount)
@@ -219,12 +219,10 @@ CardBuyerRel(quality, offset, amount) {
             button.ClickOffset(, offset, CardsSleepBuyAmount)
             ; Legendary pack open
             Sleep(CardsSleepBuyAmount)
-            VerboseLog("Attempting buy " CardQualityToStr(quality) " quality card"
-            )
+            Out.V("Attempting buy " CardQualityToStr(quality) " quality card")
             Return true
         } Else {
-            VerboseLog("Could not buy " CardQualityToStr(quality) " quality card"
-            )
+            Out.V("Could not buy " CardQualityToStr(quality) " quality card")
             Return false
         }
     }

@@ -36,7 +36,8 @@ Class DimensionalTapestry extends Zone {
         If (DimensionalTapestryLeaf) {
             this.ClickTravelButton(DimensionalTapestryLeaf, delay + extradelay)
         } Else {
-            Log("Dimensional Tapestry leaf not found while trying to travel.")
+            Out.I("Dimensional Tapestry leaf not found while trying to travel."
+            )
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +62,10 @@ Class DimensionalTapestry extends Zone {
         ; Button to travel to Dimensional Tapestry
         ;Button := Points.Areas.QuarkA.DimensionalTapestry
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Dimensional Tapestry travel: Button not found.")
+            Out.I("Dimensional Tapestry travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

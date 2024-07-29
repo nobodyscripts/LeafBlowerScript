@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+#Include Logging.ahk
+
 ; ------------------- Settings -------------------
 ; Loads UserSettings.ini values for the rest of the script to use
 
@@ -414,14 +416,15 @@ Class cSettings {
             If (FileExist(A_ScriptDir "\IsNobody")) {
                 this.sUseNobody := true
                 Debug := true
-                Log("Settings: Using Nobody Defaults")
+                Out.I("Settings: Using Nobody Defaults")
             }
             If (!FileExist(this.sFilename)) {
-                Log("No UserSettings.ini found, writing default file.")
+                Out.I("No UserSettings.ini found, writing default file.")
                 this.WriteDefaults(this.sUseNobody)
             }
             If (this.loadSettings()) {
-                Log("Loaded settings.")
+                UpdateDebugLevel()
+                Out.I("Loaded settings.")
             } Else {
                 Return false
             }
@@ -429,7 +432,8 @@ Class cSettings {
         } Else {
             this.sFilename := A_ScriptDir "\..\UserSettings.ini"
             If (this.loadSettings()) {
-                Log("Loaded settings.")
+                UpdateDebugLevel()
+                Out.I("Loaded settings.")
             } Else {
                 Return false
             }
@@ -515,14 +519,14 @@ Class cSettings {
                 }
             } Catch As exc {
                 If (exc.Extra) {
-                    Log("Error 35: LoadSettings failed - " exc.Message "`n" exc
+                    Out.I("Error 35: LoadSettings failed - " exc.Message "`n" exc
                         .Extra)
                 } Else {
-                    Log("Error 35: LoadSettings failed - " exc.Message)
+                    Out.I("Error 35: LoadSettings failed - " exc.Message)
                 }
                 MsgBox("Could not load all settings, making new default " .
                     "UserSettings.ini")
-                Log("Attempting to write a new default UserSettings.ini.")
+                Out.I("Attempting to write a new default UserSettings.ini.")
                 this.WriteDefaults(this.sUseNobody)
                 Return false
             }

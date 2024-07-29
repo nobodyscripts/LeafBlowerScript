@@ -36,7 +36,7 @@ Class TheLoneTree extends Zone {
         If (TheLoneTreeLeaf) {
             this.ClickTravelButton(TheLoneTreeLeaf, delay + extradelay)
         } Else {
-            Log("The Lone Tree leaf not found while trying to travel.")
+            Out.I("The Lone Tree leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheLoneTree extends Zone {
         ; Button to travel to The Lone Tree
         ;Button := Points.Areas.SacredN.TheLoneTree
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Lone Tree travel: Button not found.")
+            Out.I("The Lone Tree travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

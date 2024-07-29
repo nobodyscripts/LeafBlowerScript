@@ -14,7 +14,7 @@ Class BlowLeaves extends cTask {
      * 
      */
     PreTask() {
-        Log("Starting Blow Leaves task")
+        Out.I("Starting Blow Leaves task")
     }
 
     /**
@@ -41,7 +41,7 @@ Class BlowLeaves extends cTask {
      * 
      */
     PostTask() {
-        Log("Ending Blow Leaves task")
+        Out.I("Ending Blow Leaves task")
     }
 
     /**

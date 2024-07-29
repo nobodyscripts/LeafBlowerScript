@@ -36,7 +36,7 @@ Class DiceyMeadows extends Zone {
         If (DiceyMeadowsLeaf) {
             this.ClickTravelButton(DiceyMeadowsLeaf, delay + extradelay)
         } Else {
-            Log("Dicey Meadows leaf not found while trying to travel.")
+            Out.I("Dicey Meadows leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class DiceyMeadows extends Zone {
         ; Button to travel to Dicey Meadows
         ;Button := Points.Areas.LeafG.DiceyMeadows
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Dicey Meadows travel: Button not found.")
+            Out.I("Dicey Meadows travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

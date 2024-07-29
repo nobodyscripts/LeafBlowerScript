@@ -29,13 +29,13 @@ CavesSinglePass() {
 CavesSingleCheck() {
     id := GetCurrentCave()
     If (id > 0 && Debug) {
-        Log("Currently on cave " id " Diamond " BinaryToStr(IsCaveDiamond())
+        Out.I("Currently on cave " id " Diamond " BinaryToStr(IsCaveDiamond())
             " Drill state is " BinaryToStr(IsCaveDrilling()) " Locked " BinaryToStr(
                 IsCaveLocked(id))
             " Selected " BinaryToStr(IsCaveSelected(id)))
     }
     If (id = 0) {
-        DebugLog("Didn't find a selected cave")
+        Out.D("Didn't find a selected cave")
         Return
     }
     If (IsCaveDiamond() && !IsCaveDrilling()) {

@@ -25,7 +25,7 @@ Class TheInfernalDesert extends Zone {
         If (DesertLeaf) {
             this.ClickTravelButton(DesertLeaf, delay + extradelay)
         } Else {
-            Log(
+            Out.I(
                 "The Infernal Desert marker leaf not found while trying to travel."
             )
         }
@@ -41,7 +41,7 @@ Class TheInfernalDesert extends Zone {
         ; Button to travel to The Infernal Desert
         Button := cPoint(coord[1] + Window.RelW(225), coord[2] + Window.RelH(5),
             false)
-        DebugLog(Button.GetColour() " " Button.IsButton() " " Button.IsButtonActive()
+        Out.D(Button.GetColour() " " Button.IsButton() " " Button.IsButtonActive()
         )
         ; If no button we are misaligned
         If (Button.IsButton()) {
@@ -50,7 +50,7 @@ Class TheInfernalDesert extends Zone {
                 Button.Click(delay)
             }
         } Else {
-            Log("The Infernal Desert travel: Button not found.")
+            Out.I("The Infernal Desert travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

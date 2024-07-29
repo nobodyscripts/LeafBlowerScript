@@ -16,12 +16,12 @@ CardBuySinglePass() {
     }
 
     If (!Window.IsPanel()) {
-        Log("Card buying: Did not find panel. Aborted.")
+        Out.I("Card buying: Did not find panel. Aborted.")
         Return
     }
 
     If (IsNotificationActive()) {
-        Log("Card buying: Found notification covering button and hid"
+        Out.I("Card buying: Found notification covering button and hid"
             " notifications.")
         Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := true
@@ -55,12 +55,12 @@ CardBuyLoop() {
             Break
         }
         If (!Window.IsPanel()) {
-            Log("Card buying: Did not find panel. Aborted.")
+            Out.I("Card buying: Did not find panel. Aborted.")
             Return
         }
 
         If (IsNotificationActive()) {
-            Log("Card buying: Found notification covering button and hid"
+            Out.I("Card buying: Found notification covering button and hid"
                 " notifications.")
             Points.Misc.NotifArrow.Click(101)
             HadToHideNotifs := true

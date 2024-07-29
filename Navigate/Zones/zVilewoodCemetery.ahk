@@ -36,7 +36,7 @@ Class VilewoodCemetery extends Zone {
         If (VilewoodCemeteryLeaf) {
             this.ClickTravelButton(VilewoodCemeteryLeaf, delay + extradelay)
         } Else {
-            Log("Vilewood Cemetery leaf not found while trying to travel.")
+            Out.I("Vilewood Cemetery leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class VilewoodCemetery extends Zone {
         ; Button to travel to Vilewood Cemetery
         ;Button := Points.Areas.SacredN.VilewoodCemetery
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Vilewood Cemetery travel: Button not found.")
+            Out.I("Vilewood Cemetery travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

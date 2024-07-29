@@ -36,7 +36,7 @@ Class TerrorGraveyard extends Zone {
         If (TerrorGraveyardLeaf) {
             this.ClickTravelButton(TerrorGraveyardLeaf, delay + extradelay)
         } Else {
-            Log("Terror Graveyard leaf not found while trying to travel.")
+            Out.I("Terror Graveyard leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TerrorGraveyard extends Zone {
         ; Button to travel to Terror Graveyard
         ;Button := Points.Areas.EnergyB.TerrorGraveyard
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Terror Graveyard travel: Button not found.")
+            Out.I("Terror Graveyard travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

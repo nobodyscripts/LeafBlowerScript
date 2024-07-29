@@ -36,7 +36,7 @@ Class PlanckScope extends Zone {
         If (PlanckScopeLeaf) {
             this.ClickTravelButton(PlanckScopeLeaf, delay + extradelay)
         } Else {
-            Log("Planck Scope leaf not found while trying to travel.")
+            Out.I("Planck Scope leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class PlanckScope extends Zone {
         ; Button to travel to Planck Scope
         ;Button := Points.Areas.QuarkA.PlanckScope
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Planck Scope travel: Button not found.")
+            Out.I("Planck Scope travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

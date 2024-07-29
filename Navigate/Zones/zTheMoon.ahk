@@ -36,7 +36,7 @@ Class TheMoon extends Zone {
         If (TheMoonLeaf) {
             this.ClickTravelButton(TheMoonLeaf, delay + extradelay)
         } Else {
-            Log("The Moon leaf not found while trying to travel.")
+            Out.I("The Moon leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheMoon extends Zone {
         ; Button to travel to The Moon
         ;Button := Points.Areas.LeafG.TheMoon
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Moon travel: Button not found.")
+            Out.I("The Moon travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

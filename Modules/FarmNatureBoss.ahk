@@ -5,7 +5,7 @@ Global on9 := 0
 fFarmNatureBoss() {
     ; Check zone is available
     If (!GoToNatureBoss()) {
-        Log("NatureBoss: Traveling to The Doomed Tree failed."
+        Out.I("NatureBoss: Traveling to The Doomed Tree failed."
             " Nature season not active.")
         ToolTip("Could not travel to nature boss zone`n"
             "Please use the artifact to enable nature season", Window.W / 2 -
@@ -29,12 +29,12 @@ fFarmNatureBoss() {
         ; still a timer, we need to use a violin
         If (!CurrentAliveState && IsBossTimerActive()) {
             If (!IsInShadowCavern) {
-                Log("NatureBoss: Going to Shadow Cavern to spam violins.")
+                Out.I("NatureBoss: Going to Shadow Cavern to spam violins.")
                 ToolTip("Going to Shadow Cavern", Window.W / 2 - Window.RelW(
                     100), Window.H / 2)
                 SetTimer(ToolTip, -250)
                 If (!GoToShadowCavern()) {
-                    Log("NatureBoss: Traveling to Shadow Cavern failed.")
+                    Out.I("NatureBoss: Traveling to Shadow Cavern failed.")
                     ToolTip("Traveling to Shadow Cavern failed.", Window.W / 2 -
                         Window.RelW(100), Window.H / 2)
                     SetTimer(ToolTip, -5000)
@@ -58,13 +58,14 @@ fFarmNatureBoss() {
                     GameKeys.TriggerViolin()
                     Sleep(71)
                 } Else {
-                    Log("NatureBoss: Traveling to The Doomed Tree.")
+                    Out.I("NatureBoss: Traveling to The Doomed Tree.")
                     ToolTip("Returning to The Doomed Tree", Window.W / 2,
                         Window.H / 2)
                     SetTimer(ToolTip, -250)
                     ; Timers reset send user back
                     If (!GoToNatureBoss()) {
-                        Log("NatureBoss: Traveling to The Doomed Tree failed."
+                        Out.I(
+                            "NatureBoss: Traveling to The Doomed Tree failed."
                             " Nature season not active.")
                         ToolTip("Could not travel to The Doomed Tree zone`n"
                             "Please use the artifact to enable nature season",
@@ -83,7 +84,7 @@ fFarmNatureBoss() {
         }
         ; If boss killed us not much we can do, on user to address
         If (Travel.HomeGarden.IsAreaGarden()) {
-            Log("NatureBoss: Killed by boss, aborting farm.")
+            Out.I("NatureBoss: Killed by boss, aborting farm.")
             ToolTip("Killed by boss, exiting", Window.W / 2, Window.H / 2)
             SetTimer(ToolTip, -3000)
             Break
@@ -98,7 +99,7 @@ IsNatureBossAlive() {
     ;2ce8f5
     ; 852 250 (1440)
     If (Window.IsPanel()) {
-        Log("IsNatureBossAlive: Was checked while panel was active.")
+        Out.I("IsNatureBossAlive: Was checked while panel was active.")
     }
     Try {
         ; TODO Move point to Points
@@ -111,7 +112,7 @@ IsNatureBossAlive() {
             Return false
         }
     } Catch As exc {
-        Log("NatureBoss: IsNatureBossAlive check failed with error - " exc.Message
+        Out.I("NatureBoss: IsNatureBossAlive check failed with error - " exc.Message
         )
         MsgBox("Could not conduct the search due to the following error:`n" exc
             .Message)
@@ -155,7 +156,7 @@ IsNatureBossTimerActive() {
             }
         }
     } Catch As exc {
-        Log("NatureBoss: IsNatureBossTimerActive check failed with error - " exc
+        Out.I("NatureBoss: IsNatureBossTimerActive check failed with error - " exc
             .Message)
         MsgBox("Could not conduct the search due to the following error:`n" exc
             .Message)

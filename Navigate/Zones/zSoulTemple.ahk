@@ -36,7 +36,7 @@ Class SoulTemple extends Zone {
         If (SoulTempleLeaf) {
             this.ClickTravelButton(SoulTempleLeaf, delay + extradelay)
         } Else {
-            Log("Soul Temple leaf not found while trying to travel.")
+            Out.I("Soul Temple leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class SoulTemple extends Zone {
         ; Button to travel to Soul Temple
         ;Button := Points.Areas.SoulR.SoulTemple
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Soul Temple travel: Button not found.")
+            Out.I("Soul Temple travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

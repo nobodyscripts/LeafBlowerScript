@@ -18,13 +18,13 @@ Global BossFarmUsesSeeds := true
 Global settings := cSettings()
 settings.initSettings(true)
 
-Log("Secondary: Wind Spammer Started")
+Out.I("Secondary: Wind Spammer Started")
 
 fWindSpammer()
 fWindSpammer() {
     Loop {
         If (!Window.Exist()) {
-            Log("Secondary: Wind Spammer exiting as no game.")
+            Out.I("Secondary: Wind Spammer exiting as no game.")
             Return
         }
         If (!Window.IsActive()) {

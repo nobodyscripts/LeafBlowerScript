@@ -36,7 +36,7 @@ Class TheAbyss extends Zone {
         If (TheAbyssLeaf) {
             this.ClickTravelButton(TheAbyssLeaf, delay + extradelay)
         } Else {
-            Log("The Abyss leaf not found while trying to travel.")
+            Out.I("The Abyss leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheAbyss extends Zone {
         ; Button to travel to The Abyss
         ;Button := Points.Areas.LeafG.TheAbyss
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Abyss travel: Button not found.")
+            Out.I("The Abyss travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

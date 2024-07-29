@@ -36,7 +36,7 @@ Class PrimordialEthos extends Zone {
         If (PrimordialEthosLeaf) {
             this.ClickTravelButton(PrimordialEthosLeaf, delay + extradelay)
         } Else {
-            Log("Primordial Ethos leaf not found while trying to travel.")
+            Out.I("Primordial Ethos leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class PrimordialEthos extends Zone {
         ; Button to travel to Primordial Ethos
         ;Button := Points.Areas.SoulR.PrimordialEthos
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Primordial Ethos travel: Button not found.")
+            Out.I("Primordial Ethos travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

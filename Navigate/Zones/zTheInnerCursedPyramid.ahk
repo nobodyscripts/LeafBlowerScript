@@ -37,7 +37,7 @@ Class TheInnerCursedPyramid extends Zone {
             this.ClickTravelButton(TheInnerCursedPyramidLeaf, delay +
                 extradelay)
         } Else {
-            Log(
+            Out.I(
                 "The Inner Cursed Pyramid leaf not found while trying to travel."
             )
         }
@@ -64,10 +64,10 @@ Class TheInnerCursedPyramid extends Zone {
         ; Button to travel to The Inner Cursed Pyramid
         ;Button := Points.Areas.LeafG.TheInnerCursedPyramid
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Inner Cursed Pyramid travel: Button not found.")
+            Out.I("The Inner Cursed Pyramid travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

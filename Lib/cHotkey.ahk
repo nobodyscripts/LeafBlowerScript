@@ -22,7 +22,7 @@ ConvertLayoutToCode(KeyboardLayout) {
         Case "0x8090809": ; UK
             Return "EN-GB"
         default:
-            Log("New keyboard layout needs adding: " KeyboardLayout)
+            Out.I("New keyboard layout needs adding: " KeyboardLayout)
             Return "EN-GB"
     }
 }

@@ -18,14 +18,14 @@ Global ArtifactSleepAmount := 1
 Global settings := cSettings()
 settings.initSettings(true)
 
-Log("Secondary: GFSS Boss Started")
+Out.I("Secondary: GFSS Boss Started")
 
 fGFSSBoss()
 fGFSSBoss() {
     startTime := A_Now
     Loop {
         If (!Window.Exist()) {
-            Log("Secondary: GFSS Spammer exiting as no game.")
+            Out.I("Secondary: GFSS Spammer exiting as no game.")
             Return
         }
         If (!Window.IsActive()) {

@@ -528,7 +528,7 @@ Class cTravel {
         this.ClosePanelIfActive()
         action() ; Open location in func
         Sleep(NavTime)
-        VerboseLog("Panel opened " BinaryToStr(Window.IsPanel()))
+        Out.V("Panel opened " BinaryToStr(Window.IsPanel()))
         i := 0
         While (!test() && i <= 4) {
             action() ; Open location in func
@@ -548,15 +548,15 @@ Class cTravel {
         If (NavTime < 72) {
             NavTime := 72
         }
-        VerboseLog("Resetting panel scroll")
+        Out.V("Resetting panel scroll")
         ; Click tab
         If (Button1.IsButtonActive()) {
             Button1.ClickOffset(, , NavTime)
             Sleep(NavTime)
         } Else {
-            DebugLog("Reset panel scroll did not find an active button.")
-            VerboseLog(Button1.toStringWColour())
-            StackLog()
+            Out.D("Reset panel scroll did not find an active button.")
+            Out.V(Button1.toStringWColour())
+            Out.S()
             Return false
         }
         ; Click Back to reset the scroll
@@ -568,8 +568,8 @@ Class cTravel {
             Sleep(NavTime)
             Return true
         } Else {
-            DebugLog("Button 2 inactive on resetscroll")
-            VerboseLog(Button2.toStringWColour())
+            Out.D("Button 2 inactive on resetscroll")
+            Out.V(Button2.toStringWColour())
         }
         Return false
     }
@@ -621,7 +621,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenAreas(reset := false, delay := 0) {
-        VerboseLog("Openareas")
+        Out.V("Openareas")
         active := this._OpenAny(GameKeys.OpenAreas.Bind(GameKeys), Window.IsPanel
             .Bind(Window), delay)
         If (reset && active) {
@@ -764,7 +764,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenGemShop(reset := false, delay := 0) {
-        VerboseLog("OpenGemShop")
+        Out.V("OpenGemShop")
         active := this._OpenAny(GameKeys.OpenGemShop.Bind(GameKeys), Window.IsPanel
             .Bind(Window), delay)
         If (reset && active) {
@@ -794,7 +794,7 @@ Class cTravel {
      */
     OpenTrades(delay := 0) {
         ; No tabs so no reset
-        VerboseLog("OpenTrades")
+        Out.V("OpenTrades")
         Return this._OpenAny(GameKeys.OpenTrades.Bind(GameKeys), Window.IsPanel
             .Bind(Window), delay)
     }
@@ -808,7 +808,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenPets(reset := false, delay := 0) {
-        VerboseLog("OpenPets")
+        Out.V("OpenPets")
         active := this._OpenAny(GameKeys.OpenPets.Bind(GameKeys), Window.IsPanel
             .Bind(Window), delay)
         If (reset && active) {
@@ -836,7 +836,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenBank(delay := 0) {
-        VerboseLog("OpenBank")
+        Out.V("OpenBank")
         Return this._OpenAny(GameKeys.OpenBank.Bind(GameKeys), Window.IsPanel.Bind(
             Window), delay)
     }
@@ -851,7 +851,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenBorbVentures(reset := false, delay := 0) {
-        VerboseLog("OpenBorbVentures")
+        Out.V("OpenBorbVentures")
         active := this._OpenAny(GameKeys.OpenBorbVentures.Bind(GameKeys),
             Window.IsPanel.Bind(Window), delay)
         If (reset && active) {
@@ -866,8 +866,8 @@ Class cTravel {
      * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      */
     ResetBorbVScroll(delay := 0) {
-        Log(Points.Borbventures.BorbsTab.toStringWColour())
-        Log(Points.Borbventures.BVTab.toStringWColour())
+        Out.I(Points.Borbventures.BorbsTab.toStringWColour())
+        Out.I(Points.Borbventures.BVTab.toStringWColour())
         Return this.ResetScroll(Points.Borbventures.BorbsTab, Points.Borbventures
             .BVTab, delay)
     }
@@ -887,10 +887,10 @@ Class cTravel {
             i++
         }
         If (this.IsBorbVFirstTab()) {
-            DebugLog("Travel success to Borbventures First Tab.")
+            Out.D("Travel success to Borbventures First Tab.")
             Return true
         }
-        Log("Failed to travel to borbventures first tab")
+        Out.I("Failed to travel to borbventures first tab")
         Return false
     }
 
@@ -907,7 +907,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenCards(reset := false, delay := 0) {
-        VerboseLog("OpenCards")
+        Out.V("OpenCards")
         active := this._OpenAny(GameKeys.OpenCards.Bind(GameKeys), Window.IsPanel
             .Bind(Window), delay)
         If (reset && active) {
@@ -924,7 +924,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenAlchemy(reset := false, delay := 0) {
-        VerboseLog("OpenAlchemy")
+        Out.V("OpenAlchemy")
         active := this._OpenAny(GameKeys.OpenAlchemy.Bind(GameKeys), Window.IsPanel
             .Bind(Window), delay)
         If (reset && active) {
@@ -945,7 +945,7 @@ Class cTravel {
             If (this.OpenAlchemy(reset, delay)) {
                 Sleep(NavigateTime)
                 If (Points.Brew.Tab1.Nav.IsButtonActive()) {
-                    VerboseLog("Clicking alchemy general tab")
+                    Out.V("Clicking alchemy general tab")
                     Points.Brew.Tab1.Nav.Click(NavigateTime)
                     Sleep(NavigateTime)
                 }
@@ -977,7 +977,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenCrafting(reset := false, delay := 0) {
-        VerboseLog("OpenCrafting")
+        Out.V("OpenCrafting")
         active := this._OpenAny(GameKeys.OpenCrafting.Bind(GameKeys), Window.IsPanel
             .Bind(Window), delay)
         If (reset && active) {
@@ -993,7 +993,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenMining(reset := false, delay := 0) {
-        VerboseLog("OpenMining")
+        Out.V("OpenMining")
         active := this._OpenAny(GameKeys.OpenMining.Bind(GameKeys), Window.IsPanel
             .Bind(Window), delay)
         If (reset && active) {
@@ -1010,7 +1010,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenGoldPortal(delay := 0) {
-        VerboseLog("OpenGoldPortal")
+        Out.V("OpenGoldPortal")
         active := this._OpenAny(GameKeys.OpenGoldPortal.Bind(GameKeys), Window.IsPanel
             .Bind(Window), delay)
         Return active
@@ -1024,7 +1024,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenSettings(reset := false) {
-        VerboseLog("OpenSettings")
+        Out.V("OpenSettings")
         this.ClosePanelIfActive()
         GameKeys.ClosePanel()
         If (reset) {

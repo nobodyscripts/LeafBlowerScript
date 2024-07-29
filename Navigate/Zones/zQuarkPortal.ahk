@@ -36,7 +36,7 @@ Class QuarkPortal extends Zone {
         If (QuarkPortalLeaf) {
             this.ClickTravelButton(QuarkPortalLeaf, delay + extradelay)
         } Else {
-            Log("Quark Portal leaf not found while trying to travel.")
+            Out.I("Quark Portal leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class QuarkPortal extends Zone {
         ; Button to travel to Quark Portal
         ;Button := Points.Areas.SoulR.QuarkPortal
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Quark Portal travel: Button not found.")
+            Out.I("Quark Portal travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

@@ -36,7 +36,7 @@ Class TheHiddenSea extends Zone {
         If (TheHiddenSeaLeaf) {
             this.ClickTravelButton(TheHiddenSeaLeaf, delay + extradelay)
         } Else {
-            Log("The Hidden Sea leaf not found while trying to travel.")
+            Out.I("The Hidden Sea leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheHiddenSea extends Zone {
         ; Button to travel to The Hidden Sea
         ;Button := Points.Areas.LeafG.TheHiddenSea
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Hidden Sea travel: Button not found.")
+            Out.I("The Hidden Sea travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

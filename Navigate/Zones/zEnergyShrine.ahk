@@ -36,7 +36,7 @@ Class EnergyShrine extends Zone {
         If (EnergyShrineLeaf) {
             this.ClickTravelButton(EnergyShrineLeaf, delay + extradelay)
         } Else {
-            Log("Energy Shrine leaf not found while trying to travel.")
+            Out.I("Energy Shrine leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class EnergyShrine extends Zone {
         ; Button to travel to Energy Shrine
         ;Button := Points.Areas.EnergyB.EnergyShrine
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Energy Shrine travel: Button not found.")
+            Out.I("Energy Shrine travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

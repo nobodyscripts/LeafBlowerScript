@@ -36,7 +36,7 @@ Class BlackLeafHole extends Zone {
         If (BlackLeafHoleLeaf) {
             this.ClickTravelButton(BlackLeafHoleLeaf, delay + extradelay)
         } Else {
-            Log("Black Leaf Hole leaf not found while trying to travel.")
+            Out.I("Black Leaf Hole leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class BlackLeafHole extends Zone {
         ; Button to travel to Black Leaf Hole
         ;Button := Points.Areas.LeafG.BlackLeafHole
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Black Leaf Hole travel: Button not found.")
+            Out.I("Black Leaf Hole travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

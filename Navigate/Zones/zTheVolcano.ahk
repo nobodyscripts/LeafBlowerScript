@@ -36,7 +36,7 @@ Class TheVolcano extends Zone {
         If (TheVolcanoLeaf) {
             this.ClickTravelButton(TheVolcanoLeaf, delay + extradelay)
         } Else {
-            Log("The Volcano leaf not found while trying to travel.")
+            Out.I("The Volcano leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheVolcano extends Zone {
         ; Button to travel to The Volcano
         ;Button := Points.Areas.LeafG.TheVolcano
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Volcano travel: Button not found.")
+            Out.I("The Volcano travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

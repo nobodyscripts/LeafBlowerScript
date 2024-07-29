@@ -36,7 +36,7 @@ Class YourHouse extends Zone {
         If (YourHouseLeaf) {
             this.ClickTravelButton(YourHouseLeaf, delay + extradelay)
         } Else {
-            Log("Your House leaf not found while trying to travel.")
+            Out.I("Your House leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class YourHouse extends Zone {
         ; Button to travel to Your House
         ;Button := Points.Areas.LeafG.YourHouse
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("Your House travel: Button not found.")
+            Out.I("Your House travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

@@ -17,7 +17,7 @@ fClawFarm() {
             Return ; Kill if no game
         }
         If (!Window.IsPanel()) {
-            Log("Claw: Did not find panel. Aborted. ")
+            Out.I("Claw: Did not find panel. Aborted. ")
             Return
         }
         TargetX := ClawGetLocation("0x505558")
@@ -79,7 +79,7 @@ ClawGetHookLocation(ScreenX) {
             Return OutX ; Found colour
         }
     } Catch As exc {
-        Log("Claw: ClawGetHookLocation search failed - " exc.Message)
+        Out.I("Claw: ClawGetHookLocation search failed - " exc.Message)
         MsgBox("Could not conduct the search due to the following error:`n" exc
             .Message)
     }
@@ -98,7 +98,7 @@ ClawCheck(TargetX, offset := 0, delay := 0) {
     If (IsClawAboveLocation(TargetX - Window.RelW(offset)) && TargetX != 0) {
         Sleep(delay)
         GameKeys.RefreshTrades()
-        Log("Trying to catch, Offset " offset " Delay " delay " X " TargetX -
+        Out.I("Trying to catch, Offset " offset " Delay " delay " X " TargetX -
             Window.RelW(offset))
         Return true
     }

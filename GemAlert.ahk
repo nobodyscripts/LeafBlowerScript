@@ -28,7 +28,7 @@ GemAlert() {
         localClosePanel()
         Sleep(NavigateTime)
     }
-    Log("Opening Mine")
+    Out.I("Opening Mine")
     localOpenMining()
     Sleep(NavigateTime)
     Loop {
@@ -37,7 +37,7 @@ GemAlert() {
         }
         If (Window.IsActive()) {
             If (!Window.IsPanel()) {
-                Log("Opening Mine 2 " Window.IsPanel())
+                Out.I("Opening Mine 2 " Window.IsPanel())
                 localOpenMining()
                 Sleep(NavigateTime)
             } Else {

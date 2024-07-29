@@ -36,7 +36,7 @@ Class TheDoomedTree extends Zone {
         If (TheDoomedTreeLeaf) {
             this.ClickTravelButton(TheDoomedTreeLeaf, delay + extradelay)
         } Else {
-            Log("The Doomed Tree leaf not found while trying to travel.")
+            Out.I("The Doomed Tree leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class TheDoomedTree extends Zone {
         ; Button to travel to The Doomed Tree
         ;Button := Points.Areas.Events.TheDoomedTree
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("The Doomed Tree travel: Button not found.")
+            Out.I("The Doomed Tree travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

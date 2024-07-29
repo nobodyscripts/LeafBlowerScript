@@ -17,13 +17,13 @@ Global ArtifactSleepAmount := 1
 Global settings := cSettings()
 settings.initSettings(true)
 
-Log("Secondary: Tower Passive Started")
+Out.I("Secondary: Tower Passive Started")
 
 fTowerPassiveSpammer()
 fTowerPassiveSpammer() {
     Loop {
         If (!Window.Exist()) {
-            Log("Secondary: Tower Passive Spammer exiting as no game.")
+            Out.I("Secondary: Tower Passive Spammer exiting as no game.")
             Return
         }
         If (!Window.IsActive()) {

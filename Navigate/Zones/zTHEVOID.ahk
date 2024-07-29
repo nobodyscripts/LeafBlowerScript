@@ -36,7 +36,7 @@ Class THEVOID extends Zone {
         If (THEVOIDLeaf) {
             this.ClickTravelButton(THEVOIDLeaf, delay + extradelay)
         } Else {
-            Log("THE VOID leaf not found while trying to travel.")
+            Out.I("THE VOID leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -61,10 +61,10 @@ Class THEVOID extends Zone {
         ; Button to travel to THE VOID
         ;Button := Points.Areas.LeafG.THEVOID
         Button := cPoint()
-        DebugLog("Zone travel button colour " Button.GetColour())
+        Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Log("THE VOID travel: Button not found.")
+            Out.I("THE VOID travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }
