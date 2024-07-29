@@ -10,6 +10,10 @@ Global ActiveGameSettingsPath := GameSaveDir "options.dat"
 Global DisableSettingsChecks := false
 Global TimestampLogs := true
 
+If (!IsSet(EnableLogging)) {
+    Global EnableLogging := true
+}
+
 If (!IsSet(Debug)) {
     Global Debug := true
 }
@@ -23,19 +27,11 @@ If (!IsSet(IsSecondary)) {
     Global IsSecondary := false
 }
 
-/* Global ScriptsLogFile, EnableLogging */
-
 /** @type {cLog} Global cLog object
  * Using Out instead of Log as thats taken by a func
  */
 Global Out := cLog(ScriptsLogFile, true, 3)
 
-If (!IsSet(Debug)) {
-    Global Debug := true
-}
-If (!IsSet(Verbose)) {
-    Global Verbose := true
-}
 /**
  * @type {cGameWindow} Game window class global
  */

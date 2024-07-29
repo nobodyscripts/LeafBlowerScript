@@ -76,6 +76,6 @@ GameKeys.Hotkeys["EquipTowerGearLoadout"] := cHotkey("EquipTowerGearLoadout",
     Map("EN-US", "Numpad3", "EN-GB", "Numpad3", "Other", "Numpad3"), "Loadouts"
 )
 
-If (IsSet(DisableGameKeysInit)) {
+If (!IsSet(DisableGameKeysInit)) {
     GameKeys.initHotkeys(IsSecondary)
 }

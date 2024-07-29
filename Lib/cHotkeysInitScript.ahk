@@ -69,6 +69,6 @@ Scriptkeys.Hotkeys["TowerPassive"] := cHotkey("TowerPassive", Map("EN-US",
 Scriptkeys.Hotkeys["Leafton"] := cHotkey("Leafton", Map("EN-US", "PgDn",
     "EN-GB", "PgDn", "Other", "PgDn"), "Default")
 
-If (IsSet(DisableScriptKeysInit)) {
+If (!IsSet(DisableScriptKeysInit)) {
     Scriptkeys.initHotkeys(IsSecondary)
 }

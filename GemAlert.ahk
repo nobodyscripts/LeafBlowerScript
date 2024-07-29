@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0
 
+Global ScriptsLogFile := A_ScriptDir "\GemAlert.Log"
+Global NavigateTime := 150
+Global IsSecondary := false
+Global DisableScriptKeysInit := true
+
 #Include Lib\hGlobals.ahk
 #Include Lib\cPoints.ahk
 #Include Lib\Functions.ahk
@@ -7,9 +12,6 @@
 #Include Lib\ScriptSettings.ahk
 #Include Lib\cGameWindow.ahk
 
-Global ScriptsLogFile := A_ScriptDir "\GemAlert.Log"
-Global NavigateTime := 150
-Global IsSecondary := false
 
 GemAlert()
 
@@ -25,11 +27,11 @@ GemAlert() {
     Window.Activate()
     Sleep(NavigateTime)
     If (Window.IsPanel()) {
-        localClosePanel()
+        GameKeys.ClosePanel()
         Sleep(NavigateTime)
     }
     Out.I("Opening Mine")
-    localOpenMining()
+    GameKeys.OpenMining()
     Sleep(NavigateTime)
     Loop {
         If (!Window.Exist()) {
@@ -38,7 +40,7 @@ GemAlert() {
         If (Window.IsActive()) {
             If (!Window.IsPanel()) {
                 Out.I("Opening Mine 2 " Window.IsPanel())
-                localOpenMining()
+                GameKeys.OpenMining()
                 Sleep(NavigateTime)
             } Else {
                 FindVeinsWithBars2()
@@ -68,12 +70,4 @@ FindVeinsWithBars2() {
     }
     CoordMode("Pixel", "Client")
     Return
-}
-
-localOpenMining() {
-    ControlSend("{l}", , Window.Title)
-}
-
-localClosePanel() {
-    ControlSend("{Esc}", , Window.Title)
 }
