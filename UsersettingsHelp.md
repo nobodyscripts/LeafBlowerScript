@@ -27,6 +27,9 @@ incorrect settings. So if things are not configured correctly they will break.
 TimestampLogs: (Default) true  
 Allows removal of timestamps in logging.
 
+LogBuffer: (Default) true  
+Reduces disk writes by storing logs in a buffer and writing several at once.
+
 ## Check For Updates
 
 CheckForUpdatesEnable: (Default) true  

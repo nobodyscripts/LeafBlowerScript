@@ -11,6 +11,7 @@ Global Debug := false
 Global Verbose := false
 Global DisableZoneChecks := DisableSettingsChecks := false
 Global TimestampLogs := true
+Global LogBuffer
 
 Global BossFarmUsesWind := BossFarmUsesWobblyWings := BossFarmUsesSeeds :=
     false
@@ -229,6 +230,8 @@ Class cSettings {
         this.Map["Debug"] := singleSetting("Debug", false, true, "bool",
             "Debug")
         this.Map["Verbose"] := singleSetting("Verbose", false, true, "bool",
+            "Debug")
+        this.Map["LogBuffer"] := singleSetting("LogBuffer", true, true, "bool",
             "Debug")
         this.Map["NavigateTime"] := singleSetting("NavigateTime", 101, 101,
             "int", "Default")
@@ -453,7 +456,7 @@ Class cSettings {
         Global EnableLogging := false
         Global Debug := false
         Global Verbose := false
-        Global TimestampLogs
+        Global TimestampLogs, LogBuffer
 
         Global CheckForUpdatesEnable, CheckForUpdatesReleaseOnly,
             CheckForUpdatesLastCheck

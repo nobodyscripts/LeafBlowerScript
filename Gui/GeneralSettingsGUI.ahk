@@ -3,7 +3,7 @@
 
 Button_Click_GeneralSettings(thisGui, info) {
     Global settings, EnableLogging, NavigateTime, DisableZoneChecks,
-        DisableSettingsChecks, TimestampLogs, Debug, Verbose
+        DisableSettingsChecks, TimestampLogs, Debug, Verbose, LogBuffer
 
     settingsGUI := Gui(, "General Settings")
     settingsGUI.Opt("+Owner +MinSize +MinSize500x")
@@ -28,6 +28,13 @@ Button_Click_GeneralSettings(thisGui, info) {
             "Enable Verbose Logging (Warn: Logs will fill quickly)")
     } Else {
         settingsGUI.Add("CheckBox", "vVerbose cff0000", "Enable Verbose Logging (Warn: Logs will fill quickly)")
+    }
+
+    If (LogBuffer = true) {
+        settingsGUI.Add("CheckBox", "vLogBuffer ccfcfcf checked",
+            "Enable Log Buffer (Reduce disk writes)")
+    } Else {
+        settingsGUI.Add("CheckBox", "vLogBuffer ccfcfcf", "Enable Log Buffer (Reduce disk writes)")
     }
 
     If (TimestampLogs = true) {
@@ -107,7 +114,9 @@ Button_Click_GeneralSettings(thisGui, info) {
         TimestampLogs := values.TimestampLogs
         Debug := values.Debug
         Verbose := values.Verbose
+        LogBuffer := values.LogBuffer
         settings.SaveCurrentSettings()
+        UpdateDebugLevel()
     }
 
     CloseUserGeneralSettings(*) {

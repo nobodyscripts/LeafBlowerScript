@@ -22,6 +22,10 @@ If (!IsSet(Verbose)) {
     Global Verbose := true
 }
 
+If (!IsSet(LogBuffer)) {
+    Global LogBuffer := true
+}
+
 If (!IsSet(IsSecondary)) {
     ; If not set, assume temp testing script
     Global IsSecondary := false

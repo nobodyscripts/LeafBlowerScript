@@ -12,7 +12,10 @@ Deprecated() {
  * Used in cSettings.initSettings after load of settings
  */
 UpdateDebugLevel() {
-    Global EnableLogging, Debug, Verbose
+    Global EnableLogging, Debug, Verbose, LogBuffer, Out
+    ; If buffer setting has changed, remake class so that handle can be created
+    Out.SetBuffer(LogBuffer)
+
     If (FileExist(A_ScriptDir "\IsNobody")) {
         Out.DebugLevel := 3
         Out.I("Set debug output to full.")
@@ -92,24 +95,32 @@ Class cLog {
         this.DebugLevel := DebugLevel
         this._Buffer := UseBuffer
         If (this._Buffer) {
-            Try {
-                this._FileHandle := FileOpen(this.FileName, "a-d")
-                OutputDebug("Logging to " this.FileName "`r`n")
-            } Catch (Error) {
-                MsgBox("Could not open " this.FileName " to write logs to.`r`n"
-                )
-                OutputDebug("Could not open " this.FileName " to write logs to.`r`n"
-                )
-            }
+            this._OpenHandle()
         }
         ; Repeatedly flush the file every 5 seconds to avoid buffering for long
         ;SetTimer(this._FlushFile.Bind(this), 1000)
     }
 
     __Delete() {
+        this._CloseHandle()
+    }
+
+    _OpenHandle() {
+        Try {
+            this._FileHandle := FileOpen(this.FileName, "a-d")
+            OutputDebug("Logging to " this.FileName "`r`n")
+        } Catch (Error) {
+            MsgBox("Could not open " this.FileName " to write logs to.`r`n")
+            OutputDebug("Could not open " this.FileName " to write logs to.`r`n"
+            )
+        }
+    }
+
+    _CloseHandle() {
         If (Type(this._FileHandle) = File) {
             this._FileHandle.Close()
         }
+        this._FileHandle := false
     }
 
     ;@region _FlushFile()
@@ -123,23 +134,31 @@ Class cLog {
             }
         }
         this._FileLock := true
-        If (Type(this._FileHandle) = File) {
-            Try {
-                Sleep(3)
-                this._FileHandle.Close()
-                this._FileHandle := FileOpen(this.FileName, "a-d")
-                Sleep(3)
-            } Catch (Error) {
-                MsgBox("Could not reopen " this.FileName " to write logs to.`r`n"
-                )
-                OutputDebug("Could not reopen " this.FileName " to write logs to.`r`n"
-                )
-            }
-        }
+        Sleep(3)
+        this._CloseHandle()
+        Sleep(10)
+        this._OpenHandle()
+        Sleep(3)
         this._FileLock := false
     }
     ;@endregion
 
+    ;@region SetBuffer(LogBuffer)
+    /**
+     * Description
+     */
+    SetBuffer(LogBuffer) {
+        this._Buffer := LogBuffer
+        If (LogBuffer) {
+            this._OpenHandle()
+            this.I("Log set to buffer mode")
+        } Else {
+            this._CloseHandle()
+            Sleep(15)
+            this.I("Log set to instant mode")
+        }
+    }
+    ;@endregion
     ;@region _OutputOut.I()
     /**
      * Output message to log of whatever debug level requires output
@@ -168,7 +187,7 @@ Class cLog {
             time := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec)
             logmessage := time ' ' logmessage
         }
-        OutputDebug(logmessage "`r`n")
+        OutputDebug(logmessage)
         If (this.DebugLevel < 0 || !this._FileHandle) {
             Return
         }
@@ -178,21 +197,18 @@ Class cLog {
                 this._FileHandle.WriteLine(logmessage)
                 this._FileLock := false
             } Else {
-                OutputDebug(
-                    "Was trying to log but blocked on last message.`r`n")
+                OutputDebug("Was trying to log but blocked on last message.")
             }
         } Catch As exc {
             If (this.Timestamp) {
-                OutputDebug(time " LogError: Error writing to log - " exc.Message "`r`n"
-                )
+                OutputDebug(time " LogError: Error writing to log - " exc.Message)
                 Sleep(1)
                 this._FileHandle.WriteLine(logmessage)
                 Sleep(1)
                 this._FileHandle.WriteLine(time " LogError: Error writing to log - " exc
                     .Message)
             } Else {
-                OutputDebug("LogError: Error writing to log - " exc.Message "`r`n"
-                )
+                OutputDebug("LogError: Error writing to log - " exc.Message)
                 Sleep(1)
                 this._FileHandle.WriteLine(logmessage)
                 Sleep(1)
@@ -212,36 +228,27 @@ Class cLog {
             time := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec)
             logmessage := time ' ' logmessage
         }
-        OutputDebug(logmessage "`r`n")
+        OutputDebug(logmessage)
         If (this.DebugLevel < 0) {
             Return
         }
         Try {
             If (!this._FileLock) {
                 this._FileLock := true
-                FileAppend(logmessage, this.FileName)
+                this.LoopWrite(logmessage)
                 this._FileLock := false
             } Else {
-                OutputDebug(
-                    "Was trying to log but blocked on last message.`r`n")
+                OutputDebug("Was trying to log but blocked on last message.")
             }
         } Catch As exc {
             If (this.Timestamp) {
-                OutputDebug(time " LogError: Error writing to log - " exc.Message "`r`n"
-                )
-                Sleep(1)
-                FileAppend(logmessage, this.FileName)
-                Sleep(1)
-                FileAppend(time " LogError: Error writing to log - " exc.Message,
-                    this.FileName)
+                OutputDebug(time " LogError: Error writing to log - " exc.Message)
+                this.LoopWrite(logmessage)
+                this.LoopWrite(time " LogError: Error writing to log - " exc.Message)
             } Else {
-                OutputDebug("LogError: Error writing to log - " exc.Message "`r`n"
-                )
-                Sleep(1)
-                FileAppend(logmessage, this.FileName)
-                Sleep(1)
-                FileAppend("LogError: Error writing to log - " exc.Message,
-                    this.FileName)
+                OutputDebug("LogError: Error writing to log - " exc.Message)
+                this.LoopWrite(logmessage)
+                this.LoopWrite("LogError: Error writing to log - " exc.Message)
             }
         }
     }
@@ -370,4 +377,36 @@ Class cLog {
     }
     ;@endregion
     ;@endregion
+
+    LoopWrite(msg) {
+        written := false
+        While (!written) {
+            Sleep(1)
+            Try {
+                FileAppend(msg, this.FileName)
+            } Catch Error as err {
+                OutputDebug("Logging failure " err.Message " " err.Extra)
+                OutputDebug("Logging failure sending: " msg)
+                written := false
+            } else {
+                written := true
+            }
+        }
+    }
+}
+/* 
+DefProp := {}.DefineProp
+
+DefProp(Error.Base, "toString", {get: ErrorToString })
+DefProp(OSError.Base, "toString", {get: ErrorToString })
+
+ErrorToString(err) {
+    return err.Message " " err.Extra
+} */
+
+OutputDebug.DefineProp("Call", { Call: _OutputDebug })
+
+_OutputDebug(this, text) {
+    text := text "`r`n"
+    (Func.Prototype.Call)(this, text)
 }
