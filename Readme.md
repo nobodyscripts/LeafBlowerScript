@@ -252,6 +252,7 @@ borderless fullscreen
 
 - Features:
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.
+  - GemFarm: Add rotation to use timeskips, allowing L1 farming.
   - Borbv: Load dlc purchase state from save file and remove setting.
   - Claw: Needs to use artifact if need be / get replacement.
   - GFSS: Add setting for standalone WW in GFSS spammer.
