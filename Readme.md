@@ -218,6 +218,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added scroll brewing
   - Added bank storage setting to mine gui (shared with bank)
   - Fix brew transmuting fuel to coal diamonds unintentionally
+  - Extra check for vein removal being active
 
 - GFSS
 

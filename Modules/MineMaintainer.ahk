@@ -133,7 +133,12 @@ fMineMaintainer() {
                     EnhanceVeins()
                 }
             } Else {
-                Out.I("Mine: Vein tab click failed")
+                If (!VeinsTab.IsButton() && CancelConfirm.IsButtonActive()) {
+                    VeinCancelConfirm()
+                    Out.I("Mine: Found vein removal stuck, removed")
+                } Else {
+                    Out.I("Mine: Vein tab click failed")
+                }
             }
         }
         ;@endregion
