@@ -236,6 +236,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - Leafton
   - Added brewing with standalone settings
 
+- Cursed Cheese
+  - Fix for changed Events tab location
+
 ## TODO
 
 - Check settings from options.dat as bootup tests
@@ -250,8 +253,6 @@ borderless fullscreen
 - Automated challenges (early game scripts/TAS)
 - Convert borbventures gui to checkboxes for item selection  
 - Transmute and reset relics
-- Check out hyacinth farm
-- Check out cursed cheese
 
 - Features:
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.

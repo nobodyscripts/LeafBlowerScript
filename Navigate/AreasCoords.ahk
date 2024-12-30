@@ -149,7 +149,7 @@ Class cAreasQuarkAPoints {
  */
 Class cAreasEventsPoints {
     ; Tab for areas panel (Events)
-    Tab := cPoint(2006, 1164)
+    Tab := cPoint(2030, 1164)
     ; Button in Events for Cursed Halloween
     CursedHalloween := cPoint(1674, 329)
     ; Nature boss button location depends on events active
