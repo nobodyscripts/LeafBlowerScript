@@ -250,10 +250,13 @@ borderless fullscreen
 - Automated challenges (early game scripts/TAS)
 - Convert borbventures gui to checkboxes for item selection  
 - Transmute and reset relics
+- Check out hyacinth farm
+- Check out cursed cheese
 
 - Features:
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.
   - GemFarm: Add rotation to use timeskips, allowing L1 farming.
+  - GemFarm: Add check for ALB on state
   - Borbv: Load dlc purchase state from save file and remove setting.
   - Claw: Needs to use artifact if need be / get replacement.
   - GFSS: Add setting for standalone WW in GFSS spammer.

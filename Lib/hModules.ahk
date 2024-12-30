@@ -18,3 +18,4 @@
 #Include ..\Modules\MineMaintainer.ahk
 #Include ..\Modules\SuitcaseSpam.ahk
 #Include ..\Modules\QuickPrestige.ahk
+#Include ..\Modules\ShadowCrystalFight.ahk

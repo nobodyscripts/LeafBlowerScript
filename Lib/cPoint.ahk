@@ -361,6 +361,14 @@ Class cPoint {
     ToolTipAtCoord(id := 15) {
         ToolTip(" ", this.x, this.y, id)
     }
+    
+    /**
+     * Create blank tooltip at point with optional id
+     * @param {Integer} id 
+     */
+    TextTipAtCoord(text := " ", id := 15) {
+        ToolTip(text, this.x, this.y, id)
+    }
 
     /**
      * Clickoffset with loop that checks for specified colour, useful for 

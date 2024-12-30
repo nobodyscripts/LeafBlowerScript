@@ -56,6 +56,10 @@ Button_Click_PrestigeSpammer(thisGui, info) {
     fPrestigeSpammer()
 }
 
+Button_Click_ShadowCrystalFight(thisGui, info) {
+    Window.Activate()
+    fShadowCrystalFight()
+}
 
 RunGui() {
     Global Updater
@@ -149,6 +153,10 @@ RunGui() {
     MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("Leafton"))
     MyBtn := MyGui.Add("Button", "Default w120", "Leafton Mode")
     MyBtn.OnEvent("Click", Button_Click_Leafton)
+    
+    MyGui.Add("Text", "ccfcfcf", "Test (no keybind)")
+    MyBtn := MyGui.Add("Button", "Default w120", "Shadow Fight Test`n(Run)")
+    MyBtn.OnEvent("Click", Button_Click_ShadowCrystalFight)
 
     MyGui.Add("Text", "ccfcfcf", "Test (no keybind)")
     MyBtn := MyGui.Add("Button", "Default w120", "SuitcaseSpam Test`n(Run)")
