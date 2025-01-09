@@ -1,6 +1,6 @@
 # LBR Resolution independent scripts v3.1.3-Alpha
 
-Support and news: <https://discord.gg/xu8fXw4CQ8>
+Support and news: <https://discord.gg/YjE4jRtJqQ>
 
 Autohotkey V2 script, see Setup Guide below for installation help.
 

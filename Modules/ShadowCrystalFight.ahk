@@ -26,19 +26,19 @@ fShadowCrystalFight() {
         if (AttackBtn.IsButtonInactive() && RestBtn.IsButtonActive() && HealthMin.IsColour("0xFFFFFF")) {
             ; Need to revive
             Out.D("Reviving")
-            RestBtn.ClickOffset()
-            Sleep(NavigateTime)
+            RestBtn.ClickOffset(,,34)
+            Sleep(34)
         }
         if (HealthBuffer.IsColour("0xFFFFFF") || StaminaMin.IsColour("0xFFFFFF")) {
             Out.D("Resting")
-            RestBtn.ClickOffset()
-            Sleep(NavigateTime)
+            RestBtn.ClickOffset(,,34)
+            Sleep(34)
         }
         ; Attack
         if (AttackBtn.IsButtonActive() && HealthMin.IsColour("0xA11111") && HealthBuffer.IsColour("0xA11111")) {
             Out.D("Attacking")
-            AttackBtn.ClickOffset()
-            Sleep(NavigateTime)
+            AttackBtn.ClickOffset(,,17)
+            Sleep(17)
 
         }
     }
