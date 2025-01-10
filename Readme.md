@@ -239,6 +239,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - Cursed Cheese
   - Fix for changed Events tab location
 
+- Shadow Crystal Fight
+  - Added automatic fight feature
+
 ## TODO
 
 - Check settings from options.dat as bootup tests
@@ -253,6 +256,9 @@ borderless fullscreen
 - Automated challenges (early game scripts/TAS)
 - Convert borbventures gui to checkboxes for item selection  
 - Transmute and reset relics
+- Add check to IsAspectRatioCorrect for setting from options.dat if failed, 
+output colour found, suggest rtx dynamic vibrance off, image scaling off, 
+digital vibrance off
 
 - Features:
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.
