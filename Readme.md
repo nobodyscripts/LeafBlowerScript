@@ -239,6 +239,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - Cursed Cheese
   - Fix for changed Events tab location
 
+- Tower Passive
+  - Added option to disable travel so that mode can be used in non tower zones
+
 - Shadow Crystal Fight
   - Added automatic fight feature
 

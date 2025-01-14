@@ -7,7 +7,7 @@
  * Debug flag for DebugLog
  * @type {Bool}
  */
-Global Debug := false
+global Debug := false
 
 /**
  * Defines the resolution independant locations for pixel checks.  
@@ -55,7 +55,7 @@ Global Debug := false
  * @function ClientToScreencPoint Convert point xy to screenspace xy and return
  * new cPoint
  */
-Class cPoint {
+class cPoint {
     /**
      * If Window.W has a value returns relative coord
      * otherwise returns raw value
@@ -64,18 +64,18 @@ Class cPoint {
      */
     x {
         get {
-            If (this.relative && Window.W != 0) {
-                Return this._x / 2560 * Window.W
-            } Else {
-                If (Window.W = 0) {
+            if (this.relative && Window.W != 0) {
+                return this._x / 2560 * Window.W
+            } else {
+                if (Window.W = 0) {
                     Out.I("ERR: Window.W not set")
                 }
-                Return this._x
+                return this._x
             }
         }
         set {
             this._x := Value
-            Return this._x
+            return this._x
         }
     }
 
@@ -87,18 +87,18 @@ Class cPoint {
      */
     y {
         get {
-            If (this.relative && Window.H != 0) {
-                Return this._y / 1369 * Window.H
-            } Else {
-                If (Window.H = 0) {
+            if (this.relative && Window.H != 0) {
+                return this._y / 1369 * Window.H
+            } else {
+                if (Window.H = 0) {
                     Out.I("ERR: Window.H not set")
                 }
-                Return this._y
+                return this._y
             }
         }
         set {
             this._y := Value
-            Return this._y
+            return this._y
         }
     }
     /**
@@ -134,7 +134,7 @@ Class cPoint {
         this.x := x
         this.y := y
         this.relative := relative
-        Return this
+        return this
     }
 
     /**
@@ -143,12 +143,11 @@ Class cPoint {
      */
     IsButton() {
         targetColour := this.GetColour()
-        If (Colours().IsButton(targetColour)) {
-            Return true
+        if (Colours().IsButton(targetColour)) {
+            return true
         }
-        Out.V("cPoint.IsButton: " this.toStringDisplay() " is now " targetColour
-        )
-        Return false
+        ; Out.D("cPoint.IsButton: " this.toStringDisplay() " is now " targetColour)
+        return false
     }
 
     /**
@@ -157,13 +156,12 @@ Class cPoint {
      */
     IsButtonActive() {
         targetColour := this.GetColour()
-        If (Colours().IsButtonActive(targetColour)) {
-            Return true
+        if (Colours().IsButtonActive(targetColour)) {
+            return true
         }
-        Out.V("cPoint.IsButtonActive: " this.toStringDisplay() " is now " targetColour
-        )
+        ; Out.D("cPoint.IsButtonActive: " this.toStringDisplay() " is now " targetColour)
 
-        Return false
+        return false
     }
 
     /**
@@ -172,13 +170,12 @@ Class cPoint {
      */
     IsButtonInactive() {
         targetColour := this.GetColour()
-        If (Colours().IsButtonInactive(targetColour)) {
-            Return true
+        if (Colours().IsButtonInactive(targetColour)) {
+            return true
         }
-        Out.V("cPoint.IsButtonInactive: " this.toStringDisplay() " is now " targetColour
-        )
+        ; Out.D("cPoint.IsButtonInactive: " this.toStringDisplay() " is now " targetColour)
 
-        Return false
+        return false
     }
 
     /**
@@ -187,13 +184,12 @@ Class cPoint {
      */
     IsBackground() {
         targetColour := this.GetColour()
-        If (Colours().IsBackground(targetColour)) {
-            Return true
+        if (Colours().IsBackground(targetColour)) {
+            return true
         }
-        Out.V("cPoint.IsBackground: " this.toStringDisplay() " is now " targetColour
-        )
+        ; Out.D("cPoint.IsBackground: " this.toStringDisplay() " is now " targetColour)
 
-        Return false
+        return false
     }
 
     /**
@@ -202,13 +198,12 @@ Class cPoint {
      */
     IsButtonOffPanel() {
         targetColour := this.GetColour()
-        If (Colours().IsButtonOffPanel(targetColour)) {
-            Return true
+        if (Colours().IsButtonOffPanel(targetColour)) {
+            return true
         }
-        Out.V("cPoint.IsButtonOffPanel: " this.toStringDisplay() " is now " targetColour
-        )
+        ; Out.D("cPoint.IsButtonOffPanel: " this.toStringDisplay() " is now " targetColour)
 
-        Return false
+        return false
     }
 
     /**
@@ -216,15 +211,15 @@ Class cPoint {
      * @param {Integer} [clickdelay=34] Delay for mouseclick
      */
     Click(clickdelay := 34) {
-        If (!Window.IsActive()) {
+        if (!Window.IsActive()) {
             Out.I("No window found while trying to click at " this.x " * " this
                 .y)
-            Return false
+            return false
         }
         MouseClick("left", this.x, this.y, , , "D")
         Sleep(clickdelay)
         MouseClick("left", this.x, this.y, , , "U")
-        Out.V("Clicking at " this.toStringDisplay())
+        ; Out.D("Clicking at " this.toStringDisplay())
     }
 
     /**
@@ -236,15 +231,15 @@ Class cPoint {
      * @param {Integer} [clickdelay=34] Delay for mouseclick
      */
     ClickOffset(xOffset := 1, yOffset := 1, clickdelay := 34) {
-        If (!Window.IsActive()) {
+        if (!Window.IsActive()) {
             Out.I("No window found while trying to click at " this.x + xOffset " * " this
                 .y + yOffset)
-            Return false
+            return false
         }
         MouseClick("left", this.x + xOffset, this.y + yOffset, , , "D")
         Sleep(clickdelay)
         MouseClick("left", this.x + xOffset, this.y + yOffset, , , "U")
-        Out.V("Clicking at " this.toStringDisplay(xOffset, yOffset))
+        ; Out.D("Clicking at " this.toStringDisplay(xOffset, yOffset))
     }
 
     /**
@@ -259,12 +254,12 @@ Class cPoint {
      */
     ClickButtonActive(xOffset := 1, yOffset := 1, clickdelay := 34, sleepafter :=
         NavigateTime) {
-        If (this.IsButtonActive()) {
+        if (this.IsButtonActive()) {
             this.ClickOffset(, , clickdelay)
             Sleep(sleepafter)
-            Return true
+            return true
         }
-        Return false
+        return false
     }
 
     /**
@@ -276,25 +271,24 @@ Class cPoint {
         MouseMove(this.x, this.y, speed, relative)
     }
 
-
     MouseMoveInterpolateTo(speed := 50, sleepperiod := 17) {
         MouseGetPos(&startx, &starty)
         travelx := (this.x - startx) / 20
         travely := (this.y - starty) / 20
-        If (travely != 0 && travelx = 0) {
+        if (travely != 0 && travelx = 0) {
             travelx := (this.x - startx) / 10
             travely := (this.y - starty) / 10
             i := 1
-            Loop 10 {
+            loop 10 {
                 MouseMove(startx + (travelx * i), starty + (travely * i), speed
                 )
                 Sleep(sleepperiod)
                 i++
             }
-            Return
+            return
         }
         i := 1
-        Loop 20 {
+        loop 20 {
             MouseMove(startx + (travelx * i), starty + (travely * i), speed)
             Sleep(sleepperiod)
             i++
@@ -306,7 +300,7 @@ Class cPoint {
      * @returns {String} 
      */
     toString() {
-        Return "X: " this.x " Y: " this.y
+        return "X: " this.x " Y: " this.y
     }
 
     /**
@@ -314,7 +308,7 @@ Class cPoint {
      * @returns {String} 
      */
     toStringDisplay(xOffset := 0, yOffset := 0) {
-        Return "X: " Format("{:#.2f}", this.x + xOffset) " Y: " Format(
+        return "X: " Format("{:#.2f}", this.x + xOffset) " Y: " Format(
             "{:#.2f}", this.y + yOffset)
     }
 
@@ -323,7 +317,7 @@ Class cPoint {
      * @returns {String} 
      */
     toStringWColour() {
-        Return this.toStringDisplay() " is now " this.GetColour()
+        return this.toStringDisplay() " is now " this.GetColour()
     }
 
     /**
@@ -331,14 +325,14 @@ Class cPoint {
      * @returns {String} 
      */
     GetColour() {
-        Try {
+        try {
             fetchedColour := PixelGetColor(this.x, this.y)
-        } Catch As exc {
+        } catch as exc {
             Out.I("Error 36: GetColour check failed - " exc.Message)
             MsgBox("Could not GetColour due to the following error:`n" exc.Message
             )
         }
-        Return fetchedColour
+        return fetchedColour
     }
 
     /**
@@ -348,10 +342,10 @@ Class cPoint {
      */
     IsColour(colour) {
         fetchedColour := this.GetColour()
-        If (colour = fetchedColour) {
-            Return true
+        if (colour = fetchedColour) {
+            return true
         }
-        Return false
+        return false
     }
 
     /**
@@ -361,7 +355,7 @@ Class cPoint {
     ToolTipAtCoord(id := 15) {
         ToolTip(" ", this.x, this.y, id)
     }
-    
+
     /**
      * Create blank tooltip at point with optional id
      * @param {Integer} id 
@@ -385,16 +379,16 @@ Class cPoint {
     ClickOffsetWhileColour(colour, maxLoops := 20, offsetX := 1, offsetY := 1,
         delay := 54, interval := 50) {
         i := maxLoops
-        While (Window.IsActive() && this.IsColour(colour)) {
+        while (Window.IsActive() && this.IsColour(colour)) {
             this.ClickOffset(offsetX, offsetY, delay)
             Sleep(interval)
             i--
-            If (i = 0) {
-                Return false
+            if (i = 0) {
+                return false
             }
         }
-        Out.V("ClickOffsetWhileColour: " this.toStringWColour())
-        Return true
+        Out.D("ClickOffsetWhileColour: " this.toStringWColour())
+        return true
     }
 
     /**
@@ -412,17 +406,16 @@ Class cPoint {
     ClickOffsetUntilColour(colour, maxLoops := 20, offsetX := 1, offsetY := 1,
         delay := 54, interval := 50) {
         i := maxLoops
-        While (Window.IsActive() && !this.IsColour(colour)) {
+        while (Window.IsActive() && !this.IsColour(colour)) {
             this.ClickOffset(offsetX, offsetY, delay)
             Sleep(interval)
             i--
-            If (i = 0) {
-                Out.V("ClickOffsetUntilColour: Hit max clicks " this.toStringWColour()
-                )
-                Return false
+            if (i = 0) {
+                Out.D("ClickOffsetUntilColour: Hit max clicks " this.toStringWColour())
+                return false
             }
         }
-        Return true
+        return true
     }
 
     /**
@@ -435,18 +428,18 @@ Class cPoint {
      */
     WaitWhileColour(colour, maxLoops := 20, interval := 50) {
         i := maxLoops
-        While (Window.IsActive() && this.GetColour() = colour) {
+        while (Window.IsActive() && this.GetColour() = colour) {
             Sleep(interval)
             i--
-            If (i = 0) {
-                Break
+            if (i = 0) {
+                break
             }
         }
-        Out.V("WaitWhileColour: " this.toStringWColour())
-        If (this.GetColour() != colour) {
-            Return true
-        } Else {
-            Return false
+        Out.D("WaitWhileColour: " this.toStringWColour())
+        if (this.GetColour() != colour) {
+            return true
+        } else {
+            return false
         }
     }
 
@@ -460,18 +453,18 @@ Class cPoint {
      */
     WaitUntilColour(colour, maxLoops := 20, interval := 50) {
         i := maxLoops
-        While (Window.IsActive() && this.GetColour() != colour) {
+        while (Window.IsActive() && this.GetColour() != colour) {
             Sleep(interval)
             i--
-            If (i = 0) {
-                Break
+            if (i = 0) {
+                break
             }
         }
-        Out.V("WaitUntilColour: " this.toStringWColour())
-        If (this.GetColour() = colour) {
-            Return true
-        } Else {
-            Return false
+        Out.D("WaitUntilColour: " this.toStringWColour())
+        if (this.GetColour() = colour) {
+            return true
+        } else {
+            return false
         }
     }
 
@@ -485,16 +478,15 @@ Class cPoint {
      */
     GreedyModifierClick(sleeptime := 54, delay := 54, startAt := 25000) {
         AmountArr := ["25000", "2500", "1000", "250", "100", "25", "10", "1"]
-        If (!Window.IsActive() || !Window.IsPanel() || !this.IsButtonActive()) {
-            Return
+        if (!Window.IsActive() || !Window.IsPanel() || !this.IsButtonActive()) {
+            return
         }
-        For Amount in AmountArr {
-            If (Amount <= startAt) {
+        for Amount in AmountArr {
+            if (Amount <= startAt) {
                 AmountToModifier(Amount)
-                Out.V("GreedyModifierClick amount " Amount)
+                Out.D("GreedyModifierClick amount " Amount)
                 Sleep(NavigateTime)
-                While (Window.IsActive() && Window.IsPanel() && this.IsButtonActive()
-                ) {
+                while (Window.IsActive() && Window.IsPanel() && this.IsButtonActive()) {
                     this.ClickOffset(5, 5, delay)
                     Sleep(sleeptime)
                 }
@@ -512,7 +504,7 @@ Class cPoint {
         ptr := Buffer(8), NumPut("int", this.x, "int", this.y, ptr)
         DllCall("ClientToScreen", "ptr", hWnd, "ptr", ptr)
         sx := NumGet(ptr, 0, "int"), sy := NumGet(ptr, 4, "int")
-        Return [sx, sy]
+        return [sx, sy]
     }
 
     /**
@@ -525,6 +517,6 @@ Class cPoint {
         ptr := Buffer(8), NumPut("int", this.x, "int", this.y, ptr)
         DllCall("ClientToScreen", "ptr", WinExist(Window.Title), "ptr", ptr)
         sx := NumGet(ptr, 0, "int"), sy := NumGet(ptr, 4, "int")
-        Return cPoint(sx, sy, false)
+        return cPoint(sx, sy, false)
     }
 }

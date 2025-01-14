@@ -3,8 +3,8 @@
 #MaxThreadsPerHotkey 8
 #SingleInstance Force
 
-Global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
-Global IsSecondary := true
+global ScriptsLogFile := A_ScriptDir "\..\Secondaries.Log"
+global IsSecondary := true
 
 #Include ..\Lib\hGlobals.ahk
 #Include ..\Lib\ScriptSettings.ahk
@@ -13,29 +13,29 @@ Global IsSecondary := true
 #Include ..\Lib\Navigate.ahk
 #Include ..\Lib\cHotkeysInitGame.ahk
 
-Global ArtifactSleepAmount := 1
-Global settings := cSettings()
+global settings := cSettings()
 settings.initSettings(true)
 
 Out.I("Secondary: Tower Passive Started")
 
 fTowerPassiveSpammer()
 fTowerPassiveSpammer() {
-    Loop {
-        If (!Window.Exist()) {
+    loop {
+        if (!Window.Exist()) {
             Out.I("Secondary: Tower Passive Spammer exiting as no game.")
-            Return
+            return
         }
-        If (!Window.IsActive()) {
+        if (!Window.IsActive()) {
             Window.Activate()
-        } Else {
-            If (Travel.HomeGarden.IsAreaGarden()) {
+        } else {
+            if (Travel.HomeGarden.IsAreaGarden()) {
                 GoToLeafTower()
             }
-            If (!IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()) {
+            if (!IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()) {
                 GameKeys.TriggerBlazingSkull()
+                Sleep(17)
                 GameKeys.TriggerWind()
-                Sleep(ArtifactSleepAmount)
+                Sleep(17)
             }
         }
     }

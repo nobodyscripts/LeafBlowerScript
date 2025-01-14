@@ -297,6 +297,9 @@ Runs bank maintainer while using passive tower mode.
 TowerPassiveCraftEnabled: (Default) true  
 Runs crafting autoclicker while using passive tower mode.
 
+TowerPassiveTravelEnabled: (Default) true
+Travels to tower zone on start if enabled.
+
 ## Mine Maintainer
 
 MinerEnableVeins: (Default) true  
