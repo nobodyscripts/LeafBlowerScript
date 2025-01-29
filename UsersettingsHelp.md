@@ -386,6 +386,12 @@ Enable brewing of scrolls during brew usage in mine maintainer and boss farm.
 BrewEnableCardParts: (Default) true  
 Enable brewing of card parts during brew usage in mine maintainer and boss farm.
 
+## Shadow Crystal
+
+SCAdvanceReplace: (Default) true
+Enable replacement for the ingame auto advance feature, progresses on kill,
+if player dies level is lowered once and advance disables.
+
 ## Debug
 
 Debug: (Default) false  

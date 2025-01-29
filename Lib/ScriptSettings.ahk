@@ -6,60 +6,63 @@
 ; Loads UserSettings.ini values for the rest of the script to use
 
 ;@region Globals definition
-global EnableLogging := false
-global Debug := false
-global Verbose := false
-global DisableZoneChecks := DisableSettingsChecks := false
-global TimestampLogs := true
-global LogBuffer
+Global EnableLogging := false
+Global Debug := false
+Global Verbose := false
+Global DisableZoneChecks := DisableSettingsChecks := false
+Global TimestampLogs := true
+Global LogBuffer
 
-global BossFarmUsesWind := BossFarmUsesWobblyWings := BossFarmUsesSeeds :=
+Global BossFarmUsesWind := BossFarmUsesWobblyWings := BossFarmUsesSeeds :=
     false
-global ArtifactSleepAmount := WobblyWingsSleepAmount := 1
+Global ArtifactSleepAmount := WobblyWingsSleepAmount := 1
 
-global CheckForUpdatesEnable := true
-global CheckForUpdatesReleaseOnly := true
-global CheckForUpdatesLastCheck := 0
+Global CheckForUpdatesEnable := true
+Global CheckForUpdatesReleaseOnly := true
+Global CheckForUpdatesLastCheck := 0
 
-global CardsCommonAmount, CardsRareAmount, CardsLegendaryAmount,
+Global CardsCommonAmount, CardsRareAmount, CardsLegendaryAmount,
     CardsDontOpenCommons, CardsDontOpenRare, CardsDontOpenLegendary,
     CardsSleepAmount, CardsBuyEnabled, CardsBuyStyle, CardsCommonBuyAmount,
     CardsRareBuyAmount, CardsLegBuyAmount, CardsDontBuyCommons,
     CardsDontBuyRare, CardsDontBuyLeg, CardsSleepBuyAmount, CardsPermaLoop,
     CardsBossFarmEnabled, CardsGreedyOpen, CardsGreedyBuy
 
-global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
-global GemFarmSleepAmount
-global ClawCheckSizeOffset, ClawFindAny
-global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
-global NavigateTime
+Global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
+Global GemFarmSleepAmount
+Global ClawCheckSizeOffset, ClawFindAny
+Global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
+Global NavigateTime
 
-global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower, HyacinthUseSpheres,
+Global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower, HyacinthUseSpheres,
     HyacinthUseNextAvailableFlower, HyacinthBanksEnabled
 
-global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit,
+Global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit,
     BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit,
     BankRunsSpammer, BankDepositTime, BankEnableStorageUpgrade
 
-global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
+Global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
     LeaftonRunOnceEnabled, LeaftonEnableBrewing, LeaftonBrewCycleTime,
     LeaftonBrewCutOffTime
 
-global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled,
+Global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled,
     TowerPassiveTravelEnabled
 
-global MinerEnableVeins, MinerEnableTransmute, MinerEnableFreeRefuel,
+Global MinerEnableVeins, MinerEnableTransmute, MinerEnableFreeRefuel,
     MinerTransmuteTimer, MinerRefuelTimer, MinerEnableSpammer, MinerEnableBanks,
     MinerEnableVeinUpgrade, MinerEnableVeinRemoval, MinerEnableCaves,
     MinerCaveTimer, MinerEnableLeafton
-global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
+Global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
     MinerSphereTimer, MinerSphereGreedyUse, MinerSphereModifier,
     MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
     MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia
-global MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime
+Global MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime
 
-global BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
+Global BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
     BrewEnableScrolls, BrewEnableCardParts
+
+Global SCAdvanceReplace
+
 ;@endregion
 
 /**
@@ -74,7 +77,7 @@ global BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
  * @method SetCommaDelimStrToArr Set global of this.Name to an array of value
  * split by comma
  */
-class singleSetting {
+Class singleSetting {
     ;@region Properties
     /**
      * Name of the setting and global var name
@@ -122,7 +125,7 @@ class singleSetting {
         this.NobodyDefaultValue := iNobodyDefaultValue
         this.DataType := iDataType
         this.Category := iCategory
-        return this
+        Return this
     }
     ;@endregion
 
@@ -133,13 +136,13 @@ class singleSetting {
      * @returns {String | Integer | Any} 
      */
     ValueToString(value := %this.Name%) {
-        switch (StrLower(this.DataType)) {
-            case "bool":
-                return BinaryToStr(value)
-            case "arrborbv":
-                return ArrToCommaDelimStr(value)
-            default:
-                return value
+        Switch (StrLower(this.DataType)) {
+        Case "bool":
+            Return BinaryToStr(value)
+        Case "arrborbv":
+            Return ArrToCommaDelimStr(value)
+        default:
+            Return value
         }
     }
     ;@endregion
@@ -176,7 +179,7 @@ class singleSetting {
  * @method IniToVar Reads ini value for (name) in (section) from (file) and 
  * returns as string or Boolean
  */
-class cSettings {
+Class cSettings {
     ;@region Properties
     /**
      * Full file path to ini file for settings
@@ -209,7 +212,7 @@ class cSettings {
      * @returns {Boolean} 
      */
     initSettings(secondary := false) {
-        global Debug
+        Global Debug
 
         ;@region Settings map initialization
         this.Map := Map()
@@ -416,34 +419,37 @@ class cSettings {
             false, false, "bool", "Brew")
         this.Map["BrewEnableCardParts"] := singleSetting("BrewEnableCardParts",
             true, true, "bool", "Brew")
+        this.Map["SCAdvanceReplace"] := singleSetting("SCAdvanceReplace",
+            true, true, "bool", "ShadowCrystal")
+        
         ;@endregion
 
-        if (!secondary) {
-            if (FileExist(A_ScriptDir "\IsNobody")) {
+        If (!secondary) {
+            If (FileExist(A_ScriptDir "\IsNobody")) {
                 this.sUseNobody := true
                 Debug := true
                 Out.I("Settings: Using Nobody Defaults")
             }
-            if (!FileExist(this.sFilename)) {
+            If (!FileExist(this.sFilename)) {
                 Out.I("No UserSettings.ini found, writing default file.")
                 this.WriteDefaults(this.sUseNobody)
             }
-            if (this.loadSettings()) {
+            If (this.loadSettings()) {
                 UpdateDebugLevel()
                 Out.I("Loaded settings.")
-            } else {
-                return false
+            } Else {
+                Return false
             }
-            return true
-        } else {
+            Return true
+        } Else {
             this.sFilename := A_ScriptDir "\..\UserSettings.ini"
-            if (this.loadSettings()) {
+            If (this.loadSettings()) {
                 UpdateDebugLevel()
                 Out.I("Loaded settings.")
-            } else {
-                return false
+            } Else {
+                Return false
             }
-            return true
+            Return true
         }
     }
     ;@endregion
@@ -456,15 +462,15 @@ class cSettings {
      */
     loadSettings() {
         ;@region Globals
-        global EnableLogging := false
-        global Debug := false
-        global Verbose := false
-        global TimestampLogs, LogBuffer
+        Global EnableLogging := false
+        Global Debug := false
+        Global Verbose := false
+        Global TimestampLogs, LogBuffer
 
-        global CheckForUpdatesEnable, CheckForUpdatesReleaseOnly,
+        Global CheckForUpdatesEnable, CheckForUpdatesReleaseOnly,
             CheckForUpdatesLastCheck
 
-        global CardsCommonAmount, CardsRareAmount, CardsLegendaryAmount,
+        Global CardsCommonAmount, CardsRareAmount, CardsLegendaryAmount,
             CardsDontOpenCommons, CardsDontOpenRare, CardsDontOpenLegendary,
             CardsSleepAmount, CardsBuyEnabled, CardsBuyStyle,
             CardsCommonBuyAmount, CardsRareBuyAmount, CardsLegBuyAmount,
@@ -472,73 +478,75 @@ class cSettings {
             CardsSleepBuyAmount, CardsPermaLoop, CardsBossFarmEnabled,
             CardsGreedyOpen, CardsGreedyBuy
 
-        global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
-        global GemFarmSleepAmount
-        global ClawCheckSizeOffset, ClawFindAny
-        global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
-        global NavigateTime
-        global DisableZoneChecks, DisableSettingsChecks
-        global ArtifactSleepAmount
-        global BossFarmUsesWind, BossFarmUsesWobblyWings,
+        Global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
+        Global GemFarmSleepAmount
+        Global ClawCheckSizeOffset, ClawFindAny
+        Global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
+        Global NavigateTime
+        Global DisableZoneChecks, DisableSettingsChecks
+        Global ArtifactSleepAmount
+        Global BossFarmUsesWind, BossFarmUsesWobblyWings,
             WobblyWingsSleepAmount, BossFarmUsesSeeds
 
-        global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower,
+        Global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower,
             HyacinthUseSpheres, HyacinthUseNextAvailableFlower,
             HyacinthBanksEnabled
 
-        global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit,
+        Global BankEnableLGDeposit, BankEnableSNDeposit, BankEnableEBDeposit,
             BankEnableFFDeposit, BankEnableSRDeposit, BankEnableQADeposit,
             BankRunsSpammer, BankDepositTime, BankEnableStorageUpgrade
 
-        global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
+        Global LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
             LeaftonRunOnceEnabled, LeaftonEnableBrewing, LeaftonBrewCycleTime,
             LeaftonBrewCutOffTime
 
-        global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled,
+        Global TowerPassiveBanksEnabled, TowerPassiveCraftEnabled,
             TowerPassiveTravelEnabled
 
-        global MinerEnableVeins, MinerEnableTransmute, MinerEnableFreeRefuel,
+        Global MinerEnableVeins, MinerEnableTransmute, MinerEnableFreeRefuel,
             MinerTransmuteTimer, MinerRefuelTimer, MinerEnableSpammer,
             MinerEnableBanks, MinerEnableVeinUpgrade, MinerEnableVeinRemoval,
             MinerEnableCaves, MinerCaveTimer, MinerEnableLeafton
-        global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
+        Global MinerEnableSphereUse, MinerSphereDelay, MinerSphereCount,
             MinerSphereTimer, MinerSphereGreedyUse, MinerSphereModifier,
             MinerEnableTransmuteSdia, MinerEnableTransmuteFuel,
             MinerEnableTransmuteSphere, MinerEnableTransmuteSdiaToCDia
-        global MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime
+        Global MinerEnableBrewing, MinerBrewCycleTime, MinerBrewCutOffTime
 
-        global BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
+        Global BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
             BrewEnableScrolls, BrewEnableCardParts
+
+        Global SCAdvanceReplace
         ;@endregion
 
         this.UpdateSettings()
-        for (setting in this.Map) {
-            try {
-                if (this.Map[setting].Name != "BVItemsArr") {
+        For (setting in this.Map) {
+            Try {
+                If (this.Map[setting].Name != "BVItemsArr") {
                     %this.Map[setting].Name% := ;
                         this.IniToVar(this.Map[setting].Name, this.Map[setting]
                             .Category)
-                } else {
+                } Else {
                     ; special handling for the bv array
                     %this.Map[setting].Name% := CommaDelimStrToArr( ;
                         this.IniToVar(this.Map[setting].Name, this.Map[setting]
                             .Category))
                 }
-            } catch as exc {
-                if (exc.Extra) {
+            } Catch As exc {
+                If (exc.Extra) {
                     Out.I("Error 35: LoadSettings failed - " exc.Message "`n" exc
                         .Extra)
-                } else {
+                } Else {
                     Out.I("Error 35: LoadSettings failed - " exc.Message)
                 }
                 MsgBox("Could not load all settings, making new default " .
                     "UserSettings.ini")
                 Out.I("Attempting to write a new default UserSettings.ini.")
                 this.WriteDefaults(this.sUseNobody)
-                return false
+                Return false
             }
         }
-        return true
+        Return true
     }
     ;@endregion
 
@@ -547,16 +555,16 @@ class cSettings {
      * Adds missing settings using defaults if some settings don't exist
      */
     UpdateSettings() {
-        for (setting in this.Map) {
-            try {
+        For (setting in this.Map) {
+            Try {
                 test := this.IniToVar(this.Map[setting].Name, this.Map[setting]
                     .Category)
-            } catch {
-                if (!this.sUseNobody) {
+            } Catch {
+                If (!this.sUseNobody) {
                     this.WriteToIni(this.Map[setting].Name, this.Map[setting].ValueToString(
                         this.Map[setting].DefaultValue), this.Map[setting].Category
                     )
-                } else {
+                } Else {
                     this.WriteToIni(this.Map[setting].Name, this.Map[setting].ValueToString(
                         this.Map[setting].NobodyDefaultValue), this.Map[setting
                     ].Category)
@@ -572,14 +580,14 @@ class cSettings {
      * @param isnobody Flag for developer default settings
      */
     WriteDefaults(isnobody) {
-        if (isnobody) {
-            for (setting in this.Map) {
+        If (isnobody) {
+            For (setting in this.Map) {
                 this.WriteToIni(this.Map[setting].Name, this.Map[setting].ValueToString(
                     this.Map[setting].NobodyDefaultValue), this.Map[setting].Category
                 )
             }
-        } else {
-            for (setting in this.Map) {
+        } Else {
+            For (setting in this.Map) {
                 this.WriteToIni(this.Map[setting].Name, this.Map[setting].ValueToString(
                     this.Map[setting].DefaultValue), this.Map[setting].Category
                 )
@@ -593,7 +601,7 @@ class cSettings {
      * Save current Map to ini file converting to format safe for storage
      */
     SaveCurrentSettings() {
-        for (setting in this.Map) {
+        For (setting in this.Map) {
             this.WriteToIni(this.Map[setting].Name, ;
                 this.Map[setting].ValueToString(), this.Map[setting].Category)
         }
@@ -623,13 +631,13 @@ class cSettings {
      */
     IniToVar(name, section := this.sFileSection, file := this.sFilename) {
         var := IniRead(file, section, name)
-        switch var {
-            case "true":
-                return true
-            case "false":
-                return false
-            default:
-                return var
+        Switch var {
+        Case "true":
+            Return true
+        Case "false":
+            Return false
+        default:
+            Return var
         }
     }
     ;@endregion

@@ -105,6 +105,8 @@ CreateScriptHotkeys() {
     Hotkey("*" Scriptkeys.GetHotkey("CursedCheese"), fCursedCheeseStart)
     Hotkey("*" Scriptkeys.GetHotkey("TowerPassive"), fTowerPassiveStart)
     Hotkey("*" Scriptkeys.GetHotkey("Leafton"), fLeaftonStart)
+    Hotkey("*" Scriptkeys.GetHotkey("ShadowCrystal"), fShadowCrystalStart)
+    
 }
 
 fExitApp(*) {
@@ -526,6 +528,25 @@ fLeaftonStart(*) {
     } else {
         ToolTip(, , , 4)
         Out.I("PgDn: Resetting")
+        cReload()
+        return
+    }
+}
+
+
+fShadowCrystalStart(*) {
+    static on18 := false
+    Out.I("Numpad9: Pressed")
+    InitScriptHotKey()
+    if (on18 := !on18) {
+        if (!Window.Exist()) {
+            return
+        }
+        Out.I("Numpad9: Shadow Crystal Fight Activated")
+        fShadowCrystalFight()
+    } else {
+        ToolTip(, , , 4)
+        Out.I("Numpad9: Resetting")
         cReload()
         return
     }

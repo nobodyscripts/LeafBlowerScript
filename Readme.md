@@ -85,6 +85,10 @@ resets player to tower if found in home garden. Options for bank and crafting.
 will also do crafting, bank, wind for damage. Runonce mode for sweeping floors
 to improve max for milestones (suggest bank and crafting off when using).
 
+- Numpad9: Shadow Crystal Fight - Auto attacks, rests, revives and optionally
+advance levels. Requires user to open the Shadow Crystal window before
+activation and disable the in game auto features while using.
+
 ## Notes
 
 Sleep times might need adjusting for your pc, so increase them as needed if
@@ -244,6 +248,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 - Shadow Crystal Fight
   - Added automatic fight feature
+  - Replacement auto advance and reduce level on death
+  - Add hotkey (Numpad9) to activate
+  - Add setting to control auto advance replacement on/off
 
 ## TODO
 

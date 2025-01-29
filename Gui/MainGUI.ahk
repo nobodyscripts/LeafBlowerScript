@@ -16,6 +16,7 @@
 #Include LeaftonGUI.ahk
 #Include MineGUI.ahk
 #Include ScriptHotkeysGUI.ahk
+#Include ShadowCrystalGUI.ahk
 #Include TowerPassiveGUI.ahk
 
 Button_Click_Exit(*) {
@@ -54,11 +55,6 @@ Button_Click_SuitcaseSpam(thisGui, info) {
 Button_Click_PrestigeSpammer(thisGui, info) {
     Window.Activate()
     fPrestigeSpammer()
-}
-
-Button_Click_ShadowCrystalFight(thisGui, info) {
-    Window.Activate()
-    fShadowCrystalFight()
 }
 
 RunGui() {
@@ -154,15 +150,15 @@ RunGui() {
     MyBtn := MyGui.Add("Button", "Default w120", "Leafton Mode")
     MyBtn.OnEvent("Click", Button_Click_Leafton)
     
-    MyGui.Add("Text", "ccfcfcf", "Test (no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "Shadow Fight Test`n(Run)")
-    MyBtn.OnEvent("Click", Button_Click_ShadowCrystalFight)
+    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("ShadowCrystal"))
+    MyBtn := MyGui.Add("Button", "Default w120", "Shadow Crystal Fight")
+    MyBtn.OnEvent("Click", Button_Click_ShadowCrystal)
 
-    MyGui.Add("Text", "ccfcfcf", "Test (no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "SuitcaseSpam Test`n(Run)")
+    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "Default w120", "SuitcaseSpam LE Farm`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_SuitcaseSpam)
 
-    MyGui.Add("Text", "ccfcfcf", "Test (no keybind)")
+    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
     MyBtn := MyGui.Add("Button", "Default w120", "Gold Prestige Spam`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_PrestigeSpammer)
 
