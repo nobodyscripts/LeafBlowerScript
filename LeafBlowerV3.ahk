@@ -106,7 +106,6 @@ CreateScriptHotkeys() {
     Hotkey("*" Scriptkeys.GetHotkey("TowerPassive"), fTowerPassiveStart)
     Hotkey("*" Scriptkeys.GetHotkey("Leafton"), fLeaftonStart)
     Hotkey("*" Scriptkeys.GetHotkey("ShadowCrystal"), fShadowCrystalStart)
-    
 }
 
 fExitApp(*) {

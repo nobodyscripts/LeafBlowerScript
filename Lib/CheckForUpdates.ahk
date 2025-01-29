@@ -252,7 +252,7 @@ Class UpdateChecker {
     isUpdateCheckTimePassed() {
         Global CheckForUpdatesLastCheck, CheckForUpdatesLimiter
         If (this.LastCheckTime = 0 || DateDiff(this.LastCheckTime, A_Now,
-            "Hours") >= CheckForUpdatesLimiter) {
+            "Hours") <= CheckForUpdatesLimiter * -1) {
             CheckForUpdatesLastCheck := this.LastCheckTime := A_Now
 
             this.SaveCheckTime()

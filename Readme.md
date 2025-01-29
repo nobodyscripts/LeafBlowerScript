@@ -214,6 +214,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - GUI
   - Added second col for mine view to help those on lower resolutions
   - Added options to control Debug and Verbose in general settings
+  - Fix check for updates not triggering properly
 
 - Mine
   - Modified brew travel to be more stable.
@@ -266,8 +267,8 @@ borderless fullscreen
 - Automated challenges (early game scripts/TAS)
 - Convert borbventures gui to checkboxes for item selection  
 - Transmute and reset relics
-- Add check to IsAspectRatioCorrect for setting from options.dat if failed, 
-output colour found, suggest rtx dynamic vibrance off, image scaling off, 
+- Add check to IsAspectRatioCorrect for setting from options.dat if failed,
+output colour found, suggest rtx dynamic vibrance off, image scaling off,
 digital vibrance off
 
 - Features:
