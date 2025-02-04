@@ -19,6 +19,8 @@
 #Include ShadowCrystalGUI.ahk
 #Include TowerPassiveGUI.ahk
 
+#Include ULCTestGUI.ahk
+
 Button_Click_Exit(*) {
     fExitApp()
 }
@@ -161,6 +163,10 @@ RunGui() {
     MyGui.Add("Text", "ccfcfcf", "(no keybind)")
     MyBtn := MyGui.Add("Button", "Default w120", "Gold Prestige Spam`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_PrestigeSpammer)
+
+    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "Default w120", "ULC TEST")
+    MyBtn.OnEvent("Click", Button_Click_ULC)
 
     MyGui.Add("Text", "ccfcfcf", "")
     MyBtn := MyGui.Add("Button", "Default w120", "Edit Script Hotkeys")

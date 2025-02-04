@@ -26,7 +26,7 @@ Class SoulCrypt extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.SoulR.Tab.Click()
+        ;Points.Areas.SoulRealm.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class SoulCrypt extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to Soul Crypt
-        ;Button := Points.Areas.SoulR.SoulCrypt
+        ;Button := Points.Areas.SoulRealm.SoulCrypt
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

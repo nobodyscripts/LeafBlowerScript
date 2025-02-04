@@ -21,17 +21,18 @@ Class cZoneCards extends Zone {
      * @returns {Boolean} Is panel active
      */
     GoToPacks() {
-        return this._GoToArea(attempt, check, "Cards Packs Tab")
+        Return this._GoToArea(attempt, check, "Cards Packs Tab")
 
-        attempt() {
+        attempt(delay, scrolldelay := 0, extradelay := 0) {
             Travel.OpenCards(false)
-            If (Points.Cards.Packs.IsButtonActive()) {
-                Points.Cards.Packs.Click()
+            PacksBtn := Points.Card.Tab.Packs
+            If (PacksBtn.IsButtonActive()) {
+                PacksBtn.Click()
                 Sleep(NavigateTime)
             }
         }
-        check() {
-            return this.IsOnPacks()
+        check(name) {
+            Return this.IsOnPacks()
         }
     }
     ;@endregion
@@ -93,7 +94,7 @@ Class cZoneCards extends Zone {
     }
 
     GoToOptions() {
-        if(this.GoTo() && Points.Cards.Options.IsButtonActive()) {
+        If (this.GoTo() && Points.Cards.Options.IsButtonActive()) {
             Points.Card.Tab.Options.Click()
             Sleep(NavigateTime)
         }

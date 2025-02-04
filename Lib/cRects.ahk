@@ -16,11 +16,26 @@ Global Rects := cRects()
  * @property {cCaveRects} Mine.Cave
  */
 Class cRects {
+
+    /** @type {cAreasRects} Areas Rects */
     Areas := cAreasRects()
+    
+    /** @type {cBorbventuresRects} Borbventures Rects */
     Borbventures := cBorbventuresRects()
+    
+    /** @type {cClawRects} Claw Rects */
     Claw := cClawRects()
+    
+    /** @type {cGemFarmRects} GemFarm Rects */
     GemFarm := cGemFarmRects()
+    
+    /** @type {cMiscRects} Misc Rects */
     Misc := cMiscRects()
+    
+    /** @type {cMineRects} Mine Rects */
     Mine := cMineRects()
+    
+    /** @type {cCaveRects} Mine.Cave Rects */
     Mine.Cave := cCaveRects()
+    
 }

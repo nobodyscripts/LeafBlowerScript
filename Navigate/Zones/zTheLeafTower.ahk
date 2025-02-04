@@ -26,10 +26,10 @@ Class TheLeafTower extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.LeafG.Tab.Click()
-        ;Sleep(delay)
+        ;Points.Areas.LeafGalaxy.Tab.Click()
+        Sleep(delay)
         ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
+        this.ScrollAmountDown(22, scrolldelay)
         Sleep(delay + extradelay)
         ; Scanning by leaf
         Local TheLeafTowerLeaf := this.FindTheLeafTowerZone()
@@ -48,8 +48,10 @@ Class TheLeafTower extends Zone {
      */
     FindTheLeafTowerZone() {
         ; Change this if used
-        ;return Rects.LeafG.TheLeafTowerTravel.PixelSearch("0xFFFFFF")
-        Return true
+        /* Rects.Areas.LeafGalaxy.LeafTower.ToolTipAtArea()
+        Sleep(2000) */
+        Return Rects.Areas.LeafGalaxy.LeafTower.PixelSearch("0xC5D8E0")
+        ;Return true
     }
 
     /**
@@ -59,8 +61,8 @@ Class TheLeafTower extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to The Leaf Tower
-        ;Button := Points.Areas.LeafG.TheLeafTower
-        Button := cPoint()
+        ;Button := Points.Areas.LeafGalaxy.TheLeafTower
+        Button := cPoint(coord[1] + Window.RelW(60), coord[2], false)
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
@@ -68,4 +70,92 @@ Class TheLeafTower extends Zone {
             ;Button.ToolTipAtCoord()
         }
     }
+    ;@region MaxTowerFloor()
+    /**
+     * MaxTowerFloor, go to leaf tower but max floor first
+     * @param delay 
+     */
+    MaxTowerFloor(delay := 72) {
+        Travel.OpenAreas(true)
+        Sleep(delay)
+        ; Scroll down if needed
+        this.ScrollAmountDown(22, NavigateTime)
+        Sleep(NavigateTime)
+        ; Scanning by leaf
+        Local LeafMark := this.FindTheLeafTowerZone()
+        If (LeafMark) {
+
+            /** @type {cPoint} Button to travel to Leafsink Harbor*/
+            LSButton := cPoint(LeafMark[1] + Window.RelW(69),
+            LeafMark[2] - Window.RelH(160), false)
+
+            ; If no button we are misaligned
+            If (!LSButton.ClickButtonActive(, , delay, NavigateTime + delay)) {
+                Out.I("The Leaf Tower travel: Leafsink Button not active.")
+            }
+            Sleep(150)
+
+            /** @type {cPoint} */
+            TowerMax := cPoint(LeafMark[1] + Window.RelW(460),
+            LeafMark[2] + Window.RelH(60), false)
+
+            TowerMax.ClickButtonActive(, , delay, NavigateTime + delay)
+
+            /** @type {cPoint} */
+            TowerArea := cPoint(LeafMark[1] + Window.RelW(69), 
+            LeafMark[2] - Window.RelH(5), false)
+
+            TowerArea.ClickButtonActive(, , delay, NavigateTime + delay)
+        } Else {
+            Out.I("The Leaf Tower leaf not found while trying to travel.")
+        }
+        Sleep(delay)
+
+    }
+    ;@endregion
 }
+/* GoToLeafTower(*) {
+    Travel.OpenAreas()
+    Travel.ScrollAmountDown(16) ; Scroll down for the zones
+    Sleep(101)
+
+    ; Leaf pixel search
+    ; Look for colour of a segment of the rightmost tower leaf c5d8e0
+    spot := Rects.Areas.LeafTower.PixelSearch("0xC5D8E0")
+    If (!spot) {
+        ; Not found
+        Out.I("TowerBoost: Could not find tower leaf to open area.")
+        Return false
+    }
+    LeafsingButton := cPoint(spot[1] + Window.RelW(69), spot[2] - Window.RelH(
+        160), false)
+    ; Open leafsing harbor to allow max level reset
+    If (LeafsingButton.IsBackground()) {
+        ; Background colour found
+        Out.I("Error 30: Tower alt area detection failed. Alignment2.")
+        Return false
+    }
+    LeafsingButton.Click(101)
+    Sleep(201)
+
+    TowerMax := cPoint(spot[1] + Window.RelW(460), spot[2] + Window.RelH(60),
+        false)
+    ; Max Tower level
+    If (!TowerMax.IsButtonActive()) {
+        Out.I("Error 31: Tower max detection failed. Alignment3.")
+        Return false
+    }
+    TowerMax.Click(101)
+    Sleep(101)
+
+    TowerArea := cPoint(spot[1] + Window.RelW(69), spot[2] - Window.RelH(5),
+        false)
+    ; Select Tower area
+    If (!TowerArea.IsButtonActive()) {
+        Out.I("Error 32: Tower area detection failed. Could not find "
+            " Leaf Tower Travel Button.")
+        Return
+    }
+    TowerArea.Click(101)
+    Sleep(201)
+} */

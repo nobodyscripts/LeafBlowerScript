@@ -26,7 +26,7 @@ Class TheFireTemple extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.FireF.Tab.Click()
+        ;Points.Areas.FireFields.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class TheFireTemple extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to The Fire Temple
-        ;Button := Points.Areas.FireF.TheFireTemple
+        ;Button := Points.Areas.FireFields.TheFireTemple
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

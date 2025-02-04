@@ -227,28 +227,28 @@ Class cLog {
         Try {
             If (!this._FileLock) {
                 this._FileLock := true
-                this._FileHandle.WriteLine(logmessage)
+                this._FileHandle.WriteLine(logmessage "`r`n")
                 this._FileLock := false
             } Else {
-                OutputDebug("Was trying to log but blocked on last message.")
+                this._OutputDebug("Was trying to log but blocked on last message." "`r`n")
             }
         } Catch As exc {
             If (this.Timestamp) {
                 this._OutputDebug(time " LogError: Error writing to log - " exc
-                    .Message)
+                    .Message "`r`n")
                 Sleep(1)
-                this._FileHandle.WriteLine(logmessage)
+                this._FileHandle.WriteLine(logmessage "`r`n")
                 Sleep(1)
                 this._FileHandle.WriteLine(time " LogError: Error writing to log - " exc
-                    .Message)
+                    .Message "`r`n")
             } Else {
                 this._OutputDebug("LogError: Error writing to log - " exc.Message
-                )
+                "`r`n")
                 Sleep(1)
-                this._FileHandle.WriteLine(logmessage)
+                this._FileHandle.WriteLine(logmessage "`r`n")
                 Sleep(1)
                 this._FileHandle.WriteLine("LogError: Error writing to log - " exc
-                    .Message)
+                    .Message "`r`n")
             }
         }
     }
@@ -270,7 +270,7 @@ Class cLog {
         Try {
             If (!this._FileLock) {
                 this._FileLock := true
-                this.LoopWrite(logmessage)
+                this.LoopWrite(logmessage "`r`n")
                 this._FileLock := false
             } Else {
                 this._OutputDebug(
@@ -280,14 +280,14 @@ Class cLog {
             If (this.Timestamp) {
                 this._OutputDebug(time " LogError: Error writing to log - " exc
                     .Message)
-                this.LoopWrite(logmessage)
+                this.LoopWrite(logmessage "`r`n")
                 this.LoopWrite(time " LogError: Error writing to log - " exc.Message
-                )
+                "`r`n")
             } Else {
-                this._OutputDebug("LogError: Error writing to log - " exc.Message
+                this._OutputDebug("LogError: Error writing to log - " exc.Message "`r`n"
                 )
-                this.LoopWrite(logmessage)
-                this.LoopWrite("LogError: Error writing to log - " exc.Message)
+                this.LoopWrite(logmessage "`r`n")
+                this.LoopWrite("LogError: Error writing to log - " exc.Message "`r`n")
             }
         }
     }
@@ -411,7 +411,7 @@ Class cLog {
     /**
      * Stack logging
      */
-    S(msg) {
+    S() {
         this.Stack()
     }
     ;@endregion

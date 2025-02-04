@@ -26,7 +26,7 @@ Class QuarkPortal extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.SoulR.Tab.Click()
+        ;Points.Areas.SoulRealm.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class QuarkPortal extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to Quark Portal
-        ;Button := Points.Areas.SoulR.QuarkPortal
+        ;Button := Points.Areas.SoulRealm.QuarkPortal
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

@@ -26,7 +26,7 @@ Class TheCoalMine extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.FireF.Tab.Click()
+        ;Points.Areas.FireFields.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class TheCoalMine extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to The Coal Mine
-        ;Button := Points.Areas.FireF.TheCoalMine
+        ;Button := Points.Areas.FireFields.TheCoalMine
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

@@ -8,5 +8,6 @@
  * @property {cRect} Sample Sample area
  */
 Class cSampleRects {
+    /** @type {cRect} Sample Description */
     Sample := cRect(1, 1, 2, 2)
 }

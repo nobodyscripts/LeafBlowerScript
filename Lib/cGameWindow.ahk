@@ -206,12 +206,14 @@ Class cGameWindow {
         Try {
             targetColour := Points.Misc.PanelBG.GetColour()
             ; If its afk mode return as well, let afk check handle
-            If (targetColour = Colours().Background || targetColour = Colours()
-                .BackgroundAFK) {
+            If (targetColour = Colours()
+            .Background || targetColour = Colours()
+            .BackgroundAFK) {
                 ; Found panel background colour
                 Return true
             }
-            If (targetColour = Colours().BackgroundSpotify) {
+            If (targetColour = Colours()
+            .BackgroundSpotify) {
                 Out.I(
                     "Spotify colour warp detected, please avoid using spotify desktop."
                 )
@@ -257,7 +259,9 @@ Class cGameWindow {
         Try {
             sampleColour := Points.Misc.AspectRatio1.GetColour()
             sampleColour2 := Points.Misc.AspectRatio2.GetColour()
-            If (Colours().IsButtonOffPanel(sampleColour) || Colours().IsButtonOffPanel(
+            If (Colours()
+            .IsButtonOffPanel(sampleColour) || Colours()
+            .IsButtonOffPanel(
                 sampleColour2) && sampleColour = sampleColour2) {
                 Return true
             }
@@ -348,7 +352,9 @@ Class cGameWindow {
         Try {
             sampleColour := Points.Misc.AspectRatio1.GetColour()
             sampleColour2 := Points.Misc.AspectRatio2.GetColour()
-            If (Colours().IsButtonDarkened(sampleColour) || Colours().IsButtonDarkened(
+            If (Colours()
+            .IsButtonDarkened(sampleColour) || Colours()
+            .IsButtonDarkened(
                 sampleColour2)) {
                 Out.D("Corner buttons found with Dark Dialog Background on.")
                 ; Found dark mode
@@ -392,7 +398,7 @@ Class cGameWindow {
      */
     IsTreesSetCheck() {
         Travel.OpenAreas(true, 300)
-        Points.Areas.LeafG.HomeGarden.Click(NavigateTime + 300)
+        Points.Areas.LeafGalaxy.HomeGarden.Click(NavigateTime + 300)
         Sleep(NavigateTime + 300)
         If (Travel.HomeGarden.IsActive()) {
             Return true
@@ -415,7 +421,9 @@ Class cGameWindow {
         Try {
             sampleColour := Points.Misc.AspectRatio1.GetColour()
             sampleColour2 := Points.Misc.AspectRatio2.GetColour()
-            If (Colours().IsButtonAFK(sampleColour) || Colours().IsButtonAFK(
+            If (Colours()
+            .IsButtonAFK(sampleColour) || Colours()
+            .IsButtonAFK(
                 sampleColour2)) {
                 Out.D("IsAFKOn: Corner buttons found with AFK on.")
                 ; Found dark mode

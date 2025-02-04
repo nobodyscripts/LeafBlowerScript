@@ -26,7 +26,7 @@ Class BluePlanetEdge extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.EnergyB.Tab.Click()
+        ;Points.Areas.EnergyBelt.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class BluePlanetEdge extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to Blue Planet Edge
-        ;Button := Points.Areas.EnergyB.BluePlanetEdge
+        ;Button := Points.Areas.EnergyBelt.BluePlanetEdge
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

@@ -21,25 +21,25 @@
  */
 Class Colours {
     ;@region Properties
-    ; 0xFFF1D2
+    /** @type {String} 0xFFF1D2 */
     Active := "0xFFF1D2"
-    ; 0xFDD28A
+    /** @type {String} 0xFDD28A */
     ActiveMouseOver := "0xFDD28A"
-    ; 0xB3A993
+    /** @type {String} 0xB3A993 */
     AfkActive := "0xB3A993"
-    ; 0xB29361
+    /** @type {String} 0xB29361 */
     AfkActiveMouseover := "0xB29361"
-    ; 0x837C6C
+    /** @type {String} 0x837C6C */
     DarkBgActive := "0x837C6C"
-    ; 0x826C47
+    /** @type {String} 0x826C47 */
     DarkBgActiveMouseover := "0x826C47"
-    ; 0xC8BDA5
+    /** @type {String} 0xC8BDA5 */
     Inactive := "0xC8BDA5"
-    ; 0x97714A
+    /** @type {String} 0x97714A */
     Background := "0x97714A"
-    ; 0x97714B
+    /** @type {String} 0x97714B */
     BackgroundSpotify := "0x97714B"
-    ; 0x6A4F34
+    /** @type {String} 0x6A4F34 */
     BackgroundAFK := "0x6A4F34"
 
     ;@region ZoneColours

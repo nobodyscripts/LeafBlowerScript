@@ -34,6 +34,7 @@ Global Travel := cTravel()
  * @property {TheInfernalDesert} TheInfernalDesert Travel class for 
  * TheInfernalDesert
  * @property {CursedHalloween} CursedHalloween Travel class for Cursed Halloween
+ * @property {AnteLeafton} AnteLeafton Travel class for Ante Leafton
  * @property {AstralOasis} AstralOasis Travel class for Astral Oasis
  * @property {BiotiteForest} BiotiteForest Travel class for Biotite Forest
  * @property {BlackLeafHole} BlackLeafHole Travel class for Black Leaf Hole
@@ -119,6 +120,12 @@ Class cTravel {
 
     ; Travel class for Cursed Halloween
     CursedHalloween := CursedHalloween()
+
+    /**
+     * Travel class for AnteLeafton
+     * @type {AnteLeafton}
+     */
+    AnteLeafton := AnteLeafton()
 
     /**
      * Travel class for AstralOasis
@@ -241,10 +248,10 @@ Class cTravel {
     LeafsinkHarbor := LeafsinkHarbor()
 
     /**
-     * Travel class for MountMoltenfurty
-     * @type {MountMoltenfurty}
+     * Travel class for MountMoltenfury
+     * @type {MountMoltenfury}
      */
-    MountMoltenfurty := MountMoltenfurty()
+    MountMoltenfury := MountMoltenfury()
 
     /**
      * Travel class for Mountain
@@ -582,6 +589,21 @@ Class cTravel {
      * @param {number} [extraDelay=0] Add ms to the sleep timers
      */
     ScrollAmountDown(amount := 1, extraDelay := 0) {
+        If (amount > 10) {
+            While (amount >= 10) {
+                If (!Window.IsActive() || !Window.IsPanel()) {
+                    Break
+                } Else {
+                    AmountToModifier(10)
+                    Sleep(NavigateTime)
+                    ControlClick(, Window.Title, , "WheelDown")
+                    Sleep(17)
+                    ResetModifierKeys()
+                    Sleep(NavigateTime + extraDelay)
+                    amount := amount - 10
+                }
+            }
+        }
         While (amount > 0) {
             If (!Window.IsActive() || !Window.IsPanel()) {
                 Break
@@ -601,6 +623,21 @@ Class cTravel {
      * @param {number} [extraDelay=0] Add ms to the sleep timers
      */
     ScrollAmountUp(amount := 1, extraDelay := 0) {
+        If (amount > 10) {
+            While (amount >= 10) {
+                If (!Window.IsActive() || !Window.IsPanel()) {
+                    Break
+                } Else {
+                    AmountToModifier(10)
+                    Sleep(NavigateTime)
+                    ControlClick(, Window.Title, , "WheelUp")
+                    Sleep(17)
+                    ResetModifierKeys()
+                    Sleep(NavigateTime + extraDelay)
+                    amount := amount - 10
+                }
+            }
+        }
         While (amount > 0) {
             If (!Window.IsActive() || !Window.IsPanel()) {
                 Break
@@ -623,7 +660,7 @@ Class cTravel {
     OpenAreas(reset := false, delay := 0) {
         Out.V("Openareas")
         active := this._OpenAny(GameKeys.OpenAreas.Bind(GameKeys), Window.IsPanel
-            .Bind(Window), delay)
+        .Bind(Window), delay)
         If (reset && active) {
             this.ResetAreaScroll(delay)
         }
@@ -636,7 +673,7 @@ Class cTravel {
      * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      */
     ResetAreaScroll(delay := 0) {
-        Return this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.LeafG.Tab,
+        Return this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.LeafGalaxy.Tab,
             delay)
     }
     ;@endregion
@@ -649,7 +686,7 @@ Class cTravel {
      */
     OpenAreasLeafGalaxy(extraDelay := 0) {
         If (this.OpenAreas(false, extraDelay)) {
-            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.LeafG.Tab,
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.LeafGalaxy.Tab,
                 extraDelay)
         }
         Return false
@@ -663,7 +700,7 @@ Class cTravel {
      */
     OpenAreasSacredNebula(extraDelay := 0) {
         If (this.OpenAreas(false, extraDelay)) {
-            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.SacredN.Tab,
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.SacredNebula.Tab,
                 extraDelay)
         }
         Return false
@@ -677,7 +714,7 @@ Class cTravel {
      */
     OpenAreasEnergyBelt(extraDelay := 0) {
         If (this.OpenAreas(false, extraDelay)) {
-            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.EnergyB.Tab,
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.EnergyBelt.Tab,
                 extraDelay)
         }
         Return false
@@ -691,7 +728,7 @@ Class cTravel {
      */
     OpenAreasFireFields(extraDelay := 0) {
         If (this.OpenAreas(false, extraDelay)) {
-            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.FireF.Tab,
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.FireFields.Tab,
                 extraDelay)
         }
         Return false
@@ -705,7 +742,7 @@ Class cTravel {
      */
     OpenAreasSoulRealm(extraDelay := 0) {
         If (this.OpenAreas(false, extraDelay)) {
-            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.SoulR.Tab,
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.SoulRealm.Tab,
                 extraDelay)
         }
         Return false
@@ -719,7 +756,7 @@ Class cTravel {
      */
     OpenAreasQuark(extraDelay := 0) {
         If (this.OpenAreas(false, extraDelay)) {
-            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.QuarkA.Tab,
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.QuarkAmbit.Tab,
                 extraDelay)
         }
         Return false
@@ -766,7 +803,7 @@ Class cTravel {
     OpenGemShop(reset := false, delay := 0) {
         Out.V("OpenGemShop")
         active := this._OpenAny(GameKeys.OpenGemShop.Bind(GameKeys), Window.IsPanel
-            .Bind(Window), delay)
+        .Bind(Window), delay)
         If (reset && active) {
             this.ResetGemShopScroll(delay)
         }
@@ -779,7 +816,7 @@ Class cTravel {
      * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      */
     ResetGemShopScroll(delay := 0) {
-        Return this.ResetScroll(Points.Areas.LeafG.Tab, Points.Areas.Favs.Tab,
+        Return this.ResetScroll(Points.Areas.LeafGalaxy.Tab, Points.Areas.Favs.Tab,
             delay)
     }
     ;@endregion
@@ -796,7 +833,7 @@ Class cTravel {
         ; No tabs so no reset
         Out.V("OpenTrades")
         Return this._OpenAny(GameKeys.OpenTrades.Bind(GameKeys), Window.IsPanel
-            .Bind(Window), delay)
+        .Bind(Window), delay)
     }
     ;@endregion
 
@@ -810,7 +847,7 @@ Class cTravel {
     OpenPets(reset := false, delay := 0) {
         Out.V("OpenPets")
         active := this._OpenAny(GameKeys.OpenPets.Bind(GameKeys), Window.IsPanel
-            .Bind(Window), delay)
+        .Bind(Window), delay)
         If (reset && active) {
             this.ResetPetScroll(delay)
         }
@@ -853,7 +890,7 @@ Class cTravel {
     OpenBorbVentures(reset := false, delay := 0) {
         Out.V("OpenBorbVentures")
         active := this._OpenAny(GameKeys.OpenBorbVentures.Bind(GameKeys),
-            Window.IsPanel.Bind(Window), delay)
+        Window.IsPanel.Bind(Window), delay)
         If (reset && active) {
             this.ResetBorbVScroll(delay)
         }
@@ -896,7 +933,7 @@ Class cTravel {
 
     IsBorbVFirstTab() {
         Return Points.Borbventures.Detailed.IsButtonActive() && Points.Borbventures
-            .ScaleMin.IsButtonActive()
+        .ScaleMin.IsButtonActive()
     }
     ;@endregion
 
@@ -909,7 +946,7 @@ Class cTravel {
     OpenCards(reset := false, delay := 0) {
         Out.V("OpenCards")
         active := this._OpenAny(GameKeys.OpenCards.Bind(GameKeys), Window.IsPanel
-            .Bind(Window), delay)
+        .Bind(Window), delay)
         If (reset && active) {
             ; TODO this one needs a custom reset
             this.ResetAreaScroll(delay)
@@ -926,7 +963,7 @@ Class cTravel {
     OpenAlchemy(reset := false, delay := 0) {
         Out.V("OpenAlchemy")
         active := this._OpenAny(GameKeys.OpenAlchemy.Bind(GameKeys), Window.IsPanel
-            .Bind(Window), delay)
+        .Bind(Window), delay)
         If (reset && active) {
             this.ResetAreaScroll(delay)
         }
@@ -964,7 +1001,7 @@ Class cTravel {
         Materials := Points.Brew.Tab1.Materials
         Scrolls := Points.Brew.Tab1.Scrolls
         If (Artifacts.IsButton() && Equipment.IsButton() && Materials.IsButton() &&
-            Scrolls.IsButton()) {
+        Scrolls.IsButton()) {
             Return true
         }
         Return false
@@ -979,7 +1016,7 @@ Class cTravel {
     OpenCrafting(reset := false, delay := 0) {
         Out.V("OpenCrafting")
         active := this._OpenAny(GameKeys.OpenCrafting.Bind(GameKeys), Window.IsPanel
-            .Bind(Window), delay)
+        .Bind(Window), delay)
         If (reset && active) {
             this.ResetAreaScroll(delay)
         }
@@ -995,7 +1032,7 @@ Class cTravel {
     OpenMining(reset := false, delay := 0) {
         Out.V("OpenMining")
         active := this._OpenAny(GameKeys.OpenMining.Bind(GameKeys), Window.IsPanel
-            .Bind(Window), delay)
+        .Bind(Window), delay)
         If (reset && active) {
             this.ResetAreaScroll(delay)
         }
@@ -1012,7 +1049,7 @@ Class cTravel {
     OpenGoldPortal(delay := 0) {
         Out.V("OpenGoldPortal")
         active := this._OpenAny(GameKeys.OpenGoldPortal.Bind(GameKeys), Window.IsPanel
-            .Bind(Window), delay)
+        .Bind(Window), delay)
         Return active
     }
     ;@endregion

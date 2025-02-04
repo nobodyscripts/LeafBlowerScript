@@ -6,15 +6,15 @@
 #Include ..\..\Lib\cPoint.ahk
 
 /**
- * MountMoltenfurty class for zone travel
+ * MountMoltenfury class for zone travel
  * @extends Zone
  * @memberof module:cTravel
  */
-Class MountMoltenfurty extends Zone {
+Class MountMoltenfury extends Zone {
     ; The name of the zone for display purposes
-    Name := "Mount Moltenfurty"
-    ; The colour of the MountMoltenfurty pixel for the zone
-    ZoneColour := this.GetColourByName("Mount Moltenfurty")
+    Name := "Mount Moltenfury"
+    ; The colour of the MountMoltenfury pixel for the zone
+    ZoneColour := this.GetColourByName("Mount Moltenfury")
     ; Require boss timer (or not) to match for success
     BossTimer := false
 
@@ -26,17 +26,17 @@ Class MountMoltenfurty extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.FireF.Tab.Click()
+        ;Points.Areas.FireFields.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
         Sleep(delay + extradelay)
         ; Scanning by leaf
-        Local MountMoltenfurtyLeaf := this.FindMountMoltenfurtyZone()
-        If (MountMoltenfurtyLeaf) {
-            this.ClickTravelButton(MountMoltenfurtyLeaf, delay + extradelay)
+        Local MountMoltenfuryLeaf := this.FindMountMoltenfuryZone()
+        If (MountMoltenfuryLeaf) {
+            this.ClickTravelButton(MountMoltenfuryLeaf, delay + extradelay)
         } Else {
-            Out.I("Mount Moltenfurty leaf not found while trying to travel.")
+            Out.I("Mount Moltenfury leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
@@ -46,9 +46,9 @@ Class MountMoltenfurty extends Zone {
      * Checks if leaf colour is found in an area (If this is needed)
      * @returns {Boolean} 
      */
-    FindMountMoltenfurtyZone() {
+    FindMountMoltenfuryZone() {
         ; Change this if used
-        ;return Rects.FireF.MountMoltenfurtyTravel.PixelSearch("0xFFFFFF")
+        ;return Rects.FireF.MountMoltenfuryTravel.PixelSearch("0xFFFFFF")
         Return true
     }
 
@@ -58,13 +58,13 @@ Class MountMoltenfurty extends Zone {
      * @param delay 
      */
     ClickTravelButton(coord, delay) {
-        ; Button to travel to Mount Moltenfurty
-        ;Button := Points.Areas.FireF.MountMoltenfurty
+        ; Button to travel to Mount Moltenfury
+        ;Button := Points.Areas.FireFields.MountMoltenfury
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("Mount Moltenfurty travel: Button not found.")
+            Out.I("Mount Moltenfury travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
     }

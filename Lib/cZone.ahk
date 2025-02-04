@@ -37,7 +37,7 @@ Class Zone {
      * target zone (don't use base Zone class directly)
      * @returns {Boolean} True if travel success, false if travel failed
      */
-    GoTo() {
+    GoTo(*) {
         If (!Window.IsActive()) {
             Out.I("No window found while trying to travel.")
             Return false
@@ -49,7 +49,7 @@ Class Zone {
             ; Advantage of this sample check is script doesn't travel if already
             ; there and can recheck if travels failed
             While (!this.IsZoneColour() && this.BossTimer = !IsBossTimerActive() &&
-                i <= 4) {
+            i <= 4) {
                 If (!Window.IsActive()) {
                     Out.I("No window found while trying to travel.")
                     Return false
@@ -73,8 +73,7 @@ Class Zone {
                 Out.D("Blind travel success to " this.Name)
                 Return true
             } Else {
-                Out.I("Traveling to " this.Name " failed, " this.CurrentZoneString()
-                )
+                Out.I("Traveling to " this.Name " failed, " this.CurrentZoneString())
                 Return false
             }
         }
@@ -84,11 +83,11 @@ Class Zone {
     ;@region _GoToArea()
     /**
      * Go to the zone base function, uses other functions to target travel
-     * @param Attempt Func(delay, [scrolldelay],
+     * @param {Func(int, [int], [int])} Attempt Func(delay, [scrolldelay],
      * [extradelay]) To attempt travel
-     * @example AttemptTravel(delay, scrolldelay := 0, extradelay := 0) { }
-     * @param Check Func(Name) To confirm travel, true if success 
-     * @example this.IsZone(Name)
+     * @example Attempt(delay, scrolldelay := 0, extradelay := 0) { }
+     * @param {Func(String)} Check Func(Name) To confirm travel, true if success 
+     * @example Check(Name) { this.IsZone(Name) }
      * @param Name Zone name or feature name for display purposes and colour
      * checks
      * @returns {Boolean} True if travel success, false if travel failed
@@ -128,8 +127,7 @@ Class Zone {
                 Out.D("Blind travel success to " Name)
                 Return true
             } Else {
-                Out.I("Traveling to " Name " failed, " this.CurrentZoneString()
-                )
+                Out.I("Traveling to " Name " failed, " this.CurrentZoneString())
                 Return false
             }
         }
@@ -191,7 +189,6 @@ Class Zone {
     }
     ;@endregion
 
-
     ;@region GetZoneColour()
     /**
      * Get current zone colour sample to know what zone player is currently in
@@ -209,7 +206,8 @@ Class Zone {
      * @returns {String} Colour string for zone check
      */
     GetColourByName(name) {
-        Return Colours().GetColourByZone(name)
+        Return Colours()
+        .GetColourByZone(name)
     }
     ;@endregion
 
@@ -220,7 +218,8 @@ Class Zone {
      * @returns {String} Full name string of zone found in ZoneColours
      */
     GetNameByColour(colour) {
-        Return Colours().GetZoneByColour(colour)
+        Return Colours()
+        .GetZoneByColour(colour)
     }
     ;@endregion
 

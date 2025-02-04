@@ -26,7 +26,7 @@ Class SparkRange extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.SacredN.Tab.Click()
+        ;Points.Areas.SacredNebula.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class SparkRange extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to Spark Range
-        ;Button := Points.Areas.SacredN.SparkRange
+        ;Button := Points.Areas.SacredNebula.SparkRange
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

@@ -66,6 +66,16 @@
 		],
 		"description": "Foldable region"
 	},
+	"TypeComment": {
+		"scope": "ahk2",
+		"prefix": "TypeComment",
+		"body": [
+			"/** @type {${1:Type}} ${2:Name} ${3:Description} */",
+			"$TM_SELECTED_TEXT$0",
+			""
+		],
+		"description": "Foldable region"
+	},
 	"GetColour": {
 		"scope": "ahk2",
 		"prefix": "getcolour",
@@ -165,10 +175,8 @@
 			"switch (${1:key}) {",
 			"\tcase ${2:value}:",
 			"\t\t$0",
-			"\t\tbreak;",
 			"",
 			"\tdefault:",
-			"\t\tbreak;",
 			"}"
 		],
 		"description": "Switch Statement"

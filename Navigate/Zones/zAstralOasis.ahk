@@ -26,7 +26,7 @@ Class AstralOasis extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.QuarkA.Tab.Click()
+        ;Points.Areas.QuarkAmbit.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class AstralOasis extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to Astral Oasis
-        ;Button := Points.Areas.QuarkA.AstralOasis
+        ;Button := Points.Areas.QuarkAmbit.AstralOasis
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

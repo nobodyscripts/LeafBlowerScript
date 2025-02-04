@@ -48,6 +48,18 @@ Class cHotkeysGames extends cHotkeys {
         ControlSend("{" this.GetHotkey("OpenGoldPortal") "}", , Window.Title)
     }
 
+    OpenRedPortal() {
+        ControlSend("{" this.GetHotkey("OpenRedPortal") "}", , Window.Title)
+    }
+
+    OpenGreenPortal() {
+        ControlSend("{" this.GetHotkey("OpenGreenPortal") "}", , Window.Title)
+    }
+
+    OpenBluePortal() {
+        ControlSend("{" this.GetHotkey("OpenBluePortal") "}", , Window.Title)
+    }
+
     TriggerBlazingSkull() {
         ControlSend("{" this.GetHotkey("TriggerBlazingSkull") "}", , Window.Title
         )
@@ -86,6 +98,10 @@ Class cHotkeysGames extends cHotkeys {
         ControlSend("{" this.GetHotkey("ClosePanel") "}", , Window.Title)
     }
 
+    OpenConverters() {
+        ControlSend("{" this.GetHotkey("OpenConverters") "}", , Window.Title)
+    }
+
     EquipDefaultGearLoadout() {
         ControlSend("{" this.GetHotkey("EquipDefaultGearLoadout") "}", , Window
             .Title)
@@ -95,21 +111,17 @@ Class cHotkeysGames extends cHotkeys {
         ControlSend("{" this.GetHotkey("EquipTowerGearLoadout") "}", , Window.Title
         )
     }
-
-    ;These are not currently used so you can ignore the keybinds below
-    /*
     
-    EquipDamageGearLoadout() {
-        ControlSend("{Numpad2}", , Window.Title) ; Inactive
-    }
-    
-    EquipTroutLoadout() {
-        ControlSend("{Numpad4}", , Window.Title) ; Inactive
+    EquipSlapGearLoadout() {
+        ControlSend("{" this.GetHotkey("EquipSlapGearLoadout") "}", , Window.Title)
     }
     
     EquipSwordGearLoadout() {
-        ControlSend("{Numpad5}", , Window.Title) ; Inactive
+        ControlSend("{" this.GetHotkey("EquipSwordGearLoadout") "}", , Window.Title)
     }
+
+    ;These are not currently used so you can ignore the keybinds below
+    /*
     
     EquipPyramidGearLoadout() {
         ControlSend("{Numpad6}", , Window.Title) ; Inactive

@@ -27,14 +27,14 @@ Class CursedHalloween extends Zone {
             Return false
         }
         ; Click the LG tab after checking halloween
-        Points.Areas.LeafG.Tab.Click(101)
+        Points.Areas.LeafGalaxy.Tab.Click(101)
         Sleep(150)
         this.ResetAreaScroll() ; Reset incase
         Sleep(150)
         this.ScrollAmountDown(46) ; Scroll down
         Sleep(150)
         ; Pub button check
-        If (Points.Areas.LeafG.Pub.IsBackground()) {
+        If (Points.Areas.LeafGalaxy.Pub.IsBackground()) {
             Out.I("Claw: Could not travel to pub.")
             ToolTip("Pub area button didn't align, try again", Window.W / 2 -
                 Window.RelW(100), Window.H / 2)
@@ -42,7 +42,7 @@ Class CursedHalloween extends Zone {
             Return false
         }
         ; Open pub area
-        Points.Areas.LeafG.Pub.Click(101)
+        Points.Areas.LeafGalaxy.Pub.Click(101)
         Sleep(250)
 
         ; Close the area screen

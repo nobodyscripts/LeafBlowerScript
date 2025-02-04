@@ -26,7 +26,7 @@ Class TheHollow extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.SoulR.Tab.Click()
+        ;Points.Areas.SoulRealm.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class TheHollow extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to The Hollow
-        ;Button := Points.Areas.SoulR.TheHollow
+        ;Button := Points.Areas.SoulRealm.TheHollow
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

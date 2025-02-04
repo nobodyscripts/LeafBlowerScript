@@ -26,7 +26,7 @@ Class PlasmaForest extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.EnergyB.Tab.Click()
+        ;Points.Areas.EnergyBelt.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class PlasmaForest extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to Plasma Forest
-        ;Button := Points.Areas.EnergyB.PlasmaForest
+        ;Button := Points.Areas.EnergyBelt.PlasmaForest
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

@@ -26,7 +26,7 @@ Class TheFabricoftheLeafverse extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.SoulR.Tab.Click()
+        ;Points.Areas.SoulRealm.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -62,7 +62,7 @@ Class TheFabricoftheLeafverse extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to The Fabric of the Leafverse
-        ;Button := Points.Areas.SoulR.TheFabricoftheLeafverse
+        ;Button := Points.Areas.SoulRealm.TheFabricoftheLeafverse
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

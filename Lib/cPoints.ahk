@@ -29,20 +29,51 @@ Global Points := cPoints()
  * 
  */
 Class cPoints {
+    /** @type {cPoint} Zone sample point */
     ZoneSample := cPoint(0, 0)
+
+    /** @type {cAreasPoints} Areas points */
     Areas := cAreasPoints()
+
+    /** @type {cBankPoints} Bank points */
     Bank := cBankPoints()
+
+    /** @type {cBorbventuresPoints} Borbventures points */
     Borbventures := cBorbventuresPoints()
+
+    /** @type {cBrewPoints} Brew points */
     Brew := cBrewPoints()
+
+    /** @type {cCardPoints} Card points */
     Card := cCardPoints()
+
+    /** @type {cClawPoints} Claw points */
     Claw := cClawPoints()
+
+    /** @type {cCraftingPoints} Crafting points */
     Crafting := cCraftingPoints()
+
+    /** @type {cGemFarmPoints} GemFarm points */
     GemFarm := cGemFarmPoints()
+
+    /** @type {cHyacinthPoints} Hyacinth points */
     Hyacinth := cHyacinthPoints()
+
+    /** @type {cLeaftonPoints} Leafton points */
     Leafton := cLeaftonPoints()
+
+    /** @type {cMinePoints} Mine points */
     Mine := cMinePoints()
+
+    /** @type {cCavePoints} Mine Cave points */
     Mine.Cave := cCavePoints()
+
+    /** @type {cTransmutePoints} Mine Transmute points */
     Mine.Transmute := cTransmutePoints()
+
+    /** @type {cVeinPoints} Mine Vein points */
     Mine.Vein := cVeinPoints()
+
+    /** @type {cMiscPoints} Misc points */
     Misc := cMiscPoints()
 }

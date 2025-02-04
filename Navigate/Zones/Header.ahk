@@ -5,6 +5,7 @@
 
 #include cZoneCards.ahk
 
+#Include zAnteLeafton.ahk
 #Include zAstralOasis.ahk
 #Include zBiotiteForest.ahk
 #Include zBlackLeafHole.ahk

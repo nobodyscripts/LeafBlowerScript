@@ -26,7 +26,7 @@ Class TheMoon extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.LeafG.Tab.Click()
+        ;Points.Areas.LeafGalaxy.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class TheMoon extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to The Moon
-        ;Button := Points.Areas.LeafG.TheMoon
+        ;Button := Points.Areas.LeafGalaxy.TheMoon
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

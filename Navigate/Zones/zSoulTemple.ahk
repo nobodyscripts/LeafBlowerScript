@@ -26,7 +26,7 @@ Class SoulTemple extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.SoulR.Tab.Click()
+        ;Points.Areas.SoulRealm.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class SoulTemple extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to Soul Temple
-        ;Button := Points.Areas.SoulR.SoulTemple
+        ;Button := Points.Areas.SoulRealm.SoulTemple
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

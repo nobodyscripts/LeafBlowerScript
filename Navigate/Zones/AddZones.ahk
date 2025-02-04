@@ -164,6 +164,9 @@ For zonename, v in Colours().ZoneColours {
             Case "Planck Scope":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "QuarkA"
                 )
+            Case "Ante Leafton":
+                classcontents := StrReplace(classcontents, "<Galaxy>", "QuarkA"
+                )
             Case "Cursed Halloween":
                 classcontents := StrReplace(classcontents, "<Galaxy>", "Events"
                 )

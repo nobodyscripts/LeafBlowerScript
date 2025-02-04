@@ -26,7 +26,7 @@ Class QuarkNexus extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.QuarkA.Tab.Click()
+        ;Points.Areas.QuarkAmbit.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class QuarkNexus extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to Quark Nexus
-        ;Button := Points.Areas.QuarkA.QuarkNexus
+        ;Button := Points.Areas.QuarkAmbit.QuarkNexus
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

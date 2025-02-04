@@ -26,7 +26,7 @@ Class Space extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.LeafG.Tab.Click()
+        ;Points.Areas.LeafGalaxy.Tab.Click()
         ;Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(26, scrolldelay)
@@ -59,7 +59,7 @@ Class Space extends Zone {
      */
     ClickTravelButton(coord, delay) {
         ; Button to travel to Space
-        ;Button := Points.Areas.LeafG.Space
+        ;Button := Points.Areas.LeafGalaxy.Space
         Button := cPoint()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned

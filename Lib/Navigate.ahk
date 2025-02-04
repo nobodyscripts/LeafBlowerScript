@@ -22,7 +22,6 @@
 
 #Include ..\Navigate\Zones\Header.ahk
 
-
 Global DisableZoneChecks := false
 Global NavigateTime := 150
 
@@ -179,8 +178,7 @@ GoToShadowCavern() {
             Out.D("Blind travel success to shadow cavern.")
             Return true
         } Else {
-            Out.I("Traveling to Shadow Cavern failed, colour found was " GetAreaSampleColour()
-            )
+            Out.I("Traveling to Shadow Cavern failed, colour found was " GetAreaSampleColour())
             Return false
         }
     }
@@ -193,7 +191,7 @@ GotoResetSS() {
     }
     GoToShadowCavern()
     Travel.ClosePanelIfActive()
-    button := Points.Areas.FireF.BorbianaJones
+    button := Points.Areas.FireFields.BorbianaJones
     Out.I(button.GetColour())
     ; Go to Borbiana Jones screen
     If (button.IsColour("0x60F811")) {
@@ -205,7 +203,7 @@ GotoResetSS() {
 ResetSS() {
     GotoResetSS()
     ; Reset SpectralSeeker
-    button := Points.Areas.FireF.ResetSS
+    button := Points.Areas.FireFields.ResetSS
     If (button.IsButtonActive()) {
         button.Click(NavigateTime)
     }
@@ -214,7 +212,7 @@ ResetSS() {
 ResetGF() {
     GotoResetSS()
     ; Reset Green Flame
-    button := Points.Areas.FireF.ResetGF
+    button := Points.Areas.FireFields.ResetGF
     If (button.IsButtonActive()) {
         button.Click(NavigateTime)
     }
@@ -274,8 +272,7 @@ GoToNatureBoss() {
             Out.D("Blind travel success to The Doomed Tree.")
             Return true
         } Else {
-            Out.I("Traveling to The Doomed Tree failed, colour found was " GetAreaSampleColour()
-            )
+            Out.I("Traveling to The Doomed Tree failed, colour found was " GetAreaSampleColour())
             Return false
         }
     }
@@ -294,7 +291,6 @@ NatureBossButtonClick() {
         Return false
     }
 }
-
 
 GoToCheeseBoss() {
     button := Points.Areas.Events.CursedHalloween
@@ -349,8 +345,7 @@ GoToCheeseBoss() {
             Out.D("Blind travel success to Cursed Halloween.")
             Return true
         } Else {
-            Out.I("Traveling to Cursed Halloween, colour found was " GetAreaSampleColour()
-            )
+            Out.I("Traveling to Cursed Halloween, colour found was " GetAreaSampleColour())
             Return false
         }
     }
@@ -376,7 +371,7 @@ GoToFarmField() {
         ; If we're at home garden attempt to travel, boss timer should appear,
         ; breaking
         While ((IsAreaSampleColour("0x4A9754") && !IsBossTimerActive()) && i <=
-            4) {
+        4) {
             If (!Window.IsActive()) {
                 Out.I("No window found while trying to travel.")
                 Return false
@@ -423,8 +418,7 @@ GoToFarmField() {
             Out.D("Blind travel success to Farm Field.")
             Return true
         } Else {
-            Out.I("Traveling to Farm Field failed, colour found was " GetAreaSampleColour()
-            )
+            Out.I("Traveling to Farm Field failed, colour found was " GetAreaSampleColour())
             Return false
         }
     }
@@ -437,7 +431,7 @@ GoToAstralOasis() {
     }
     Global DisableZoneChecks
     i := 0
-    button := Points.Areas.QuarkA.AstralOasis
+    button := Points.Areas.QuarkAmbit.AstralOasis
     If (!DisableZoneChecks) {
         While (!IsAreaSampleColour("0x000108") && i <= 4) {
             If (!Window.IsActive()) {
@@ -602,8 +596,8 @@ SingleAnteLeaftonTravel(extradelay := 0) {
     Travel.ClosePanelIfActive()
     Travel.OpenAreasQuark(extradelay)
     Travel.ScrollAmountDown(2)
-    button := Points.Areas.QuarkA.AnteLeafton
-    button2 := Points.Areas.QuarkA.AnteLeafton2
+    button := Points.Areas.QuarkAmbit.AnteLeafton
+    button2 := Points.Areas.QuarkAmbit.AnteLeafton2
     If (button.IsButtonActive()) {
         button.ClickOffset(5, , NavigateTime + extradelay)
     } Else If (button2.IsButtonActive()) {
@@ -699,51 +693,7 @@ GotoCardsFirstTab() {
     }
 }
 
-GoToLeafTower() {
-    Travel.OpenAreas()
-    Travel.ScrollAmountDown(16) ; Scroll down for the zones
-    Sleep(101)
 
-    ; Leaf pixel search
-    ; Look for colour of a segment of the rightmost tower leaf c5d8e0
-    spot := Rects.Areas.LeafTower.PixelSearch("0xC5D8E0")
-    If (!spot) {
-        ; Not found
-        Out.I("TowerBoost: Could not find tower leaf to open area.")
-        Return false
-    }
-    LeafsingButton := cPoint(spot[1] + Window.RelW(69), spot[2] - Window.RelH(
-        160), false)
-    ; Open leafsing harbor to allow max level reset
-    If (LeafsingButton.IsBackground()) {
-        ; Background colour found
-        Out.I("Error 30: Tower alt area detection failed. Alignment2.")
-        Return false
-    }
-    LeafsingButton.Click(101)
-    Sleep(201)
-
-    TowerMax := cPoint(spot[1] + Window.RelW(460), spot[2] + Window.RelH(60),
-        false)
-    ; Max Tower level
-    If (!TowerMax.IsButtonActive()) {
-        Out.I("Error 31: Tower max detection failed. Alignment3.")
-        Return false
-    }
-    TowerMax.Click(101)
-    Sleep(101)
-
-    TowerArea := cPoint(spot[1] + Window.RelW(69), spot[2] - Window.RelH(5),
-        false)
-    ; Select Tower area
-    If (!TowerArea.IsButtonActive()) {
-        Out.I("Error 32: Tower area detection failed. Could not find "
-            " Leaf Tower Travel Button.")
-        Return
-    }
-    TowerArea.Click(101)
-    Sleep(201)
-}
 
 IsAreaSampleColour(targetColour := "0xFFFFFF") {
     If (Points.Misc.ZoneSample.GetColour() = targetColour) {

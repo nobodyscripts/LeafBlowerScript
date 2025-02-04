@@ -1,70 +1,81 @@
 #Requires AutoHotkey v2.0
 
 #Include ..\Lib\cPoints.ahk
-#Include ..\Lib\cRects.ahk
 
 /**
- * Areas points for buttons
+ * Areas points for buttons (Points.Areas)
  * This is for areas panel stuff which unfortunately has the same name as my rect class
  * @memberof module:cPoints
  * @property {cAreasFavPoints} Favs Favourites
- * @property {cAreasLeafGPoints} LeafG Leaf Galaxy
- * @property {cAreasSacredNPoints} SacredN Sacred Nebula
- * @property {cAreasEnergyBPoints} EnergyB Energy Belt
- * @property {cAreasFireFPoints} FireF Fire Fields
- * @property {cAreasSoulRPoints} SoulR Soul Realm
- * @property {cAreasQuarkAPoints} QuarkA Quark Ambit
+ * @property {cAreasLeafGPoints} LeafGalaxy Leaf Galaxy
+ * @property {cAreasSacredNPoints} SacredNebula Sacred Nebula
+ * @property {cAreasEnergyBPoints} EnergyBelt Energy Belt
+ * @property {cAreasFireFPoints} FireFields Fire Fields
+ * @property {cAreasSoulRPoints} SoulRealm Soul Realm
+ * @property {cAreasQuarkAPoints} QuarkAmbit Quark Ambit
  * @property {cAreasEventsPoints} Events Events
  */
 Class cAreasPoints {
-    ; Favourites
+    /** @type {cAreasFavPoints} Favs Favourites */
     Favs := cAreasFavPoints()
-    ; Leaf Galaxy
-    LeafG := cAreasLeafGPoints()
-    ; Sacred Nebula
-    SacredN := cAreasSacredNPoints()
-    ; Energy Belt
-    EnergyB := cAreasEnergyBPoints()
-    ; Fire Fields
-    FireF := cAreasFireFPoints()
-    ; Soul Realm
-    SoulR := cAreasSoulRPoints()
-    ; Quark Ambit
-    QuarkA := cAreasQuarkAPoints()
-    ; Events
+    
+    /** @type {cAreasLeafGPoints} Leaf Galaxy */
+    LeafGalaxy := cAreasLeafGPoints()
+
+    /** @type {cAreasSacredNPoints} Sacred Nebula */
+    SacredNebula := cAreasSacredNPoints()
+
+    /** @type {cAreasEnergyBPoints} Energy Belt */
+    EnergyBelt := cAreasEnergyBPoints()
+
+    /** @type {cAreasFireFPoints} Fire Fields */
+    FireFields := cAreasFireFPoints()
+
+    /** @type {cAreasSoulRPoints} Soul Realm */
+    SoulRealm := cAreasSoulRPoints()
+
+    /** @type {cAreasQuarkAPoints} Quark Ambit */
+    QuarkAmbit := cAreasQuarkAPoints()
+
+    /** @type {cAreasEventsPoints} Events */
     Events := cAreasEventsPoints()
 }
 
 ;@region cAreasFavPoints
 /**
+ * Points.Areas.Favs
  * @memberof module:cAreasPoints
  * @property {cPoint} Tab Tab for areas panel (Favourites)
  */
 Class cAreasFavPoints {
-    ; Tab for areas panel (Favourites)
+    /** @type {cPoint} Tab for areas panel (Favourites) */
     Tab := cPoint(300, 1167)
 }
 ;@endregion
 
 ;@region cAreasLeafGPoints
 /**
+ * Points.Areas.LeafGalaxy
  * @memberof module:cVeinPoints
  * @property {cPoint} Tab Tab for areas panel (Leaf Galaxy)
  * @property {cPoint} HomeGarden Home Garden
  * @property {cPoint} Pub Pub (scroll down 46)
  */
 Class cAreasLeafGPoints {
-    ; Tab for areas panel (Leaf Galaxy)
+    /** @type {cPoint} Tab for areas panel (Leaf Galaxy) */
     Tab := cPoint(535, 1164)
-    ; Home Garden
+
+    /** @type {cPoint} Home Garden */
     HomeGarden := cPoint(1662, 325)
-    ; Pub (scroll down 46)
+
+    /** @type {cPoint} Pub (scroll down 46) */
     Pub := cPoint(1662, 740)
 }
 ;@endregion
 
 ;@region cAreasSacredNPoints
 /**
+ * Points.Areas.SacredNebula
  * @memberof module:cVeinPoints
  */
 Class cAreasSacredNPoints {
@@ -73,6 +84,7 @@ Class cAreasSacredNPoints {
 
 ;@region cAreasEnergyBPoints
 /**
+ * Points.Areas.EnergyBelt
  * @memberof module:cVeinPoints
  */
 Class cAreasEnergyBPoints {

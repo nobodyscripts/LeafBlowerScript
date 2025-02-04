@@ -7,6 +7,8 @@
  * @memberof module:cPoints
  * @property {cPoint} BVTab First tab (Borbventures)
  * @property {cPoint} BorbsTab Second tab (Borbs)
+ * @property {cPoint} InvTabs Third tab (Inventory)
+ * @property {cPoint} PacksTab Fifth tab (Packs)
  * @property {cPoint} AutoStartFont0 Point for checking autostart status
  * with font size 0
  * @property {cPoint} AutoStartFont1 Point for checking autostart status
@@ -14,20 +16,40 @@
  * @property {cPoint} Detailed Detailed mode button for checks
  * @property {cPoint} ScaleMin Scale minimum button for checks
  * @property {cPoint} FinishAll Finish all completed quests button
+ * @property {cPoint} PacksBuyCommon Buy Common pack with tokens button
+ * @property {cPoint} PacksBuyLegendary Buy legendary pack with tokens button
  */
 Class cBorbventuresPoints {
-    ; First tab (Borbventures)
+    /** @type {cPoint} First tab (Borbventures) */
     BVTab := cPoint(400, 1167)
-    ; Second tab (Borbs)
+
+    /** @type {cPoint} Second tab (Borbs) */
     BorbsTab := cPoint(630, 1167)
-    ; Point for checking autostart status with font size 0
+
+    /** @type {cPoint} Third tab (Inventory) */
+    InvTab := cPoint(882, 1182)
+
+    /** @type {cPoint} Packs tab */
+    PacksTab := cPoint(1457, 1176)
+
+    /** @type {cPoint} Point for checking autostart status with font size 0 */
     AutoStartFont0 := cPoint(586, 1097)
-    ; Point for checking autostart status with font size 1
+
+    /** @type {cPoint} Point for checking autostart status with font size 1 */
     AutoStartFont1 := cPoint(597, 1097)
-    ; Detailed mode button for checks
+
+    /** @type {cPoint} Detailed mode button for checks */
     Detailed := cPoint(1100, 314)
-    ; Scale minimum button for checks
+
+    /** @type {cPoint} Scale minimum button for checks */
     ScaleMin := cPoint(1574, 314)
-    ; Finish all button
+
+    /** @type {cPoint} Finish all button */
     FinishAll := cPoint(1847, 1085)
+
+    /** @type {cPoint} Buy Common pack with tokens button */
+    PacksBuyCommon := cPoint(487, 949)
+
+    /** @type {cPoint} Buy legendary pack with tokens button */
+    PacksBuyLegendary := cPoint(1599, 952)
 }

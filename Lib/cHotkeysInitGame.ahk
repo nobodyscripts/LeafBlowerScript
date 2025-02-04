@@ -38,8 +38,23 @@ GameKeys.Hotkeys["OpenCrafting"] := cHotkey("OpenCrafting", Map("EN-US", "m",
 GameKeys.Hotkeys["OpenMining"] := cHotkey("OpenMining", Map("EN-US", "l",
     "EN-GB", "l", "Other", "l"), "Shops")
 
+GameKeys.Hotkeys["OpenMlc"] := cHotkey("OpenMlc", Map("EN-US", "d",
+    "EN-GB", "d", "Other", "d"), "Shops")
+
+GameKeys.Hotkeys["OpenUlc"] := cHotkey("OpenUlc", Map("EN-US", "f",
+    "EN-GB", "f", "Other", "f"), "Shops")
+
 GameKeys.Hotkeys["OpenGoldPortal"] := cHotkey("OpenGoldPortal", Map("EN-US",
+    "z", "EN-GB", "z", "Other", "z"), "Prestige")
+
+GameKeys.Hotkeys["OpenRedPortal"] := cHotkey("OpenRedPortal", Map("EN-US",
     "x", "EN-GB", "x", "Other", "x"), "Prestige")
+
+GameKeys.Hotkeys["OpenGreenPortal"] := cHotkey("OpenGreenPortal", Map("EN-US",
+    "c", "EN-GB", "c", "Other", "c"), "Prestige")
+
+GameKeys.Hotkeys["OpenBluePortal"] := cHotkey("OpenBluePortal", Map("EN-US",
+    "g", "EN-GB", "g", "Other", "g"), "Prestige")
 
 GameKeys.Hotkeys["TriggerBlazingSkull"] := cHotkey("TriggerBlazingSkull", Map(
     "EN-US", "p", "EN-GB", "p", "Other", "p"), "Artifacts")
@@ -68,13 +83,28 @@ GameKeys.Hotkeys["RefreshTrades"] := cHotkey("RefreshTrades", Map("EN-US",
 GameKeys.Hotkeys["ClosePanel"] := cHotkey("ClosePanel", Map("EN-US", "Esc",
     "EN-GB", "Esc", "Other", "Esc"), "Feature")
 
+GameKeys.Hotkeys["OpenConverters"] := cHotkey("OpenConverters", Map("EN-US",
+    "b", "EN-GB", "b", "Other", "b"), "Feature")
+
 GameKeys.Hotkeys["EquipDefaultGearLoadout"] := cHotkey(
     "EquipDefaultGearLoadout", Map("EN-US", "Numpad1", "EN-GB", "Numpad1",
         "Other", "Numpad1"), "Loadouts")
 
+GameKeys.Hotkeys["EquipSlapGearLoadout"] := cHotkey(
+    "EquipSlapGearLoadout", Map("EN-US", "Numpad2", "EN-GB", "Numpad2",
+        "Other", "Numpad2"), "Loadouts")
+
 GameKeys.Hotkeys["EquipTowerGearLoadout"] := cHotkey("EquipTowerGearLoadout",
     Map("EN-US", "Numpad3", "EN-GB", "Numpad3", "Other", "Numpad3"), "Loadouts"
 )
+
+GameKeys.Hotkeys["EquipSwordGearLoadout"] := cHotkey(
+    "EquipSwordGearLoadout", Map("EN-US", "Numpad4", "EN-GB", "Numpad4",
+        "Other", "Numpad4"), "Loadouts")
+
+GameKeys.Hotkeys["EquipElectricGearLoadout"] := cHotkey(
+    "EquipElectricGearLoadout", Map("EN-US", "Numpad5", "EN-GB", "Numpad5",
+        "Other", "Numpad5"), "Loadouts")
 
 If (!IsSet(DisableGameKeysInit)) {
     GameKeys.initHotkeys(IsSecondary)

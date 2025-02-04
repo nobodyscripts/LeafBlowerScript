@@ -22,7 +22,7 @@ fTowerFarm() {
         BankDepositTime := 0.017
     }
     if (TowerPassiveTravelEnabled) {
-        GoToLeafTower()
+        Travel.TheLeafTower.GoTo()
     }
     starttime := A_Now
     craftStopCoord := Points.Crafting.Stop
