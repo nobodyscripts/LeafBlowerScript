@@ -82,7 +82,7 @@ CreateScriptHotkeys() {
     Hotkey("*" Scriptkeys.GetHotkey("ShadowCrystal"), fShadowCrystalStart)
 }
 
-#HotIf WinActive(Window.Title) and MouseIsOver(Window.Title)
+/* #HotIf WinActive(Window.Title) and MouseIsOver(Window.Title)
 LButton:: {
     screenx := screeny := windowx := windowy := clientx := clienty := 0
     CoordMode("Mouse", "Screen")
@@ -105,7 +105,7 @@ LButton:: {
 MouseIsOver(WinTitle) {
     MouseGetPos , , &Win
     Return WinExist(WinTitle " ahk_id " Win)
-}
+} */
 /* Numpad1:: {
     testArea := RelSampleArea()
     testArea.SetCoordRel(470, 290, 819, 448)
