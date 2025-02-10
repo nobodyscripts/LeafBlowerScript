@@ -60,6 +60,18 @@ Class cHotkeysGames extends cHotkeys {
         ControlSend("{" this.GetHotkey("OpenBluePortal") "}", , Window.Title)
     }
 
+    OpenBLCShop() {
+        ControlSend("{" this.GetHotkey("OpenBlc") "}", , Window.Title)
+    }
+
+    OpenMLCShop() {
+        ControlSend("{" this.GetHotkey("OpenMlc") "}", , Window.Title)
+    }
+
+    OpenULCShop() {
+        ControlSend("{" this.GetHotkey("OpenUlc") "}", , Window.Title)
+    }
+
     TriggerBlazingSkull() {
         ControlSend("{" this.GetHotkey("TriggerBlazingSkull") "}", , Window.Title
         )

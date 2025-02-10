@@ -36,7 +36,10 @@ Class cAreasPoints {
 
     /** @type {cAreasQuarkAPoints} Quark Ambit */
     QuarkAmbit := cAreasQuarkAPoints()
-
+    
+    /** @type {cAreasUmbralClusterPoints} Umbral Cluster */
+    UmbralCluster := cAreasUmbralClusterPoints()
+    
     /** @type {cAreasEventsPoints} Events */
     Events := cAreasEventsPoints()
 }
@@ -100,13 +103,13 @@ Class cAreasEnergyBPoints {
  * @property {cPoint} ResetSS Reset SS
  */
 Class cAreasFireFPoints {
-    ; Tab for areas panel (Fire Fields)
+    /** @type {cPoint} Tab for areas panel (Fire Fields) */
     Tab := cPoint(1272, 1163)
-    ; Borbiana Jones screen
+    /** @type {cPoint} Borbiana Jones screen */
     BorbianaJones := cPoint(1735, 397)
-    ; Reset GF
+    /** @type {cPoint} Reset GF */
     ResetGF := cPoint(820, 500)
-    ; Reset SS
+    /** @type {cPoint} Reset SS */
     ResetSS := cPoint(1280, 500)
 }
 ;@endregion
@@ -131,22 +134,41 @@ Class cAreasSoulRPoints {
  * @property {cPoint} AnteLeafton2 Ante Leafton (scroll down 2)
  */
 Class cAreasQuarkAPoints {
-    ; Tab for areas panel (Quark Ambit)
+    /** @type {cPoint} Tab for areas panel (Quark Ambit) */
     Tab := cPoint(1760, 1164)
-    ; Astral Oasis
+    /** @type {cPoint} Astral Oasis */
     AstralOasis := cPoint(1665, 643)
-    ; Dimentional Tapestry
+    /** @type {cPoint} Dimentional Tapestry */
     DimentionalTapestry := cPoint(1665, 820)
-    ; Plank Scope
+    /** @type {cPoint} Plank Scope */
     PlankScope := cPoint(1665, 970)
-    ; Plank Scope second location
+    /** @type {cPoint} Plank Scope second location */
     PlankScope2 := cPoint(1665, 1020)
-    ; Ante Leafton (scroll down 2)
+    /** @type {cPoint} Ante Leafton (scroll down 2) */
     AnteLeafton := cPoint(1665, 970)
-    ; Ante Leafton (scroll down 2)
+    /** @type {cPoint} Ante Leafton (scroll down 2) */
     AnteLeafton2 := cPoint(1665, 1020)
 }
 ;@endregion
+
+;@region cAreasUmbralClusterPoints
+/**
+ * @memberof module:cVeinPoints
+ * @property {cPoint} Tab Tab for areas panel (Quark Ambit)
+ * @property {cPoint} AstralOasis Astral Oasis
+ * @property {cPoint} DimentionalTapestry Dimentional Tapestry
+ * @property {cPoint} PlankScope Plank Scope
+ * @property {cPoint} PlankScope2 Plank Scope second location
+ * @property {cPoint} AnteLeafton Ante Leafton (scroll down 2)
+ * @property {cPoint} AnteLeafton2 Ante Leafton (scroll down 2)
+ */
+Class cAreasUmbralClusterPoints {
+    /** @type {cPoint} Tab for areas panel (Quark Ambit) */
+    Tab := cPoint(1760, 1164)
+}
+;@endregion
+
+cAreasUmbralClusterPoints
 
 ;@region cAreasEventsPoints
 /**
@@ -160,15 +182,15 @@ Class cAreasQuarkAPoints {
  * @property {cPoint} FarmField Farm Field
  */
 Class cAreasEventsPoints {
-    ; Tab for areas panel (Events)
+    /** @type {cPoint} Tab for areas panel (Events) */
     Tab := cPoint(2030, 1164)
-    ; Button in Events for Cursed Halloween
+    /** @type {cPoint} Button in Events for Cursed Halloween */
     CursedHalloween := cPoint(1674, 329)
-    ; Nature boss button location depends on events active
+    /** @type {cPoint} Nature boss button location depends on events active */
     NatureBoss := cPoint(1682, 946)
-    ; Nature boss button location depends on events active
+    /** @type {cPoint} Nature boss button location depends on events active */
     NatureBoss2 := cPoint(1682, 860)
-    ; Farm field
+    /** @type {cPoint} Farm field */
     FarmField := cPoint(1682, 525)
 }
 ;@endregion

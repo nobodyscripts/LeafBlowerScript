@@ -48,8 +48,8 @@ Class cBorbventuresPoints {
     FinishAll := cPoint(1847, 1085)
 
     /** @type {cPoint} Buy Common pack with tokens button */
-    PacksBuyCommon := cPoint(487, 949)
+    PacksBuyCommon := cPoint(472, 952)
 
     /** @type {cPoint} Buy legendary pack with tokens button */
-    PacksBuyLegendary := cPoint(1599, 952)
+    PacksBuyLegendary := cPoint(1592, 952)
 }

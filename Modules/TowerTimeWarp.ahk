@@ -7,7 +7,7 @@ fTimeWarpAndRaiseTower() {
     Global TowerFarmActive
     GemTest := true
     If (GemTest) {
-        Travel.OpenGemShop()
+        Shops.OpenGemShop()
         Sleep(150)
 
         ; TODO Move point to Points
@@ -64,7 +64,7 @@ fTimeWarpAndRaiseTower() {
 
         ; Open leafsing harbor to allow max level reset
         If (cPoint(found[1] + Window.RelW(69), found[2] - Window.RelH(132),
-            false).IsBackground()) {
+        false).IsBackground()) {
             ; Background colour found
             Out.I("Error 30: Tower alt area detection failed. Alignment2.")
             ToolTip("Alignment issue 2, could not continue`n"
@@ -76,12 +76,12 @@ fTimeWarpAndRaiseTower() {
         }
         ; TODO Move to cPoint
         fCustomClick(found[1] + Window.RelW(69), found[2] - Window.RelH(132),
-            101)
+        101)
         Sleep(101)
 
         ; Max Tower level
         If (!cPoint(found[1] + Window.RelW(471), found[2] + Window.RelH(67),
-            false).IsButtonActive()) {
+        false).IsButtonActive()) {
             Out.I("Error 31: Tower max detection failed. Alignment3.")
             ToolTip("Alignment issue 3, could not continue`n"
                 "Use F5 to finish`nApplied default loadout", Window.W / 2 -
@@ -92,15 +92,15 @@ fTimeWarpAndRaiseTower() {
         }
         ; TODO Move to cPoint
         fCustomClick(found[1] + Window.RelW(471), found[2] + Window.RelH(67),
-            101)
+        101)
         Sleep(101)
 
         ; Select Tower area
         If (!cPoint(found[1] + Window.RelW(69), found[2] + Window.RelH(5),
-            false).IsButtonActive()) {
+        false).IsButtonActive()) {
 
             ToolTip(" ", found[1] + Window.RelW(69), found[2] + Window.RelH(5),
-                4)
+            4)
 
             Out.I("Error 32: Tower area detection failed. Alignment4.")
             ToolTip("Alignment issue 4, could not continue`n"
@@ -115,7 +115,7 @@ fTimeWarpAndRaiseTower() {
         )
         Sleep(101)
 
-        Travel.OpenGemShop()
+        Shops.OpenGemShop()
         Sleep(150)
         ; TODO move points to Points
         If (!cPoint(1810, 1177).IsButtonActive()) {

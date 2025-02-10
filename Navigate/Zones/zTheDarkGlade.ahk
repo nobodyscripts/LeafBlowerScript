@@ -25,47 +25,18 @@ Class TheDarkGlade extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
+        /** @type {cPoint} */
+        Btn := cPoint(1686, 793)
+        
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.LeafGalaxy.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
+        this.ScrollAmountDown(28, scrolldelay)
         Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local TheDarkGladeLeaf := this.FindTheDarkGladeZone()
-        If (TheDarkGladeLeaf) {
-            this.ClickTravelButton(TheDarkGladeLeaf, delay + extradelay)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(delay + extradelay)
         } Else {
-            Out.I("The Dark Glade leaf not found while trying to travel.")
+            Out.I("Cursed Kokkaupunki not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindTheDarkGladeZone() {
-        ; Change this if used
-        ;return Rects.LeafG.TheDarkGladeTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to The Dark Glade
-        ;Button := Points.Areas.LeafGalaxy.TheDarkGlade
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("The Dark Glade travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

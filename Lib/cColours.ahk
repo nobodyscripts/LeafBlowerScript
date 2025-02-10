@@ -88,8 +88,9 @@ Class Colours {
         "Energy Singularity", "0x1A1A31", ;
         "Fire Fields Portal", "0x1F1509", ;
         "The Shadow Cavern", "0x260000", ;
+        "Moltenfury", "0x841E11", ;
         "The Coal Mine", "0x06000C", ;
-        "Mount Moltenfurty", "0x841E11", ;
+        "Mount Moltenfury", "0x841E11", ;
         "The Fire Temple", "0x291F31", ;
         "Flame Brazier", "0x121328", ;
         "Fire Universe", "0x17190F", ;
@@ -110,7 +111,17 @@ Class Colours {
         "Farm Field", "0x4A9754", ; (non unique)
         "Butterfly Field", "0x4A9754", ; (non unique)
         "Vial of Life", "0x4A9754", ; (non unique)
-        "The Doomed Tree", "0x090B10")
+        "The Doomed Tree", "0x090B10", ;
+        "Ante Leafton", "0x000000", ; (non unique)
+        "The Leafton Pit", "0x000000", ; (non unique)
+        "Shadow Crystal", "0x010911", ;
+        "Tenebris Field", "0x181818", ;
+        "Blacklight Verge", "0x000000", ; (non unique)
+        "Sombrynth", "0x000000", ; (non unique)
+        "Latsyrc Wodash", "0x000009")
+    /*
+    TODO Add Shadow Lighthouse
+    */
     ;@endregion
     ;@endregion
 

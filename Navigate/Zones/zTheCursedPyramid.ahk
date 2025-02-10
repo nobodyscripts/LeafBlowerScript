@@ -26,46 +26,15 @@ Class TheCursedPyramid extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.LeafGalaxy.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
+        this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local TheCursedPyramidLeaf := this.FindTheCursedPyramidZone()
-        If (TheCursedPyramidLeaf) {
-            this.ClickTravelButton(TheCursedPyramidLeaf, delay + extradelay)
+        If (cPoint(1678, 830).IsButtonActive()) {
+            cPoint(1678, 830).ClickButtonActive(delay + extradelay)
         } Else {
-            Out.I("The Cursed Pyramid leaf not found while trying to travel.")
+            Out.I("The Cursed Pyramid not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
     }
 
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindTheCursedPyramidZone() {
-        ; Change this if used
-        ;return Rects.LeafG.TheCursedPyramidTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to The Cursed Pyramid
-        ;Button := Points.Areas.LeafGalaxy.TheCursedPyramid
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("The Cursed Pyramid travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
-    }
 }

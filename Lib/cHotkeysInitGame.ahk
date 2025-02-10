@@ -38,6 +38,9 @@ GameKeys.Hotkeys["OpenCrafting"] := cHotkey("OpenCrafting", Map("EN-US", "m",
 GameKeys.Hotkeys["OpenMining"] := cHotkey("OpenMining", Map("EN-US", "l",
     "EN-GB", "l", "Other", "l"), "Shops")
 
+GameKeys.Hotkeys["OpenBlc"] := cHotkey("OpenBlc", Map("EN-US", "s",
+    "EN-GB", "s", "Other", "s"), "Shops")
+
 GameKeys.Hotkeys["OpenMlc"] := cHotkey("OpenMlc", Map("EN-US", "d",
     "EN-GB", "d", "Other", "d"), "Shops")
 

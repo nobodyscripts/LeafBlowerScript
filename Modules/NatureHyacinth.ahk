@@ -26,7 +26,7 @@ fFarmNormalBossAndNatureHyacinth() {
     flowerID := HyacinthUseFlower
     flowerTypesUsed := 1
     If (HyacinthBanksEnabled) {
-        Travel.OpenPets()
+        Shops.OpenPets()
         Sleep(NavigateTime)
         BankSinglePass()
     }
@@ -69,7 +69,7 @@ fFarmNormalBossAndNatureHyacinth() {
             Break
         }
         If (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
-            HyacinthBanksEnabled) {
+        HyacinthBanksEnabled) {
             If (bossfarm) {
                 Spammer.KillNormalBoss() ; Need to halt any WW spam
             }
@@ -130,8 +130,7 @@ fFarmNormalBossAndNatureHyacinth() {
                 Killcount++
             }
             IsPrevTimerLong := IsTimerLong
-            If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()
-            ) {
+            If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()) {
                 If (HyacinthFarmBoss) Spammer.KillNormalBoss()
                     Out.I("BossHyacinth: User killed.")
                 ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
@@ -165,32 +164,32 @@ OpenFarmAtSlotAndFlower(HyacinthUseSlot, flowerID) {
 ClickFarmSlot(HyacinthUseSlot) {
     ; TODO Move point to Points
     Switch HyacinthUseSlot {
-        Case "All":
-            cPoint(375, 500).Click(NavigateTime) ; Slot 1
-        Case "all":
-            cPoint(375, 500).Click(NavigateTime) ; Slot 1
-        Case 1:
-            cPoint(375, 500).Click(NavigateTime) ; Slot 1
-        Case 2:
-            cPoint(745, 500).Click(NavigateTime) ; Slot 2
-        Case 3:
-            cPoint(1120, 500).Click(NavigateTime) ; Slot 3
-        Case 4:
-            cPoint(1490, 500).Click(NavigateTime) ; Slot 4
-        Case 5:
-            cPoint(1870, 500).Click(NavigateTime) ; Slot 5
-        Case 6:
-            cPoint(375, 865).Click(NavigateTime) ; Slot 6
-        Case 7:
-            cPoint(745, 865).Click(NavigateTime) ; Slot 7
-        Case 8:
-            cPoint(1120, 865).Click(NavigateTime) ; Slot 8
-        Case 9:
-            cPoint(1490, 865).Click(NavigateTime) ; Slot 9
-        Case 10:
-            cPoint(1870, 865).Click(NavigateTime) ; Slot 10
-        default:
-            cPoint(375, 500).Click(NavigateTime) ; Slot 1
+    Case "All":
+        cPoint(375, 500).Click(NavigateTime) ; Slot 1
+    Case "all":
+        cPoint(375, 500).Click(NavigateTime) ; Slot 1
+    Case 1:
+        cPoint(375, 500).Click(NavigateTime) ; Slot 1
+    Case 2:
+        cPoint(745, 500).Click(NavigateTime) ; Slot 2
+    Case 3:
+        cPoint(1120, 500).Click(NavigateTime) ; Slot 3
+    Case 4:
+        cPoint(1490, 500).Click(NavigateTime) ; Slot 4
+    Case 5:
+        cPoint(1870, 500).Click(NavigateTime) ; Slot 5
+    Case 6:
+        cPoint(375, 865).Click(NavigateTime) ; Slot 6
+    Case 7:
+        cPoint(745, 865).Click(NavigateTime) ; Slot 7
+    Case 8:
+        cPoint(1120, 865).Click(NavigateTime) ; Slot 8
+    Case 9:
+        cPoint(1490, 865).Click(NavigateTime) ; Slot 9
+    Case 10:
+        cPoint(1870, 865).Click(NavigateTime) ; Slot 10
+    default:
+        cPoint(375, 500).Click(NavigateTime) ; Slot 1
     }
 }
 
@@ -202,80 +201,80 @@ FlowerToID(flower) {
     }
     flower := StrLower(flower)
     Switch flower {
-        Case "hyacinth":
-            Return 1
-        Case "pansy":
-            Return 2
-        Case "hibiscus":
-            Return 3
-        Case "rose":
-            Return 4
-        Case "poppy":
-            Return 5
-        Case "primula":
-            Return 6
-        Case "forget-me-not":
-            Return 7
-        Case "tulip":
-            Return 8
-        Case "camomile":
-            Return 9
-        Case "dandelion":
-            Return 10
-        Case "aster":
-            Return 11
-        Case "daffodil":
-            Return 12
-        Case "cornflower":
-            Return 13
-        Case "lily of the valley":
-            Return 14
-        Case "dames rocket":
-            Return 15
-        Case "marigold":
-            Return 16
-        default:
-            Return 1
+    Case "hyacinth":
+        Return 1
+    Case "pansy":
+        Return 2
+    Case "hibiscus":
+        Return 3
+    Case "rose":
+        Return 4
+    Case "poppy":
+        Return 5
+    Case "primula":
+        Return 6
+    Case "forget-me-not":
+        Return 7
+    Case "tulip":
+        Return 8
+    Case "camomile":
+        Return 9
+    Case "dandelion":
+        Return 10
+    Case "aster":
+        Return 11
+    Case "daffodil":
+        Return 12
+    Case "cornflower":
+        Return 13
+    Case "lily of the valley":
+        Return 14
+    Case "dames rocket":
+        Return 15
+    Case "marigold":
+        Return 16
+    default:
+        Return 1
     }
 }
 
 SelectFlower(flowerID) {
     ; TODO Move point to Points
     Switch flowerID {
-        Case 1:
-            cPoint(380, 600).Click(NavigateTime) ; Hyacinth Slot 1
-        Case 2:
-            cPoint(500, 600).Click(NavigateTime) ; Pansy Slot 2
-        Case 3:
-            cPoint(620, 600).Click(NavigateTime) ; Hibiscus Slot 3
-        Case 4:
-            cPoint(740, 600).Click(NavigateTime) ; Rose Slot 4
-        Case 5:
-            cPoint(860, 600).Click(NavigateTime) ; Poppy Slot 5
-        Case 6:
-            cPoint(980, 600).Click(NavigateTime) ; Primula Slot 6
-        Case 7:
-            cPoint(1100, 600).Click(NavigateTime) ; Forget-me-not Slot 7
-        Case 8:
-            cPoint(1220, 600).Click(NavigateTime) ; Tulip Slot 8
-        Case 9:
-            cPoint(380, 700).Click(NavigateTime) ; Camomile Slot 9
-        Case 10:
-            cPoint(500, 700).Click(NavigateTime) ; Dandelion Slot 10
-        Case 11:
-            cPoint(620, 700).Click(NavigateTime) ; Aster Slot 11
-        Case 12:
-            cPoint(740, 700).Click(NavigateTime) ; Daffodil Slot 12
-        Case 13:
-            cPoint(860, 700).Click(NavigateTime) ; Cornflower Slot 13
-        Case 14:
-            cPoint(980, 700).Click(NavigateTime) ; Lily of the Valley Slot 14
-        Case 15:
-            cPoint(1100, 700).Click(NavigateTime) ; Dames Rocket Slot 15
-        Case 16:
-            cPoint(1220, 700).Click(NavigateTime) ; Marigold Slot 16
-        default:
-            cPoint(380, 600).Click(NavigateTime) ; Hyacinth
+    Case 1:
+        cPoint(380, 600).Click(NavigateTime) ; Hyacinth Slot 1
+    Case 2:
+        cPoint(500, 600).Click(NavigateTime) ; Pansy Slot 2
+    Case 3:
+        cPoint(620, 600).Click(NavigateTime) ; Hibiscus Slot 3
+    Case 4:
+        cPoint(740, 600).Click(NavigateTime) ; Rose Slot 4
+    Case 5:
+        cPoint(860, 600).Click(NavigateTime) ; Poppy Slot 5
+    Case 6:
+        cPoint(980, 600).Click(NavigateTime) ; Primula Slot 6
+    Case 7:
+        cPoint(1100, 600).Click(NavigateTime) ; Forget-me-not Slot 7
+    Case 8:
+        cPoint(1220, 600).Click(NavigateTime) ; Tulip Slot 8
+    Case 9:
+        cPoint(380, 700).Click(NavigateTime) ; Camomile Slot 9
+    Case 10:
+        cPoint(500, 700).Click(NavigateTime) ; Dandelion Slot 10
+    Case 11:
+        cPoint(620, 700).Click(NavigateTime) ; Aster Slot 11
+    Case 12:
+        cPoint(740, 700).Click(NavigateTime) ; Daffodil Slot 12
+    Case 13:
+        cPoint(860, 700).Click(NavigateTime) ; Cornflower Slot 13
+    Case 14:
+        cPoint(980, 700).Click(NavigateTime) ; Lily of the Valley Slot 14
+    Case 15:
+        cPoint(1100, 700).Click(NavigateTime) ; Dames Rocket Slot 15
+    Case 16:
+        cPoint(1220, 700).Click(NavigateTime) ; Marigold Slot 16
+    default:
+        cPoint(380, 600).Click(NavigateTime) ; Hyacinth
     }
 }
 

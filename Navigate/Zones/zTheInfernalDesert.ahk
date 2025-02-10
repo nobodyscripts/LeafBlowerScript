@@ -19,39 +19,14 @@ Class TheInfernalDesert extends Zone {
 
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        this.ScrollAmountDown(23, scrolldelay) ; Scroll down for the zones 0xAC816B
+        this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
-        Local DesertLeaf := this.FindDesertZone()
-        If (DesertLeaf) {
-            this.ClickTravelButton(DesertLeaf, delay + extradelay)
+        If (cPoint(1677, 652).IsButtonActive()) {
+            cPoint(1677, 652).ClickButtonActive(delay + extradelay)
         } Else {
-            Out.I(
-                "The Infernal Desert marker leaf not found while trying to travel."
-            )
+            Out.I("The Infernal Desert not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    FindDesertZone() {
-        Return Rects.GemFarm.TravelLeafSearch.PixelSearch("0x4A4429")
-    }
-
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to The Infernal Desert
-        Button := cPoint(coord[1] + Window.RelW(225), coord[2] + Window.RelH(5),
-            false)
-        Out.D(Button.GetColour() " " Button.IsButton() " " Button.IsButtonActive()
-        )
-        ; If no button we are misaligned
-        If (Button.IsButton()) {
-            ; Set zone to The Infernal Desert (if not already inactive)
-            If (Button.IsButtonActive()) {
-                Button.Click(delay)
-            }
-        } Else {
-            Out.I("The Infernal Desert travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

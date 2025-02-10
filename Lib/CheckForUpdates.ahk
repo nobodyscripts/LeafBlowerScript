@@ -73,16 +73,16 @@ Class ScriptVersion {
 
     ReleaseToVal(var := this.Release) {
         Switch var {
-            Case "Test":
-                Return 0
-            Case "Alpha":
-                Return 1
-            Case "Beta":
-                Return 2
-            Case "Pre-Release":
-                Return 3
-            default:
-                Return 99
+        Case "Test":
+            Return 0
+        Case "Alpha":
+            Return 1
+        Case "Beta":
+            Return 2
+        Case "Pre-Release":
+            Return 3
+        default:
+            Return 99
         }
     }
 }
@@ -206,17 +206,14 @@ Class UpdateChecker {
             If (FileExist(this.CurrentJsonFile)) {
                 filecontents := FileRead(this.CurrentJsonFile)
             } Else {
-                Out.I("Error: Version file not found at " this.CurrentJsonFile "`r`n"
-                )
-                MsgBox("Error: Version file not found at " this.CurrentJsonFile
-                )
+                Out.I("Error: Version file not found at " this.CurrentJsonFile)
+                MsgBox("Error: Version file not found at " this.CurrentJsonFile)
                 Return false
             }
         } Catch As exc {
-            Out.I("Error: Error opening version file " this.CurrentJsonFile " - " exc
-                .Message "`r`n")
-            MsgBox("Error: Error opening version file " this.CurrentJsonFile " - " exc
-                .Message)
+            Out.I("Error: Error opening version file " this.CurrentJsonFile
+                " - " exc.Message)
+            MsgBox("Error: Error opening version file " this.CurrentJsonFile " - " exc.Message)
             Return false
         }
         If (!filecontents) {
@@ -240,11 +237,11 @@ Class UpdateChecker {
             Out.I("Remote:`r`n" whr.ResponseText)
             Return jsongo.Parse(whr.ResponseText)
         } Catch As exc {
-            Out.I("CheckForUpdates: GetWebJson, Error fetching version.json - " exc
-                .Message "`r`n")
+            Out.I("CheckForUpdates: GetWebJson, Error fetching version.json - "
+                exc.Message)
             MsgBox(
-                "CheckForUpdates: GetWebJson, Error fetching version.json:`n" exc
-                .Message)
+                "CheckForUpdates: GetWebJson, Error fetching version.json:`r`n"
+                exc.Message)
             Return false
         }
     }

@@ -6,20 +6,37 @@ Button_Click_ULC(thisGui, info) {
     Global Settings
 
     optionsGUI := Gui(, "ULC TEST")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
-
-/*     optionsGUI.Add("Button", "default", "Run")
-    .OnEvent("Click", RunULC) */
+    optionsGUI.Add("Button", "default", "Run")
+    .OnEvent("Click", RunULC)
 
     optionsGUI.Add("Button", "default", "Stage 1")
+    .OnEvent("Click", ULCStage1)
+
+    optionsGUI.Add("Button", "default", "Get Daily Reward")
+    .OnEvent("Click", GetDailyReward)
+
+    optionsGUI.Add("Button", "default", "Go To Leaf Tower")
+    .OnEvent("Click", GoToLeafTower)
+
+    optionsGUI.Add("Button", "default", "test")
+    .OnEvent("Click", test)
+
+    test(*) {
+        UlcWindow()
+        Out.D(cPoint(1065, 1220).GetColour())
+    }
 
     optionsGUI.Add("Button", "default", "BLC Prestige")
     .OnEvent("Click", TriggerBLC)
 
-    optionsGUI.Add("Button", "default", "MLC Prestige and start converters")
+    optionsGUI.Add("Button", "default", "MLC Prestige")
     .OnEvent("Click", TriggerMLC)
+
+    optionsGUI.Add("Button", "default", "MLC Prestige and start converters")
+    .OnEvent("Click", TriggerMLCConverters)
 
     optionsGUI.Add("Button", "default", "ULC Prestige")
     .OnEvent("Click", TriggerULC)
@@ -54,21 +71,23 @@ Button_Click_ULC(thisGui, info) {
     optionsGUI.Add("Button", "default", "Go To Leaf Tower Max Floor")
     .OnEvent("Click", GoToLeafTowerMax)
 
-    GoToLeafTowerMax(*) {
-        UlcWindow()
-        Travel.TheLeafTower.MaxTowerFloor()
-    }
-/*
-
-    
     optionsGUI.Add("Button", "default", "UnlockPyramidFloors")
-    .OnEvent("Click", UnlockPyramidFloors)
-    
+    .OnEvent("Click", Shops.Pyramid.MaxFloor)
+
+    optionsGUI.Add("Button", "default ys", "Stage2")
+    .OnEvent("Click", ULCStage2)
+
+    optionsGUI.Add("Button", "default", "BossSweep")
+    .OnEvent("Click", BossSweep)
+
     optionsGUI.Add("Button", "default", "MaxMLCShop")
-    .OnEvent("Click", MaxMLCShop)
+    .OnEvent("Click", Shops.MLC.Max)
+
+    optionsGUI.Add("Button", "default", "BuyMulchMax")
+    .OnEvent("Click", Shops.Mulch.Max)
 
     optionsGUI.Add("Button", "default", "BuyMulchTrade")
-    .OnEvent("Click", BuyMulchTrade)
+    .OnEvent("Click", Shops.Mulch.BuyTrade)
 
     optionsGUI.Add("Button", "default", "GoToTrade")
     .OnEvent("Click", GoToTrade)
@@ -79,20 +98,17 @@ Button_Click_ULC(thisGui, info) {
     optionsGUI.Add("Button", "default", "GoToPyramid")
     .OnEvent("Click", GoToPyramid)
 
-    optionsGUI.Add("Button", "default ys", "BossSweep")
-    .OnEvent("Click", BossSweep)
-
     optionsGUI.Add("Button", "default", "MaxCoalShop")
-    .OnEvent("Click", MaxCoalShop)
+    .OnEvent("Click", Shops.Coal.Max)
 
     optionsGUI.Add("Button", "default", "MaxBioShop")
-    .OnEvent("Click", MaxBioShop)
+    .OnEvent("Click", Shops.Biotite.Max)
 
     optionsGUI.Add("Button", "default", "MaxMalaShop")
-    .OnEvent("Click", MaxMalaShop)
+    .OnEvent("Click", Shops.Malachite.Max)
 
     optionsGUI.Add("Button", "default", "EnableBanks")
-    .OnEvent("Click", EnableBanks) */
+    .OnEvent("Click", EnableBanks)
 
     optionsGUI.Add("Button", "default ys", "Stage3")
     .OnEvent("Click", ULCStage3)
@@ -105,6 +121,6 @@ Button_Click_ULC(thisGui, info) {
 
     optionsGUI.Add("Button", "default", "BuyMaxBVPacks")
     .OnEvent("Click", BuyMaxBVPacks)
-    
-    optionsGUI.Show("w300")
+
+    optionsGUI.Show()
 }

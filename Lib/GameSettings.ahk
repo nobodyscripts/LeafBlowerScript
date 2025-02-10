@@ -19,7 +19,7 @@ fGameSettings(*) {
     stringJson := jsongo.Stringify(settingsJson)
     backupfile := StrReplace(ActiveGameSettingsPath, "options.dat",
         "options backup " FormatTime(FileGetTime(ActiveGameSettingsPath, "M"),
-            "yyyy MM dd '-' HH'-'mm'-'ss") ".dat")
+        "yyyy MM dd '-' HH'-'mm'-'ss") ".dat")
 
     If (SetGameSettings(ActiveGameSettingsPath, stringJson, backupfile)) {
         Out.I("Game Settings file updated at " ActiveGameSettingsPath "`r`n"
@@ -27,10 +27,8 @@ fGameSettings(*) {
         MsgBox("Game Settings file updated at " ActiveGameSettingsPath "`r`n"
             "Backup file made: " backupfile)
     } Else {
-        Out.I("Error: Game Settings file not found at " ActiveGameSettingsPath "`r`n"
-        )
-        MsgBox("Error: Game Settings file not found at " ActiveGameSettingsPath
-        )
+        Out.I("Error: Game Settings file not found at " ActiveGameSettingsPath)
+        MsgBox("Error: Game Settings file not found at " ActiveGameSettingsPath)
     }
 }
 
@@ -48,11 +46,11 @@ GetGameSettings(filename) {
         If (FileExist(filename)) {
             Return FileRead(filename)
         } Else {
-            Out.I("Error: Game Settings file not found at " filename "`r`n")
+            Out.I("Error: Game Settings file not found at " filename)
             MsgBox("Error: Game Settings file not found at " filename)
         }
     } Catch As exc {
-        Out.I("Error: Error opening file " filename " - " exc.Message "`r`n")
+        Out.I("Error: Error opening file " filename " - " exc.Message)
         MsgBox("Error: Error opening file " filename " - " exc.Message)
     }
     Return false
@@ -71,16 +69,16 @@ SetGameSettings(filename, data, backupName) {
                     FileDelete(filename)
                 }
             } Catch As exc {
-                Out.I("Error: Error moving file " filename " to " backupName " - " exc
-                    .Message "`r`n")
-                MsgBox("Error: Error moving file " filename " to " backupName " - " exc
-                    .Message)
+                Out.I("Error: Error moving file " filename " to " 
+                backupName " - " exc.Message)
+                MsgBox("Error: Error moving file " filename " to " 
+                backupName " - " exc.Message)
             }
         }
         FileAppend(data, filename)
         Return true
     } Catch As exc {
-        Out.I("Error: Error writing file " filename " - " exc.Message "`r`n")
+        Out.I("Error: Error writing file " filename " - " exc.Message)
         MsgBox("Error: Error writing file " filename " - " exc.Message)
     }
     Return false
@@ -180,12 +178,14 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         'hotkey_materials', ;
         'hotkey_relics', ;
         'hotkey_scrolls', ;
-        'hotkey_chests', 'hotkey_death_book', ;
+        'hotkey_chests',
+        'hotkey_death_book', ;
         'hotkey_skins', ;
         'hotkey_achievements', ;
         'hotkey_milestones', ;
         'hotkey_stats', ;
-        'hotkey_lore', 'hotkey_daily_rewards', ;
+        'hotkey_lore',
+        'hotkey_daily_rewards', ;
         'hotkey_challenges', ;
         'hotkey_bot_control_panel', ;
         'hotkey_community_leaves', ;
@@ -267,7 +267,8 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         'hotkey_soul_forge', ;
         'hotkey_dice', ;
         'hotkey_quarks', ;
-        'hotkey_event_shop']
+        'hotkey_event_shop'
+    ]
     aInUse := [
         ; Need closepanel in this to avoid user binding to Esc
         GameKeys.GetHotkeyVK("ClosePanel") + 0.0, ;
@@ -291,7 +292,8 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         GameKeys.GetHotkeyVK("OpenGoldPortal") + 0.0, ;
         GameKeys.GetHotkeyVK("RefreshTrades") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenGemShop") + 0.0, ;
-        GameKeys.GetHotkeyVK("OpenTrades") + 0.0]
+        GameKeys.GetHotkeyVK("OpenTrades") + 0.0
+    ]
 
     Out.V("Script keys set to: " ArrToCommaDelimStr(aInUse))
     For (key in notRequiredHotkeys) {

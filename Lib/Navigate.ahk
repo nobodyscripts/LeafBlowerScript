@@ -21,6 +21,7 @@
 #Include ..\Navigate\Mines\Header.ahk
 
 #Include ..\Navigate\Zones\Header.ahk
+#Include ..\Shop\Header.ahk
 
 Global DisableZoneChecks := false
 Global NavigateTime := 150
@@ -659,7 +660,7 @@ GotoCardsFirstTab() {
                 Return false
             }
             Out.I("Opening cards, packs (first) tab.")
-            Travel.OpenCards()
+            Shops.OpenCards()
             Sleep(NavigateTime)
             button.Click(NavigateTime)
             ; Open first tab incase wrong tab
@@ -674,7 +675,7 @@ GotoCardsFirstTab() {
         ; Attempt to blind travel with slowed times
         Out.I("Opening cards, packs (first) tab. Attempt to blind travel with"
             " slowed times.")
-        Travel.OpenCards(, 200)
+        Shops.OpenCards(, 200)
         Sleep(NavigateTime + 200)
         button.Click(NavigateTime + 200)
         ; Open first tab incase wrong tab
@@ -692,8 +693,6 @@ GotoCardsFirstTab() {
         }
     }
 }
-
-
 
 IsAreaSampleColour(targetColour := "0xFFFFFF") {
     If (Points.Misc.ZoneSample.GetColour() = targetColour) {

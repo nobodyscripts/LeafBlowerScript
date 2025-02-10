@@ -3,7 +3,6 @@
 Global HadToHideNotifs := false
 Global HaveWarnedDisplayRewards := false
 
-
 ; Vscode loves to warn me about globals so defining even though loading save
 Global CardsPermaLoop := false
 Global CardsDontOpenCommons := 0
@@ -107,7 +106,7 @@ CardsOpenSinglePass() {
         Points.Misc.NotifArrow.Click(101)
         HadToHideNotifs := true
         ; Notifications were blocking, close notifications and reshow
-        Travel.OpenCards()
+        Shops.OpenCards()
         Sleep(101)
     }
 
@@ -147,14 +146,14 @@ CardOpenerRel(quality, offset, amount) {
     Global HaveWarnedDisplayRewards, Debug, CardsGreedyOpen
     offset := Window.RelH(offset)
     Switch quality {
-        Case 1:
-            button := Points.Card.OpenCommon
-        Case 2:
-            button := Points.Card.OpenRare
-        Case 3:
-            button := Points.Card.OpenLegend
-        default:
-            button := Points.Card.OpenCommon
+    Case 1:
+        button := Points.Card.OpenCommon
+    Case 2:
+        button := Points.Card.OpenRare
+    Case 3:
+        button := Points.Card.OpenLegend
+    default:
+        button := Points.Card.OpenCommon
     }
     clickdelay := (CardsSleepAmount > 101) ? 54 : CardsSleepAmount
     If (CardsGreedyOpen) {
@@ -196,14 +195,14 @@ CardOpenerRel(quality, offset, amount) {
 CardBuyerRel(quality, offset, amount) {
     offset := Window.RelH(offset)
     Switch quality {
-        Case 1:
-            button := Points.Card.BuyCommon
-        Case 2:
-            button := Points.Card.BuyRare
-        Case 3:
-            button := Points.Card.BuyLegend
-        default:
-            button := Points.Card.BuyCommon
+    Case 1:
+        button := Points.Card.BuyCommon
+    Case 2:
+        button := Points.Card.BuyRare
+    Case 3:
+        button := Points.Card.BuyLegend
+    default:
+        button := Points.Card.BuyCommon
     }
     ; Check if button is active, if not we can skip
     If (CardsGreedyBuy) {
@@ -300,13 +299,13 @@ CardButtonsActive() {
 
 CardQualityToStr(var) {
     Switch var {
-        Case 1:
-            Return "common"
-        Case 2:
-            Return "rare"
-        Case 3:
-            Return "legendry"
-        default:
-            Return "common"
+    Case 1:
+        Return "common"
+    Case 2:
+        Return "rare"
+    Case 3:
+        Return "legendry"
+    default:
+        Return "common"
     }
 }

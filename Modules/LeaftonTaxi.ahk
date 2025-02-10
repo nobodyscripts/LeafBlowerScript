@@ -40,7 +40,7 @@ fLeaftonTaxi() {
     /** @type {Timer} */
     BrewCutOffTimer := Timer()
 
-    Travel.OpenPets()
+    Shops.OpenPets()
     Sleep(NavigateTime)
     If (LeaftonBanksEnabled) {
         BankSinglePass()
@@ -48,7 +48,7 @@ fLeaftonTaxi() {
     Loop {
         ;@region Banks
         If (DateDiff(A_Now, starttime, "Seconds") >= BankDepositTime * 60 &&
-            LeaftonBanksEnabled) {
+        LeaftonBanksEnabled) {
             Out.I("Leafton: Bank Maintainer starting.")
             ToolTip("Leafton Bank Maintainer Active", Window.W / 2, Window.RelH(
                 200), 4)
@@ -62,7 +62,7 @@ fLeaftonTaxi() {
         If (Window.IsActive() && LeaftonEnableBrewing && !BrewCycleTimer.Running
         ) {
             Out.I("Leafton: Brewing")
-            If (Travel.OpenAlchemyGeneral()) {
+            If (Shops.OpenAlchemyGeneral()) {
                 Out.D("Traveled brew")
                 BrewCutOffTimer.CoolDownS(LeaftonBrewCutOffTime, &
                     BrewCutOffRunning)
@@ -107,17 +107,17 @@ fLeaftonTaxi() {
             }
             While (!IsBossTimerActive()) {
                 If (!Window.IsActive() || DateDiff(A_Now, starttime, "Seconds") >=
-                    BankDepositTime * 60) {
+                BankDepositTime * 60) {
                     Break
                 }
                 If (LeaftonCraftEnabled && !Window.IsPanel()) {
                     Sleep(NavigateTime)
-                    Travel.OpenCrafting()
+                    Shops.OpenCrafting()
                     Sleep(NavigateTime)
                     Points.Crafting.Tab1.ClickOffset()
                     Sleep(NavigateTime)
                     If (!Window.IsPanel()) {
-                        Travel.OpenCrafting()
+                        Shops.OpenCrafting()
                         Sleep(NavigateTime)
                         Points.Crafting.Tab1.ClickOffset()
                         Sleep(NavigateTime)
@@ -128,7 +128,7 @@ fLeaftonTaxi() {
                 }
                 ; If button isn't there allow cycle to brew
                 If (LeaftonCraftEnabled && craftStopCoord.IsBackground() && !
-                    BrewCycleTimer.Running) {
+                BrewCycleTimer.Running) {
                     Break
                 }
             }
@@ -149,7 +149,7 @@ LeaftonTaxiSinglePassStart() {
     If (LeaftonSpamsWind) {
         Spammer.LeaftonStart()
     }
-    Travel.OpenPets()
+    Shops.OpenPets()
     Sleep(NavigateTime)
 }
 

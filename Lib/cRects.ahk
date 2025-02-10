@@ -14,6 +14,7 @@ Global Rects := cRects()
  * @property {cMiscRects} Misc
  * @property {cMineRects} Mine
  * @property {cCaveRects} Mine.Cave
+ * @property {cMLCShopRects} MLCShop Subclass for mlc shop rects
  */
 Class cRects {
 
@@ -38,4 +39,6 @@ Class cRects {
     /** @type {cCaveRects} Mine.Cave Rects */
     Mine.Cave := cCaveRects()
     
+    /** @type {cMLCShopRects} */
+    MLCShop := cMLCShopRects()
 }

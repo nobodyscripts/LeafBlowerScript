@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
 
 fShadowCrystalFight() {
+    global SCAdvanceReplace
     If (!Window.Activate()) {
         Out.I("Exiting due to no window")
         Return

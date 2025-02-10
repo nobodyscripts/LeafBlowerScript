@@ -1,16 +1,9 @@
 #Include ..\Lib\Navigate.ahk
 #Include ..\Lib\hGlobals.ahk
 
-#Include ..\Shop\Bio.ahk
-#Include ..\Shop\Coal.ahk
-#Include ..\Shop\Electric.ahk
-#Include ..\Shop\Hema.ahk
-#Include ..\Shop\Mala.ahk
-#Include ..\Shop\MLC.ahk
-#Include ..\Shop\Mulch.ahk
-#Include ..\Shop\Plasma.ahk
-#Include ..\Shop\SoulForge.ahk
-#Include ..\Shop\SoulShop.ahk
+#Include QuickULCStage1.ahk
+#Include QuickULCStage2.ahk
+#Include QuickULCStage3.ahk
 
 ; Curse brewing off, auto craft off
 
@@ -27,161 +20,212 @@ GetULCStage() {
 
 }
 
+ULCStage1ExitCheck(id) {
+    Global ULCStage1Exit
+    If (ULCStage1Exit) {
+        Out.D("Exited at id " id)
+        Out.S()
+        ExitApp()
+    }
+}
+
 ULCStage1(*) {
+    EquipBlower()
+    GetDailyReward()
+
     Travel.TheLeafTower.MaxTowerFloor()
+    WaitForFloor100()
+    ULCStage1ExitCheck(1)
 
     TriggerMLC()
+    WaitForPortalAnimation()
+    ULCStage1ExitCheck(2)
 
     Travel.TheLeafTower.MaxTowerFloor()
+    ULCStage1ExitCheck(3)
 
-    MaxMLCShop()
+    Shops.MLC.Max()
+    Shops.MLC.Max()
+    ULCStage1ExitCheck(4)
 
-    TriggerMLC()
+    TriggerMLCConverters()
+    WaitForPortalAnimation()
+    Shops.MLC.Max()
+    ULCStage1ExitCheck(5)
 
     WaitForBLCPortal()
-
+    ULCStage1ExitCheck(12)
     TriggerBLC()
+    ULCStage1ExitCheck(13)
+    WaitForPortalAnimation()
+    ULCStage1ExitCheck(14)
+    Shops.MLC.Max()
+    ULCStage1ExitCheck(6)
 
-    GoToPub()
+    Travel.TheInnerCursedPyramid.GoTo() ; Get ancients to autobrew
+    WaitTillPyramidReset()
+    ULCStage1ExitCheck(7)
 
     PubTradeForCheese25000()
+    ULCStage1ExitCheck(8)
 
     Use30minTimeWarp() ; Should we do something with e300 blc first or try e30
+    ULCStage1ExitCheck(9)
 
     EquipMulchSword() ; Activates unique leaves/pets on loadout too
-
-    BuyMulchTrade()
+    Sleep(1000)
+    Shops.Mulch.BuyTrade()
+    ULCStage1ExitCheck(10)
 
     GoToTrade()
+    ULCStage1ExitCheck(11)
 
-    TradeForPyramid()
-
-    EquipBlower()
-
-    GoToPyramid()
-
+    MsgBox("Trade for pyramid requirements now, then go to pyramid and get ancients`r`n"
+        "After that do pyramid floor 100 and start stage 2.")
+    /* TradeForPyramid() ; TODO
+    
+    If (IsULCCraftSaved()) { ; TODO
+        EquipBlower()
+    } Else {
+        CraftMoonLeafsAndPreset() ; TODO
+    }
+    
+    Travel.TheCursedPyramid.GoTo()
     ; Do we just leave ancient to user?
-    WaitForAncients()
-
-    UnlockPyramidFloors()
+    WaitForAncients() ; TODO
+    
+    Shops.Pyramid.MaxFloor() */
 }
 
 ULCStage2(*) {
-    GoToWitch() WaitForBossKill()
+    UlcWindow()
+    Travel.CursedKokkaupunki.GoTo()
+    WaitForBossKill()
 
-    GoToCentaur() WaitForBossKill()
+    Travel.TheExaltedBridge.GoTo()
+    WaitForBossKill()
 
-    GoToVileCreature() WaitForBossKill()
+    Travel.VilewoodCemetery.GoTo()
+    WaitForBossKill()
 
-    GoToAirElemental() WaitForBossKill()
+    Travel.TheLoneTree.GoTo()
+    WaitForBossKill()
 
-    GoToSparkBubble() WaitForBossKill()
+    Travel.SparkBubble.GoTo()
+    WaitForBossKill()
 
-    GoToTerrorBlue() WaitForBossKill()
+    Travel.BluePlanetEdge.GoTo()
+    WaitForBossKill()
 
-    GoToTerrorGreen() WaitForBossKill()
+    Travel.GreenPlanetEdge.GoTo()
+    WaitForBossKill()
 
-    GoToTerrorRed() WaitForBossKill()
+    Travel.RedPlanetEdge.GoTo()
+    WaitForBossKill()
 
-    GoToTerrorPurple() WaitForBossKill()
+    Travel.PurplePlanetEdge.GoTo()
+    WaitForBossKill()
 
-    GoToTerrorSuper() WaitForBossKillOrTimeout()
+    Travel.BlackPlanetEdge.GoTo()
+    WaitForBossKillOrTimeout()
 
-    GoToEnergyGuard() WaitForBossKillOrTimeout()
+    Travel.EnergySingularity.GoTo()
+    WaitForBossKillOrTimeout()
 
-    GoToMountMoltenfury() Sleep(5000)
+    Travel.MountMoltenfury.GoTo()
+    Sleep(5000)
 
-    MaxCoalShop()
+    Shops.Coal.Max()
 
-    GoToGF() WaitForBossKillOrTimeout()
+    GoToGF()
+    WaitForBossKillOrTimeout()
 
-    GoToSS() WaitForBossKillOrTimeout()
+    GoToSS()
+    WaitForBossKillOrTimeout()
 
-    GotoBio()
+    Travel.BiotiteForest.GoTo()
 
     MaxBVItems()
-
     WaitForBioOrTimeout()
 
-    MaxBioShop()
+    TimeWarpIfLackingBio()
 
+    Shops.Biotite.Max()
     WaitForMalaOrTimeout()
 
-    MaxMalaShop()
+    Shops.Malachite.Max()
 
-    GotoHema()
-
+    Travel.SparkRange.GoTo()
     WaitForHemaOrTimeout()
 
-    MaxHemaShop()
+    Shops.Hematite.Max()
 
-    GoToPlasmaForest()
-
+    Travel.PlasmaForest.GoTo()
     PlacePlayerPlasmaLoc()
-
     EquipElectric()
-
     WaitForElectricOrTimeout()
-
-    MaxElectricShop()
-
-    MaxPlasmaShop()
+    Shops.Electric.Max()
+    Shops.Plasma.Max()
 
     EquipBlower()
 
-    GoToDeathbook()
-
+    Travel.TerrorGraveyard.GoTo()
     BuyDeathbook()
 
-    GoToSoulCrypt()
-
-    WaitForZoneChange()
-
-    GoToSoulTemple()
-
+    ; Fight soul crypt floor 1
+    Travel.SoulCrypt.GoTo()
+    WaitForZoneChange() ; Let lack of taxi be a trigger
     MaxCryptFloors() ; Max 20
 
-    GoToSoulCrypt()
-
+    ; Fight soul crypt floor 20
+    Travel.SoulCrypt.GoTo()
     WaitForZoneChange()
 
-    GoToQuarkBoss1() WaitForBossKillOrTimeout()
+    Travel.TheHollow.GoTo()
+    WaitForBossKillOrTimeout()
 
-    GoToQuarkBoss2() WaitForBossKillOrTimeout()
+    Travel.AstralOasis.GoTo()
+    WaitForBossKillOrTimeout()
 
-    GoToQuarkBoss3() WaitForBossKillOrTimeout()
+    Travel.DimensionalTapestry.GoTo()
+    WaitForBossKillOrTimeout()
 
-    GoToSoulForge()
+    Travel.PlanckScope.GoTo()
+    WaitForBossKillOrTimeout()
 
-    MaxSoulForge()
-
-    MaxSoulShop()
+    Travel.SoulForge.GoTo()
+    Shops.SoulForge.Max()
+    Shops.SoulShop.Max()
 
     EnableBanks()
 
-    GoToSoulTemple()
-
+    Travel.SoulTemple.GoTo()
     MaxCryptFloors() ; Max 100
 
-    GoToSoulCrypt()
+    Travel.SoulCrypt.GoTo()
 
-    GoToWarden() WaitForBossKillOrTimeout()
+    Travel.TheFabricoftheLeafverse.GoTo() ; Warden
+    WaitForBossKillOrTimeout()
 
-    WaitForZoneChange()
-
-    GoToLeaftonPit()
-
+    Travel.AnteLeafton.GoTo()
     WaitForQuarkOrTimeout()
 
-    GoToWoW() WaitForBossKillOrTimeout()
+    Travel.PrimordialEthos.GoTo()
+    WaitForBossKillOrTimeout()
+
+    Travel.TenebrisField.GoTo()
+    WaitFor40thDice()
 }
 
 ULCStage3(*) {
+    ; Prep for ulc after unlock
     BuyMaxCardPacks()
 
     BuyMaxBVPacks()
 
     MaxBVItems()
+
+    StoreMineCurrency()
 
     EquipBlower()
 }
@@ -198,100 +242,13 @@ UlcWindow() {
 }
 ;@endregion
 
-TriggerBLC(*) {
-    UlcWindow()
-    GameKeys.OpenRedPortal()
-    Sleep(50)
-    cPoint(1109, 553)
-    .ClickButtonActive()
-    Sleep(150)
-    cPoint(1131, 525)
-    .ClickButtonActive()
-}
-
-TriggerMLC(*) {
-    UlcWindow()
-    GameKeys.OpenGreenPortal()
-    Sleep(50)
-    cPoint(1109, 553)
-    .ClickButtonActive()
-    Sleep(150)
-    cPoint(1131, 525)
-    .ClickButtonActive()
-    Sleep(8000)
-    ActivateConverters()
-}
-
 TriggerULC(*) {
     UlcWindow()
     GameKeys.OpenBluePortal()
     Sleep(50)
-    cPoint(1109, 553)
-    .ClickButtonActive()
-    Sleep(150)
-    cPoint(1131, 525)
-    .ClickButtonActive()
+    cPoint(1710, 498).ClickButtonActive()
+    Sleep(8000)
 }
-
-ActivateConverters(*) {
-    UlcWindow()
-    GameKeys.OpenConverters()
-    Sleep(150)
-    StartConvertorsBtn := cPoint(1075, 1102)
-    StartConvertorsBtn.ClickButtonActive()
-}
-
-PubTradeForCheese25000(*) {
-    UlcWindow()
-    Travel.TheCheesePub.GoTo() ;TODO This won't work currently
-    Sleep(150)
-    BartenderBtn := cPoint(241, 741)
-    BartenderBtn.Click()
-    Sleep(250)
-    QuestsBtn := cPoint(1091, 380)
-    QuestsBtn.WaitUntilActiveButton()
-    QuestsBtn.ClickButtonActive()
-    QuestCheese250Btn := cPoint(1702, 312)
-    QuestCheese250Btn.WaitUntilActiveButton()
-    QuestCheese250Btn.ClickButtonActive()
-    QuestCheese250Btn.WaitUntilActiveButton()
-    QuestCheese250Btn.ClickButtonActive()
-}
-
-Use30minTimeWarp(*) {
-    UlcWindow()
-    TTtab := cPoint(1810, 1177)
-    Buy30mins := cPoint(1592, 306)
-    Available30mins := cPoint(1744, 306)
-    Travel.OpenGemShop()
-    TTtab.WaitUntilActiveButton()
-    If (!TTtab.IsButtonActive()) {
-        Out.I("Found no time travel button, exiting.")
-        Return
-    }
-    ; Navigate to Time Travel tab
-    TTtab.Click()
-
-    Buy30mins.WaitUntilActiveButton()
-
-    If (!Available30mins.IsButtonActive()) {
-        Buy30mins.ClickButtonActive()
-
-        Available30mins.WaitUntilActiveButton()
-
-        Available30mins.ClickButtonActive()
-        Sleep(100)
-    } Else {
-        Available30mins.ClickButtonActive()
-        Sleep(100)
-    }
-}
-
-TradeForPyramid(*) {
-    UlcWindow()
-
-}
-
 BossSweep(*) {
     UlcWindow()
 
@@ -304,12 +261,12 @@ EnableBanks(*) {
 
 GoToTrade(*) {
     UlcWindow()
-
+    Shops.OpenTrades()
 }
 
 GoToPyramid(*) {
     UlcWindow()
-
+    Travel.TheCursedPyramid.GoTo()
 }
 
 GoToLeafTower(*) {
@@ -317,14 +274,14 @@ GoToLeafTower(*) {
     Travel.TheLeafTower.GoTo()
 }
 
-WaitForBLCPortal(*) {
+GoToLeafTowerMax(*) {
     UlcWindow()
-
+    Travel.TheLeafTower.MaxTowerFloor()
 }
 
 GoToPub(*) {
     UlcWindow()
-    Travel.TheCheesePub.GoTo() ;TODO This won't work currently
+    Travel.TheCheesePub.GoTo()
 }
 
 EquipMulchSword(*) {
@@ -340,30 +297,6 @@ EquipBlower(*) {
 EquipSlap(*) {
     UlcWindow()
     GameKeys.EquipSlapGearLoadout()
-}
-
-WaitForAncients(*) {
-    UlcWindow()
-
-}
-
-UnlockPyramidFloors(*) {
-    UlcWindow()
-    Travel.TheCursedPyramid.GoTo()
-    GameKeys.ClosePanel()
-    Sleep(100)
-    cPoint(1282, 622)
-    .Click(100) ; Center screen
-    Sleep(50)
-    cPoint(529, 740)
-    .ClickButtonActive() ; Max unlock
-    Sleep(50)
-    AmountToModifier(100) ; Alt
-    Sleep(50)
-    cPoint(1539, 463)
-    .ClickButtonActive() ; Increase level
-    Sleep(50)
-    ResetModifierKeys()
 }
 
 WaitForBossKill(*) {
@@ -443,6 +376,10 @@ GotoBio(*) {
 
 WaitForBioOrTimeout(*) {
     UlcWindow()
+
+}
+
+TimeWarpIfLackingBio(*) {
 
 }
 
@@ -534,8 +471,7 @@ MaxCryptFloors(*) {
     UlcWindow()
     GameKeys.ClosePanel()
     Sleep(100)
-    cPoint(1282, 622)
-    .Click() ; Open DB
+    cPoint(1282, 622).Click() ; Open soul temple object
     Sleep(50)
     ; TODO Button for unlocking more levels
     AmountToModifier(100)
@@ -589,149 +525,7 @@ GoToWoW(*) {
     Travel.PrimordialEthos.GoTo()
 }
 
-;@region ULCStage3 Funcs
-BuyMaxCardPacks(*) {
+WaitFor40thDice() {
     UlcWindow()
-    LegBtn := Points.Card.BuyLegend
-    ComBtn := Points.Card.BuyCommon
-    Travel.Cards.GoToPacks()
-    Sleep(100)
-    AmountToModifier(25000)
-    Sleep(50)
-    If (LegBtn.IsButtonActive()) {
-        LegBtn.MouseMove()
-        Sleep(50)
-        MouseMove(1, 1, 5, "R")
-        Sleep(50)
-        LegBtn.ClickOffsetWhileColour(LegBtn.GetColour())
-        Sleep(50)
-    }
-    If (ComBtn.IsButtonActive()) {
-        ComBtn.MouseMove()
-        Sleep(50)
-        MouseMove(1, 1, 5, "R")
-        Sleep(50)
-        ComBtn.ClickOffsetWhileColour(ComBtn.GetColour())
-        Sleep(50)
-    }
-    If (LegBtn.IsButtonActive() || ComBtn.IsButtonActive()) {
-        LegBtn.GreedyModifierClick()
-        ComBtn.GreedyModifierClick()
-    }
-    ResetModifierKeys()
+    Shops.Dice.GoTo()
 }
-
-BuyMaxBVPacks(*) {
-    UlcWindow()
-    ComBtn := Points.Borbventures.PacksBuyCommon
-    LegBtn := Points.Borbventures.PacksBuyLegendary
-
-    Travel.OpenBorbVentures()
-    Sleep(100)
-    Points.Borbventures.PacksTab.Click()
-    Sleep(100)
-    AmountToModifier(25000)
-    Sleep(50)
-    If (ComBtn.IsButtonActive()) {
-        ComBtn.MouseMove()
-        Sleep(50)
-        MouseMove(1, 1, 5, "R")
-        Sleep(50)
-        ComBtn.ClickOffsetWhileColour(ComBtn.GetColour())
-        Sleep(50)
-        ComBtn.GreedyModifierClick()
-    }
-    /*
-    If (LegBtn.IsButtonActive()) {
-        LegBtn.MouseMove()
-        Sleep(20)
-        MouseMove(1, 1, 5, "R")
-        Sleep(50)
-        LegBtn.ClickOffsetWhileColour(LegBtn.GetColour())
-        Sleep(50)
-        ;LegBtn.GreedyModifierClick()
-    } */
-    ResetModifierKeys()
-}
-
-;@region MaxBVItems(*)
-/**
- * MaxBVItems Go through each bv item in inventory and try to max it
- */
-MaxBVItems(*) {
-    /** @type {cPoint} */
-    CraftBtn := cPoint(1570, 644)
-    /** @type {cPoint} */
-    AscendBtn := cPoint(1855, 646)
-    /** @type {cPoint} */
-    ScrapBtn := cPoint(2136, 646)
-
-    BlockSlots := [
-        "13-1",
-        "8-4",
-        "9-4",
-        "10-4",
-        "8-5"
-    ]
-
-    Columns := [
-        391,
-        463,
-        530,
-        596,
-        665,
-        736,
-        799,
-        868,
-        935,
-        1010,
-        1074,
-        1140,
-        1206,
-        1281,
-        1344
-    ]
-    Rows := [
-        502,
-        623,
-        749,
-        877,
-        1001
-    ]
-    UlcWindow()
-    Travel.OpenBorbVentures()
-    Sleep(100)
-    Points.Borbventures.InvTab.Click()
-    Sleep(100)
-    For (rid, rvalue IN Rows) {
-        For (cid, cvalue IN Columns) {
-            /** @type cPoint */
-            btn := cPoint(cvalue, rvalue)
-            If (!btn.IsBackground()) {
-                btn.ClickOffset()
-                Sleep(50)
-                AmountToModifier(25000)
-                Sleep(50)
-                If (IsItemCraftable()) {
-                    CraftBtn.Click()
-                    Sleep(50)
-                    ResetModifierKeys()
-                    Sleep(50)
-                }
-            }
-        }
-    }
-    ResetModifierKeys()
-    IsItemCraftable() {
-        If (CraftBtn.IsButtonActive()) {
-            Return true
-        } Else {
-            Return false
-        }
-    }
-    IsItemBlocked(r,c) {
-        
-    }
-}
-;@endregion
-;@endregion

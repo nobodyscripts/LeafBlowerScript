@@ -26,10 +26,9 @@ Class TheLeafTower extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.LeafGalaxy.Tab.Click()
         Sleep(delay)
         ; Scroll down if needed
-        this.ScrollAmountDown(22, scrolldelay)
+        this.ScrollAmountDown(17, scrolldelay)
         Sleep(delay + extradelay)
         ; Scanning by leaf
         Local TheLeafTowerLeaf := this.FindTheLeafTowerZone()
@@ -79,7 +78,7 @@ Class TheLeafTower extends Zone {
         Travel.OpenAreas(true)
         Sleep(delay)
         ; Scroll down if needed
-        this.ScrollAmountDown(22, NavigateTime)
+        this.ScrollAmountDown(17, NavigateTime)
         Sleep(NavigateTime)
         ; Scanning by leaf
         Local LeafMark := this.FindTheLeafTowerZone()
@@ -93,13 +92,14 @@ Class TheLeafTower extends Zone {
             If (!LSButton.ClickButtonActive(, , delay, NavigateTime + delay)) {
                 Out.I("The Leaf Tower travel: Leafsink Button not active.")
             }
-            Sleep(150)
+            Sleep(NavigateTime + delay)
 
             /** @type {cPoint} */
             TowerMax := cPoint(LeafMark[1] + Window.RelW(460),
             LeafMark[2] + Window.RelH(60), false)
 
             TowerMax.ClickButtonActive(, , delay, NavigateTime + delay)
+            Sleep(NavigateTime + delay)
 
             /** @type {cPoint} */
             TowerArea := cPoint(LeafMark[1] + Window.RelW(69), 
@@ -109,7 +109,7 @@ Class TheLeafTower extends Zone {
         } Else {
             Out.I("The Leaf Tower leaf not found while trying to travel.")
         }
-        Sleep(delay)
+        Sleep(NavigateTime + delay)
 
     }
     ;@endregion

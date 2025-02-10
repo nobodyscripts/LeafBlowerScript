@@ -25,31 +25,33 @@
  * @property {cMiscPetPoints} Pets Points for the Pets panel
  */
 Class cMiscPoints {
-    ; Top left corner used for zone background samples
+    /** @type {cPoint} Top left corner used for zone background samples */
     ZoneSample := cPoint(0, 0)
-    ; Top left corner blank spot to remove afk
+    /** @type {cPoint} Top left corner blank spot to remove afk */
     BlankBG := cPoint(10, 10)
-    ; Top scroll arrow in a scrollable panel
+    /** @type {cPoint} Top scroll arrow in a scrollable panel */
     ScrollArrow := cPoint(2220, 258)
-    ; Scroll handle in a scrollable panel
+    /** @type {cPoint} Scroll handle in a scrollable panel */
     ScrollHandle := cPoint(2220, 320)
-    ; Notification arrow, left point of arrow when facing down
+    /** @type {cPoint} Notification arrow, left point of arrow when facing down */
     NotifArrow := cPoint(69, 1212)
-    ; Panel close button
+    /** @type {cPoint} Notification arrow, blank area */
+    NotifArrowExist := cPoint(61, 1235)
+    /** @type {cPoint} Panel close button */
     PanelClose := cPoint(2223, 193)
-    ; Panel colour check
+    /** @type {cPoint} Panel colour check */
     PanelBG := cPoint(2183, 220)
-    ; Panel colour check (smoothed)
+    /** @type {cPoint} Panel colour check (smoothed) */
     PanelBG2 := cPoint(2193, 193)
-    ; Panel colour check (smoothed)
+    /** @type {cPoint} Panel colour check (smoothed) */
     PanelBG3 := cPoint(2193, 185)
-    ; Aspect ratio check point lower left hide button
+    /** @type {cPoint} Aspect ratio check point lower left hide button */
     AspectRatio1 := cPoint(58, 1323)
-    ; Aspect ratio check point top right hide button
+    /** @type {cPoint} Aspect ratio check point top right hide button */
     AspectRatio2 := cPoint(2425, 51)
-    ; Points for game settings panel
+    /** @type {cMiscSettingPoints} Points for game settings panel */
     Settings := cMiscSettingPoints()
-    ; Points for Pets panel
+    /** @type {cMiscPetPoints} Points for Pets panel */
     Pets := cMiscPetPoints()
 }
 
@@ -61,9 +63,9 @@ Class cMiscPoints {
  * @property {cPoint} GraphicsTab Graphics tab on settings (tab 3)
  */
 Class cMiscSettingPoints {
-    ; Misc tab on settings (tab 6)
+    /** @type {cPoint} Misc tab on settings (tab 6) */
     MiscTab := cPoint(1776, 1179)
-    ; Graphics tab on settings (tab 3)
+    /** @type {cPoint} Graphics tab on settings (tab 3) */
     GraphicsTab := cPoint(887, 1179)
 }
 ;@endregion
@@ -76,9 +78,9 @@ Class cMiscSettingPoints {
  * @property {cPoint} TeamsTab Teams tab on Pets Panel (tab 2)
  */
 Class cMiscPetPoints {
-    ; Pets tab on Pets Panel (tab 1)
+    /** @type {cPoint} Pets tab on Pets Panel (tab 1) */
     PetsTab := cPoint(550, 1165)
-    ; Teams tab on Pets Panel (tab 2)
+    /** @type {cPoint} Teams tab on Pets Panel (tab 2) */
     TeamsTab := cPoint(828, 1165)
 }
 ;@endregion
@@ -91,8 +93,26 @@ Class cMiscPetPoints {
  * displayed
  */
 Class cMiscRects {
-    ; Area boss timer text is displayed
+    /** @type {cRect} Area boss timer text is displayed */
     BossTimer := cRect(1240, 5, 1280, 40)
-    ; Area extended boss timer text is  displayed
+    /** @type {cRect} Area extended boss timer text is  displayed */
     BossTimerLong := cRect(1050, 5, 1100, 40)
+    /** @type {cRect} Area to the right of the current floor, blank when <100 */
+    FloorAmount100 := cRect(1383, 149, 1409, 173)
+}
+
+/**
+ * Shop areas
+ * @memberof module:cMiscRects
+ * @property {cRect} AutoFacts Area covering (bought) text
+ */
+Class cMLCShopRects {
+    /** @type {cRect} */
+    AutoFacts := cRect(531, 864, 654, 887)
+
+    /** @type {cRect} */
+    CrunchySeeds := cRect(656, 640, 775, 661)
+
+    /** @type {cRect} */
+    PoweredALB := cRect(664, 978, 777, 999)
 }

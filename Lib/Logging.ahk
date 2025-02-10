@@ -130,11 +130,11 @@ Class cLog {
     _OpenHandle() {
         Try {
             this._FileHandle := FileOpen(this.FileName, "a-d")
-            this._OutputDebug("Logging to " this.FileName "`r`n")
+            this._OutputDebug("Logging to " this.FileName)
         } Catch (Error) {
-            MsgBox("Could not open " this.FileName " to write logs to.`r`n")
-            this._OutputDebug("Could not open " this.FileName " to write logs to.`r`n"
-            )
+            MsgBox("Could not open " this.FileName " to write logs to.")
+            this._OutputDebug("Could not open " this.FileName
+                " to write logs to.")
         }
     }
 
@@ -227,28 +227,28 @@ Class cLog {
         Try {
             If (!this._FileLock) {
                 this._FileLock := true
-                this._FileHandle.WriteLine(logmessage "`r`n")
+                this._FileHandle.WriteLine(logmessage)
                 this._FileLock := false
             } Else {
-                this._OutputDebug("Was trying to log but blocked on last message." "`r`n")
+                this._OutputDebug("Was trying to log but blocked on last message.")
             }
         } Catch As exc {
             If (this.Timestamp) {
-                this._OutputDebug(time " LogError: Error writing to log - " exc
-                    .Message "`r`n")
+                this._OutputDebug(time " LogError: Error writing to log - " 
+                exc.Message)
                 Sleep(1)
-                this._FileHandle.WriteLine(logmessage "`r`n")
+                this._FileHandle.WriteLine(logmessage)
                 Sleep(1)
-                this._FileHandle.WriteLine(time " LogError: Error writing to log - " exc
-                    .Message "`r`n")
+                this._FileHandle.WriteLine(time 
+                    " LogError: Error writing to log - " exc.Message)
             } Else {
-                this._OutputDebug("LogError: Error writing to log - " exc.Message
-                "`r`n")
+                this._OutputDebug("LogError: Error writing to log - " 
+                exc.Message)
                 Sleep(1)
-                this._FileHandle.WriteLine(logmessage "`r`n")
+                this._FileHandle.WriteLine(logmessage)
                 Sleep(1)
-                this._FileHandle.WriteLine("LogError: Error writing to log - " exc
-                    .Message "`r`n")
+                this._FileHandle.WriteLine("LogError: Error writing to log - " 
+                exc.Message)
             }
         }
     }
@@ -282,10 +282,9 @@ Class cLog {
                     .Message)
                 this.LoopWrite(logmessage "`r`n")
                 this.LoopWrite(time " LogError: Error writing to log - " exc.Message
-                "`r`n")
+                    "`r`n")
             } Else {
-                this._OutputDebug("LogError: Error writing to log - " exc.Message "`r`n"
-                )
+                this._OutputDebug("LogError: Error writing to log - " exc.Message)
                 this.LoopWrite(logmessage "`r`n")
                 this.LoopWrite("LogError: Error writing to log - " exc.Message "`r`n")
             }
@@ -331,7 +330,6 @@ Class cLog {
     }
     ;@endregion
     ;@endregion
-
 
     ;@region Important()
     /**

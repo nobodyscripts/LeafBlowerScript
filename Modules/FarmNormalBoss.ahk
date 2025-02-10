@@ -40,7 +40,7 @@ fFarmNormalBoss(modecheck) {
             SetTimer(ToolTip.Bind(, , , 2), -3000)
         }
         ToolTip("Kills: " . Killcount, Window.W / 2 - Window.RelW(50), Window.H /
-            2 + Window.RelH(20), 1)
+        2 + Window.RelH(20), 1)
     }
     ToolTip(, , , 1)
 }
@@ -49,7 +49,7 @@ fFarmNormalBossAndBrew(modecheck) {
     ToolTip()
     Global on9
     Killcount := 0
-    Travel.OpenAlchemyGeneral()
+    Shops.OpenAlchemyGeneral()
     IsPrevTimerLong := IsBossTimerLong()
     Spammer.NormalBossStart()
     Loop {
@@ -234,7 +234,7 @@ fNormalBossFarmWithCards(modecheck) {
             Return
         }
         ToolTip("Boss farm with cards active", Window.W / 2 - Window.RelW(150),
-            Window.H / 2 + Window.RelH(320), 9)
+        Window.H / 2 + Window.RelH(320), 9)
         If (CardsBuyEnabled) {
             Out.I("BossCards buy: Loop starting.")
             CardBuyLoop()
@@ -254,8 +254,7 @@ fNormalBossFarmWithCards(modecheck) {
                 Out.I("BossCards Opening: Loop finishing.")
                 Break
             }
-            If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()
-            ) {
+            If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()) {
                 Spammer.KillNormalBoss()
                 Out.I("BossCards: User killed.")
                 ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(

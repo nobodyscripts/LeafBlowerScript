@@ -25,47 +25,18 @@ Class CursedKokkaupunki extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
+        /** @type {cPoint} */
+        Btn := cPoint(1670, 629)
+        
         Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.LeafGalaxy.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
+        this.ScrollAmountDown(28, scrolldelay)
         Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local CursedKokkaupunkiLeaf := this.FindCursedKokkaupunkiZone()
-        If (CursedKokkaupunkiLeaf) {
-            this.ClickTravelButton(CursedKokkaupunkiLeaf, delay + extradelay)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(delay + extradelay)
         } Else {
-            Out.I("Cursed Kokkaupunki leaf not found while trying to travel.")
+            Out.I("Cursed Kokkaupunki not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindCursedKokkaupunkiZone() {
-        ; Change this if used
-        ;return Rects.LeafG.CursedKokkaupunkiTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to Cursed Kokkaupunki
-        ;Button := Points.Areas.LeafGalaxy.CursedKokkaupunki
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("Cursed Kokkaupunki travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

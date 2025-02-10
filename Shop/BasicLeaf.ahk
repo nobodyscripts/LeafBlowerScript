@@ -2,6 +2,14 @@
 
 #Include ..\Lib\hTas.ahk
 #Include ..\Lib\cMousePattern.ahk
+#Include ..\Lib\cZone.ahk
+
+Class sBasic extends Zone {
+
+    Max(*) {
+
+    }
+}
 
 Class ShopBasicLeaf extends cTask {
     RunFor := 60

@@ -24,9 +24,9 @@ fBankAutoDeposit() {
     If (BankRunsSpammer) {
         Spammer.NormalBossStart()
     }
-    Travel.OpenBank()
+    Shops.OpenBank()
     ToolTip("Bank Maintainer Active", Window.W / 2 - Window.RelW(100), Window.H /
-        2, 4)
+    2, 4)
     Loop {
         If (!Window.IsActive()) {
             Break
@@ -77,10 +77,10 @@ fBankAutoDeposit() {
 BankSinglePass() {
     DepositRESS := Points.Bank.DepositRESS
     UpgradeButton := Points.Bank.UpgradeStorage
-    Travel.OpenBank()
+    Shops.OpenBank()
     Sleep(NavigateTime + 100)
     If (!Window.IsPanel()) {
-        Travel.OpenBank()
+        Shops.OpenBank()
         Sleep(NavigateTime)
     }
     i := 0
@@ -130,19 +130,19 @@ BankSinglePass() {
 
 BankTravelAreaByInd(index) {
     Switch index {
-        Case 0:
-            Points.Bank.TabQA.Click()
-        Case 1:
-            Points.Bank.TabSR.Click()
-        Case 2:
-            Points.Bank.TabFF.Click()
-        Case 3:
-            Points.Bank.TabEB.Click()
-        Case 4:
-            Points.Bank.TabSN.Click()
-        Case 5:
-            Points.Bank.TabLG.Click()
-        default:
+    Case 0:
+        Points.Bank.TabQA.Click()
+    Case 1:
+        Points.Bank.TabSR.Click()
+    Case 2:
+        Points.Bank.TabFF.Click()
+    Case 3:
+        Points.Bank.TabEB.Click()
+    Case 4:
+        Points.Bank.TabSN.Click()
+    Case 5:
+        Points.Bank.TabLG.Click()
+    default:
 
     }
     Sleep(NavigateTime)
@@ -155,19 +155,19 @@ BankTravelAreaByInd(index) {
  */
 BankTabCoordByInd(index) {
     Switch index {
-        Case 0:
-            Return Points.Bank.TabQA
-        Case 1:
-            Return Points.Bank.TabSR
-        Case 2:
-            Return Points.Bank.TabFF
-        Case 3:
-            Return Points.Bank.TabEB
-        Case 4:
-            Return Points.Bank.TabSN
-        Case 5:
-            Return Points.Bank.TabLG
-        default:
+    Case 0:
+        Return Points.Bank.TabQA
+    Case 1:
+        Return Points.Bank.TabSR
+    Case 2:
+        Return Points.Bank.TabFF
+    Case 3:
+        Return Points.Bank.TabEB
+    Case 4:
+        Return Points.Bank.TabSN
+    Case 5:
+        Return Points.Bank.TabLG
+    default:
     }
 }
 BankIsTabEnabled(index) {
@@ -216,7 +216,7 @@ ResetBankScroll() {
         If (!Window.IsActive() || !Window.IsPanel() || maxIter <= 1) {
             Return
         }
-        Travel.ScrollAmountUp(1)
+        Travel.ScrollResetToTop()
         maxIter--
     }
 }

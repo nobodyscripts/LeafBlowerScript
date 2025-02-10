@@ -15,12 +15,11 @@ global Debug := false
  * Create with relative coords and relative on, or use fixed coords with it off
  * to handle scaling manually (for dynamic situations).  
  * cPoint(x, y, relative) to construct.
+ * @function __New construct
  * @example
  * cPoint(1, 10) ; Returns cPoint class
- * @example
  * cPoint(1, 10, false) ; Returns cPoint class with non relative coords
- * @class
- * @public
+ * @module cPoint
  * @argument {Integer} x X value (output depends on .relative)
  * @argument {Integer} y Y value (output depends on .relative)
  * @argument {Boolean} relative Set true for relative coords on get, false for
@@ -29,6 +28,7 @@ global Debug := false
  * @property {Integer} y Y value (output depends on .relative)
  * @property {Boolean} relative Set true for relative coords on get, false for
  * original values
+ * 
  * @function Set Set new values after construction
  * @function IsBackground Is point a background colour
  * @function IsButton Is point a button colour
@@ -277,6 +277,7 @@ class cPoint {
             Sleep(sleepafter)
             return true
         }
+        Out.D("No button found at " this.toString())
         return false
     }
 

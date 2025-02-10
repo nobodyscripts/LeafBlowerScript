@@ -7,6 +7,7 @@
 
 /**
  * Base zone travel object
+ * @module Zone
  * @property {String} Name The name of the zone for display purposes
  * @property {String} AreaColour The colour of the sample pixel for the zone
  * @property {Boolean} BossTimer Require boss timer (or not) to match for success
@@ -29,6 +30,12 @@ Class Zone {
      * @type {Boolean} 
      */
     BossTimer := false
+    ;@endregion
+
+    ;@region __Call() Handle to allow direct execution of the class
+    __Call(Name, Params*) {
+        this.GoTo()
+    }
     ;@endregion
 
     ;@region GoTo()
@@ -156,7 +163,7 @@ Class Zone {
     ;@region IsZoneColour()
     /**
      * Checks if zone is currently set to the zone required based on 
-     * this.AreaColour
+     * this.ZoneColour
      * @returns {Boolean} 
      */
     IsZoneColour() {
@@ -174,7 +181,8 @@ Class Zone {
     /**
      * Checks if zone is currently set to the zone required based on 
      * name matched to colour lookup
-     * @returns {Boolean} 
+     * @param Name Name of zone to check if currently in
+     * @returns {Boolean}
      */
     IsZone(Name) {
         colour := this.GetZoneColour()

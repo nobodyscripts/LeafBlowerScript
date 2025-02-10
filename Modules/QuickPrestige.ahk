@@ -5,7 +5,7 @@ fPrestigeSpammer() {
     prestigeButton := cPoint(1456, 430)
     ; TODO Move point to Points
     prestigeConfirmButton := cPoint(1456, 525)
-    Travel.OpenGoldPortal()
+    Shops.OpenGoldPortal()
     Sleep(NavigateTime)
     count := 0
     While (count <= 29) {
@@ -13,7 +13,7 @@ fPrestigeSpammer() {
             Break
         }
         If (Window.IsActive() && !Window.IsPanel()) {
-            Travel.OpenGoldPortal()
+            Shops.OpenGoldPortal()
             Sleep(NavigateTime)
         }
         If (Window.IsActive() && Window.IsPanel()) {

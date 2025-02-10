@@ -1,10 +1,5 @@
 #Requires AutoHotkey v2.0
 
-
-#Include Mines.ahk
-
-#include cZoneCards.ahk
-
 #Include zAnteLeafton.ahk
 #Include zAstralOasis.ahk
 #Include zBiotiteForest.ahk
@@ -27,7 +22,7 @@
 #Include zHomeGarden.ahk
 #Include zKokkaupunki.ahk
 #Include zLeafsinkHarbor.ahk
-#Include zMountMoltenfurty.ahk
+#Include zMountMoltenfury.ahk
 #Include zMountain.ahk
 #Include zNeighborsGarden.ahk
 #Include zPlanckScope.ahk
@@ -73,3 +68,11 @@
 #Include zVialofLife.ahk
 #Include zVilewoodCemetery.ahk
 #Include zYourHouse.ahk
+
+#Include zShadowCrystal.ahk
+#Include zTenebrisField.ahk
+#Include zBlacklightVerge.ahk
+#Include zSombrynth.ahk
+#Include zLatsyrcWodash.ahk
+#Include zShadowLighthouse.ahk
+

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
-#Include ..\..\Lib\cZone.ahk
-#Include ..\..\Lib\cTravel.ahk
+#Include ..\Lib\Logging.ahk
+#Include ..\Lib\cZone.ahk
+#Include ..\Lib\cTravel.ahk
 
 /**
  * Mine class for zone travel
  * @extends Zone
  * @memberof module:cTravel
  */
-Class Mine extends Zone {
+Class sMine extends Zone {
 
-    ;@region Mine main travel
+    ;@region cFeatureMine main travel
     /**
      * Go to mine panel can return on any tab
      * @param {Boolean} [reset=false] Click first tab after travel?
@@ -19,9 +19,9 @@ Class Mine extends Zone {
      */
     GoTo(reset := false) {
         If (!reset) {
-            Return Travel.OpenMining(false)
+            Return Shops.OpenMining(false)
         } Else {
-            Travel.OpenMining(false)
+            Shops.OpenMining(false)
             If (Points.Mine.Tab1Vein.IsButtonActive()) {
                 Points.Mine.Tab1Vein.Click()
                 Sleep(NavigateTime)
@@ -36,7 +36,7 @@ Class Mine extends Zone {
      * Go to mine panel > vein tab
      */
     GoToTabVein() {
-        Travel.OpenMining(false)
+        Shops.OpenMining(false)
 
         Points.Mine.Tab1Vein.Click()
         Sleep(NavigateTime)
@@ -49,8 +49,7 @@ Class Mine extends Zone {
      * @returns {Integer} 
      */
     IsOnTabVein() {
-        If (Points.Mine.Vein.Search.IsButton() && Points.Mine.Vein.AutoMine.IsButton()
-        ) {
+        If (Points.Mine.Vein.Search.IsButton() && Points.Mine.Vein.AutoMine.IsButton()) {
             Return true
         }
         Return false
@@ -74,8 +73,7 @@ Class Mine extends Zone {
      * @returns {Integer} 
      */
     IsOnTabMines() {
-        If (Points.Mine.Cave.Select1.IsButton() && Points.Mine.Cave.AutoSearch.IsButton()
-        ) {
+        If (Points.Mine.Cave.Select1.IsButton() && Points.Mine.Cave.AutoSearch.IsButton()) {
             Return true
         }
         Return false
@@ -107,8 +105,7 @@ Class Mine extends Zone {
      * @returns {Integer} 
      */
     IsOnTabDrill() {
-        If (Points.Mine.CoalSphere.IsButton() && Points.Mine.FreeFuel.IsButton()
-        ) {
+        If (Points.Mine.CoalSphere.IsButton() && Points.Mine.FreeFuel.IsButton()) {
             Return true
         }
         Return false
@@ -146,16 +143,15 @@ Class Mine extends Zone {
      */
     IsOnTabTrans() {
         If (!Points.Mine.Transmute.SingleCBarToCDia.IsBackground() && !Points.Mine
-            .Transmute.SingleCDiaToSDia.IsBackground() && !Points.Mine.Transmute
-            .SingleCDiaToFuel.IsBackground() && !Points.Mine.Transmute.SingleCDiaToSphere
-            .IsBackground() && !Points.Mine.Transmute.AllCBarsToCDias.IsBackground() &&
-            !Points.Mine.Transmute.AllCDiasToSDias.IsBackground() && !Points.Mine
-            .Transmute.AllCDiasToFuel.IsBackground() && !Points.Mine.Transmute.AllCDiasToSpheres
-            .IsBackground() && !Points.Mine.Transmute.AllSDiasToCDia.IsBackground() &&
-            !Points.Mine.Transmute.AutoCBarToCDia.IsBackground() && !Points.Mine
-            .Transmute.AutoCDiaToSDia.IsBackground() && !Points.Mine.Transmute.AutoCDiaToFuel
-            .IsBackground() && !Points.Mine.Transmute.AutoCDiaToSphere.IsBackground()
-        ) {
+        .Transmute.SingleCDiaToSDia.IsBackground() && !Points.Mine.Transmute
+        .SingleCDiaToFuel.IsBackground() && !Points.Mine.Transmute.SingleCDiaToSphere
+        .IsBackground() && !Points.Mine.Transmute.AllCBarsToCDias.IsBackground() &&
+        !Points.Mine.Transmute.AllCDiasToSDias.IsBackground() && !Points.Mine
+        .Transmute.AllCDiasToFuel.IsBackground() && !Points.Mine.Transmute.AllCDiasToSpheres
+        .IsBackground() && !Points.Mine.Transmute.AllSDiasToCDia.IsBackground() &&
+        !Points.Mine.Transmute.AutoCBarToCDia.IsBackground() && !Points.Mine
+        .Transmute.AutoCDiaToSDia.IsBackground() && !Points.Mine.Transmute.AutoCDiaToFuel
+        .IsBackground() && !Points.Mine.Transmute.AutoCDiaToSphere.IsBackground()) {
             Return true
         }
         Return false
@@ -170,6 +166,5 @@ Class Mine extends Zone {
         Throw Error("Mine.GoToTabCodex not implimented")
     }
     ;@endregion
-
 
 }

@@ -50,7 +50,7 @@ fGemFarmSuitcase() {
         Return
     } Else {
         ; We need the trade window now the Bearo and traveling is done
-        Travel.OpenTrades()
+        Shops.OpenTrades()
         Sleep(NavigateTime)
         GameKeys.RefreshTrades()
         ; Need to refresh once otherwise there might be blank trade screen
@@ -72,15 +72,15 @@ fGemFarmSuitcase() {
         HadToHideNotifs := false
         ; Return to trades as it'll close
         If (!Window.IsPanel()) {
-            Travel.OpenTrades()
+            Shops.OpenTrades()
             Sleep(NavigateTime)
         }
     }
     If (!Window.IsPanel()) {
-        Travel.OpenTrades()
+        Shops.OpenTrades()
         Sleep(NavigateTime)
     }
-    Travel.ScrollAmountUp(6)
+    Travel.ScrollResetToTop()
     Sleep(NavigateTime)
     ; Detailed mode check, we need it off for alignment of fill trades
     TradesDetailedModeOldState := IsTradeDetailedModeOn()
@@ -90,7 +90,7 @@ fGemFarmSuitcase() {
         Out.V("DetailedToggle")
         DetailedToggle.Click(NavigateTime)
         ToolTip("Toggled off details", Window.W / 2 - Window.RelW(50), Window.H /
-            2 + Window.RelH(20), 3)
+        2 + Window.RelH(20), 3)
         SetTimer(ToolTip.Bind(, , , 3), -1000)
     }
     If (!Window.IsActive()) {
@@ -192,13 +192,13 @@ fGemFarmSuitcase() {
 
 RemoveBearo() {
     Global HadToHideNotifs, HadToRemoveBearo
-    Travel.OpenPets()
+    Shops.OpenPets()
     Sleep(NavigateTime)
     coord := Rects.GemFarm.BearoSearch.PixelSearch("0x64747A")
     If (coord) {
         Out.I("GemFarm: Bearo found and removed.")
         ToolTip("Bearo found and removed", Window.W / 2 - Window.RelW(100),
-            Window.H / 2 - Window.RelH(140), 16)
+        Window.H / 2 - Window.RelH(140), 16)
         SetTimer(ToolTip.Bind(, , , 16), -1000)
         HadToRemoveBearo := true
         Sleep(NavigateTime)
@@ -219,7 +219,7 @@ FillTradeSlots() {
     i := 200
     Out.I("GemFarm: Filling trade slots for suitcase farming.")
     ToolTip("Filling trade slots", Window.W / 2 - Window.RelW(140), Window.H /
-        2)
+    2)
     SetTimer(ToolTip, -1000)
     While i > 0 {
         If (!Window.IsActive()) {
@@ -271,7 +271,7 @@ FillTradeSlots() {
 
 HasSuitCaseBeenUsed() {
     If (Points.GemFarm.FirstTradeCancel.IsBackground() && Points.GemFarm.FirstTradeCollect
-        .IsBackground()) {
+    .IsBackground()) {
         Return false
     }
     Return true
@@ -296,7 +296,7 @@ IsTradeDetailedModeOn() {
 
 ToggleAutoRefresh() {
     Global TradesAutoRefreshOldState
-    Travel.OpenTrades()
+    Shops.OpenTrades()
     Sleep(101)
     ; Disable auto refresh if its on
     Points.GemFarm.AutoRefreshToggle.Click(101)
@@ -306,7 +306,7 @@ ToggleAutoRefresh() {
 
 ToggleDetailedMode() {
     Global TradesDetailedModeOldState
-    Travel.OpenTrades()
+    Shops.OpenTrades()
     Sleep(101)
     ; Disable detailed mode if its on
     Points.GemFarm.DetailedToggle.Click(101)

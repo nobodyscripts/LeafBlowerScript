@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
-#Include ..\..\Lib\cZone.ahk
-#Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
+#Include ..\Lib\Logging.ahk
+#Include ..\Lib\cZone.ahk
+#Include ..\Lib\cTravel.ahk
+#Include ..\Lib\cPoint.ahk
 
 /**
  * Cards class for zone travel
  * @memberof module:cTravel
  */
-Class cZoneCards extends Zone {
+Class sCards extends Zone {
     ; The name of the zone for display purposes
     Name := "FullName"
 
@@ -24,7 +24,7 @@ Class cZoneCards extends Zone {
         Return this._GoToArea(attempt, check, "Cards Packs Tab")
 
         attempt(delay, scrolldelay := 0, extradelay := 0) {
-            Travel.OpenCards(false)
+            Shops.OpenCards(false)
             PacksBtn := Points.Card.Tab.Packs
             If (PacksBtn.IsButtonActive()) {
                 PacksBtn.Click()

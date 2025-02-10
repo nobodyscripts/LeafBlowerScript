@@ -145,7 +145,7 @@ fMineMaintainer() {
 
         ;@region Vein upgrade
         If (Window.IsActive() && Window.IsPanel() && Travel.Mine.IsOnTabVein() &&
-            VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
+        VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
             Out.I("Upgrading vein")
             VeinUpgradeButton.ClickOffset(NavigateTime)
         }
@@ -154,7 +154,7 @@ fMineMaintainer() {
         ;@region Transmute
         If (Window.IsActive() && isAnyTransmuteEnabled() && Window.IsPanel()) {
             If (Firstpass || DateDiff(A_Now, TransmuteTime, "Seconds") >=
-                MinerTransmuteTimer) {
+            MinerTransmuteTimer) {
                 TransmuteTime := A_Now
                 i := 1
                 Out.D("Opening transmute tab")
@@ -179,7 +179,7 @@ fMineMaintainer() {
         ;@region Fuel
         If (MinerEnableFreeRefuel && Window.IsActive() && Window.IsPanel()) {
             If (Firstpass || DateDiff(A_Now, RefuelTime, "Seconds") >=
-                MinerRefuelTimer * 60) {
+            MinerRefuelTimer * 60) {
                 RefuelTime := A_Now
                 i := 1
                 Out.D("Opening drill tab")
@@ -204,7 +204,7 @@ fMineMaintainer() {
         ;@region Sphere
         If (Window.IsActive() && Window.IsPanel() && MinerEnableSphereUse) {
             If (Firstpass || DateDiff(A_Now, SphereTime, "Seconds") >=
-                MinerSphereTimer * 60) {
+            MinerSphereTimer * 60) {
                 SphereTime := A_Now
                 i := 1
                 Out.D("Opening drill tab")
@@ -231,7 +231,7 @@ fMineMaintainer() {
         ;@region Banks
         If (Window.IsActive() && Window.IsPanel() && MinerEnableBanks) {
             If (Firstpass || DateDiff(A_Now, BankTime, "Seconds") >=
-                BankDepositTime * 60) {
+            BankDepositTime * 60) {
                 ToolTip(, , , 4)
                 Out.I("Mine: Bank Maintainer starting.")
                 ToolTip("Mine Bank Maintainer Active", Window.W / 2, Window.RelH(
@@ -252,10 +252,9 @@ fMineMaintainer() {
         ;@region Caves
         If (Window.IsActive() && Window.IsPanel() && MinerEnableCaves) {
             If (Firstpass || DateDiff(A_Now, CavesTime, "Seconds") >=
-                MinerCaveTimer * 60) {
+            MinerCaveTimer * 60) {
                 i := 1
-                While (!Travel.Mine.IsOnTabMines() && i <= 4 && Window.IsPanel()
-                ) {
+                While (!Travel.Mine.IsOnTabMines() && i <= 4 && Window.IsPanel()) {
                     MinesTab.Click(NavigateTime)
                     Sleep(NavigateTime)
                     i++
@@ -276,7 +275,7 @@ fMineMaintainer() {
         ;@region Brew
         If (Window.IsActive() && MinerEnableBrewing && !BrewCycleTimer.Running) {
             Out.I("Mine: Brewing")
-            If (Travel.OpenAlchemyGeneral()) {
+            If (Shops.OpenAlchemyGeneral()) {
                 BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &
                     BrewCutOffRunning)
                 While (BrewCutOffRunning && Travel.IsAlchGeneralTab()) {
@@ -313,7 +312,7 @@ TransmuteAllCoalBars() {
     If (MinerEnableTransmute) {
         TransmuteButton := Points.Mine.Transmute.AllCBarsToCDias
         While (Window.IsActive() && Window.IsPanel() && TransmuteButton.IsButtonActive() &&
-            Travel.Mine.IsOnTabTrans()) {
+        Travel.Mine.IsOnTabTrans()) {
             TransmuteButton.ClickOffset()
             Out.D("Transmuted all coal bars to coal diamonds")
             Sleep(NavigateTime)
@@ -322,7 +321,7 @@ TransmuteAllCoalBars() {
     If (MinerEnableTransmuteSdia) {
         SdiaTransmuteButton := Points.Mine.Transmute.AllCDiasToSDias
         While (Window.IsActive() && Window.IsPanel() && SdiaTransmuteButton.IsButtonActive() &&
-            Travel.Mine.IsOnTabTrans()) {
+        Travel.Mine.IsOnTabTrans()) {
             SdiaTransmuteButton.ClickOffset()
             Out.D("Transmuted all coal diamonds to shiny diamonds")
             Sleep(NavigateTime)
@@ -331,7 +330,7 @@ TransmuteAllCoalBars() {
     If (MinerEnableTransmuteFuel) {
         FuelTransmuteButton := Points.Mine.Transmute.AllCDiasToFuel
         While (Window.IsActive() && Window.IsPanel() && FuelTransmuteButton.IsButtonActive() &&
-            Travel.Mine.IsOnTabTrans()) {
+        Travel.Mine.IsOnTabTrans()) {
             FuelTransmuteButton.ClickOffset()
             Out.D("Transmuted all coal diamonds to fuel")
             Sleep(NavigateTime)
@@ -340,7 +339,7 @@ TransmuteAllCoalBars() {
     If (MinerEnableTransmuteSphere) {
         SphereTransmuteButton := Points.Mine.Transmute.AllCDiasToSpheres
         While (Window.IsActive() && Window.IsPanel() && SphereTransmuteButton.IsButtonActive() &&
-            Travel.Mine.IsOnTabTrans()) {
+        Travel.Mine.IsOnTabTrans()) {
             SphereTransmuteButton.ClickOffset()
             Out.D("Transmuted all coal diamonds to spheres")
             Sleep(NavigateTime)
@@ -349,7 +348,7 @@ TransmuteAllCoalBars() {
     If (MinerEnableTransmuteSdiaToCDia) {
         SdiaToCBTransmuteButton := Points.Mine.Transmute.AllSDiasToCDia
         While (Window.IsActive() && Window.IsPanel() && SdiaToCBTransmuteButton
-            .IsButtonActive() && Travel.Mine.IsOnTabTrans()) {
+        .IsButtonActive() && Travel.Mine.IsOnTabTrans()) {
             SdiaToCBTransmuteButton.ClickOffset()
             Out.D("Transmuted all shiny diamonds to coal diamonds")
             Sleep(NavigateTime)
@@ -361,8 +360,7 @@ TransmuteAllCoalBars() {
 ;@region Drill Functions
 CollectFreeDrillFuel() {
     FuelButton := Points.Mine.FreeFuel
-    While (Window.IsActive() && Window.IsPanel() && FuelButton.IsButtonActive()
-    ) {
+    While (Window.IsActive() && Window.IsPanel() && FuelButton.IsButtonActive()) {
         FuelButton.ClickOffset()
         Sleep(NavigateTime)
     }
@@ -381,7 +379,7 @@ UseDrillSphereLoop() {
 
     If (MinerSphereCount > 0) {
         While (Window.IsActive() && Window.IsPanel() && ;
-            SphereButton.IsButtonActive() && tempCount > 0) {
+        SphereButton.IsButtonActive() && tempCount > 0) {
             If (MinerSphereModifier > 1) {
                 ; limited count, with modifier
                 AmountToModifier(MinerSphereModifier)
@@ -399,7 +397,7 @@ UseDrillSphereLoop() {
         If (!MinerSphereGreedyUse) {
             ; Inf use, no greedy
             While (Window.IsActive() && Window.IsPanel() && ;
-                SphereButton.IsButtonActive()) {
+            SphereButton.IsButtonActive()) {
                 If (MinerSphereModifier > 1) {
                     AmountToModifier(MinerSphereModifier)
                     Sleep(34)
@@ -570,88 +568,42 @@ FindVeinsWithBars() {
     QualitySlot5 := Points.Mine.Vein.Slot5.Colour
     QualitySlot6 := Points.Mine.Vein.Slot6.Colour
 
-    results := [{
-        Active: false,
-        Quality: "ignored",
-        Priority: 9999
-    },
+    results := [
+        { Active: false, Quality: "ignored", Priority: 9999 },
         ;
-        {
-            Active: false,
-            Quality: "ignored",
-            Priority: 9999
-        },
-            ;
-            {
-                Active: false,
-                Quality: "ignored",
-                Priority: 9999
-            },
-            ;
-            {
-                Active: false,
-                Quality: "ignored",
-                Priority: 9999
-            },
-            ;
-            {
-                Active: false,
-                Quality: "ignored",
-                Priority: 9999
-            },
-            ;
-            {
-                Active: false,
-                Quality: "ignored",
-                Priority: 9999
-            }]
+        { Active: false, Quality: "ignored", Priority: 9999 },
+        ;
+        { Active: false, Quality: "ignored", Priority: 9999 },
+        ;
+        { Active: false, Quality: "ignored", Priority: 9999 },
+        ;
+        { Active: false, Quality: "ignored", Priority: 9999 },
+        ;
+        { Active: false, Quality: "ignored", Priority: 9999 }
+    ]
     If (SampleSlot1.GetColour() = "0x6D758D") {
         qualityText1 := VeinQualityColourToText(QualitySlot1.GetColour())
-        results[1] := {
-            Active: true,
-            Quality: qualityText1,
-            Priority: VeinQualityToPriority(qualityText1) - 4
-        }
+        results[1] := { Active: true, Quality: qualityText1, Priority: VeinQualityToPriority(qualityText1) - 4 }
     }
     If (SampleSlot2.GetColour() = "0x6D758D") {
         qualityText2 := VeinQualityColourToText(QualitySlot2.GetColour())
-        results[2] := {
-            Active: true,
-            Quality: qualityText2,
-            Priority: VeinQualityToPriority(qualityText2) - 2
-        }
+        results[2] := { Active: true, Quality: qualityText2, Priority: VeinQualityToPriority(qualityText2) - 2 }
     }
     If (SampleSlot3.GetColour() = "0x6D758D") {
         qualityText3 := VeinQualityColourToText(QualitySlot3.GetColour())
-        results[3] := {
-            Active: true,
-            Quality: qualityText3,
-            Priority: VeinQualityToPriority(qualityText3) - 1
-        }
+        results[3] := { Active: true, Quality: qualityText3, Priority: VeinQualityToPriority(qualityText3) - 1 }
     }
     If (SampleSlot4.GetColour() = "0x6D758D") {
         qualityText4 := VeinQualityColourToText(QualitySlot4.GetColour())
-        results[4] := {
-            Active: true,
-            Quality: qualityText4,
-            Priority: VeinQualityToPriority(qualityText4)
-        }
+        results[4] := { Active: true, Quality: qualityText4, Priority: VeinQualityToPriority(qualityText4) }
     }
     If (SampleSlot5.GetColour() = "0x6D758D") {
         qualityText5 := VeinQualityColourToText(QualitySlot5.GetColour())
-        results[5] := {
-            Active: true,
-            Quality: qualityText5,
-            Priority: VeinQualityToPriority(qualityText5)
-        }
+        results[5] := { Active: true, Quality: qualityText5, Priority: VeinQualityToPriority(qualityText5) }
     }
     If (SampleSlot6.GetColour() = "0x6D758D") {
         qualityText6 := VeinQualityColourToText(QualitySlot6.GetColour())
-        results[6] := {
-            Active: true,
-            Quality: qualityText6,
-            Priority: VeinQualityToPriority(qualityText6)
-        }
+        results[6] := { Active: true, Quality: qualityText6, Priority: VeinQualityToPriority(qualityText6) }
     }
     Return results
 }
@@ -688,39 +640,39 @@ FindVeinsCount() {
 
 VeinQualityColourToText(value) {
     Switch value {
-        Case MinerColourCodeCommon:
-            Return "common"
-        Case MinerColourCodeUncommon:
-            Return "uncommon"
-        Case MinerColourCodeRare:
-            Return "rare"
-        Case MinerColourCodeEpic:
-            Return "epic"
-        Case MinerColourCodeMythical:
-            Return "mythical"
-        Case MinerColourCodeLegendary:
-            Return "legendary"
-        default:
-            Return "special"
+    Case MinerColourCodeCommon:
+        Return "common"
+    Case MinerColourCodeUncommon:
+        Return "uncommon"
+    Case MinerColourCodeRare:
+        Return "rare"
+    Case MinerColourCodeEpic:
+        Return "epic"
+    Case MinerColourCodeMythical:
+        Return "mythical"
+    Case MinerColourCodeLegendary:
+        Return "legendary"
+    default:
+        Return "special"
     }
 }
 
 VeinQualityToPriority(value) {
     Switch value {
-        Case "common":
-            Return 1
-        Case "uncommon":
-            Return 2
-        Case "rare":
-            Return 3
-        Case "epic":
-            Return 4
-        Case "mythical":
-            Return 5
-        Case "legendary":
-            Return 6
-        default:
-            Return 9999
+    Case "common":
+        Return 1
+    Case "uncommon":
+        Return 2
+    Case "rare":
+        Return 3
+    Case "epic":
+        Return 4
+    Case "mythical":
+        Return 5
+    Case "legendary":
+        Return 6
+    default:
+        Return 9999
     }
 }
 

@@ -4,14 +4,14 @@ fSuitcaseSpam() {
     If (!Window.IsActive()) {
         Return
     }
-    Travel.OpenTrades()
+    Shops.OpenTrades()
     Sleep(150)
     Loop {
         If (!Window.IsActive()) {
             Break
         }
         If (Window.IsActive() && !Window.IsPanel()) {
-            Travel.OpenTrades()
+            Shops.OpenTrades()
             Sleep(NavigateTime)
         }
         If (Window.IsActive() && Window.IsPanel()) {
