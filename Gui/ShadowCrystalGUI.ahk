@@ -5,7 +5,7 @@ Button_Click_ShadowCrystal(thisGui, info) {
     ;, SCPercent
 
     optionsGUI := Gui(, "Shadow Crystal Fight Settings")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
     If (SCAdvanceReplace = true) {

@@ -4,7 +4,7 @@ Button_Click_Claw(thisGui, info) {
     Global settings, ClawCheckSizeOffset, ClawFindAny
 
     optionsGUI := Gui(, "Claw Farm Settings")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
     optionsGUI.Add("Text", "ccfcfcf", "Claw Area Check Size Offset (px):")

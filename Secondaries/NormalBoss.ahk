@@ -15,6 +15,7 @@ Global IsSecondary := true
 Global BossFarmUsesWobblyWings := false
 Global BossFarmUsesWind := false
 Global BossFarmUsesSeeds := false
+Global BossFarmFast := false
 Global WobblyWingsSleepAmount := 1
 Global ArtifactSleepAmount := 1
 Global settings := cSettings()
@@ -32,6 +33,17 @@ fNormalBoss() {
         ; Use it once to avoid getting stuck
         GameKeys.TriggerWobblyWings()
     }
+    If (BossFarmFast) {
+        cPoint(705, 72).Click()
+        Sleep(150)
+        AmountToModifier(25)
+        Sleep(17)
+        Travel.ScrollAmountDown(1)
+        Sleep(17)
+        ResetModifierKeys()
+        Travel.ScrollAmountUp(7)
+        Sleep(17)
+    }
     Loop {
         If (!Window.Exist()) {
             Out.I("Secondary: Normal Boss Spammer exiting as no game.")
@@ -41,9 +53,20 @@ fNormalBoss() {
             Window.Activate()
         } Else {
             If (IsBossTimerActive() || DateDiff(A_Now, startTime, "Seconds") >=
-                30) {
-                GameKeys.TriggerViolin()
-                Sleep(ArtifactSleepAmount)
+            30) {
+
+                If (BossFarmFast) {
+                    AmountToModifier(10)
+                    Sleep(17)
+                    While (IsBossTimerActive()) {
+                        cPoint(1796, 567).ClickButtonActive()
+                        Sleep(17)
+                    }
+                    ResetModifierKeys()
+                } Else {
+                    GameKeys.TriggerViolin()
+                    Sleep(ArtifactSleepAmount)
+                }
                 startTime := A_Now
             }
             If (!IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()) {

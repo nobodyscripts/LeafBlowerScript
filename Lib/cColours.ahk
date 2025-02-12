@@ -127,10 +127,8 @@ Class Colours {
         "Tenebris Field", "0x181818", ;
         "Blacklight Verge", "0x000000", ; (non unique)
         "Sombrynth", "0x000000", ; (non unique)
-        "Latsyrc Wodash", "0x000009")
-    /*
-    TODO Add Shadow Lighthouse
-    */
+        "Latsyrc Wodash", "0x000009",
+        "Shadow Lighthouse", "0x000028")
     ;@endregion
     ;@endregion
 

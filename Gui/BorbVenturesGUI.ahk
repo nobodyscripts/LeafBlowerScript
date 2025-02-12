@@ -4,7 +4,7 @@ Button_Click_BorbVenture(thisGui, info) {
     Global settings, HaveBorbDLC, BVBlockMythLeg, BVItemsArr
 
     optionsGUI := Gui(, "Borbventures Farm Settings")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
     If (HaveBorbDLC = true) {

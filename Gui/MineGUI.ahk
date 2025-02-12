@@ -15,7 +15,7 @@ Button_Click_Mine(thisGui, info) {
         BrewEnableScrolls, BrewEnableCardParts, BankEnableStorageUpgrade
 
     optionsGUI := Gui(, "Mine Maintainer Settings")
-    optionsGUI.Opt("+Owner")
+    optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
 
     ;@region Add controls

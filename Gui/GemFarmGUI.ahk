@@ -4,7 +4,7 @@ Button_Click_GemFarm(thisGui, info) {
     Global Settings, GemFarmSleepAmount
 
     optionsGUI := Gui(, "Gem Suitcase Farm Settings")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
 

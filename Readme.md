@@ -237,6 +237,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added settings for brew to control which are clicked in that mode (shared
   with Mine mode)
   - Added scroll brewing
+  - Added BosFarmFast to use violins via artfact screen to use more at once
 
 - Leafton
   - Added brewing with standalone settings
@@ -279,6 +280,7 @@ digital vibrance off
   - Claw: Needs to use artifact if need be / get replacement.
   - GFSS: Add setting for standalone WW in GFSS spammer.
   - GFSS: Review ending of gfssnoreset mode.
+  - GFSS: Add BossFastFarm.
   - NatBoss: Needs to use artifact if need be / get replacement.
   - Leafton: Leafton needs better setup routine. Travel to zone.
 

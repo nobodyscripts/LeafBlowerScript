@@ -4,10 +4,10 @@ Button_Click_BossFarm(thisGui, info) {
     Global settings, BossFarmUsesWind, BossFarmUsesWobblyWings,
         ArtifactSleepAmount, WobblyWingsSleepAmount, BossFarmUsesSeeds,
         BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
-        BrewEnableScrolls, BrewEnableCardParts
+        BrewEnableScrolls, BrewEnableCardParts, BossFarmFast
 
     optionsGUI := Gui(, "Boss Farm Mode Settings")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
     If (BossFarmUsesWind = true) {
@@ -34,6 +34,14 @@ Button_Click_BossFarm(thisGui, info) {
             "Enable Seed Bag Artifact")
     }
 
+    If (BossFarmFast = true) {
+        optionsGUI.Add("CheckBox", "vBossFarmFast ccfcfcf checked",
+            "Enable Fast Artifact Use")
+    } Else {
+        optionsGUI.Add("CheckBox", "vBossFarmFast ccfcfcf",
+            "Enable Fast Artifact Use")
+    }
+    
     optionsGUI.Add("Text", "ccfcfcf", "Delay between artifact use (ms):")
     optionsGUI.AddEdit()
     If (IsInteger(ArtifactSleepAmount) && ArtifactSleepAmount > 0) {
@@ -195,6 +203,7 @@ Button_Click_BossFarm(thisGui, info) {
         ArtifactSleepAmount := values.ArtifactSleepAmount
         WobblyWingsSleepAmount := values.WobblyWingsSleepAmount
         BossFarmUsesSeeds := values.BossFarmUsesSeeds
+        BossFarmFast := values.BossFarmFast
         BrewEnableArtifacts := values.BrewEnableArtifacts
         BrewEnableEquipment := values.BrewEnableEquipment
         BrewEnableMaterials := values.BrewEnableMaterials

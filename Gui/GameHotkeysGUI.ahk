@@ -3,7 +3,7 @@
 Button_Click_GameHotkeys(*) {
 
     optionsGUI := Gui(, "Game Hotkey Customisation")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
     i := 1
     first := true
@@ -35,7 +35,6 @@ Button_Click_GameHotkeys(*) {
         ApplyNewHotkeysToGame)
 
     optionsGUI.Show()
-
 
     ResetGameHotKeys(*) {
         If (MsgBox("Are you sure you want to reset Script Hotkeys?",

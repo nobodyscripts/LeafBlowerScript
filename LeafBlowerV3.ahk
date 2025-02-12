@@ -97,10 +97,9 @@ CreateScriptHotkeys() {
             ;"Window:`t" windowx ", " windowy "`n"
             "Client:`t" clientx ", " clienty "`n"
             "`t`t`t   Color:`t#" SubStr(PixelGetColor(screenx, screeny), 3)
+            ;"Current zone colour: " Points.ZoneSample.GetColour()
         )
         A_Clipboard := "cPoint(" clientx ", " clienty ")"
-        ; " `; Colour: #" SubStr(PixelGetColor(screenx, screeny), 3)
-        ; Out.D("Current zone colour: " Points.ZoneSample.GetColour())
     }
 
     ~WheelDown:: {

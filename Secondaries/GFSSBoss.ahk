@@ -22,6 +22,7 @@ Out.I("Secondary: GFSS Boss Started")
 
 fGFSSBoss()
 fGFSSBoss() {
+    ; TODO add BossFarmFast to GFSS
     startTime := A_Now
     Loop {
         If (!Window.Exist()) {

@@ -6,7 +6,7 @@ Button_Click_GeneralSettings(thisGui, info) {
         DisableSettingsChecks, TimestampLogs, Debug, Verbose, LogBuffer
 
     settingsGUI := Gui(, "General Settings")
-    settingsGUI.Opt("+Owner +MinSize +MinSize500x")
+    settingsGUI.Opt("+MinSize +MinSize500x")
     settingsGUI.BackColor := "0c0018"
 
     If (EnableLogging = true) {

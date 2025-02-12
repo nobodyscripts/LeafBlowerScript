@@ -13,8 +13,8 @@ Global DisableZoneChecks := DisableSettingsChecks := false
 Global TimestampLogs := true
 Global LogBuffer
 
-Global BossFarmUsesWind := BossFarmUsesWobblyWings := BossFarmUsesSeeds :=
-    false
+Global BossFarmFast := BossFarmUsesWind := BossFarmUsesWobblyWings :=
+    BossFarmUsesSeeds := false
 Global ArtifactSleepAmount := WobblyWingsSleepAmount := 1
 
 Global CheckForUpdatesEnable := true
@@ -306,6 +306,8 @@ Class cSettings {
             "BossFarmUsesWobblyWings", true, true, "bool", "BossFarm")
         this.Map["BossFarmUsesSeeds"] := singleSetting("BossFarmUsesSeeds",
             true, true, "bool", "BossFarm")
+        this.Map["BossFarmFast"] := singleSetting("BossFarmFast",
+            false, false, "bool", "BossFarm")
         this.Map["WobblyWingsSleepAmount"] := singleSetting(
             "WobblyWingsSleepAmount", 17, 17, "int", "BossFarm")
         this.Map["HyacinthUseSlot"] := singleSetting("HyacinthUseSlot", "All",
@@ -421,7 +423,7 @@ Class cSettings {
             true, true, "bool", "Brew")
         this.Map["SCAdvanceReplace"] := singleSetting("SCAdvanceReplace",
             true, true, "bool", "ShadowCrystal")
-        
+
         ;@endregion
 
         If (!secondary) {
@@ -486,7 +488,7 @@ Class cSettings {
         Global DisableZoneChecks, DisableSettingsChecks
         Global ArtifactSleepAmount
         Global BossFarmUsesWind, BossFarmUsesWobblyWings,
-            WobblyWingsSleepAmount, BossFarmUsesSeeds
+            WobblyWingsSleepAmount, BossFarmUsesSeeds, BossFarmFast
 
         Global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower,
             HyacinthUseSpheres, HyacinthUseNextAvailableFlower,

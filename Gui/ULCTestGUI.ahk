@@ -25,8 +25,6 @@ Button_Click_ULC(thisGui, info) {
     .OnEvent("Click", test)
 
     test(*) {
-        UlcWindow()
-        Out.D(cPoint(1065, 1220).GetColour())
     }
 
     optionsGUI.Add("Button", "default", "BLC Prestige")

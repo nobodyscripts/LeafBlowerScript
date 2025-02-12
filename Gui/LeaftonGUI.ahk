@@ -10,7 +10,7 @@ Button_Click_Leafton(thisGui, info) {
         LeaftonBrewCutOffTime
 
     optionsGUI := Gui(, "Leafton Settings")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
     If (LeaftonCraftEnabled = true) {

@@ -9,100 +9,316 @@ Button_Click_Cards(thisGui, info) {
         CardsDontBuyLeg, CardsSleepBuyAmount, CardsGreedyOpen, CardsGreedyBuy
 
     optionsGUI := Gui(, "Mine Maintainer Settings")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
     optionsGUI.Add("Text", "ccfcfcf", "Cards Opening Options:")
     optionsGUI.Add("Text", "ccfcfcf", "Open Common Card Packs Amount:")
     Switch CardsCommonAmount {
-        Case 1:
-            optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose1", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 10:
-            optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose2", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25:
-            optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose3", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 100:
-            optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose4", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 250:
-            optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose5", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 1000:
-            optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose6", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 2500:
-            optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose7", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25000:
-            optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose8", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        default:
-            optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose8", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
+    Case 1:
+        optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose1", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 10:
+        optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose2", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25:
+        optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose3", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 100:
+        optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose4", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 250:
+        optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose5", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 1000:
+        optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose6", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 2500:
+        optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose7", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25000:
+        optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Open Rare Card Packs Amount:")
     Switch CardsRareAmount {
-        Case 1:
-            optionsGUI.Add("DropDownList", "vCardsRareAmount Choose1", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 10:
-            optionsGUI.Add("DropDownList", "vCardsRareAmount Choose2", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25:
-            optionsGUI.Add("DropDownList", "vCardsRareAmount Choose3", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 100:
-            optionsGUI.Add("DropDownList", "vCardsRareAmount Choose4", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 250:
-            optionsGUI.Add("DropDownList", "vCardsRareAmount Choose5", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 1000:
-            optionsGUI.Add("DropDownList", "vCardsRareAmount Choose6", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 2500:
-            optionsGUI.Add("DropDownList", "vCardsRareAmount Choose7", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25000:
-            optionsGUI.Add("DropDownList", "vCardsRareAmount Choose8", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        default:
-            optionsGUI.Add("DropDownList", "vCardsRareAmount Choose8", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
+    Case 1:
+        optionsGUI.Add("DropDownList", "vCardsRareAmount Choose1", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 10:
+        optionsGUI.Add("DropDownList", "vCardsRareAmount Choose2", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25:
+        optionsGUI.Add("DropDownList", "vCardsRareAmount Choose3", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 100:
+        optionsGUI.Add("DropDownList", "vCardsRareAmount Choose4", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 250:
+        optionsGUI.Add("DropDownList", "vCardsRareAmount Choose5", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 1000:
+        optionsGUI.Add("DropDownList", "vCardsRareAmount Choose6", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 2500:
+        optionsGUI.Add("DropDownList", "vCardsRareAmount Choose7", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25000:
+        optionsGUI.Add("DropDownList", "vCardsRareAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vCardsRareAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Open Legendary Card Packs Amount:")
     Switch CardsLegendaryAmount {
-        Case 1:
-            optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose1", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 10:
-            optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose2", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25:
-            optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose3", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 100:
-            optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose4", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 250:
-            optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose5", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 1000:
-            optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose6", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 2500:
-            optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose7", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25000:
-            optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose8", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        default:
-            optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose8", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
+    Case 1:
+        optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose1", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 10:
+        optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose2", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25:
+        optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose3", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 100:
+        optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose4", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 250:
+        optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose5", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 1000:
+        optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose6", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 2500:
+        optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose7", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25000:
+        optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Greedy starts at Amount")
@@ -181,127 +397,378 @@ Button_Click_Cards(thisGui, info) {
 
     optionsGUI.Add("Text", "ccfcfcf", "Purchase Card Packs Priority Style:")
     Switch CardsBuyStyle {
-        Case "RoundRobin":
-            optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose1", [
-                "RoundRobin", "RoundRobin2", "FocusLegend", "FocusRare",
-                "FocusRare2", "FocusCommon"])
-        Case "RoundRobin2":
-            optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose2", [
-                "RoundRobin", "RoundRobin2", "FocusLegend", "FocusRare",
-                "FocusRare2", "FocusCommon"])
-        Case "FocusLegend":
-            optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose3", [
-                "RoundRobin", "RoundRobin2", "FocusLegend", "FocusRare",
-                "FocusRare2", "FocusCommon"])
-        Case "FocusRare":
-            optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose4", [
-                "RoundRobin", "RoundRobin2", "FocusLegend", "FocusRare",
-                "FocusRare2", "FocusCommon"])
-        Case "FocusRare2":
-            optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose5", [
-                "RoundRobin", "RoundRobin2", "FocusLegend", "FocusRare",
-                "FocusRare2", "FocusCommon"])
-        Case "FocusCommon":
-            optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose6", [
-                "RoundRobin", "RoundRobin2", "FocusLegend", "FocusRare",
-                "FocusRare2", "FocusCommon"])
-        default:
-            optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose3", [
-                "RoundRobin", "RoundRobin2", "FocusLegend", "FocusRare",
-                "FocusRare2", "FocusCommon"])
+    Case "RoundRobin":
+        optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose1", [
+            "RoundRobin",
+            "RoundRobin2",
+            "FocusLegend",
+            "FocusRare",
+            "FocusRare2",
+            "FocusCommon"
+        ])
+    Case "RoundRobin2":
+        optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose2", [
+            "RoundRobin",
+            "RoundRobin2",
+            "FocusLegend",
+            "FocusRare",
+            "FocusRare2",
+            "FocusCommon"
+        ])
+    Case "FocusLegend":
+        optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose3", [
+            "RoundRobin",
+            "RoundRobin2",
+            "FocusLegend",
+            "FocusRare",
+            "FocusRare2",
+            "FocusCommon"
+        ])
+    Case "FocusRare":
+        optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose4", [
+            "RoundRobin",
+            "RoundRobin2",
+            "FocusLegend",
+            "FocusRare",
+            "FocusRare2",
+            "FocusCommon"
+        ])
+    Case "FocusRare2":
+        optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose5", [
+            "RoundRobin",
+            "RoundRobin2",
+            "FocusLegend",
+            "FocusRare",
+            "FocusRare2",
+            "FocusCommon"
+        ])
+    Case "FocusCommon":
+        optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose6", [
+            "RoundRobin",
+            "RoundRobin2",
+            "FocusLegend",
+            "FocusRare",
+            "FocusRare2",
+            "FocusCommon"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose3", [
+            "RoundRobin",
+            "RoundRobin2",
+            "FocusLegend",
+            "FocusRare",
+            "FocusRare2",
+            "FocusCommon"
+        ])
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Purchase Common Card Packs Amount:")
     Switch CardsCommonBuyAmount {
-        Case 1:
-            optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose1", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 10:
-            optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose2", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25:
-            optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose3", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 100:
-            optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose4", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 250:
-            optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose5", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 1000:
-            optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose6", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 2500:
-            optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose7", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25000:
-            optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose8", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
-        default:
-            optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose8", [
-                "1", "10", "25", "100", "250", "1000", "2500", "25000"])
+    Case 1:
+        optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose1", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 10:
+        optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose2", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25:
+        optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose3", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 100:
+        optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose4", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 250:
+        optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose5", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 1000:
+        optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose6", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 2500:
+        optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose7", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25000:
+        optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Purchase Rare Card Packs Amount:")
     Switch CardsRareBuyAmount {
-        Case 1:
-            optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose1", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 10:
-            optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose2", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25:
-            optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose3", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 100:
-            optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose4", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 250:
-            optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose5", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 1000:
-            optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose6", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 2500:
-            optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose7", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25000:
-            optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose8", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        default:
-            optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose8", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
+    Case 1:
+        optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose1", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 10:
+        optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose2", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25:
+        optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose3", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 100:
+        optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose4", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 250:
+        optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose5", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 1000:
+        optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose6", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 2500:
+        optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose7", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25000:
+        optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Purchase Legendary Card Packs Amount:")
     Switch CardsLegBuyAmount {
-        Case 1:
-            optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose1", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 10:
-            optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose2", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25:
-            optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose3", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 100:
-            optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose4", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 250:
-            optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose5", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 1000:
-            optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose6", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 2500:
-            optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose7", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25000:
-            optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose8", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        default:
-            optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose8", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
+    Case 1:
+        optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose1", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 10:
+        optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose2", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25:
+        optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose3", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 100:
+        optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose4", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 250:
+        optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose5", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 1000:
+        optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose6", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 2500:
+        optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose7", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25000:
+        optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
     }
 
     optionsGUI.Add("Text", "ccfcfcf", "Greedy starts at Amount")
@@ -351,7 +818,6 @@ Button_Click_Cards(thisGui, info) {
                 Settings.defaultSettings.CardsSleepBuyAmount)
         }
     }
-
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunCards)
     optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",

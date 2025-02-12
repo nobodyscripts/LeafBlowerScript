@@ -187,6 +187,11 @@ Required true for Hyacinth Boss Farming.
 BossFarmUsesSeeds: (Default) false  
 Spams seeds during bossfarm mode and where boss farm is run as secondary.
 
+BossFarmFast: (Default) false
+During base boss farm mode use violins via the artifacts screen so that
+multipliers can be used, increasing speed of boss farming at the cost of using
+a window.
+
 WobblyWingsSleepAmount: (Default) 750  
 Timer for WW spam, much lower and you might skip bosses entirely, higher if
 you don't instantly kill.

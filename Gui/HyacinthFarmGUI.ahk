@@ -6,7 +6,7 @@ Button_Click_Hyacinth(thisGui, info) {
         HyacinthUseFlower
 
     optionsGUI := Gui(, "Hyacinth Farm Settings")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
     optionsGUI.Add("Text", "ccfcfcf", "Which Farm Slot To Use:")

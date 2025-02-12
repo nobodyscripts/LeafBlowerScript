@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0
 
-
 Button_Click_Bank(thisGui, info) {
     Global Settings, BankEnableLGDeposit, BankEnableSNDeposit,
         BankEnableEBDeposit, BankEnableFFDeposit, BankEnableSRDeposit,
@@ -8,7 +7,7 @@ Button_Click_Bank(thisGui, info) {
         BankEnableStorageUpgrade
 
     optionsGUI := Gui(, "Bank Maintainer Settings")
-    optionsGUI.Opt("+Owner +MinSize +MinSize500x")
+    optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
     If (BankEnableStorageUpgrade = true) {
@@ -89,7 +88,6 @@ Button_Click_Bank(thisGui, info) {
         optionsGUI.Add("CheckBox", "vBankEnableQADeposit ccfcfcf",
             "Enable Quark Ambit Bank")
     }
-
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunBank)
     optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
