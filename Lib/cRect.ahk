@@ -165,7 +165,7 @@ Class cRect {
             If (found and OutX != 0) {
                 Return [OutX, OutY] ; Found colour
             }
-            Out.V("PixelSearch false: " colour " not found")
+            ; Out.D("PixelSearch false: " colour " not found")
         } Catch As exc {
             Out.I("Error 8: PixelSearch search failed - " exc.Message)
             MsgBox("Could not conduct the search due to the following error:`n" exc

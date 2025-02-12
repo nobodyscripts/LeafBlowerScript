@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-Global ULCStage1Exit := false
+Global ULCStageExit := false
 
 GetDailyReward(*) {
     UlcWindow()
@@ -18,7 +18,7 @@ WaitForFloor100(*) {
         Sleep(100)
     }
     If (!Rects.Misc.FloorAmount100.PixelSearch()) {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
     }
 }
 
@@ -29,12 +29,12 @@ TriggerBLC(*) {
     crunchbtn := cPoint(1109, 553)
     crunchbtn.WaitUntilActiveButton()
     If (!crunchbtn.ClickButtonActive()) {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
         Return
     }
     Sleep(150)
     If (!cPoint(1131, 525).ClickButtonActive()) {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
     }
 }
 
@@ -43,12 +43,12 @@ TriggerMLC(*) {
     Out.D("TriggerMLC")
     Shops.OpenGreenPortal()
     If (!cPoint(1111, 549).ClickButtonActive()) {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
         Return
     }
     Sleep(150)
     If (!cPoint(1111, 524).ClickButtonActive()) {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
     }
 }
 
@@ -61,7 +61,7 @@ TriggerMLCConverters(*) {
     StartConvertorsBtn := cPoint(1075, 1102)
     StartConvertorsBtn.WaitUntilActiveButton()
     If (!StartConvertorsBtn.ClickButtonActive()) {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
     }
 }
 
@@ -72,7 +72,7 @@ ActivateConverters(*) {
     StartConvertorsBtn := cPoint(1075, 1102)
     StartConvertorsBtn.WaitUntilActiveButton()
     If (!StartConvertorsBtn.ClickButtonActive()) {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
     }
 }
 
@@ -84,7 +84,7 @@ WaitForPortalAnimation(*) {
     Sleep(500)
     If (!Points.Misc.NotifArrowExist.IsButtonActive()) {
         Out.I("Failed to see ui after portal animation")
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
     }
 }
 
@@ -101,7 +101,7 @@ WaitForBLCPortal(*) {
     BLCBtn := cPoint(1065, 1220)
     BLCBtn.WaitWhileColour("0xFFFFF6", 2400, 100) ; 120s
     If (BLCBtn.GetColour() = "0xFFFFF6") {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
     }
     Tooltip(, , , 15)
 }
@@ -110,7 +110,7 @@ WaitTillPyramidReset(*) {
     UlcWindow()
     Out.D("WaitTillPyramidReset")
     colour := Colours().GetColourByZone("The Inner Cursed Pyramid")
-    Points.Misc.ZoneSample.WaitUntilColour(colour, 600, 50) ; 30s
+    Points.Misc.ZoneSample.WaitWhileNotColour(colour, 600, 50) ; 30s
 }
 
 PubTradeForCheese25000(*) {
@@ -118,7 +118,7 @@ PubTradeForCheese25000(*) {
     Out.D("PubTradeForCheese25000")
     Travel.TheCheesePub.GoTo()
     If (!Travel.TheCheesePub.IsZoneColour()) {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
         Return
     }
     Sleep(150)
@@ -128,18 +128,18 @@ PubTradeForCheese25000(*) {
     QuestsBtn := cPoint(1091, 380)
     QuestsBtn.WaitUntilActiveButton()
     If (!QuestsBtn.ClickButtonActive()) {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
         Return
     }
     QuestCheese250Btn := cPoint(1702, 312)
     QuestCheese250Btn.WaitUntilActiveButton()
     If (!QuestCheese250Btn.ClickButtonActive()) {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
         Return
     }
     QuestCheese250Btn.WaitUntilActiveButton()
     If (!QuestCheese250Btn.ClickButtonActive()) {
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
     }
 }
 
@@ -147,29 +147,122 @@ Use30minTimeWarp(*) {
     UlcWindow()
     Out.D("Use30minTimeWarp")
     TTtab := cPoint(1810, 1177)
-    Buy30mins := cPoint(1592, 306)
-    Available30mins := cPoint(1744, 306)
+    BuyTW := cPoint(1592, 306)
+    AvailableTW := cPoint(1744, 306)
     Shops.OpenGemShop()
     TTtab.WaitUntilActiveButton()
     If (!TTtab.IsButtonActive()) {
         Out.I("Found no time travel button, exiting.")
-        Global ULCStage1Exit := true
+        Global ULCStageExit := true
         Return
     }
     ; Navigate to Time Travel tab
     TTtab.Click()
 
-    Buy30mins.WaitUntilActiveButton()
+    BuyTW.WaitUntilActiveButton()
 
-    If (!Available30mins.IsButtonActive()) {
-        Buy30mins.ClickButtonActive()
+    If (!AvailableTW.IsButtonActive()) {
+        BuyTW.ClickButtonActive()
 
-        Available30mins.WaitUntilActiveButton()
+        AvailableTW.WaitUntilActiveButton()
 
-        Available30mins.ClickButtonActive()
+        AvailableTW.ClickButtonActive()
         Sleep(100)
     } Else {
-        Available30mins.ClickButtonActive()
+        AvailableTW.ClickButtonActive()
+        Sleep(100)
+    }
+}
+
+Use6hTimeWarp(*) {
+    UlcWindow()
+    Out.D("Use6hTimeWarp")
+    TTtab := cPoint(1810, 1177)
+    BuyTW := cPoint(1592, 420)
+    AvailableTW := cPoint(1744, 420)
+    Shops.OpenGemShop()
+    TTtab.WaitUntilActiveButton()
+    If (!TTtab.IsButtonActive()) {
+        Out.I("Found no time travel button, exiting.")
+        Global ULCStageExit := true
+        Return
+    }
+    ; Navigate to Time Travel tab
+    TTtab.Click()
+
+    BuyTW.WaitUntilActiveButton()
+
+    If (!AvailableTW.IsButtonActive()) {
+        BuyTW.ClickButtonActive()
+
+        AvailableTW.WaitUntilActiveButton()
+
+        AvailableTW.ClickButtonActive()
+        Sleep(100)
+    } Else {
+        AvailableTW.ClickButtonActive()
+        Sleep(100)
+    }
+}
+
+Use24hTimeWarp(*) {
+    UlcWindow()
+    Out.D("Use24hTimeWarp")
+    TTtab := cPoint(1810, 1177)
+    BuyTW := cPoint(1592, 530)
+    AvailableTW := cPoint(1744, 530)
+    Shops.OpenGemShop()
+    TTtab.WaitUntilActiveButton()
+    If (!TTtab.IsButtonActive()) {
+        Out.I("Found no time travel button, exiting.")
+        Global ULCStageExit := true
+        Return
+    }
+    ; Navigate to Time Travel tab
+    TTtab.Click()
+
+    BuyTW.WaitUntilActiveButton()
+
+    If (!AvailableTW.IsButtonActive()) {
+        BuyTW.ClickButtonActive()
+
+        AvailableTW.WaitUntilActiveButton()
+
+        AvailableTW.ClickButtonActive()
+        Sleep(100)
+    } Else {
+        AvailableTW.ClickButtonActive()
+        Sleep(100)
+    }
+}
+
+Use72hTimeWarp(*) {
+    UlcWindow()
+    Out.D("Use72hTimeWarp")
+    TTtab := cPoint(1810, 1177)
+    BuyTW := cPoint(1592, 645)
+    AvailableTW := cPoint(1744, 645)
+    Shops.OpenGemShop()
+    TTtab.WaitUntilActiveButton()
+    If (!TTtab.IsButtonActive()) {
+        Out.I("Found no time travel button, exiting.")
+        Global ULCStageExit := true
+        Return
+    }
+    ; Navigate to Time Travel tab
+    TTtab.Click()
+
+    BuyTW.WaitUntilActiveButton()
+
+    If (!AvailableTW.IsButtonActive()) {
+        BuyTW.ClickButtonActive()
+
+        AvailableTW.WaitUntilActiveButton()
+
+        AvailableTW.ClickButtonActive()
+        Sleep(100)
+    } Else {
+        AvailableTW.ClickButtonActive()
         Sleep(100)
     }
 }
@@ -182,7 +275,7 @@ TradeForPyramid(*) {
 
 IsULCCraftSaved() {
     Out.D("TODO IsULCCraftSaved")
-
+    ; can be grabbed from profiles.def.objects.o_game.data.ulc_settings
 }
 
 WaitForAncients(*) {

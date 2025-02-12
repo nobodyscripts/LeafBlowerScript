@@ -66,7 +66,7 @@ Class cAreasFavPoints {
  */
 Class cAreasLeafGPoints {
     /** @type {cPoint} Tab for areas panel (Leaf Galaxy) */
-    Tab := cPoint(535, 1164)
+    Tab := cPoint(506, 1162)
 
     /** @type {cPoint} Home Garden */
     HomeGarden := cPoint(1662, 325)
@@ -82,6 +82,8 @@ Class cAreasLeafGPoints {
  * @memberof module:cVeinPoints
  */
 Class cAreasSacredNPoints {
+    /** @type {cPoint} Tab for areas panel */
+    Tab := cPoint(919, 1182)
 }
 ;@endregion
 
@@ -91,6 +93,8 @@ Class cAreasSacredNPoints {
  * @memberof module:cVeinPoints
  */
 Class cAreasEnergyBPoints {
+    /** @type {cPoint} Tab for areas panel */
+    Tab := cPoint(1137, 1180)
 }
 ;@endregion
 
@@ -104,7 +108,7 @@ Class cAreasEnergyBPoints {
  */
 Class cAreasFireFPoints {
     /** @type {cPoint} Tab for areas panel (Fire Fields) */
-    Tab := cPoint(1272, 1163)
+    Tab := cPoint(1356, 1182)
     /** @type {cPoint} Borbiana Jones screen */
     BorbianaJones := cPoint(1735, 397)
     /** @type {cPoint} Reset GF */
@@ -119,6 +123,8 @@ Class cAreasFireFPoints {
  * @memberof module:cVeinPoints
  */
 Class cAreasSoulRPoints {
+    /** @type {cPoint} Tab for areas panel */
+    Tab := cPoint(1576, 1180)
 }
 ;@endregion
 
@@ -135,7 +141,7 @@ Class cAreasSoulRPoints {
  */
 Class cAreasQuarkAPoints {
     /** @type {cPoint} Tab for areas panel (Quark Ambit) */
-    Tab := cPoint(1760, 1164)
+    Tab := cPoint(1792, 1179)
     /** @type {cPoint} Astral Oasis */
     AstralOasis := cPoint(1665, 643)
     /** @type {cPoint} Dimentional Tapestry */
@@ -154,7 +160,7 @@ Class cAreasQuarkAPoints {
 ;@region cAreasUmbralClusterPoints
 /**
  * @memberof module:cVeinPoints
- * @property {cPoint} Tab Tab for areas panel (Quark Ambit)
+ * @property {cPoint} Tab Tab for areas panel (Umbral Cluster)
  * @property {cPoint} AstralOasis Astral Oasis
  * @property {cPoint} DimentionalTapestry Dimentional Tapestry
  * @property {cPoint} PlankScope Plank Scope
@@ -163,7 +169,7 @@ Class cAreasQuarkAPoints {
  * @property {cPoint} AnteLeafton2 Ante Leafton (scroll down 2)
  */
 Class cAreasUmbralClusterPoints {
-    /** @type {cPoint} Tab for areas panel (Quark Ambit) */
+    /** @type {cPoint} Tab for areas panel (Umbral Cluster) */
     Tab := cPoint(1760, 1164)
 }
 ;@endregion

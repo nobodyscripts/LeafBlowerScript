@@ -75,6 +75,7 @@ Class cAreasSacredNRects {
     /** @type {Type} Desc */
     property := 0
 
+    
 }
 
 /**

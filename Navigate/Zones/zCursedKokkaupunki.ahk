@@ -26,9 +26,9 @@ Class CursedKokkaupunki extends Zone {
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         /** @type {cPoint} */
-        Btn := cPoint(1670, 629)
+        Btn := cPoint(1863, 636)
         
-        Travel.OpenAreas(true, extradelay)
+        Travel.OpenAreasLeafGalaxy(extradelay)
         this.ScrollAmountDown(28, scrolldelay)
         Sleep(delay + extradelay)
         If (Btn.IsButtonActive()) {

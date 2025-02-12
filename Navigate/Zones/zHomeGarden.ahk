@@ -32,7 +32,7 @@ Class HomeGarden extends Zone {
     }
 
     IsAreaGarden() {
-        If (!Rects.Areas.GardenReset.PixelSearch("0x4A9754")) {
+        If (!Rects.Areas.LeafGalaxy.GardenReset.PixelSearch("0x4A9754")) {
             Return false
         }
         Return true

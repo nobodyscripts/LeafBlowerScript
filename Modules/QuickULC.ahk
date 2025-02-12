@@ -20,9 +20,9 @@ GetULCStage() {
 
 }
 
-ULCStage1ExitCheck(id) {
-    Global ULCStage1Exit
-    If (ULCStage1Exit) {
+ULCStageExitCheck(id) {
+    Global ULCStageExit
+    If (ULCStageExit) {
         Out.D("Exited at id " id)
         Out.S()
         ExitApp()
@@ -35,50 +35,50 @@ ULCStage1(*) {
 
     Travel.TheLeafTower.MaxTowerFloor()
     WaitForFloor100()
-    ULCStage1ExitCheck(1)
+    ULCStageExitCheck(1)
 
     TriggerMLC()
     WaitForPortalAnimation()
-    ULCStage1ExitCheck(2)
+    ULCStageExitCheck(2)
 
     Travel.TheLeafTower.MaxTowerFloor()
-    ULCStage1ExitCheck(3)
+    ULCStageExitCheck(3)
 
     Shops.MLC.Max()
     Shops.MLC.Max()
-    ULCStage1ExitCheck(4)
+    ULCStageExitCheck(4)
 
     TriggerMLCConverters()
     WaitForPortalAnimation()
     Shops.MLC.Max()
-    ULCStage1ExitCheck(5)
+    ULCStageExitCheck(5)
 
     WaitForBLCPortal()
-    ULCStage1ExitCheck(12)
+    ULCStageExitCheck(12)
     TriggerBLC()
-    ULCStage1ExitCheck(13)
+    ULCStageExitCheck(13)
     WaitForPortalAnimation()
-    ULCStage1ExitCheck(14)
+    ULCStageExitCheck(14)
     Shops.MLC.Max()
-    ULCStage1ExitCheck(6)
+    ULCStageExitCheck(6)
 
     Travel.TheInnerCursedPyramid.GoTo() ; Get ancients to autobrew
     WaitTillPyramidReset()
-    ULCStage1ExitCheck(7)
+    ULCStageExitCheck(7)
 
     PubTradeForCheese25000()
-    ULCStage1ExitCheck(8)
+    ULCStageExitCheck(8)
 
     Use30minTimeWarp() ; Should we do something with e300 blc first or try e30
-    ULCStage1ExitCheck(9)
+    ULCStageExitCheck(9)
 
     EquipMulchSword() ; Activates unique leaves/pets on loadout too
     Sleep(1000)
     Shops.Mulch.BuyTrade()
-    ULCStage1ExitCheck(10)
+    ULCStageExitCheck(10)
 
     GoToTrade()
-    ULCStage1ExitCheck(11)
+    ULCStageExitCheck(11)
 
     MsgBox("Trade for pyramid requirements now, then go to pyramid and get ancients`r`n"
         "After that do pyramid floor 100 and start stage 2.")
@@ -99,38 +99,9 @@ ULCStage1(*) {
 
 ULCStage2(*) {
     UlcWindow()
-    Travel.CursedKokkaupunki.GoTo()
-    WaitForBossKill()
 
-    Travel.TheExaltedBridge.GoTo()
-    WaitForBossKill()
-
-    Travel.VilewoodCemetery.GoTo()
-    WaitForBossKill()
-
-    Travel.TheLoneTree.GoTo()
-    WaitForBossKill()
-
-    Travel.SparkBubble.GoTo()
-    WaitForBossKill()
-
-    Travel.BluePlanetEdge.GoTo()
-    WaitForBossKill()
-
-    Travel.GreenPlanetEdge.GoTo()
-    WaitForBossKill()
-
-    Travel.RedPlanetEdge.GoTo()
-    WaitForBossKill()
-
-    Travel.PurplePlanetEdge.GoTo()
-    WaitForBossKill()
-
-    Travel.BlackPlanetEdge.GoTo()
-    WaitForBossKillOrTimeout()
-
-    Travel.EnergySingularity.GoTo()
-    WaitForBossKillOrTimeout()
+    BossSweep()
+    ULCStageExitCheck("s2 1")
 
     Travel.MountMoltenfury.GoTo()
     Sleep(5000)
@@ -146,9 +117,9 @@ ULCStage2(*) {
     Travel.BiotiteForest.GoTo()
 
     MaxBVItems()
-    WaitForBioOrTimeout()
-
-    TimeWarpIfLackingBio()
+    If (!WaitForBioOrTimeout()) {
+        TimeWarpIfLackingBio()
+    }
 
     Shops.Biotite.Max()
     WaitForMalaOrTimeout()
@@ -249,10 +220,6 @@ TriggerULC(*) {
     cPoint(1710, 498).ClickButtonActive()
     Sleep(8000)
 }
-BossSweep(*) {
-    UlcWindow()
-
-}
 
 EnableBanks(*) {
     UlcWindow()
@@ -301,12 +268,64 @@ EquipSlap(*) {
 
 WaitForBossKill(*) {
     UlcWindow()
-
+    Killcount := 0
+    IsPrevTimerLong := IsBossTimerLong()
+    cPoint(1063, 628).TextTipAtCoord("Waiting for boss kill", 14)
+    Loop {
+        UlcWindow()
+        IsTimerLong := IsBossTimerLong()
+        ; if state of timer has changed and is now off, we killed
+        If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+            ; If the timer is longer, killed too quick to get a gap
+            ; Out.I("Kill timerlast " TimerLastCheckStatus " timer cur "
+            ; TimerCurrentState " waslong " IsPrevTimerLong
+            ; " islong " IsTimerLong)
+            ToolTip(, , , 14)
+            Return true
+        }
+        IsPrevTimerLong := IsTimerLong
+        If (Travel.HomeGarden.IsAreaGarden()) {
+            ToolTip(, , , 14)
+            Out.I("User killed by boss.")
+            ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
+                50), 2)
+            SetTimer(ToolTip.Bind(, , , 2), -3000)
+            Return false
+        }
+        GameKeys.TriggerViolin()
+    }
+    ToolTip(, , , 14)
 }
 
-WaitForBossKillOrTimeout(*) {
+WaitForBossKillOrTimeout(seconds := 30) {
     UlcWindow()
-
+    Killcount := 0
+    IsPrevTimerLong := IsBossTimerLong()
+    /** @type {Timer} */
+    Limiter := Timer()
+    Limiter.CoolDownS(seconds, &isactive)
+    While (isactive) {
+        UlcWindow()
+        IsTimerLong := IsBossTimerLong()
+        ; if state of timer has changed and is now off, we killed
+        If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
+            ; If the timer is longer, killed too quick to get a gap
+            ; Out.I("Kill timerlast " TimerLastCheckStatus " timer cur "
+            ; TimerCurrentState " waslong " IsPrevTimerLong
+            ; " islong " IsTimerLong)
+            Return true
+        }
+        IsPrevTimerLong := IsTimerLong
+        If (Travel.HomeGarden.IsAreaGarden()) {
+            Out.I("User killed by boss.")
+            ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
+                50), 2)
+            SetTimer(ToolTip.Bind(, , , 2), -3000)
+            Return false
+        }
+    }
+    Out.I("Wait for boss kill timed out.")
+    Return false
 }
 
 GoToWitch(*) {
@@ -374,28 +393,9 @@ GotoBio(*) {
     Travel.BiotiteForest.GoTo()
 }
 
-WaitForBioOrTimeout(*) {
-    UlcWindow()
-
-}
-
-TimeWarpIfLackingBio(*) {
-
-}
-
-WaitForMalaOrTimeout(*) {
-    UlcWindow()
-
-}
-
 GotoHema(*) {
     UlcWindow()
     Travel.SparkRange.GoTo()
-}
-
-WaitForHemaOrTimeout(*) {
-    UlcWindow()
-
 }
 
 GoToPlasmaForest(*) {
@@ -403,53 +403,9 @@ GoToPlasmaForest(*) {
     Travel.PlasmaForest.GoTo()
 }
 
-PlacePlayerPlasmaLoc(*) {
-    UlcWindow()
-    Travel.ClosePanelIfActive()
-    Sleep(100)
-    cPoint(1275, 195)
-    .ClickR(100)
-    Sleep(100)
-    cPoint(1275, 195)
-    .ClickR(100)
-}
-
-PlacePlayerCenter(*) {
-    UlcWindow()
-    Travel.ClosePanelIfActive()
-    Sleep(100)
-    cPoint(1282, 622)
-    .ClickR(100)
-    Sleep(100)
-    cPoint(1282, 622)
-    .ClickR(100)
-}
-
 EquipElectric(*) {
     UlcWindow()
     GameKeys.EquipElectricGearLoadout()
-}
-
-WaitForElectricOrTimeout(*) {
-    UlcWindow()
-
-}
-
-GoToDeathbook(*) {
-    UlcWindow()
-    Travel.TerrorGraveyard.GoTo()
-    Sleep(100)
-}
-
-BuyDeathbook(*) {
-    UlcWindow()
-    GameKeys.ClosePanel()
-    Sleep(100)
-    cPoint(1282, 622)
-    .Click() ; Open DB
-    Sleep(50)
-    cPoint(1139, 376)
-    .ClickButtonActive() ; Unlock
 }
 
 GoToSoulCrypt(*) {
@@ -457,27 +413,17 @@ GoToSoulCrypt(*) {
     Travel.SoulCrypt.GoTo()
 }
 
-WaitForZoneChange(*) {
+WaitForZoneChange(maxloops := 20, interval := 50) {
     UlcWindow()
-
+    /** @type {cPoint} */
+    zonesample := Points.Misc.ZoneSample
+    curCol := zonesample.GetColour()
+    zonesample.WaitWhileColour(curCol, maxloops, interval)
 }
 
 GoToSoulTemple(*) {
     UlcWindow()
     Travel.SoulTemple.GoTo()
-}
-
-MaxCryptFloors(*) {
-    UlcWindow()
-    GameKeys.ClosePanel()
-    Sleep(100)
-    cPoint(1282, 622).Click() ; Open soul temple object
-    Sleep(50)
-    ; TODO Button for unlocking more levels
-    AmountToModifier(100)
-    Sleep(50)
-    cPoint(1536, 462)
-    .ClickButtonActive() ; Increase level
 }
 
 GoToQuarkBoss1(*) {
@@ -528,4 +474,5 @@ GoToWoW(*) {
 WaitFor40thDice() {
     UlcWindow()
     Shops.Dice.GoTo()
+    ; remember dlc will likely effect position
 }

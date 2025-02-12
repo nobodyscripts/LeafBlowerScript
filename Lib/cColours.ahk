@@ -18,6 +18,15 @@
  * @property {String} BackgroundAFK Background window colour when afk on
  * @property {Map} ZoneColours Collection of sample colours by name of zone
  * @method IsButton 
+ * @method IsMouseOver
+ * @method IsButtonActive
+ * @method IsButtonAFK
+ * @method IsCoveredByNotification
+ * @method IsButtonOffPanel
+ * @method IsButtonDarkened
+ * @method IsBackground
+ * @method GetColourByZone
+ * @method GetZoneByColour
  */
 Class Colours {
     ;@region Properties
