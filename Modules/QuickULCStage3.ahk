@@ -44,7 +44,17 @@ BuyMaxCardPacks(*) {
  */
 StoreMineCurrency(*) {
     Shops.Mine.GoToTabTrans()
+    Sleep(150)
+    Points.Mine.Transmute.AllCBarsToCDias.Click()
+    Sleep(50)
+    Points.Mine.Transmute.AllSDiasToCDia.Click()
+    Sleep(50)
 
+    Points.Mine.Transmute.AllCDiasToSpheres.Click()
+    ; or
+    ; Points.Mine.Transmute.AllCDiasToFuel.Click()
+    
+    Sleep(50)
 }
 ;@endregion
 
@@ -168,4 +178,3 @@ BuyMaxBVPacks(*) {
     ResetModifierKeys()
 }
 ;@endregion
-

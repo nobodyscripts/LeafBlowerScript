@@ -22,9 +22,6 @@ Global Points := cPoints()
  * @property {cHyacinthPoints} Hyacinth
  * @property {cLeaftonPoints} Leafton
  * @property {cMinePoints} Mine
- * @property {cCavePoints} Mine.Cave
- * @property {cTransmutePoints} Mine.Transmute
- * @property {cVeinPoints} Mine.Vein
  * @property {cMiscPoints} Misc
  * 
  */
@@ -64,15 +61,6 @@ Class cPoints {
 
     /** @type {cMinePoints} Mine points */
     Mine := cMinePoints()
-
-    /** @type {cCavePoints} Mine Cave points */
-    Mine.Cave := cCavePoints()
-
-    /** @type {cTransmutePoints} Mine Transmute points */
-    Mine.Transmute := cTransmutePoints()
-
-    /** @type {cVeinPoints} Mine Vein points */
-    Mine.Vein := cVeinPoints()
 
     /** @type {cMiscPoints} Misc points */
     Misc := cMiscPoints()
