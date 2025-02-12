@@ -107,11 +107,11 @@ WaitForBioOrTimeout(*) {
         cPoint(1683, 305).ClickButtonActive() ; Unlock Malachite
         Sleep(50)
     }
+    ToolTip(, , , 14)
     If (cPoint(1683, 305).IsButton()) {
         Return false
     }
     Return true
-    ToolTip(, , , 14)
 }
 
 TimeWarpIfLackingBio(*) {
