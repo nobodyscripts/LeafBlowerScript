@@ -292,7 +292,7 @@ CreateScriptHotkeys() {
             }
             fBorbVentureJuiceFarm()
         } Else {
-            If (bvAutostartDisabled = true && Travel.GotoBorbVFirstTab()) {
+            If (bvAutostartDisabled = true && Shops.GotoBorbVFirstTab()) {
                 ; TODO move point to Points
                 fCustomClick(Window.RelW(591), Window.RelH(1100), 34)
             }

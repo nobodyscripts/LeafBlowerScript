@@ -100,28 +100,28 @@ fMineMaintainer() {
     } Else If (MinerEnableSpammer) {
         Spammer.NormalBossStart()
     }
-    Travel.Mine.GoTo()
+    Shops.Mine.GoTo()
     Loop {
         ;@region Loop
         If (Window.IsActive() && MinerEnableLeafton) {
             LeaftonTaxiSinglePass()
         }
         If (Window.IsActive() && !Window.IsPanel()) {
-            Travel.Mine.GoTo()
+            Shops.Mine.GoTo()
         }
         ;@region Veins
         If (Window.IsActive() && Window.IsPanel() && (MinerEnableVeins ||
             MinerEnableVeinRemoval)) {
             i := 1
             Out.D("Opening veins tab")
-            While (!Travel.Mine.IsOnTabVein() && i <= 4) {
+            While (!Shops.Mine.IsOnTabVein() && i <= 4) {
                 If (VeinsTab.IsButton()) {
                     VeinsTab.Click(NavigateTime)
                     Sleep(NavigateTime)
                 }
                 i++
             }
-            If (Travel.Mine.IsOnTabVein()) {
+            If (Shops.Mine.IsOnTabVein()) {
                 If (MinerEnableVeinRemoval) {
                     RemoveSingleVein()
                     Sleep(NavigateTime)
@@ -144,7 +144,7 @@ fMineMaintainer() {
         ;@endregion
 
         ;@region Vein upgrade
-        If (Window.IsActive() && Window.IsPanel() && Travel.Mine.IsOnTabVein() &&
+        If (Window.IsActive() && Window.IsPanel() && Shops.Mine.IsOnTabVein() &&
         VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
             Out.I("Upgrading vein")
             VeinUpgradeButton.ClickOffset(NavigateTime)
@@ -158,14 +158,14 @@ fMineMaintainer() {
                 TransmuteTime := A_Now
                 i := 1
                 Out.D("Opening transmute tab")
-                While (!Travel.Mine.IsOnTabTrans() && i <= 4) {
+                While (!Shops.Mine.IsOnTabTrans() && i <= 4) {
                     If (TransmuteTab.IsButton()) {
                         TransmuteTab.Click(NavigateTime)
                         Sleep(NavigateTime)
                     }
                     i++
                 }
-                If (Travel.Mine.IsOnTabTrans()) {
+                If (Shops.Mine.IsOnTabTrans()) {
                     TransmuteAllCoalBars()
                     Out.I("Mine: Transmuted all bars.")
                     Sleep(NavigateTime)
@@ -183,14 +183,14 @@ fMineMaintainer() {
                 RefuelTime := A_Now
                 i := 1
                 Out.D("Opening drill tab")
-                While (!Travel.Mine.IsOnTabDrill() && i <= 4) {
+                While (!Shops.Mine.IsOnTabDrill() && i <= 4) {
                     If (DrillTab.IsButton()) {
                         DrillTab.Click(NavigateTime)
                         Sleep(NavigateTime)
                     }
                     i++
                 }
-                If (Travel.Mine.IsOnTabDrill()) {
+                If (Shops.Mine.IsOnTabDrill()) {
                     CollectFreeDrillFuel()
                     Out.I("Mine: Collected free fuel.")
                     Sleep(NavigateTime)
@@ -208,14 +208,14 @@ fMineMaintainer() {
                 SphereTime := A_Now
                 i := 1
                 Out.D("Opening drill tab")
-                While (!Travel.Mine.IsOnTabDrill() && i <= 4) {
+                While (!Shops.Mine.IsOnTabDrill() && i <= 4) {
                     If (DrillTab.IsButton()) {
                         DrillTab.Click(NavigateTime)
                         Sleep(NavigateTime)
                     }
                     i++
                 }
-                If (Travel.Mine.IsOnTabDrill()) {
+                If (Shops.Mine.IsOnTabDrill()) {
                     Sleep(NavigateTime)
                     Out.I("Mine: Using spheres.")
                     UseDrillSphereLoop()
@@ -244,7 +244,7 @@ fMineMaintainer() {
                 BankTime := A_Now
                 ; Single pass does try to close, this is redundancy
                 Travel.ClosePanelIfActive()
-                Travel.Mine.GoTo()
+                Shops.Mine.GoTo()
             }
         }
         ;@endregion
@@ -254,12 +254,12 @@ fMineMaintainer() {
             If (Firstpass || DateDiff(A_Now, CavesTime, "Seconds") >=
             MinerCaveTimer * 60) {
                 i := 1
-                While (!Travel.Mine.IsOnTabMines() && i <= 4 && Window.IsPanel()) {
+                While (!Shops.Mine.IsOnTabMines() && i <= 4 && Window.IsPanel()) {
                     MinesTab.Click(NavigateTime)
                     Sleep(NavigateTime)
                     i++
                 }
-                If (Travel.Mine.IsOnTabMines()) {
+                If (Shops.Mine.IsOnTabMines()) {
                     Out.I("Mine: Cave Maintainer starting.")
                     Sleep(NavigateTime)
                     CavesSinglePass()
@@ -278,7 +278,7 @@ fMineMaintainer() {
             If (Shops.OpenAlchemyGeneral()) {
                 BrewCutOffTimer.CoolDownS(MinerBrewCutOffTime, &
                     BrewCutOffRunning)
-                While (BrewCutOffRunning && Travel.IsAlchGeneralTab()) {
+                While (BrewCutOffRunning && Shops.IsAlchGeneralTab()) {
                     If (!SpamBrewButtons()) {
                         Break
                     }
@@ -312,7 +312,7 @@ TransmuteAllCoalBars() {
     If (MinerEnableTransmute) {
         TransmuteButton := Points.Mine.Transmute.AllCBarsToCDias
         While (Window.IsActive() && Window.IsPanel() && TransmuteButton.IsButtonActive() &&
-        Travel.Mine.IsOnTabTrans()) {
+        Shops.Mine.IsOnTabTrans()) {
             TransmuteButton.ClickOffset()
             Out.D("Transmuted all coal bars to coal diamonds")
             Sleep(NavigateTime)
@@ -321,7 +321,7 @@ TransmuteAllCoalBars() {
     If (MinerEnableTransmuteSdia) {
         SdiaTransmuteButton := Points.Mine.Transmute.AllCDiasToSDias
         While (Window.IsActive() && Window.IsPanel() && SdiaTransmuteButton.IsButtonActive() &&
-        Travel.Mine.IsOnTabTrans()) {
+        Shops.Mine.IsOnTabTrans()) {
             SdiaTransmuteButton.ClickOffset()
             Out.D("Transmuted all coal diamonds to shiny diamonds")
             Sleep(NavigateTime)
@@ -330,7 +330,7 @@ TransmuteAllCoalBars() {
     If (MinerEnableTransmuteFuel) {
         FuelTransmuteButton := Points.Mine.Transmute.AllCDiasToFuel
         While (Window.IsActive() && Window.IsPanel() && FuelTransmuteButton.IsButtonActive() &&
-        Travel.Mine.IsOnTabTrans()) {
+        Shops.Mine.IsOnTabTrans()) {
             FuelTransmuteButton.ClickOffset()
             Out.D("Transmuted all coal diamonds to fuel")
             Sleep(NavigateTime)
@@ -339,7 +339,7 @@ TransmuteAllCoalBars() {
     If (MinerEnableTransmuteSphere) {
         SphereTransmuteButton := Points.Mine.Transmute.AllCDiasToSpheres
         While (Window.IsActive() && Window.IsPanel() && SphereTransmuteButton.IsButtonActive() &&
-        Travel.Mine.IsOnTabTrans()) {
+        Shops.Mine.IsOnTabTrans()) {
             SphereTransmuteButton.ClickOffset()
             Out.D("Transmuted all coal diamonds to spheres")
             Sleep(NavigateTime)
@@ -348,7 +348,7 @@ TransmuteAllCoalBars() {
     If (MinerEnableTransmuteSdiaToCDia) {
         SdiaToCBTransmuteButton := Points.Mine.Transmute.AllSDiasToCDia
         While (Window.IsActive() && Window.IsPanel() && SdiaToCBTransmuteButton
-        .IsButtonActive() && Travel.Mine.IsOnTabTrans()) {
+        .IsButtonActive() && Shops.Mine.IsOnTabTrans()) {
             SdiaToCBTransmuteButton.ClickOffset()
             Out.D("Transmuted all shiny diamonds to coal diamonds")
             Sleep(NavigateTime)

@@ -133,7 +133,7 @@ fNormalBossFarmWithBorbs(modecheck) {
     Global on9
     Killcount := 0
 
-    If (!Travel.GotoBorbVFirstTab()) {
+    If (!Shops.GotoBorbVFirstTab()) {
         Out.I("Borbv: Failed to travel, aborting.")
         ToolTip("Failed to open Borbv, exiting.", Window.W / 2, Window.H / 2 +
             Window.RelH(50), 5)

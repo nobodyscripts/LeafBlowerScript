@@ -66,7 +66,7 @@ fLeaftonTaxi() {
                 Out.D("Traveled brew")
                 BrewCutOffTimer.CoolDownS(LeaftonBrewCutOffTime, &
                     BrewCutOffRunning)
-                While (BrewCutOffRunning && Travel.IsAlchGeneralTab()) {
+                While (BrewCutOffRunning && Shops.IsAlchGeneralTab()) {
                     Out.D("Brewing")
                     If (!SpamBrewButtons()) {
                         Out.D("Brew ending")

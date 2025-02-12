@@ -7,7 +7,7 @@ Global BVBlockMythLeg := false
 fBorbVentureJuiceFarm() {
     Global bvAutostartDisabled, BVBlockMythLeg
 
-    If (!Travel.GotoBorbVFirstTab()) {
+    If (!Shops.GotoBorbVFirstTab()) {
         Out.I("Borbv: Failed to travel, aborting.")
         Return
     }
@@ -102,7 +102,7 @@ BVMainLoop() {
     ; Check for only if scroll is not at the top
     If (!detailedMode && !IsBVScrollAblePanelAtTop()) {
         Out.D("Reset scroll.")
-        Travel.ResetBorbVScroll()
+        Shops.ResetBorbVScroll()
         Sleep(34)
         Return ; If we had to reset we should restart function and rescan
     }
@@ -215,7 +215,9 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
     Global BVItemsArr
 
     If (!BVItemsArr.Length) {
-        BVItemsArr := ["0xF91FF6"]
+        BVItemsArr := [
+            "0xF91FF6"
+        ]
         ; If no items selected default to purple juice
     }
     ; This is the check for the items colours, if you want to scan
@@ -239,24 +241,24 @@ BVScanSlotItem(X1, Y1, X2, Y2) {
 
 BVColourToItem(colour) {
     Switch colour {
-        Case "0xF91FF6": Return "Borb ascention juice (purple default)"
-        Case "0x70F928": Return "Borb juice (green)"
-        Case "0x0F2A1D": Return "Nature time sphere"
-        Case "0x55B409": Return "Borb rune (green)"
-        Case "0x018C9C": Return "Magic mulch"
-        Case "0x01D814": Return "Nature gem"
-        Case "0xAB5A53": Return "Random item box (all types)"
-        Case "0x98125F": Return "Borb rune (purple)"
-        Case "0xC1C1C1": Return "Candy"
-        Case "0x6CD820": Return "Both clovers (uses same colours)"
-        Case "0x6BEA15": Return "Borb token"
-        Case "0xCEF587": Return "Free borb token"
-        Case "0xC9C9C9": Return "Dice Points (white)"
-        Case "0x0E44BE": Return "Power Dice Points (blue)"
-        Case "0x11CF1C": Return "Quantum Blob (green)"
-        Case "0x250D05": Return "Quark Blob (purple)"
-        Case "0x120D1C": Return "Quark Structures"
-        default: Return "Unknown"
+    Case "0xF91FF6": Return "Borb ascention juice (purple default)"
+    Case "0x70F928": Return "Borb juice (green)"
+    Case "0x0F2A1D": Return "Nature time sphere"
+    Case "0x55B409": Return "Borb rune (green)"
+    Case "0x018C9C": Return "Magic mulch"
+    Case "0x01D814": Return "Nature gem"
+    Case "0xAB5A53": Return "Random item box (all types)"
+    Case "0x98125F": Return "Borb rune (purple)"
+    Case "0xC1C1C1": Return "Candy"
+    Case "0x6CD820": Return "Both clovers (uses same colours)"
+    Case "0x6BEA15": Return "Borb token"
+    Case "0xCEF587": Return "Free borb token"
+    Case "0xC9C9C9": Return "Dice Points (white)"
+    Case "0x0E44BE": Return "Power Dice Points (blue)"
+    Case "0x11CF1C": Return "Quantum Blob (green)"
+    Case "0x250D05": Return "Quark Blob (purple)"
+    Case "0x120D1C": Return "Quark Structures"
+    default: Return "Unknown"
     }
 }
 
@@ -276,7 +278,7 @@ IsBVAutoStartOn() {
     font0 := !Points.Borbventures.AutoStartFont0.IsButtonActive()
     font1 := !Points.Borbventures.AutoStartFont1.IsButtonActive()
     Out.D("BVAutostart: Font 0 check " BinaryToStr(font0)
-        ", Font 1 check " BinaryToStr(font1))
+    ", Font 1 check " BinaryToStr(font1))
     If (font0 || font1) {
         Return false
     }
@@ -290,11 +292,11 @@ BVCachedArrowsLocations() {
         ; refresh
         If (locations.Length >= 6 && PixelGetColor(Window.RelW(1280), locations[
             1]) = "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[2]) =
-            "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[3]) =
-            "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[4]) =
-            "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[5]) =
-            "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[6]) =
-            "0x1989B8") {
+        "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[3]) =
+        "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[4]) =
+        "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[5]) =
+        "0x1989B8" && PixelGetColor(Window.RelW(1280), locations[6]) =
+        "0x1989B8") {
             Return locations
         }
 

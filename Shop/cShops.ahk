@@ -130,7 +130,7 @@ Class cShops {
         active := Travel._OpenAny(GameKeys.OpenBorbVentures.Bind(GameKeys),
         Window.IsPanel.Bind(Window), delay)
         If (reset && active) {
-            Travel.ResetBorbVScroll(delay)
+            Shops.ResetBorbVScroll(delay)
         }
         Return active
     }

@@ -654,7 +654,7 @@ GotoCardsFirstTab() {
     i := 0
     button := Points.Card.Tab.Packs
     If (!DisableZoneChecks) {
-        While (!Travel.Cards.IsOnPacks() && Window.IsActive() && i <= 4) {
+        While (!Shops.Cards.IsOnPacks() && Window.IsActive() && i <= 4) {
             If (!Window.IsActive()) {
                 Out.I("No window found while trying to travel.")
                 Return false
@@ -668,7 +668,7 @@ GotoCardsFirstTab() {
             i++
         }
     }
-    If (Travel.Cards.IsOnPacks()) {
+    If (Shops.Cards.IsOnPacks()) {
         Out.D("Travel success to Cards First Tab.")
         Return true
     } Else {
@@ -684,7 +684,7 @@ GotoCardsFirstTab() {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
-        If (Travel.Cards.IsOnPacks()) {
+        If (Shops.Cards.IsOnPacks()) {
             Out.D("Blind travel success to Cards First Tab.")
             Return true
         } Else {
@@ -734,7 +734,6 @@ IsAreaBlack() {
     }
     Return false
 }
-
 
 ;@region UlcWindow()
 /**
