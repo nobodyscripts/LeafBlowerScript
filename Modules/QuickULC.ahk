@@ -201,18 +201,6 @@ ULCStage3(*) {
     EquipBlower()
 }
 
-;@region UlcWindow()
-/**
- * Quick window handle for all the ulc test functions
- */
-UlcWindow() {
-    If (!Window.Activate()) {
-        cReload()
-        Return
-    }
-}
-;@endregion
-
 TriggerULC(*) {
     UlcWindow()
     GameKeys.OpenBluePortal()

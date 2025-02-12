@@ -734,3 +734,16 @@ IsAreaBlack() {
     }
     Return false
 }
+
+
+;@region UlcWindow()
+/**
+ * Quick window handle for all the ulc test functions
+ */
+UlcWindow() {
+    If (!Window.Activate()) {
+        cReload()
+        Return
+    }
+}
+;@endregion
