@@ -25,14 +25,14 @@ Class Kokkaupunki extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        /** @type {cPoint} */
-        Btn := cPoint(1687, 483)
         
         Travel.OpenAreas(true, extradelay)
         this.ScrollAmountDown(28, scrolldelay)
         Sleep(delay + extradelay)
+        /** @type {cPoint} */
+        Btn := cPoint(1687, 483)
         If (Btn.IsButtonActive()) {
-            Btn.ClickButtonActive(delay + extradelay)
+            Btn.ClickButtonActive(,,delay + extradelay)
         } Else {
             Out.I("Kokkaupunki not found while trying to travel.")
         }

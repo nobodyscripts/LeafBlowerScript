@@ -28,8 +28,10 @@ Class TheInnerCursedPyramid extends Zone {
         Travel.OpenAreas(true, extradelay)
         this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
-        If (cPoint(1674, 924).IsButtonActive()) {
-            cPoint(1674, 924).ClickButtonActive(delay + extradelay)
+        /** @type {cPoint} */
+        Local Btn := cPoint(1663, 936)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(,,delay + extradelay)
         } Else {
             Out.I("The Inner Cursed Pyramid not found while trying to travel.")
         }

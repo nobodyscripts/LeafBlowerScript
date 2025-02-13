@@ -25,14 +25,13 @@ Class CursedKokkaupunki extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        /** @type {cPoint} */
-        Btn := cPoint(1863, 636)
-        
         Travel.OpenAreasLeafGalaxy(extradelay)
         this.ScrollAmountDown(28, scrolldelay)
         Sleep(delay + extradelay)
+        /** @type {cPoint} */
+        Btn := cPoint(1863, 636)
         If (Btn.IsButtonActive()) {
-            Btn.ClickButtonActive(delay + extradelay)
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
             Out.I("Cursed Kokkaupunki not found while trying to travel.")
         }

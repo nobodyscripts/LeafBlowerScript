@@ -172,7 +172,6 @@ Class Zone {
             ; Found target colour
             Return true
         }
-        Out.D("IsZoneColour: Not in target zone, " this.CurrentZoneString())
         Return false
     }
     ;@endregion

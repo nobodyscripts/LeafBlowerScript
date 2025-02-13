@@ -92,6 +92,8 @@ CreateScriptHotkeys() {
         MouseGetPos(&windowx, &windowy)
         CoordMode("Mouse", "Client")
         MouseGetPos(&clientx, &clienty)
+        
+        Out.I(cPoint(1063, 1220).GetColour())
         Out.D(
             ;"Screen:`t" screenx ", " screeny "`n"
             ;"Window:`t" windowx ", " windowy "`n"

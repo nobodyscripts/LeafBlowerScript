@@ -8,18 +8,23 @@ GetDailyReward(*) {
     cPoint(710, 139).Click()
     Sleep(100)
     cPoint(664, 420).ClickButtonActive()
+    cPoint(664, 420).ClickButtonActive()
 }
 
 WaitForFloor100(*) {
     /** @type {Timer} */
     Limiter := Timer()
     Limiter.CoolDownM(2, &isactive)
+    text := cPoint(1144, 609)
+    text.TextTipAtCoord("Waiting for blc portal to be active")
     While (!Rects.Misc.FloorAmount100.PixelSearch() && isactive) {
         Sleep(100)
     }
     If (!Rects.Misc.FloorAmount100.PixelSearch()) {
+        Out.I("Timed out checking for floor 100, aborting.")
         Global ULCStageExit := true
     }
+    ToolTip(, , , 15)
 }
 
 TriggerBLC(*) {
@@ -27,29 +32,48 @@ TriggerBLC(*) {
     Out.D("TriggerBLC")
     Shops.OpenRedPortal()
     crunchbtn := cPoint(1109, 553)
+    confirmbtn := cPoint(1131, 525)
     crunchbtn.WaitUntilActiveButton()
-    If (!crunchbtn.ClickButtonActive()) {
+    If (!crunchbtn.IsButtonActive()) {
+        Out.I("Didn't find blc crunch button, aborting.")
         Global ULCStageExit := true
         Return
     }
+    crunchbtn.ClickButtonActive()
+    Sleep(17)
+    crunchbtn.ClickButtonActive()
     Sleep(150)
-    If (!cPoint(1131, 525).ClickButtonActive()) {
+    If (!confirmbtn.IsButtonActive()) {
+        Out.I("Didn't find blc confirm button, aborting.")
         Global ULCStageExit := true
     }
+    confirmbtn.ClickButtonActive()
+    Sleep(17)
+    confirmbtn.ClickButtonActive()
 }
 
 TriggerMLC(*) {
     UlcWindow()
+    crunchbtn := cPoint(1111, 549)
+    confirmbtn := cPoint(1111, 524)
     Out.D("TriggerMLC")
     Shops.OpenGreenPortal()
-    If (!cPoint(1111, 549).ClickButtonActive()) {
+    If (!crunchbtn.IsButtonActive()) {
+        Out.I("Didn't find mlc crunch button, aborting.")
         Global ULCStageExit := true
         Return
     }
+    crunchbtn.ClickButtonActive()
+    Sleep(17)
+    crunchbtn.ClickButtonActive()
     Sleep(150)
-    If (!cPoint(1111, 524).ClickButtonActive()) {
+    If (!confirmbtn.IsButtonActive()) {
+        Out.I("Didn't find mlc confirm button, aborting.")
         Global ULCStageExit := true
     }
+    confirmbtn.ClickButtonActive()
+    Sleep(17)
+    confirmbtn.ClickButtonActive()
 }
 
 TriggerMLCConverters(*) {
@@ -59,8 +83,9 @@ TriggerMLCConverters(*) {
     Shops.OpenConverters()
     /** @type {cPoint} */
     StartConvertorsBtn := cPoint(1075, 1102)
-    StartConvertorsBtn.WaitUntilActiveButton()
+    StartConvertorsBtn.WaitUntilActiveButton(100,50)
     If (!StartConvertorsBtn.ClickButtonActive()) {
+        Out.I("Didn't find converter start button, aborting.")
         Global ULCStageExit := true
     }
 }
@@ -72,6 +97,7 @@ ActivateConverters(*) {
     StartConvertorsBtn := cPoint(1075, 1102)
     StartConvertorsBtn.WaitUntilActiveButton()
     If (!StartConvertorsBtn.ClickButtonActive()) {
+        Out.I("Didn't find converter start button, exiting.")
         Global ULCStageExit := true
     }
 }
@@ -91,54 +117,72 @@ WaitForPortalAnimation(*) {
 WaitForBLCPortal(*) {
     ; wait for blc to be available after second mlc
     UlcWindow()
-
+    ; TODO Speed this up by waiting in black flask and buying blc portal
     Out.D("WaitForBLCPortal")
     /** @type {cPoint} */
     text := cPoint(1144, 609)
     text.TextTipAtCoord("Waiting for blc portal to be active")
 
     /** @type {cPoint} */
-    BLCBtn := cPoint(1065, 1220)
-    BLCBtn.WaitWhileColour("0xFFFFF6", 2400, 100) ; 120s
-    If (BLCBtn.GetColour() = "0xFFFFF6") {
+    BLCBtn := cPoint(1063, 1220)
+    colour := "0xFFC2B3"
+    BLCBtn.WaitWhileNotColour(colour, 2400, 100) ; 120s
+    If (BLCBtn.GetColour() != colour) {
+        Out.I("Timed out waiting for blc portal, aborting.")
         Global ULCStageExit := true
     }
+    Out.I("Blc Portal found")
     Tooltip(, , , 15)
 }
 
 WaitTillPyramidReset(*) {
     UlcWindow()
     Out.D("WaitTillPyramidReset")
+    text := cPoint(1144, 609)
+    text.TextTipAtCoord("Waiting for pyramid to reset zone")
     colour := Colours().GetColourByZone("The Inner Cursed Pyramid")
     Points.Misc.ZoneSample.WaitWhileNotColour(colour, 600, 50) ; 30s
+    if (Points.Misc.ZoneSample.IsColour(colour)) {
+        Out.I("Timed out waiting for pyramid to clear, "
+    "taxi may have already been bought.")
+    }
+    ToolTip(, , , 15)
 }
 
 PubTradeForCheese25000(*) {
     UlcWindow()
     Out.D("PubTradeForCheese25000")
     Travel.TheCheesePub.GoTo()
+    Sleep(150)
     If (!Travel.TheCheesePub.IsZoneColour()) {
+        Out.I("Didn't travel to cheese pub successfully, aborting.")
         Global ULCStageExit := true
         Return
     }
-    Sleep(150)
     BartenderBtn := cPoint(241, 741)
+    Out.D("Clicking bartender")
     BartenderBtn.Click()
     Sleep(250)
     QuestsBtn := cPoint(1091, 380)
     QuestsBtn.WaitUntilActiveButton()
+        Out.D("Clicking quest")
     If (!QuestsBtn.ClickButtonActive()) {
+        Out.I("Didn't find quest button, aborting.")
         Global ULCStageExit := true
         Return
     }
     QuestCheese250Btn := cPoint(1702, 312)
     QuestCheese250Btn.WaitUntilActiveButton()
+    Out.D("Clicking cheese quest")
     If (!QuestCheese250Btn.ClickButtonActive()) {
+        Out.I("Didn't find cheese quest button, aborting.")
         Global ULCStageExit := true
         Return
     }
     QuestCheese250Btn.WaitUntilActiveButton()
+    Out.D("Clicking cheese quest")
     If (!QuestCheese250Btn.ClickButtonActive()) {
+        Out.I("Didn't find cheese quest button, aborting.")
         Global ULCStageExit := true
     }
 }

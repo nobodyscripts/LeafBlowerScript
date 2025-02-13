@@ -21,8 +21,10 @@ Class TheInfernalDesert extends Zone {
         Travel.OpenAreas(true, extradelay)
         this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
-        If (cPoint(1677, 652).IsButtonActive()) {
-            cPoint(1677, 652).ClickButtonActive(delay + extradelay)
+        /** @type {cPoint} */
+        Local Btn := cPoint(1677, 652)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(,,delay + extradelay)
         } Else {
             Out.I("The Infernal Desert not found while trying to travel.")
         }

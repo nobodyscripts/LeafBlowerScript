@@ -25,21 +25,19 @@ Class TheCheesePub extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.LeafGalaxy.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
+        Travel.OpenAreasLeafGalaxy(extradelay)
+        Sleep(50)
         AmountToModifier(25)
         Sleep(50)
-        this.ScrollAmountDown(2, scrolldelay)
+        this.ScrollAmountDown(1, scrolldelay)
         Sleep(50)
         ResetModifierKeys()
         Sleep(delay + extradelay)
-        ; Scanning by leaf
-        
-        Local PubBtn := cPoint(1667, 728) 
-        If (PubBtn) {
-            PubBtn.ClickButtonActive(delay + extradelay)
+
+        /** @type {cPoint} */
+        Local Btn := cPoint(1663, 722)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
             Out.I("The Cheese Pub leaf not found while trying to travel.")
         }

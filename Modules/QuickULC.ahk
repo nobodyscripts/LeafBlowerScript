@@ -52,7 +52,8 @@ ULCStage1(*) {
     WaitForPortalAnimation()
     Shops.MLC.Max()
     ULCStageExitCheck(5)
-
+    
+    Sleep(100)
     WaitForBLCPortal()
     ULCStageExitCheck(12)
     TriggerBLC()
@@ -463,4 +464,9 @@ WaitFor40thDice() {
     UlcWindow()
     Shops.Dice.GoTo()
     ; remember dlc will likely effect position
+
+    ;cPoint(354, 395) ; 40th dice
+    ;cPoint(416, 398) ; 41st dice
+    ;cPoint(811, 299) ; Right page button
+    ;cPoint(990, 402) ; 50th dice (dlc)
 }
