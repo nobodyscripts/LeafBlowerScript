@@ -331,3 +331,97 @@ ResetToPriorDetailedMode() {
         ToggleDetailedMode()
     }
 }
+
+TradeForPyramid(*) {
+    UlcWindow()
+    ; (1252, 397) icon1
+    ; Start button cPoint(2029, 397) x+777
+    ; Cancel button cPoint(1742, 397) x+490
+    ; Collect button cPoint(1990, 397) x+738
+    /** @type {cRect} */
+    scanArea := cRect(1252, 351, 1252, 1061) ; Scan area 1252, 351/1252, 1061
+    Cheese := "0xD98A29"
+    Mulch := "0x985046"
+    Beer := "0x61233E"
+    Borb := "0x60F811"
+    HasCheese := HasMulch := HasBeer := HasBorb := false
+    isLooping := true
+    i := 0
+
+    Out.I("Trade For Pyramid")
+
+    While ((HasCheese = false || HasMulch = false ||
+        HasBeer = false || HasBorb = false) && isLooping) {
+        if (i > 100) {
+            MsgBox("Could not complete all trades before timing out, please complete and start stage 2.")
+            break
+        }
+        If (!HasCheese) {
+            HasCheese := ScanTradesByColour(Cheese)
+        }
+        If (!HasMulch) {
+            HasMulch := ScanTradesByColour(Mulch)
+        }
+        If (!HasBeer) {
+            HasBeer := ScanTradesByColour(Beer)
+        }
+        If (!HasBorb) {
+            HasBorb := ScanTradesByColour(Borb)
+        }
+        Sleep(50)
+        if (IsPlayerOutOfCheese()) {
+            PubTradeForCheese2500()
+        }
+        GameKeys.RefreshTrades()
+        Sleep(50)
+        i++
+    }
+
+    ScanTradesByColour(colour) {
+        point := scanArea.PixelSearch(colour)
+        If (!point) {
+            Return false
+        }
+        ; Start button cPoint(2029, 397) x+777
+        ; Cancel button cPoint(1742, 397) x+490
+        ; Collect button cPoint(1990, 397) x+738
+
+        /* 1252, 397 icon point ref
+        Rect for text area
+        1302, 377   50, -20
+        1373, 410   121, 13
+        */
+        Start := cPoint(point[1] + Window.RelW(777), point[2], false)
+        Cancel := cPoint(point[1] + Window.RelW(490), point[2], false)
+        Collect := cPoint(point[1] + Window.RelW(738), point[2], false)
+        ; Is started?
+        If (Cancel.IsButtonActive() || Collect.IsButtonActive()) {
+            Return false
+        }
+        ; Is startable?
+        If (Start.IsButtonInactive()) {
+            Return false
+        }
+        ; Does area next to icon have text that fits the eXX pattern and thus is
+        ; > 1
+        If (cRect(1252 + Window.RelW(50),
+        397 - Window.RelH(20),
+        1252 + Window.RelW(121),
+        397 + Window.RelH(13),
+        false).PixelSearch()) {
+
+            Start.ClickButtonActive()
+            Return true
+        }
+        Return false
+    }
+
+    IsPlayerOutOfCheese() {
+        If (cRect(1705, 298, 2143, 1025).PixelSearch(Colours().Inactive)) {
+            Return true
+        }
+        Return false
+
+    }
+
+}

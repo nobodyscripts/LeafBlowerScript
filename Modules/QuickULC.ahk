@@ -5,7 +5,8 @@
 #Include QuickULCStage2.ahk
 #Include QuickULCStage3.ahk
 
-; Curse brewing off, auto craft off
+; Curse brewing off, auto craft off, ancient autobuy taxi off, fixed nav
+; hide max shops off, auto buy max leaves in blc set to 0,
 
 RunULC(*) {
     Switch (GetULCStage()) {
@@ -30,6 +31,7 @@ ULCStageExitCheck(id) {
 }
 
 ULCStage1(*) {
+    Start := A_Now
     EquipBlower()
     GetDailyReward()
 
@@ -45,14 +47,13 @@ ULCStage1(*) {
     ULCStageExitCheck(3)
 
     Shops.MLC.Max()
-    Shops.MLC.Max()
     ULCStageExitCheck(4)
 
     TriggerMLCConverters()
     WaitForPortalAnimation()
     Shops.MLC.Max()
     ULCStageExitCheck(5)
-    
+
     Sleep(100)
     WaitForBLCPortal()
     ULCStageExitCheck(12)
@@ -67,23 +68,32 @@ ULCStage1(*) {
     WaitTillPyramidReset()
     ULCStageExitCheck(7)
 
-    PubTradeForCheese25000()
+    PubTradeForCheese2500()
     ULCStageExitCheck(8)
 
-    Use30minTimeWarp() ; Should we do something with e300 blc first or try e30
-    ULCStageExitCheck(9)
-
     EquipMulchSword() ; Activates unique leaves/pets on loadout too
-    Sleep(1000)
+    Travel.CursedKokkaupunki.GoTo()
+    ULCStageExitCheck(9)
+    Sleep(3000)
+
     Shops.Mulch.BuyTrade()
+    Shops.Mulch.Max()
+    Use30minTimeWarp() ; Should we do something with e300 blc first or try e30
     ULCStageExitCheck(10)
 
     GoToTrade()
+    TradeForPyramid()
+    Travel.TheCursedPyramid.GoTo()
+    EquipBlower()
     ULCStageExitCheck(11)
 
-    MsgBox("Trade for pyramid requirements now, then go to pyramid and get ancients`r`n"
-        "After that do pyramid floor 100 and start stage 2.")
-    /* TradeForPyramid() ; TODO
+    MaxPyramidFloors()
+
+    Finish := A_Now
+    MsgBox("Trade for pyramid requirements now.`r`n"
+        "After that start stage 2.`n"
+    "Time taken: " DateDiff(Start, Finish, "Seconds") "s")
+    /*  ; TODO
     
     If (IsULCCraftSaved()) { ; TODO
         EquipBlower()
@@ -95,7 +105,14 @@ ULCStage1(*) {
     ; Do we just leave ancient to user?
     WaitForAncients() ; TODO
     
-    Shops.Pyramid.MaxFloor() */
+    Shops.Pyramid.MaxFloor() 
+    
+    tower travel
+    blc portal purchase
+    pyramid taxi
+    pyramid travel
+
+    */
 }
 
 ULCStage2(*) {

@@ -54,8 +54,8 @@ Button_Click_ULC(thisGui, info) {
     optionsGUI.Add("Button", "default", "EquipSlap")
     .OnEvent("Click", EquipSlap)
 
-    optionsGUI.Add("Button", "default", "PubTradeForCheese25000")
-    .OnEvent("Click", PubTradeForCheese25000)
+    optionsGUI.Add("Button", "default", "PubTradeForCheese2500")
+    .OnEvent("Click", PubTradeForCheese2500)
 
     optionsGUI.Add("Button", "default", "PlacePlayerCenter")
     .OnEvent("Click", PlacePlayerCenter)

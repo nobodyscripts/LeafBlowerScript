@@ -219,12 +219,15 @@ BuyDeathbook(*) {
 
 MaxCryptFloors(*) {
     UlcWindow()
-    GameKeys.ClosePanel()
+    Travel.ClosePanelIfActive()
     Sleep(100)
-    cPoint(1282, 622).Click() ; Open soul temple object
-    Sleep(50)
-    ; TODO Button for unlocking more levels
+    cPoint(1282, 622).Click() ; Open object
+    Sleep(100)
+    cPoint(537, 741).ClickButtonActive()
+    Sleep(100)
     AmountToModifier(100)
     Sleep(50)
     cPoint(1536, 462).ClickButtonActive() ; Increase level
+    Sleep(50)
+    ResetModifierKeys()
 }

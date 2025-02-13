@@ -16,7 +16,7 @@ WaitForFloor100(*) {
     Limiter := Timer()
     Limiter.CoolDownM(2, &isactive)
     text := cPoint(1144, 609)
-    text.TextTipAtCoord("Waiting for blc portal to be active")
+    text.TextTipAtCoord("Waiting for floor 100 to be reached")
     While (!Rects.Misc.FloorAmount100.PixelSearch() && isactive) {
         Sleep(100)
     }
@@ -117,11 +117,19 @@ WaitForPortalAnimation(*) {
 WaitForBLCPortal(*) {
     ; wait for blc to be available after second mlc
     UlcWindow()
-    ; TODO Speed this up by waiting in black flask and buying blc portal
     Out.D("WaitForBLCPortal")
     /** @type {cPoint} */
     text := cPoint(1144, 609)
     text.TextTipAtCoord("Waiting for blc portal to be active")
+
+    /** @type {cPoint} */
+    BlackFlaskStoreBtn := cPoint(850, 1228)
+    /** @type {cPoint} */
+    BuyBLCBtn := cPoint(1700, 304)
+    BlackFlaskStoreBtn.WaitWhileNotColour("0x252435", 2400, 100)
+    BlackFlaskStoreBtn.Click()
+    BuyBLCBtn.WaitUntilActiveButton()
+    BuyBLCBtn.ClickButtonActive()
 
     /** @type {cPoint} */
     BLCBtn := cPoint(1063, 1220)
@@ -140,8 +148,8 @@ WaitTillPyramidReset(*) {
     Out.D("WaitTillPyramidReset")
     text := cPoint(1144, 609)
     text.TextTipAtCoord("Waiting for pyramid to reset zone")
-    colour := Colours().GetColourByZone("The Inner Cursed Pyramid")
-    Points.Misc.ZoneSample.WaitWhileNotColour(colour, 600, 50) ; 30s
+    colour := Colours().GetColourByZone("The Cursed Pyramid")
+    Points.Misc.ZoneSample.WaitWhileNotColour(colour, 1200, 50) ; 60s
     if (Points.Misc.ZoneSample.IsColour(colour)) {
         Out.I("Timed out waiting for pyramid to clear, "
     "taxi may have already been bought.")
@@ -149,9 +157,9 @@ WaitTillPyramidReset(*) {
     ToolTip(, , , 15)
 }
 
-PubTradeForCheese25000(*) {
+PubTradeForCheese250(*) { ; TODO add option to use 250 instead of 2500 cheese
     UlcWindow()
-    Out.D("PubTradeForCheese25000")
+    Out.D("PubTradeForCheese250")
     Travel.TheCheesePub.GoTo()
     Sleep(150)
     If (!Travel.TheCheesePub.IsZoneColour()) {
@@ -182,6 +190,44 @@ PubTradeForCheese25000(*) {
     QuestCheese250Btn.WaitUntilActiveButton()
     Out.D("Clicking cheese quest")
     If (!QuestCheese250Btn.ClickButtonActive()) {
+        Out.I("Didn't find cheese quest button, aborting.")
+        Global ULCStageExit := true
+    }
+}
+
+PubTradeForCheese2500(*) {
+    UlcWindow()
+    Out.D("PubTradeForCheese2500")
+    Travel.TheCheesePub.GoTo()
+    Sleep(150)
+    If (!Travel.TheCheesePub.IsZoneColour()) {
+        Out.I("Didn't travel to cheese pub successfully, aborting.")
+        Global ULCStageExit := true
+        Return
+    }
+    BartenderBtn := cPoint(241, 741)
+    Out.D("Clicking bartender")
+    BartenderBtn.Click()
+    Sleep(250)
+    QuestsBtn := cPoint(1091, 380)
+    QuestsBtn.WaitUntilActiveButton()
+        Out.D("Clicking quest")
+    If (!QuestsBtn.ClickButtonActive()) {
+        Out.I("Didn't find quest button, aborting.")
+        Global ULCStageExit := true
+        Return
+    }
+    QuestCheese2500Btn := cPoint(1695, 696)
+    QuestCheese2500Btn.WaitUntilActiveButton()
+    Out.D("Clicking cheese quest")
+    If (!QuestCheese2500Btn.ClickButtonActive()) {
+        Out.I("Didn't find cheese quest button, aborting.")
+        Global ULCStageExit := true
+        Return
+    }
+    QuestCheese2500Btn.WaitUntilActiveButton()
+    Out.D("Clicking cheese quest")
+    If (!QuestCheese2500Btn.ClickButtonActive()) {
         Out.I("Didn't find cheese quest button, aborting.")
         Global ULCStageExit := true
     }
@@ -311,25 +357,38 @@ Use72hTimeWarp(*) {
     }
 }
 
-TradeForPyramid(*) {
-    UlcWindow()
-    Out.D("TODO TradeForPyramid")
-    MsgBox("Trade for borbs, beer, cheese, mulch, then close this")
-}
 
 IsULCCraftSaved() {
+    ; TODO
     Out.D("TODO IsULCCraftSaved")
     ; can be grabbed from profiles.def.objects.o_game.data.ulc_settings
 }
 
 WaitForAncients(*) {
     UlcWindow()
+    ; TODO
     Out.D("TODO WaitForAncients")
 
 }
 
 CraftMoonLeafsAndPreset() {
     UlcWindow()
+    ; TODO
     Out.D("TODO CraftMoonLeafsAndPreset")
 
+}
+
+MaxPyramidFloors() {
+    UlcWindow()
+    Travel.ClosePanelIfActive()
+    Sleep(100)
+    cPoint(1282, 622).Click() ; Open object
+    Sleep(100)
+    cPoint(537, 741).ClickButtonActive()
+    Sleep(100)
+    AmountToModifier(100)
+    Sleep(50)
+    cPoint(1536, 462).ClickButtonActive() ; Increase level
+    Sleep(50)
+    ResetModifierKeys()
 }
