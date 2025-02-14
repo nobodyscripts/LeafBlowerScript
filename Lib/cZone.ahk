@@ -183,7 +183,10 @@ Class Zone {
      * @param Name Name of zone to check if currently in
      * @returns {Boolean}
      */
-    IsZone(Name) {
+    IsZone(Name := "") {
+        if(Name = "" && this.Name != "") {
+            Name := this.Name
+        }
         colour := this.GetZoneColour()
         curName := this.GetNameByColour(colour)
         If (curName = Name) {

@@ -80,45 +80,50 @@ Class TheLeafTower extends Zone {
         Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(17, NavigateTime)
-        Sleep(NavigateTime)
+        Sleep(delay + NavigateTime)
         ; Scanning by leaf
-        Local LeafMark := this.FindTheLeafTowerZone()
-        If (LeafMark) {
-            /** @type {cPoint} Button to travel to Leafsink Harbor*/
-            LSButton := cPoint(LeafMark[1] + Window.RelW(69),
-            LeafMark[2] - Window.RelH(160), false)
+        ;Local LeafMark := this.FindTheLeafTowerZone()
+        ;If (LeafMark) {
+        /** @type {cPoint} Button to travel to Leafsink Harbor*/
+        LSButton := cPoint(1856, 511)
+        ;LSButton := cPoint(LeafMark[1] + Window.RelW(69),
+        ;LeafMark[2] - Window.RelH(160), false)
 
-            ; If no button we are misaligned
-            If (!LSButton.ClickButtonActive(, , delay, NavigateTime + delay)) {
-                Out.I("The Leaf Tower travel: Leafsink Button not active.")
-                return false
-            } Else {
-                LSButton.ClickButtonActive(, , delay, NavigateTime + delay)
-            }
-            Sleep(NavigateTime + delay)
-
-            /** @type {cPoint} */
-            TowerMax := cPoint(LeafMark[1] + Window.RelW(460),
-            LeafMark[2] + Window.RelH(60), false)
-
-            TowerMax.ClickButtonActive(, , delay, NavigateTime + delay)
-            Sleep(delay)
-            TowerMax.ClickButtonActive(, , delay, NavigateTime + delay)
-            Sleep(NavigateTime + delay)
-
-            /** @type {cPoint} */
-            TowerArea := cPoint(LeafMark[1] + Window.RelW(64),
-            LeafMark[2] - Window.RelH(5), false)
-
-            While (TowerArea.ClickButtonActive(, , delay, NavigateTime + delay)) {
-                Sleep(delay)
+        ; If no button we are misaligned
+        If (!LSButton.ClickButtonActive(, , delay, NavigateTime + delay)) {
+            Out.I("The Leaf Tower travel: Leafsink Button not active.")
+            If (!Travel.LeafsinkHarbor.IsZone()) {
+                Return false
             }
         } Else {
-            Out.I("The Leaf Tower leaf not found while trying to travel.")
-            return false
+            LSButton.ClickButtonActive(, , delay, NavigateTime + delay)
         }
         Sleep(NavigateTime + delay)
-        return true
+
+        /** @type {cPoint} */
+        TowerMax := cPoint(2132, 735)
+        ; TowerMax := cPoint(LeafMark[1] + Window.RelW(460),
+        ; LeafMark[2] + Window.RelH(60), false)
+
+        TowerMax.ClickButtonActive(, , delay, NavigateTime + delay)
+        Sleep(delay)
+        TowerMax.ClickButtonActive(, , delay, NavigateTime + delay)
+        Sleep(NavigateTime + delay)
+
+        /** @type {cPoint} */
+        TowerArea := cPoint(1864, 670)
+        ; TowerArea := cPoint(LeafMark[1] + Window.RelW(64),
+        ; LeafMark[2] - Window.RelH(5), false)
+
+        While (TowerArea.ClickButtonActive(, , delay, NavigateTime + delay)) {
+            Sleep(delay)
+        }
+        /* } Else {
+            Out.I("The Leaf Tower leaf not found while trying to travel.")
+            return false
+        } */
+        Sleep(NavigateTime + delay)
+        Return true
     }
     ;@endregion
 }

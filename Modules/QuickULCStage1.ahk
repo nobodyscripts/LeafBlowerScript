@@ -19,8 +19,8 @@ WaitForFloor100(*) {
     text := cPoint(1144, 609)
     text.TextTipAtCoord("Waiting for floor 100 to be reached")
     Out.D("Waiting for floor 100 to be reached")
-    While (!Rects.Misc.FloorAmount100.PixelSearch() && isactive && 
-        Window.IsActive()) {
+    While (!Rects.Misc.FloorAmount100.PixelSearch() && isactive &&
+    Window.IsActive()) {
         Sleep(100)
     }
     If (!Rects.Misc.FloorAmount100.PixelSearch()) {
@@ -75,7 +75,7 @@ TriggerMLCConverters(*) {
     Sleep(50)
     /** @type {cPoint} */
     StartConvertorsBtn := cPoint(1075, 1102)
-    StartConvertorsBtn.WaitUntilActiveButton(100,50)
+    StartConvertorsBtn.WaitUntilActiveButton(100, 50)
     Sleep(17)
     If (!StartConvertorsBtn.ClickButtonActive()) {
         Out.I("Didn't find converter start button, aborting.")
@@ -119,14 +119,20 @@ WaitForBLCPortal(*) {
     BlackFlaskStoreBtn := cPoint(850, 1228)
     /** @type {cPoint} */
     BuyBLCBtn := cPoint(1700, 304)
+    /** @type {cPoint} */
+    BLCBtn := cPoint(1063, 1220)
+
     BlackFlaskStoreBtn.WaitWhileNotColour("0x252435", 2400, 100)
     BlackFlaskStoreBtn.Click()
-    BuyBLCBtn.WaitUntilActiveButton()
+    BuyBLCBtn.WaitUntilActiveButton(200, 50) ; 5s
+    if (!BuyBLCBtn.IsButtonActive() && !BuyBLCBtn.IsBackground()) {
+        BlackFlaskStoreBtn.Click()
+        Sleep(150)
+    }
+    BuyBLCBtn.ClickButtonActive()
     Sleep(17)
     BuyBLCBtn.ClickButtonActive()
 
-    /** @type {cPoint} */
-    BLCBtn := cPoint(1063, 1220)
     colour := "0xFFC2B3"
     BLCBtn.WaitWhileNotColour(colour, 2400, 100) ; 120s
     If (BLCBtn.GetColour() != colour) {
@@ -144,9 +150,9 @@ WaitTillPyramidReset(*) {
     text.TextTipAtCoord("Waiting for pyramid to reset zone")
     colour := Colours().GetColourByZone("The Cursed Pyramid")
     Points.Misc.ZoneSample.WaitWhileNotColour(colour, 1200, 50) ; 60s
-    if (Points.Misc.ZoneSample.IsColour(colour)) {
+    If (Points.Misc.ZoneSample.IsColour(colour)) {
         Out.I("Timed out waiting for pyramid to clear, "
-    "taxi may have already been bought.")
+            "taxi may have already been bought.")
     }
     ToolTip(, , , 15)
 }
@@ -167,7 +173,7 @@ PubTradeForCheese250(*) { ; TODO add option to use 250 instead of 2500 cheese
     Sleep(250)
     QuestsBtn := cPoint(1091, 380)
     QuestsBtn.WaitUntilActiveButton()
-        Out.D("Clicking quest")
+    Out.D("Clicking quest")
     If (!QuestsBtn.ClickButtonActive()) {
         Out.I("Didn't find quest button, aborting.")
         Global ULCStageExit := true
@@ -205,7 +211,7 @@ PubTradeForCheese2500(*) {
     Sleep(250)
     QuestsBtn := cPoint(1091, 380)
     QuestsBtn.WaitUntilActiveButton()
-        Out.D("Clicking quest")
+    Out.D("Clicking quest")
     If (!QuestsBtn.ClickButtonActive()) {
         Out.I("Didn't find quest button, aborting.")
         Global ULCStageExit := true
@@ -350,7 +356,6 @@ Use72hTimeWarp(*) {
         Sleep(100)
     }
 }
-
 
 IsULCCraftSaved() {
     ; TODO
