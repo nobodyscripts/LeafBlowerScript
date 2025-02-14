@@ -79,8 +79,10 @@ BossSweep(*) {
      * @param {cPoint} point Button point
      */
     BossButtonClickNWait(point) {
-        While (point.ClickButtonActive()) {
-            Sleep(17)
+        i := 0
+        While (point.ClickButtonActive() && i < 10) {
+            Sleep(34)
+            i++
         }
         If (point.IsButton() && !point.IsButtonActive()) {
             WaitForBossKill()

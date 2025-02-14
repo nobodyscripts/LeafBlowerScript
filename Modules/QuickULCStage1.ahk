@@ -31,8 +31,7 @@ TriggerBLC(*) {
     UlcWindow()
     Out.D("TriggerBLC")
     Shops.OpenRedPortal()
-    crunchbtn := cPoint(1109, 553)
-    confirmbtn := cPoint(1131, 525)
+    crunchbtn := cPoint(1354, 532)
     crunchbtn.WaitUntilActiveButton()
     If (!crunchbtn.IsButtonActive()) {
         Out.I("Didn't find blc crunch button, aborting.")
@@ -40,22 +39,16 @@ TriggerBLC(*) {
         Return
     }
     crunchbtn.ClickButtonActive()
-    Sleep(17)
+    crunchbtn.WaitUntilActiveButton()
+    crunchbtn.ClickButtonActive()
+    Sleep(34)
     crunchbtn.ClickButtonActive()
     Sleep(150)
-    If (!confirmbtn.IsButtonActive()) {
-        Out.I("Didn't find blc confirm button, aborting.")
-        Global ULCStageExit := true
-    }
-    confirmbtn.ClickButtonActive()
-    Sleep(17)
-    confirmbtn.ClickButtonActive()
 }
 
 TriggerMLC(*) {
     UlcWindow()
-    crunchbtn := cPoint(1111, 549)
-    confirmbtn := cPoint(1111, 524)
+    crunchbtn := cPoint(1354, 532)
     Out.D("TriggerMLC")
     Shops.OpenGreenPortal()
     If (!crunchbtn.IsButtonActive()) {
@@ -64,16 +57,11 @@ TriggerMLC(*) {
         Return
     }
     crunchbtn.ClickButtonActive()
-    Sleep(17)
+    crunchbtn.WaitUntilActiveButton()
+    crunchbtn.ClickButtonActive()
+    Sleep(34)
     crunchbtn.ClickButtonActive()
     Sleep(150)
-    If (!confirmbtn.IsButtonActive()) {
-        Out.I("Didn't find mlc confirm button, aborting.")
-        Global ULCStageExit := true
-    }
-    confirmbtn.ClickButtonActive()
-    Sleep(17)
-    confirmbtn.ClickButtonActive()
 }
 
 TriggerMLCConverters(*) {
@@ -81,9 +69,11 @@ TriggerMLCConverters(*) {
     Out.D("TriggerMLCConverters")
     WaitForPortalAnimation()
     Shops.OpenConverters()
+    Sleep(50)
     /** @type {cPoint} */
     StartConvertorsBtn := cPoint(1075, 1102)
     StartConvertorsBtn.WaitUntilActiveButton(100,50)
+    Sleep(17)
     If (!StartConvertorsBtn.ClickButtonActive()) {
         Out.I("Didn't find converter start button, aborting.")
         Global ULCStageExit := true

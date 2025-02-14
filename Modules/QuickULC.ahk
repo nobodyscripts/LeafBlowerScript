@@ -278,7 +278,9 @@ WaitForBossKill(*) {
     IsPrevTimerLong := IsBossTimerLong()
     cPoint(1063, 628).TextTipAtCoord("Waiting for boss kill", 14)
     Loop {
-        UlcWindow()
+        if (!Window.IsActive()) {
+            Return false
+        }
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
         If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
@@ -299,6 +301,7 @@ WaitForBossKill(*) {
             Return false
         }
         GameKeys.TriggerViolin()
+        Sleep(17)
     }
     ToolTip(, , , 14)
 }
