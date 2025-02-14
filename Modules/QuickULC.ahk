@@ -35,22 +35,30 @@ ULCStage1(*) {
     EquipBlower()
     GetDailyReward()
 
-    Travel.TheLeafTower.MaxTowerFloor()
+    if(!Travel.TheLeafTower.MaxTowerFloor()) {
+        Out.I("Could not travel to tower, exiting")
+        return
+    }
     WaitForFloor100()
     ULCStageExitCheck(1)
 
     TriggerMLC()
     WaitForPortalAnimation()
     ULCStageExitCheck(2)
-
-    Travel.TheLeafTower.MaxTowerFloor()
+    
+    if(!Travel.TheLeafTower.MaxTowerFloor()) {
+        Out.I("Could not travel to tower, exiting")
+        return
+    }
     ULCStageExitCheck(3)
 
+    Out.D("Max mlc")
     Shops.MLC.Max()
     ULCStageExitCheck(4)
 
     TriggerMLCConverters()
     WaitForPortalAnimation()
+    Out.D("Max mlc")
     Shops.MLC.Max()
     ULCStageExitCheck(5)
 
@@ -61,10 +69,14 @@ ULCStage1(*) {
     ULCStageExitCheck(13)
     WaitForPortalAnimation()
     ULCStageExitCheck(14)
+    Out.D("Max mlc")
     Shops.MLC.Max()
     ULCStageExitCheck(6)
-
-    Travel.TheInnerCursedPyramid.GoTo() ; Get ancients to autobrew
+    
+    if(!Travel.TheInnerCursedPyramid.GoTo()) { ; Get ancients to autobrew
+        Out.I("Could not travel to inner pyramid, exiting")
+        return
+    }
     WaitTillPyramidReset()
     ULCStageExitCheck(7)
 
@@ -72,7 +84,10 @@ ULCStage1(*) {
     ULCStageExitCheck(8)
 
     EquipMulchSword() ; Activates unique leaves/pets on loadout too
-    Travel.CursedKokkaupunki.GoTo()
+    if(!Travel.CursedKokkaupunki.GoTo()) {
+        Out.I("Could not travel to CursedKokkaupunki, exiting")
+        return
+    }
     ULCStageExitCheck(9)
     Sleep(3000)
 
@@ -83,7 +98,10 @@ ULCStage1(*) {
 
     GoToTrade()
     TradeForPyramid()
-    Travel.TheCursedPyramid.GoTo()
+    if(!Travel.TheCursedPyramid.GoTo()) { ; Get ancients to autobrew
+        Out.I("Could not travel to pyramid, exiting")
+        return
+    }
     EquipBlower()
     ULCStageExitCheck(11)
 
@@ -274,6 +292,7 @@ EquipSlap(*) {
 
 WaitForBossKill(*) {
     UlcWindow()
+    Out.D("Waitforbosskill")
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
     cPoint(1063, 628).TextTipAtCoord("Waiting for boss kill", 14)
@@ -308,6 +327,7 @@ WaitForBossKill(*) {
 
 WaitForBossKillOrTimeout(seconds := 30) {
     UlcWindow()
+    Out.D("WaitForBossKillOrTimeout")
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
     /** @type {Timer} */
@@ -339,16 +359,19 @@ WaitForBossKillOrTimeout(seconds := 30) {
 
 GoToWitch(*) {
     UlcWindow()
+    Out.D("CursedKokkaupunki")
     Travel.CursedKokkaupunki.GoTo()
 }
 
 GoToCentaur(*) {
     UlcWindow()
+    Out.D("TheExaltedBridge")
     Travel.TheExaltedBridge.GoTo()
 }
 
 GoToVileCreature(*) {
     UlcWindow()
+    Out.D("VilewoodCemetery")
     Travel.VilewoodCemetery.GoTo()
 }
 
@@ -424,6 +447,7 @@ GoToSoulCrypt(*) {
 
 WaitForZoneChange(maxloops := 20, interval := 50) {
     UlcWindow()
+    Out.D("WaitForZoneChange")
     /** @type {cPoint} */
     zonesample := Points.Misc.ZoneSample
     curCol := zonesample.GetColour()
@@ -452,6 +476,7 @@ GoToQuarkBoss3(*) {
 
 GoToSoulForge(*) {
     UlcWindow()
+    Out.D("GoToSoulForge")
     Travel.SoulForge.GoTo()
     Sleep(100)
     GameKeys.ClosePanel()

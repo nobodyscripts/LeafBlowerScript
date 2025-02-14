@@ -75,7 +75,8 @@ Class TheLeafTower extends Zone {
      * @param delay 
      */
     MaxTowerFloor(delay := 72) {
-        Travel.OpenAreas(true)
+        Travel.OpenAreas()
+        Travel.ScrollResetToTop()
         Sleep(delay)
         ; Scroll down if needed
         this.ScrollAmountDown(17, NavigateTime)
@@ -83,7 +84,6 @@ Class TheLeafTower extends Zone {
         ; Scanning by leaf
         Local LeafMark := this.FindTheLeafTowerZone()
         If (LeafMark) {
-
             /** @type {cPoint} Button to travel to Leafsink Harbor*/
             LSButton := cPoint(LeafMark[1] + Window.RelW(69),
             LeafMark[2] - Window.RelH(160), false)
@@ -91,6 +91,9 @@ Class TheLeafTower extends Zone {
             ; If no button we are misaligned
             If (!LSButton.ClickButtonActive(, , delay, NavigateTime + delay)) {
                 Out.I("The Leaf Tower travel: Leafsink Button not active.")
+                return false
+            } Else {
+                LSButton.ClickButtonActive(, , delay, NavigateTime + delay)
             }
             Sleep(NavigateTime + delay)
 
@@ -99,18 +102,23 @@ Class TheLeafTower extends Zone {
             LeafMark[2] + Window.RelH(60), false)
 
             TowerMax.ClickButtonActive(, , delay, NavigateTime + delay)
+            Sleep(delay)
+            TowerMax.ClickButtonActive(, , delay, NavigateTime + delay)
             Sleep(NavigateTime + delay)
 
             /** @type {cPoint} */
-            TowerArea := cPoint(LeafMark[1] + Window.RelW(69), 
+            TowerArea := cPoint(LeafMark[1] + Window.RelW(64),
             LeafMark[2] - Window.RelH(5), false)
 
-            TowerArea.ClickButtonActive(, , delay, NavigateTime + delay)
+            While (TowerArea.ClickButtonActive(, , delay, NavigateTime + delay)) {
+                Sleep(delay)
+            }
         } Else {
             Out.I("The Leaf Tower leaf not found while trying to travel.")
+            return false
         }
         Sleep(NavigateTime + delay)
-
+        return true
     }
     ;@endregion
 }

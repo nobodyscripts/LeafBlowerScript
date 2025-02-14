@@ -29,7 +29,7 @@ fTowerPassiveSpammer() {
             Window.Activate()
         } else {
             if (Travel.HomeGarden.IsAreaGarden()) {
-                GoToLeafTower()
+                Travel.TheLeafTower.GoTo()
             }
             if (!IsBossTimerActive() && !Travel.HomeGarden.IsAreaGarden()) {
                 GameKeys.TriggerBlazingSkull()

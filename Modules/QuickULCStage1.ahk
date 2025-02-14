@@ -4,6 +4,7 @@ Global ULCStageExit := false
 
 GetDailyReward(*) {
     UlcWindow()
+    Out.D("Get Daily Reward")
     Travel.ClosePanelIfActive()
     cPoint(710, 139).Click()
     Sleep(100)
@@ -17,7 +18,9 @@ WaitForFloor100(*) {
     Limiter.CoolDownM(2, &isactive)
     text := cPoint(1144, 609)
     text.TextTipAtCoord("Waiting for floor 100 to be reached")
-    While (!Rects.Misc.FloorAmount100.PixelSearch() && isactive) {
+    Out.D("Waiting for floor 100 to be reached")
+    While (!Rects.Misc.FloorAmount100.PixelSearch() && isactive && 
+        Window.IsActive()) {
         Sleep(100)
     }
     If (!Rects.Misc.FloorAmount100.PixelSearch()) {
@@ -119,6 +122,7 @@ WaitForBLCPortal(*) {
     BlackFlaskStoreBtn.WaitWhileNotColour("0x252435", 2400, 100)
     BlackFlaskStoreBtn.Click()
     BuyBLCBtn.WaitUntilActiveButton()
+    Sleep(17)
     BuyBLCBtn.ClickButtonActive()
 
     /** @type {cPoint} */
@@ -370,6 +374,7 @@ CraftMoonLeafsAndPreset() {
 
 MaxPyramidFloors() {
     UlcWindow()
+    Out.D("MaxPyramidFloors")
     Travel.ClosePanelIfActive()
     Sleep(100)
     cPoint(1282, 622).Click() ; Open object

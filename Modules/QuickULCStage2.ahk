@@ -2,6 +2,7 @@
 
 BossSweep(*) {
     UlcWindow()
+    Out.D("Travel to witch")
     Travel.CursedKokkaupunki.GoTo()
     WaitForBossKill()
 
