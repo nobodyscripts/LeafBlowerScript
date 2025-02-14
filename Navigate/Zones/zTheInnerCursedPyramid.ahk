@@ -25,7 +25,9 @@ Class TheInnerCursedPyramid extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
+        Travel.OpenAreasLeafGalaxy(extradelay)
+        Sleep(delay)
+        ;Travel.ScrollResetToTop()
         this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
         /** @type {cPoint} */
@@ -36,6 +38,7 @@ Class TheInnerCursedPyramid extends Zone {
             Out.I("The Inner Cursed Pyramid not found while trying to travel.")
         }
         Sleep(delay + extradelay)
+        return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
     }
 }

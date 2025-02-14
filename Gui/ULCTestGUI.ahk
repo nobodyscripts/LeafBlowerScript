@@ -25,6 +25,7 @@ Button_Click_ULC(thisGui, info) {
     .OnEvent("Click", test)
 
     test(*) {
+        WaitForBLCPortal()
     }
 
     optionsGUI.Add("Button", "default", "BLC Prestige")
@@ -95,6 +96,9 @@ Button_Click_ULC(thisGui, info) {
 
     optionsGUI.Add("Button", "default", "GoToPyramid")
     .OnEvent("Click", GoToPyramid)
+
+    optionsGUI.Add("Button", "default", "GoToInnerPyramid")
+    .OnEvent("Click", GoToInnerPyramid)
 
     optionsGUI.Add("Button", "default", "MaxCoalShop")
     .OnEvent("Click", Shops.Coal.Max)

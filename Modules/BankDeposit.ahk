@@ -131,17 +131,17 @@ BankSinglePass() {
 BankTravelAreaByInd(index) {
     Switch index {
     Case 0:
-        Points.Bank.TabQA.Click()
+        Points.Bank.TabQA.ClickOffset()
     Case 1:
-        Points.Bank.TabSR.Click()
+        Points.Bank.TabSR.ClickOffset()
     Case 2:
-        Points.Bank.TabFF.Click()
+        Points.Bank.TabFF.ClickOffset()
     Case 3:
-        Points.Bank.TabEB.Click()
+        Points.Bank.TabEB.ClickOffset()
     Case 4:
-        Points.Bank.TabSN.Click()
+        Points.Bank.TabSN.ClickOffset()
     Case 5:
-        Points.Bank.TabLG.Click()
+        Points.Bank.TabLG.ClickOffset()
     default:
 
     }

@@ -8,6 +8,14 @@
 ; Curse brewing off, auto craft off, ancient autobuy taxi off, fixed nav
 ; hide max shops off, auto buy max leaves in blc set to 0,
 
+/* 
+TODO
+Wait for blc portal still waiting too long to buy blc portal
+inner cursed pyramid getting stuck on favourites tab
+Max mlc setting leaf powered alb/others randomly off
+
+*/
+
 RunULC(*) {
     Switch (GetULCStage()) {
     Case 1:
@@ -258,6 +266,11 @@ GoToTrade(*) {
 GoToPyramid(*) {
     UlcWindow()
     Travel.TheCursedPyramid.GoTo()
+}
+
+GoToInnerPyramid(*) {
+    UlcWindow()
+    Travel.TheInnerCursedPyramid.GoTo()
 }
 
 GoToLeafTower(*) {

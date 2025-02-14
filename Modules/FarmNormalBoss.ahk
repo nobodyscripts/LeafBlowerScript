@@ -97,32 +97,32 @@ SpamBrewButtons() {
     ; Artifacts
     Artifacts := Points.Brew.Tab1.Artifacts
     If (Artifacts.IsButtonActive() && BrewEnableArtifacts) {
-        Artifacts.Click()
+        Artifacts.ClickOffset()
     }
     ; Equipment
     Equipment := Points.Brew.Tab1.Equipment
     If (Equipment.IsButtonActive() && BrewEnableEquipment) {
-        Equipment.Click()
+        Equipment.ClickOffset()
     }
     ; Materials
     Materials := Points.Brew.Tab1.Materials
     If (Materials.IsButtonActive() && BrewEnableMaterials) {
-        Materials.Click()
+        Materials.ClickOffset()
     }
     ; Scrolls
     Scrolls := Points.Brew.Tab1.Scrolls
     If (Scrolls.IsButtonActive() && BrewEnableScrolls) {
-        Scrolls.Click()
+        Scrolls.ClickOffset()
     }
     ; Card Parts
     CardParts := Points.Brew.Tab1.CardParts
     If (CardParts.IsButtonActive() && BrewEnableCardParts) {
-        CardParts.Click()
+        CardParts.ClickOffset()
     }
     ; Card Parts for fontsize 1
     CardPartsFont1 := Points.Brew.Tab1.CardPartsFont1
     If (CardPartsFont1.IsButtonActive() && BrewEnableCardParts) {
-        CardPartsFont1.Click()
+        CardPartsFont1.ClickOffset()
     }
     Return true
 }
@@ -144,8 +144,7 @@ fNormalBossFarmWithBorbs(modecheck) {
     Spammer.NormalBossStart()
     bvAutostartDisabled := false
     If (IsBVAutoStartOn()) {
-        ; TODO move point to Points
-        fCustomClick(Window.RelW(591), Window.RelH(1100), 34)
+        Points.Borbventures.AutoStartFont0.ClickOffset(34)
         bvAutostartDisabled := true
     }
     Killcount := 0

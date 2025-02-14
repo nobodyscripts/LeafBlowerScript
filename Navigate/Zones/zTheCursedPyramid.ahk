@@ -25,18 +25,19 @@ Class TheCursedPyramid extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
+        Travel.OpenAreasLeafGalaxy(extradelay)
         this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
-        
+
         /** @type {cPoint} */
-        Local Btn := cPoint(1667, 806)
-        If (Btn.IsButtonActive()) {
-            Btn.ClickButtonActive(,,delay + extradelay)
-        } Else {
+        Local Btn := cPoint(1668, 781)
+        Btn.WaitUntilActiveButton(60, 17)
+        Btn.ClickButtonActive(, , delay + extradelay)
+        If (!Btn.IsButtonActive()) {
             Out.I("The Cursed Pyramid not found while trying to travel.")
         }
         Sleep(delay + extradelay)
+        return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
     }
 

@@ -144,12 +144,7 @@ Class cPoint {
      * @returns {Bool} 
      */
     IsButton() {
-        targetColour := this.GetColour()
-        If (Colours().IsButton(targetColour)) {
-            Return true
-        }
-        ; Out.D("cPoint.IsButton: " this.toStringDisplay() " is now " targetColour)
-        Return false
+        Return Colours().IsButton(this.GetColour())
     }
 
     /**
@@ -157,13 +152,7 @@ Class cPoint {
      * @returns {Bool} 
      */
     IsButtonActive() {
-        targetColour := this.GetColour()
-        If (Colours().IsButtonActive(targetColour)) {
-            Return true
-        }
-        ; Out.D("cPoint.IsButtonActive: " this.toStringDisplay() " is now " targetColour)
-
-        Return false
+        Return Colours().IsButtonActive(this.GetColour())
     }
 
     /**
@@ -171,13 +160,7 @@ Class cPoint {
      * @returns {Bool} 
      */
     IsButtonInactive() {
-        targetColour := this.GetColour()
-        If (Colours().IsButtonInactive(targetColour)) {
-            Return true
-        }
-        ; Out.D("cPoint.IsButtonInactive: " this.toStringDisplay() " is now " targetColour)
-
-        Return false
+        Return Colours().IsButtonInactive(this.GetColour())
     }
 
     /**
@@ -185,13 +168,7 @@ Class cPoint {
      * @returns {Bool} 
      */
     IsBackground() {
-        targetColour := this.GetColour()
-        If (Colours().IsBackground(targetColour)) {
-            Return true
-        }
-        ; Out.D("cPoint.IsBackground: " this.toStringDisplay() " is now " targetColour)
-
-        Return false
+        Return Colours().IsBackground(this.GetColour())
     }
 
     /**
@@ -199,13 +176,7 @@ Class cPoint {
      * @returns {Bool} 
      */
     IsButtonOffPanel() {
-        targetColour := this.GetColour()
-        If (Colours().IsButtonOffPanel(targetColour)) {
-            Return true
-        }
-        ; Out.D("cPoint.IsButtonOffPanel: " this.toStringDisplay() " is now " targetColour)
-
-        Return false
+        Return Colours().IsButtonOffPanel(this.GetColour())
     }
 
     /**
@@ -277,7 +248,6 @@ Class cPoint {
             Sleep(sleepafter)
             Return true
         }
-        Out.D("No active button found at " this.toString())
         Return false
     }
 
@@ -450,16 +420,12 @@ Class cPoint {
         While (Window.IsActive() && this.GetColour() = colour) {
             Sleep(interval)
             i--
-            If (i = 0) {
+            If (i <= 0) {
                 Break
             }
         }
         Out.D("WaitWhileColour: " this.toStringWColour())
-        If (this.GetColour() != colour) {
-            Return true
-        } Else {
-            Return false
-        }
+        Return this.GetColour() != colour
     }
 
     /**
@@ -472,19 +438,16 @@ Class cPoint {
      */
     WaitWhileNotColour(colour, maxLoops := 20, interval := 50) {
         i := maxLoops
+        Out.D("WaitWhileNotColour: start " this.toStringWColour())
         While (Window.IsActive() && this.GetColour() != colour) {
             Sleep(interval)
             i--
-            If (i = 0) {
+            If (i <= 0) {
                 Break
             }
         }
-        Out.D("WaitWhileNotColour: " this.toStringWColour())
-        If (this.GetColour() = colour) {
-            Return true
-        } Else {
-            Return false
-        }
+        Out.D("WaitWhileNotColour: finish " this.toStringWColour())
+        Return this.GetColour() = colour
     }
 
     /**
@@ -495,20 +458,21 @@ Class cPoint {
      * @returns {Integer} True if colour matches, false if not
      */
     WaitUntilActiveButton(maxLoops := 20, interval := 50) {
+        debugtemp := ""
         i := maxLoops
         While (Window.IsActive() && !this.IsButtonActive()) {
             Sleep(interval)
             i--
-            If (i = 0) {
+            If (this.toStringWColour() != debugtemp) {
+                debugtemp := this.toStringWColour()
+                Out.D(this.toStringWColour() " " this.IsButtonActive())
+            }
+            If (i <= 0) {
                 Break
             }
         }
         Out.D("WaitWhileNotColour: " this.toStringWColour())
-        If (this.IsButtonActive()) {
-            Return true
-        } Else {
-            Return false
-        }
+        Return this.IsButtonActive()
     }
 
     /**

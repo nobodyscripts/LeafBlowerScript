@@ -34,8 +34,9 @@ TriggerBLC(*) {
     UlcWindow()
     Out.D("TriggerBLC")
     Shops.OpenRedPortal()
+    /** @type {cPoint} */
     crunchbtn := cPoint(1354, 532)
-    crunchbtn.WaitUntilActiveButton()
+    crunchbtn.WaitUntilActiveButton(100, 20)
     If (!crunchbtn.IsButtonActive()) {
         Out.I("Didn't find blc crunch button, aborting.")
         Global ULCStageExit := true
@@ -110,31 +111,48 @@ WaitForPortalAnimation(*) {
 WaitForBLCPortal(*) {
     ; wait for blc to be available after second mlc
     UlcWindow()
+    Travel.ClosePanelIfActive()
     Out.D("WaitForBLCPortal")
     /** @type {cPoint} */
     text := cPoint(1144, 609)
-    text.TextTipAtCoord("Waiting for blc portal to be active")
 
     /** @type {cPoint} */
-    BlackFlaskStoreBtn := cPoint(850, 1228)
+    BlackFlaskStoreBtn := cPoint(828, 1225)
     /** @type {cPoint} */
     BuyBLCBtn := cPoint(1700, 304)
     /** @type {cPoint} */
     BLCBtn := cPoint(1063, 1220)
 
-    BlackFlaskStoreBtn.WaitWhileNotColour("0x252435", 2400, 100)
-    BlackFlaskStoreBtn.Click()
-    BuyBLCBtn.WaitUntilActiveButton(200, 50) ; 5s
-    if (!BuyBLCBtn.IsButtonActive() && !BuyBLCBtn.IsBackground()) {
-        BlackFlaskStoreBtn.Click()
-        Sleep(150)
+    Out.D("Waiting for flask button")
+    text.TextTipAtCoord("Waiting for black flask shop to be active")
+    Out.D("Black flask button colour " BlackFlaskStoreBtn.GetColour())
+    BlackFlaskStoreBtn.WaitUntilActiveButton(4800, 17)
+    If (BlackFlaskStoreBtn.GetColour() = "0xFEF1D2" || BlackFlaskStoreBtn.IsButtonActive()) {
+        BlackFlaskStoreBtn.ClickOffset(, , 50)
+        Sleep(72)
+        if(!Window.IsPanel()) {
+            BlackFlaskStoreBtn.ClickOffset(, , 50)
+            Sleep(72)
+        }
     }
-    BuyBLCBtn.ClickButtonActive()
-    Sleep(17)
-    BuyBLCBtn.ClickButtonActive()
+    Tooltip(, , , 15)
+    text.TextTipAtCoord("Waiting for buy blc to be active")
+    Out.D("Waiting for buy blc button")
+    If (!BuyBLCBtn.IsBackground()) {
+        BuyBLCBtn.WaitUntilActiveButton(200, 50) ; 5s
+        If (!BuyBLCBtn.IsButtonActive()) {
+            BlackFlaskStoreBtn.ClickOffset(, , 50)
+            BuyBLCBtn.WaitUntilActiveButton(120, 17)
+        }
+        BuyBLCBtn.ClickButtonActive(, , 50, 34)
+        BuyBLCBtn.ClickButtonActive(, , 50, 34)
+    }
 
     colour := "0xFFC2B3"
-    BLCBtn.WaitWhileNotColour(colour, 2400, 100) ; 120s
+    Tooltip(, , , 15)
+    text.TextTipAtCoord("Waiting for blc portal to be active")
+    Out.D("Waiting for blc portal button")
+    BLCBtn.WaitWhileNotColour(colour, 4800, 17) ; 120s
     If (BLCBtn.GetColour() != colour) {
         Out.I("Timed out waiting for blc portal, aborting.")
         Global ULCStageExit := true

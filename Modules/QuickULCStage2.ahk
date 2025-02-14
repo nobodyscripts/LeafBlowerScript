@@ -214,8 +214,7 @@ BuyDeathbook(*) {
     UlcWindow()
     GameKeys.ClosePanel()
     Sleep(100)
-    cPoint(1282, 622)
-    .Click() ; Open DB
+    cPoint(1282, 622).Click() ; Open DB
     Sleep(50)
     cPoint(1139, 376).ClickButtonActive() ; Unlock
 }
