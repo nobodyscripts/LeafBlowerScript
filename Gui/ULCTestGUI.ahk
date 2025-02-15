@@ -25,7 +25,18 @@ Button_Click_ULC(thisGui, info) {
     .OnEvent("Click", test)
 
     test(*) {
-        WaitForBLCPortal()
+
+        GoToTrade()
+        TradeForPyramid()
+        if(!Travel.TheCursedPyramid.GoTo()) { ; Get ancients to autobrew
+            Out.I("Could not travel to pyramid, exiting")
+            return
+        }
+        EquipBlower()
+        ULCStageExitCheck(11)
+    
+        MaxPyramidFloors()
+    
     }
 
     optionsGUI.Add("Button", "default", "BLC Prestige")

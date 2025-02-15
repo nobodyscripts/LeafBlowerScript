@@ -66,8 +66,8 @@ ULCStage1(*) {
 
     TriggerMLCConverters()
     WaitForPortalAnimation()
-    Out.D("Max mlc")
-    Shops.MLC.Max()
+    ;Out.D("Max mlc")
+    ;Shops.MLC.Max()
     ULCStageExitCheck(5)
 
     Sleep(100)
@@ -105,18 +105,19 @@ ULCStage1(*) {
     ULCStageExitCheck(10)
 
     GoToTrade()
+    EquipBlower()
     TradeForPyramid()
     if(!Travel.TheCursedPyramid.GoTo()) { ; Get ancients to autobrew
         Out.I("Could not travel to pyramid, exiting")
         return
     }
-    EquipBlower()
     ULCStageExitCheck(11)
 
     MaxPyramidFloors()
+    GoToTrade()
 
     Finish := A_Now
-    MsgBox("Trade for pyramid requirements now.`r`n"
+    MsgBox("Trade for pyramid requirements now if incomplete.`r`n"
         "After that start stage 2.`n"
     "Time taken: " DateDiff(Start, Finish, "Seconds") "s")
     /*  ; TODO

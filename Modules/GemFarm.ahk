@@ -339,12 +339,13 @@ TradeForPyramid(*) {
     ; Cancel button cPoint(1742, 397) x+490
     ; Collect button cPoint(1990, 397) x+738
     /** @type {cRect} */
-    scanArea := cRect(1252, 351, 1252, 1061) ; Scan area 1252, 351/1252, 1061
+    scanArea := cRect(1252, 351, 1253, 1061) ; Scan area 1252, 351/1252, 1061
     Cheese := "0xD98A29"
     Mulch := "0x985046"
     Beer := "0x61233E"
     Borb := "0x60F811"
-    HasCheese := HasMulch := HasBeer := HasBorb := false
+    amount := 2
+    HasCheese := HasMulch := HasBeer := HasBorb := 0
     isLooping := true
     i := 0
 
@@ -352,25 +353,26 @@ TradeForPyramid(*) {
 
     While ((HasCheese = false || HasMulch = false ||
         HasBeer = false || HasBorb = false) && isLooping) {
-        if (i > 100) {
+        If (i > 500) {
             MsgBox("Could not complete all trades before timing out, please complete and start stage 2.")
-            break
+            Break
         }
-        If (!HasCheese) {
-            HasCheese := ScanTradesByColour(Cheese)
+        If (HasCheese < amount) {
+            HasCheese += ScanTradesByColour(Cheese)
         }
-        If (!HasMulch) {
-            HasMulch := ScanTradesByColour(Mulch)
+        If (HasMulch < amount) {
+            HasMulch += ScanTradesByColour(Mulch)
         }
-        If (!HasBeer) {
-            HasBeer := ScanTradesByColour(Beer)
+        If (HasBeer < amount) {
+            HasBeer += ScanTradesByColour(Beer)
         }
-        If (!HasBorb) {
-            HasBorb := ScanTradesByColour(Borb)
+        If (HasBorb < amount) {
+            HasBorb += ScanTradesByColour(Borb)
         }
         Sleep(50)
-        if (IsPlayerOutOfCheese()) {
+        If (IsPlayerOutOfCheese()) {
             PubTradeForCheese2500()
+            Shops.OpenTrades()
         }
         GameKeys.RefreshTrades()
         Sleep(50)
@@ -382,6 +384,7 @@ TradeForPyramid(*) {
         If (!point) {
             Return false
         }
+        Out.D("Found " colour " trade")
         ; Start button cPoint(2029, 397) x+777
         ; Cancel button cPoint(1742, 397) x+490
         ; Collect button cPoint(1990, 397) x+738
@@ -396,22 +399,26 @@ TradeForPyramid(*) {
         Collect := cPoint(point[1] + Window.RelW(738), point[2], false)
         ; Is started?
         If (Cancel.IsButtonActive() || Collect.IsButtonActive()) {
+            Out.D("Is started")
             Return false
         }
         ; Is startable?
         If (Start.IsButtonInactive()) {
+            Out.D("Not startable")
             Return false
         }
         ; Does area next to icon have text that fits the eXX pattern and thus is
         ; > 1
-        If (cRect(1252 + Window.RelW(50),
-        397 - Window.RelH(20),
-        1252 + Window.RelW(121),
-        397 + Window.RelH(13),
-        false).PixelSearch()) {
-
+        /** @type {cRect} check for text beyond amount of 1 for the trade */
+        textrect := cRect(point[1] + Window.RelW(50), point[2] - Window.RelH(20),
+        point[1] + Window.RelW(121), point[2] + Window.RelH(13),
+        false)
+        If (textrect.PixelSearch()) {
+            Out.D("Started")
             Start.ClickButtonActive()
-            Return true
+            Sleep(17)
+            Start.ClickButtonActive()
+            Return 1
         }
         Return false
     }

@@ -406,6 +406,8 @@ MaxPyramidFloors() {
     Sleep(100)
     AmountToModifier(100)
     Sleep(50)
+    cPoint(985, 462).ClickButtonActive() ; Decrease level
+    Sleep(50)
     cPoint(1536, 462).ClickButtonActive() ; Increase level
     Sleep(50)
     ResetModifierKeys()
