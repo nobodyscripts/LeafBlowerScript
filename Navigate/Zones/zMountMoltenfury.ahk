@@ -25,47 +25,19 @@ Class MountMoltenfury extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.FireFields.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
-        Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local MountMoltenfuryLeaf := this.FindMountMoltenfuryZone()
-        If (MountMoltenfuryLeaf) {
-            this.ClickTravelButton(MountMoltenfuryLeaf, delay + extradelay)
+        Travel.OpenAreasFireFields(extradelay)
+        Sleep(delay)
+
+        /** @type {cPoint} */
+        Local Btn := cPoint(1661, 574)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("Mount Moltenfury leaf not found while trying to travel.")
+            Out.I("Mount Moltenfury not found while trying to travel.")
         }
         Sleep(delay + extradelay)
+        Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
     }
 
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindMountMoltenfuryZone() {
-        ; Change this if used
-        ;return Rects.FireF.MountMoltenfuryTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to Mount Moltenfury
-        ;Button := Points.Areas.FireFields.MountMoltenfury
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("Mount Moltenfury travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
-    }
 }

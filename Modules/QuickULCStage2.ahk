@@ -8,6 +8,7 @@ BossSweep(*) {
 
     Travel.OpenAreasSacredNebula()
     Travel.ScrollResetToTop()
+    Sleep(50)
 
     If (!BossButtonClickNWait(cPoint(1863, 440))) { ; TheExaltedBridge
         ULCStageExitCheck("bs 1")
@@ -35,6 +36,7 @@ BossSweep(*) {
     cPoint(1133, 1181).ClickButtonActive() ; EnergyBelt tab
     Sleep(20)
     cPoint(1133, 1181).ClickButtonActive() ; EnergyBelt tab
+    Travel.ScrollResetToTop()
     Sleep(150)
 
     If (!BossButtonClickNWait(cPoint(1866, 640))) { ; BluePlanetEdge
@@ -44,11 +46,6 @@ BossSweep(*) {
 
     If (!BossButtonClickNWait(cPoint(1864, 774))) { ; GreenPlanetEdge
         ULCStageExitCheck("bs 6")
-        Return false
-    }
-
-    If (!BossButtonClickNWait(cPoint(1866, 640))) { ; BluePlanetEdge
-        ULCStageExitCheck("bs 7")
         Return false
     }
 

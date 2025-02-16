@@ -2,6 +2,11 @@
 
 /**
  * Timer class
+ * @property Running Timer active state
+ * @property StartedAt Timer running start Time
+ * @method CoolDown(Time, Bool) Wait for time (ms), then set bool false
+ * @method CoolDownS(Time, Bool) Wait for time (s), then set bool false
+ * @method CoolDownM(Time, Bool) Wait for time (m), then set bool false
  */
 Class Timer {
     /** @type {Boolean} Timer active state */
@@ -10,7 +15,7 @@ Class Timer {
     StartedAt := 0
 
     /**
-     * Wait period, then change this.isOnCD to false
+     * Wait period, then change &bool to false
      * @param Time (ms) Time to cool down for
      * @param bool ByRef boolean of state
      */
@@ -27,7 +32,7 @@ Class Timer {
     }
 
     /**
-     * Wait period, then change this.isOnCD to false
+     * Wait period, then change &bool to false
      * @param Time (sec) Time to cool down for
      * @param bool ByRef boolean of state
      */
@@ -44,7 +49,7 @@ Class Timer {
     }
 
     /**
-     * Wait period, then change this.isOnCD to false
+     * Wait period, then change &bool to false
      * @param Time (mins) Time to cool down for
      * @param bool ByRef boolean of state
      */

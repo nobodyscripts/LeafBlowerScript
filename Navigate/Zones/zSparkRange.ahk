@@ -25,47 +25,18 @@ Class SparkRange extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.SacredNebula.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
-        Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local SparkRangeLeaf := this.FindSparkRangeZone()
-        If (SparkRangeLeaf) {
-            this.ClickTravelButton(SparkRangeLeaf, delay + extradelay)
+        Travel.OpenAreasSacredNebula(extradelay)
+        Sleep(delay)
+
+        /** @type {cPoint} */
+        Local Btn := cPoint(1857, 1055)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("Spark Range leaf not found while trying to travel.")
+            Out.I("Spark Range not found while trying to travel.")
         }
         Sleep(delay + extradelay)
+        Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindSparkRangeZone() {
-        ; Change this if used
-        ;return Rects.SacredN.SparkRangeTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to Spark Range
-        ;Button := Points.Areas.SacredNebula.SparkRange
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("Spark Range travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

@@ -10,9 +10,10 @@
 
 /* 
 TODO
-Wait for blc portal still waiting too long to buy blc portal
-inner cursed pyramid getting stuck on favourites tab
+Wait for blc portal still getting held up in spots
+inner cursed pyramid getting stuck
 Max mlc setting leaf powered alb/others randomly off
+little too much sleep on openareasleafgalaxy/resetscrolling
 
 */
 
@@ -148,6 +149,7 @@ ULCStage2(*) {
     BossSweep()
     ULCStageExitCheck("s2 1")
 
+    EquipBlower()
     Travel.MountMoltenfury.GoTo()
     Sleep(5000)
 
@@ -165,15 +167,13 @@ ULCStage2(*) {
     If (!WaitForBioOrTimeout()) {
         TimeWarpIfLackingBio()
     }
-
     Shops.Biotite.Max()
-    WaitForMalaOrTimeout()
 
+    WaitForMalaOrTimeout()
     Shops.Malachite.Max()
 
     Travel.SparkRange.GoTo()
     WaitForHemaOrTimeout()
-
     Shops.Hematite.Max()
 
     Travel.PlasmaForest.GoTo()

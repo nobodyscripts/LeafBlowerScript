@@ -4,6 +4,7 @@
 #Include Spammers.ahk
 #Include cPoints.ahk
 #Include cRects.ahk
+#Include cToolTip.ahk
 
 
 ; ------------------- Functions -------------------
