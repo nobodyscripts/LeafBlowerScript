@@ -53,7 +53,7 @@ StoreMineCurrency(*) {
     Points.Mine.Transmute.AllCDiasToSpheres.Click()
     ; or
     ; Points.Mine.Transmute.AllCDiasToFuel.Click()
-    
+
     Sleep(50)
 }
 ;@endregion
@@ -69,14 +69,8 @@ MaxBVItems(*) {
     AscendBtn := cPoint(1855, 646)
     /** @type {cPoint} */
     ScrapBtn := cPoint(2136, 646)
-
-    BlockSlots := [
-        "13-1",
-        "8-4",
-        "9-4",
-        "10-4",
-        "8-5"
-    ]
+    /** @type {cPoint} */
+    SelectedIcon := cPoint(1788, 540)
 
     Columns := [
         391,
@@ -127,7 +121,8 @@ MaxBVItems(*) {
     }
     ResetModifierKeys()
     IsItemCraftable() {
-        If (CraftBtn.IsButtonActive()) {
+        ; Weirdly colour and point match for candy and random item
+        If (CraftBtn.IsButtonActive() && SelectedIcon.GetColour() != "0xAB5A53") {
             Return true
         } Else {
             Return false

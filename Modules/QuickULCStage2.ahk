@@ -181,7 +181,7 @@ PlacePlayerCenter(*) {
 
 WaitForElectricOrTimeout(*) {
     UlcWindow()
-    Shops.Malachite.GoTo()
+    Shops.Electric.GoTo()
     Travel.ScrollResetToTop()
     Sleep(50)
     /** @type {Timer} */

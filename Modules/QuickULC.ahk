@@ -251,9 +251,11 @@ ULCStage2(*) {
     Travel.AnteLeafton.GoTo()
     WaitForQuarkOrTimeout()
 
+    EquipSlap()
     Travel.PrimordialEthos.GoTo()
     WaitForBossKillOrTimeout()
 
+    EquipBlower()
     Travel.TenebrisField.GoTo()
     WaitFor40thDice()
 
@@ -550,12 +552,12 @@ WaitForQuarkOrTimeout(*) {
 
 GoToWoW(*) {
     UlcWindow()
-    Travel.PrimordialEthos.GoTo()
+    Travel.PrimordialEthos.GoTo() ; TODO needs fix
 }
 
 WaitFor40thDice() {
     UlcWindow()
-    Shops.Dice.GoTo()
+    ;Shops.Dice.GoTo()
     Out.D("TODO WaitFor40thDice")
     ; remember dlc will likely effect position
 
