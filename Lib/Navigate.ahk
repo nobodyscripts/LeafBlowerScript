@@ -15,6 +15,7 @@
 #Include ..\Navigate\Cards\Header.ahk
 #Include ..\Navigate\Claw\Header.ahk
 #Include ..\Navigate\Crafting\Header.ahk
+#Include ..\Navigate\Dice\Header.ahk
 #Include ..\Navigate\GemFarm\Header.ahk
 #Include ..\Navigate\Hyacinth\Header.ahk
 #Include ..\Navigate\Leafton\Header.ahk

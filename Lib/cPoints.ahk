@@ -18,6 +18,7 @@ Global Points := cPoints()
  * @property {cCardPoints} Card
  * @property {cClawPoints} Claw
  * @property {cCraftingPoints} Crafting
+ * @property {cCardPoints} Dice
  * @property {cGemFarmPoints} GemFarm
  * @property {cHyacinthPoints} Hyacinth
  * @property {cLeaftonPoints} Leafton
@@ -49,6 +50,9 @@ Class cPoints {
 
     /** @type {cCraftingPoints} Crafting points */
     Crafting := cCraftingPoints()
+
+    /** @type {cDicePoints} Dice points */
+    Dice := cDicePoints()
 
     /** @type {cGemFarmPoints} GemFarm points */
     GemFarm := cGemFarmPoints()

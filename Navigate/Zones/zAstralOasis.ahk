@@ -25,47 +25,18 @@ Class AstralOasis extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.QuarkAmbit.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
-        Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local AstralOasisLeaf := this.FindAstralOasisZone()
-        If (AstralOasisLeaf) {
-            this.ClickTravelButton(AstralOasisLeaf, delay + extradelay)
+        Travel.OpenAreasQuark(extradelay)
+        Sleep(delay)
+
+        /** @type {cPoint} */
+        Local Btn := cPoint(1861, 641)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("Astral Oasis leaf not found while trying to travel.")
+            Out.I("Astral Oasis not found while trying to travel.")
         }
         Sleep(delay + extradelay)
+        Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindAstralOasisZone() {
-        ; Change this if used
-        ;return Rects.QuarkA.AstralOasisTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to Astral Oasis
-        ;Button := Points.Areas.QuarkAmbit.AstralOasis
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("Astral Oasis travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

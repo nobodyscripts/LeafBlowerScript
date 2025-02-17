@@ -25,47 +25,20 @@ Class AnteLeafton extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.QuarkAmbit.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
-        Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local AnteLeaftonLeaf := this.FindAnteLeaftonZone()
-        If (AnteLeaftonLeaf) {
-            this.ClickTravelButton(AnteLeaftonLeaf, delay + extradelay)
+        Travel.OpenAreasQuark(extradelay)
+        Sleep(delay)
+        this.ScrollAmountDown(7)
+        Sleep(delay)
+
+        /** @type {cPoint} */
+        Local Btn := cPoint(1853, 729)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("Ante Leafton leaf not found while trying to travel.")
+            Out.I("Ante Leafton not found while trying to travel.")
         }
         Sleep(delay + extradelay)
+        Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindAnteLeaftonZone() {
-        ; Change this if used
-        ;return Rects.QuarkA.AnteLeaftonTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to Ante Leafton
-        ;Button := Points.Areas.QuarkAmbit.AnteLeafton
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("Ante Leafton travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

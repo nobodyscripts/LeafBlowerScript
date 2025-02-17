@@ -25,48 +25,18 @@ Class DimensionalTapestry extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.QuarkAmbit.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
-        Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local DimensionalTapestryLeaf := this.FindDimensionalTapestryZone()
-        If (DimensionalTapestryLeaf) {
-            this.ClickTravelButton(DimensionalTapestryLeaf, delay + extradelay)
+        Travel.OpenAreasQuark(extradelay)
+        Sleep(delay)
+
+        /** @type {cPoint} */
+        Local Btn := cPoint(1859, 819)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("Dimensional Tapestry leaf not found while trying to travel."
-            )
+            Out.I("Dimensional Tapestry not found while trying to travel.")
         }
         Sleep(delay + extradelay)
+        Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindDimensionalTapestryZone() {
-        ; Change this if used
-        ;return Rects.QuarkA.DimensionalTapestryTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to Dimensional Tapestry
-        ;Button := Points.Areas.QuarkAmbit.DimensionalTapestry
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("Dimensional Tapestry travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

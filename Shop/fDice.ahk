@@ -55,7 +55,7 @@ Class sDice extends Zone {
     ;@endregion
 
     IsOnDiceBag() {
-        If (Points.Dice.OddsButton.IsButtonActive()) {
+        If (Points.Dice.ShowCount.IsButtonActive()) {
             Return true
         }
         Return false

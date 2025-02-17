@@ -9,7 +9,7 @@ Class sElectric extends Zone {
     GoTo() {
         UlcWindow()
         Travel.ClosePanelIfActive()
-        cPoint(2002, 1307).Click() ; Shop button
+        cPoint(1981, 1303).Click() ; Shop button
         Sleep(150)
     }
 

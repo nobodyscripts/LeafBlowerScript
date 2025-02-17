@@ -27,6 +27,7 @@
  * @method IsBackground
  * @method GetColourByZone
  * @method GetZoneByColour
+ * @method ColourIdent
  */
 Class Colours {
     ;@region Properties
@@ -296,6 +297,30 @@ Class Colours {
             }
         }
         Return false
+    }
+    ;@endregion
+
+    ;@region ColourIdent()
+    /**
+     * Output a string to name whatever input colour is provided
+     * Eg 0x97714A > "Panel background colour"
+     * Use .GetZoneByColour for zonesample colours
+     */
+    ColourIdent(input) {
+        switch (input) {
+            case this.Active: return "Active button"
+            case this.ActiveMouseOver: return "Active button mouse over"
+            case this.AfkActive: return "Active button afk mode"
+            case this.AfkActiveMouseover: return "Active button afk mode mouse over"
+            case this.DarkBgActive: return "Background dark mode button active"
+            case this.DarkBgActiveMouseover: return "Background dark mode button active mouse over"
+            case this.Inactive: return "Inactive button"
+            case this.Background: return "Panel background"
+            case this.BackgroundSpotify: return "Panel background spotify?"
+            case this.BackgroundAFK: return "Panel background afk mode"
+                
+            default: return "unknown"
+        }
     }
     ;@endregion
 }

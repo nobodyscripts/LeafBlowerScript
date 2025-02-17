@@ -28,15 +28,15 @@ Button_Click_ULC(thisGui, info) {
 
         GoToTrade()
         TradeForPyramid()
-        if(!Travel.TheCursedPyramid.GoTo()) { ; Get ancients to autobrew
+        If (!Travel.TheCursedPyramid.GoTo()) { ; Get ancients to autobrew
             Out.I("Could not travel to pyramid, exiting")
-            return
+            Return
         }
         EquipBlower()
         ULCStageExitCheck(11)
-    
+
         MaxPyramidFloors()
-    
+
     }
 
     optionsGUI.Add("Button", "default", "BLC Prestige")
@@ -120,8 +120,31 @@ Button_Click_ULC(thisGui, info) {
     optionsGUI.Add("Button", "default", "MaxMalaShop")
     .OnEvent("Click", Shops.Malachite.Max)
 
+    optionsGUI.Add("Button", "default", "MaxHemaShop")
+    .OnEvent("Click", Shops.Hematite.Max)
+
+    optionsGUI.Add("Button", "default", "MaxPlasmaShop")
+    .OnEvent("Click", Shops.Plasma.Max)
+
+    optionsGUI.Add("Button", "default", "MaxElectricShop")
+    .OnEvent("Click", Shops.Electric.Max)
+
+    optionsGUI.Add("Button", "default", "Open Dice")
+    .OnEvent("Click", OpenDice)
+
+    OpenDice(*) {
+        UlcWindow()
+        Shops.Dice.GoTo()
+    }
+
     optionsGUI.Add("Button", "default", "EnableBanks")
     .OnEvent("Click", EnableBanks)
+
+    optionsGUI.Add("Button", "default", "GoToWarden")
+    .OnEvent("Click", GoToWarden)
+
+    optionsGUI.Add("Button", "default", "GoToWoW")
+    .OnEvent("Click", GoToWoW)
 
     optionsGUI.Add("Button", "default ys", "Stage3")
     .OnEvent("Click", ULCStage3)

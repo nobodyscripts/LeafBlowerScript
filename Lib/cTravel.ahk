@@ -720,6 +720,7 @@ Class cTravel {
     ;@region ResetAreaScroll()
     /**
      * Swap tabs to reset scroll state in areas panel
+     * Resets tab to leaf galaxy
      * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      */
     ResetAreaScroll(delay := 0) {
@@ -801,7 +802,7 @@ Class cTravel {
 
     ;@region OpenAreasQuark()
     /**
-     * Opens the quark panel
+     * Opens the quark ambit panel
      * @param {number} extraDelay (optional): add ms to the sleep timers
      */
     OpenAreasQuark(extraDelay := 0) {
@@ -812,6 +813,20 @@ Class cTravel {
         Return false
     }
     ;@endregion
+
+    ;@region OpenAreasUmbralCluster()
+    /**
+     * Opens the UmbralCluster panel
+     * @param {number} extraDelay (optional): add ms to the sleep timers
+     */
+    OpenAreasUmbralCluster(extraDelay := 0) {
+        If (this.OpenAreas(false, extraDelay)) {
+            this.ResetScroll(Points.Areas.Favs.Tab, Points.Areas.UmbralCluster.Tab,
+                extraDelay)
+        }
+        Return false
+    }
+    ;@endregion 
 
     ;@region OpenAreasEvents()
     /**
@@ -865,8 +880,6 @@ Class cTravel {
     ;@region ClosePanel()
     /**
      * Closes open panels or opens settings if non open
-     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
-     * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
     ClosePanel() {
@@ -879,8 +892,6 @@ Class cTravel {
     ;@region ClosePanelIfActive()
     /**
      * Closes open panels if one is open
-     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
-     * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
     ClosePanelIfActive() {

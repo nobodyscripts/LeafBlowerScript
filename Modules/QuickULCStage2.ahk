@@ -26,7 +26,7 @@ BossSweep(*) {
     }
 
     Travel.ScrollAmountDown(7)
-    Sleep(50)
+    Sleep(70)
 
     If (!BossButtonClickNWait(cPoint(1864, 708))) { ; SparkBubble
         ULCStageExitCheck("bs 4")
@@ -78,13 +78,14 @@ BossSweep(*) {
      */
     BossButtonClickNWait(point) {
         i := 0
-        While (point.ClickButtonActive() && i < 10) {
+        While (point.ClickButtonActive(5,5) && i < 10) {
             Sleep(34)
             i++
         }
         If (point.IsButton() && !point.IsButtonActive()) {
             WaitForBossKill()
         } Else {
+            Out.D("BossButtonClickWait: Button wasn't inactive " point.GetColour())
             Global ULCStageExit := true
             Return false
         }
@@ -188,7 +189,7 @@ WaitForElectricOrTimeout(*) {
     chargingcount := storagecount := 0
     Limiter.CoolDownS(30, &isactive)
     cPoint(1063, 628).TextTipAtCoord("Waiting for electric to build up", 14)
-    While (isactive || (storagecount > 3 && chargingcount > 3)) {
+    While (isactive && (storagecount < 3 && chargingcount < 3)) {
         If (cPoint(1861, 312).ClickButtonActive()) { ; storage
             storagecount++
         }

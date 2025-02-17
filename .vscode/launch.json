@@ -5,11 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "LBR Debug Attach",
+            "type": "autohotkey",
+            "request": "attach",
+            "port": "9002-9010",
+            "variableCategories": "recommend",
+            "useDebugDirective": true,
+            "useAutoJumpToError": true
+        },
+        {
             "name": "LBR Debug",
             "type": "autohotkey",
             "request": "launch",
             "program": "${workspaceFolder}/LeafBlowerV3.ahk",
-            "args": ["/ErrorStdOut=UTF-8"],
+            "args": [
+                "/ErrorStdOut=UTF-8"
+            ],
             "variableCategories": "recommend",
             "usePerfTips": {
                 "fontColor": "red",

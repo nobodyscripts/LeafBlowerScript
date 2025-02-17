@@ -18,12 +18,30 @@ little too much sleep on openareasleafgalaxy/resetscrolling
 */
 
 RunULC(*) {
-    Switch (GetULCStage()) {
+    StartTotal := A_Now
+    Time1 := ULCStage1()
+    Time2 := ULCStage2()
+    Time3 := ULCStage3()
+    EndTotal := A_Now
+
+    Out.I(
+        "Stage1 time: " Time1 "s"
+        "Stage2 time: " Time2 "s"
+        "Stage3 time: " Time3 "s"
+        "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
+    )
+    MsgBox(
+        "Stage1 time: " Time1 "s"
+        "Stage2 time: " Time2 "s"
+        "Stage3 time: " Time3 "s"
+        "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
+)
+/*     Switch (GetULCStage()) {
     Case 1:
         ULCStage1()
     default:
         ULCStage1()
-    }
+    } */
 }
 
 GetULCStage() {
@@ -121,6 +139,7 @@ ULCStage1(*) {
     MsgBox("Trade for pyramid requirements now if incomplete.`r`n"
         "After that start stage 2.`n"
     "Time taken: " DateDiff(Start, Finish, "Seconds") "s")
+    return DateDiff(Start, Finish, "Seconds")
     /*  ; TODO
     
     If (IsULCCraftSaved()) { ; TODO
@@ -144,6 +163,12 @@ ULCStage1(*) {
 }
 
 ULCStage2(*) {
+    /* 
+    wow Travel
+    Warden Travel
+    points.dice error
+    */
+    Start := A_Now
     UlcWindow()
 
     BossSweep()
@@ -231,9 +256,14 @@ ULCStage2(*) {
 
     Travel.TenebrisField.GoTo()
     WaitFor40thDice()
+
+    Finish := A_Now
+    MsgBox("Time taken: " DateDiff(Start, Finish, "Seconds") "s")
+    return DateDiff(Start, Finish, "Seconds")
 }
 
 ULCStage3(*) {
+    Start := A_Now
     ; Prep for ulc after unlock
     BuyMaxCardPacks()
 
@@ -244,6 +274,10 @@ ULCStage3(*) {
     StoreMineCurrency()
 
     EquipBlower()
+    
+    Finish := A_Now
+    MsgBox("Time taken: " DateDiff(Start, Finish, "Seconds") "s")
+    return DateDiff(Start, Finish, "Seconds")
 }
 
 TriggerULC(*) {
@@ -511,7 +545,7 @@ GoToLeaftonPit(*) {
 
 WaitForQuarkOrTimeout(*) {
     UlcWindow()
-
+    Out.D("TODO WaitForQuarkOrTimeout")
 }
 
 GoToWoW(*) {
@@ -522,6 +556,7 @@ GoToWoW(*) {
 WaitFor40thDice() {
     UlcWindow()
     Shops.Dice.GoTo()
+    Out.D("TODO WaitFor40thDice")
     ; remember dlc will likely effect position
 
     ;cPoint(354, 395) ; 40th dice

@@ -25,47 +25,18 @@ Class TenebrisField extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.UmbralCluster.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
-        Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local TenebrisFieldLeaf := this.FindTenebrisFieldZone()
-        If (TenebrisFieldLeaf) {
-            this.ClickTravelButton(TenebrisFieldLeaf, delay + extradelay)
+        Travel.OpenAreasUmbralCluster(extradelay)
+        Sleep(delay)
+
+        /** @type {cPoint} */
+        Local Btn := cPoint(1862, 440)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("Tenebris Field leaf not found while trying to travel.")
+            Out.I("The Fabric of the Leafverse not found while trying to travel.")
         }
         Sleep(delay + extradelay)
+        Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindTenebrisFieldZone() {
-        ; Change this if used
-        ;return Rects.UmbralCluster.TenebrisFieldTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to Tenebris Field
-        ;Button := Points.Areas.UmbralCluster.TenebrisField
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("Tenebris Field travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

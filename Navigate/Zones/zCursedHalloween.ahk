@@ -26,9 +26,6 @@ Class CursedHalloween extends Zone {
             SetTimer(ToolTip, -5000)
             Return false
         }
-        ; Click the LG tab after checking halloween
-        Points.Areas.LeafGalaxy.Tab.Click(101)
-        Sleep(150)
         this.ResetAreaScroll() ; Reset incase
         Sleep(150)
         this.ScrollAmountDown(46) ; Scroll down

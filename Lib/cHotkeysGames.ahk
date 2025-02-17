@@ -132,6 +132,10 @@ Class cHotkeysGames extends cHotkeys {
         ControlSend("{" this.GetHotkey("EquipSwordGearLoadout") "}", , Window.Title)
     }
 
+    EquipElectricGearLoadout() {
+        ControlSend("{" this.GetHotkey("EquipElectricGearLoadout") "}", , Window.Title)
+    }
+
     ;These are not currently used so you can ignore the keybinds below
     /*
     

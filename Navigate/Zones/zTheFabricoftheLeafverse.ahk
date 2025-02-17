@@ -25,50 +25,20 @@ Class TheFabricoftheLeafverse extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.SoulRealm.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
-        Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local TheFabricoftheLeafverseLeaf := this.FindTheFabricoftheLeafverseZone()
-        If (TheFabricoftheLeafverseLeaf) {
-            this.ClickTravelButton(TheFabricoftheLeafverseLeaf, delay +
-                extradelay)
+        Travel.OpenAreasSoulRealm(extradelay)
+        Sleep(delay)
+        this.ScrollAmountDown(7, scrolldelay)
+        Sleep(delay)
+
+        /** @type {cPoint} */
+        Local Btn := cPoint(1862, 612)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I(
-                "The Fabric of the Leafverse leaf not found while trying to travel."
-            )
+            Out.I("The Fabric of the Leafverse not found while trying to travel.")
         }
         Sleep(delay + extradelay)
+        Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindTheFabricoftheLeafverseZone() {
-        ; Change this if used
-        ;return Rects.SoulR.TheFabricoftheLeafverseTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to The Fabric of the Leafverse
-        ;Button := Points.Areas.SoulRealm.TheFabricoftheLeafverse
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("The Fabric of the Leafverse travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

@@ -25,47 +25,18 @@ Class PlanckScope extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.QuarkAmbit.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
-        Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local PlanckScopeLeaf := this.FindPlanckScopeZone()
-        If (PlanckScopeLeaf) {
-            this.ClickTravelButton(PlanckScopeLeaf, delay + extradelay)
+        Travel.OpenAreasQuark(extradelay)
+        Sleep(delay)
+
+        /** @type {cPoint} */
+        Local Btn := cPoint(1861, 974)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("Planck Scope leaf not found while trying to travel.")
+            Out.I("Planck Scope not found while trying to travel.")
         }
         Sleep(delay + extradelay)
+        Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindPlanckScopeZone() {
-        ; Change this if used
-        ;return Rects.QuarkA.PlanckScopeTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to Planck Scope
-        ;Button := Points.Areas.QuarkAmbit.PlanckScope
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("Planck Scope travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

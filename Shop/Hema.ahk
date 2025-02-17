@@ -9,7 +9,7 @@ Class sHematite extends Zone {
     GoTo() {
         UlcWindow()
         Travel.ClosePanelIfActive()
-        cPoint(1685, 556).Click() ; Shop button
+        cPoint(1691, 1308).Click() ; Shop button
         Sleep(150)
     }
 

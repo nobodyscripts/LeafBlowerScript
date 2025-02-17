@@ -7,6 +7,22 @@ Global Shops := cShops()
 
 /**
  * @module cShops
+ * @property {sBiotite} Biotite Biotite shop class
+ * @property {sCards} Cards Cards shop class
+ * @property {sCoal} Coal Coal shop class
+ * @property {sDice} Dice Dice shop class
+ * @property {sElectric} Electric Electric shop class
+ * @property {sHematite} Hematite Hematite shop class
+ * @property {sMalachite} Malachite Malachite shop class
+ * @property {sMine} Mine Mine shop class
+ * @property {sMLC} MLC MLC shop class
+ * @property {sMulch} Mulch Mulch shop class
+ * @property {sPlasma} Plasma Plasma shop class
+ * @property {sPyramid} Pyramid Pyramid shop class
+ * @property {sSacred} Sacred Sacred shop class
+ * @property {sSoulForge} SoulForge SoulForge shop class
+ * @property {sSoulShop} SoulShop SoulShop shop class
+ * 
  * @method OpenGemShop Open gem shop panel
  * @method OpenTrades Open trades panel
  * @method OpenPets Open pets panel
@@ -25,9 +41,6 @@ Global Shops := cShops()
  * @method OpenBluePortal Open blue portal (prestige) panel
  * @method OpenConverters Open converters panel
  * 
- * @property {sCards} Cards Cards shop class
- * @property {sDice} Dice Dice shop class
- * @property {sMine} Mine Mine shop class
  * 
  */
 Class cShops {
@@ -63,7 +76,6 @@ Class cShops {
     ;@region OpenTrades()
     /**
      * Open Trades panel, closes others first
-     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
@@ -106,7 +118,6 @@ Class cShops {
     ;@region OpenBank()
     /**
      * Open Bank panel, closes others first
-     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
@@ -291,8 +302,7 @@ Class cShops {
 
     ;@region OpenGoldPortal()
     /**
-     * Open Gold portal (prestige 1) panel, closes others first
-     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
+     * Open Gold portal (prestige 1) panel, closes others firs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
@@ -307,7 +317,6 @@ Class cShops {
     ;@region OpenRedPortal()
     /**
      * Open Red portal (prestige 2) panel, closes others first
-     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
@@ -322,7 +331,6 @@ Class cShops {
     ;@region OpenGreenPortal()
     /**
      * Open Green portal (prestige 3) panel, closes others first
-     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
@@ -337,7 +345,6 @@ Class cShops {
     ;@region OpenBluePortal()
     /**
      * Open Blue portal (prestige 1) panel, closes others first
-     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
@@ -352,7 +359,6 @@ Class cShops {
     ;@region OpenConverters()
     /**
      * Open Converters panel, closes others first
-     * @param {Integer} reset Use ResetAreaScroll or not to swap tabs
      * @param {Integer} delay Additional delay to NavigateTime for slow points
      * @returns {Boolean} Is panel active
      */
@@ -411,6 +417,12 @@ Class cShops {
      * @type {sPlasma} 
      */
     Plasma := sPlasma()
+
+    /**
+     * Shop class for Plasma
+     * @type {sPlasma} 
+     */
+    Electric := sElectric()
 
     /**
      * Shop class for Coal
