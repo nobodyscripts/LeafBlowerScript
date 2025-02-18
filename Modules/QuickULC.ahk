@@ -146,35 +146,12 @@ ULCStage1(*) {
 
     MaxPyramidFloors()
     GoToTrade()
+
+    ; Trade wait
     gToolTip.CenterMS("Waiting for trades to complete", 120050)
     Sleep(120050)
-    Stage1Cleanup()
-    Finish := A_Now
-    Out.I("Stage one completed in " DateDiff(Start, Finish, "Seconds") " seconds.") 
-    Return DateDiff(Start, Finish, "Seconds")
-    /*  ; TODO
-    
-    If (IsULCCraftSaved()) { ; TODO
-        EquipBlower()
-    } Else {
-        CraftMoonLeafsAndPreset() ; TODO
-    }
-    
-    Travel.TheCursedPyramid.GoTo()
-    ; Do we just leave ancient to user?
-    WaitForAncients() ; TODO
-    
-    Shops.Pyramid.MaxFloor()
-    
-    tower travel
-    blc portal purchase
-    pyramid taxi
-    pyramid travel
-    
-    */
-}
 
-Stage1Cleanup(*) {
+
     GoToTrade()
     Sleep(100)
     cPoint(1970, 1087).ClickButtonActive() ; Collect all
@@ -186,6 +163,17 @@ Stage1Cleanup(*) {
         Return
     }
     WaitTillPyramidReset()
+    Finish := A_Now
+    Out.I("Stage one completed in " DateDiff(Start, Finish, "Seconds") " seconds.") 
+    Return DateDiff(Start, Finish, "Seconds")
+
+    /*  ; TODO
+    If (IsULCCraftSaved()) { ; TODO
+        EquipBlower()
+    } Else {
+        CraftMoonLeafsAndPreset() ; TODO
+    }    
+    */
 }
 
 ULCStage2(*) {
