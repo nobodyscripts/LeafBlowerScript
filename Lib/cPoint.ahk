@@ -189,9 +189,9 @@ Class cPoint {
                 .y)
             Return false
         }
-        MouseClick("left", this.x, this.y, , , "D")
+        MouseClick("Left", this.x, this.y, , , "D")
         Sleep(clickdelay)
-        MouseClick("left", this.x, this.y, , , "U")
+        MouseClick("Left", this.x, this.y, , , "U")
         ; Out.D("Clicking at " this.toStringDisplay())
     }
 
@@ -205,9 +205,9 @@ Class cPoint {
                 .y)
             Return false
         }
-        MouseClick("right", this.x, this.y, , , "D")
+        MouseClick("Right", this.x, this.y, , , "D")
         Sleep(clickdelay)
-        MouseClick("right", this.x, this.y, , , "U")
+        MouseClick("Right", this.x, this.y, , , "U")
         ; Out.D("Clicking at " this.toStringDisplay())
     }
 

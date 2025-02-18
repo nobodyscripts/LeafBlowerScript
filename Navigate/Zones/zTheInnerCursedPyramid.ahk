@@ -40,7 +40,12 @@ Class TheInnerCursedPyramid extends Zone {
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("The Inner Cursed Pyramid not found while trying to travel.")
+            If (Btn.IsButtonInactive()) {
+                Out.I("Button inactive when trying to travel.")
+            } Else {
+                Out.I("The Inner Cursed Pyramid not found while trying to travel. " 
+                Colours().ColourIdent(Btn.GetColour()))
+            }
         }
         Sleep(delay + extradelay)
         Return this.IsZone()

@@ -130,7 +130,7 @@ WaitForBLCPortal(*) {
     If (BlackFlaskStoreBtn.GetColour() = "0xFEF1D2" || BlackFlaskStoreBtn.IsButtonActive()) {
         BlackFlaskStoreBtn.ClickOffset(, , 50)
         Sleep(72)
-        if(!Window.IsPanel()) {
+        If (!Window.IsPanel()) {
             BlackFlaskStoreBtn.ClickOffset(, , 50)
             Sleep(72)
         }
@@ -254,11 +254,14 @@ PubTradeForCheese2500(*) {
 Use30minTimeWarp(*) {
     UlcWindow()
     Out.D("Use30minTimeWarp")
-    TTtab := cPoint(1810, 1177)
+    /** @type {cPoint} */
+    TTtab := cPoint(1761, 1163)
+    /** @type {cPoint} */
     BuyTW := cPoint(1592, 306)
+    /** @type {cPoint} */
     AvailableTW := cPoint(1744, 306)
     Shops.OpenGemShop()
-    TTtab.WaitUntilActiveButton()
+    TTtab.WaitUntilActiveButton(400, 20)
     If (!TTtab.IsButtonActive()) {
         Out.I("Found no time travel button, exiting.")
         Global ULCStageExit := true
@@ -267,12 +270,12 @@ Use30minTimeWarp(*) {
     ; Navigate to Time Travel tab
     TTtab.Click()
 
-    BuyTW.WaitUntilActiveButton()
+    BuyTW.WaitUntilActiveButton(400, 20)
 
     If (!AvailableTW.IsButtonActive()) {
         BuyTW.ClickButtonActive()
 
-        AvailableTW.WaitUntilActiveButton()
+        AvailableTW.WaitUntilActiveButton(400, 20)
 
         AvailableTW.ClickButtonActive()
         Sleep(100)
@@ -285,7 +288,7 @@ Use30minTimeWarp(*) {
 Use6hTimeWarp(*) {
     UlcWindow()
     Out.D("Use6hTimeWarp")
-    TTtab := cPoint(1810, 1177)
+    TTtab := cPoint(1761, 1163)
     BuyTW := cPoint(1592, 420)
     AvailableTW := cPoint(1744, 420)
     Shops.OpenGemShop()
@@ -316,7 +319,7 @@ Use6hTimeWarp(*) {
 Use24hTimeWarp(*) {
     UlcWindow()
     Out.D("Use24hTimeWarp")
-    TTtab := cPoint(1810, 1177)
+    TTtab := cPoint(1761, 1163)
     BuyTW := cPoint(1592, 530)
     AvailableTW := cPoint(1744, 530)
     Shops.OpenGemShop()
@@ -347,7 +350,7 @@ Use24hTimeWarp(*) {
 Use72hTimeWarp(*) {
     UlcWindow()
     Out.D("Use72hTimeWarp")
-    TTtab := cPoint(1810, 1177)
+    TTtab := cPoint(1761, 1163)
     BuyTW := cPoint(1592, 645)
     AvailableTW := cPoint(1744, 645)
     Shops.OpenGemShop()
@@ -400,15 +403,21 @@ MaxPyramidFloors() {
     Out.D("MaxPyramidFloors")
     Travel.ClosePanelIfActive()
     Sleep(100)
-    cPoint(1282, 622).Click() ; Open object
-    Sleep(100)
-    cPoint(537, 741).ClickButtonActive()
-    Sleep(100)
-    AmountToModifier(100)
-    Sleep(50)
-    cPoint(985, 462).ClickButtonActive() ; Decrease level
-    Sleep(50)
-    cPoint(1536, 462).ClickButtonActive() ; Increase level
-    Sleep(50)
-    ResetModifierKeys()
+    If (Window.IsPanel()) {
+        Travel.ClosePanelIfActive()
+    }
+    If (!Window.IsPanel()) {
+        cPoint(1282, 622).Click() ; Open object
+        
+        cPoint(537, 741).WaitUntilActiveButton(500,20)
+        cPoint(537, 741).ClickButtonActive()
+        Sleep(100)
+        AmountToModifier(100)
+        Sleep(50)
+        cPoint(985, 462).ClickButtonActive() ; Decrease level
+        Sleep(50)
+        cPoint(1536, 462).ClickButtonActive() ; Increase level
+        Sleep(50)
+        ResetModifierKeys()
+    }
 }

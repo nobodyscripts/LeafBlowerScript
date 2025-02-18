@@ -868,6 +868,9 @@ Class cTravel {
     OpenSettings(reset := false) {
         Out.V("OpenSettings")
         this.ClosePanelIfActive()
+        while(Window.IsPanel()) {
+            Sleep(17)
+        }
         GameKeys.ClosePanel()
         If (reset) {
             this.ResetAreaScroll()

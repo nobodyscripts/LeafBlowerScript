@@ -21,7 +21,7 @@ Class sCoal extends Zone {
         Shops.Coal.GoTo()
         Travel.ScrollResetToTop()
         Sleep(50)
-        cPoint(1686, 313) ; unlock mines
+        cPoint(1686, 313).ClickButtonActive() ; unlock mines
         Sleep(50)
         ;skip
         ;skip

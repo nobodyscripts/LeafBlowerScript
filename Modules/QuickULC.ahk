@@ -20,8 +20,20 @@ little too much sleep on openareasleafgalaxy/resetscrolling
 RunULC(*) {
     StartTotal := A_Now
     Time1 := ULCStage1()
+    if(!Time1) {
+        Out.I("Run aborted in stage 1")
+        Return 
+    }
     Time2 := ULCStage2()
+    if(!Time1) {
+        Out.I("Run aborted in stage 2")
+        Return 
+    }
     Time3 := ULCStage3()
+    if(!Time1) {
+        Out.I("Run aborted in stage 3")
+        Return 
+    }
     EndTotal := A_Now
 
     Out.I(
@@ -134,11 +146,11 @@ ULCStage1(*) {
 
     MaxPyramidFloors()
     GoToTrade()
-
+    gToolTip.CenterMS("Waiting for trades to complete", 2050)
+    Sleep(2050)
+    Stage1Cleanup()
     Finish := A_Now
-    MsgBox("Trade for pyramid requirements now if incomplete.`r`n"
-        "After that start stage 2.`n"
-        "Time taken: " DateDiff(Start, Finish, "Seconds") "s")
+    Out.I("Stage one completed in " DateDiff(Start, Finish, "Seconds") " seconds.") 
     Return DateDiff(Start, Finish, "Seconds")
     /*  ; TODO
     
@@ -162,6 +174,20 @@ ULCStage1(*) {
     */
 }
 
+Stage1Cleanup(*) {
+    GoToTrade()
+    Sleep(100)
+    cPoint(1970, 1087).ClickButtonActive() ; Collect all
+    Travel.TheCursedPyramid.GoTo()
+    Shops.Pyramid.MaxFloor()
+
+    If (!Travel.TheInnerCursedPyramid.GoTo()) {
+        Out.I("Could not travel to inner pyramid, exiting")
+        Return
+    }
+    WaitTillPyramidReset()
+}
+
 ULCStage2(*) {
     Start := A_Now
     UlcWindow()
@@ -173,6 +199,7 @@ ULCStage2(*) {
     Travel.MountMoltenfury.GoTo()
     Shops.Coal.GoTo()
     cPoint(1865, 535).WaitWhileColour(Colours().Background)
+    Sleep(1500)
     Shops.Coal.Max()
 
     GoToGF()
@@ -262,7 +289,7 @@ ULCStage2(*) {
     WaitFor40thDice()
 
     Finish := A_Now
-    MsgBox("Time taken: " DateDiff(Start, Finish, "Seconds") "s")
+    Out.I("Stage two completed in " DateDiff(Start, Finish, "Seconds") " seconds.") 
     Return DateDiff(Start, Finish, "Seconds")
 }
 
@@ -270,7 +297,7 @@ ULCStage3(*) {
     Start := A_Now
     ; Prep for ulc after unlock
 
-   ; DisableDiceAutos()
+    ; DisableDiceAutos()
 
     BuyMaxCardPacks()
 
@@ -283,7 +310,7 @@ ULCStage3(*) {
     EquipBlower()
 
     Finish := A_Now
-    MsgBox("Time taken: " DateDiff(Start, Finish, "Seconds") "s")
+    Out.I("Stage two completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
     Return DateDiff(Start, Finish, "Seconds")
 }
 
@@ -404,7 +431,7 @@ WaitForBossKillOrTimeout(seconds := 30) {
             Return false
         }
     }
-    ToolTip(,,,15)
+    ToolTip(, , , 15)
     Out.I("Wait for boss kill timed out.")
     Return false
 }
@@ -505,7 +532,7 @@ WaitForZoneChange(maxloops := 20, interval := 50) {
     zonesample := Points.Misc.ZoneSample
     curCol := zonesample.GetColour()
     zonesample.WaitWhileColour(curCol, maxloops, interval)
-    ToolTip(,,,15)
+    ToolTip(, , , 15)
 }
 
 GoToSoulTemple(*) {

@@ -78,7 +78,7 @@ BossSweep(*) {
      */
     BossButtonClickNWait(point) {
         i := 0
-        While (point.ClickButtonActive(5,5) && i < 10) {
+        While (point.ClickButtonActive(5, 5) && i < 10) {
             Sleep(34)
             i++
         }
@@ -161,6 +161,7 @@ WaitForHemaOrTimeout(*) {
 PlacePlayerPlasmaLoc(*) {
     UlcWindow()
     Travel.ClosePanelIfActive()
+    Travel.ClosePanelIfActive()
     Sleep(100)
     cPoint(1275, 195).ClickR(100)
     Sleep(100)
@@ -169,6 +170,7 @@ PlacePlayerPlasmaLoc(*) {
 
 PlacePlayerCenter(*) {
     UlcWindow()
+    Travel.ClosePanelIfActive()
     Travel.ClosePanelIfActive()
     Sleep(100)
     cPoint(1282, 622).ClickR(100)
@@ -207,7 +209,7 @@ GoToDeathbook(*) {
 
 BuyDeathbook(*) {
     UlcWindow()
-    GameKeys.ClosePanel()
+    Travel.ClosePanelIfActive()
     Sleep(100)
     cPoint(1282, 622).Click() ; Open DB
     Sleep(50)
@@ -216,21 +218,25 @@ BuyDeathbook(*) {
 
 MaxCryptFloors(*) {
     UlcWindow()
-    if (!Travel.SoulTemple.IsZone()) {
+    If (!Travel.SoulTemple.IsZone()) {
         Out.D("Trying to max crypt floors in wrong zone")
-        return
+        Return
     }
     Out.D("Max crypt floors")
     Travel.ClosePanelIfActive()
-    gToolTip.CenterMS("Maxing crypt floors", 500)
     Sleep(100)
-    cPoint(1282, 622).Click() ; Open object
-    cPoint(1464, 457).WaitUntilActiveButton(500,20)
-    cPoint(537, 670).ClickButtonActive()
-    Sleep(50)
-    AmountToModifier(100)
-    Sleep(50)
-    cPoint(1536, 462).ClickButtonActive() ; Increase level
-    Sleep(50)
-    ResetModifierKeys()
+    Travel.ClosePanelIfActive()
+    Sleep(100)
+    If (!Window.Ispanel()) {
+        cPoint(1282, 622).Click() ; Open object
+        gToolTip.CenterMS("Maxing crypt floors", 500)
+        cPoint(1464, 457).WaitUntilActiveButton(500, 20)
+        cPoint(537, 670).ClickButtonActive()
+        Sleep(50)
+        AmountToModifier(100)
+        Sleep(50)
+        cPoint(1536, 462).ClickButtonActive() ; Increase level
+        Sleep(50)
+        ResetModifierKeys()
+    }
 }

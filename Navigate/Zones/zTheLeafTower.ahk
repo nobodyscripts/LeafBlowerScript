@@ -113,6 +113,12 @@ Class TheLeafTower extends Zone {
         Sleep(delay)
         LSButton.ClickButtonActive(, , delay, NavigateTime + delay)
         If (!this.IsZone("Leafsink Harbor")) {
+            If (LSButton.IsButtonInactive()) {
+                Out.I("Button inactive when trying to travel.")
+            } Else {
+                Out.I("The Leaf Tower not found while trying to travel. " 
+                Colours().ColourIdent(LSButton.GetColour()))
+            }
             Out.I("The Leaf Tower travel: Leafsink harbor travel failed.")
             Return false
         }
