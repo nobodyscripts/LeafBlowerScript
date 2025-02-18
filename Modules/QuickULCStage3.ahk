@@ -69,8 +69,6 @@ MaxBVItems(*) {
     AscendBtn := cPoint(1855, 646)
     /** @type {cPoint} */
     ScrapBtn := cPoint(2136, 646)
-    /** @type {cPoint} */
-    SelectedIcon := cPoint(1788, 540)
 
     Columns := [
         391,
@@ -109,13 +107,10 @@ MaxBVItems(*) {
             btn := cPoint(cvalue, rvalue)
             If (!btn.IsBackground()) {
                 btn.ClickOffset()
-                Sleep(70)
-                If (IsItemCraftable()) {
-                    Out.D("r " rid " c " cid " Iscraftable bv item")
+                Sleep(100)
+                If (IsItemCraftable(rid, cid)) {
                     CraftBtn.Click()
-                    Sleep(70)
-                } Else {
-                    Out.D("r " rid " c " cid " ignored")
+                    Sleep(34)
                 }
             }
         }
@@ -123,16 +118,18 @@ MaxBVItems(*) {
     ResetModifierKeys()
     Sleep(70)
 
-    IsItemCraftable() {
-        ; Weirdly colour and point match for candy and random item
-        If (CraftBtn.IsButtonActive() && SelectedIcon.GetColour() != "0xAB5A53") {
+    IsItemCraftable(rid, cid) {
+        /** @type {cPoint} */
+        SelectedIconCandy := cPoint(1788, 520) ; 0xFFE976
+        /** @type {cPoint} */
+        SelectedIconBox := cPoint(1777, 532) ; 0xAB5A53
+        If (CraftBtn.IsButtonActive() && !SelectedIconCandy.IsColour("0xFFE976") &&
+        !SelectedIconBox.IsColour("0xAB5A53")) {
             Return true
         } Else {
+            Out.D("r " rid " c " cid " ignored")
             Return false
         }
-    }
-    IsItemBlocked(r, c) {
-
     }
 }
 ;@endregion
