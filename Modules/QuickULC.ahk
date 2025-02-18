@@ -269,6 +269,9 @@ ULCStage2(*) {
 ULCStage3(*) {
     Start := A_Now
     ; Prep for ulc after unlock
+
+   ; DisableDiceAutos()
+
     BuyMaxCardPacks()
 
     BuyMaxBVPacks()

@@ -173,3 +173,23 @@ BuyMaxBVPacks(*) {
     ResetModifierKeys()
 }
 ;@endregion
+
+;@region DisableDiceAutos()
+/**
+ * 
+ */
+DisableDiceAutos(*) {
+    Out.D("DisableDiceAutos")
+    UlcWindow()
+    DiceShop := cPoint(253, 1150)
+    Travel.ClosePanelIfActive()
+    DiceShop.ClickOffset()
+    Sleep(50)
+    Points.Dice.Tab.Options.ClickButtonActive()
+    Sleep(50)
+    BasicAutoRoll := cPoint(370, 392).ClickButtonActive()
+    Sleep(50)
+    PowerAutoRoll := cPoint(369, 479).ClickButtonActive()
+    Sleep(50)
+}
+;@endregion
