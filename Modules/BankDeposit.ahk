@@ -221,3 +221,38 @@ ResetBankScroll() {
     }
 }
 ;@endregion
+
+;@region EnableBanks()
+EnableBanks(*) {
+    UlcWindow()
+    Shops.OpenBank(72)
+    Buttons := [
+        Points.Bank.TabLG,
+        Points.Bank.TabSN,
+        Points.Bank.TabEB,
+        Points.Bank.TabFF,
+        Points.Bank.TabSR,
+        Points.Bank.TabQA
+    ]
+    AutoDeposit := cPoint(1378, 780)
+    AutoRSS := cPoint(1378, 927)
+    For (id, point IN Buttons) {
+        point.ClickOffsetUntilColour(Colours().BankTabSelectedActiveMouseover)
+        Sleep(50)
+        AutoDeposit.ClickButtonActive()
+        Sleep(50)
+    }
+    AmountToModifier(25)
+    Sleep(50)
+    Travel.ScrollAmountDown(1)
+    Sleep(50)
+    ResetModifierKeys()
+    Sleep(50)
+    For (id, point IN Buttons) {
+        point.ClickOffsetUntilColour(Colours().BankTabSelectedActiveMouseover)
+        Sleep(50)
+        AutoRSS.ClickButtonActive()
+        Sleep(50)
+    }
+}
+;@endregion

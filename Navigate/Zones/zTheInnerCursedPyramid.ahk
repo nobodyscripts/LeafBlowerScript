@@ -30,15 +30,20 @@ Class TheInnerCursedPyramid extends Zone {
         ;Travel.ScrollResetToTop()
         this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
-        /** @type {cPoint} */
-        Local Btn := cPoint(1663, 936)
+        If (!cPoint(1663, 936).IsButton()) {
+            /** @type {cPoint} */
+            Local Btn := cPoint(1865, 942)
+        } Else {
+            /** @type {cPoint} */
+            Local Btn := cPoint(1663, 936)
+        }
         If (Btn.IsButtonActive()) {
-            Btn.ClickButtonActive(,,delay + extradelay)
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
             Out.I("The Inner Cursed Pyramid not found while trying to travel.")
         }
         Sleep(delay + extradelay)
-        return this.IsZone()
+        Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
     }
 }

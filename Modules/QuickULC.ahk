@@ -8,7 +8,7 @@
 ; Curse brewing off, auto craft off, ancient autobuy taxi off, fixed nav
 ; hide max shops off, auto buy max leaves in blc set to 0,
 
-/* 
+/*
 TODO
 Wait for blc portal still getting held up in spots
 inner cursed pyramid getting stuck
@@ -35,12 +35,12 @@ RunULC(*) {
         "Stage2 time: " Time2 "s"
         "Stage3 time: " Time3 "s"
         "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
-)
-/*     Switch (GetULCStage()) {
-    Case 1:
-        ULCStage1()
-    default:
-        ULCStage1()
+    )
+    /*     Switch (GetULCStage()) {
+        Case 1:
+            ULCStage1()
+        default:
+            ULCStage1()
     } */
 }
 
@@ -62,9 +62,9 @@ ULCStage1(*) {
     EquipBlower()
     GetDailyReward()
 
-    if(!Travel.TheLeafTower.MaxTowerFloor()) {
+    If (!Travel.TheLeafTower.MaxTowerFloor()) {
         Out.I("Could not travel to tower, exiting")
-        return
+        Return
     }
     WaitForFloor100()
     ULCStageExitCheck(1)
@@ -72,10 +72,10 @@ ULCStage1(*) {
     TriggerMLC()
     WaitForPortalAnimation()
     ULCStageExitCheck(2)
-    
-    if(!Travel.TheLeafTower.MaxTowerFloor()) {
+
+    If (!Travel.TheLeafTower.MaxTowerFloor()) {
         Out.I("Could not travel to tower, exiting")
-        return
+        Return
     }
     ULCStageExitCheck(3)
 
@@ -99,10 +99,10 @@ ULCStage1(*) {
     Out.D("Max mlc")
     Shops.MLC.Max()
     ULCStageExitCheck(6)
-    
-    if(!Travel.TheInnerCursedPyramid.GoTo()) { ; Get ancients to autobrew
+
+    If (!Travel.TheInnerCursedPyramid.GoTo()) { ; Get ancients to autobrew
         Out.I("Could not travel to inner pyramid, exiting")
-        return
+        Return
     }
     WaitTillPyramidReset()
     ULCStageExitCheck(7)
@@ -111,9 +111,9 @@ ULCStage1(*) {
     ULCStageExitCheck(8)
 
     EquipMulchSword() ; Activates unique leaves/pets on loadout too
-    if(!Travel.CursedKokkaupunki.GoTo()) {
+    If (!Travel.CursedKokkaupunki.GoTo()) {
         Out.I("Could not travel to CursedKokkaupunki, exiting")
-        return
+        Return
     }
     ULCStageExitCheck(9)
     Sleep(3000)
@@ -126,9 +126,9 @@ ULCStage1(*) {
     GoToTrade()
     EquipBlower()
     TradeForPyramid()
-    if(!Travel.TheCursedPyramid.GoTo()) { ; Get ancients to autobrew
+    If (!Travel.TheCursedPyramid.GoTo()) { ; Get ancients to autobrew
         Out.I("Could not travel to pyramid, exiting")
-        return
+        Return
     }
     ULCStageExitCheck(11)
 
@@ -138,8 +138,8 @@ ULCStage1(*) {
     Finish := A_Now
     MsgBox("Trade for pyramid requirements now if incomplete.`r`n"
         "After that start stage 2.`n"
-    "Time taken: " DateDiff(Start, Finish, "Seconds") "s")
-    return DateDiff(Start, Finish, "Seconds")
+        "Time taken: " DateDiff(Start, Finish, "Seconds") "s")
+    Return DateDiff(Start, Finish, "Seconds")
     /*  ; TODO
     
     If (IsULCCraftSaved()) { ; TODO
@@ -152,22 +152,17 @@ ULCStage1(*) {
     ; Do we just leave ancient to user?
     WaitForAncients() ; TODO
     
-    Shops.Pyramid.MaxFloor() 
+    Shops.Pyramid.MaxFloor()
     
     tower travel
     blc portal purchase
     pyramid taxi
     pyramid travel
-
+    
     */
 }
 
 ULCStage2(*) {
-    /* 
-    wow Travel
-    Warden Travel
-    points.dice error
-    */
     Start := A_Now
     UlcWindow()
 
@@ -176,8 +171,8 @@ ULCStage2(*) {
 
     EquipBlower()
     Travel.MountMoltenfury.GoTo()
-    Sleep(5000)
-
+    Shops.Coal.GoTo()
+    cPoint(1865, 535).WaitWhileColour(Colours().Background)
     Shops.Coal.Max()
 
     GoToGF()
@@ -209,17 +204,24 @@ ULCStage2(*) {
     Shops.Plasma.Max()
 
     EquipBlower()
-
     Travel.TerrorGraveyard.GoTo()
+    PlacePlayerCenter()
     BuyDeathbook()
 
     ; Fight soul crypt floor 1
     Travel.SoulCrypt.GoTo()
+    Sleep(100)
     WaitForZoneChange() ; Let lack of taxi be a trigger
+    Sleep(70)
+    If (!Travel.SoulTemple.IsZone()) {
+        Travel.SoulTemple.GoTo()
+    }
+    Sleep(70)
     MaxCryptFloors() ; Max 20
 
     ; Fight soul crypt floor 20
     Travel.SoulCrypt.GoTo()
+    Sleep(100)
     WaitForZoneChange()
 
     Travel.TheHollow.GoTo()
@@ -261,7 +263,7 @@ ULCStage2(*) {
 
     Finish := A_Now
     MsgBox("Time taken: " DateDiff(Start, Finish, "Seconds") "s")
-    return DateDiff(Start, Finish, "Seconds")
+    Return DateDiff(Start, Finish, "Seconds")
 }
 
 ULCStage3(*) {
@@ -276,10 +278,10 @@ ULCStage3(*) {
     StoreMineCurrency()
 
     EquipBlower()
-    
+
     Finish := A_Now
     MsgBox("Time taken: " DateDiff(Start, Finish, "Seconds") "s")
-    return DateDiff(Start, Finish, "Seconds")
+    Return DateDiff(Start, Finish, "Seconds")
 }
 
 TriggerULC(*) {
@@ -288,11 +290,6 @@ TriggerULC(*) {
     Sleep(50)
     cPoint(1710, 498).ClickButtonActive()
     Sleep(8000)
-}
-
-EnableBanks(*) {
-    UlcWindow()
-
 }
 
 GoToTrade(*) {
@@ -345,9 +342,9 @@ WaitForBossKill(*) {
     Out.D("Waitforbosskill")
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
-    cPoint(1063, 628).TextTipAtCoord("Waiting for boss kill", 14)
+    gToolTip.Center("Waiting for Boss Kill")
     Loop {
-        if (!Window.IsActive()) {
+        If (!Window.IsActive()) {
             Return false
         }
         IsTimerLong := IsBossTimerLong()
@@ -372,7 +369,7 @@ WaitForBossKill(*) {
         GameKeys.TriggerViolin()
         Sleep(17)
     }
-    ToolTip(, , , 14)
+    ToolTip(, , , 15)
 }
 
 WaitForBossKillOrTimeout(seconds := 30) {
@@ -380,6 +377,7 @@ WaitForBossKillOrTimeout(seconds := 30) {
     Out.D("WaitForBossKillOrTimeout")
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
+    gToolTip.Center("Waiting for Boss Kill")
     /** @type {Timer} */
     Limiter := Timer()
     Limiter.CoolDownS(seconds, &isactive)
@@ -403,6 +401,7 @@ WaitForBossKillOrTimeout(seconds := 30) {
             Return false
         }
     }
+    ToolTip(,,,15)
     Out.I("Wait for boss kill timed out.")
     Return false
 }
@@ -498,10 +497,12 @@ GoToSoulCrypt(*) {
 WaitForZoneChange(maxloops := 20, interval := 50) {
     UlcWindow()
     Out.D("WaitForZoneChange")
+    gToolTip.Center("Waiting for zone change")
     /** @type {cPoint} */
     zonesample := Points.Misc.ZoneSample
     curCol := zonesample.GetColour()
     zonesample.WaitWhileColour(curCol, maxloops, interval)
+    ToolTip(,,,15)
 }
 
 GoToSoulTemple(*) {

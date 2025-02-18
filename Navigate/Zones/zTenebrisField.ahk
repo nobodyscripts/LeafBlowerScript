@@ -33,7 +33,7 @@ Class TenebrisField extends Zone {
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("The Fabric of the Leafverse not found while trying to travel.")
+            Out.I("Tenebris Field not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         Return this.IsZone()

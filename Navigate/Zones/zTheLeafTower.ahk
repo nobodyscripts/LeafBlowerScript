@@ -38,7 +38,7 @@ Class TheLeafTower extends Zone {
             Out.I("The Leaf Tower leaf not found while trying to travel.")
         }
         Sleep(delay + extradelay)
-        return this.IsZone()
+        Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
     }
 
@@ -78,16 +78,34 @@ Class TheLeafTower extends Zone {
     MaxTowerFloor(delay := 72) {
         Out.D("Leaf tower max floor")
         Travel.OpenAreasLeafGalaxy()
-        Travel.ScrollResetToTop()
         ; Scroll down if needed
         this.ScrollAmountDown(14, NavigateTime)
-
-        /** @type {cPoint} Button to travel to Leafsink Harbor*/
-        LSButton := cPoint(1853, 759)
-        /** @type {cPoint} */
-        TowerMax := cPoint(2134, 977)
-        /** @type {cPoint} */
-        TowerArea := cPoint(1861, 914)
+        Sleep(delay)
+        If (cPoint(2135, 999).IsButton()) {
+            ; If ars zone not unlocked buttons shift
+            Out.D("Ars zone not unlocked using alt points")
+            /** @type {cPoint} Button to travel to Leafsink Harbor*/
+            LSButton := cPoint(1864, 782)
+            /** @type {cPoint} */
+            TowerMax := cPoint(2135, 999)
+            /** @type {cPoint} */
+            TowerArea := cPoint(1862, 939)
+        } Else If (cPoint(2135, 1022).IsButton()) {
+            ; If ars zone not unlocked buttons shift
+            /** @type {cPoint} Button to travel to Leafsink Harbor*/
+            LSButton := cPoint(1867, 806)
+            /** @type {cPoint} */
+            TowerMax := cPoint(2135, 1022)
+            /** @type {cPoint} */
+            TowerArea := cPoint(1869, 958)
+        } Else {
+            /** @type {cPoint} Button to travel to Leafsink Harbor*/
+            LSButton := cPoint(1853, 759)
+            /** @type {cPoint} */
+            TowerMax := cPoint(2134, 977)
+            /** @type {cPoint} */
+            TowerArea := cPoint(1861, 914)
+        }
 
         LSButton.WaitUntilActiveButton(200, 17)
         ; If no button we are misaligned
@@ -103,7 +121,7 @@ Class TheLeafTower extends Zone {
         TowerMax.ClickButtonActive(, , delay, NavigateTime + delay)
         Sleep(delay)
         TowerMax.ClickButtonActive(, , delay, NavigateTime + delay)
-        
+
         TowerArea.WaitUntilActiveButton(200, 17)
         While (TowerArea.ClickButtonActive(, , delay, NavigateTime + delay)) {
             Sleep(delay)

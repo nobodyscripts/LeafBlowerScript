@@ -102,13 +102,12 @@ WaitForBioOrTimeout(*) {
     /** @type {Timer} */
     Limiter := Timer()
     Limiter.CoolDownS(60, &isactive)
-
-    cPoint(1063, 628).TextTipAtCoord("Waiting for Malachite unlock availability", 14)
+    gToolTip.Center("Waiting for Malachite unlock availability")
     While (cPoint(1683, 305).IsButton() && isactive) {
         cPoint(1683, 305).ClickButtonActive() ; Unlock Malachite
         Sleep(50)
     }
-    ToolTip(, , , 14)
+    gToolTip.CenterDel()
     If (cPoint(1683, 305).IsButton()) {
         Return false
     }
@@ -128,13 +127,12 @@ WaitForMalaOrTimeout(*) {
     Shops.Malachite.GoTo()
     Travel.ScrollResetToTop()
     Sleep(50)
-
-    cPoint(1063, 628).TextTipAtCoord("Waiting for Hematite unlock availability", 14)
+    gToolTip.Center("Waiting for Hematite unlock availability")
     While (cPoint(1691, 305).IsButton()) {
         cPoint(1691, 305).ClickButtonActive() ; unlock hema
         Sleep(50)
     }
-    ToolTip(, , , 14)
+    gToolTip.CenterDel()
 }
 
 WaitForHemaOrTimeout(*) {
@@ -143,8 +141,7 @@ WaitForHemaOrTimeout(*) {
     Travel.ScrollResetToTop()
     Sleep(50)
 
-    cPoint(1063, 628).TextTipAtCoord("Waiting for Energy and Shards unlock availability", 14)
-
+    gToolTip.Center("Waiting for Energy and Shards unlock availability")
     While (cPoint(1686, 311).IsButton()) {
         cPoint(1686, 311).ClickButtonActive() ; Unlock energy
         Sleep(150)
@@ -158,7 +155,7 @@ WaitForHemaOrTimeout(*) {
         cPoint(1686, 766).ClickButtonActive() ; Unlock transformation shards
         Sleep(50)
     }
-    ToolTip(, , , 14)
+    gToolTip.CenterDel()
 }
 
 PlacePlayerPlasmaLoc(*) {
@@ -187,8 +184,8 @@ WaitForElectricOrTimeout(*) {
     /** @type {Timer} */
     Limiter := Timer()
     chargingcount := storagecount := 0
-    Limiter.CoolDownS(30, &isactive)
-    cPoint(1063, 628).TextTipAtCoord("Waiting for electric to build up", 14)
+    Limiter.CoolDownS(15, &isactive)
+    gToolTip.Center("Waiting for Electric to build up")
     While (isactive && (storagecount < 3 && chargingcount < 3)) {
         If (cPoint(1861, 312).ClickButtonActive()) { ; storage
             storagecount++
@@ -199,7 +196,7 @@ WaitForElectricOrTimeout(*) {
         }
         Sleep(250)
     }
-    ToolTip(, , , 14)
+    gToolTip.CenterDel()
 }
 
 GoToDeathbook(*) {
@@ -219,12 +216,18 @@ BuyDeathbook(*) {
 
 MaxCryptFloors(*) {
     UlcWindow()
+    if (!Travel.SoulTemple.IsZone()) {
+        Out.D("Trying to max crypt floors in wrong zone")
+        return
+    }
+    Out.D("Max crypt floors")
     Travel.ClosePanelIfActive()
+    gToolTip.CenterMS("Maxing crypt floors", 500)
     Sleep(100)
     cPoint(1282, 622).Click() ; Open object
-    Sleep(100)
-    cPoint(537, 741).ClickButtonActive()
-    Sleep(100)
+    cPoint(1464, 457).WaitUntilActiveButton(500,20)
+    cPoint(537, 670).ClickButtonActive()
+    Sleep(50)
     AmountToModifier(100)
     Sleep(50)
     cPoint(1536, 462).ClickButtonActive() ; Increase level

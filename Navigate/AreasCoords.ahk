@@ -170,7 +170,7 @@ Class cAreasQuarkAPoints {
  */
 Class cAreasUmbralClusterPoints {
     /** @type {cPoint} Tab for areas panel (Umbral Cluster) */
-    Tab := cPoint(1760, 1164)
+    Tab := cPoint(1809, 1162)
 }
 ;@endregion
 

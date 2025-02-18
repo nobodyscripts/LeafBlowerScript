@@ -33,7 +33,11 @@ Class TheHollow extends Zone {
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("The Hollow not found while trying to travel.")
+            If (Btn.IsButtonInactive()) {
+                Out.I("Button inactive travaling to The Hollow.")
+            } Else {
+                Out.I("The Hollow not found while trying to travel.")
+            }
         }
         Sleep(delay + extradelay)
         Return this.IsZone()

@@ -424,11 +424,10 @@ TradeForPyramid(*) {
     }
 
     IsPlayerOutOfCheese() {
-        If (cRect(1705, 298, 2143, 1025).PixelSearch(Colours().Inactive)) {
+        If (cRect(1746, 298, 1750, 1025).PixelSearch(Colours().Inactive)) {
             Return true
         }
         Return false
-
     }
 
 }

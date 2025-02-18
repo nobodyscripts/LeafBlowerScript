@@ -51,6 +51,10 @@ Class Colours {
     BackgroundSpotify := "0x97714B"
     /** @type {String} 0x6A4F34 */
     BackgroundAFK := "0x6A4F34"
+    /** @type {String} 0x78D063 */
+    BankTabSelectedActive := "0x78D063"
+    /** @type {String} 0xA0EC84 */
+    BankTabSelectedActiveMouseover := "0xA0EC84"
 
     ;@region ZoneColours
     /** @type {Map} Contains zone sample colours */
@@ -318,6 +322,7 @@ Class Colours {
             case this.Background: return "Panel background"
             case this.BackgroundSpotify: return "Panel background spotify?"
             case this.BackgroundAFK: return "Panel background afk mode"
+            case this.BankTabSelectedActive: return "Bank tab selected active"
                 
             default: return "unknown"
         }

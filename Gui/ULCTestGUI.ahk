@@ -25,18 +25,45 @@ Button_Click_ULC(thisGui, info) {
     .OnEvent("Click", test)
 
     test(*) {
+        UlcWindow()
+       
+        Travel.TheHollow.GoTo()
+        WaitForBossKillOrTimeout()
+/* 
+        Travel.AstralOasis.GoTo()
+        WaitForBossKillOrTimeout()
 
-        GoToTrade()
-        TradeForPyramid()
-        If (!Travel.TheCursedPyramid.GoTo()) { ; Get ancients to autobrew
-            Out.I("Could not travel to pyramid, exiting")
-            Return
-        }
+        Travel.DimensionalTapestry.GoTo()
+        WaitForBossKillOrTimeout()
+
+        Travel.PlanckScope.GoTo()
+        WaitForBossKillOrTimeout()
+
+        Travel.SoulForge.GoTo()
+        Shops.SoulForge.Max()
+        Shops.SoulShop.Max()
+
+        EnableBanks()
+
+        Travel.SoulTemple.GoTo()
+        MaxCryptFloors() ; Max 100
+
+        Travel.SoulCrypt.GoTo()
+
+        Travel.TheFabricoftheLeafverse.GoTo() ; Warden
+        WaitForBossKillOrTimeout()
+
+        Travel.AnteLeafton.GoTo()
+        WaitForQuarkOrTimeout()
+
+        EquipSlap()
+        Travel.PrimordialEthos.GoTo()
+        WaitForBossKillOrTimeout()
+
         EquipBlower()
-        ULCStageExitCheck(11)
-
-        MaxPyramidFloors()
-
+        Travel.TenebrisField.GoTo()
+        WaitFor40thDice()
+ */
     }
 
     optionsGUI.Add("Button", "default", "BLC Prestige")
