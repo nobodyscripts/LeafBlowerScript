@@ -101,25 +101,28 @@ MaxBVItems(*) {
     Sleep(100)
     Points.Borbventures.InvTab.Click()
     Sleep(100)
+    AmountToModifier(25000)
+    Sleep(70)
     For (rid, rvalue IN Rows) {
         For (cid, cvalue IN Columns) {
             /** @type cPoint */
             btn := cPoint(cvalue, rvalue)
             If (!btn.IsBackground()) {
                 btn.ClickOffset()
-                Sleep(50)
-                AmountToModifier(25000)
-                Sleep(50)
+                Sleep(70)
                 If (IsItemCraftable()) {
+                    Out.D("r " rid " c " cid " Iscraftable bv item")
                     CraftBtn.Click()
-                    Sleep(50)
-                    ResetModifierKeys()
-                    Sleep(50)
+                    Sleep(70)
+                } Else {
+                    Out.D("r " rid " c " cid " ignored")
                 }
             }
         }
     }
     ResetModifierKeys()
+    Sleep(70)
+
     IsItemCraftable() {
         ; Weirdly colour and point match for candy and random item
         If (CraftBtn.IsButtonActive() && SelectedIcon.GetColour() != "0xAB5A53") {
