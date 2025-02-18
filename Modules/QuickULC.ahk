@@ -146,8 +146,8 @@ ULCStage1(*) {
 
     MaxPyramidFloors()
     GoToTrade()
-    gToolTip.CenterMS("Waiting for trades to complete", 2050)
-    Sleep(2050)
+    gToolTip.CenterMS("Waiting for trades to complete", 120050)
+    Sleep(120050)
     Stage1Cleanup()
     Finish := A_Now
     Out.I("Stage one completed in " DateDiff(Start, Finish, "Seconds") " seconds.") 
