@@ -272,6 +272,7 @@ borderless fullscreen
 - Add check to IsAspectRatioCorrect for setting from options.dat if failed,
 output colour found, suggest rtx dynamic vibrance off, image scaling off,
 digital vibrance off
+- Add file size check to log files
 
 - Features:
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.

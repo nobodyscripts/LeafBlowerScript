@@ -96,12 +96,13 @@ BossSweep(*) {
 WaitForBioOrTimeout(*) {
     UlcWindow()
     Shops.Biotite.GoTo()
+    Sleep(50)
     Travel.ScrollResetToTop()
     Sleep(50)
 
     /** @type {Timer} */
     Limiter := Timer()
-    Limiter.CoolDownS(60, &isactive)
+    Limiter.CoolDownS(30, &isactive)
     gToolTip.Center("Waiting for Malachite unlock availability")
     While (cPoint(1683, 305).IsButton() && isactive) {
         cPoint(1683, 305).ClickButtonActive() ; Unlock Malachite
@@ -120,14 +121,16 @@ TimeWarpIfLackingBio(*) {
     ; Use6hTimeWarp()
     ; Use24hTimeWarp()
     ; Use72hTimeWarp()
-
+    Travel.ClosePanelIfActive()
+    Sleep(50)
     Shops.Biotite.GoTo()
+    Sleep(50)
     Travel.ScrollResetToTop()
     Sleep(50)
 
     /** @type {Timer} */
     Limiter := Timer()
-    Limiter.CoolDownS(30, &isactive)
+    Limiter.CoolDownS(45, &isactive)
     gToolTip.Center("Waiting for Malachite unlock availability")
     While (cPoint(1683, 305).IsButton() && isactive) {
         cPoint(1683, 305).ClickButtonActive() ; Unlock Malachite

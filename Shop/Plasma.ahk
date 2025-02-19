@@ -14,6 +14,25 @@ Class sPlasma extends Zone {
     }
 
     /**
+     * FirstPass shop upgrades
+     */
+    FirstPass(*) {
+        UlcWindow()
+        Shops.Plasma.GoTo()
+        Travel.ScrollResetToTop()
+        Sleep(50)
+        ; skip
+        ; skip
+        cPoint(1862, 536).ClickButtonActive() ; Blow off
+        Sleep(50)
+        Travel.ScrollAmountDown(7)
+        Sleep(50)
+        cPoint(1858, 756).ClickButtonActive() ; craft backpack
+        Sleep(50)
+        cPoint(1859, 867).ClickButtonActive() ; craft sets
+        Sleep(50)
+    }
+    /**
      * Max shop upgrades
      */
     Max(*) {

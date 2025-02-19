@@ -36,14 +36,14 @@ TriggerBLC(*) {
     Shops.OpenRedPortal()
     /** @type {cPoint} */
     crunchbtn := cPoint(1354, 532)
-    crunchbtn.WaitUntilActiveButton(100, 20)
+    crunchbtn.WaitUntilActiveButton(100, 30)
     If (!crunchbtn.IsButtonActive()) {
         Out.I("Didn't find blc crunch button, aborting.")
         Global ULCStageExit := true
         Return
     }
     crunchbtn.ClickButtonActive()
-    crunchbtn.WaitUntilActiveButton()
+    crunchbtn.WaitUntilActiveButton(100, 20)
     crunchbtn.ClickButtonActive()
     Sleep(34)
     crunchbtn.ClickButtonActive()
@@ -55,14 +55,14 @@ TriggerMLC(*) {
     crunchbtn := cPoint(1354, 532)
     Out.D("TriggerMLC")
     Shops.OpenGreenPortal()
-    crunchbtn.WaitUntilActiveButton(100, 20)
+    crunchbtn.WaitUntilActiveButton(100, 30)
     If (!crunchbtn.IsButtonActive()) {
         Out.I("Didn't find mlc crunch button, aborting.")
         Global ULCStageExit := true
         Return
     }
     crunchbtn.ClickButtonActive()
-    crunchbtn.WaitUntilActiveButton()
+    crunchbtn.WaitUntilActiveButton(100, 20)
     crunchbtn.ClickButtonActive()
     Sleep(34)
     crunchbtn.ClickButtonActive()

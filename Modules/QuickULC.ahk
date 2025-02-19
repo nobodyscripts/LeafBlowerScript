@@ -6,7 +6,7 @@
 #Include QuickULCStage3.ahk
 
 ; Curse brewing off, auto craft off, ancient autobuy taxi off, fixed nav
-; hide max shops off, auto buy max leaves in blc set to 0,
+; hide max shops off, auto buy max leaves in blc set to 0, bv min scale off, 60%
 
 /*
 TODO
@@ -212,6 +212,8 @@ ULCStage2(*) {
 
     Travel.PlasmaForest.GoTo()
     PlacePlayerPlasmaLoc()
+    Sleep(5000)
+    Shops.Plasma.FirstPass()
     EquipElectric()
     WaitForElectricOrTimeout()
     Shops.Electric.Max()
@@ -233,7 +235,7 @@ ULCStage2(*) {
     ; Fight soul crypt floor 1
     Travel.SoulCrypt.GoTo()
     Sleep(100)
-    WaitForZoneChange(1200, 50) ; 60s Let lack of taxi be a trigger
+    WaitForZoneChange(1300, 50) ; 60s Let lack of taxi be a trigger
     Sleep(70)
     If (!Travel.SoulTemple.IsZone()) {
         Travel.SoulTemple.GoTo()
@@ -246,7 +248,7 @@ ULCStage2(*) {
     EquipSlap()
     Travel.SoulCrypt.GoTo()
     Sleep(100)
-    WaitForZoneChange(1200, 50) ; 60s
+    WaitForZoneChange(1300, 50) ; 60s
     If (!Travel.SoulTemple.IsZone()) {
         Travel.SoulTemple.GoTo()
     }
@@ -285,17 +287,28 @@ ULCStage2(*) {
     }
 
     Travel.SoulForge.GoTo()
+    Sleep(500)
     Shops.SoulForge.Max()
+    Sleep(500)
+    Shops.SoulForge.Max()
+    Sleep(500)
     Shops.SoulShop.Max()
+    Sleep(500)
+    Shops.SoulShop.Max()
+    Sleep(500)
+    Shops.SoulShop.Max()
+    Sleep(100)
 
     EnableBanks()
+    Sleep(100)
 
     Travel.SoulTemple.GoTo()
+    Sleep(100)
     MaxCryptFloors() ; Max 100
 
     Travel.SoulCrypt.GoTo()
     Sleep(100)
-    WaitForZoneChange(1200, 50) ; 60s
+    WaitForZoneChange(1300, 50) ; 60s
     If (!Travel.SoulTemple.IsZone()) {
         Travel.SoulTemple.GoTo()
     }
@@ -307,9 +320,10 @@ ULCStage2(*) {
         Out.I(msg)
         Return
     }
+    Sleep(100)
 
-    Travel.AnteLeafton.GoTo()
-    WaitForQuarkOrTimeout()
+    ;Travel.AnteLeafton.GoTo()
+    ;WaitForQuarkOrTimeout()
 
     EquipSlap()
     Travel.PrimordialEthos.GoTo()
@@ -321,8 +335,8 @@ ULCStage2(*) {
     }
 
     EquipBlower()
-    Travel.TenebrisField.GoTo()
-    WaitFor40thDice()
+    ;Travel.TenebrisField.GoTo()
+    ;WaitFor40thDice()
 
     Finish := A_Now
     Out.I("Stage two completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
