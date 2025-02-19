@@ -54,4 +54,21 @@ Class sSoulForge extends Zone {
         cPoint(1860, 941).ClickButtonActive() ; craft hammer
         Sleep(50)
     }
+
+    Critical() {
+        UlcWindow()
+        Shops.SoulForge.GoTo()
+        Travel.ScrollResetToTop()
+        Sleep(50)
+        cPoint(1861, 756).ClickButtonActive() ; soul forge compressor
+        Sleep(50)
+        Travel.ScrollAmountDown(7)
+        Sleep(50)
+        While (cPoint(1858, 857).IsButtonActive()) {
+            cPoint(1858, 857).ClickButtonActive() ; soul crypt max floors
+            Sleep(100)
+            cPoint(1859, 970).ClickButtonActive() ; leaf damage multiplier
+            Sleep(100)
+        }
+    }
 }

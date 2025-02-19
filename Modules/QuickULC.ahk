@@ -238,7 +238,7 @@ ULCStage2(*) {
     ; Fight soul crypt floor 1
     Travel.SoulCrypt.GoTo()
     Sleep(100)
-    WaitForZoneChange(1300, 50) ; 60s Let lack of taxi be a trigger
+    WaitForZoneChange("Soul Temple", 1300, 50) ; 60s Let lack of taxi be a trigger
     Sleep(70)
     If (!Travel.SoulTemple.IsZone()) {
         Travel.SoulTemple.GoTo()
@@ -251,10 +251,7 @@ ULCStage2(*) {
     EquipSlap()
     Travel.SoulCrypt.GoTo()
     Sleep(100)
-    WaitForZoneChange(1300, 50) ; 60s
-    If (!Travel.SoulTemple.IsZone()) {
-        Travel.SoulTemple.GoTo()
-    }
+    WaitForZoneChange("Soul Temple", 1300, 50) ; 60s
     EquipBlower()
 
     Travel.TheHollow.GoTo()
@@ -300,7 +297,13 @@ ULCStage2(*) {
     Shops.SoulShop.Max()
     Sleep(500)
     Shops.SoulShop.Max()
+    Sleep(500)
+    Shops.SoulForge.Max()
+    Sleep(500)
+    Shops.SoulShop.Max()
     Sleep(100)
+    Shops.SoulForge.Critical()
+    Sleep(500)
 
     EnableBanks()
     Sleep(100)
@@ -311,7 +314,7 @@ ULCStage2(*) {
 
     Travel.SoulCrypt.GoTo()
     Sleep(100)
-    WaitForZoneChange(1300, 50) ; 60s
+    WaitForZoneChange("Soul Temple", 1300, 50) ; 60s
     If (!Travel.SoulTemple.IsZone()) {
         Travel.SoulTemple.GoTo()
     }
@@ -582,15 +585,17 @@ GoToSoulCrypt(*) {
  * @param maxloops 
  * @param interval 
  */
-WaitForZoneChange(maxloops := 200, interval := 50) {
+WaitForZoneChange(target, maxloops := 200, interval := 50) {
     UlcWindow()
+    /** @type {Colours} */
+    col := Colours()
+    
     Out.D("WaitForZoneChange")
     time := maxloops * interval / 1000
     gToolTip.Center("Waiting for zone change for " time "s")
     /** @type {cPoint} */
     zonesample := Points.Misc.ZoneSample
-    curCol := zonesample.GetColour()
-    zonesample.WaitWhileColour(curCol, maxloops, interval)
+    zonesample.WaitWhileNotColour(col.GetColourByZone(target), maxloops, interval)
     ToolTip(, , , 15)
 }
 
