@@ -64,10 +64,10 @@ Class sMulch extends Zone {
         Sleep(50)
         Travel.ScrollAmountDown(14)
         Sleep(50)
+        cPoint(1860, 577).ClickButtonActive() ; leaf trader (trade count) altered order
+        Sleep(50)
         cPoint(1860, 350).ClickButtonActive() ; trade caps
         Sleep(50)
         cPoint(1859, 462).ClickButtonActive() ; trade optimization
-        Sleep(50)
-        cPoint(1860, 577).ClickButtonActive() ; leaf trader (trade count)
     }
 }

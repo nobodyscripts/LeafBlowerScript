@@ -123,8 +123,19 @@ MaxBVItems(*) {
         SelectedIconCandy := cPoint(1788, 520) ; 0xFFE976
         /** @type {cPoint} */
         SelectedIconBox := cPoint(1777, 532) ; 0xAB5A53
+        /*
+        Socks:
+        Icon Candy: 0x6E8390
+        Icon Box: 0xAEC3BE
+        
+        Ring:
+        Icon Candy: 0x14B046
+        Icon Box: 0x97714A
+        */
         If (CraftBtn.IsButtonActive() && !SelectedIconCandy.IsColour("0xFFE976") &&
-        !SelectedIconBox.IsColour("0xAB5A53")) {
+        !SelectedIconBox.IsColour("0xAB5A53") &&
+        !SelectedIconCandy.IsColour("0x6CD820") &&
+        !SelectedIconBox.IsColour("0x14B046")) {
             Return true
         } Else {
             Out.D("r " rid " c " cid " ignored")

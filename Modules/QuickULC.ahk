@@ -128,7 +128,7 @@ ULCStage1(*) {
         Return
     }
     ULCStageExitCheck(9)
-    Sleep(3000)
+    Sleep(5000)
 
     Shops.Mulch.BuyTrade()
     Shops.Mulch.Max()
@@ -176,6 +176,9 @@ ULCStage1(*) {
 }
 
 ULCStage2(*) {
+
+    /* Add check for SN tab being active in areas, if not then 
+    go unlock and do pyramid first */
     Start := A_Now
     UlcWindow()
 
