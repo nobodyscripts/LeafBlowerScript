@@ -7,7 +7,7 @@ Class sSacred extends Zone {
     GoTo() {
         UlcWindow()
         Travel.ClosePanelIfActive()
-        cPoint(1496, 1306) ; Shop button
+        cPoint(1477, 1318).Click() ; Shop button
     }
     
     Max(*) {

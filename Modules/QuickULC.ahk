@@ -20,19 +20,19 @@ little too much sleep on openareasleafgalaxy/resetscrolling
 RunULC(*) {
     StartTotal := A_Now
     Time1 := ULCStage1()
-    if(!Time1) {
+    If (!Time1) {
         Out.I("Run aborted in stage 1")
-        Return 
+        Return
     }
     Time2 := ULCStage2()
-    if(!Time1) {
+    If (!Time1) {
         Out.I("Run aborted in stage 2")
-        Return 
+        Return
     }
     Time3 := ULCStage3()
-    if(!Time1) {
+    If (!Time1) {
         Out.I("Run aborted in stage 3")
-        Return 
+        Return
     }
     EndTotal := A_Now
 
@@ -151,7 +151,6 @@ ULCStage1(*) {
     gToolTip.CenterMS("Waiting for trades to complete", 120050)
     Sleep(120050)
 
-
     GoToTrade()
     Sleep(100)
     cPoint(1970, 1087).ClickButtonActive() ; Collect all
@@ -164,7 +163,7 @@ ULCStage1(*) {
     }
     WaitTillPyramidReset()
     Finish := A_Now
-    Out.I("Stage one completed in " DateDiff(Start, Finish, "Seconds") " seconds.") 
+    Out.I("Stage one completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
     Return DateDiff(Start, Finish, "Seconds")
 
     /*  ; TODO
@@ -172,7 +171,7 @@ ULCStage1(*) {
         EquipBlower()
     } Else {
         CraftMoonLeafsAndPreset() ; TODO
-    }    
+    }
     */
 }
 
@@ -223,33 +222,67 @@ ULCStage2(*) {
     PlacePlayerCenter()
     BuyDeathbook()
 
+    Travel.VilewoodCemetery.GoTo()
+    Shops.Sacred.Max()
+    Travel.TheLoneTree.GoTo()
+    Shops.Sacred.Max()
+    Travel.TheLeafTower.GoTo() ; Optional
+    Sleep(2000)
+
+    EquipSlap()
     ; Fight soul crypt floor 1
     Travel.SoulCrypt.GoTo()
     Sleep(100)
-    WaitForZoneChange() ; Let lack of taxi be a trigger
+    WaitForZoneChange(1200, 50) ; 60s Let lack of taxi be a trigger
     Sleep(70)
     If (!Travel.SoulTemple.IsZone()) {
         Travel.SoulTemple.GoTo()
     }
+    EquipBlower()
     Sleep(70)
     MaxCryptFloors() ; Max 20
 
     ; Fight soul crypt floor 20
+    EquipSlap()
     Travel.SoulCrypt.GoTo()
     Sleep(100)
-    WaitForZoneChange()
+    WaitForZoneChange(1200, 50) ; 60s
+    If (!Travel.SoulTemple.IsZone()) {
+        Travel.SoulTemple.GoTo()
+    }
+    EquipBlower()
 
     Travel.TheHollow.GoTo()
-    WaitForBossKillOrTimeout()
+    If (!WaitForBossKillOrTimeout()) {
+        msg := "Failed to kill Mirage, exiting."
+        Msgbox(msg)
+        Out.I(msg)
+        Return
+    }
 
     Travel.AstralOasis.GoTo()
-    WaitForBossKillOrTimeout()
+    If (!WaitForBossKillOrTimeout()) {
+        msg := "Failed to kill Arbiter, exiting."
+        Msgbox(msg)
+        Out.I(msg)
+        Return
+    }
 
     Travel.DimensionalTapestry.GoTo()
-    WaitForBossKillOrTimeout()
+    If (!WaitForBossKillOrTimeout()) {
+        msg := "Failed to kill Cosmic Dragon, exiting."
+        Msgbox(msg)
+        Out.I(msg)
+        Return
+    }
 
     Travel.PlanckScope.GoTo()
-    WaitForBossKillOrTimeout()
+    If (!WaitForBossKillOrTimeout()) {
+        msg := "Failed to kill Artificer, exiting."
+        Msgbox(msg)
+        Out.I(msg)
+        Return
+    }
 
     Travel.SoulForge.GoTo()
     Shops.SoulForge.Max()
@@ -261,23 +294,38 @@ ULCStage2(*) {
     MaxCryptFloors() ; Max 100
 
     Travel.SoulCrypt.GoTo()
+    Sleep(100)
+    WaitForZoneChange(1200, 50) ; 60s
+    If (!Travel.SoulTemple.IsZone()) {
+        Travel.SoulTemple.GoTo()
+    }
 
     Travel.TheFabricoftheLeafverse.GoTo() ; Warden
-    WaitForBossKillOrTimeout()
+    If (!WaitForBossKillOrTimeout()) {
+        msg := "Failed to kill Warden, exiting."
+        Msgbox(msg)
+        Out.I(msg)
+        Return
+    }
 
     Travel.AnteLeafton.GoTo()
     WaitForQuarkOrTimeout()
 
     EquipSlap()
     Travel.PrimordialEthos.GoTo()
-    WaitForBossKillOrTimeout()
+    If (!WaitForBossKillOrTimeout()) {
+        msg := "Failed to kill WoW, exiting."
+        Msgbox(msg)
+        Out.I(msg)
+        Return
+    }
 
     EquipBlower()
     Travel.TenebrisField.GoTo()
     WaitFor40thDice()
 
     Finish := A_Now
-    Out.I("Stage two completed in " DateDiff(Start, Finish, "Seconds") " seconds.") 
+    Out.I("Stage two completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
     Return DateDiff(Start, Finish, "Seconds")
 }
 
@@ -395,7 +443,7 @@ WaitForBossKillOrTimeout(seconds := 30) {
     Out.D("WaitForBossKillOrTimeout")
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
-    gToolTip.Center("Waiting for Boss Kill")
+    gToolTip.Center("Waiting " seconds "s for Boss Kill")
     /** @type {Timer} */
     Limiter := Timer()
     Limiter.CoolDownS(seconds, &isactive)
@@ -512,10 +560,16 @@ GoToSoulCrypt(*) {
     Travel.SoulCrypt.GoTo()
 }
 
-WaitForZoneChange(maxloops := 20, interval := 50) {
+/**
+ * Default 10s period
+ * @param maxloops 
+ * @param interval 
+ */
+WaitForZoneChange(maxloops := 200, interval := 50) {
     UlcWindow()
     Out.D("WaitForZoneChange")
-    gToolTip.Center("Waiting for zone change")
+    time := maxloops * interval / 1000
+    gToolTip.Center("Waiting for zone change for " time "s")
     /** @type {cPoint} */
     zonesample := Points.Misc.ZoneSample
     curCol := zonesample.GetColour()

@@ -55,6 +55,7 @@ TriggerMLC(*) {
     crunchbtn := cPoint(1354, 532)
     Out.D("TriggerMLC")
     Shops.OpenGreenPortal()
+    crunchbtn.WaitUntilActiveButton(100, 20)
     If (!crunchbtn.IsButtonActive()) {
         Out.I("Didn't find mlc crunch button, aborting.")
         Global ULCStageExit := true
@@ -100,7 +101,7 @@ WaitForPortalAnimation(*) {
     UlcWindow()
     Out.D("WaitForPortalAnimation")
     Sleep(500)
-    Points.Misc.NotifArrowExist.WaitUntilActiveButton(300, 100) ; 20s
+    Points.Misc.NotifArrowExist.WaitUntilActiveButton(1000, 20) ; 20s
     Sleep(500)
     If (!Points.Misc.NotifArrowExist.IsButtonActive()) {
         Out.I("Failed to see ui after portal animation")

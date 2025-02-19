@@ -25,47 +25,16 @@ Class TheLoneTree extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.SacredNebula.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
+        Travel.OpenAreasSacredNebula(extradelay)
         Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local TheLoneTreeLeaf := this.FindTheLoneTreeZone()
-        If (TheLoneTreeLeaf) {
-            this.ClickTravelButton(TheLoneTreeLeaf, delay + extradelay)
+        /** @type {cPoint} */
+        Local Btn := cPoint(1856, 899)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(,,delay + extradelay)
         } Else {
-            Out.I("The Lone Tree leaf not found while trying to travel.")
+            Out.I("The Lone Tree not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindTheLoneTreeZone() {
-        ; Change this if used
-        ;return Rects.SacredN.TheLoneTreeTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to The Lone Tree
-        ;Button := Points.Areas.SacredNebula.TheLoneTree
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("The Lone Tree travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }

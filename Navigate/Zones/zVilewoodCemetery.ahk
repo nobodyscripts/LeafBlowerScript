@@ -25,47 +25,16 @@ Class VilewoodCemetery extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        Travel.OpenAreas(true, extradelay)
-        ;Points.Areas.SacredNebula.Tab.Click()
-        ;Sleep(delay)
-        ; Scroll down if needed
-        this.ScrollAmountDown(26, scrolldelay)
+        Travel.OpenAreasSacredNebula(extradelay)
         Sleep(delay + extradelay)
-        ; Scanning by leaf
-        Local VilewoodCemeteryLeaf := this.FindVilewoodCemeteryZone()
-        If (VilewoodCemeteryLeaf) {
-            this.ClickTravelButton(VilewoodCemeteryLeaf, delay + extradelay)
+        /** @type {cPoint} */
+        Local Btn := cPoint(1855, 752)
+        If (Btn.IsButtonActive()) {
+            Btn.ClickButtonActive(,,delay + extradelay)
         } Else {
-            Out.I("Vilewood Cemetery leaf not found while trying to travel.")
+            Out.I("Vilewood Cemetery not found while trying to travel.")
         }
         Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
-    }
-
-    /**
-     * Checks if leaf colour is found in an area (If this is needed)
-     * @returns {Boolean} 
-     */
-    FindVilewoodCemeteryZone() {
-        ; Change this if used
-        ;return Rects.SacredN.VilewoodCemeteryTravel.PixelSearch("0xFFFFFF")
-        Return true
-    }
-
-    /**
-     * Checks and clicks button in area panel
-     * @param coord 
-     * @param delay 
-     */
-    ClickTravelButton(coord, delay) {
-        ; Button to travel to Vilewood Cemetery
-        ;Button := Points.Areas.SacredNebula.VilewoodCemetery
-        Button := cPoint()
-        Out.D("Zone travel button colour " Button.GetColour())
-        ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
-            Out.I("Vilewood Cemetery travel: Button not found.")
-            ;Button.ToolTipAtCoord()
-        }
     }
 }
