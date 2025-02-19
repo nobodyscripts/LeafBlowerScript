@@ -35,8 +35,14 @@ Class TheFabricoftheLeafverse extends Zone {
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("The Fabric of the Leafverse not found while trying to travel.")
+            Local Btn := cPoint(1848, 656)
+            If (Btn.IsButtonActive()) {
+                Btn.ClickButtonActive(, , delay + extradelay)
+            } Else {
+                Out.I("The Fabric of the Leafverse not found while trying to travel.")
+            }
         }
+
         Sleep(delay + extradelay)
         Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice

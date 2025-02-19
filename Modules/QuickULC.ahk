@@ -354,8 +354,9 @@ ULCStage3(*) {
         Return
     }
 
+    Travel.TenebrisField.GoTo()
+
     EquipBlower()
-    ;Travel.TenebrisField.GoTo()
     ;WaitFor40thDice()
 
     Finish := A_Now

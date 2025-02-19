@@ -350,7 +350,7 @@ TradeForPyramid(*) {
     i := 0
 
     Out.I("Trade For Pyramid")
-
+    CancelAllTrades()
     While ((HasCheese = false || HasMulch = false ||
         HasBeer = false || HasBorb = false) && isLooping) {
         If (i > 500) {
@@ -430,4 +430,11 @@ TradeForPyramid(*) {
         Return false
     }
 
+    CancelAllTrades() {
+        point := cRect(1920, 298, 1921, 1025).PixelSearch(Colours().Active)
+        While (point) {
+            cPoint(point[1], point[2], false).ClickOffset()
+            point := cRect(1920, 298, 1921, 1025).PixelSearch(Colours().Active)
+        }
+    }
 }

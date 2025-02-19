@@ -81,7 +81,13 @@ Class sMLC extends Zone {
         If (cPoint(1858, 877).ClickButtonActive()) { ; crunchy coins
             Sleep(50)
         }
+        If (cPoint(1858, 877).ClickButtonActive()) { ; repeat
+            Sleep(50)
+        }
         If (cPoint(1861, 989).ClickButtonActive()) { ; crunchy blc
+            Sleep(50)
+        }
+        If (cPoint(1861, 989).ClickButtonActive()) { ; repeat
             Sleep(50)
         }
         Travel.ScrollAmountDown(7)
@@ -106,6 +112,9 @@ Class sMLC extends Zone {
         Travel.ScrollAmountDown(7)
         Sleep(50)
         If (cPoint(1856, 535).ClickButtonActive()) { ; trade education
+            Sleep(50)
+        }
+        If (cPoint(1856, 535).ClickButtonActive()) { ; repeat
             Sleep(50)
         }
         If (cPoint(1856, 643).ClickButtonActive()) { ; faster artifacts
