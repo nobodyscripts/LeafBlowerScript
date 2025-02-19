@@ -123,6 +123,85 @@ MaxBVItems(*) {
         SelectedIconCandy := cPoint(1788, 520) ; 0xFFE976
         /** @type {cPoint} */
         SelectedIconBox := cPoint(1777, 532) ; 0xAB5A53
+        If (CraftBtn.IsButtonActive() && !SelectedIconCandy.IsColour("0xFFE976") &&
+        !SelectedIconBox.IsColour("0xAB5A53") &&
+        !SelectedIconCandy.IsColour("0x6CD820") &&
+        !SelectedIconBox.IsColour("0x14B046")) {
+            Return true
+        } Else {
+            Out.D("r " rid " c " cid " ignored")
+            Return false
+        }
+    }
+}
+;@endregion
+
+;@region MaxBVItemsJustSocks(*)
+/**
+ * MaxBVItemsJustSocks Go through each bv item in inventory and try to 
+ * max it if sock
+ */
+MaxBVItemsJustSocks(*) {
+    /** @type {cPoint} */
+    CraftBtn := cPoint(1570, 644)
+    /** @type {cPoint} */
+    AscendBtn := cPoint(1855, 646)
+    /** @type {cPoint} */
+    ScrapBtn := cPoint(2136, 646)
+
+    Columns := [
+        391,
+        463,
+        530,
+        596,
+        665,
+        736,
+        799,
+        868,
+        935,
+        1010,
+        1074,
+        1140,
+        1206,
+        1281,
+        1344
+    ]
+    Rows := [
+        502,
+        623,
+        749,
+        877,
+        1001
+    ]
+    UlcWindow()
+    Shops.OpenBorbVentures()
+    Sleep(100)
+    Points.Borbventures.InvTab.Click()
+    Sleep(100)
+    AmountToModifier(25000)
+    Sleep(70)
+    For (rid, rvalue IN Rows) {
+        For (cid, cvalue IN Columns) {
+            /** @type cPoint */
+            btn := cPoint(cvalue, rvalue)
+            If (!btn.IsBackground()) {
+                btn.ClickOffset()
+                Sleep(100)
+                If (IsItemCraftable(rid, cid)) {
+                    CraftBtn.Click()
+                    Sleep(34)
+                }
+            }
+        }
+    }
+    ResetModifierKeys()
+    Sleep(70)
+
+    IsItemCraftable(rid, cid) {
+        /** @type {cPoint} */
+        SelectedIconCandy := cPoint(1788, 520) ; 0xFFE976
+        /** @type {cPoint} */
+        SelectedIconBox := cPoint(1777, 532) ; 0xAB5A53
         /*
         Socks:
         Icon Candy: 0x6E8390
@@ -132,10 +211,72 @@ MaxBVItems(*) {
         Icon Candy: 0x14B046
         Icon Box: 0x97714A
         */
-        If (CraftBtn.IsButtonActive() && !SelectedIconCandy.IsColour("0xFFE976") &&
-        !SelectedIconBox.IsColour("0xAB5A53") &&
-        !SelectedIconCandy.IsColour("0x6CD820") &&
-        !SelectedIconBox.IsColour("0x14B046")) {
+        If (CraftBtn.IsButtonActive() &&
+        (
+            SelectedIconCandy.IsColour("0x6E8390") &&
+            SelectedIconBox.IsColour("0xAEC3BE")
+        )) {
+            Return true
+        } Else {
+            Out.D("r " rid " c " cid " ignored")
+            Return false
+        }
+    }
+}
+;@endregion
+
+;@region MaxBVItemsJustBags(*)
+/**
+ * MaxBVItemsSpecific Go through each bv item in inventory and try to 
+ * max it if sock
+ */
+MaxBVItemsJustBags(*) {
+    /** @type {cPoint} */
+    CraftBtn := cPoint(1570, 644)
+    /** @type {cPoint} */
+    AscendBtn := cPoint(1855, 646)
+    /** @type {cPoint} */
+    ScrapBtn := cPoint(2136, 646)
+
+    Columns := [
+        391,
+        463,
+        530,
+        596,
+        665,
+        736
+    ]
+    Rows := [
+        502
+    ]
+    UlcWindow()
+    Shops.OpenBorbVentures()
+    Sleep(100)
+    Points.Borbventures.InvTab.Click()
+    Sleep(100)
+    AmountToModifier(25000)
+    Sleep(70)
+    Loop 10 {
+        For (rid, rvalue IN Rows) {
+            For (cid, cvalue IN Columns) {
+                /** @type cPoint */
+                btn := cPoint(cvalue, rvalue)
+                If (!btn.IsBackground()) {
+                    btn.ClickOffset()
+                    Sleep(100)
+                    If (IsItemCraftable(rid, cid)) {
+                        CraftBtn.Click()
+                        Sleep(34)
+                    }
+                }
+            }
+        }
+    }
+    ResetModifierKeys()
+    Sleep(70)
+
+    IsItemCraftable(rid, cid) {
+        If (CraftBtn.IsButtonActive()) {
             Return true
         } Else {
             Out.D("r " rid " c " cid " ignored")

@@ -3,7 +3,7 @@
 
 #Include QuickULCStage1.ahk
 #Include QuickULCStage2.ahk
-#Include QuickULCStage3.ahk
+#Include QuickULCStage4.ahk
 
 ; Curse brewing off, auto craft off, ancient autobuy taxi off, fixed nav
 ; hide max shops off, auto buy max leaves in blc set to 0, bv min scale off, 60%
@@ -25,13 +25,24 @@ RunULC(*) {
         Return
     }
     Time2 := ULCStage2()
-    If (!Time1) {
+    If (!Time2) {
+        Out.I("Stage1 time: " Time1 "s")
         Out.I("Run aborted in stage 2")
         Return
     }
     Time3 := ULCStage3()
-    If (!Time1) {
+    If (!Time3) {
+        Out.I("Stage1 time: " Time1 "s"
+            "Stage2 time: " Time2 "s")
         Out.I("Run aborted in stage 3")
+        Return
+    }
+    Time4 := ULCStage4()
+    If (!Time4) {
+        Out.I("Stage1 time: " Time1 "s"
+            "Stage2 time: " Time2 "s"
+            "Stage3 time: " Time3 "s")
+        Out.I("Run aborted in stage 4")
         Return
     }
     EndTotal := A_Now
@@ -48,12 +59,6 @@ RunULC(*) {
         "Stage3 time: " Time3 "s"
         "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
     )
-    /*     Switch (GetULCStage()) {
-        Case 1:
-            ULCStage1()
-        default:
-            ULCStage1()
-    } */
 }
 
 GetULCStage() {
@@ -177,7 +182,7 @@ ULCStage1(*) {
 
 ULCStage2(*) {
 
-    /* Add check for SN tab being active in areas, if not then 
+    /* Add check for SN tab being active in areas, if not then
     go unlock and do pyramid first */
     Start := A_Now
     UlcWindow()
@@ -191,6 +196,7 @@ ULCStage2(*) {
     cPoint(1865, 535).WaitWhileColour(Colours().Background)
     Sleep(1500)
     Shops.Coal.Max()
+    Shops.Coal.Max()
 
     GoToGF()
     WaitForBossKillOrTimeout()
@@ -198,9 +204,17 @@ ULCStage2(*) {
     GoToSS()
     WaitForBossKillOrTimeout()
 
+    Finish := A_Now
+    Out.I("Stage two completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
+    Return DateDiff(Start, Finish, "Seconds")
+}
+
+ULCStage3(*) {
+    UlcWindow()
+    Start := A_Now
     Travel.BiotiteForest.GoTo()
 
-    MaxBVItems()
+    MaxBVItemsJustSocks()
     If (!WaitForBioOrTimeout()) {
         TimeWarpIfLackingBio()
     }
@@ -345,11 +359,11 @@ ULCStage2(*) {
     ;WaitFor40thDice()
 
     Finish := A_Now
-    Out.I("Stage two completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
+    Out.I("Stage three completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
     Return DateDiff(Start, Finish, "Seconds")
 }
 
-ULCStage3(*) {
+ULCStage4(*) {
     Start := A_Now
     ; Prep for ulc after unlock
 
@@ -366,7 +380,7 @@ ULCStage3(*) {
     EquipBlower()
 
     Finish := A_Now
-    Out.I("Stage two completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
+    Out.I("Stage four completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
     Return DateDiff(Start, Finish, "Seconds")
 }
 
@@ -589,7 +603,7 @@ WaitForZoneChange(target, maxloops := 200, interval := 50) {
     UlcWindow()
     /** @type {Colours} */
     col := Colours()
-    
+
     Out.D("WaitForZoneChange")
     time := maxloops * interval / 1000
     gToolTip.Center("Waiting for zone change for " time "s")

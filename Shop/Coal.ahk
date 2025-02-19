@@ -23,6 +23,8 @@ Class sCoal extends Zone {
         Sleep(50)
         cPoint(1686, 313).ClickButtonActive() ; unlock mines
         Sleep(50)
+        cPoint(1686, 313).ClickButtonActive() ; unlock mines
+        Sleep(50)
         ;skip
         ;skip
         cPoint(1861, 648).ClickButtonActive() ; heat resistance
