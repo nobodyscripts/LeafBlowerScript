@@ -344,7 +344,7 @@ TradeForPyramid(*) {
     Mulch := "0x985046"
     Beer := "0x61233E"
     Borb := "0x60F811"
-    amount := 2
+    amount := 1
     HasCheese := HasMulch := HasBeer := HasBorb := 0
     isLooping := true
     i := 0

@@ -501,6 +501,7 @@ WaitForBossKillOrTimeout(seconds := 30) {
             Return false
         }
     }
+    gToolTip.CenterDel()
     ToolTip(, , , 15)
     Out.I("Wait for boss kill timed out.")
     Return false
