@@ -229,7 +229,7 @@ ULCStage3(*) {
 
     Travel.PlasmaForest.GoTo()
     PlacePlayerPlasmaLoc()
-    Sleep(5000)
+    Sleep(10000)
     Shops.Plasma.FirstPass()
     EquipElectric()
     WaitForElectricOrTimeout()
