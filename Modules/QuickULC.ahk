@@ -27,37 +27,37 @@ RunULC(*) {
     }
     Time2 := ULCStage2()
     If (!Time2) {
-        Out.I("Stage1 time: " Time1 "s")
+        Out.I("`r`nStage1 time: " Time1 "s`r`n")
         Out.I("Run aborted in stage 2")
         Return
     }
     Time3 := ULCStage3()
     If (!Time3) {
-        Out.I("Stage1 time: " Time1 "s"
-            "Stage2 time: " Time2 "s")
+        Out.I("`r`nStage1 time: " Time1 "s`r`n"
+            "Stage2 time: " Time2 "s`r`n")
         Out.I("Run aborted in stage 3")
         Return
     }
     Time4 := ULCStage4()
     If (!Time4) {
-        Out.I("Stage1 time: " Time1 "s"
-            "Stage2 time: " Time2 "s"
-            "Stage3 time: " Time3 "s")
+        Out.I("`r`nStage1 time: " Time1 "s`r`n"
+            "Stage2 time: " Time2 "s`r`n"
+            "Stage3 time: " Time3 "s`r`n")
         Out.I("Run aborted in stage 4")
         Return
     }
     EndTotal := A_Now
 
     Out.I(
-        "Stage1 time: " Time1 "s"
-        "Stage2 time: " Time2 "s"
-        "Stage3 time: " Time3 "s"
+        "`r`nStage1 time: " Time1 "s`r`n"
+        "Stage2 time: " Time2 "s`r`n"
+        "Stage3 time: " Time3 "s`r`n"
         "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
     )
     MsgBox(
-        "Stage1 time: " Time1 "s"
-        "Stage2 time: " Time2 "s"
-        "Stage3 time: " Time3 "s"
+        "Stage1 time: " Time1 "s`r`n"
+        "Stage2 time: " Time2 "s`r`n"
+        "Stage3 time: " Time3 "s`r`n"
         "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
     )
 }
