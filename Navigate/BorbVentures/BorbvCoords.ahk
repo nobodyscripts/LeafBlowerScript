@@ -17,6 +17,7 @@
  * @property {cPoint} ScaleMin Scale minimum button for checks
  * @property {cPoint} FinishAll Finish all completed quests button
  * @property {cPoint} PacksBuyCommon Buy Common pack with tokens button
+ * @property {cPoint} PacksBuyRare Buy Rare pack with tokens button
  * @property {cPoint} PacksBuyLegendary Buy legendary pack with tokens button
  */
 Class cBorbventuresPoints {
@@ -49,6 +50,9 @@ Class cBorbventuresPoints {
 
     /** @type {cPoint} Buy Common pack with tokens button */
     PacksBuyCommon := cPoint(472, 952)
+
+    /** @type {cPoint} Buy Rare pack with tokens button */
+    PacksBuyRare := cPoint(1154, 952)
 
     /** @type {cPoint} Buy legendary pack with tokens button */
     PacksBuyLegendary := cPoint(1592, 952)

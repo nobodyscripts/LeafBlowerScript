@@ -18,7 +18,7 @@ BuyMaxCardPacks(*) {
         Sleep(50)
         MouseMove(1, 1, 5, "R")
         Sleep(50)
-        LegBtn.ClickOffsetWhileColour(LegBtn.GetColour())
+        LegBtn.ClickOffsetWhileColour(LegBtn.GetColour(), 100)
         Sleep(50)
     }
     If (ComBtn.IsButtonActive()) {
@@ -26,7 +26,7 @@ BuyMaxCardPacks(*) {
         Sleep(50)
         MouseMove(1, 1, 5, "R")
         Sleep(50)
-        ComBtn.ClickOffsetWhileColour(ComBtn.GetColour())
+        ComBtn.ClickOffsetWhileColour(ComBtn.GetColour(), 100)
         Sleep(50)
     }
     If (LegBtn.IsButtonActive() || ComBtn.IsButtonActive()) {
@@ -295,8 +295,9 @@ MaxBVItemsJustBags(*) {
 BuyMaxBVPacks(*) {
     UlcWindow()
     ComBtn := Points.Borbventures.PacksBuyCommon
+    RareBtn := Points.Borbventures.PacksBuyRare
     LegBtn := Points.Borbventures.PacksBuyLegendary
-
+    
     Shops.OpenBorbVentures()
     Sleep(100)
     Points.Borbventures.PacksTab.Click()
@@ -308,20 +309,30 @@ BuyMaxBVPacks(*) {
         Sleep(50)
         MouseMove(1, 1, 5, "R")
         Sleep(50)
-        ComBtn.ClickOffsetWhileColour(ComBtn.GetColour())
+        ComBtn.ClickOffsetWhileColour(ComBtn.GetColour(), 45)
         Sleep(50)
-        ComBtn.GreedyModifierClick()
+        ; ComBtn.GreedyModifierClick()
     }
-    /*
+    
+    If (RareBtn.IsButtonActive()) {
+        RareBtn.MouseMove()
+        Sleep(50)
+        MouseMove(1, 1, 5, "R")
+        Sleep(50)
+        RareBtn.ClickOffsetWhileColour(RareBtn.GetColour(), 45)
+        Sleep(50)
+        ; RareBtn.GreedyModifierClick()
+    }
+    
     If (LegBtn.IsButtonActive()) {
         LegBtn.MouseMove()
         Sleep(20)
         MouseMove(1, 1, 5, "R")
         Sleep(50)
-        LegBtn.ClickOffsetWhileColour(LegBtn.GetColour())
+        LegBtn.ClickOffsetWhileColour(LegBtn.GetColour(), 45)
         Sleep(50)
         ;LegBtn.GreedyModifierClick()
-    } */
+    }
     ResetModifierKeys()
 }
 ;@endregion
