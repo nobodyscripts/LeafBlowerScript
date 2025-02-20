@@ -10,10 +10,12 @@
 
 /*
 TODO
-Wait for blc portal still getting held up in spots
-inner cursed pyramid getting stuck
-Max mlc setting leaf powered alb/others randomly off
-little too much sleep on openareasleafgalaxy/resetscrolling
+Pyramid not maxing floor reliably
+Checks at start of stage 2
+Stage 3 checks for shop not being unlocked > repeat later
+Leafton farming
+Gf/ss custom travel to avoid waiting for boss kill without TriggerViolin
+Wow use wind and grav
 
 */
 
@@ -229,7 +231,7 @@ ULCStage3(*) {
 
     Travel.PlasmaForest.GoTo()
     PlacePlayerPlasmaLoc()
-    Sleep(10000)
+    Sleep(20000)
     Shops.Plasma.FirstPass()
     EquipElectric()
     WaitForElectricOrTimeout()
