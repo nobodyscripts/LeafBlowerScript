@@ -10,9 +10,10 @@ Class sPyramid extends Zone {
     GoTo(*) {
         UlcWindow()
         Travel.TheCursedPyramid.GoTo()
+        Sleep(50)
         Travel.ClosePanelIfActive()
+        Sleep(50)
         cPoint(1282, 664).ClickButtonActive() ; Colour: #D3BF8F center screen
-        Sleep(150)
     }
 
     /**
@@ -21,8 +22,9 @@ Class sPyramid extends Zone {
     UnlockMax(*) {
         UlcWindow()
         Shops.Pyramid.GoTo()
+        cPoint(528, 741).WaitUntilActiveButton(400, 20)
         cPoint(528, 741).ClickButtonActive() ; Colour: #D3BF8F unlock max button
-        Sleep(150)
+        Sleep(50)
     }
     
     /**

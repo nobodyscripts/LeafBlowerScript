@@ -10,11 +10,10 @@
 
 /*
 TODO
-Pyramid not maxing floor reliably
-Checks at start of stage 2
+Tooltip hanging on for boss kills after EB
+Gf/ss custom travel to avoid closing areas panel
 Stage 3 checks for shop not being unlocked > repeat later
 Leafton farming
-Gf/ss custom travel to avoid waiting for boss kill without TriggerViolin
 Wow use wind and grav
 
 */
@@ -162,6 +161,7 @@ ULCStage1(*) {
     Sleep(100)
     cPoint(1970, 1087).ClickButtonActive() ; Collect all
     Travel.TheCursedPyramid.GoTo()
+    Sleep(100)
     Shops.Pyramid.MaxFloor()
 
     If (!Travel.TheInnerCursedPyramid.GoTo()) {
@@ -188,6 +188,20 @@ ULCStage2(*) {
     go unlock and do pyramid first */
     Start := A_Now
     UlcWindow()
+
+    Travel.OpenAreas()
+    Sleep(100)
+    If (Points.Areas.EnergyBelt.Tab.IsButtonInactive()) {
+        Travel.TheCursedPyramid.GoTo()
+        Sleep(100)
+        Shops.Pyramid.MaxFloor()
+
+        If (!Travel.TheInnerCursedPyramid.GoTo()) {
+            Out.I("Could not travel to inner pyramid, exiting")
+            Return
+        }
+        WaitTillPyramidReset()
+    }
 
     BossSweep()
     ULCStageExitCheck("s2 1")
@@ -457,7 +471,7 @@ WaitForBossKill(*) {
             ; Out.I("Kill timerlast " TimerLastCheckStatus " timer cur "
             ; TimerCurrentState " waslong " IsPrevTimerLong
             ; " islong " IsTimerLong)
-            ToolTip(, , , 14)
+            gToolTip.CenterDel()
             Return true
         }
         IsPrevTimerLong := IsTimerLong
@@ -467,12 +481,14 @@ WaitForBossKill(*) {
             ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                 50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
+
+            gToolTip.CenterDel()
             Return false
         }
         GameKeys.TriggerViolin()
         Sleep(17)
     }
-    ToolTip(, , , 15)
+    gToolTip.CenterDel()
 }
 
 WaitForBossKillOrTimeout(seconds := 30) {
@@ -493,6 +509,7 @@ WaitForBossKillOrTimeout(seconds := 30) {
             ; Out.I("Kill timerlast " TimerLastCheckStatus " timer cur "
             ; TimerCurrentState " waslong " IsPrevTimerLong
             ; " islong " IsTimerLong)
+            gToolTip.CenterDel()
             Return true
         }
         IsPrevTimerLong := IsTimerLong
@@ -501,8 +518,11 @@ WaitForBossKillOrTimeout(seconds := 30) {
             ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                 50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
+            gToolTip.CenterDel()
             Return false
         }
+        GameKeys.TriggerViolin()
+        Sleep(17)
     }
     gToolTip.CenterDel()
     ToolTip(, , , 15)
