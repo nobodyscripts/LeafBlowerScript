@@ -126,7 +126,7 @@ WaitForBLCPortal(*) {
 
     Out.D("Waiting for flask button")
     text.TextTipAtCoord("Waiting for black flask shop to be active")
-    Out.D("Black flask button colour " BlackFlaskStoreBtn.GetColour())
+    ; Out.D("Black flask button colour " BlackFlaskStoreBtn.GetColour())
     BlackFlaskStoreBtn.WaitUntilActiveButton(4800, 17)
     If (BlackFlaskStoreBtn.GetColour() = "0xFEF1D2" || BlackFlaskStoreBtn.IsButtonActive()) {
         BlackFlaskStoreBtn.ClickOffset(, , 50)
@@ -397,28 +397,4 @@ CraftMoonLeafsAndPreset() {
     ; TODO
     Out.D("TODO CraftMoonLeafsAndPreset")
 
-}
-
-MaxPyramidFloors() {
-    UlcWindow()
-    Out.D("MaxPyramidFloors")
-    Travel.ClosePanelIfActive()
-    Sleep(100)
-    If (Window.IsPanel()) {
-        Travel.ClosePanelIfActive()
-    }
-    If (!Window.IsPanel()) {
-        cPoint(1282, 622).Click() ; Open object
-        
-        cPoint(537, 741).WaitUntilActiveButton(500,20)
-        cPoint(537, 741).ClickButtonActive()
-        Sleep(100)
-        AmountToModifier(100)
-        Sleep(50)
-        cPoint(985, 462).ClickButtonActive() ; Decrease level
-        Sleep(50)
-        cPoint(1536, 462).ClickButtonActive() ; Increase level
-        Sleep(50)
-        ResetModifierKeys()
-    }
 }

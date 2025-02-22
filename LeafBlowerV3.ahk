@@ -30,7 +30,7 @@ SendMode("Input") ; Support for vm
 ; Can be Input, Event, Play, InputThenPlay if Input doesn't work for you
 
 DetectHiddenWindows(true)
-Persistent()  ; Prevent the script from exiting automatically.
+Persistent() ; Prevent the script from exiting automatically.
 OnExit(ExitFunc)
 
 Global HadToHideNotifsF9 := false

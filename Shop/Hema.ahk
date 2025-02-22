@@ -10,6 +10,7 @@ Class sHematite extends Zone {
         UlcWindow()
         Travel.ClosePanelIfActive()
         cPoint(1691, 1308).Click() ; Shop button
+        Out.D("Hema shop button colour: " cPoint(1691, 1308).GetColour())
         Sleep(150)
     }
 

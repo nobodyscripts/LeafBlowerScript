@@ -465,14 +465,39 @@ Class cPoint {
             i--
             If (this.toStringWColour() != debugtemp) {
                 debugtemp := this.toStringWColour()
-                Out.D(this.toStringWColour() " " this.IsButtonActive())
+                ; Out.D(this.toStringWColour() " " this.IsButtonActive())
             }
             If (i <= 0) {
                 Break
             }
         }
-        Out.D("WaitWhileNotColour: " this.toStringWColour())
+        Out.D("WaitUntilActiveButton: " this.toStringWColour())
         Return this.IsButtonActive()
+    }
+
+    /**
+     * Loop until button found or max loops reached
+     * @memberof cPoint
+     * @param {Integer} maxLoops 
+     * @param {Integer} interval Delay between loop passes
+     * @returns {Integer} True if colour matches, false if not
+     */
+    WaitUntilButton(maxLoops := 20, interval := 50) {
+        debugtemp := ""
+        i := maxLoops
+        While (Window.IsActive() && !this.IsButton()) {
+            Sleep(interval)
+            i--
+            If (this.toStringWColour() != debugtemp) {
+                debugtemp := this.toStringWColour()
+                Out.D(this.toStringWColour() " " this.IsButton())
+            }
+            If (i <= 0) {
+                Break
+            }
+        }
+        Out.D("WaitUntilButton: " this.toStringWColour())
+        Return this.IsButton()
     }
 
     /**

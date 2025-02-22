@@ -21,6 +21,7 @@ Global Shops := cShops()
  * @property {sPyramid} Pyramid Pyramid shop class
  * @property {sSacred} Sacred Sacred shop class
  * @property {sSoulForge} SoulForge SoulForge shop class
+ * @property {sSoulTemple} SoulTemple SoulTemple shop class
  * @property {sSoulShop} SoulShop SoulShop shop class
  * 
  * @method OpenGemShop Open gem shop panel
@@ -436,6 +437,12 @@ Class cShops {
      */
     SoulForge := sSoulForge()
 
+    /**
+     * Shop class for SoulTemple
+     * @type {sSoulTemple}
+     */
+    SoulTemple := sSoulTemple()
+    
     /**
      * Shop class for Soul
      * @type {sSoulShop}

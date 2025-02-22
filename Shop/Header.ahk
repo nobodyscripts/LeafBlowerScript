@@ -17,4 +17,5 @@
 #Include Pyramid.ahk
 #Include Sacred.ahk
 #Include SoulForge.ahk
+#Include SoulTemple.ahk
 #Include SoulShop.ahk

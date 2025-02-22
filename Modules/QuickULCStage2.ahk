@@ -3,6 +3,7 @@
 BossSweep(*) {
     UlcWindow()
     Out.D("Travel to witch")
+    Travel.ClosePanelIfActive()
     Travel.CursedKokkaupunki.GoTo()
     WaitForBossKill()
 
@@ -229,35 +230,27 @@ GoToDeathbook(*) {
 }
 
 BuyDeathbook(*) {
+    Out.I("BuyDeathbook")
     UlcWindow()
     Travel.ClosePanelIfActive()
     Sleep(100)
     cPoint(1282, 622).Click() ; Open DB
+    cPoint(1139, 376).WaitUntilButton()
+    if (cPoint(1139, 376).IsButtonInactive()) {
+        Out.D("Deathbook was not purchasable.")
+        return false
+    }
+    cPoint(1139, 376).ClickButtonActive() ; Unlock
     Sleep(50)
     cPoint(1139, 376).ClickButtonActive() ; Unlock
+    Sleep(100)
+    return IsDeathbookUnlocked()
 }
 
-MaxCryptFloors(*) {
-    UlcWindow()
-    If (!Travel.SoulTemple.IsZone()) {
-        Out.D("Trying to max crypt floors in wrong zone")
-        Return
+IsDeathbookUnlocked() {
+    if (cPoint(362, 531).IsButton() || cPoint(442, 533).IsButton()) {
+        Out.I("Deathbook unlocked")
+        return true
     }
-    Out.D("Max crypt floors")
-    Travel.ClosePanelIfActive()
-    Sleep(100)
-    Travel.ClosePanelIfActive()
-    Sleep(100)
-    If (!Window.Ispanel()) {
-        cPoint(1282, 622).Click() ; Open object
-        gToolTip.CenterMS("Maxing crypt floors", 500)
-        cPoint(1464, 457).WaitUntilActiveButton(500, 20)
-        cPoint(537, 670).ClickButtonActive()
-        Sleep(50)
-        AmountToModifier(100)
-        Sleep(50)
-        cPoint(1536, 462).ClickButtonActive() ; Increase level
-        Sleep(50)
-        ResetModifierKeys()
-    }
+    return false
 }

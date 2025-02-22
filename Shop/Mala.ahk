@@ -10,6 +10,7 @@ Class sMalachite extends Zone {
         UlcWindow()
         Travel.ClosePanelIfActive()
         cPoint(1639, 1308).Click() ; Shop button
+        Out.D("Mala shop button colour: " cPoint(1639, 1308).GetColour())
         Sleep(150)
     }
 

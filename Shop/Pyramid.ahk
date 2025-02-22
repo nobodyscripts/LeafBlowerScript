@@ -2,6 +2,12 @@
 
 #Include ..\Lib\cZone.ahk
 
+/**
+ * @method IsFloor100Done Is sacred nebula unlocked
+ * @method Goto Travel to the pyramid floor screen
+ * @method UnlockMax Unlock max floor but don't increase it
+ * @method MaxFloor Unlock max floor and increase it by 100 after resetting
+ */
 Class sPyramid extends Zone {
 
     /**
@@ -12,8 +18,21 @@ Class sPyramid extends Zone {
         Travel.TheCursedPyramid.GoTo()
         Sleep(50)
         Travel.ClosePanelIfActive()
-        Sleep(50)
-        cPoint(1282, 664).ClickButtonActive() ; Colour: #D3BF8F center screen
+        If (Window.IsPanel()) {
+            Travel.ClosePanelIfActive()
+        }
+        While (Window.IsPanel()) {
+            Sleep(17)
+        }
+        cPoint(1279, 641).Click() ; Colour: #D3BF8F center screen
+        While (!Window.IsPanel()) {
+            Sleep(17)
+        }
+        If (Window.IsPanel()) {
+            Return true
+        }
+        Out.I("Pyramid floor control travel failed, window didn't open")
+        Return false
     }
 
     /**
@@ -21,23 +40,54 @@ Class sPyramid extends Zone {
      */
     UnlockMax(*) {
         UlcWindow()
-        Shops.Pyramid.GoTo()
-        cPoint(528, 741).WaitUntilActiveButton(400, 20)
-        cPoint(528, 741).ClickButtonActive() ; Colour: #D3BF8F unlock max button
-        Sleep(50)
+        If (Shops.Pyramid.GoTo()) {
+            If (cPoint(537, 741).ClickButtonActive()) { ; unlock max button
+                Sleep(50)
+            }
+            If (cPoint(537, 741).ClickButtonActive()) {
+                Sleep(50)
+            }
+            If (!cPoint(537, 741).IsBackground()) {
+                Out.I("Pyramid unlock max failed, likely due to lack of resources")
+                Return false
+            }
+            Return true
+        }
+        Return false
     }
-    
+
     /**
      * Unlock max floor and increase max floor targeted by 100
      */
     MaxFloor(*) {
+        Out.D("MaxPyramidFloors")
         UlcWindow()
-        Shops.Pyramid.UnlockMax()
+        If (Shops.Pyramid.UnlockMax()) {
+            AmountToModifier(100)
+            Sleep(50)
+            cPoint(985, 462).ClickButtonActive() ; Decrease level
+            Sleep(50)
+            cPoint(1536, 462).ClickButtonActive() ; Increase level
+            Sleep(50)
+            ResetModifierKeys()
+            Out.I("Pyramid max floor success")
+            Return true
+        }
+        Return false
+    }
 
-        AmountToModifier(100)
-        Sleep(50)
-        cPoint(1539, 459).ClickButtonActive() ; Colour: #D3BF8F Increase floor button
-        Sleep(50)
-        ResetModifierKeys()
+    /**
+     * Is sacred nebula unlocked
+     */
+    IsFloor100Done() {
+        Travel.OpenAreas()
+        While (!Window.IsPanel()) {
+            Sleep(17)
+        }
+        If (Points.Areas.SacredNebula.Tab.IsButtonActive()) {
+            Return true
+        } Else {
+            Return false
+        }
     }
 }

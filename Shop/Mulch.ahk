@@ -65,11 +65,13 @@ Class sMulch extends Zone {
         Travel.ScrollAmountDown(14)
         Sleep(50)
         cPoint(1860, 577).ClickButtonActive() ; leaf trader (trade count) altered order
-        gToolTip.Center("Waiting for second trade max upgrade")
-        cPoint(1860, 577).WaitUntilActiveButton(400, 50) ; 20s
-        cPoint(1860, 577).ClickButtonActive() ; leaf trader (trade count) altered order
-        gToolTip.CenterDel()
-        Sleep(50)
+        If (cPoint(1860, 577).IsButton()) {
+            gToolTip.Center("Waiting for second trade max upgrade")
+            cPoint(1860, 577).WaitUntilActiveButton(400, 50) ; 20s
+            cPoint(1860, 577).ClickButtonActive() ; leaf trader (trade count) altered order
+            gToolTip.CenterDel()
+            Sleep(50)
+        }
         cPoint(1860, 350).ClickButtonActive() ; trade caps
         Sleep(50)
         cPoint(1860, 350).ClickButtonActive() ; trade caps

@@ -7,18 +7,24 @@
 
 ; Curse brewing off, auto craft off, ancient autobuy taxi off, fixed nav
 ; hide max shops off, auto buy max leaves in blc set to 0, bv min scale off, 60%
+; biotite leaf marketing set to max of 74, loadouts
 
 /*
 TODO
-Tooltip hanging on for boss kills after EB
-Gf/ss custom travel to avoid closing areas panel
+
+Biotite was in e6 maybe loop tw, need a bv solution
+
+Pyramid trading, get non beers then fill all trade slots with beer and boost all
+
+Gf/ss/quark custom travel to avoid closing areas panel
+
 Stage 3 checks for shop not being unlocked > repeat later
+
 Leafton farming
-Wow use wind and grav
 
 */
 
-RunULC(*) {
+RunULCStage1(*) {
     StartTotal := A_Now
     Time1 := ULCStage1()
     If (!Time1) {
@@ -52,14 +58,90 @@ RunULC(*) {
         "`r`nStage1 time: " Time1 "s`r`n"
         "Stage2 time: " Time2 "s`r`n"
         "Stage3 time: " Time3 "s`r`n"
+        "Stage4 time: " Time4 "s`r`n"
         "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
     )
     MsgBox(
         "Stage1 time: " Time1 "s`r`n"
         "Stage2 time: " Time2 "s`r`n"
         "Stage3 time: " Time3 "s`r`n"
+        "Stage4 time: " Time4 "s`r`n"
         "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
     )
+}
+RunULCStage2(*) {
+    StartTotal := A_Now
+    Time2 := ULCStage2()
+    If (!Time2) {
+        Out.I("Run aborted in stage 2")
+        Return
+    }
+    Time3 := ULCStage3()
+    If (!Time3) {
+        Out.I("`r`nStage2 time: " Time2 "s`r`n")
+        Out.I("Run aborted in stage 3")
+        Return
+    }
+    Time4 := ULCStage4()
+    If (!Time4) {
+        Out.I("`r`nStage2 time: " Time2 "s`r`n"
+            "Stage3 time: " Time3 "s`r`n")
+        Out.I("Run aborted in stage 4")
+        Return
+    }
+    EndTotal := A_Now
+
+    Out.I(
+        "`r`nStage2 time: " Time2 "s`r`n"
+        "Stage3 time: " Time3 "s`r`n"
+        "Stage4 time: " Time4 "s`r`n"
+        "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
+    )
+    MsgBox(
+        "Stage2 time: " Time2 "s`r`n"
+        "Stage3 time: " Time3 "s`r`n"
+        "Stage4 time: " Time4 "s`r`n"
+        "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
+    )
+}
+RunULCStage3(*) {
+    StartTotal := A_Now
+    Time3 := ULCStage3()
+    If (!Time3) {
+        Out.I("Run aborted in stage 3")
+        Return
+    }
+    Time4 := ULCStage4()
+    If (!Time4) {
+        Out.I("`r`nStage3 time: " Time3 "s`r`n")
+        Out.I("Run aborted in stage 4")
+        Return
+    }
+    EndTotal := A_Now
+
+    Out.I(
+        "`r`nStage3 time: " Time3 "s`r`n"
+        "Stage4 time: " Time4 "s`r`n"
+        "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
+    )
+    MsgBox(
+        "Stage3 time: " Time3 "s`r`n"
+        "Stage4 time: " Time4 "s`r`n"
+        "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
+    )
+}
+
+RunULCStage4(*) {
+    StartTotal := A_Now
+    Time4 := ULCStage4()
+    If (!Time4) {
+        Out.I("Run aborted in stage 4")
+        Return
+    }
+    EndTotal := A_Now
+
+    Out.I("Stage4 run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s")
+    MsgBox("Stage4 run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s")
 }
 
 GetULCStage() {
@@ -118,12 +200,14 @@ ULCStage1(*) {
     Shops.MLC.Max()
     ULCStageExitCheck(6)
 
-    If (!Travel.TheInnerCursedPyramid.GoTo()) { ; Get ancients to autobrew
-        Out.I("Could not travel to inner pyramid, exiting")
-        Return
+    If (!Shops.Pyramid.IsFloor100Done()) {
+        If (!Travel.TheInnerCursedPyramid.GoTo()) { ; Get ancients to autobrew
+            Out.I("Could not travel to inner pyramid, exiting")
+            Return
+        }
+        WaitTillPyramidReset()
+        ULCStageExitCheck(7)
     }
-    WaitTillPyramidReset()
-    ULCStageExitCheck(7)
 
     PubTradeForCheese2500()
     ULCStageExitCheck(8)
@@ -141,29 +225,27 @@ ULCStage1(*) {
     Use30minTimeWarp() ; Should we do something with e300 blc first or try e30
     ULCStageExitCheck(10)
 
-    GoToTrade()
-    EquipBlower()
-    TradeForPyramid()
-    If (!Travel.TheCursedPyramid.GoTo()) { ; Get ancients to autobrew
-        Out.I("Could not travel to pyramid, exiting")
+    Travel.OpenAreas()
+    Sleep(100)
+    If (!Shops.Pyramid.IsFloor100Done()) {
+        GoToTrade()
+        EquipBlower()
+        TradeForPyramid()
+
+        ; Trade wait
+        gToolTip.CenterMS("Waiting for trades to complete", 120050)
+        Sleep(120050)
+
+        GoToTrade()
+        Sleep(100)
+        cPoint(1970, 1087).ClickButtonActive() ; Collect all
+        ULCStageExitCheck(11)
+    }
+    If (!Shops.Pyramid.MaxFloor()) {
+        Out.I("Pyramid max floors failed.")
+        MsgBox("Pyramid max floors failed, aborted")
         Return
     }
-    ULCStageExitCheck(11)
-
-    MaxPyramidFloors()
-    GoToTrade()
-
-    ; Trade wait
-    gToolTip.CenterMS("Waiting for trades to complete", 120050)
-    Sleep(120050)
-
-    GoToTrade()
-    Sleep(100)
-    cPoint(1970, 1087).ClickButtonActive() ; Collect all
-    Travel.TheCursedPyramid.GoTo()
-    Sleep(100)
-    Shops.Pyramid.MaxFloor()
-
     If (!Travel.TheInnerCursedPyramid.GoTo()) {
         Out.I("Could not travel to inner pyramid, exiting")
         Return
@@ -183,18 +265,14 @@ ULCStage1(*) {
 }
 
 ULCStage2(*) {
-
-    /* Add check for SN tab being active in areas, if not then
-    go unlock and do pyramid first */
     Start := A_Now
     UlcWindow()
 
-    Travel.OpenAreas()
-    Sleep(100)
-    If (Points.Areas.EnergyBelt.Tab.IsButtonInactive()) {
-        Travel.TheCursedPyramid.GoTo()
-        Sleep(100)
-        Shops.Pyramid.MaxFloor()
+    If (!Shops.Pyramid.IsFloor100Done()) {
+        If (!Shops.Pyramid.MaxFloor()) {
+            Out.I("Could not max pyramid floors, exiting")
+            Return
+        }
 
         If (!Travel.TheInnerCursedPyramid.GoTo()) {
             Out.I("Could not travel to inner pyramid, exiting")
@@ -209,9 +287,8 @@ ULCStage2(*) {
     EquipBlower()
     Travel.MountMoltenfury.GoTo()
     Shops.Coal.GoTo()
-    cPoint(1865, 535).WaitWhileColour(Colours().Background)
-    Sleep(1500)
-    Shops.Coal.Max()
+    cPoint(1865, 535).WaitWhileNotColour(Colours().Background)
+    Sleep(2000)
     Shops.Coal.Max()
 
     GoToGF()
@@ -219,6 +296,8 @@ ULCStage2(*) {
 
     GoToSS()
     WaitForBossKillOrTimeout()
+
+    Shops.Coal.Max()
 
     Finish := A_Now
     Out.I("Stage two completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
@@ -245,8 +324,11 @@ ULCStage3(*) {
 
     Travel.PlasmaForest.GoTo()
     PlacePlayerPlasmaLoc()
+    gToolTip.Center("Waiting for plasma leaves")
     Sleep(20000)
+    gToolTip.CenterDel()
     Shops.Plasma.FirstPass()
+
     EquipElectric()
     WaitForElectricOrTimeout()
     Shops.Electric.Max()
@@ -255,14 +337,23 @@ ULCStage3(*) {
     EquipBlower()
     Travel.TerrorGraveyard.GoTo()
     PlacePlayerCenter()
-    BuyDeathbook()
+    Deathbook := BuyDeathbook()
 
     Travel.VilewoodCemetery.GoTo()
     Shops.Sacred.Max()
     Travel.TheLoneTree.GoTo()
     Shops.Sacred.Max()
-    Travel.TheLeafTower.GoTo() ; Optional
-    Sleep(2000)
+
+    If (!Deathbook) {
+        Travel.TerrorGraveyard.GoTo()
+        Deathbook2 := BuyDeathbook()
+        If (!Deathbook2) {
+            MsgBox(
+                "Deathbook failed to unlock, likely due to lack of Borb Ascension Juice, restart stage 3 after checking BV."
+            )
+            Return
+        }
+    }
 
     EquipSlap()
     ; Fight soul crypt floor 1
@@ -270,12 +361,10 @@ ULCStage3(*) {
     Sleep(100)
     WaitForZoneChange("Soul Temple", 1300, 50) ; 60s Let lack of taxi be a trigger
     Sleep(70)
-    If (!Travel.SoulTemple.IsZone()) {
-        Travel.SoulTemple.GoTo()
-    }
     EquipBlower()
     Sleep(70)
-    MaxCryptFloors() ; Max 20
+
+    Shops.SoulTemple.MaxFloor() ; Max 20
 
     ; Fight soul crypt floor 20
     EquipSlap()
@@ -318,29 +407,19 @@ ULCStage3(*) {
 
     Travel.SoulForge.GoTo()
     Sleep(500)
-    Shops.SoulForge.Max()
-    Sleep(500)
-    Shops.SoulForge.Max()
-    Sleep(500)
-    Shops.SoulShop.Max()
-    Sleep(500)
-    Shops.SoulShop.Max()
-    Sleep(500)
-    Shops.SoulShop.Max()
-    Sleep(500)
-    Shops.SoulForge.Max()
-    Sleep(500)
-    Shops.SoulShop.Max()
-    Sleep(100)
     Shops.SoulForge.Critical()
+    Sleep(500)
+    Shops.SoulForge.Max()
+    Sleep(500)
+    Shops.SoulShop.Max()
+    Sleep(500)
+    Shops.SoulShop.Max()
     Sleep(500)
 
     EnableBanks()
     Sleep(100)
 
-    Travel.SoulTemple.GoTo()
-    Sleep(100)
-    MaxCryptFloors() ; Max 100
+    Shops.SoulTemple.MaxFloor() ; Max 100
 
     Travel.SoulCrypt.GoTo()
     Sleep(100)
@@ -348,6 +427,10 @@ ULCStage3(*) {
     If (!Travel.SoulTemple.IsZone()) {
         Travel.SoulTemple.GoTo()
     }
+    Shops.SoulForge.Max()
+    Sleep(500)
+    Shops.SoulShop.Max()
+    Sleep(100)
 
     Travel.TheFabricoftheLeafverse.GoTo() ; Warden
     If (!WaitForBossKillOrTimeout()) {
@@ -522,6 +605,8 @@ WaitForBossKillOrTimeout(seconds := 30) {
             Return false
         }
         GameKeys.TriggerViolin()
+        GameKeys.TriggerWind()
+        GameKeys.TriggerGravity()
         Sleep(17)
     }
     gToolTip.CenterDel()

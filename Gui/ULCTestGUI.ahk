@@ -9,11 +9,16 @@ Button_Click_ULC(thisGui, info) {
     optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
-    optionsGUI.Add("Button", "default", "Run")
-    .OnEvent("Click", RunULC)
+    optionsGUI.Add("Button", "default", "test")
+    .OnEvent("Click", test)
+
+    test(*) {
+        UlcWindow()
+        Shops.SoulTemple.MaxFloor()
+    }
 
     optionsGUI.Add("Button", "default", "Stage 1`nHome Garden")
-    .OnEvent("Click", ULCStage1)
+    .OnEvent("Click", RunULCStage1)
 
     optionsGUI.Add("Button", "default", "Get Daily Reward")
     .OnEvent("Click", GetDailyReward)
@@ -82,7 +87,7 @@ Button_Click_ULC(thisGui, info) {
     .OnEvent("Click", Shops.Pyramid.MaxFloor)
 
     optionsGUI.Add("Button", "default ys", "Stage2`nAfter Pyramid 100")
-    .OnEvent("Click", ULCStage2)
+    .OnEvent("Click", RunULCStage2)
 
     optionsGUI.Add("Button", "default", "BossSweep")
     .OnEvent("Click", BossSweep)
@@ -94,7 +99,7 @@ Button_Click_ULC(thisGui, info) {
     .OnEvent("Click", Shops.Mulch.BuyTrade)
 
     optionsGUI.Add("Button", "default ys", "Stage3`nBiotite")
-    .OnEvent("Click", ULCStage3)
+    .OnEvent("Click", RunULCStage3)
 
     optionsGUI.Add("Button", "default", "MaxCoalShop")
     .OnEvent("Click", Shops.Coal.Max)
@@ -124,7 +129,7 @@ Button_Click_ULC(thisGui, info) {
     .OnEvent("Click", GoToWoW)
 
     optionsGUI.Add("Button", "default ys", "Stage4`nPostWow")
-    .OnEvent("Click", ULCStage4)
+    .OnEvent("Click", RunULCStage4)
 
     optionsGUI.Add("Button", "default", "MaxBVItems")
     .OnEvent("Click", MaxBVItems)

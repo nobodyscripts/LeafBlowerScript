@@ -378,6 +378,27 @@ TradeForPyramid(*) {
         Sleep(50)
         i++
     }
+    /** Grab any possible beer trades even amounts of 1 as backup */
+    loop {
+        If (i > 500) {
+            MsgBox("Could not fill all trades before timing out, please complete and start stage 2.")
+            Break
+        }
+        HasBeer += ScanTradesJustBeer(Beer)
+        Sleep(50)
+        If (IsPlayerOutOfCheese()) {
+            PubTradeForCheese2500()
+            Shops.OpenTrades()
+        }
+        GameKeys.RefreshTrades()
+        Sleep(50)
+        
+        if(Points.GemFarm.Start2.IsBackground()) {
+            break
+        }
+        i++
+    }
+    cPoint(762, 526).ClickButtonActive() ; Boost all
 
     ScanTradesByColour(colour) {
         point := scanArea.PixelSearch(colour)
@@ -421,6 +442,38 @@ TradeForPyramid(*) {
             Return 1
         }
         Return false
+    }
+
+    
+    ScanTradesJustBeer(colour) {
+        point := scanArea.PixelSearch(colour)
+        If (!point) {
+            Return false
+        }
+        Out.D("Found " colour " trade")
+        ; Start button cPoint(2029, 397) x+777
+        ; Cancel button cPoint(1742, 397) x+490
+        ; Collect button cPoint(1990, 397) x+738
+
+        /* 1252, 397 icon point ref
+        Rect for text area
+        1302, 377   50, -20
+        1373, 410   121, 13
+        */
+        Start := cPoint(point[1] + Window.RelW(777), point[2], false)
+        Cancel := cPoint(point[1] + Window.RelW(490), point[2], false)
+        Collect := cPoint(point[1] + Window.RelW(738), point[2], false)
+        ; Is started?
+        If (Cancel.IsButtonActive() || Collect.IsButtonActive()) {
+            Out.D("Is started")
+            Return false
+        }
+        ; Is startable?
+        If (Start.IsButtonInactive()) {
+            Out.D("Not startable")
+            Return false
+        }
+        Return 1
     }
 
     IsPlayerOutOfCheese() {
