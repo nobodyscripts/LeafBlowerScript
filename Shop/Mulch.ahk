@@ -81,4 +81,22 @@ Class sMulch extends Zone {
         cPoint(1859, 462).ClickButtonActive() ; trade optimization
         Sleep(50)
     }
+
+    /**
+     * Buy Craft Bags
+     */
+    BuyCraftBags() {
+        Shops.Mulch.GoTo()
+        Travel.ScrollResetToTop()
+        Sleep(50)
+        Travel.ScrollAmountDown(14)
+        Sleep(50)
+        cPoint(1863, 797).ClickButtonActive() ; craft backpack
+        Sleep(50)
+        
+        if (cPoint(1863, 797).IsButton()) {
+            return true
+        }
+        return false
+    }
 }

@@ -274,14 +274,14 @@ Use30minTimeWarp(*) {
     BuyTW.WaitUntilActiveButton(400, 20)
 
     If (!AvailableTW.IsButtonActive()) {
-        BuyTW.ClickButtonActive()
+        BuyTW.ClickButtonActive(,,50)
 
         AvailableTW.WaitUntilActiveButton(400, 20)
 
-        AvailableTW.ClickButtonActive()
+        AvailableTW.ClickButtonActive(,,50)
         Sleep(100)
     } Else {
-        AvailableTW.ClickButtonActive()
+        AvailableTW.ClickButtonActive(,,50)
         Sleep(100)
     }
 }

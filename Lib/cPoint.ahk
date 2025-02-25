@@ -527,9 +527,16 @@ Class cPoint {
                 AmountToModifier(Amount)
                 Out.D("GreedyModifierClick amount " Amount)
                 Sleep(NavigateTime)
+                ClickCount := 0
                 While (Window.IsActive() && Window.IsPanel() && this.IsButtonActive()) {
                     this.ClickOffset(5, 5, delay)
                     Sleep(sleeptime)
+                    If (Amount < startAt) {
+                        If (ClickCount > 15) {
+                            Break
+                        }
+                        ClickCount++
+                    }
                 }
             }
         }

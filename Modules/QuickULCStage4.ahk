@@ -182,14 +182,14 @@ MaxBVItemsJustSocks(*) {
     Sleep(70)
     For (rid, rvalue IN Rows) {
         For (cid, cvalue IN Columns) {
-            /** @type cPoint */
+            /** @type {cPoint} */
             btn := cPoint(cvalue, rvalue)
             If (!btn.IsBackground()) {
-                btn.ClickOffset()
-                Sleep(100)
+                btn.ClickOffset(,,50)
+                Sleep(150)
                 If (IsItemCraftable(rid, cid)) {
-                    CraftBtn.Click()
-                    Sleep(34)
+                    CraftBtn.Click(50)
+                    Sleep(50)
                 }
             }
         }
@@ -259,14 +259,14 @@ MaxBVItemsJustBags(*) {
     Loop 10 {
         For (rid, rvalue IN Rows) {
             For (cid, cvalue IN Columns) {
-                /** @type cPoint */
+                /** @type {cPoint} */
                 btn := cPoint(cvalue, rvalue)
                 If (!btn.IsBackground()) {
-                    btn.ClickOffset()
-                    Sleep(100)
+                    btn.ClickOffset(, , 50)
+                    Sleep(150)
                     If (IsItemCraftable(rid, cid)) {
-                        CraftBtn.Click()
-                        Sleep(34)
+                        CraftBtn.Click(50)
+                        Sleep(50)
                     }
                 }
             }
@@ -297,41 +297,27 @@ BuyMaxBVPacks(*) {
     ComBtn := Points.Borbventures.PacksBuyCommon
     RareBtn := Points.Borbventures.PacksBuyRare
     LegBtn := Points.Borbventures.PacksBuyLegendary
-    
+
     Shops.OpenBorbVentures()
     Sleep(100)
     Points.Borbventures.PacksTab.Click()
     Sleep(100)
     AmountToModifier(25000)
     Sleep(50)
+    cPoint(Window.W / 2, Window.H / 2).MouseMove()
     If (ComBtn.IsButtonActive()) {
-        ComBtn.MouseMove()
+        ComBtn.ClickOffsetWhileColour(ComBtn.GetColour(), 45, 5, 5)
         Sleep(50)
-        MouseMove(1, 1, 5, "R")
-        Sleep(50)
-        ComBtn.ClickOffsetWhileColour(ComBtn.GetColour(), 45)
-        Sleep(50)
-        ; ComBtn.GreedyModifierClick()
     }
-    
+
     If (RareBtn.IsButtonActive()) {
-        RareBtn.MouseMove()
+        RareBtn.ClickOffsetWhileColour(RareBtn.GetColour(), 45, 5, 5)
         Sleep(50)
-        MouseMove(1, 1, 5, "R")
-        Sleep(50)
-        RareBtn.ClickOffsetWhileColour(RareBtn.GetColour(), 45)
-        Sleep(50)
-        ; RareBtn.GreedyModifierClick()
     }
-    
+
     If (LegBtn.IsButtonActive()) {
-        LegBtn.MouseMove()
-        Sleep(20)
-        MouseMove(1, 1, 5, "R")
+        LegBtn.ClickOffsetWhileColour(LegBtn.GetColour(), 45, 5, 5)
         Sleep(50)
-        LegBtn.ClickOffsetWhileColour(LegBtn.GetColour(), 45)
-        Sleep(50)
-        ;LegBtn.GreedyModifierClick()
     }
     ResetModifierKeys()
 }
@@ -339,7 +325,7 @@ BuyMaxBVPacks(*) {
 
 ;@region DisableDiceAutos()
 /**
- * 
+ * DisableDiceAutos
  */
 DisableDiceAutos(*) {
     Out.D("DisableDiceAutos")

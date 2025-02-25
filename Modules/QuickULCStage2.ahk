@@ -104,10 +104,11 @@ WaitForBioOrTimeout(*) {
     /** @type {Timer} */
     Limiter := Timer()
     Limiter.CoolDownS(30, &isactive)
-    gToolTip.Center("Waiting for Malachite unlock availability")
+    gToolTip.Center("Waiting 30s for Malachite unlock availability")
     While (cPoint(1683, 305).IsButton() && isactive) {
         cPoint(1683, 305).ClickButtonActive() ; Unlock Malachite
-        Sleep(50)
+        GameKeys.TriggerWind()
+        Sleep(17)
     }
     gToolTip.CenterDel()
     If (cPoint(1683, 305).IsButton()) {
@@ -132,9 +133,10 @@ TimeWarpIfLackingBio(*) {
     /** @type {Timer} */
     Limiter := Timer()
     Limiter.CoolDownS(45, &isactive)
-    gToolTip.Center("Waiting for Malachite unlock availability")
+    gToolTip.Center("Waiting 45s for Malachite unlock availability")
     While (cPoint(1683, 305).IsButton() && isactive) {
         cPoint(1683, 305).ClickButtonActive() ; Unlock Malachite
+        GameKeys.TriggerWind()
         Sleep(50)
     }
     gToolTip.CenterDel()

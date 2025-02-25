@@ -12,6 +12,12 @@
 /*
 TODO
 
+e300 trades optional
+
+Check for mulch craft bag size before electric
+
+CursedKokkaupunki > reset scroll > no second button on reset > exit bs 1
+
 Biotite was in e6 maybe loop tw, need a bv solution
 
 Pyramid trading, get non beers then fill all trade slots with beer and boost all
@@ -21,6 +27,8 @@ Gf/ss/quark custom travel to avoid closing areas panel
 Stage 3 checks for shop not being unlocked > repeat later
 
 Leafton farming
+
+Is crafted saved, automatic crafting with presets
 
 */
 
@@ -160,6 +168,7 @@ ULCStageExitCheck(id) {
 ULCStage1(*) {
     Start := A_Now
     EquipBlower()
+    EquipBlower()
     GetDailyReward()
 
     If (!Travel.TheLeafTower.MaxTowerFloor()) {
@@ -185,8 +194,6 @@ ULCStage1(*) {
 
     TriggerMLCConverters()
     WaitForPortalAnimation()
-    ;Out.D("Max mlc")
-    ;Shops.MLC.Max()
     ULCStageExitCheck(5)
 
     Sleep(100)
@@ -213,6 +220,7 @@ ULCStage1(*) {
     ULCStageExitCheck(8)
 
     EquipMulchSword() ; Activates unique leaves/pets on loadout too
+    EquipMulchSword()
     If (!Travel.CursedKokkaupunki.GoTo()) {
         Out.I("Could not travel to CursedKokkaupunki, exiting")
         Return
@@ -229,6 +237,7 @@ ULCStage1(*) {
     Sleep(100)
     If (!Shops.Pyramid.IsFloor100Done()) {
         GoToTrade()
+        EquipBlower()
         EquipBlower()
         TradeForPyramid()
 
@@ -254,14 +263,6 @@ ULCStage1(*) {
     Finish := A_Now
     Out.I("Stage one completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
     Return DateDiff(Start, Finish, "Seconds")
-
-    /*  ; TODO
-    If (IsULCCraftSaved()) { ; TODO
-        EquipBlower()
-    } Else {
-        CraftMoonLeafsAndPreset() ; TODO
-    }
-    */
 }
 
 ULCStage2(*) {
@@ -280,10 +281,18 @@ ULCStage2(*) {
         }
         WaitTillPyramidReset()
     }
+    If (!Shops.Pyramid.IsFloor100Done()) {
+        msg :=
+            "Pyramid floor 100 incomplete cannot continue, please trade, max floor and run pyramid as appropriate then rerun stage 2."
+        Out.E(msg)
+        MsgBox(msg)
+        Return
+    }
 
     BossSweep()
     ULCStageExitCheck("s2 1")
 
+    EquipBlower()
     EquipBlower()
     Travel.MountMoltenfury.GoTo()
     Shops.Coal.GoTo()
@@ -322,18 +331,39 @@ ULCStage3(*) {
     WaitForHemaOrTimeout()
     Shops.Hematite.Max()
 
+   /*  Travel.VilewoodCemetery.GoTo() ; go get some early sacred?
+    Shops.Sacred.Max() */
+
     Travel.PlasmaForest.GoTo()
     PlacePlayerPlasmaLoc()
     gToolTip.Center("Waiting for plasma leaves")
-    Sleep(20000)
+    /** @type {Timer} */
+    PlasmaTimer := Timer()
+    PlasmaTimer.CoolDownS(20, &activeTimer)
+
+    doHema := Shops.Hematite.BuyCraftBags()
+    doMulch := Shops.Mulch.BuyCraftBags()
+
+    While (activeTimer) {
+        If (doHema) {
+            doHema := Shops.Hematite.BuyCraftBags()
+        }
+        if(doMulch) {
+            doMulch := Shops.Mulch.BuyCraftBags()
+        }
+        GameKeys.TriggerWind()
+        Sleep(17)
+    }
     gToolTip.CenterDel()
     Shops.Plasma.FirstPass()
 
+    EquipElectric()
     EquipElectric()
     WaitForElectricOrTimeout()
     Shops.Electric.Max()
     Shops.Plasma.Max()
 
+    EquipBlower()
     EquipBlower()
     Travel.TerrorGraveyard.GoTo()
     PlacePlayerCenter()
@@ -356,21 +386,19 @@ ULCStage3(*) {
     }
 
     EquipSlap()
+    EquipSlap()
     ; Fight soul crypt floor 1
     Travel.SoulCrypt.GoTo()
     Sleep(100)
     WaitForZoneChange("Soul Temple", 1300, 50) ; 60s Let lack of taxi be a trigger
     Sleep(70)
-    EquipBlower()
-    Sleep(70)
-
     Shops.SoulTemple.MaxFloor() ; Max 20
 
     ; Fight soul crypt floor 20
-    EquipSlap()
     Travel.SoulCrypt.GoTo()
     Sleep(100)
     WaitForZoneChange("Soul Temple", 1300, 50) ; 60s
+    EquipBlower()
     EquipBlower()
 
     Travel.TheHollow.GoTo()
@@ -445,6 +473,7 @@ ULCStage3(*) {
     ;WaitForQuarkOrTimeout()
 
     EquipSlap()
+    EquipSlap()
     Travel.PrimordialEthos.GoTo()
     If (!WaitForBossKillOrTimeout()) {
         msg := "Failed to kill WoW, exiting."
@@ -455,6 +484,7 @@ ULCStage3(*) {
 
     Travel.TenebrisField.GoTo()
 
+    EquipBlower()
     EquipBlower()
     ;WaitFor40thDice()
 
@@ -477,6 +507,7 @@ ULCStage4(*) {
 
     StoreMineCurrency()
 
+    EquipBlower()
     EquipBlower()
 
     Finish := A_Now

@@ -10,7 +10,6 @@ Class sHematite extends Zone {
         UlcWindow()
         Travel.ClosePanelIfActive()
         cPoint(1691, 1308).Click() ; Shop button
-        Out.D("Hema shop button colour: " cPoint(1691, 1308).GetColour())
         Sleep(150)
     }
 
@@ -51,5 +50,20 @@ Class sHematite extends Zone {
         cPoint(1861, 829).ClickButtonActive() ; boss card detector
         Sleep(50)
         cPoint(1695, 938).ClickButtonActive() ; Gem Business
+    }
+    /**
+     * Buy Craft Bags
+     */
+    BuyCraftBags() {
+        Shops.Hematite.GoTo()
+        Travel.ScrollResetToTop()
+        Travel.ScrollAmountDown(7)
+        Sleep(50)
+        cPoint(1863, 880).ClickButtonActive() ; bigger backpack
+        Sleep(50)
+        if (cPoint(1863, 880).IsButton()) {
+            return true
+        }
+        return false
     }
 }
