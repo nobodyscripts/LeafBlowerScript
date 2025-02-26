@@ -12,10 +12,12 @@
 #Include Hema.ahk
 #Include Mala.ahk
 #Include MLC.ahk
+#Include Moonstone.ahk
 #Include Mulch.ahk
 #Include Plasma.ahk
 #Include Pyramid.ahk
 #Include Sacred.ahk
+#Include Sand.ahk
 #Include SoulForge.ahk
 #Include SoulTemple.ahk
 #Include SoulShop.ahk

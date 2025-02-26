@@ -13,19 +13,18 @@ BuyMaxCardPacks(*) {
     Sleep(100)
     AmountToModifier(25000)
     Sleep(50)
+    ; Need to move the mouse over first for whilecolour
     If (LegBtn.IsButtonActive()) {
-        LegBtn.MouseMove()
-        Sleep(50)
-        MouseMove(1, 1, 5, "R")
-        Sleep(50)
+        LegBtn.ClickOffset()
+    } ; Need to recheck otherwise we could click inactive
+    If (LegBtn.IsButtonActive()) {
         LegBtn.ClickOffsetWhileColour(LegBtn.GetColour(), 100)
         Sleep(50)
     }
     If (ComBtn.IsButtonActive()) {
-        ComBtn.MouseMove()
-        Sleep(50)
-        MouseMove(1, 1, 5, "R")
-        Sleep(50)
+        ComBtn.ClickOffset()
+    }
+    If (ComBtn.IsButtonActive()) {
         ComBtn.ClickOffsetWhileColour(ComBtn.GetColour(), 100)
         Sleep(50)
     }
@@ -107,10 +106,10 @@ MaxBVItems(*) {
             btn := cPoint(cvalue, rvalue)
             If (!btn.IsBackground()) {
                 btn.ClickOffset()
-                Sleep(100)
+                Sleep(150)
                 If (IsItemCraftable(rid, cid)) {
                     CraftBtn.Click()
-                    Sleep(34)
+                    Sleep(50)
                 }
             }
         }
@@ -119,6 +118,7 @@ MaxBVItems(*) {
     Sleep(70)
 
     IsItemCraftable(rid, cid) {
+        ; Ignore candy, random box and cape
         /** @type {cPoint} */
         SelectedIconCandy := cPoint(1788, 520) ; 0xFFE976
         /** @type {cPoint} */
@@ -129,7 +129,7 @@ MaxBVItems(*) {
         !SelectedIconBox.IsColour("0x14B046")) {
             Return true
         } Else {
-            Out.D("r " rid " c " cid " ignored")
+            ; Out.D("r " rid " c " cid " ignored")
             Return false
         }
     }
@@ -185,7 +185,7 @@ MaxBVItemsJustSocks(*) {
             /** @type {cPoint} */
             btn := cPoint(cvalue, rvalue)
             If (!btn.IsBackground()) {
-                btn.ClickOffset(,,50)
+                btn.ClickOffset(, , 50)
                 Sleep(150)
                 If (IsItemCraftable(rid, cid)) {
                     CraftBtn.Click(50)
@@ -198,6 +198,7 @@ MaxBVItemsJustSocks(*) {
     Sleep(70)
 
     IsItemCraftable(rid, cid) {
+        ; Only socks
         /** @type {cPoint} */
         SelectedIconCandy := cPoint(1788, 520) ; 0xFFE976
         /** @type {cPoint} */
@@ -218,7 +219,7 @@ MaxBVItemsJustSocks(*) {
         )) {
             Return true
         } Else {
-            Out.D("r " rid " c " cid " ignored")
+            ; Out.D("r " rid " c " cid " ignored")
             Return false
         }
     }
@@ -276,10 +277,11 @@ MaxBVItemsJustBags(*) {
     Sleep(70)
 
     IsItemCraftable(rid, cid) {
+        ; Only filtering active stuff, filtered item type by slot
         If (CraftBtn.IsButtonActive()) {
             Return true
         } Else {
-            Out.D("r " rid " c " cid " ignored")
+            ; Out.D("r " rid " c " cid " ignored")
             Return false
         }
     }
@@ -299,22 +301,30 @@ BuyMaxBVPacks(*) {
     LegBtn := Points.Borbventures.PacksBuyLegendary
 
     Shops.OpenBorbVentures()
-    Sleep(100)
-    Points.Borbventures.PacksTab.Click()
+    Points.Borbventures.PacksTab.Click(50)
     Sleep(100)
     AmountToModifier(25000)
     Sleep(50)
-    cPoint(Window.W / 2, Window.H / 2).MouseMove()
+    ; Need to move the mouse over first for whilecolour
     If (ComBtn.IsButtonActive()) {
+        ComBtn.ClickOffset()
+    } ; Need to recheck otherwise we could click inactive
+    If (ComBtn.IsButtonActive()) { 
         ComBtn.ClickOffsetWhileColour(ComBtn.GetColour(), 45, 5, 5)
         Sleep(50)
     }
 
     If (RareBtn.IsButtonActive()) {
+        RareBtn.ClickOffset()
+    }
+    If (RareBtn.IsButtonActive()) {
         RareBtn.ClickOffsetWhileColour(RareBtn.GetColour(), 45, 5, 5)
         Sleep(50)
     }
 
+    If (LegBtn.IsButtonActive()) {
+        LegBtn.ClickOffset()
+    }
     If (LegBtn.IsButtonActive()) {
         LegBtn.ClickOffsetWhileColour(LegBtn.GetColour(), 45, 5, 5)
         Sleep(50)

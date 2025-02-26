@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
 
 #Include Navigate.ahk
+#Include cTimer.ahk
 
 /**
  * Game Window management class
@@ -454,6 +455,44 @@ Class cGameWindow {
         Out.I("Warning 1: AFK found enabled.")
         Points.Misc.BlankBG.Click()
         Return false
+    }
+    ;@endregion
+
+    ;@region AwaitPanel()
+    /**
+     * Await the panel appearing after being triggered
+     * @returns {Boolean} 
+     */
+    AwaitPanel(maxS := 5) {
+        If (!this.IsActive()) {
+            Return false ; Kill if no game
+        }
+        /** @type {Timer} */
+        lTimer := Timer()
+        lTimer.CoolDownS(maxS, &Expired)
+        while(!this.IsPanel() && Expired) {
+            Sleep(17)
+        }
+        Return this.IsPanel()
+    }
+    ;@endregion
+
+    ;@region AwaitPanelClose()
+    /**
+     * Await the panel closing after being triggered
+     * @returns {Boolean} 
+     */
+    AwaitPanelClose(maxS := 5) {
+        If (!this.IsActive()) {
+            Return false ; Kill if no game
+        }
+        /** @type {Timer} */
+        lTimer := Timer()
+        lTimer.CoolDownS(maxS, &Expired)
+        while(this.IsPanel() && Expired) {
+            Sleep(17)
+        }
+        Return !this.IsPanel()
     }
     ;@endregion
 }

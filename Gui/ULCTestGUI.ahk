@@ -14,7 +14,7 @@ Button_Click_ULC(thisGui, info) {
 
     test(*) {
         UlcWindow()
-        Shops.SoulTemple.MaxFloor()
+        TradeForPyramid()
     }
 
     optionsGUI.Add("Button", "default", "Stage 1`nHome Garden")

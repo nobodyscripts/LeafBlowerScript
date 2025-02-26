@@ -573,7 +573,7 @@ Class cTravel {
         }
         this.ClosePanelIfActive()
         action() ; Open location in func
-        Sleep(NavTime)
+        Window.AwaitPanel()
         Out.V("Panel opened " BinaryToStr(Window.IsPanel()))
         i := 0
         While (!test() && i <= 4) {
@@ -868,9 +868,6 @@ Class cTravel {
     OpenSettings(reset := false) {
         Out.V("OpenSettings")
         this.ClosePanelIfActive()
-        while(Window.IsPanel()) {
-            Sleep(17)
-        }
         GameKeys.ClosePanel()
         If (reset) {
             this.ResetAreaScroll()
@@ -900,11 +897,7 @@ Class cTravel {
     ClosePanelIfActive() {
         If (Window.IsPanel()) {
             this.ClosePanel()
-            i := 0
-            While (Window.IsPanel() || i = 120) {
-                Sleep(17)
-                i++
-            }
+            Window.AwaitPanelClose()
         }
         Return Window.IsPanel()
     }

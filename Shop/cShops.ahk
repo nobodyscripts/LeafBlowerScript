@@ -16,10 +16,12 @@ Global Shops := cShops()
  * @property {sMalachite} Malachite Malachite shop class
  * @property {sMine} Mine Mine shop class
  * @property {sMLC} MLC MLC shop class
+ * @property {sMoonstone} Moonstone Moonstone shop class
  * @property {sMulch} Mulch Mulch shop class
  * @property {sPlasma} Plasma Plasma shop class
  * @property {sPyramid} Pyramid Pyramid shop class
  * @property {sSacred} Sacred Sacred shop class
+ * @property {sSand} Sand Sand shop class
  * @property {sSoulForge} SoulForge SoulForge shop class
  * @property {sSoulTemple} SoulTemple SoulTemple shop class
  * @property {sSoulShop} SoulShop SoulShop shop class
@@ -41,8 +43,6 @@ Global Shops := cShops()
  * @method OpenGreenPortal Open green portal (prestige) panel
  * @method OpenBluePortal Open blue portal (prestige) panel
  * @method OpenConverters Open converters panel
- * 
- * 
  */
 Class cShops {
     ;@region OpenGemShop()
@@ -430,6 +430,18 @@ Class cShops {
      * @type {sCoal}
      */
     Coal := sCoal()
+
+    /**
+     * Shop class for Sand
+     * @type {sSand}
+     */
+    Sand := sSand()
+
+    /**
+     * Shop class for Moonstone
+     * @type {sMoonstone}
+     */
+    Moonstone := sMoonstone()
 
     /**
      * Shop class for SoulForge

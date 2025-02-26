@@ -11,16 +11,16 @@
 
 /*
 TODO
+02/26/2025 04:03:23:414 Debug: Clicking cheese quest
+02/26/2025 04:03:23:447 Important: Didn't find cheese quest button, aborting.
+02/26/2025 04:03:23:456 Debug: Exited at id 8
+^ probably need to adjust WaitUntilActiveButton times
 
 e300 trades optional
-
-Check for mulch craft bag size before electric
 
 CursedKokkaupunki > reset scroll > no second button on reset > exit bs 1
 
 Biotite was in e6 maybe loop tw, need a bv solution
-
-Pyramid trading, get non beers then fill all trade slots with beer and boost all
 
 Gf/ss/quark custom travel to avoid closing areas panel
 
@@ -187,7 +187,6 @@ ULCStage1(*) {
         Return
     }
     ULCStageExitCheck(3)
-
     Out.D("Max mlc")
     Shops.MLC.Max()
     ULCStageExitCheck(4)
@@ -225,10 +224,12 @@ ULCStage1(*) {
         Out.I("Could not travel to CursedKokkaupunki, exiting")
         Return
     }
+    Shops.Moonstone.WaitForMoonstoneOrTimeout() 
+    Shops.Sand.WaitForSandOrTimeout()
     ULCStageExitCheck(9)
-    Sleep(5000)
-
+    
     Shops.Mulch.BuyTrade()
+    Sleep(1000)
     Shops.Mulch.Max()
     Use30minTimeWarp() ; Should we do something with e300 blc first or try e30
     ULCStageExitCheck(10)
@@ -355,11 +356,11 @@ ULCStage3(*) {
         Sleep(17)
     }
     gToolTip.CenterDel()
+    EquipElectric()
     Shops.Plasma.FirstPass()
 
     EquipElectric()
-    EquipElectric()
-    WaitForElectricOrTimeout()
+    Shops.Electric.WaitForElectricOrTimeout()
     Shops.Electric.Max()
     Shops.Plasma.Max()
 
@@ -393,6 +394,9 @@ ULCStage3(*) {
     WaitForZoneChange("Soul Temple", 1300, 50) ; 60s Let lack of taxi be a trigger
     Sleep(70)
     Shops.SoulTemple.MaxFloor() ; Max 20
+
+    Shops.SoulShop.Max()
+    Sleep(70)
 
     ; Fight soul crypt floor 20
     Travel.SoulCrypt.GoTo()

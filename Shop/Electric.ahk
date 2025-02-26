@@ -44,4 +44,31 @@ Class sElectric extends Zone {
         cPoint(1865, 944).ClickButtonActive() ; relic fragment chance
         Sleep(50)
     }
+
+    WaitForElectricOrTimeout(*) {
+        UlcWindow()
+        Shops.Electric.GoTo()
+        Travel.ScrollResetToTop()
+        Sleep(50)
+        /** @type {Timer} */
+        Limiter := Timer()
+        chargingcount := storagecount := 0
+        Limiter.CoolDownS(15, &isactive)
+        gToolTip.Center("Waiting for Electric to build up")
+        
+        cPoint(1689, 758).ClickButtonActive() ; unlock plasma to energy converters
+        Sleep(50)
+        While (isactive && (storagecount < 3 && chargingcount < 3)) {
+            If (cPoint(1861, 312).ClickButtonActive()) { ; storage
+                storagecount++
+            }
+            Sleep(250)
+            If (cPoint(1859, 419).ClickButtonActive()) { ; charging value
+                chargingcount++
+            }
+            Sleep(250)
+        }
+        gToolTip.CenterDel()
+    }
+
 }

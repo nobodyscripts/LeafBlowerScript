@@ -21,9 +21,7 @@ Class sPyramid extends Zone {
         If (Window.IsPanel()) {
             Travel.ClosePanelIfActive()
         }
-        While (Window.IsPanel()) {
-            Sleep(17)
-        }
+        
         cPoint(1279, 641).Click() ; Colour: #D3BF8F center screen
         While (!Window.IsPanel()) {
             Sleep(17)

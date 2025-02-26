@@ -3,6 +3,7 @@
 /**
  * Collection of static colours and functions to check if pixels are certain
  * things.
+ * @module Colours
  * @property {String} Active Active button colour (excluding text)
  * @property {String} ActiveMouseOver Active button colour when mouse over
  * @property {String} AfkActive Active button colour when afk on

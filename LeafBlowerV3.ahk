@@ -101,6 +101,8 @@ CreateScriptHotkeys() {
             ;"Current zone colour: " Points.ZoneSample.GetColour()
         )
         A_Clipboard := "cPoint(" clientx ", " clienty ")"
+        ;Out.D("Mala shop button colour: " cPoint(1639, 1308).GetColour())
+        ;Out.D("Hema shop button colour: " cPoint(1691, 1308).GetColour())
     }
 
     ~WheelDown:: {
