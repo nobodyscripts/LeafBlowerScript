@@ -32,14 +32,14 @@ Class sSand extends Zone {
         Sleep(50)
         /** @type {Timer} */
         Limiter := Timer()
-        chargingcount := storagecount := 0
         Limiter.CoolDownS(20, &isactive)
-        gToolTip.Center("Waiting for Sand to build up")
+        gToolTip.CenterCD("Waiting for Sand to build up", 20000)
         While(!cPoint(1858, 309).IsBackground() && isactive) {
             GameKeys.TriggerWind()
             Sleep(17)
         }
-        gToolTip.CenterDel()
+        gToolTip.CenterCDDel()
         return cPoint(1858, 309).IsBackground()
+        
     }
 }

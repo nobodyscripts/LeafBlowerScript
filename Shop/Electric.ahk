@@ -54,8 +54,8 @@ Class sElectric extends Zone {
         Limiter := Timer()
         chargingcount := storagecount := 0
         Limiter.CoolDownS(15, &isactive)
-        gToolTip.Center("Waiting for Electric to build up")
-        
+        gToolTip.CenterCD("Waiting for Electric to build up", 15000)
+
         cPoint(1689, 758).ClickButtonActive() ; unlock plasma to energy converters
         Sleep(50)
         While (isactive && (storagecount < 3 && chargingcount < 3)) {
@@ -68,7 +68,7 @@ Class sElectric extends Zone {
             }
             Sleep(250)
         }
-        gToolTip.CenterDel()
+        gToolTip.CenterCDDel()
     }
 
 }

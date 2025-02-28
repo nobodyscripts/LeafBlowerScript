@@ -10,7 +10,7 @@ Class sMoonstone extends Zone {
         UlcWindow()
         Travel.ClosePanelIfActive()
         cPoint(1259, 1319).Click() ; Shop button
-        return Window.AwaitPanel()
+        Return Window.AwaitPanel()
     }
 
     /**
@@ -27,23 +27,25 @@ Class sMoonstone extends Zone {
 
     WaitForMoonstoneOrTimeout(*) {
         UlcWindow()
-        gToolTip.Center("Waiting for Moonstone to build up")
-        while(!cPoint(1259, 1319).IsButtonActive()) {
-            GameKeys.TriggerWind()
-            Sleep(17)
-        }
         Shops.Moonstone.GoTo()
         Travel.ScrollResetToTop()
         Sleep(50)
+        EquipMulchSword() ; Activates unique leaves/pets on loadout too
+        EquipMulchSword()
+        If (!Travel.CursedKokkaupunki.GoTo()) {
+            Out.I("Could not travel to CursedKokkaupunki, exiting")
+            Return
+        }
+        gToolTip.CenterCD("Waiting for Moonstone to build up", 20000)
         /** @type {Timer} */
         Limiter := Timer()
-        chargingcount := storagecount := 0
         Limiter.CoolDownS(20, &isactive)
-        While(!cPoint(1697, 307).IsBackground() && isactive) {
+        While (!cPoint(1697, 307).IsBackground() && isactive) {
             GameKeys.TriggerWind()
             Sleep(17)
         }
-        gToolTip.CenterDel()
-        return cPoint(1697, 307).IsBackground()
+        gToolTip.CenterCDDel()
+        Return cPoint(1697, 307).IsBackground()
+
     }
 }

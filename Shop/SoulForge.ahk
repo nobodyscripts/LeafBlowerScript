@@ -99,7 +99,7 @@ Class sSoulForge extends Zone {
         cPoint(1859, 970).WaitUntilActiveButton()
         cPoint(1859, 970).ClickButtonActive() ; leaf damage multiplier
 
-        gToolTip.Center("Buying all max crypt floors")
+        gToolTip.CenterCD("Buying all max crypt floors", 120000)
         /** @type {Timer} */
         ctimer := Timer()
         ctimer.CoolDownM(2, &bool)
@@ -109,6 +109,6 @@ Class sSoulForge extends Zone {
             cPoint(1859, 970).ClickButtonActive() ; leaf damage multiplier
             Sleep(100)
         }
-        gToolTip.CenterDel()
+        gToolTip.CenterCDDel()
     }
 }

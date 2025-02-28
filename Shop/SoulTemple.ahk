@@ -10,7 +10,7 @@ Class sSoulTemple extends Zone {
     GoTo(*) {
         UlcWindow()
         Travel.SoulTemple.GoTo()
-        Sleep(50)
+        WaitForZoneChange("Soul Temple", 1300, 50) ; 65s
 
         If (!Travel.SoulTemple.IsZone()) {
             Out.I("Failure: Soul Temple floor control did not travel to Soul Temple zone")
@@ -20,13 +20,8 @@ Class sSoulTemple extends Zone {
         If (Window.IsPanel()) {
             Travel.ClosePanelIfActive()
         }
-        While (Window.IsPanel()) {
-            Sleep(17)
-        }
         cPoint(1279, 641).Click() ; center screen
-        While (!Window.IsPanel()) {
-            Sleep(17)
-        }
+        Window.AwaitPanel()
         If (Window.IsPanel()) {
             Return true
         }
@@ -67,6 +62,10 @@ Class sSoulTemple extends Zone {
             Sleep(50)
             cPoint(985, 462).ClickButtonActive() ; Decrease level
             Sleep(50)
+            cPoint(985, 462).ClickButtonActive() ; Decrease level
+            Sleep(50)
+            cPoint(1536, 462).ClickButtonActive() ; Increase level
+            Sleep(50)
             cPoint(1536, 462).ClickButtonActive() ; Increase level
             Sleep(50)
             ResetModifierKeys()
@@ -76,26 +75,3 @@ Class sSoulTemple extends Zone {
         Return false
     }
 }
-
-    /* UlcWindow()
-    If (!Travel.SoulTemple.IsZone()) {
-        Out.D("Trying to max crypt floors in wrong zone")
-        Return
-    }
-    Out.D("Max crypt floors")
-    Travel.ClosePanelIfActive()
-    Sleep(100)
-    Travel.ClosePanelIfActive()
-    Sleep(100)
-    If (!Window.Ispanel()) {
-        cPoint(1282, 622).Click() ; Open 
-        gToolTip.CenterMS("Maxing crypt floors", 500)
-        cPoint(1464, 457).WaitUntilActiveButton(500, 20)
-        cPoint(537, 670).ClickButtonActive()
-        Sleep(50)
-        AmountToModifier(100)
-        Sleep(50)
-        cPoint(1536, 462).ClickButtonActive() ; Increase level
-        Sleep(50)
-        ResetModifierKeys()
-    } */

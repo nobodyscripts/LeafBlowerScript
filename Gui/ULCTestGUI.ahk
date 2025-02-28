@@ -9,13 +9,17 @@ Button_Click_ULC(thisGui, info) {
     optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
+    /* optionsGUI.Add("Button", "default", "Test")
+    .OnEvent("Click", Test)
+
+    Test(*) {
+        UlcWindow()
+        gToolTip.CenterCD("Test tooltip", 5000)
+        SetTimer(gToolTip.CenterCDDel.Bind(gToolTip), -2500)
+    } */
+
     optionsGUI.Add("Button", "default", "Scan and save BV Inventory")
     .OnEvent("Click", ScanBVInventory)
-
-    test(*) {
-        UlcWindow()
-        TradeForPyramid()
-    }
 
     optionsGUI.Add("Button", "default", "Stage 1`nHome Garden")
     .OnEvent("Click", RunULCStage1)

@@ -390,28 +390,6 @@ TradeForPyramid(*) {
         Sleep(50)
         i++
     }
-    /** Grab any possible beer trades even amounts of 1 as backup */
-    Loop {
-        If (i > 500) {
-            MsgBox("Could not fill all trades before timing out, please complete and start stage 2.")
-            Break
-        }
-        ScanTradesJustBeer(Beer)
-        Sleep(50)
-        If (IsPlayerOutOfCheese()) {
-            PubTradeForCheese2500()
-            Shops.OpenTrades()
-        }
-        GameKeys.RefreshTrades()
-        Sleep(50)
-
-        If (Points.GemFarm.Start2.IsBackground()) {
-            Out.I("Trades full")
-            cPoint(1530, 1087).ClickButtonActive() ; Boost all
-            Break
-        }
-        i++
-    }
 
     ScanTradesByColour(colour) {
         point := scanArea.PixelSearch(colour)
@@ -452,6 +430,39 @@ TradeForPyramid(*) {
         }
         Return false
     }
+}
+
+TradeForPyramidJustBeer(*) {
+    UlcWindow()
+    /** @type {cRect} */
+    scanArea := cRect(1252, 351, 1253, 1061) ; Scan area 1252, 351/1252, 1061
+    Beer := "0x61233E"
+    amount := 1
+    i := 0
+
+    Out.I("Trade For any beer")
+    /** Grab any possible beer trades even amounts of 1 as backup */
+    Loop {
+        If (i > 500) {
+            MsgBox("Could not fill all trades before timing out, please complete and start stage 2.")
+            Break
+        }
+        ScanTradesJustBeer(Beer)
+        Sleep(50)
+        If (IsPlayerOutOfCheese()) {
+            PubTradeForCheese2500()
+            Shops.OpenTrades()
+        }
+        GameKeys.RefreshTrades()
+        Sleep(50)
+
+        If (Points.GemFarm.Start2.IsBackground()) {
+            Out.I("Trades full")
+            cPoint(1530, 1087).ClickButtonActive() ; Boost all
+            Break
+        }
+        i++
+    }
 
     ScanTradesJustBeer(colour) {
         point := scanArea.PixelSearch(colour)
@@ -474,19 +485,20 @@ TradeForPyramid(*) {
         Start.ClickButtonActive()
         Return 1
     }
+}
 
-    IsPlayerOutOfCheese() {
-        If (cRect(1746, 298, 1750, 1025).PixelSearch(Colours().Inactive)) {
-            Return true
-        }
-        Return false
+
+IsPlayerOutOfCheese() {
+    If (cRect(1746, 298, 1750, 1025).PixelSearch(Colours().Inactive)) {
+        Return true
     }
+    Return false
+}
 
-    CancelAllTrades() {
+CancelAllTrades() {
+    point := cRect(1920, 298, 1921, 1025).PixelSearch(Colours().Active)
+    While (point) {
+        cPoint(point[1], point[2], false).ClickOffset()
         point := cRect(1920, 298, 1921, 1025).PixelSearch(Colours().Active)
-        While (point) {
-            cPoint(point[1], point[2], false).ClickOffset()
-            point := cRect(1920, 298, 1921, 1025).PixelSearch(Colours().Active)
-        }
     }
 }

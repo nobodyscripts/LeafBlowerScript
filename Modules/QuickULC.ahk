@@ -4,6 +4,7 @@
 #Include QuickULCStage1.ahk
 #Include QuickULCStage2.ahk
 #Include QuickULCStage4.ahk
+#Include GemFarm.ahk
 
 ; Curse brewing off, auto craft off, ancient autobuy taxi off, fixed nav
 ; hide max shops off, auto buy max leaves in blc set to 0, bv min scale off, 60%
@@ -228,16 +229,21 @@ ULCStage1(*) {
     PubTradeForCheese2500()
     ULCStageExitCheck(8)
 
-    EquipMulchSword() ; Activates unique leaves/pets on loadout too
-    EquipMulchSword()
-    If (!Travel.CursedKokkaupunki.GoTo()) {
-        Out.I("Could not travel to CursedKokkaupunki, exiting")
-        Return
+    gToolTip.Center("Waiting for Benitoite to build up")
+    SetTimer(ToggleULCLoadouts, 1000)
+    If (!cPoint(1259, 1319).IsButtonActive()) { ; Moonstone shop icon
+        Travel.TheLeafTower.GoTo()
     }
-    Shops.Moonstone.WaitForMoonstoneOrTimeout() 
+    While (!cPoint(1259, 1319).IsButtonActive()) {
+        GameKeys.TriggerWind()
+        Sleep(17)
+    }
+    gToolTip.CenterDel()
+    Shops.Moonstone.WaitForMoonstoneOrTimeout()
     Shops.Sand.WaitForSandOrTimeout()
+    SetTimer(ToggleULCLoadouts, 0)
     ULCStageExitCheck(9)
-    
+
     Shops.Mulch.BuyTrade()
     Sleep(1000)
     Shops.Mulch.Max()
@@ -251,14 +257,15 @@ ULCStage1(*) {
         EquipBlower()
         EquipBlower()
         TradeForPyramid()
-        cPoint(1530, 1087).ClickButtonActive() ; Boost all
-
+        TradeForPyramidJustBeer()
         ; Trade wait
-        gToolTip.CenterMS("Waiting for trades to complete", 120050)
+        gToolTip.CenterCD("Waiting for trades to complete", 120050)
         Sleep(120050)
 
         GoToTrade()
         Sleep(100)
+        cPoint(1530, 1087).ClickButtonActive() ; Boost all
+        Sleep(34)
         cPoint(1970, 1087).ClickButtonActive() ; Collect all
         ULCStageExitCheck(11)
     }
@@ -343,12 +350,12 @@ ULCStage3(*) {
     WaitForHemaOrTimeout()
     Shops.Hematite.Max()
 
-   /*  Travel.VilewoodCemetery.GoTo() ; go get some early sacred?
+    /*  Travel.VilewoodCemetery.GoTo() ; go get some early sacred?
     Shops.Sacred.Max() */
 
     Travel.PlasmaForest.GoTo()
     PlacePlayerPlasmaLoc()
-    gToolTip.Center("Waiting for plasma leaves")
+    gToolTip.CenterCD("Waiting for plasma leaves", 20000)
     /** @type {Timer} */
     PlasmaTimer := Timer()
     PlasmaTimer.CoolDownS(20, &activeTimer)
@@ -360,13 +367,13 @@ ULCStage3(*) {
         If (doHema) {
             doHema := Shops.Hematite.BuyCraftBags()
         }
-        if(doMulch) {
+        If (doMulch) {
             doMulch := Shops.Mulch.BuyCraftBags()
         }
         GameKeys.TriggerWind()
         Sleep(17)
     }
-    gToolTip.CenterDel()
+    gToolTip.CenterCDDel()
     EquipElectric()
     Shops.Plasma.FirstPass()
 
@@ -397,11 +404,11 @@ ULCStage3(*) {
         }
     }
 
-    If(cPoint(1639, 1308).GetColour() = "0xFFFFF6") { ; Mala shop button
+    If (cPoint(1639, 1308).GetColour() = "0xFFFFF6") { ; Mala shop button
         msg := "Malachite shop still locked, will need another pass of stage 3 to unlock energy"
         Out.E(msg)
         MsgBox(msg)
-        return
+        Return
     }
 
     EquipSlap()
@@ -409,7 +416,7 @@ ULCStage3(*) {
     ; Fight soul crypt floor 1
     Travel.SoulCrypt.GoTo()
     Sleep(100)
-    WaitForZoneChange("Soul Temple", 1300, 50) ; 60s Let lack of taxi be a trigger
+    WaitForZoneChange("Soul Temple", 1300, 50) ; 65s Let lack of taxi be a trigger
     Sleep(70)
     Shops.SoulTemple.MaxFloor() ; Max 20
 
@@ -418,8 +425,7 @@ ULCStage3(*) {
 
     ; Fight soul crypt floor 20
     Travel.SoulCrypt.GoTo()
-    Sleep(100)
-    WaitForZoneChange("Soul Temple", 1300, 50) ; 60s
+    WaitForZoneChange("Soul Temple", 1300, 50) ; 65s
     EquipBlower()
     EquipBlower()
 
@@ -473,7 +479,7 @@ ULCStage3(*) {
 
     Travel.SoulCrypt.GoTo()
     Sleep(100)
-    WaitForZoneChange("Soul Temple", 1300, 50) ; 60s
+    WaitForZoneChange("Soul Temple", 1300, 50) ; 65s
     If (!Travel.SoulTemple.IsZone()) {
         Travel.SoulTemple.GoTo()
     }
@@ -632,7 +638,7 @@ WaitForBossKillOrTimeout(seconds := 30) {
     Out.D("WaitForBossKillOrTimeout")
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
-    gToolTip.Center("Waiting " seconds "s for Boss Kill")
+    gToolTip.CenterCD("Waiting for Boss Kill", seconds * 1000)
     /** @type {Timer} */
     Limiter := Timer()
     Limiter.CoolDownS(seconds, &isactive)
@@ -645,7 +651,7 @@ WaitForBossKillOrTimeout(seconds := 30) {
             ; Out.I("Kill timerlast " TimerLastCheckStatus " timer cur "
             ; TimerCurrentState " waslong " IsPrevTimerLong
             ; " islong " IsTimerLong)
-            gToolTip.CenterDel()
+            gToolTip.CenterCDDel()
             Return true
         }
         IsPrevTimerLong := IsTimerLong
@@ -654,7 +660,7 @@ WaitForBossKillOrTimeout(seconds := 30) {
             ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
                 50), 2)
             SetTimer(ToolTip.Bind(, , , 2), -3000)
-            gToolTip.CenterDel()
+            gToolTip.CenterCDDel()
             Return false
         }
         GameKeys.TriggerViolin()
@@ -662,7 +668,7 @@ WaitForBossKillOrTimeout(seconds := 30) {
         GameKeys.TriggerGravity()
         Sleep(17)
     }
-    gToolTip.CenterDel()
+    gToolTip.CenterCDDel()
     ToolTip(, , , 15)
     Out.I("Wait for boss kill timed out.")
     Return false
@@ -768,11 +774,11 @@ WaitForZoneChange(target, maxloops := 200, interval := 50) {
 
     Out.D("WaitForZoneChange")
     time := maxloops * interval / 1000
-    gToolTip.Center("Waiting for zone change for " time "s")
+    gToolTip.CenterCD("Waiting for zone change", maxloops * interval)
     /** @type {cPoint} */
     zonesample := Points.Misc.ZoneSample
     zonesample.WaitWhileNotColour(col.GetColourByZone(target), maxloops, interval)
-    ToolTip(, , , 15)
+    gToolTip.CenterCDDel()
 }
 
 GoToSoulTemple(*) {
@@ -836,4 +842,10 @@ WaitFor40thDice() {
     ;cPoint(416, 398) ; 41st dice
     ;cPoint(811, 299) ; Right page button
     ;cPoint(990, 402) ; 50th dice (dlc)
+}
+
+ToggleULCLoadouts() {
+    EquipBlower()
+    Sleep(100)
+    EquipMulchSword()
 }

@@ -104,13 +104,13 @@ WaitForBioOrTimeout(*) {
     /** @type {Timer} */
     Limiter := Timer()
     Limiter.CoolDownS(30, &isactive)
-    gToolTip.Center("Waiting 30s for Malachite unlock availability")
+    gToolTip.CenterCD("Waiting for Malachite unlock availability", 30000)
     While (cPoint(1683, 305).IsButton() && isactive) {
         cPoint(1683, 305).ClickButtonActive() ; Unlock Malachite
         GameKeys.TriggerWind()
         Sleep(17)
     }
-    gToolTip.CenterDel()
+    gToolTip.CenterCDDel()
     If (cPoint(1683, 305).IsButton()) {
         Return false
     }
@@ -133,13 +133,13 @@ TimeWarpIfLackingBio(*) {
     /** @type {Timer} */
     Limiter := Timer()
     Limiter.CoolDownS(45, &isactive)
-    gToolTip.Center("Waiting 45s for Malachite unlock availability")
+    gToolTip.CenterCD("Waiting for Malachite unlock availability", 45000)
     While (cPoint(1683, 305).IsButton() && isactive) {
         cPoint(1683, 305).ClickButtonActive() ; Unlock Malachite
         GameKeys.TriggerWind()
         Sleep(50)
     }
-    gToolTip.CenterDel()
+    gToolTip.CenterCDDel()
     If (cPoint(1683, 305).IsButton()) {
         Return false
     }
@@ -151,12 +151,15 @@ WaitForMalaOrTimeout(*) {
     Shops.Malachite.GoTo()
     Travel.ScrollResetToTop()
     Sleep(50)
-    gToolTip.Center("Waiting for Hematite unlock availability")
-    While (cPoint(1691, 305).IsButton()) {
+    /** @type {Timer} */
+    Limiter := Timer()
+    Limiter.CoolDownS(5, &isactive)
+    gToolTip.CenterCD("Waiting for Hematite unlock availability", 5000)
+    While (cPoint(1691, 305).IsButton() && isactive) {
         cPoint(1691, 305).ClickButtonActive() ; unlock hema
         Sleep(50)
     }
-    gToolTip.CenterDel()
+    gToolTip.CenterCDDel()
 }
 
 WaitForHemaOrTimeout(*) {
@@ -165,13 +168,16 @@ WaitForHemaOrTimeout(*) {
     Travel.ScrollResetToTop()
     Sleep(50)
 
-    gToolTip.Center("Waiting for Energy and Shards unlock availability")
-    While (cPoint(1686, 311).IsButton()) {
+    /** @type {Timer} */
+    Limiter := Timer()
+    Limiter.CoolDownS(10, &isactive)
+    gToolTip.CenterCD("Waiting for Energy and Shards unlock availability", 10000)
+    While (cPoint(1686, 311).IsButton() && isactive) {
         cPoint(1686, 311).ClickButtonActive() ; Unlock energy
         Sleep(150)
     }
     While (cPoint(1689, 532).IsButton() || cPoint(1688, 648).IsButton() ||
-    cPoint(1686, 766).IsButton()) {
+    cPoint(1686, 766).IsButton() && isactive) {
         cPoint(1689, 532).ClickButtonActive() ; Unlock ascension shards
         Sleep(50)
         cPoint(1688, 648).ClickButtonActive() ; Unlock fusion shards
@@ -179,7 +185,7 @@ WaitForHemaOrTimeout(*) {
         cPoint(1686, 766).ClickButtonActive() ; Unlock transformation shards
         Sleep(50)
     }
-    gToolTip.CenterDel()
+    gToolTip.CenterCDDel()
 }
 
 PlacePlayerPlasmaLoc(*) {
@@ -212,24 +218,23 @@ BuyDeathbook(*) {
     Out.I("BuyDeathbook")
     UlcWindow()
     Travel.ClosePanelIfActive()
-    Sleep(100)
     cPoint(1282, 622).Click() ; Open DB
     cPoint(1139, 376).WaitUntilButton()
-    if (cPoint(1139, 376).IsButtonInactive()) {
+    If (cPoint(1139, 376).IsButtonInactive()) {
         Out.D("Deathbook was not purchasable.")
-        return false
+        Return false
     }
     cPoint(1139, 376).ClickButtonActive() ; Unlock
     Sleep(50)
     cPoint(1139, 376).ClickButtonActive() ; Unlock
     Sleep(100)
-    return IsDeathbookUnlocked()
+    Return IsDeathbookUnlocked()
 }
 
 IsDeathbookUnlocked() {
-    if (cPoint(362, 531).IsButton() || cPoint(442, 533).IsButton()) {
+    If (cPoint(362, 531).IsButton() || cPoint(442, 533).IsButton()) {
         Out.I("Deathbook unlocked")
-        return true
+        Return true
     }
-    return false
+    Return false
 }
