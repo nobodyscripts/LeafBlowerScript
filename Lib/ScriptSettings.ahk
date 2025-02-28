@@ -32,6 +32,7 @@ Global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
 Global GemFarmSleepAmount
 Global ClawCheckSizeOffset, ClawFindAny
 Global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
+Global BVInvArr := []
 Global NavigateTime
 
 Global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower, HyacinthUseSpheres,
@@ -70,7 +71,7 @@ Global SCAdvanceReplace
  * @property Name Name of the setting and global var name
  * @property DefaultValue Default value for non developers
  * @property NobodyDefaultValue Default value for developer
- * @property DataType Internal custom datatype string {bool | int | arrborbv}
+ * @property DataType Internal custom datatype string {bool | int | array}
  * @property Category Ini file category heading
  * @method __new Constructor
  * @method ValueToString Converts value to file writable string
@@ -139,7 +140,7 @@ Class singleSetting {
         Switch (StrLower(this.DataType)) {
         Case "bool":
             Return BinaryToStr(value)
-        Case "arrborbv":
+        Case "array":
             Return ArrToCommaDelimStr(value)
         default:
             Return value
@@ -245,7 +246,9 @@ Class cSettings {
             false, "bool", "Borbventures")
         this.Map["BVItemsArr"] := singleSetting("BVItemsArr",
             "0x018C9C, 0x01D814, 0x0F2A1D, 0x6CD820, 0xC9C9C9",
-            "0x01D814, 0xC9C9C9, 0xF91FF6", "arrBorbv", "Borbventures")
+            "0x01D814, 0xC9C9C9, 0xF91FF6", "array", "Borbventures")
+        this.Map["BVInvArr"] := singleSetting("BVInvArr",
+            "", "", "array", "Borbventures")
         this.Map["CardsCommonAmount"] := singleSetting("CardsCommonAmount",
             25000, 1000, "int", "Cards")
         this.Map["CardsRareAmount"] := singleSetting("CardsRareAmount", 25000,
@@ -483,7 +486,7 @@ Class cSettings {
         Global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
         Global GemFarmSleepAmount
         Global ClawCheckSizeOffset, ClawFindAny
-        Global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
+        Global BVItemsArr, HaveBorbDLC, BVBlockMythLeg, BVInvArr
         Global NavigateTime
         Global DisableZoneChecks, DisableSettingsChecks
         Global ArtifactSleepAmount
@@ -524,12 +527,12 @@ Class cSettings {
         this.UpdateSettings()
         For (setting in this.Map) {
             Try {
-                If (this.Map[setting].Name != "BVItemsArr") {
+                If (StrLower(this.Map[setting].DataType) != "array") {
                     %this.Map[setting].Name% := ;
                         this.IniToVar(this.Map[setting].Name, this.Map[setting]
                             .Category)
                 } Else {
-                    ; special handling for the bv array
+                    ; special handling for array datatypes
                     %this.Map[setting].Name% := CommaDelimStrToArr( ;
                         this.IniToVar(this.Map[setting].Name, this.Map[setting]
                             .Category))

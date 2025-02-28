@@ -9,8 +9,8 @@ Button_Click_ULC(thisGui, info) {
     optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
 
-    optionsGUI.Add("Button", "default", "test")
-    .OnEvent("Click", test)
+    optionsGUI.Add("Button", "default", "Scan and save BV Inventory")
+    .OnEvent("Click", ScanBVInventory)
 
     test(*) {
         UlcWindow()

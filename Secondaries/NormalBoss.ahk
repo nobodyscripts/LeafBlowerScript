@@ -18,6 +18,7 @@ Global BossFarmUsesSeeds := false
 Global BossFarmFast := false
 Global WobblyWingsSleepAmount := 1
 Global ArtifactSleepAmount := 1
+/** @type {cSettings} */
 Global settings := cSettings()
 settings.initSettings(true)
 

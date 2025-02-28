@@ -15,6 +15,7 @@ Global IsSecondary := true
 
 Global ArtifactSleepAmount := 1
 Global BossFarmUsesSeeds := true
+/** @type {cSettings} */
 Global settings := cSettings()
 settings.initSettings(true)
 

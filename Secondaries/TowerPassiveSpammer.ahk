@@ -13,6 +13,7 @@ Global IsSecondary := true
 #Include ..\Lib\Navigate.ahk
 #Include ..\Lib\cHotkeysInitGame.ahk
 
+/** @type {cSettings} */
 Global settings := cSettings()
 settings.initSettings(true)
 

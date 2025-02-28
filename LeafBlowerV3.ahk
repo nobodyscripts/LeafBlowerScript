@@ -34,6 +34,7 @@ Persistent() ; Prevent the script from exiting automatically.
 OnExit(ExitFunc)
 
 Global HadToHideNotifsF9 := false
+/** @type {cSettings} */
 Global settings := cSettings()
 
 If (!settings.initSettings()) {
@@ -101,8 +102,6 @@ CreateScriptHotkeys() {
             ;"Current zone colour: " Points.ZoneSample.GetColour()
         )
         A_Clipboard := "cPoint(" clientx ", " clienty ")"
-        ;Out.D("Mala shop button colour: " cPoint(1639, 1308).GetColour())
-        ;Out.D("Hema shop button colour: " cPoint(1691, 1308).GetColour())
     }
 
     ~WheelDown:: {

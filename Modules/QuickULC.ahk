@@ -25,10 +25,14 @@ Biotite was in e6 maybe loop tw, need a bv solution
 Gf/ss/quark custom travel to avoid closing areas panel
 
 Stage 3 checks for shop not being unlocked > repeat later
+Debug: Mala shop button colour: 0xFFFFF6 cPoint(1639, 1308).GetColour()
+Hema shop button colour: 0xC8BDA5 cPoint(1691, 1308).GetColour()
 
 Leafton farming
 
 Is crafted saved, automatic crafting with presets
+
+Got stuck trying to buy max floors in soul forge without electric unlocked
 
 */
 
@@ -384,6 +388,13 @@ ULCStage3(*) {
             )
             Return
         }
+    }
+
+    If(cPoint(1639, 1308).GetColour() = "0xFFFFF6") { ; Mala shop button
+        msg := "Malachite shop still locked, will need another pass of stage 3 to unlock energy"
+        Out.E(msg)
+        MsgBox(msg)
+        return
     }
 
     EquipSlap()
