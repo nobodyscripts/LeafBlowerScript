@@ -63,11 +63,9 @@ StoreMineCurrency(*) {
  */
 MaxBVItems(*) {
     /** @type {cPoint} */
-    CraftBtn := cPoint(1570, 644)
+    CraftBtn := cPoint(1585, 630)
     /** @type {cPoint} */
     AscendBtn := cPoint(1855, 646)
-    /** @type {cPoint} */
-    ScrapBtn := cPoint(2136, 646)
     Global BVInvArr
 
     Columns := [
@@ -162,11 +160,9 @@ MaxBVItems(*) {
  */
 MaxBVItemsJustSocks(*) {
     /** @type {cPoint} */
-    CraftBtn := cPoint(1570, 644)
+    CraftBtn := cPoint(1585, 630)
     /** @type {cPoint} */
     AscendBtn := cPoint(1855, 646)
-    /** @type {cPoint} */
-    ScrapBtn := cPoint(2136, 646)
 
     Columns := [
         391,
@@ -247,11 +243,9 @@ MaxBVItemsJustSocks(*) {
  */
 MaxBVItemsJustBags(*) {
     /** @type {cPoint} */
-    CraftBtn := cPoint(1570, 644)
+    CraftBtn := cPoint(1585, 630)
     /** @type {cPoint} */
     AscendBtn := cPoint(1855, 646)
-    /** @type {cPoint} */
-    ScrapBtn := cPoint(2136, 646)
     Global BVInvArr
 
     Columns := [
@@ -398,7 +392,7 @@ DisableDiceAutos(*) {
 ScanBVInventory(*) {
 
     /** @type {cPoint} */
-    CraftBtn := cPoint(1570, 644)
+    CraftBtn := cPoint(1585, 630)
     Columns := [
         391,
         463,

@@ -16,11 +16,17 @@ TODO
 02/26/2025 04:03:23:456 Debug: Exited at id 8
 ^ probably need to adjust WaitUntilActiveButton times
 
+Moonstone loadout swapping, check for sand shop and benitonite
+
+Trade boost all, and move timer start to after first 4 are filled
+
 e300 trades optional
 
 CursedKokkaupunki > reset scroll > no second button on reset > exit bs 1
 
-Biotite was in e6 maybe loop tw, need a bv solution
+Biotite was in e6 maybe loop tw
+
+Need a bv solution
 
 Gf/ss/quark custom travel to avoid closing areas panel
 
@@ -245,6 +251,7 @@ ULCStage1(*) {
         EquipBlower()
         EquipBlower()
         TradeForPyramid()
+        cPoint(1530, 1087).ClickButtonActive() ; Boost all
 
         ; Trade wait
         gToolTip.CenterMS("Waiting for trades to complete", 120050)

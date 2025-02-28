@@ -407,11 +407,11 @@ TradeForPyramid(*) {
 
         If (Points.GemFarm.Start2.IsBackground()) {
             Out.I("Trades full")
+            cPoint(1530, 1087).ClickButtonActive() ; Boost all
             Break
         }
         i++
     }
-    cPoint(762, 526).ClickButtonActive() ; Boost all
 
     ScanTradesByColour(colour) {
         point := scanArea.PixelSearch(colour)
