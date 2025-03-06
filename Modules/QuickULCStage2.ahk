@@ -119,10 +119,19 @@ WaitForBioOrTimeout(*) {
 
 TimeWarpIfLackingBio(*) {
     UlcWindow()
-    Use30minTimeWarp()
-    ; Use6hTimeWarp()
-    ; Use24hTimeWarp()
-    ; Use72hTimeWarp()
+    Global ULCBiotiteUseTW
+    Switch (ULCBiotiteUseTW) {
+    Case "30m":
+        Use30minTimeWarp()
+    Case "6h":
+        Use6hTimeWarp()
+    Case "24h":
+        Use24hTimeWarp()
+    Case "72h":
+        Use72hTimeWarp()
+    default:
+        Use30minTimeWarp()
+    }
     Travel.ClosePanelIfActive()
     Sleep(50)
     Shops.Biotite.GoTo()
@@ -146,6 +155,77 @@ TimeWarpIfLackingBio(*) {
     Return true
 }
 
+Use30minTimeWarp(*) {
+    _UseATimeWarp("30m")
+}
+
+Use6hTimeWarp(*) {
+    _UseATimeWarp("6h")
+}
+
+Use24hTimeWarp(*) {
+    _UseATimeWarp("24h")
+}
+
+Use72hTimeWarp(*) {
+    _UseATimeWarp("72h")
+}
+
+_UseATimeWarp(type := "30m") {
+    UlcWindow()
+    /** @type {cPoint} */
+    TTtab := cPoint(1761, 1163)
+    /** @type {cPoint} */
+    BuyTW := 0
+    /** @type {cPoint} */
+    AvailableTW := 0
+    Switch (ULCBiotiteUseTW) {
+    Case "30m":
+        Out.D("Use30minTimeWarp")
+        BuyTW := cPoint(1592, 306)
+        AvailableTW := cPoint(1744, 306)
+    Case "6h":
+        Out.D("Use6hTimeWarp")
+        BuyTW := cPoint(1592, 420)
+        AvailableTW := cPoint(1744, 420)
+    Case "24h":
+        Out.D("Use24hTimeWarp")
+        BuyTW := cPoint(1592, 530)
+        AvailableTW := cPoint(1744, 530)
+    Case "72h":
+        Out.D("Use72hTimeWarp")
+        BuyTW := cPoint(1592, 645)
+        AvailableTW := cPoint(1744, 645)
+    default:
+        Out.D("Use30minTimeWarp")
+        BuyTW := cPoint(1592, 306)
+        AvailableTW := cPoint(1744, 306)
+    }
+    Shops.OpenGemShop()
+    TTtab.WaitUntilActiveButtonS(8)
+    If (!TTtab.IsButtonActive()) {
+        Out.I("Found no time travel button, exiting.")
+        Global ULCStageExit := true
+        Return
+    }
+    ; Navigate to Time Travel tab
+    TTtab.Click(72)
+
+    BuyTW.WaitUntilActiveButtonS(8)
+
+    If (!AvailableTW.IsButtonActive()) {
+        BuyTW.ClickButtonActive(, , 72)
+
+        AvailableTW.WaitUntilActiveButtonS(8)
+
+        AvailableTW.ClickButtonActive(, , 72)
+        Sleep(100)
+    } Else {
+        AvailableTW.ClickButtonActive(, , 72)
+        Sleep(100)
+    }
+}
+
 WaitForMalaOrTimeout(*) {
     UlcWindow()
     Shops.Malachite.GoTo()
@@ -164,7 +244,10 @@ WaitForMalaOrTimeout(*) {
 
 WaitForHemaOrTimeout(*) {
     UlcWindow()
-    Shops.Hematite.GoTo()
+    If (!Shops.Hematite.GoTo()) {
+        Out.I("Travel to Hematite shop failed, likely not unlocked.")
+        Return false
+    }
     Travel.ScrollResetToTop()
     Sleep(50)
 
@@ -186,6 +269,7 @@ WaitForHemaOrTimeout(*) {
         Sleep(50)
     }
     gToolTip.CenterCDDel()
+    Return true
 }
 
 PlacePlayerPlasmaLoc(*) {
@@ -219,7 +303,7 @@ BuyDeathbook(*) {
     UlcWindow()
     Travel.ClosePanelIfActive()
     cPoint(1282, 622).Click() ; Open DB
-    cPoint(1139, 376).WaitUntilButton()
+    cPoint(1139, 376).WaitUntilButtonS(3)
     If (cPoint(1139, 376).IsButtonInactive()) {
         Out.D("Deathbook was not purchasable.")
         Return false

@@ -6,6 +6,10 @@
 #Include QuickULCStage4.ahk
 #Include GemFarm.ahk
 
+Global ULCBVItemsMultiPass := true
+Global ULCBiotiteUseTW := "30m" ; "6h" "24h" "72h"
+Global ULCMineStoreToSpheres := false
+
 ; Curse brewing off, auto craft off, ancient autobuy taxi off, fixed nav
 ; hide max shops off, auto buy max leaves in blc set to 0, bv min scale off, 60%
 ; biotite leaf marketing set to max of 74, loadouts
@@ -17,23 +21,15 @@ TODO
 02/26/2025 04:03:23:456 Debug: Exited at id 8
 ^ probably need to adjust WaitUntilActiveButton times
 
-Moonstone loadout swapping, check for sand shop and benitonite
-
-Trade boost all, and move timer start to after first 4 are filled
+CursedKokkaupunki > reset scroll > no second button on reset > exit bs 1
 
 e300 trades optional
 
-CursedKokkaupunki > reset scroll > no second button on reset > exit bs 1
-
-Biotite was in e6 maybe loop tw
-
 Need a bv solution
 
-Gf/ss/quark custom travel to avoid closing areas panel
+Display tooltip for WaitForPortalAnimation
 
-Stage 3 checks for shop not being unlocked > repeat later
-Debug: Mala shop button colour: 0xFFFFF6 cPoint(1639, 1308).GetColour()
-Hema shop button colour: 0xC8BDA5 cPoint(1691, 1308).GetColour()
+Gf/ss/quark custom travel to avoid closing areas panel
 
 Leafton farming
 
@@ -88,6 +84,7 @@ RunULCStage1(*) {
         "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
     )
 }
+
 RunULCStage2(*) {
     StartTotal := A_Now
     Time2 := ULCStage2()
@@ -123,6 +120,7 @@ RunULCStage2(*) {
         "Ulc run time: " DateDiff(StartTotal, EndTotal, "Seconds") "s"
     )
 }
+
 RunULCStage3(*) {
     StartTotal := A_Now
     Time3 := ULCStage3()
@@ -178,6 +176,7 @@ ULCStageExitCheck(id) {
 
 ULCStage1(*) {
     Start := A_Now
+    WaitForPortalAnimation()
     EquipBlower()
     EquipBlower()
     GetDailyReward()
@@ -230,7 +229,7 @@ ULCStage1(*) {
     ULCStageExitCheck(8)
 
     gToolTip.Center("Waiting for Benitoite to build up")
-    SetTimer(ToggleULCLoadouts, 1000)
+    SetTimer(ToggleULCLoadouts, 1200)
     If (!cPoint(1259, 1319).IsButtonActive()) { ; Moonstone shop icon
         Travel.TheLeafTower.GoTo()
     }
@@ -239,13 +238,15 @@ ULCStage1(*) {
         Sleep(17)
     }
     gToolTip.CenterDel()
+
     Shops.Moonstone.WaitForMoonstoneOrTimeout()
+
     Shops.Sand.WaitForSandOrTimeout()
     SetTimer(ToggleULCLoadouts, 0)
     ULCStageExitCheck(9)
 
     Shops.Mulch.BuyTrade()
-    Sleep(1000)
+    Sleep(700)
     Shops.Mulch.Max()
     Use30minTimeWarp() ; Should we do something with e300 blc first or try e30
     ULCStageExitCheck(10)
@@ -253,6 +254,8 @@ ULCStage1(*) {
     Travel.OpenAreas()
     Sleep(100)
     If (!Shops.Pyramid.IsFloor100Done()) {
+        Out.D("Trade pass")
+        Shops.MLC.MaxTrades()
         GoToTrade()
         EquipBlower()
         EquipBlower()
@@ -315,8 +318,12 @@ ULCStage2(*) {
     EquipBlower()
     Travel.MountMoltenfury.GoTo()
     Shops.Coal.GoTo()
-    cPoint(1865, 535).WaitWhileNotColour(Colours().Background)
+    /** @type {cPoint} */
+    MaxCoalFert := cPoint(1865, 535)
+    gToolTip.Center("Waiting for coal to collect")
+    MaxCoalFert.WaitWhileNotColourS(Colours().Background, 30)
     Sleep(2000)
+    gToolTip.CenterDel()
     Shops.Coal.Max()
 
     GoToGF()
@@ -335,19 +342,32 @@ ULCStage2(*) {
 ULCStage3(*) {
     UlcWindow()
     Start := A_Now
-    Travel.BiotiteForest.GoTo()
 
     MaxBVItemsJustSocks()
-    If (!WaitForBioOrTimeout()) {
-        TimeWarpIfLackingBio()
+    MaxBVItemsJustRings()
+
+    If (!Shops.Malachite.IsShopUnlocked()) {
+        Travel.BiotiteForest.GoTo()
+        If (!WaitForBioOrTimeout()) {
+            TimeWarpIfLackingBio()
+        }
     }
     Shops.Biotite.Max()
 
     WaitForMalaOrTimeout()
     Shops.Malachite.Max()
+    If (!Shops.Malachite.IsShopUnlocked()) {
+        msg := "Malachite shop still locked, will need another pass of stage 3 to unlock energy"
+        Out.E(msg)
+        MsgBox(msg)
+        Return
+    }
 
     Travel.SparkRange.GoTo()
-    WaitForHemaOrTimeout()
+    HemaFailed := false
+    If (!WaitForHemaOrTimeout()) {
+        HemaFailed := true
+    }
     Shops.Hematite.Max()
 
     /*  Travel.VilewoodCemetery.GoTo() ; go get some early sacred?
@@ -393,6 +413,20 @@ ULCStage3(*) {
     Travel.TheLoneTree.GoTo()
     Shops.Sacred.Max()
 
+    If (cPoint(1639, 1308).GetColour() = "0xFFFFF6") { ; Mala shop button
+        msg := "Malachite shop still locked, will need another pass of stage 3 to unlock energy"
+        Out.E(msg)
+        MsgBox(msg)
+        Return
+    }
+
+    If (HemaFailed) {
+        msg := "Hematite shop still locked, will need another pass of stage 3 to unlock energy"
+        Out.E(msg)
+        MsgBox(msg)
+        Return
+    }
+
     If (!Deathbook) {
         Travel.TerrorGraveyard.GoTo()
         Deathbook2 := BuyDeathbook()
@@ -402,13 +436,6 @@ ULCStage3(*) {
             )
             Return
         }
-    }
-
-    If (cPoint(1639, 1308).GetColour() = "0xFFFFF6") { ; Mala shop button
-        msg := "Malachite shop still locked, will need another pass of stage 3 to unlock energy"
-        Out.E(msg)
-        MsgBox(msg)
-        Return
     }
 
     EquipSlap()
@@ -531,8 +558,13 @@ ULCStage4(*) {
 
     BuyMaxBVPacks()
 
-    MaxBVItems()
-
+    Global ULCBVItemsMultiPass
+    If (ULCBVItemsMultiPass) {
+        MaxBVItemsJustBags641()
+        MaxBVItems()
+    } Else {
+        MaxBVItems()
+    }
     StoreMineCurrency()
 
     EquipBlower()

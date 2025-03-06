@@ -101,7 +101,7 @@ Class cToolTip {
 
     _DisplayCD() {
         ToolTip(, , , 13)
-        Text := this.Text "`r`n" this._curSeconds "s Remaining."
+        Text := this.Text "`r`n" Round(this._curSeconds) "s Remaining."
         CoordMode("Tooltip", "Client")
         ToolTip(Text, , A_ScreenHeight + 100, 13)
         WinGetPos(, , &width, &height, "ahk_class tooltips_class32")

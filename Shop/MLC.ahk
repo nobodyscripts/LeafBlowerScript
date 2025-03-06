@@ -169,4 +169,18 @@ Class sMLC extends Zone {
             Sleep(50)
         }
     }
+
+    MaxTrades() {
+        Shops.MLC.GoTo()
+        Travel.ScrollResetToTop()
+        Sleep(50)
+        Travel.ScrollAmountDown(35)
+        Sleep(50)
+        If (cPoint(1856, 535).ClickButtonActive()) { ; trade education
+            Sleep(50)
+        }
+        If (cPoint(1856, 535).ClickButtonActive()) { ; repeat
+            Sleep(50)
+        }
+    }
 }

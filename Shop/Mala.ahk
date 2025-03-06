@@ -3,14 +3,32 @@
 #Include ..\Lib\cZone.ahk
 
 Class sMalachite extends Zone {
+
+    /**
+     * Is the shop icon unlocked or not
+     */
+    IsShopUnlocked() {
+        /** @type {cPoint} */
+        point := cPoint(1691, 1308)
+        Out.D(point.GetColour())
+        Return point.IsButtonActive() ? true : false
+    }
+
     /**
      * Go to zone
      */
     GoTo() {
         UlcWindow()
         Travel.ClosePanelIfActive()
-        cPoint(1639, 1308).Click() ; Shop button
-        Sleep(150)
+        If (!this.IsShopUnlocked()) {
+            Out.E("Failure: Malachite shop not unlocked for use")
+        }
+        cPoint(1639, 1308).ClickOffset() ; Shop button
+        If (!Window.AwaitPanel()) {
+            Out.I("Malachite shop button colour: " cPoint(1639, 1308).GetColour())
+            cPoint(1639, 1308).ClickOffset() ; Shop button
+        }
+        Return Window.AwaitPanel()
     }
 
     /**

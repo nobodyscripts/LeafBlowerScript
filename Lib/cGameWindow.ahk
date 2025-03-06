@@ -469,8 +469,8 @@ Class cGameWindow {
         }
         /** @type {Timer} */
         lTimer := Timer()
-        lTimer.CoolDownS(maxS, &Expired)
-        while(!this.IsPanel() && Expired) {
+        lTimer.CoolDownS(maxS, &Waiting)
+        while(!this.IsPanel() && Waiting) {
             Sleep(17)
         }
         Return this.IsPanel()
@@ -488,8 +488,8 @@ Class cGameWindow {
         }
         /** @type {Timer} */
         lTimer := Timer()
-        lTimer.CoolDownS(maxS, &Expired)
-        while(this.IsPanel() && Expired) {
+        lTimer.CoolDownS(maxS, &Waiting)
+        while(this.IsPanel() && Waiting) {
             Sleep(17)
         }
         Return !this.IsPanel()

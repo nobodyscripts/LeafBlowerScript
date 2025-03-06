@@ -31,7 +31,7 @@ Class TheCursedPyramid extends Zone {
 
         /** @type {cPoint} */
         Local Btn := cPoint(1668, 781)
-        Btn.WaitUntilActiveButton(60, 17)
+        Btn.WaitUntilActiveButtonS(3)
         Btn.ClickButtonActive(, , delay + extradelay)
         If (!Btn.IsButtonActive()) {
             Out.I("The Cursed Pyramid not found while trying to travel.")

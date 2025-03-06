@@ -9,11 +9,16 @@ Class sMulch extends Zone {
         Sleep(50)
         Travel.ClosePanelIfActive()
         cPoint(1569, 1218).Click()
-        Sleep(150)
+        If (!Window.AwaitPanel()) {
+            cPoint(1569, 1218).Click() ; Shop button redundancy
+        }
+        Return Window.AwaitPanel()
     }
 
     Max(*) {
-        Shops.Mulch.GoTo()
+        If (!Shops.Mulch.GoTo()) {
+            Return false
+        }
         Travel.ScrollResetToTop()
         Sleep(50)
         cPoint(1862, 418).ClickButtonActive() ; mulched composter (seeds count)
@@ -56,47 +61,60 @@ Class sMulch extends Zone {
         Sleep(50)
         cPoint(1862, 935).ClickButtonActive() ; card parts detector
         Sleep(50)
+        Return true
     }
 
     BuyTrade(*) {
-        Shops.Mulch.GoTo()
+        If (!Shops.Mulch.GoTo()) {
+            Return false
+        }
         Travel.ScrollResetToTop()
         Sleep(50)
         Travel.ScrollAmountDown(14)
         Sleep(50)
-        cPoint(1860, 577).ClickButtonActive() ; leaf trader (trade count) altered order
+        ; Altered order, buy single then buy multi
+        cPoint(1697, 577).ClickButtonActive() ; leaf trader (trade count)
+        ;cPoint(1697, 672)
         If (cPoint(1860, 577).IsButton()) {
             gToolTip.CenterCD("Waiting for second trade max upgrade", 20000)
-            cPoint(1860, 577).WaitUntilActiveButton(400, 50) ; 20s
+            cPoint(1860, 577).WaitUntilActiveButton(200, 50) ; 20s
             cPoint(1860, 577).ClickButtonActive() ; leaf trader (trade count) altered order
             gToolTip.CenterCDDel()
             Sleep(50)
         }
         cPoint(1860, 350).ClickButtonActive() ; trade caps
         Sleep(50)
-        cPoint(1860, 350).ClickButtonActive() ; trade caps
-        Sleep(50)
+        If (cPoint(1860, 350).IsButton()) {
+            gToolTip.CenterCD("Waiting for second trade caps upgrade", 20000)
+            cPoint(1860, 350).WaitUntilActiveButton(200, 50) ; 20s
+            cPoint(1860, 350).ClickButtonActive() ; trade caps
+            gToolTip.CenterCDDel()
+            Sleep(50)
+        }
         cPoint(1859, 462).ClickButtonActive() ; trade optimization
         Sleep(50)
         cPoint(1859, 462).ClickButtonActive() ; trade optimization
         Sleep(50)
+        Return true
     }
 
     /**
      * Buy Craft Bags
      */
     BuyCraftBags() {
-        Shops.Mulch.GoTo()
+        If (!Shops.Mulch.GoTo()) {
+            Return false
+        }
         Travel.ScrollResetToTop()
         Sleep(50)
         Travel.ScrollAmountDown(14)
         Sleep(50)
         cPoint(1863, 797).ClickButtonActive() ; craft backpack
         Sleep(50)
-        
-        if (cPoint(1863, 797).IsButton()) {
-            return true
+
+        If (cPoint(1863, 797).IsButton()) {
+            Return true
         }
-        return false
+        Return false
     }
 }

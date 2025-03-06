@@ -18,14 +18,14 @@ BuyMaxCardPacks(*) {
         LegBtn.ClickOffset()
     } ; Need to recheck otherwise we could click inactive
     If (LegBtn.IsButtonActive()) {
-        LegBtn.ClickOffsetWhileColour(LegBtn.GetColour(), 100)
+        LegBtn.ClickOffsetUntilColour(Colours().Inactive, 100)
         Sleep(50)
     }
     If (ComBtn.IsButtonActive()) {
         ComBtn.ClickOffset()
     }
     If (ComBtn.IsButtonActive()) {
-        ComBtn.ClickOffsetWhileColour(ComBtn.GetColour(), 100)
+        ComBtn.ClickOffsetUntilColour(Colours().Inactive, 100)
         Sleep(50)
     }
     If (LegBtn.IsButtonActive() || ComBtn.IsButtonActive()) {
@@ -42,6 +42,7 @@ BuyMaxCardPacks(*) {
  * for ulc reset
  */
 StoreMineCurrency(*) {
+    Global ULCMineStoreToSpheres
     Shops.Mine.GoToTabTrans()
     Sleep(150)
     Points.Mine.Transmute.AllCBarsToCDias.Click()
@@ -49,11 +50,18 @@ StoreMineCurrency(*) {
     Points.Mine.Transmute.AllSDiasToCDia.Click()
     Sleep(50)
 
-    Points.Mine.Transmute.AllCDiasToSpheres.Click()
-    ; or
-    ; Points.Mine.Transmute.AllCDiasToFuel.Click()
-
+    If (ULCMineStoreToSpheres) {
+        Points.Mine.Transmute.AllCDiasToSpheres.Click()
+        Sleep(50)
+        Points.Mine.Transmute.AllCDiasToFuel.Click()
+        Sleep(50)
+    } Else {
+        Points.Mine.Transmute.AllCDiasToFuel.Click()
+        Sleep(50)
+    }
+    Points.Mine.Tab4Drill.ClickButtonActive()
     Sleep(50)
+    Points.Mine.FreeFuel.ClickButtonActive()
 }
 ;@endregion
 
@@ -111,10 +119,10 @@ MaxBVItems(*) {
                     If (!btn.IsBackground() &&
                     item != "cape" && item != "candy" && item != "box") {
                         btn.ClickOffset()
-                        Sleep(150)
+                        Sleep(170)
                         If (IsItemCraftable()) {
                             CraftBtn.Click()
-                            Sleep(50)
+                            Sleep(70)
                         }
                     }
                     i++
@@ -129,10 +137,10 @@ MaxBVItems(*) {
                 btn := cPoint(cvalue, rvalue)
                 If (!btn.IsBackground()) {
                     btn.ClickOffset()
-                    Sleep(150)
+                    Sleep(170)
                     If (IsItemCraftable()) {
                         CraftBtn.Click()
-                        Sleep(50)
+                        Sleep(70)
                     }
                 }
             }
@@ -236,6 +244,89 @@ MaxBVItemsJustSocks(*) {
 }
 ;@endregion
 
+;@region MaxBVItemsJustRings(*)
+/**
+ * MaxBVItemsJustRings Go through each bv item in inventory and try to 
+ * max it if sock
+ */
+MaxBVItemsJustRings(*) {
+    /** @type {cPoint} */
+    CraftBtn := cPoint(1585, 630)
+    /** @type {cPoint} */
+    AscendBtn := cPoint(1855, 646)
+
+    Columns := [
+        391,
+        463,
+        530,
+        596,
+        665,
+        736,
+        799,
+        868,
+        935,
+        1010,
+        1074,
+        1140,
+        1206,
+        1281,
+        1344
+    ]
+    Rows := [
+        502,
+        623,
+        749,
+        877,
+        1001
+    ]
+    UlcWindow()
+    Shops.OpenBorbVentures()
+    Sleep(100)
+    Points.Borbventures.InvTab.Click()
+    Sleep(100)
+    AmountToModifier(25000)
+    Sleep(70)
+    i := 1
+    If (BVInvArr.Length > 1) {
+        For (rid, rvalue IN Rows) {
+            For (cid, cvalue IN Columns) {
+                If (i <= BVInvArr.Length) {
+                    /** @type {cPoint} */
+                    btn := cPoint(cvalue, rvalue)
+                    item := StrLower(BVInvArr[i])
+                    If (item = "ring" && !btn.IsBackground()) {
+                        btn.ClickOffset(, , 50)
+                        Sleep(150)
+                        If (CraftBtn.IsButtonActive() && IsBVRing()) {
+                            CraftBtn.Click(50)
+                            Sleep(50)
+                        }
+                    }
+                    i++
+                }
+            }
+        }
+    } Else {
+        For (rid, rvalue IN Rows) {
+            For (cid, cvalue IN Columns) {
+                /** @type {cPoint} */
+                btn := cPoint(cvalue, rvalue)
+                If (!btn.IsBackground()) {
+                    btn.ClickOffset(, , 50)
+                    Sleep(150)
+                    If (CraftBtn.IsButtonActive() && IsBVRing()) {
+                        CraftBtn.Click(50)
+                        Sleep(50)
+                    }
+                }
+            }
+        }
+    }
+    ResetModifierKeys()
+    Sleep(70)
+}
+;@endregion
+
 ;@region MaxBVItemsJustBags(*)
 /**
  * MaxBVItemsSpecific Go through each bv item in inventory and try to 
@@ -312,6 +403,98 @@ MaxBVItemsJustBags(*) {
                     }
                 }
                 i++
+            }
+        }
+    }
+    ResetModifierKeys()
+    Sleep(70)
+}
+;@endregion
+
+;@region MaxBVItemsJustBags641(*)
+/**
+ * MaxBVItemsJustBags641 Go through each bv item in inventory and try to 
+ * max it if sock
+ */
+MaxBVItemsJustBags641(*) {
+    /** @type {cPoint} */
+    CraftBtn := cPoint(1585, 630)
+    /** @type {cPoint} */
+    AscendBtn := cPoint(1855, 646)
+    Global BVInvArr
+
+    Columns := [
+        391,
+        463,
+        530,
+        596,
+        665,
+        736,
+        799,
+        868,
+        935,
+        1010,
+        1074,
+        1140,
+        1206,
+        1281,
+        1344
+    ]
+    Rows := [
+        502,
+        623,
+        749,
+        877,
+        1001
+    ]
+    UlcWindow()
+    Shops.OpenBorbVentures()
+    Sleep(100)
+    Points.Borbventures.InvTab.Click()
+    Sleep(100)
+    AmountToModifier(25000)
+    Sleep(70)
+    Done := 0
+    While (Done < 12) {
+        i := 1
+        If (BVInvArr.Length > 1) {
+            For (rid, rvalue IN Rows) {
+                For (cid, cvalue IN Columns) {
+                    If (i <= BVInvArr.Length) {
+                        /** @type {cPoint} */
+                        btn := cPoint(cvalue, rvalue)
+                        If (!btn.IsBackground() && StrLower(BVInvArr[i]) = "backpack") {
+                            btn.ClickOffset(, , 50)
+                            Sleep(150)
+                            If (CraftBtn.IsButtonActive()) {
+                                CraftBtn.Click(50)
+                                Sleep(50)
+                            } Else {
+                                Done++
+                            }
+                        }
+                        i++
+                    }
+                }
+            }
+        } Else {
+            For (rid, rvalue IN Rows) {
+                For (cid, cvalue IN Columns) {
+                    /** @type {cPoint} */
+                    btn := cPoint(cvalue, rvalue)
+                    If (!btn.IsBackground()) {
+                        btn.ClickOffset(, , 50)
+                        Sleep(150)
+                        If (CraftBtn.IsButtonActive() && IsBVBackPack()) {
+                            CraftBtn.Click(50)
+                            Sleep(50)
+                        }
+                        If (!CraftBtn.IsButtonActive() && IsBVBackPack()) {
+                            Done++
+                        }
+                    }
+                    i++
+                }
             }
         }
     }

@@ -381,6 +381,21 @@ Class cPoint {
     }
 
     /**
+     * Clickoffset with loop that checks for specified colour, useful for 
+     * clicking until something changes.
+     * @memberof cPoint
+     * @param colour 
+     * @param {Integer} offsetX 
+     * @param {Integer} offsetY 
+     * @param {Integer} delay Click delay
+     * @param {Integer} seconds Time period for loop
+     * @returns {Bool} 
+     */
+    ClickOffsetWhileColourS(colour, offsetX := 1, offsetY := 1, delay := 54, seconds := 10) {
+        Return this.ClickOffsetWhileColour(colour, seconds * 1000 / 20, offsetX, offsetY, delay, 20)
+    }
+
+    /**
      * Clickoffset with loop that checks for NOT being the specified colour, 
      * useful for clicking until something changes.
      * @memberof cPoint
@@ -408,6 +423,21 @@ Class cPoint {
     }
 
     /**
+     * Clickoffset with loop that checks for NOT being the specified colour, 
+     * useful for clicking until something changes.
+     * @memberof cPoint
+     * @param colour 
+     * @param {Integer} offsetX 
+     * @param {Integer} offsetY 
+     * @param {Integer} delay Click delay
+     * @param {Integer} seconds Time period for loop
+     * @returns {Bool} 
+     */
+    ClickOffsetUntilColourS(colour, offsetX := 1, offsetY := 1, delay := 54, seconds := 10) {
+        Return this.ClickOffsetUntilColour(colour, seconds * 1000 / 20, offsetX, offsetY, delay, 20)
+    }
+
+    /**
      * Loop until colour found or max loops reached
      * @memberof cPoint
      * @param colour 
@@ -426,6 +456,17 @@ Class cPoint {
         }
         Out.D("WaitWhileColour: " this.toStringWColour())
         Return this.GetColour() != colour
+    }
+
+    /**
+     * Loop until colour found or max loops reached
+     * @memberof cPoint
+     * @param colour 
+     * @param {Integer} seconds Time period for loop
+     * @returns {Bool} True if colour changed, false if not
+     */
+    WaitWhileColourS(colour, seconds := 10) {
+        Return this.WaitWhileColour(colour, seconds * 1000 / 20, 20)
     }
 
     /**
@@ -448,6 +489,17 @@ Class cPoint {
         }
         Out.D("WaitWhileNotColour: finish " this.toStringWColour())
         Return this.GetColour() = colour
+    }
+
+    /**
+     * Loop until not colour specified or max loops reached
+     * @memberof cPoint
+     * @param colour 
+     * @param {Integer} seconds Time period for loop
+     * @returns {Integer} True if colour matches, false if not
+     */
+    WaitWhileNotColourS(colour, seconds := 10) {
+        Return this.WaitWhileNotColour(colour, seconds * 1000 / 20, 20)
     }
 
     /**
@@ -476,6 +528,16 @@ Class cPoint {
     }
 
     /**
+     * Loop until active button found or max loops reached
+     * @memberof cPoint
+     * @param {Integer} seconds Time period for loop
+     * @returns {Integer} True if colour matches, false if not
+     */
+    WaitUntilActiveButtonS(seconds := 10) {
+        Return this.WaitUntilActiveButton(seconds * 1000 / 20, 20)
+    }
+
+    /**
      * Loop until button found or max loops reached
      * @memberof cPoint
      * @param {Integer} maxLoops 
@@ -498,6 +560,16 @@ Class cPoint {
         }
         Out.D("WaitUntilButton: " this.toStringWColour())
         Return this.IsButton()
+    }
+
+    /**
+     * Loop until button found or max loops reached
+     * @memberof cPoint
+     * @param {Integer} seconds Time period for loop
+     * @returns {Integer} True if colour matches, false if not
+     */
+    WaitUntilButtonS(seconds := 10) {
+        Return this.WaitUntilButton(seconds * 1000 / 20, 20)
     }
 
     /**

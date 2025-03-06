@@ -11,7 +11,7 @@ Button_Click_ULC(thisGui, info) {
 
     /* optionsGUI.Add("Button", "default", "Test")
     .OnEvent("Click", Test)
-
+    
     Test(*) {
         UlcWindow()
         gToolTip.CenterCD("Test tooltip", 5000)
@@ -138,19 +138,23 @@ Button_Click_ULC(thisGui, info) {
     optionsGUI.Add("Button", "default", "MaxBVItems")
     .OnEvent("Click", MaxBVItems)
 
+    optionsGUI.Add("Button", "default", "MaxBVItemsJustBags")
+    .OnEvent("Click", MaxBVItemsJustBags)
+
+    optionsGUI.Add("Button", "default", "Max bv bags looped")
+    .OnEvent("Click", MaxBVItemsJustBags641)
+
     optionsGUI.Add("Button", "default", "MaxBVItemsJustSocks")
     .OnEvent("Click", MaxBVItemsJustSocks)
 
-    optionsGUI.Add("Button", "default", "MaxBVItemsJustBags")
-    .OnEvent("Click", MaxBVItemsJustBags)
+    optionsGUI.Add("Button", "default", "MaxBVItemsJustRings")
+    .OnEvent("Click", MaxBVItemsJustRings)
 
     optionsGUI.Add("Button", "default", "BuyMaxCardPacks")
     .OnEvent("Click", BuyMaxCardPacks)
 
     optionsGUI.Add("Button", "default", "BuyMaxBVPacks")
     .OnEvent("Click", BuyMaxBVPacks)
-
-    
 
     optionsGUI.Show()
 }

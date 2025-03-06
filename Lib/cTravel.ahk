@@ -595,7 +595,7 @@ Class cTravel {
      */
     ResetScroll(Button1, Button2, delay := 0) {
         NavTime := NavigateTime + delay
-        Button1.WaitUntilActiveButton(120, 17)
+        Button1.WaitUntilActiveButtonS(3)
         Out.V("Resetting panel scroll")
         ; Click tab
         If (Button1.IsButtonActive()) {

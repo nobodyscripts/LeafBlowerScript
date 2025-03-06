@@ -9,8 +9,13 @@ Class sSand extends Zone {
     GoTo() {
         UlcWindow()
         Travel.ClosePanelIfActive()
-        cPoint(1327, 1318).Click() ; Shop button
-        return Window.AwaitPanel()
+        
+        cPoint(1327, 1318).ClickOffset(,,72) ; Shop button
+        If (!Window.AwaitPanel()) {
+            Out.I("Sand shop button colour: " cPoint(1327, 1318).GetColour())
+            cPoint(1327, 1318).ClickOffset(,,72) ; Shop button redundancy
+        }
+        Return Window.AwaitPanel()
     }
 
     /**
@@ -18,28 +23,36 @@ Class sSand extends Zone {
      */
     Max(*) {
         UlcWindow()
-        Shops.Sand.GoTo()
+        If (!Shops.Sand.GoTo()) {
+            Return false
+        }
         Travel.ScrollResetToTop()
         Sleep(50)
         cPoint(1858, 309).ClickButtonActive() ; max sand marketing
         Sleep(50)
+        Return true
     }
 
     WaitForSandOrTimeout(*) {
         UlcWindow()
-        Shops.Sand.GoTo()
+        
+        /** @type {Timer} */
+        shopLimiter := Timer()
+        shopLimiter.CoolDownS(15, &shopisactive)
+        while (!Shops.Sand.GoTo() && shopisactive) {
+            Sleep(17)
+        }
         Travel.ScrollResetToTop()
         Sleep(50)
         /** @type {Timer} */
         Limiter := Timer()
-        Limiter.CoolDownS(20, &isactive)
+        Limiter.CoolDownS(5, &isactive)
         gToolTip.CenterCD("Waiting for Sand to build up", 20000)
-        While(!cPoint(1858, 309).IsBackground() && isactive) {
+        While (!cPoint(1858, 309).IsBackground() && isactive) {
             GameKeys.TriggerWind()
             Sleep(17)
         }
         gToolTip.CenterCDDel()
-        return cPoint(1858, 309).IsBackground()
-        
+        Return cPoint(1858, 309).IsBackground()
     }
 }

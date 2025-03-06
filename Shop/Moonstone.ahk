@@ -10,6 +10,9 @@ Class sMoonstone extends Zone {
         UlcWindow()
         Travel.ClosePanelIfActive()
         cPoint(1259, 1319).Click() ; Shop button
+        if(!Window.AwaitPanel()) {
+            Out.I("Moonstone shop button colour: " cPoint(1259, 1319).GetColour())
+        }
         Return Window.AwaitPanel()
     }
 

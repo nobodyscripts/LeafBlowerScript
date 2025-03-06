@@ -4,13 +4,30 @@
 
 Class sHematite extends Zone {
     /**
+     * Is the shop icon unlocked or not
+     */
+    IsShopUnlocked() {
+        /** @type {cPoint} */
+        point := cPoint(1691, 1308)
+        Out.D(point.GetColour())
+        return point.IsButtonActive() ? true : false
+    }
+
+    /**
      * Go to zone
      */
     GoTo() {
         UlcWindow()
         Travel.ClosePanelIfActive()
-        cPoint(1691, 1308).Click() ; Shop button
-        Sleep(150)
+        if (!this.IsShopUnlocked()) {
+            Out.E("Failure: Hema shop not unlocked for use")
+        }
+        cPoint(1691, 1308).ClickOffset() ; Shop button
+        If (!Window.AwaitPanel()) {
+            Out.I("Hematite shop button colour: " cPoint(1691, 1308).GetColour())
+            cPoint(1691, 1308).ClickOffset() ; Shop button
+        }
+        Return Window.AwaitPanel()
     }
 
     /**
@@ -18,7 +35,9 @@ Class sHematite extends Zone {
      */
     Max(*) {
         UlcWindow()
-        Shops.Hematite.GoTo()
+        If (!Shops.Hematite.GoTo()) {
+            Return false
+        }
         Travel.ScrollResetToTop()
         Sleep(50)
         cPoint(1686, 311).ClickButtonActive() ; Unlock energy
@@ -50,20 +69,23 @@ Class sHematite extends Zone {
         cPoint(1861, 829).ClickButtonActive() ; boss card detector
         Sleep(50)
         cPoint(1695, 938).ClickButtonActive() ; Gem Business
+        Return true
     }
     /**
      * Buy Craft Bags
      */
     BuyCraftBags() {
-        Shops.Hematite.GoTo()
+        If (!Shops.Hematite.GoTo()) {
+            Return false
+        }
         Travel.ScrollResetToTop()
         Travel.ScrollAmountDown(7)
         Sleep(50)
         cPoint(1863, 880).ClickButtonActive() ; bigger backpack
         Sleep(50)
-        if (cPoint(1863, 880).IsButton()) {
-            return true
+        If (cPoint(1863, 880).IsButton()) {
+            Return true
         }
-        return false
+        Return false
     }
 }

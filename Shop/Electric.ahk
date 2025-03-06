@@ -10,7 +10,7 @@ Class sElectric extends Zone {
         UlcWindow()
         Travel.ClosePanelIfActive()
         cPoint(1981, 1303).Click() ; Shop button
-        Sleep(150)
+        return Window.AwaitPanel()
     }
 
     /**
