@@ -16,8 +16,7 @@ WaitForFloor100(*) {
     /** @type {Timer} */
     Limiter := Timer()
     Limiter.CoolDownM(2, &isactive)
-    text := cPoint(1144, 609)
-    text.TextTipAtCoord("Waiting for floor 100 to be reached")
+    gToolTip.Center("Waiting for floor 100 to be reached")
     Out.D("Waiting for floor 100 to be reached")
     While (!Rects.Misc.FloorAmount100.PixelSearch() && isactive &&
     Window.IsActive()) {
@@ -27,7 +26,7 @@ WaitForFloor100(*) {
         Out.I("Timed out checking for floor 100, aborting.")
         Global ULCStageExit := true
     }
-    ToolTip(, , , 15)
+    gToolTip.CenterDel()
 }
 
 TriggerBLC(*) {
@@ -100,12 +99,14 @@ ActivateConverters(*) {
 WaitForPortalAnimation(*) {
     UlcWindow()
     Out.D("WaitForPortalAnimation")
+    gToolTip.Center("Waiting for portal animation to finish")
     Points.Misc.NotifArrowExist.WaitUntilActiveButtonS(20)
     Sleep(200)
     If (!Points.Misc.NotifArrowExist.IsButtonActive()) {
         Out.I("Failed to see ui after portal animation")
         Global ULCStageExit := true
     }
+    gToolTip.CenterDel()
 }
 
 WaitForBLCPortal(*) {
@@ -114,9 +115,6 @@ WaitForBLCPortal(*) {
     Travel.ClosePanelIfActive()
     Out.D("WaitForBLCPortal")
     /** @type {cPoint} */
-    text := cPoint(1144, 609)
-
-    /** @type {cPoint} */
     BlackFlaskStoreBtn := cPoint(828, 1225)
     /** @type {cPoint} */
     BuyBLCBtn := cPoint(1700, 304)
@@ -124,7 +122,7 @@ WaitForBLCPortal(*) {
     BLCBtn := cPoint(1063, 1220)
 
     Out.D("Waiting for flask button")
-    text.TextTipAtCoord("Waiting for black flask shop to be active")
+    gToolTip.Center("Waiting for black flask shop to be active")
     ; Out.D("Black flask button colour " BlackFlaskStoreBtn.GetColour())
     BlackFlaskStoreBtn.WaitUntilActiveButtonS(90)
     If (BlackFlaskStoreBtn.GetColour() = "0xFEF1D2" || BlackFlaskStoreBtn.IsButtonActive()) {
@@ -135,8 +133,8 @@ WaitForBLCPortal(*) {
             Sleep(72)
         }
     }
-    Tooltip(, , , 15)
-    text.TextTipAtCoord("Waiting for buy blc to be active")
+    gToolTip.CenterDel()
+    gToolTip.Center("Waiting for buy blc to be active")
     Out.D("Waiting for buy blc button")
     If (!BuyBLCBtn.IsBackground()) {
         BuyBLCBtn.WaitUntilActiveButtonS(10)
@@ -149,8 +147,8 @@ WaitForBLCPortal(*) {
     }
 
     colour := "0xFFC2B3"
-    Tooltip(, , , 15)
-    text.TextTipAtCoord("Waiting for blc portal to be active")
+    gToolTip.CenterDel()
+    gToolTip.Center("Waiting for blc portal to be active")
     Out.D("Waiting for blc portal button")
     BLCBtn.WaitWhileNotColour(colour, 4800, 17) ; 120s
     If (BLCBtn.GetColour() != colour) {
@@ -158,21 +156,20 @@ WaitForBLCPortal(*) {
         Global ULCStageExit := true
     }
     Out.I("Blc Portal found")
-    Tooltip(, , , 15)
+    gToolTip.CenterDel()
 }
 
 WaitTillPyramidReset(*) {
     UlcWindow()
     Out.D("WaitTillPyramidReset")
-    text := cPoint(1144, 609)
-    text.TextTipAtCoord("Waiting for pyramid to reset zone")
+    gToolTip.Center("Waiting for pyramid to reset zone")
     colour := Colours().GetColourByZone("The Cursed Pyramid")
     Points.Misc.ZoneSample.WaitWhileNotColour(colour, 1200, 50) ; 60s
     If (Points.Misc.ZoneSample.IsColour(colour)) {
         Out.I("Timed out waiting for pyramid to clear, "
             "taxi may have already been bought.")
     }
-    ToolTip(, , , 15)
+    gToolTip.CenterDel()
 }
 
 PubTradeForCheese250(*) { ; TODO add option to use 250 instead of 2500 cheese
@@ -190,22 +187,29 @@ PubTradeForCheese250(*) { ; TODO add option to use 250 instead of 2500 cheese
     BartenderBtn.Click()
     Sleep(250)
     QuestsBtn := cPoint(1091, 380)
-    QuestsBtn.WaitUntilActiveButtonS(3)
+    QuestsBtn.WaitUntilActiveButtonS(5)
     Out.D("Clicking quest")
     If (!QuestsBtn.ClickButtonActive()) {
         Out.I("Didn't find quest button, aborting.")
         Global ULCStageExit := true
         Return
     }
+    If (QuestsBtn.IsButtonActive()) {
+        If (!QuestsBtn.ClickButtonActive()) {
+            Out.I("Didn't find quest button, aborting.")
+            Global ULCStageExit := true
+            Return
+        }
+    }
     QuestCheese250Btn := cPoint(1702, 312)
-    QuestCheese250Btn.WaitUntilActiveButtonS(3)
+    QuestCheese250Btn.WaitUntilActiveButtonS(5)
     Out.D("Clicking cheese quest")
     If (!QuestCheese250Btn.ClickButtonActive()) {
         Out.I("Didn't find cheese quest button, aborting.")
         Global ULCStageExit := true
         Return
     }
-    QuestCheese250Btn.WaitUntilActiveButtonS(3)
+    QuestCheese250Btn.WaitUntilActiveButtonS(5)
     Out.D("Clicking cheese quest")
     If (!QuestCheese250Btn.ClickButtonActive()) {
         Out.I("Didn't find cheese quest button, aborting.")

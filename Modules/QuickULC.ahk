@@ -10,9 +10,38 @@ Global ULCBVItemsMultiPass := true
 Global ULCBiotiteUseTW := "30m" ; "6h" "24h" "72h"
 Global ULCMineStoreToSpheres := false
 
-; Curse brewing off, auto craft off, ancient autobuy taxi off, fixed nav
-; hide max shops off, auto buy max leaves in blc set to 0, bv min scale off, 60%
-; biotite leaf marketing set to max of 74, loadouts
+/*
+Ingame settings
+    Curse brewing - Off
+    Auto craft leaves - Off
+    Borb Pyramid Taxi (ancient) - Off
+    Borb Crypt Taxi (soul shop) - Off
+    Auto buy max leaves (BLC shop) - 0/Off
+    Borbventures Scale Min - Off
+    Borbventures Chance - 60%
+    Biotite leaf marketing - 74
+    
+Graphics settings
+    Fixed Navigation - On
+    Hide maxed shops - Off
+
+Loadouts
+On each save; Tool, Pet team, Uniques, Dice, Scrolls, (no nature, no autobuy, scrolls optional)
+    1 "Default"
+        Bellows, general ULC crafted (+Ancient, MLC+, MLC%, Nuclear Fuel, Skip tower+, Skip tower%, Soul forge+, TGM). Sharded for a mixture
+    2 "Slap"
+        Soul Trout, damage crafted set for wow
+    3 "Tower" (unused in ULC currently)
+        Bellows, tower skip/more tower floors crafted
+    4 "Sword"
+        Mulch sword, same setup as 1 otherwise
+    5 "Electric"
+        Bellows, Electric storage+, Storage%, Charge+, Charge%. 1 Sharded for storage, the rest sharded for Charge
+    Others unused: 6 "Curses", 7 "Quark", 8 "Piling"
+
+ULC Saved
+    Crafted, Quark, Cards, Other optional (tested with Dice)
+*/
 
 /*
 TODO
@@ -34,8 +63,6 @@ Gf/ss/quark custom travel to avoid closing areas panel
 Leafton farming
 
 Is crafted saved, automatic crafting with presets
-
-Got stuck trying to buy max floors in soul forge without electric unlocked
 
 */
 

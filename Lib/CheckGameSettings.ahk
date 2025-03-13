@@ -3,7 +3,6 @@
 #Include ../ExtLIbs/PeepAHK-main/script/Peep.v2.ahk
 
 fCheckGameSettings() {
-    tooltipid := 1
     err := 0
     warn := 0
     startX := 50

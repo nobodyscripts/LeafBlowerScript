@@ -35,18 +35,14 @@ fFarmNormalBoss(modecheck) {
         IsPrevTimerLong := IsTimerLong
         If (Travel.HomeGarden.IsAreaGarden()) {
             Out.I("BossFarm: User killed.")
-            ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
-                50), 2)
-            SetTimer(ToolTip.Bind(, , , 2), -3000)
+            gToolTip.CenterMS("Killed by boss", 3000)
         }
-        ToolTip("Kills: " . Killcount, Window.W / 2 - Window.RelW(50), Window.H /
-        2 + Window.RelH(20), 1)
+        gToolTip.Center("Kills: " . Killcount)
     }
-    ToolTip(, , , 1)
+    gToolTip.CenterDel()
 }
 
 fFarmNormalBossAndBrew(modecheck) {
-    ToolTip()
     Global on9
     Killcount := 0
     Shops.OpenAlchemyGeneral()
@@ -78,15 +74,12 @@ fFarmNormalBossAndBrew(modecheck) {
         If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()) {
             Spammer.KillNormalBoss()
             Out.I("BossFarm: User killed.")
-            ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
-                50), 2)
-            SetTimer(ToolTip.Bind(, , , 2), -3000)
+            gToolTip.CenterMS("Killed by boss", 3000)
             Return
         }
-        ToolTip("Brewing on, Kills: " . Killcount, Window.W / 2 - Window.RelW(
-            150), Window.H / 2 + Window.RelH(20), 1)
+        gToolTip.Center("Brewing on, Kills: " . Killcount)
     }
-    ToolTip(, , , 1)
+    gToolTip.CenterDel()
 }
 
 SpamBrewButtons() {
@@ -129,15 +122,12 @@ SpamBrewButtons() {
 
 fNormalBossFarmWithBorbs(modecheck) {
     Global bvAutostartDisabled
-    ToolTip()
     Global on9
     Killcount := 0
 
     If (!Shops.GotoBorbVFirstTab()) {
         Out.I("Borbv: Failed to travel, aborting.")
-        ToolTip("Failed to open Borbv, exiting.", Window.W / 2, Window.H / 2 +
-            Window.RelH(50), 5)
-        SetTimer(ToolTip.Bind(, , , 5), -3000)
+        gToolTip.CenterMS("Failed to open Borbv, exiting.", 3000)
         Return
     }
 
@@ -165,13 +155,10 @@ fNormalBossFarmWithBorbs(modecheck) {
         If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()) {
             Spammer.KillNormalBoss()
             Out.I("BossBorbs: User killed.")
-            ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
-                50), 2)
-            SetTimer(ToolTip.Bind(, , , 2), -3000)
+            gToolTip.CenterMS("Killed by boss", 3000)
             Return
         }
-        ToolTip("Borbfarm on, Kills: " . Killcount, Window.W / 2 - Window.RelW(
-            150), Window.H / 1.2, 4)
+        gToolTip.Center("Borbfarm on, Kills: " . Killcount)
         BVMainLoop()
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
@@ -185,12 +172,10 @@ fNormalBossFarmWithBorbs(modecheck) {
         ; TODO move point to Points
         fCustomClick(Window.RelW(591), Window.RelH(1100), 34)
     }
-    ToolTip(, , , 4)
+    gToolTip.CenterDel()
 }
 
 fNormalBossFarmWithCards(modecheck) {
-    ToolTip(, , , 4)
-    ToolTip()
     Global HadToHideNotifs, on9
     Killcount := 0
 
@@ -232,8 +217,7 @@ fNormalBossFarmWithCards(modecheck) {
             Out.I("BossCards: Exiting.")
             Return
         }
-        ToolTip("Boss farm with cards active", Window.W / 2 - Window.RelW(150),
-        Window.H / 2 + Window.RelH(320), 9)
+        gToolTip.Center("Boss farm with cards active")
         If (CardsBuyEnabled) {
             Out.I("BossCards buy: Loop starting.")
             CardBuyLoop()
@@ -256,9 +240,7 @@ fNormalBossFarmWithCards(modecheck) {
             If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()) {
                 Spammer.KillNormalBoss()
                 Out.I("BossCards: User killed.")
-                ToolTip("Killed by boss", Window.W / 2, Window.H / 2 + Window.RelH(
-                    50), 2)
-                SetTimer(ToolTip.Bind(, , , 2), -3000)
+                gToolTip.CenterMS("Killed by boss", 3000)
                 Return
             }
             IsTimerLong := IsBossTimerLong()
@@ -268,12 +250,10 @@ fNormalBossFarmWithCards(modecheck) {
                 Killcount++
             }
             IsPrevTimerLong := IsTimerLong
-            ToolTip("Cardfarm on, Kills: " . Killcount, Window.W / 2 - Window.RelW(
-                150), Window.H / 1.2, 4)
+            gToolTip.Center("Cardfarm on, Kills: " . Killcount)
         }
     }
-    ToolTip(, , , 4)
-    ToolTip()
+    gToolTip.CenterDel()
     If (HadToHideNotifs) {
         Out.I("BossCards: Reenabling notifications.")
         Points.Misc.NotifArrow.Click(17)
@@ -281,8 +261,5 @@ fNormalBossFarmWithCards(modecheck) {
     }
     ResetModifierKeys() ; Cleanup incase of broken loop
     Out.I("BossCards: Stopped.")
-    ToolTip("Card opening aborted`nFound no active buttons.`nF3 to remove note",
-        Window.W / 2 - Window.RelH(170), Window.H / 2)
-    SetTimer(ToolTip, -500)
-
+    gToolTip.CenterMS("Card opening aborted`nFound no active buttons.`nF3 to remove note",500)
 }
