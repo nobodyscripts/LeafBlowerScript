@@ -1,5 +1,31 @@
 #Requires AutoHotkey v2.0
 
+
+BVItemColumns := [
+    391,
+    463,
+    530,
+    596,
+    665,
+    736,
+    799,
+    868,
+    935,
+    1010,
+    1074,
+    1140,
+    1206,
+    1281,
+    1344
+]
+BVItemRows := [
+    502,
+    623,
+    749,
+    877,
+    1001
+]
+
 ;@region BuyMaxCardPacks()
 /**
  * Maximises all card packs prefering legendary so the card parts can be stored
@@ -72,34 +98,8 @@ StoreMineCurrency(*) {
 MaxBVItems(*) {
     /** @type {cPoint} */
     CraftBtn := cPoint(1585, 630)
-    /** @type {cPoint} */
-    AscendBtn := cPoint(1855, 646)
     Global BVInvArr
 
-    Columns := [
-        391,
-        463,
-        530,
-        596,
-        665,
-        736,
-        799,
-        868,
-        935,
-        1010,
-        1074,
-        1140,
-        1206,
-        1281,
-        1344
-    ]
-    Rows := [
-        502,
-        623,
-        749,
-        877,
-        1001
-    ]
     UlcWindow()
     Shops.OpenBorbVentures()
     Sleep(100)
@@ -110,8 +110,8 @@ MaxBVItems(*) {
     i := 1
     If (BVInvArr.length > 1) {
         Out.D("MaxBVItems: Using scanned locations")
-        For (rid, rvalue IN Rows) {
-            For (cid, cvalue IN Columns) {
+        For (rid, rvalue IN BVItemRows) {
+            For (cid, cvalue IN BVItemColumns) {
                 If (i <= BVInvArr.Length) {
                     /** @type cPoint */
                     btn := cPoint(cvalue, rvalue)
@@ -131,8 +131,8 @@ MaxBVItems(*) {
         }
     } Else {
         Out.D("MaxBVItems: Using manual locations")
-        For (rid, rvalue IN Rows) {
-            For (cid, cvalue IN Columns) {
+        For (rid, rvalue IN BVItemRows) {
+            For (cid, cvalue IN BVItemColumns) {
                 /** @type cPoint */
                 btn := cPoint(cvalue, rvalue)
                 If (!btn.IsBackground()) {
@@ -169,33 +169,7 @@ MaxBVItems(*) {
 MaxBVItemsJustSocks(*) {
     /** @type {cPoint} */
     CraftBtn := cPoint(1585, 630)
-    /** @type {cPoint} */
-    AscendBtn := cPoint(1855, 646)
 
-    Columns := [
-        391,
-        463,
-        530,
-        596,
-        665,
-        736,
-        799,
-        868,
-        935,
-        1010,
-        1074,
-        1140,
-        1206,
-        1281,
-        1344
-    ]
-    Rows := [
-        502,
-        623,
-        749,
-        877,
-        1001
-    ]
     UlcWindow()
     Shops.OpenBorbVentures()
     Sleep(100)
@@ -205,8 +179,8 @@ MaxBVItemsJustSocks(*) {
     Sleep(70)
     i := 1
     If (BVInvArr.Length > 1) {
-        For (rid, rvalue IN Rows) {
-            For (cid, cvalue IN Columns) {
+        For (rid, rvalue IN BVItemRows) {
+            For (cid, cvalue IN BVItemColumns) {
                 If (i <= BVInvArr.Length) {
                     /** @type {cPoint} */
                     btn := cPoint(cvalue, rvalue)
@@ -215,6 +189,7 @@ MaxBVItemsJustSocks(*) {
                         btn.ClickOffset(, , 50)
                         Sleep(150)
                         If (CraftBtn.IsButtonActive() && IsBVSock()) {
+                            Out.D("Clicking sock craft")
                             CraftBtn.Click(50)
                             Sleep(50)
                         }
@@ -224,14 +199,15 @@ MaxBVItemsJustSocks(*) {
             }
         }
     } Else {
-        For (rid, rvalue IN Rows) {
-            For (cid, cvalue IN Columns) {
+        For (rid, rvalue IN BVItemRows) {
+            For (cid, cvalue IN BVItemColumns) {
                 /** @type {cPoint} */
                 btn := cPoint(cvalue, rvalue)
                 If (!btn.IsBackground()) {
                     btn.ClickOffset(, , 50)
                     Sleep(150)
                     If (CraftBtn.IsButtonActive() && IsBVSock()) {
+                        Out.D("Clicking sock craft with unscanned bv")
                         CraftBtn.Click(50)
                         Sleep(50)
                     }
@@ -255,30 +231,6 @@ MaxBVItemsJustRings(*) {
     /** @type {cPoint} */
     AscendBtn := cPoint(1855, 646)
 
-    Columns := [
-        391,
-        463,
-        530,
-        596,
-        665,
-        736,
-        799,
-        868,
-        935,
-        1010,
-        1074,
-        1140,
-        1206,
-        1281,
-        1344
-    ]
-    Rows := [
-        502,
-        623,
-        749,
-        877,
-        1001
-    ]
     UlcWindow()
     Shops.OpenBorbVentures()
     Sleep(100)
@@ -288,8 +240,8 @@ MaxBVItemsJustRings(*) {
     Sleep(70)
     i := 1
     If (BVInvArr.Length > 1) {
-        For (rid, rvalue IN Rows) {
-            For (cid, cvalue IN Columns) {
+        For (rid, rvalue IN BVItemRows) {
+            For (cid, cvalue IN BVItemColumns) {
                 If (i <= BVInvArr.Length) {
                     /** @type {cPoint} */
                     btn := cPoint(cvalue, rvalue)
@@ -307,8 +259,8 @@ MaxBVItemsJustRings(*) {
             }
         }
     } Else {
-        For (rid, rvalue IN Rows) {
-            For (cid, cvalue IN Columns) {
+        For (rid, rvalue IN BVItemRows) {
+            For (cid, cvalue IN BVItemColumns) {
                 /** @type {cPoint} */
                 btn := cPoint(cvalue, rvalue)
                 If (!btn.IsBackground()) {
@@ -339,30 +291,6 @@ MaxBVItemsJustBags(*) {
     AscendBtn := cPoint(1855, 646)
     Global BVInvArr
 
-    Columns := [
-        391,
-        463,
-        530,
-        596,
-        665,
-        736,
-        799,
-        868,
-        935,
-        1010,
-        1074,
-        1140,
-        1206,
-        1281,
-        1344
-    ]
-    Rows := [
-        502,
-        623,
-        749,
-        877,
-        1001
-    ]
     UlcWindow()
     Shops.OpenBorbVentures()
     Sleep(100)
@@ -372,8 +300,8 @@ MaxBVItemsJustBags(*) {
     Sleep(70)
     i := 1
     If (BVInvArr.Length > 1) {
-        For (rid, rvalue IN Rows) {
-            For (cid, cvalue IN Columns) {
+        For (rid, rvalue IN BVItemRows) {
+            For (cid, cvalue IN BVItemColumns) {
                 If (i <= BVInvArr.Length) {
                     /** @type {cPoint} */
                     btn := cPoint(cvalue, rvalue)
@@ -390,8 +318,8 @@ MaxBVItemsJustBags(*) {
             }
         }
     } Else {
-        For (rid, rvalue IN Rows) {
-            For (cid, cvalue IN Columns) {
+        For (rid, rvalue IN BVItemRows) {
+            For (cid, cvalue IN BVItemColumns) {
                 /** @type {cPoint} */
                 btn := cPoint(cvalue, rvalue)
                 If (!btn.IsBackground()) {
@@ -423,30 +351,6 @@ MaxBVItemsJustBags641(*) {
     AscendBtn := cPoint(1855, 646)
     Global BVInvArr
 
-    Columns := [
-        391,
-        463,
-        530,
-        596,
-        665,
-        736,
-        799,
-        868,
-        935,
-        1010,
-        1074,
-        1140,
-        1206,
-        1281,
-        1344
-    ]
-    Rows := [
-        502,
-        623,
-        749,
-        877,
-        1001
-    ]
     UlcWindow()
     Shops.OpenBorbVentures()
     Sleep(100)
@@ -458,8 +362,8 @@ MaxBVItemsJustBags641(*) {
     While (Done < 12) {
         i := 1
         If (BVInvArr.Length > 1) {
-            For (rid, rvalue IN Rows) {
-                For (cid, cvalue IN Columns) {
+            For (rid, rvalue IN BVItemRows) {
+                For (cid, cvalue IN BVItemColumns) {
                     If (i <= BVInvArr.Length) {
                         /** @type {cPoint} */
                         btn := cPoint(cvalue, rvalue)
@@ -478,8 +382,8 @@ MaxBVItemsJustBags641(*) {
                 }
             }
         } Else {
-            For (rid, rvalue IN Rows) {
-                For (cid, cvalue IN Columns) {
+            For (rid, rvalue IN BVItemRows) {
+                For (cid, cvalue IN BVItemColumns) {
                     /** @type {cPoint} */
                     btn := cPoint(cvalue, rvalue)
                     If (!btn.IsBackground()) {
@@ -576,30 +480,6 @@ ScanBVInventory(*) {
 
     /** @type {cPoint} */
     CraftBtn := cPoint(1585, 630)
-    Columns := [
-        391,
-        463,
-        530,
-        596,
-        665,
-        736,
-        799,
-        868,
-        935,
-        1010,
-        1074,
-        1140,
-        1206,
-        1281,
-        1344
-    ]
-    Rows := [
-        502,
-        623,
-        749,
-        877,
-        1001
-    ]
     UlcWindow()
     Shops.OpenBorbVentures()
     Sleep(100)
@@ -608,8 +488,8 @@ ScanBVInventory(*) {
     Sleep(100)
     Global BVInvArr := []
 
-    For (rid, rvalue IN Rows) {
-        For (cid, cvalue IN Columns) {
+    For (rid, rvalue IN BVItemRows) {
+        For (cid, cvalue IN BVItemColumns) {
             /** @type cPoint */
             btn := cPoint(cvalue, rvalue)
             invtype := ""
@@ -685,7 +565,14 @@ IsBVRing() {
 IsBVSock() {
     p1 := cPoint(1788, 520).GetColour()
     p2 := cPoint(1777, 532).GetColour()
-    Return p1 = "0x6E8390" && p2 = "0xECEFE9" ? true : false
+    ;Out.D(p1 " " p2)
+    if (p1 = "0x6E8390" && p2 = "0xECEFE9") {
+        return true
+    }
+    if (p1 = "0x6E8390" && p2 = "0xAEC3BE") {
+        return true
+    }
+    Return false
 }
 
 /**
