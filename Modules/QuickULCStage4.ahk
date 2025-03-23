@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0
 
-
 BVItemColumns := [
     391,
     463,
@@ -119,9 +118,13 @@ MaxBVItems(*) {
                     If (!btn.IsBackground() &&
                     item != "cape" && item != "candy" && item != "box") {
                         btn.ClickOffset()
-                        Sleep(170)
-                        If (IsItemCraftable()) {
-                            CraftBtn.Click()
+                        Sleep(180)
+                        If (CraftBtn.IsButtonActive()) {
+                            CraftBtn.ClickOffset(, , 50)
+                            Sleep(70)
+                        }
+                        If (CraftBtn.IsButtonActive()) {
+                            CraftBtn.ClickOffset(, , 50)
                             Sleep(70)
                         }
                     }
@@ -137,9 +140,13 @@ MaxBVItems(*) {
                 btn := cPoint(cvalue, rvalue)
                 If (!btn.IsBackground()) {
                     btn.ClickOffset()
-                    Sleep(170)
-                    If (IsItemCraftable()) {
-                        CraftBtn.Click()
+                    Sleep(150)
+                    If (CraftBtn.IsButtonActive() && IsItemCraftable()) {
+                        CraftBtn.ClickOffset(, , 50)
+                        Sleep(70)
+                    }
+                    If (CraftBtn.IsButtonActive() && IsItemCraftable()) {
+                        CraftBtn.ClickOffset(, , 50)
                         Sleep(70)
                     }
                 }
@@ -188,10 +195,15 @@ MaxBVItemsJustSocks(*) {
                     If (item = "sock" && !btn.IsBackground()) {
                         btn.ClickOffset(, , 50)
                         Sleep(150)
-                        If (CraftBtn.IsButtonActive() && IsBVSock()) {
+                        If (CraftBtn.IsButtonActive()) {
                             Out.D("Clicking sock craft")
-                            CraftBtn.Click(50)
-                            Sleep(50)
+                            CraftBtn.ClickOffset(, , 50)
+                            Sleep(70)
+                        }
+                        If (CraftBtn.IsButtonActive()) {
+                            Out.D("Clicking sock craft")
+                            CraftBtn.ClickOffset(, , 50)
+                            Sleep(70)
                         }
                     }
                     i++
@@ -208,8 +220,13 @@ MaxBVItemsJustSocks(*) {
                     Sleep(150)
                     If (CraftBtn.IsButtonActive() && IsBVSock()) {
                         Out.D("Clicking sock craft with unscanned bv")
-                        CraftBtn.Click(50)
-                        Sleep(50)
+                        CraftBtn.ClickOffset(, , 50)
+                        Sleep(70)
+                    }
+                    If (CraftBtn.IsButtonActive() && IsBVSock()) {
+                        Out.D("Clicking sock craft with unscanned bv")
+                        CraftBtn.ClickOffset(, , 50)
+                        Sleep(70)
                     }
                 }
             }
@@ -249,9 +266,13 @@ MaxBVItemsJustRings(*) {
                     If (item = "ring" && !btn.IsBackground()) {
                         btn.ClickOffset(, , 50)
                         Sleep(150)
-                        If (CraftBtn.IsButtonActive() && IsBVRing()) {
-                            CraftBtn.Click(50)
-                            Sleep(50)
+                        If (CraftBtn.IsButtonActive()) {
+                            CraftBtn.ClickOffset(, , 50)
+                            Sleep(70)
+                        }
+                        If (CraftBtn.IsButtonActive()) {
+                            CraftBtn.ClickOffset(, , 50)
+                            Sleep(70)
                         }
                     }
                     i++
@@ -267,8 +288,12 @@ MaxBVItemsJustRings(*) {
                     btn.ClickOffset(, , 50)
                     Sleep(150)
                     If (CraftBtn.IsButtonActive() && IsBVRing()) {
-                        CraftBtn.Click(50)
-                        Sleep(50)
+                        CraftBtn.ClickOffset(, , 50)
+                        Sleep(70)
+                    }
+                    If (CraftBtn.IsButtonActive() && IsBVRing()) {
+                        CraftBtn.ClickOffset(, , 50)
+                        Sleep(70)
                     }
                 }
             }
@@ -309,8 +334,12 @@ MaxBVItemsJustBags(*) {
                         btn.ClickOffset(, , 50)
                         Sleep(150)
                         If (CraftBtn.IsButtonActive()) {
-                            CraftBtn.Click(50)
-                            Sleep(50)
+                            CraftBtn.ClickOffset(, , 50)
+                            Sleep(70)
+                        }
+                        If (CraftBtn.IsButtonActive()) {
+                            CraftBtn.ClickOffset(, , 50)
+                            Sleep(70)
                         }
                     }
                     i++
@@ -326,8 +355,12 @@ MaxBVItemsJustBags(*) {
                     btn.ClickOffset(, , 50)
                     Sleep(150)
                     If (CraftBtn.IsButtonActive() && IsBVBackPack()) {
-                        CraftBtn.Click(50)
-                        Sleep(50)
+                        CraftBtn.ClickOffset(, , 50)
+                        Sleep(70)
+                    }
+                    If (CraftBtn.IsButtonActive() && IsBVBackPack()) {
+                        CraftBtn.ClickOffset(, , 50)
+                        Sleep(70)
                     }
                 }
                 i++
@@ -371,8 +404,12 @@ MaxBVItemsJustBags641(*) {
                             btn.ClickOffset(, , 50)
                             Sleep(150)
                             If (CraftBtn.IsButtonActive()) {
-                                CraftBtn.Click(50)
-                                Sleep(50)
+                                CraftBtn.ClickOffset(, , 50)
+                                Sleep(70)
+                                If (CraftBtn.IsButtonActive()) {
+                                    CraftBtn.ClickOffset(, , 50)
+                                    Sleep(70)
+                                }
                             } Else {
                                 Done++
                             }
@@ -390,10 +427,13 @@ MaxBVItemsJustBags641(*) {
                         btn.ClickOffset(, , 50)
                         Sleep(150)
                         If (CraftBtn.IsButtonActive() && IsBVBackPack()) {
-                            CraftBtn.Click(50)
-                            Sleep(50)
-                        }
-                        If (!CraftBtn.IsButtonActive() && IsBVBackPack()) {
+                            CraftBtn.ClickOffset(, , 50)
+                            Sleep(70)
+                            If (CraftBtn.IsButtonActive()) {
+                                CraftBtn.ClickOffset(, , 50)
+                                Sleep(70)
+                            }
+                        } Else If (!CraftBtn.IsButtonActive() && IsBVBackPack()) {
                             Done++
                         }
                     }
@@ -566,11 +606,11 @@ IsBVSock() {
     p1 := cPoint(1788, 520).GetColour()
     p2 := cPoint(1777, 532).GetColour()
     ;Out.D(p1 " " p2)
-    if (p1 = "0x6E8390" && p2 = "0xECEFE9") {
-        return true
+    If (p1 = "0x6E8390" && p2 = "0xECEFE9") {
+        Return true
     }
-    if (p1 = "0x6E8390" && p2 = "0xAEC3BE") {
-        return true
+    If (p1 = "0x6E8390" && p2 = "0xAEC3BE") {
+        Return true
     }
     Return false
 }
@@ -600,4 +640,67 @@ IsBVRandomBox() {
     p1 := cPoint(1788, 520).GetColour()
     p2 := cPoint(1777, 532).GetColour()
     Return p1 = "0xEAB780" && p2 = "0xAB5A53" ? true : false
+}
+
+MaxAllShopsAfterWoW(*) {
+    UlcWindow()
+    BLCMax()
+    Shops.MLC.Max()
+    Shops.Mulch.Max()
+    Shops.Sacred.Max()
+    Shops.Biotite.Max()
+    Shops.Malachite.Max()
+    Shops.Hematite.Max()
+    Shops.Plasma.Max()
+    Shops.Coal.Max()
+    Shops.SoulShop.Max()
+    Shops.SoulForge.Max()
+}
+
+BLCMax() {
+    GameKeys.OpenBLCShop()
+    Sleep(150)
+    Travel.ScrollResetToTop()
+    Travel.ScrollAmountDown(28)
+    if (cPoint(1865, 743).IsBackground()) {
+        ; No button so nothing to increase
+        return 
+    }
+    cPoint(1865, 743).ClickButtonActive() ; Buy max leaves
+    Sleep(50)
+    cPoint(1865, 743).ClickButtonActive()
+    Sleep(50)
+
+    cPoint(720, 89).Click() ; Open artifacts
+    Sleep(150)
+    Travel.ScrollResetToTop()
+    If (Window.IsPanel() && cPoint(364, 351).IsButtonActive()) {
+        Travel.ScrollAmountDown(35)
+        AmountToModifier(25000)
+        Sleep(50)
+        cPoint(1798, 703).ClickButtonActive() ; Use blc
+        Sleep(50)
+        ResetModifierKeys()
+        Sleep(50)
+        GameKeys.OpenBLCShop()
+        Sleep(150)
+        cPoint(1865, 743).ClickButtonActive() ; Buy max leaves
+        Sleep(50)
+        cPoint(1865, 743).ClickButtonActive()
+        Sleep(50)
+
+        cPoint(720, 89).Click() ; Open artifacts
+        Sleep(150)
+        If (Window.IsPanel() && cPoint(364, 704).IsButtonActive()) {
+            AmountToModifier(25000)
+            Sleep(50)
+            cPoint(1798, 703).ClickButtonActive() ; Use blc
+            Sleep(1000)
+            cPoint(1798, 703).ClickButtonActive() ; Use blc
+            Sleep(1000)
+            cPoint(1798, 703).ClickButtonActive() ; Use blc
+            Sleep(50)
+            ResetModifierKeys()
+        }
+    }
 }

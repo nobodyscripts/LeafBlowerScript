@@ -187,6 +187,7 @@ CardOpenerRel(quality, offset, amount) {
     } Else {
         Out.V("Could not open " CardQualityToStr(quality) " type card")
     }
+    ResetModifierKeys()
     ; Deliberate second check to return new state
     Return button.IsButtonActive()
 }
@@ -225,6 +226,7 @@ CardBuyerRel(quality, offset, amount) {
             Return false
         }
     }
+    ResetModifierKeys()
 }
 
 CardButtonsActive() {

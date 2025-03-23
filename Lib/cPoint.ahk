@@ -612,6 +612,7 @@ Class cPoint {
                 }
             }
         }
+        ResetModifierKeys()
     }
 
     /**

@@ -15,11 +15,13 @@ BossSweep(*) {
         ULCStageExitCheck("bs 1")
         Return false
     }
+    Sleep(50)
 
     If (!BossButtonClickNWait(cPoint(1859, 751))) { ; VilewoodCemetery
         ULCStageExitCheck("bs 2")
         Return false
     }
+    Sleep(50)
 
     If (!BossButtonClickNWait(cPoint(1866, 906))) { ; TheLoneTree
         ULCStageExitCheck("bs 3")
@@ -49,11 +51,13 @@ BossSweep(*) {
         ULCStageExitCheck("bs 6")
         Return false
     }
+    Sleep(50)
 
     If (!BossButtonClickNWait(cPoint(1867, 905))) { ; RedPlanetEdge
         ULCStageExitCheck("bs 8")
         Return false
     }
+    Sleep(50)
 
     If (!BossButtonClickNWait(cPoint(1863, 1038))) { ; PurplePlanetEdge
         ULCStageExitCheck("bs 9")
@@ -67,6 +71,7 @@ BossSweep(*) {
         ULCStageExitCheck("bs 10")
         Return false
     }
+    Sleep(50)
 
     If (!BossButtonClickNWait(cPoint(1869, 910))) { ; EnergySingularity
         ULCStageExitCheck("bs 11")
@@ -79,6 +84,7 @@ BossSweep(*) {
      */
     BossButtonClickNWait(point) {
         i := 0
+        ; TODO Review this, its unreliable
         While (point.ClickButtonActive(5, 5) && i < 10) {
             Sleep(34)
             i++

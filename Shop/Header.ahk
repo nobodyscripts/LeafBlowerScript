@@ -4,6 +4,7 @@
 #Include fCards.ahk
 #Include fDice.ahk
 #Include fMines.ahk
+#Include fRelics.ahk
 
 #Include BasicLeaf.ahk
 #Include Bio.ahk

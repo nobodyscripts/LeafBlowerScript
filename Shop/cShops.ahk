@@ -390,6 +390,12 @@ Class cShops {
     Mine := sMine()
 
     /**
+     * Shop class for Relics
+     * @type {sRelics} Shop class for Relics 
+     * */
+    Relics := sRelics()
+
+    /**
      * Shop class for Sacred
      * @type {sSacred} 
      */

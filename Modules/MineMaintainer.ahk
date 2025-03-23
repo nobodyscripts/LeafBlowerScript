@@ -415,6 +415,8 @@ UseDrillSphereLoop() {
             Sleep(MinerSphereDelay)
         }
     }
+    
+    ResetModifierKeys()
 }
 ;@endregion
 

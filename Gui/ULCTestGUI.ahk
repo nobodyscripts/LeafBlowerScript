@@ -156,5 +156,15 @@ Button_Click_ULC(thisGui, info) {
     optionsGUI.Add("Button", "default", "BuyMaxBVPacks")
     .OnEvent("Click", BuyMaxBVPacks)
 
+    optionsGUI.Add("Button", "default", "Max all shops post wow")
+    .OnEvent("Click", MaxAllShopsAfterWoW)
+
+    optionsGUI.Add("Button", "default", "Test: Transmute relic reset loop")
+    .OnEvent("Click", RelicTransmute)
+
     optionsGUI.Show()
+}
+
+RelicTransmute(*) {
+    Shops.Relics.TransMuteResetLoop()
 }
