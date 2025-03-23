@@ -84,7 +84,20 @@ Class sRelics extends Zone {
         If (!cPoint(980, 737).ClickButtonActive()) {
             Return false
         }
-        Sleep(100)
+        Sleep(50)
+        ; Confirm
+        If (!cPoint(1413, 521).ClickButtonActive()) {
+            Return false
+        }
+        Sleep(50)
+        If (cPoint(1413, 521).IsBackground()) {
+            Return true
+        }
+        If (!cPoint(1413, 521).ClickButtonActive()) {
+            Return false
+        }
+        Sleep(50)
+
         Return true
     }
 
