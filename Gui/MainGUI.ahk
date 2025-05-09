@@ -20,6 +20,7 @@
 #Include TowerPassiveGUI.ahk
 
 #Include ULCTestGUI.ahk
+#Include ..\Modules\Fishing.ahk
 
 Button_Click_Exit(*) {
     fExitApp()
@@ -61,7 +62,7 @@ Button_Click_PrestigeSpammer(thisGui, info) {
 
 Button_Click_FishAutoCatch(thisGui, info) {
     Window.Activate()
-    fFishAutoCatch()
+    Fishing().fFishAutoCatch()
 }
 
 RunGui() {

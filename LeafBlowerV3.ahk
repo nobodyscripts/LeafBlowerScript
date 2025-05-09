@@ -93,12 +93,14 @@ CreateScriptHotkeys() {
         MouseGetPos(&windowx, &windowy)
         CoordMode("Mouse", "Client")
         MouseGetPos(&clientx, &clienty)
-        
+
         Out.D(
             ;"Screen:`t" screenx ", " screeny "`n"
             ;"Window:`t" windowx ", " windowy "`n"
             "Client:`t" clientx ", " clienty "`n"
-            "`t`t`t   Color:`t#" SubStr(PixelGetColor(screenx, screeny), 3)
+            "`t`t`t   Color:`t#" SubStr(PixelGetColor(clientx, clienty), 3)
+            "`nClient-1:`t" clientx-1 ", " clienty-1 "`n"
+            "`t`t`t   Color:`t#" SubStr(PixelGetColor(clientx-1, clienty-1), 3)
             ;"Current zone colour: " Points.ZoneSample.GetColour()
         )
         A_Clipboard := "cPoint(" clientx ", " clienty ")"
