@@ -31,7 +31,7 @@ Class Fishing {
     /**
      * Attempt to auto catch fish (Simple)
      */
-    fFishAutoCatch() {
+    fFishAutoCatch(challenge := false) {
         /** @type {Timer} */
         Timer1 := Timer()
         IsOnCD1 := false
@@ -49,7 +49,9 @@ Class Fishing {
             If (!Window.IsActive()) {
                 Break
             }
-            this.PondQualityUpgrade()
+            If (!challenge) {
+                this.PondQualityUpgrade()
+            }
             If (!this.Pond1.Progress.pixelSearch()) {
                 ; Was off cooldown and nothing catching
                 this.Pond1.CastRod.ClickButtonActive()
@@ -208,7 +210,10 @@ Class Fishing {
             Out.I("Canceled pond 4")
         default:
         }
-        this.ConfirmCancel.WaitUntilActiveButtonS(3)
+        If (!this.ConfirmCancel.WaitUntilActiveButtonS(3)) {
+            Out.I("No confirm cancel, assuming no search state")
+            Return false
+        }
         this.ConfirmCancel.ClickButtonActive()
         this.Search.WaitUntilActiveButtonS(3)
         this.Search.ClickButtonActive()
@@ -294,6 +299,8 @@ Class Pond {
         Case "0x326DAB":
             Return 2
         Case "0xCDBA40":
+            Return 3
+        Case "0xD3C33F":
             Return 3
         Case "0xB3260A":
             Return 4
