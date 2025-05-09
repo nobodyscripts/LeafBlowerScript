@@ -224,6 +224,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added bank storage setting to mine gui (shared with bank)
   - Fix brew transmuting fuel to coal diamonds unintentionally
   - Extra check for vein removal being active
+  - Fixes for game breaking mine script
 
 - GFSS
 
@@ -292,6 +293,8 @@ digital vibrance off
   - NatBoss: Needs to use artifact if need be / get replacement.
   - Leafton: Leafton needs better setup routine. Travel to zone.
   - Mine: Check for broken functionality
+    - Travel to alch failing for brewing despite window opening
+
 
 ## Known issues
 

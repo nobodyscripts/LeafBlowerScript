@@ -116,7 +116,7 @@ fMineMaintainer() {
             Out.D("Opening veins tab")
             While (!Shops.Mine.IsOnTabVein() && i <= 4) {
                 If (VeinsTab.IsButton()) {
-                    VeinsTab.Click(NavigateTime)
+                    VeinsTab.ClickOffset(,,NavigateTime)
                     Sleep(NavigateTime)
                 }
                 i++
@@ -133,7 +133,7 @@ fMineMaintainer() {
                     EnhanceVeins()
                 }
             } Else {
-                If (!VeinsTab.IsButton() && CancelConfirm.IsButtonActive()) {
+                If (!VeinsTab.IsButton()) {
                     VeinCancelConfirm()
                     Out.I("Mine: Found vein removal stuck, removed")
                 } Else {
@@ -147,7 +147,7 @@ fMineMaintainer() {
         If (Window.IsActive() && Window.IsPanel() && Shops.Mine.IsOnTabVein() &&
         VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
             Out.I("Upgrading vein")
-            VeinUpgradeButton.ClickOffset(NavigateTime)
+            VeinUpgradeButton.ClickOffset(,,NavigateTime)
         }
         ;@endregion
 
@@ -160,7 +160,7 @@ fMineMaintainer() {
                 Out.D("Opening transmute tab")
                 While (!Shops.Mine.IsOnTabTrans() && i <= 4) {
                     If (TransmuteTab.IsButton()) {
-                        TransmuteTab.Click(NavigateTime)
+                        TransmuteTab.ClickOffset(,,NavigateTime)
                         Sleep(NavigateTime)
                     }
                     i++
@@ -185,7 +185,7 @@ fMineMaintainer() {
                 Out.D("Opening drill tab")
                 While (!Shops.Mine.IsOnTabDrill() && i <= 4) {
                     If (DrillTab.IsButton()) {
-                        DrillTab.Click(NavigateTime)
+                        DrillTab.ClickOffset(,,NavigateTime)
                         Sleep(NavigateTime)
                     }
                     i++
@@ -210,7 +210,7 @@ fMineMaintainer() {
                 Out.D("Opening drill tab")
                 While (!Shops.Mine.IsOnTabDrill() && i <= 4) {
                     If (DrillTab.IsButton()) {
-                        DrillTab.Click(NavigateTime)
+                        DrillTab.ClickOffset(,,NavigateTime)
                         Sleep(NavigateTime)
                     }
                     i++
@@ -255,7 +255,7 @@ fMineMaintainer() {
             MinerCaveTimer * 60) {
                 i := 1
                 While (!Shops.Mine.IsOnTabMines() && i <= 4 && Window.IsPanel()) {
-                    MinesTab.Click(NavigateTime)
+                    MinesTab.ClickOffset(,,NavigateTime)
                     Sleep(NavigateTime)
                     i++
                 }
@@ -415,7 +415,7 @@ UseDrillSphereLoop() {
             Sleep(MinerSphereDelay)
         }
     }
-    
+
     ResetModifierKeys()
 }
 ;@endregion
@@ -548,12 +548,10 @@ RemoveSingleVein() {
 
 VeinCancelConfirm() {
     CancelConfirm := Points.Mine.Vein.CancelConfirm
-    l := 0
-    While (!CancelConfirm.IsBackground() && l < 10 && Window.IsActive()) {
-        CancelConfirm.ClickOffset()
-        Sleep(NavigateTime + 50)
-        l++
-    }
+    CancelConfirm.WaitUntilButtonS(3)
+    CancelConfirm.ClickButtonActive()
+    CancelConfirm.ClickButtonActive()
+    Sleep(NavigateTime + 50)
 }
 
 FindVeinsWithBars() {
@@ -571,41 +569,89 @@ FindVeinsWithBars() {
     QualitySlot6 := Points.Mine.Vein.Slot6.Colour
 
     results := [
-        { Active: false, Quality: "ignored", Priority: 9999 },
+        {
+            Active: false,
+            Quality: "ignored",
+            Priority: 9999
+        },
         ;
-        { Active: false, Quality: "ignored", Priority: 9999 },
+        {
+            Active: false,
+            Quality: "ignored",
+            Priority: 9999
+        },
         ;
-        { Active: false, Quality: "ignored", Priority: 9999 },
+        {
+            Active: false,
+            Quality: "ignored",
+            Priority: 9999
+        },
         ;
-        { Active: false, Quality: "ignored", Priority: 9999 },
+        {
+            Active: false,
+            Quality: "ignored",
+            Priority: 9999
+        },
         ;
-        { Active: false, Quality: "ignored", Priority: 9999 },
+        {
+            Active: false,
+            Quality: "ignored",
+            Priority: 9999
+        },
         ;
-        { Active: false, Quality: "ignored", Priority: 9999 }
+        {
+            Active: false,
+            Quality: "ignored",
+            Priority: 9999
+        }
     ]
     If (SampleSlot1.GetColour() = "0x6D758D") {
         qualityText1 := VeinQualityColourToText(QualitySlot1.GetColour())
-        results[1] := { Active: true, Quality: qualityText1, Priority: VeinQualityToPriority(qualityText1) - 4 }
+        results[1] := {
+            Active: true,
+            Quality: qualityText1,
+            Priority: VeinQualityToPriority(qualityText1) - 4
+        }
     }
     If (SampleSlot2.GetColour() = "0x6D758D") {
         qualityText2 := VeinQualityColourToText(QualitySlot2.GetColour())
-        results[2] := { Active: true, Quality: qualityText2, Priority: VeinQualityToPriority(qualityText2) - 2 }
+        results[2] := {
+            Active: true,
+            Quality: qualityText2,
+            Priority: VeinQualityToPriority(qualityText2) - 2
+        }
     }
     If (SampleSlot3.GetColour() = "0x6D758D") {
         qualityText3 := VeinQualityColourToText(QualitySlot3.GetColour())
-        results[3] := { Active: true, Quality: qualityText3, Priority: VeinQualityToPriority(qualityText3) - 1 }
+        results[3] := {
+            Active: true,
+            Quality: qualityText3,
+            Priority: VeinQualityToPriority(qualityText3) - 1
+        }
     }
     If (SampleSlot4.GetColour() = "0x6D758D") {
         qualityText4 := VeinQualityColourToText(QualitySlot4.GetColour())
-        results[4] := { Active: true, Quality: qualityText4, Priority: VeinQualityToPriority(qualityText4) }
+        results[4] := {
+            Active: true,
+            Quality: qualityText4,
+            Priority: VeinQualityToPriority(qualityText4)
+        }
     }
     If (SampleSlot5.GetColour() = "0x6D758D") {
         qualityText5 := VeinQualityColourToText(QualitySlot5.GetColour())
-        results[5] := { Active: true, Quality: qualityText5, Priority: VeinQualityToPriority(qualityText5) }
+        results[5] := {
+            Active: true,
+            Quality: qualityText5,
+            Priority: VeinQualityToPriority(qualityText5)
+        }
     }
     If (SampleSlot6.GetColour() = "0x6D758D") {
         qualityText6 := VeinQualityColourToText(QualitySlot6.GetColour())
-        results[6] := { Active: true, Quality: qualityText6, Priority: VeinQualityToPriority(qualityText6) }
+        results[6] := {
+            Active: true,
+            Quality: qualityText6,
+            Priority: VeinQualityToPriority(qualityText6)
+        }
     }
     Return results
 }

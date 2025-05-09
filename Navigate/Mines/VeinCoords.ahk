@@ -24,12 +24,18 @@ Class cVeinPoints {
     /** @type {cPoint} */
     Upgrade := cPoint(840, 370)
     /** @type {cPoint} */
-    CancelConfirm := cPoint(1190, 520) ; Formerly 1247 527, 1063, 505
+    CancelConfirm := cPoint(1211, 566)
+    /** @type {cVeinSlot1Points} */
     Slot1 := cVeinSlot1Points()
+    /** @type {cVeinSlot2Points} */
     Slot2 := cVeinSlot2Points()
+    /** @type {cVeinSlot3Points} */
     Slot3 := cVeinSlot3Points()
+    /** @type {cVeinSlot4Points} */
     Slot4 := cVeinSlot4Points()
+    /** @type {cVeinSlot5Points} */
     Slot5 := cVeinSlot5Points()
+    /** @type {cVeinSlot6Points} */
     Slot6 := cVeinSlot6Points()
 }
 
