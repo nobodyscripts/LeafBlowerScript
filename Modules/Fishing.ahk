@@ -39,6 +39,16 @@ fFishAutoCatch() {
     /** @type {Timer} */
     Spot3Timer := Timer()
     Spot3IsOnCD := false
+
+    /** @type {cPoint} */
+    Spot4Cast := cPoint(1150, 972)
+    /** @type {cRect} */
+    Spot4Progress := cRect(1001, 1002, 1106, 1030)
+    /** @type {cRect} */
+    Spot4CooldownSuffix := cRect(1071, 1006, 1106, 1030)
+    /** @type {Timer} */
+    Spot4Timer := Timer()
+    Spot4IsOnCD := false
     Loop {
         If (!Window.IsActive()) {
             Break
@@ -56,17 +66,21 @@ fFishAutoCatch() {
             ; Was off cooldown and nothing catching
             Spot3Cast.ClickButtonActive()
         }
+        If (!Spot4Progress.pixelSearch()) {
+            ; Was off cooldown and nothing catching
+            Spot4Cast.ClickButtonActive()
+        }
         If (Spot1Progress.PixelSearch() && !Spot1CooldownSuffix.PixelSearch()) {
             Spot1Timer.CoolDownS(10, &Spot1IsOnCD)
-            Out.D("Spot 1 CD")
         }
         If (Spot2Progress.PixelSearch() && !Spot2CooldownSuffix.PixelSearch()) {
             Spot2Timer.CoolDownS(10, &Spot2IsOnCD)
-            Out.D("Spot 2 CD")
         }
         If (Spot3Progress.PixelSearch() && !Spot3CooldownSuffix.PixelSearch()) {
             Spot3Timer.CoolDownS(10, &Spot3IsOnCD)
-            Out.D("Spot 3 CD")
+        }
+        If (Spot4Progress.PixelSearch() && !Spot4CooldownSuffix.PixelSearch()) {
+            Spot4Timer.CoolDownS(10, &Spot4IsOnCD)
         }
         If (!Spot1IsOnCD) {
             Spot1Cast.ClickButtonActive()
@@ -76,6 +90,9 @@ fFishAutoCatch() {
         }
         If (!Spot3IsOnCD) {
             Spot3Cast.ClickButtonActive()
+        }
+        If (!Spot4IsOnCD) {
+            Spot4Cast.ClickButtonActive()
         }
         Sleep (17)
         If (Lure.IsButtonActive()) {

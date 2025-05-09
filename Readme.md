@@ -288,6 +288,7 @@ digital vibrance off
   - GFSS: Add BossFastFarm.
   - NatBoss: Needs to use artifact if need be / get replacement.
   - Leafton: Leafton needs better setup routine. Travel to zone.
+  - Mine: Check for broken functionality
 
 ## Known issues
 
