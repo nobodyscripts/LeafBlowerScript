@@ -261,6 +261,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added pond searching, replacing the weakest pond until all are legendary
   - Added apply new rods for up to legendary ponds
   - Challenge mode
+  - Tourney mode (standalone, hardcoded to run first two tourneys)
 
 ## TODO
 

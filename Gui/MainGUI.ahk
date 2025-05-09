@@ -70,6 +70,11 @@ Button_Click_FishAutoCatchChallenge(thisGui, info) {
     Fishing().fFishAutoCatch(true)
 }
 
+Button_Click_FishTourneyStart(thisGui, info) {
+    Window.Activate()
+    FishingTourney().Farm()
+}
+
 RunGui() {
     Global Updater
     If (!Debug) {
@@ -186,6 +191,10 @@ RunGui() {
     MyGui.Add("Text", "ccfcfcf", "(no keybind)")
     MyBtn := MyGui.Add("Button", "Default w120", "FISH CHALLENGE TEST")
     MyBtn.OnEvent("Click", Button_Click_FishAutoCatchChallenge)
+
+    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "Default w120", "TOURNEY TEST")
+    MyBtn.OnEvent("Click", Button_Click_FishTourneyStart)
 
     MyGui.Add("Text", "ccfcfcf", "")
     MyBtn := MyGui.Add("Button", "Default w120", "Edit Script Hotkeys")

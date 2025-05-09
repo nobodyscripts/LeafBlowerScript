@@ -69,16 +69,16 @@ Class Fishing {
                 this.Pond4.CastRod.ClickButtonActive()
             }
             If (this.Pond1.Progress.PixelSearch() && !this.Pond1.CooldownSuffix.PixelSearch()) {
-                Timer1.CoolDownS(10, &IsOnCD1)
+                Timer1.CoolDownS(12, &IsOnCD1)
             }
             If (this.Pond2.Progress.PixelSearch() && !this.Pond2.CooldownSuffix.PixelSearch()) {
-                Timer2.CoolDownS(10, &IsOnCD2)
+                Timer2.CoolDownS(12, &IsOnCD2)
             }
             If (this.Pond3.Progress.PixelSearch() && !this.Pond3.CooldownSuffix.PixelSearch()) {
-                Timer3.CoolDownS(10, &IsOnCD3)
+                Timer3.CoolDownS(12, &IsOnCD3)
             }
             If (this.Pond4.Progress.PixelSearch() && !this.Pond4.CooldownSuffix.PixelSearch()) {
-                Timer4.CoolDownS(10, &IsOnCD4)
+                Timer4.CoolDownS(12, &IsOnCD4)
             }
             If (!IsOnCD1) {
                 this.Pond1.CastRod.ClickButtonActive()
@@ -313,6 +313,130 @@ Class Pond {
         Default:
             Out.D("Pond colour could not be matched " colour)
             Return 0
+        }
+    }
+    ;@endregion
+}
+
+/**
+ * FishingTourney tournament functions to seperate from the main fishing elements
+ * @module FishingTourney
+ * @property {Type} property Desc
+ * @method Name Desc
+ */
+Class FishingTourney {
+    Farm1 := true
+    Farm2 := true
+    Farm3 := false
+    Farm4 := false
+    /** @type {cPoint} */
+    Attack1 := cPoint(537, 531)
+    /** @type {cPoint} */
+    Attack2 := cPoint(935, 528)
+    /** @type {cPoint} */
+    Attack3 := cPoint(1335, 530)
+
+    /** @type {cPoint} */
+    Special1 := cPoint(537, 790)
+    /** @type {cPoint} */
+    Special2 := cPoint(935, 790)
+    /** @type {cPoint} */
+    Special3 := cPoint(1335, 790)
+
+    /** @type {cPoint} */
+    Collect := cPoint(528, 658)
+
+    /** @type {cPoint} */
+    Start1 := cPoint(2061, 315)
+    /** @type {cPoint} */
+    Start2 := cPoint(2061, 541)
+    /** @type {cPoint} */
+    Start3 := cPoint(2061, 759)
+    /** @type {cPoint} */
+    Start4 := cPoint(2061, 962)
+
+    ;@region Fight()
+    /**
+     * Main active loop from post 'start', till end
+     */
+    Fight() {
+        while (!this.Collect.IsButtonActive()) {
+            this.Attack1.WaitUntilActiveButton()
+            this.Attack1.ClickButtonActive(2,2)
+        }
+        this.Collect.WaitUntilActiveButton()
+        this.Collect.ClickButtonActive(2,2)
+    }
+    ;@endregion
+
+    ;@region StartFight(id)
+    /**
+     * Start different tourneys based on id
+     */
+    StartFight(id) {
+        Switch (id) {
+        Case 1:
+            this.Start1.ClickButtonActive()
+        Case 2:
+            this.Start2.ClickButtonActive()
+        Case 3:
+            this.Start3.ClickButtonActive()
+        Case 4:
+            this.Start4.ClickButtonActive()
+        default:
+        }
+
+    }
+    ;@endregion
+
+    ;@region StartFight(id)
+    /**
+     * Start different tourneys based on id
+     */
+    IsFightReady(id) {
+        Switch (id) {
+        Case 1:
+            Return this.Start1.IsButtonActive()
+        Case 2:
+            Return this.Start2.IsButtonActive()
+        Case 3:
+            Return this.Start3.IsButtonActive()
+        Case 4:
+            Return this.Start4.IsButtonActive()
+        default:
+        }
+
+    }
+    ;@endregion
+
+    ;@region Farm()
+    /**
+     * Start a looped farming of the available tourneys
+     */
+    Farm() {
+        while (Window.IsActive()) {
+            If (this.Farm1 && this.IsFightReady(1)) {
+                gToolTip.CenterDel()
+                this.StartFight(1)
+                this.Fight()
+            }
+            If (this.Farm2 && this.IsFightReady(2)) {
+                gToolTip.CenterDel()
+                this.StartFight(2)
+                this.Fight()
+            }
+            If (this.Farm3 && this.IsFightReady(3)) {
+                gToolTip.CenterDel()
+                this.StartFight(3)
+                this.Fight()
+            }
+            If (this.Farm4 && this.IsFightReady(4)) {
+                gToolTip.CenterDel()
+                this.StartFight(4)
+                this.Fight()
+            }
+            gToolTip.Center("Waiting on tourney cooldown")
+            Sleep(500)
         }
     }
     ;@endregion
