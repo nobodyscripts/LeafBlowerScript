@@ -17,6 +17,10 @@ Class Fishing {
     Search := cPoint(524, 313)
     /** @type {cPoint} */
     NewPondRod := cPoint(968, 892)
+    /** @type {cPoint} */
+    NewPondRod2 := cPoint(1048, 892)
+    /** @type {cPoint} */
+    NewPondRod3 := cPoint(1128, 892)
 
     Pond1 := Pond(1)
     Pond2 := Pond(2)
@@ -210,6 +214,8 @@ Class Fishing {
         this.Search.ClickButtonActive()
         this.NewPondRod.WaitUntilActiveButtonS(3)
         this.NewPondRod.ClickButtonActive()
+        this.NewPondRod2.ClickButtonActive()
+        this.NewPondRod3.ClickButtonActive()
     }
     ;@endregion
 }

@@ -258,6 +258,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - Fishing
   - Added a quick test for catching fish (rough)
   - Added pond searching, replacing the weakest pond until all are legendary
+  - Added apply new rods for up to legendary ponds
 
 ## TODO
 
