@@ -4,7 +4,7 @@
 #Include cTimer.ahk
 
 /**
- * Game Window management class
+ * Game Window management class 2560*1369
  * @module cGameWindow
  * @property {String} Title Window title description string, as used to match 
  * windows in ahk
@@ -13,8 +13,8 @@
  * @property {Integer} X Horizontal position
  * @property {Integer} Y Vertical position
  * @method __New Constructor
- * @method RelW Convert from 2560*1369 client resolution to current resolution
- * @method RelH Convert from 2560*1369 client resolution to current resolution
+ * @method RelW Convert from default client resolution to current resolution
+ * @method RelH Convert from default client resolution to current resolution
  * @method Activate Activate window
  * @method IsActive Check if window active focus
  * @method Exist Check if window exists
@@ -48,6 +48,10 @@ Class cGameWindow {
     X := 0
     /** @type {Integer} Window Vertical Position Y */
     Y := 0
+    /** @type {Integer} Default client width by which scaling is set */
+    DefW := 2560
+    /** @type {Integer} Default client height by which scaling is set */
+    DefH := 1369
     ;@endregion
 
     ;@region __New()
@@ -65,16 +69,16 @@ Class cGameWindow {
     ;@endregion
 
     ;@region Relative Coordinates
-    ; Convert positions from 2560*1369 client resolution to current resolution to
-    ; allow higher accuracy
+    ; Convert positions from default size client resolution to current
+    ; resolution to allow higher accuracy
     RelW(PosW) {
-        Return PosW / 2560 * this.W
+        Return PosW / this.DefW * this.W
     }
 
-    ; Convert positions from 2560*1369 client resolution to current resolution to
-    ; allow higher accuracy
+    ; Convert positions from default size client resolution to current
+    ; resolution to allow higher accuracy
     RelH(PosH) {
-        Return PosH / 1369 * this.H
+        Return PosH / this.DefH * this.H
     }
     ;@endregion
 

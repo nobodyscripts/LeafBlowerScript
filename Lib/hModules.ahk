@@ -19,3 +19,4 @@
 #Include ..\Modules\SuitcaseSpam.ahk
 #Include ..\Modules\QuickPrestige.ahk
 #Include ..\Modules\ShadowCrystalFight.ahk
+#Include ..\Modules\Fishing.ahk

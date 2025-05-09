@@ -255,6 +255,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Add hotkey (Numpad9) to activate
   - Add setting to control auto advance replacement on/off
 
+- Fishing
+  - Added a quick test for catching fish (rough)
+
 ## TODO
 
 - Check settings from options.dat as bootup tests

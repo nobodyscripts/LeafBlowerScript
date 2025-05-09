@@ -1,5 +1,6 @@
 #Include ..\Lib\Navigate.ahk
 #Include ..\Lib\hGlobals.ahk
+#Include ..\Lib\hModules.ahk
 
 #Include QuickULCStage1.ahk
 #Include QuickULCStage2.ahk

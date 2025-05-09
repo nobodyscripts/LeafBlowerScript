@@ -59,6 +59,11 @@ Button_Click_PrestigeSpammer(thisGui, info) {
     fPrestigeSpammer()
 }
 
+Button_Click_FishAutoCatch(thisGui, info) {
+    Window.Activate()
+    fFishAutoCatch()
+}
+
 RunGui() {
     Global Updater
     If (!Debug) {
@@ -151,7 +156,7 @@ RunGui() {
     MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("Leafton"))
     MyBtn := MyGui.Add("Button", "Default w120", "Leafton Mode")
     MyBtn.OnEvent("Click", Button_Click_Leafton)
-    
+
     MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("ShadowCrystal"))
     MyBtn := MyGui.Add("Button", "Default w120", "Shadow Crystal Fight")
     MyBtn.OnEvent("Click", Button_Click_ShadowCrystal)
@@ -167,6 +172,10 @@ RunGui() {
     MyGui.Add("Text", "ccfcfcf", "(no keybind)")
     MyBtn := MyGui.Add("Button", "Default w120", "ULC TEST")
     MyBtn.OnEvent("Click", Button_Click_ULC)
+
+    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "Default w120", "FISH AUTOCATCH TEST")
+    MyBtn.OnEvent("Click", Button_Click_FishAutoCatch)
 
     MyGui.Add("Text", "ccfcfcf", "")
     MyBtn := MyGui.Add("Button", "Default w120", "Edit Script Hotkeys")

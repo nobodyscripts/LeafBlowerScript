@@ -10,7 +10,6 @@
             "request": "attach",
             "port": "9002-9010",
             "variableCategories": "recommend",
-            "useDebugDirective": true,
             "useAutoJumpToError": true
         },
         {
