@@ -278,11 +278,7 @@ Class Pond {
      * Get pond rarity
      */
     GetPondRarity() {
-        var := this.PondColourToRarity(this.Rarity.GetColour())
-        If (var = 0) {
-            Return false
-        }
-        Return var
+        Return this.PondColourToRarity(this.Rarity.GetColour())
     }
     ;@endregion
 
