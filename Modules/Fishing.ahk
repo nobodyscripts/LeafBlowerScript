@@ -302,6 +302,8 @@ Class Pond {
             Return 4
         Case "0x9D19B4":
             Return 5
+        Case "0x9E10C1":
+            Return 5
         Case "0xD9661E":
             Return 6
         Case "0xD9661F":
