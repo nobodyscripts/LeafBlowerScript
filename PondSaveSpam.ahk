@@ -72,8 +72,7 @@ F3::
         If (!Pond(4).Rarity.IsBackground()) {
             rarity := Pond(4).GetPondRarity()
             Out.I("Pond rarity: " rarity)
-
-            If (rarity = 6 || rarity = 5 || rarity = 0) {
+            If (rarity = 6 || rarity = 5 ) {
                 Out.I("Found target, reloading")
                 Break
             }
