@@ -306,6 +306,8 @@ Class Pond {
             Return 6
         Case "0xD9661F":
             Return 6
+        Case "0xE1661A":
+            Return 6
         Default:
             Out.D("Pond colour could not be matched " colour)
             Return 0

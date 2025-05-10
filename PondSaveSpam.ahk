@@ -58,7 +58,7 @@ F3::
 
         If (rarity = 6 || rarity = 5 || rarity = 0) {
             Out.I("Found target, reloading")
-            Reload()
+            Break
         }
         If ((pid && ProcessExist(pid))) {
             Out.I("Closing LBR")
@@ -71,7 +71,8 @@ F3::
         Sleep(150)
         if(GetKeyState("F4","P")) {
             Out.I("Script aborted due to F4")
-            Reload()
+            Break
         }
     }
+    Reload()
 }
