@@ -31,8 +31,16 @@ F3::
 {
     Loop {
         Out.I("Running LBR")
-        Run("C:\Program Files (x86)\Steam\steamapps\common\Leaf Blower Revolution\game.exe",
-            "C:\Program Files (x86)\Steam\steamapps\common\Leaf Blower Revolution", , &pid)
+        If (FileExist("C:\Program Files (x86)\Steam\steamapps\common\Leaf Blower Revolution\game.exe")) {
+            Run("C:\Program Files (x86)\Steam\steamapps\common\Leaf Blower Revolution\game.exe",
+                "C:\Program Files (x86)\Steam\steamapps\common\Leaf Blower Revolution", , &pid)
+        } else if (FileExist("D:\Games\Steam\steamapps\common\Leaf Blower Revolution\game.exe")) {
+            Run("D:\Games\Steam\steamapps\common\Leaf Blower Revolution\game.exe",
+                "D:\Games\Steam\steamapps\common\Leaf Blower Revolution", , &pid)
+        } else {
+            MsgBox("Game not found, please edit script to modify the game path to your case")
+            ExitApp()
+        }
 
         WinWait("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe")
         Sleep(150)
@@ -48,7 +56,7 @@ F3::
         cPoint(329, 1116).ClickOffset(2, 2)
 
         Window.AwaitPanel()
-        Sleep(100)
+        Fishing().Search.WaitUntilActiveButtonS(5)
 
         Out.I("Clicking search")
         Fishing().Search.ClickButtonActive()
