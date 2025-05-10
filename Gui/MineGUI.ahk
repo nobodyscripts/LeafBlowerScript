@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0
 
-
 Button_Click_Mine(thisGui, info) {
     Global Settings, MinerEnableVeins, MinerEnableTransmute,
         MinerEnableFreeRefuel, MinerEnableBanks, MinerEnableSpammer,
