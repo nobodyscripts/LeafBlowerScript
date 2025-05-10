@@ -265,7 +265,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Selectable attack type in Tourney mode (currently hard coded to middle)
   - Standalone script for farming high rank ponds, F1 exit, F2 reload,
   F3 Activate, Hold F4 to stop on next loop. Set game to 10min autosave, save
-  game with open pond slot and search ready to use.
+  game with open pond slot and search ready to use, close the game before
+  running with F3. Fixed nav On, Hide max shops Off.
 
 ## TODO
 

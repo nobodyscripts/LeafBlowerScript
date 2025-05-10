@@ -42,37 +42,46 @@ F3::
 
         Travel.ClosePanelIfActive()
         Travel.ClosePanelIfActive()
-        Sleep(34)
+        Sleep(100)
 
         Out.I("Opening fishing")
         cPoint(329, 1116).ClickOffset(2, 2)
 
         Window.AwaitPanel()
-        Sleep(34)
+        Sleep(100)
 
         Out.I("Clicking search")
         Fishing().Search.ClickButtonActive()
 
-        rarity := Pond(4).GetPondRarity()
-        Out.I("Pond rarity: " rarity)
+        If (Pond(4).Rarity.IsBackground()) {
+            Fishing().Search.ClickButtonActive()
+        }
+        If (!Pond(4).Rarity.IsBackground()) {
+            rarity := Pond(4).GetPondRarity()
+            Out.I("Pond rarity: " rarity)
 
-        If (rarity = 6 || rarity = 5 || rarity = 0) {
-            Out.I("Found target, reloading")
+            If (rarity = 6 || rarity = 0) {
+                Out.I("Found target, reloading")
+                Break
+            }
+            If ((pid && ProcessExist(pid))) {
+                Out.I("Closing LBR")
+                ProcessClose(pid)
+            } Else {
+                Out.I("Closing LBR")
+                WinClose("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe")
+            }
+            WinWaitClose("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe")
+        } Else {
+            Out.I("Search failed to occur exiting script")
             Break
         }
-        If ((pid && ProcessExist(pid))) {
-            Out.I("Closing LBR")
-            ProcessClose(pid)
-        } else {
-            Out.I("Closing LBR")
-            WinClose("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe")
-        }
-        WinWaitClose("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe")
-        Sleep(150)
-        if(GetKeyState("F4","P")) {
+        Sleep(250)
+        If (GetKeyState("F4", "P")) {
             Out.I("Script aborted due to F4")
             Break
         }
+
     }
     Reload()
 }
