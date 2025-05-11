@@ -34,7 +34,7 @@ TriggerBLC(*) {
     Out.D("TriggerBLC")
     Shops.OpenRedPortal()
     /** @type {cPoint} */
-    crunchbtn := cPoint(1354, 532)
+    crunchbtn := cPoint(1337, 558)
     crunchbtn.WaitUntilActiveButtonS(3)
     If (!crunchbtn.IsButtonActive()) {
         Out.I("Didn't find blc crunch button, aborting.")
@@ -51,7 +51,7 @@ TriggerBLC(*) {
 
 TriggerMLC(*) {
     UlcWindow()
-    crunchbtn := cPoint(1354, 532)
+    crunchbtn := cPoint(1329, 563)
     Out.D("TriggerMLC")
     Shops.OpenGreenPortal()
     crunchbtn.WaitUntilActiveButtonS(3)

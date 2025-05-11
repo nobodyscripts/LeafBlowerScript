@@ -286,6 +286,8 @@ borderless fullscreen
 output colour found, suggest rtx dynamic vibrance off, image scaling off,
 digital vibrance off
 - Add file size check to log files
+- Autoupdate
+- Save window position/attach to game window
 
 - Features:
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.
@@ -300,6 +302,16 @@ digital vibrance off
   - Leafton: Leafton needs better setup routine. Travel to zone.
   - Mine: Check for broken functionality
     - Travel to alch failing for brewing despite window opening
+  - ULC: Fix cheese quest
+    - Fix coal wait with autobuyer
+    - Fix soul shop/soul forge not running prior to mirage
+  - Fishing: Fix overlapping timers desyncing fishing
+    - Detect cast/reel with more careful checks
+    - Detect % progress
+    - Enhance tourney reliability
+    - GUI
+    - Do fishing in tourney cooldown
+    - Automate fishing challenge (loop)
 
 ## Known issues
 

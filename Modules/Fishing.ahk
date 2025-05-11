@@ -385,6 +385,7 @@ Class FishingTourney {
         }
         this.Collect.WaitUntilActiveButton()
         this.Collect.ClickButtonActive(2, 2)
+        this.Collect.ClickButtonActive(2, 2)
     }
     ;@endregion
 
@@ -396,11 +397,15 @@ Class FishingTourney {
         Switch (id) {
         Case 1:
             this.Start1.ClickButtonActive()
+            this.Start1.ClickButtonActive()
         Case 2:
+            this.Start2.ClickButtonActive()
             this.Start2.ClickButtonActive()
         Case 3:
             this.Start3.ClickButtonActive()
+            this.Start3.ClickButtonActive()
         Case 4:
+            this.Start4.ClickButtonActive()
             this.Start4.ClickButtonActive()
         default:
         }

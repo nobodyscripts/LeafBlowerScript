@@ -18,10 +18,12 @@ Global settings := cSettings()
 settings.initSettings(true)
 
 Out.I("PondSaveSpam: Started")
+
 F1::
 {
     ExitApp()
 }
+
 F2::
 {
     Reload()
@@ -29,22 +31,44 @@ F2::
 
 F3::
 {
+    GamePath1 := "C:\Program Files (x86)\Steam\steamapps\common\Leaf Blower Revolution"
+    GamePath2 := "D:\Games\Steam\steamapps\common\Leaf Blower Revolution"
+    SaveMythical := false
+    SaveLegendary := true
+    /** @type {Pond} */
+    TargetPond := Pond(4)
+
+
+    /** @type {cPoint} */
+    RarityPoint := TargetPond.Rarity
+    /** @type {cPoint} */
+    search := Fishing().Search
+    /** @type {cPoint} */
+    OpenFishing := cPoint(329, 1116)
+    pid := false
+    WindowPattern := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
+
     Loop {
         If (!Window.Exist()) {
             Out.I("Running LBR")
-            If (FileExist("C:\Program Files (x86)\Steam\steamapps\common\Leaf Blower Revolution\game.exe")) {
-                Run("C:\Program Files (x86)\Steam\steamapps\common\Leaf Blower Revolution\game.exe",
-                    "C:\Program Files (x86)\Steam\steamapps\common\Leaf Blower Revolution", , &pid)
-            } Else If (FileExist("D:\Games\Steam\steamapps\common\Leaf Blower Revolution\game.exe")) {
-                Run("D:\Games\Steam\steamapps\common\Leaf Blower Revolution\game.exe",
-                    "D:\Games\Steam\steamapps\common\Leaf Blower Revolution", , &pid)
+            If (FileExist(GamePath1 "\game.exe")) {
+                Run(GamePath1 "\game.exe",
+                    GamePath1, , &pid)
+            } Else If (FileExist(GamePath2 "\game.exe")) {
+                Run(GamePath2 "\game.exe",
+                    GamePath2, , &pid)
             } Else {
                 MsgBox("Game not found, please edit script to modify the game path to your case")
                 ExitApp()
             }
 
-            WinWait("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe")
+            WinWait(WindowPattern)
             Sleep(150)
+        }
+        If (!Window.Exist()) {
+            Continue
+        } Else If (!pid) {
+            pid := WinGetPID(WindowPattern)
         }
         Window.Activate()
 
@@ -55,10 +79,7 @@ F3::
         Sleep(100)
 
         Out.I("Opening fishing")
-        cPoint(329, 1116).ClickOffset(2, 2)
-
-        /** @type {cPoint} */
-        search := Fishing().Search
+        OpenFishing.ClickOffset(2, 2)
 
         Window.AwaitPanel()
         search.WaitUntilActiveButtonS(5)
@@ -66,14 +87,18 @@ F3::
         Out.I("Clicking search")
         search.ClickOffsetUntilColourS("0xC8BDA5", 2, 2, , 3)
 
-        If (Pond(4).Rarity.IsBackground()) {
+        If (RarityPoint.IsBackground()) {
             search.ClickButtonActive()
         }
-        If (!Pond(4).Rarity.IsBackground()) {
-            rarity := Pond(4).GetPondRarity()
+        If (!RarityPoint.IsBackground()) {
+            rarity := TargetPond.GetPondRarity()
             Out.I("Pond rarity: " rarity)
-            If (rarity = 6 || rarity = 5 ) {
-                Out.I("Found target, reloading")
+            If (SaveMythical && rarity = 5) {
+                Out.I("Found mythical target, reloading")
+                Break
+            }
+            If (SaveLegendary && rarity = 6) {
+                Out.I("Found legendary target, reloading")
                 Break
             }
             If ((pid && ProcessExist(pid))) {
