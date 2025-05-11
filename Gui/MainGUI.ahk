@@ -9,6 +9,7 @@
 #Include BossFarmGUI.ahk
 #Include CardsGUI.ahk
 #Include ClawGUI.ahk
+#Include FishingGUI.ahk
 #Include GameHotkeysGUI.ahk
 #Include GemFarmGUI.ahk
 #Include GFSSFarmGUI.ahk
@@ -58,21 +59,6 @@ Button_Click_SuitcaseSpam(thisGui, info) {
 Button_Click_PrestigeSpammer(thisGui, info) {
     Window.Activate()
     fPrestigeSpammer()
-}
-
-Button_Click_FishAutoCatch(thisGui, info) {
-    Window.Activate()
-    Fishing().fFishAutoCatch()
-}
-
-Button_Click_FishAutoCatchChallenge(thisGui, info) {
-    Window.Activate()
-    Fishing().fFishAutoCatch(true)
-}
-
-Button_Click_FishTourneyStart(thisGui, info) {
-    Window.Activate()
-    FishingTourney().Farm()
 }
 
 RunGui() {
@@ -185,16 +171,8 @@ RunGui() {
     MyBtn.OnEvent("Click", Button_Click_ULC)
 
     MyGui.Add("Text", "ccfcfcf", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "FISH AUTOCATCH TEST")
-    MyBtn.OnEvent("Click", Button_Click_FishAutoCatch)
-
-    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "FISH CHALLENGE TEST")
-    MyBtn.OnEvent("Click", Button_Click_FishAutoCatchChallenge)
-
-    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "TOURNEY TEST")
-    MyBtn.OnEvent("Click", Button_Click_FishTourneyStart)
+    MyBtn := MyGui.Add("Button", "Default w120", "Fishing")
+    MyBtn.OnEvent("Click", Button_Click_Fishing)
 
     MyGui.Add("Text", "ccfcfcf", "")
     MyBtn := MyGui.Add("Button", "Default w120", "Edit Script Hotkeys")

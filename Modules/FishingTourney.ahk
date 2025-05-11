@@ -2,11 +2,11 @@
 #Include ../Lib/cRects.ahk
 #Include ../Lib/cPoints.ahk
 
-Global FishTourneyNovice := false
-Global FishTourneyIntermediate := false
+Global FishTourneyNovice := true
+Global FishTourneyIntermediate := true
 Global FishTourneyExpert := false
 Global FishTourneyLegend := false
-Global FishTourneyAttack := 0
+Global FishTourneyAttack := 2
 
 /**
  * FishingTourney tournament functions to seperate from the main fishing elements
