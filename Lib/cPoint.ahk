@@ -454,7 +454,7 @@ Class cPoint {
                 Break
             }
         }
-        Out.D("WaitWhileColour: " this.toStringWColour())
+        ;Out.D("WaitWhileColour: " this.toStringWColour())
         Return this.GetColour() != colour
     }
 
@@ -487,7 +487,7 @@ Class cPoint {
                 Break
             }
         }
-        Out.D("WaitWhileNotColour: finish " this.toStringWColour())
+        ;Out.D("WaitWhileNotColour: finish " this.toStringWColour())
         Return this.GetColour() = colour
     }
 
@@ -523,7 +523,7 @@ Class cPoint {
                 Break
             }
         }
-        Out.D("WaitUntilActiveButton: " this.toStringWColour())
+        ;Out.D("WaitUntilActiveButton: " this.toStringWColour())
         Return this.IsButtonActive()
     }
 
@@ -558,7 +558,7 @@ Class cPoint {
                 Break
             }
         }
-        Out.D("WaitUntilButton: " this.toStringWColour())
+        ;Out.D("WaitUntilButton: " this.toStringWColour())
         Return this.IsButton()
     }
 

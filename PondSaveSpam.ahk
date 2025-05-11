@@ -106,9 +106,9 @@ F3::
                 ProcessClose(pid)
             } Else {
                 Out.I("Closing LBR")
-                WinClose("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe")
+                WinClose(WindowPattern)
             }
-            WinWaitClose("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe")
+            WinWaitClose(WindowPattern)
         } Else {
             Out.I("Search failed to occur exiting script")
             Break

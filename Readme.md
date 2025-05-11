@@ -308,7 +308,6 @@ digital vibrance off
   - Fishing: Fix overlapping timers desyncing fishing
     - Detect cast/reel with more careful checks
     - Detect % progress
-    - Enhance tourney reliability
     - GUI
     - Do fishing in tourney cooldown
     - Automate fishing challenge (loop)

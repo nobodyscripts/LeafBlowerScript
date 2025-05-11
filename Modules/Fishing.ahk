@@ -363,29 +363,31 @@ Class FishingTourney {
     Fight() {
         Switch (this.UseAttack) {
         Case 1:
-            While (!this.Collect.IsButtonActive()) {
+            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
                 this.Attack1.WaitUntilActiveButton()
                 this.Attack1.ClickButtonActive(2, 2)
             }
         Case 2:
-            While (!this.Collect.IsButtonActive()) {
+            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
                 this.Attack2.WaitUntilActiveButton()
                 this.Attack2.ClickButtonActive(2, 2)
             }
         Case 3:
-            While (!this.Collect.IsButtonActive()) {
+            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
                 this.Attack3.WaitUntilActiveButton()
                 this.Attack3.ClickButtonActive(2, 2)
             }
         default:
+            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
+                this.Attack1.WaitUntilActiveButton()
+                this.Attack1.ClickButtonActive(2, 2)
+            }
         }
-        While (!this.Collect.IsButtonActive()) {
-            this.Attack1.WaitUntilActiveButton()
-            this.Attack1.ClickButtonActive(2, 2)
+
+        While (Window.IsActive() && !this.Start1.IsButton()) {
+            this.Collect.WaitUntilActiveButton()
+            this.Collect.ClickButtonActive(2, 2)
         }
-        this.Collect.WaitUntilActiveButton()
-        this.Collect.ClickButtonActive(2, 2)
-        this.Collect.ClickButtonActive(2, 2)
     }
     ;@endregion
 
@@ -396,17 +398,25 @@ Class FishingTourney {
     StartFight(id) {
         Switch (id) {
         Case 1:
-            this.Start1.ClickButtonActive()
-            this.Start1.ClickButtonActive()
+            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
+                this.Start1.WaitUntilActiveButton()
+                this.Start1.ClickButtonActive(2, 2)
+            }
         Case 2:
-            this.Start2.ClickButtonActive()
-            this.Start2.ClickButtonActive()
+            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
+                this.Start2.WaitUntilActiveButton()
+                this.Start2.ClickButtonActive(2, 2)
+            }
         Case 3:
-            this.Start3.ClickButtonActive()
-            this.Start3.ClickButtonActive()
+            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
+                this.Start3.WaitUntilActiveButton()
+                this.Start3.ClickButtonActive(2, 2)
+            }
         Case 4:
-            this.Start4.ClickButtonActive()
-            this.Start4.ClickButtonActive()
+            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
+                this.Start4.WaitUntilActiveButton()
+                this.Start4.ClickButtonActive(2, 2)
+            }
         default:
         }
 
@@ -470,6 +480,7 @@ Class FishingTourney {
             }
             Sleep(500)
         }
+        Reload()
     }
     ;@endregion
 }
