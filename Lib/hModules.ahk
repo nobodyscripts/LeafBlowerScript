@@ -10,6 +10,8 @@
 #Include ..\Modules\FarmGFSS.ahk
 #Include ..\Modules\FarmNatureBoss.ahk
 #Include ..\Modules\FarmNormalBoss.ahk
+#Include ..\Modules\Fishing.ahk
+#Include ..\Modules\FishingTourney.ahk
 #Include ..\Modules\GemFarm.ahk
 #Include ..\Modules\NatureHyacinth.ahk
 #Include ..\Modules\TowerTimeWarp.ahk
@@ -19,4 +21,3 @@
 #Include ..\Modules\SuitcaseSpam.ahk
 #Include ..\Modules\QuickPrestige.ahk
 #Include ..\Modules\ShadowCrystalFight.ahk
-#Include ..\Modules\Fishing.ahk

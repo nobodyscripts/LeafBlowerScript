@@ -2,6 +2,8 @@
 #Include ../Lib/cRects.ahk
 #Include ../Lib/cPoints.ahk
 
+Global FishCatchingDelay := 5
+
 /**
  * Fishing Class to contain all fishing related functions
  * @module Fishing
@@ -32,70 +34,66 @@ Class Fishing {
      * Attempt to auto catch fish (Simple)
      */
     fFishAutoCatch(challenge := false) {
-        /** @type {Timer} */
-        Timer1 := Timer()
-        IsOnCD1 := false
-        /** @type {Timer} */
-        Timer2 := Timer()
-        IsOnCD2 := false
-        /** @type {Timer} */
-        Timer3 := Timer()
-        IsOnCD3 := false
-        /** @type {Timer} */
-        Timer4 := Timer()
-        IsOnCD4 := false
-
+        Time1 := A_Now
+        Time2 := A_Now
+        Time3 := A_Now
+        Time4 := A_Now
+        Search := challenge
         Loop {
             If (!Window.IsActive()) {
                 Break
             }
-            If (!challenge) {
-                this.PondQualityUpgrade()
+            this.FishPonds(&Search, &Time1, &Time2, &Time3, &Time4)
+        }
+    }
+    ;@endregion
+
+    ;@region FishPonds()
+    /**
+     * Fish ponds a single time
+     */
+    FishPonds(&Search, &Time1, &Time2, &Time3, &Time4) {
+        If (!Search) {
+            if(!this.PondQualityUpgrade()) {
+                ; Disable search if all ponds legendary
+                Search := true
             }
-            If (!this.Pond1.Progress.pixelSearch()) {
-                ; Was off cooldown and nothing catching
-                this.Pond1.CastRod.ClickButtonActive()
-            }
-            If (!this.Pond2.Progress.pixelSearch()) {
-                ; Was off cooldown and nothing catching
-                this.Pond2.CastRod.ClickButtonActive()
-            }
-            If (!this.Pond3.Progress.pixelSearch()) {
-                ; Was off cooldown and nothing catching
-                this.Pond3.CastRod.ClickButtonActive()
-            }
-            If (!this.Pond4.Progress.pixelSearch()) {
-                ; Was off cooldown and nothing catching
-                this.Pond4.CastRod.ClickButtonActive()
-            }
-            If (this.Pond1.Progress.PixelSearch() && !this.Pond1.CooldownSuffix.PixelSearch()) {
-                Timer1.CoolDownS(12, &IsOnCD1)
-            }
-            If (this.Pond2.Progress.PixelSearch() && !this.Pond2.CooldownSuffix.PixelSearch()) {
-                Timer2.CoolDownS(12, &IsOnCD2)
-            }
-            If (this.Pond3.Progress.PixelSearch() && !this.Pond3.CooldownSuffix.PixelSearch()) {
-                Timer3.CoolDownS(12, &IsOnCD3)
-            }
-            If (this.Pond4.Progress.PixelSearch() && !this.Pond4.CooldownSuffix.PixelSearch()) {
-                Timer4.CoolDownS(12, &IsOnCD4)
-            }
-            If (!IsOnCD1) {
-                this.Pond1.CastRod.ClickButtonActive()
-            }
-            If (!IsOnCD2) {
-                this.Pond2.CastRod.ClickButtonActive()
-            }
-            If (!IsOnCD3) {
-                this.Pond3.CastRod.ClickButtonActive()
-            }
-            If (!IsOnCD4) {
-                this.Pond4.CastRod.ClickButtonActive()
-            }
-            Sleep (17)
-            If (this.Lure.IsButtonActive()) {
-                this.Lure.ClickButtonActive()
-            }
+        }
+        If (!this.Pond1.CastRod.IsBackground()) {
+            this.FishPond(this.Pond1, &Time1, 1)
+        }
+        If (!this.Pond2.CastRod.IsBackground()) {
+            this.FishPond(this.Pond2, &Time2, 2)
+        }
+        If (!this.Pond3.CastRod.IsBackground()) {
+            this.FishPond(this.Pond3, &Time3, 3)
+        }
+        If (!this.Pond4.CastRod.IsBackground()) {
+            this.FishPond(this.Pond4, &Time4, 4)
+        }
+        Sleep (17)
+        If (this.Lure.IsButtonActive()) {
+            this.Lure.ClickButtonActive()
+        }
+    }
+    ;@endregion
+
+    ;@region FishPond()
+    /**
+     * Fish ponds a single time
+     */
+    FishPond(pond, &Time, id) {
+        If (!pond.Progress.pixelSearch()) {
+            ; Was off cooldown and nothing catching
+            pond.CastRod.ClickButtonActive()
+        }
+        If (pond.Progress.PixelSearch() && !pond.CooldownSuffix.PixelSearch()) {
+            ;Out.D("Resetting cd on" id)
+            Time := A_Now
+        }
+        If (Time && DateDiff(A_Now, Time, "S") > FishCatchingDelay) {
+            ;Out.D("Casting " id)
+            pond.CastRod.ClickButtonActive()
         }
     }
     ;@endregion
@@ -121,10 +119,34 @@ Class Fishing {
         p2 := this.Pond2.GetPondRarity()
         p3 := this.Pond3.GetPondRarity()
         p4 := this.Pond4.GetPondRarity()
-        If (p1 = 6 && p2 = 6 && p3 = 6 && p4 = 6) {
+        If (p4 > 0 && p1 = 6 && p2 = 6 && p3 = 6 && p4 = 6) {
+            out.d("1")
             Return true
+        } Else {
+            out.d("2")
+            Return false
         }
-        Return false
+        If (p3 > 0 && p1 = 6 && p2 = 6 && p3 = 6) {
+            out.d("3")
+            Return true
+        } Else {
+            out.d("4")
+            Return false
+        }
+        If (p2 > 0 && p1 = 6 && p2 = 6) {
+            out.d("5")
+            Return true
+        } Else {
+            out.d("6")
+            Return false
+        }
+        If (p1 = 6) {
+            out.d("7")
+            Return true
+        } Else {
+            out.d("8")
+            Return false
+        }
     }
     ;@endregion
 
@@ -167,7 +189,7 @@ Class Fishing {
         Out.I("Attempting pond upgrade")
         WeakestLink := false
         rarity := 1
-        While (!WeakestLink && rarity < 7) {
+        While (!WeakestLink && rarity < 6) {
             WeakestLink := this.GetFirstPondOfRarity(rarity)
             rarity++
         }
@@ -310,177 +332,12 @@ Class Pond {
             Return 6
         Case "0xE1661A":
             Return 6
+        Case "0x97714A":
+            Return -1
         Default:
             Out.D("Pond colour could not be matched " colour)
             Return 0
         }
-    }
-    ;@endregion
-}
-
-/**
- * FishingTourney tournament functions to seperate from the main fishing elements
- * @module FishingTourney
- * @property {Type} property Desc
- * @method Name Desc
- */
-Class FishingTourney {
-    Farm1 := true
-    Farm2 := true
-    Farm3 := false
-    Farm4 := false
-    UseAttack := 2
-    /** @type {cPoint} */
-    Attack1 := cPoint(537, 531)
-    /** @type {cPoint} */
-    Attack2 := cPoint(935, 528)
-    /** @type {cPoint} */
-    Attack3 := cPoint(1335, 530)
-
-    /** @type {cPoint} */
-    Special1 := cPoint(537, 790)
-    /** @type {cPoint} */
-    Special2 := cPoint(935, 790)
-    /** @type {cPoint} */
-    Special3 := cPoint(1335, 790)
-
-    /** @type {cPoint} */
-    Collect := cPoint(528, 658)
-
-    /** @type {cPoint} */
-    Start1 := cPoint(2061, 315)
-    /** @type {cPoint} */
-    Start2 := cPoint(2061, 541)
-    /** @type {cPoint} */
-    Start3 := cPoint(2061, 759)
-    /** @type {cPoint} */
-    Start4 := cPoint(2061, 962)
-
-    ;@region Fight()
-    /**
-     * Main active loop from post 'start', till end
-     */
-    Fight() {
-        Switch (this.UseAttack) {
-        Case 1:
-            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
-                this.Attack1.WaitUntilActiveButton()
-                this.Attack1.ClickButtonActive(2, 2)
-            }
-        Case 2:
-            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
-                this.Attack2.WaitUntilActiveButton()
-                this.Attack2.ClickButtonActive(2, 2)
-            }
-        Case 3:
-            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
-                this.Attack3.WaitUntilActiveButton()
-                this.Attack3.ClickButtonActive(2, 2)
-            }
-        default:
-            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
-                this.Attack1.WaitUntilActiveButton()
-                this.Attack1.ClickButtonActive(2, 2)
-            }
-        }
-
-        While (Window.IsActive() && !this.Start1.IsButton()) {
-            this.Collect.WaitUntilActiveButton()
-            this.Collect.ClickButtonActive(2, 2)
-        }
-    }
-    ;@endregion
-
-    ;@region StartFight(id)
-    /**
-     * Start different tourneys based on id
-     */
-    StartFight(id) {
-        Switch (id) {
-        Case 1:
-            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
-                this.Start1.WaitUntilActiveButton()
-                this.Start1.ClickButtonActive(2, 2)
-            }
-        Case 2:
-            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
-                this.Start2.WaitUntilActiveButton()
-                this.Start2.ClickButtonActive(2, 2)
-            }
-        Case 3:
-            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
-                this.Start3.WaitUntilActiveButton()
-                this.Start3.ClickButtonActive(2, 2)
-            }
-        Case 4:
-            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
-                this.Start4.WaitUntilActiveButton()
-                this.Start4.ClickButtonActive(2, 2)
-            }
-        default:
-        }
-
-    }
-    ;@endregion
-
-    ;@region StartFight(id)
-    /**
-     * Start different tourneys based on id
-     */
-    IsFightReady(id) {
-        Switch (id) {
-        Case 1:
-            Return this.Start1.IsButtonActive()
-        Case 2:
-            Return this.Start2.IsButtonActive()
-        Case 3:
-            Return this.Start3.IsButtonActive()
-        Case 4:
-            Return this.Start4.IsButtonActive()
-        default:
-        }
-
-    }
-    ;@endregion
-
-    ;@region Farm()
-    /**
-     * Start a looped farming of the available tourneys
-     */
-    Farm() {
-        tooltiptoggle := false
-        While (Window.IsActive()) {
-            If (this.Farm1 && this.IsFightReady(1)) {
-                gToolTip.CenterDel()
-                tooltiptoggle := false
-                this.StartFight(1)
-                this.Fight()
-            }
-            If (this.Farm2 && this.IsFightReady(2)) {
-                gToolTip.CenterDel()
-                tooltiptoggle := false
-                this.StartFight(2)
-                this.Fight()
-            }
-            If (this.Farm3 && this.IsFightReady(3)) {
-                gToolTip.CenterDel()
-                tooltiptoggle := false
-                this.StartFight(3)
-                this.Fight()
-            }
-            If (this.Farm4 && this.IsFightReady(4)) {
-                gToolTip.CenterDel()
-                tooltiptoggle := false
-                this.StartFight(4)
-                this.Fight()
-            }
-            If (!tooltiptoggle) {
-                gToolTip.Center("Waiting on tourney cooldown")
-                tooltiptoggle := true
-            }
-            Sleep(500)
-        }
-        Reload()
     }
     ;@endregion
 }
