@@ -38,7 +38,6 @@ F3::
     /** @type {Pond} */
     TargetPond := Pond(4)
 
-
     /** @type {cPoint} */
     RarityPoint := TargetPond.Rarity
     /** @type {cPoint} */
@@ -47,6 +46,7 @@ F3::
     OpenFishing := cPoint(329, 1116)
     pid := false
     WindowPattern := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
+    LastLoop := A_TickCount
 
     Loop {
         If (!Window.Exist()) {
@@ -70,6 +70,8 @@ F3::
         } Else If (!pid) {
             pid := WinGetPID(WindowPattern)
         }
+        Out.I("Time since last loop: " Format("{:#.3f}", (A_TickCount - LastLoop) / 1000))
+        LastLoop := A_TickCount
         Window.Activate()
 
         Window.AwaitPanel(10)

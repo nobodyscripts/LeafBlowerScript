@@ -6,7 +6,10 @@ Global FishTourneyNovice := true
 Global FishTourneyIntermediate := true
 Global FishTourneyExpert := false
 Global FishTourneyLegend := false
-Global FishTourneyAttack := 2
+Global FishTourneyNoviceAttack := 2
+Global FishTourneyIntermediateAttack := 2
+Global FishTourneyExpertAttack := 2
+Global FishTourneyLegendAttack := 2
 
 /**
  * FishingTourney tournament functions to seperate from the main fishing elements
@@ -19,7 +22,6 @@ Class FishingTourney {
     Farm2 := FishTourneyIntermediate
     Farm3 := FishTourneyExpert
     Farm4 := FishTourneyLegend
-    UseAttack := FishTourneyAttack
 
     /** @type {cPoint} */
     Attack1 := cPoint(537, 531)
@@ -51,8 +53,24 @@ Class FishingTourney {
     /**
      * Main active loop from post 'start', till end
      */
-    Fight() {
-        Switch (this.UseAttack) {
+    Fight(difficulty) {
+        Switch (difficulty) {
+        Case 1:
+            UseAttack := FishTourneyNoviceAttack
+
+        Case 2:
+            UseAttack := FishTourneyIntermediateAttack
+
+        Case 3:
+            UseAttack := FishTourneyExpertAttack
+
+        Case 4:
+            UseAttack := FishTourneyLegendAttack
+
+        default:
+            UseAttack := 1
+        }
+        Switch (UseAttack) {
         Case 1:
             While (Window.IsActive() && !this.Collect.IsButtonActive()) {
                 this.Attack1.WaitUntilActiveButton()
@@ -145,25 +163,25 @@ Class FishingTourney {
                 gToolTip.CenterDel()
                 tooltiptoggle := false
                 this.StartFight(1)
-                this.Fight()
+                this.Fight(1)
             }
             If (this.Farm2 && this.IsFightReady(2)) {
                 gToolTip.CenterDel()
                 tooltiptoggle := false
                 this.StartFight(2)
-                this.Fight()
+                this.Fight(2)
             }
             If (this.Farm3 && this.IsFightReady(3)) {
                 gToolTip.CenterDel()
                 tooltiptoggle := false
                 this.StartFight(3)
-                this.Fight()
+                this.Fight(3)
             }
             If (this.Farm4 && this.IsFightReady(4)) {
                 gToolTip.CenterDel()
                 tooltiptoggle := false
                 this.StartFight(4)
-                this.Fight()
+                this.Fight(4)
             }
             If (!tooltiptoggle) {
                 gToolTip.Center("Waiting on tourney cooldown")
