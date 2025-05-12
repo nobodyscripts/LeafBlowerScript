@@ -159,7 +159,7 @@ set for sharded MTF. These must be setup manually to work.
 
 ## Hyper-V Setup
 
-See discord server #info channel for details on running in a vm.
+See discord server #guides-and-faq channel for details on running in a vm.
 
 ## Settings You Need
 
@@ -260,11 +260,13 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added a quick test for catching fish (rough)
   - Added pond searching, replacing the weakest pond until all are legendary
   - Added apply new rods for up to legendary ponds
+  - Added search if pond slot available and off cooldown
+  - GUI and settings for fishing and tourney
   - Challenge mode
-  - Tourney mode (standalone, hardcoded to run first two tourneys)
-  - Selectable attack type in Tourney mode per difficulty (currently hard coded
-    to middle)
-  - Standalone script for farming high rank ponds, F1 exit, F2 reload,
+  - Tourney mode
+  - Selectable attack type in Tourney mode per difficulty
+
+- PondSpamSave.ahk Standalone script for farming high rank ponds, F1 exit, F2 reload,
     F3 Activate, Hold F4 to stop on next loop. Set game to 10min autosave, save
     game with open pond slot and search ready to use, close the game before
     running with F3. Fixed nav On, Hide max shops Off.
@@ -309,7 +311,6 @@ digital vibrance off
   - Fishing: Fix overlapping timers desyncing fishing
     - Detect cast/reel with more careful checks
     - Detect % progress
-    - GUI
     - Do fishing in tourney cooldown
     - Automate fishing challenge (loop)
 

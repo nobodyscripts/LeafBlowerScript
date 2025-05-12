@@ -393,9 +393,47 @@ Enable brewing of card parts during brew usage in mine maintainer and boss farm.
 
 ## Shadow Crystal
 
-SCAdvanceReplace: (Default) true
+SCAdvanceReplace: (Default) true  
 Enable replacement for the ingame auto advance feature, progresses on kill,
 if player dies level is lowered once and advance disables.
+
+## Fishing
+
+FishCatchingDelay: (Default) 5  
+Delay before catching, timed from the end of the cooldown period while fishing.
+
+FishCatchingSearch: (Default) true  
+Search for and upgrade ponds during fishing when cooldown finishes.
+
+## Fishing Tourney
+
+FishTourneyNovice: (Default) true  
+Enable farming of Novice level fishing Tournament when off cooldown.
+
+FishTourneyNoviceAttack: (Default) 1  
+The type of attack to repeatedly make during farming, 1 (100%),
+2 (60%~) or 3 (40%~).
+
+FishTourneyIntermediate: (Default) true  
+Enable farming of Intermediate level fishing Tournament when off cooldown.
+
+FishTourneyIntermediateAttack: (Default) 1  
+The type of attack to repeatedly make during farming, 1 (100%),
+2 (60%~) or 3 (40%~).
+
+FishTourneyExpert: (Default) true  
+Enable farming of Expert level fishing Tournament when off cooldown.
+
+FishTourneyExpertAttack: (Default) 1  
+The type of attack to repeatedly make during farming, 1 (100%),
+2 (60%~) or 3 (40%~).
+
+FishTourneyLegend: (Default) true  
+Enable farming of Legendary level fishing Tournament when off cooldown.
+
+FishTourneyLegendAttack: (Default) 1  
+The type of attack to repeatedly make during farming, 1 (100%),
+2 (60%~) or 3 (40%~).
 
 ## Debug
 

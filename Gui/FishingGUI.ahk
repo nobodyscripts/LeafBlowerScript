@@ -1,146 +1,221 @@
 #Requires AutoHotkey v2.0
 
-Button_Click_FishAutoCatch(thisGui, info) {
-    Window.Activate()
-    Fishing().fFishAutoCatch()
-}
-
-Button_Click_FishAutoCatchChallenge(thisGui, info) {
-    Window.Activate()
-    Fishing().fFishAutoCatch(true)
-}
-
-Button_Click_FishTourneyStart(thisGui, info) {
-    Window.Activate()
-    FishingTourney().Farm()
-}
-
 Button_Click_Fishing(thisGui, info) {
-    Global Settings
+    Global Settings, FishCatchingDelay, FishCatchingSearch, FishTourneyNovice,
+        FishTourneyIntermediate, FishTourneyExpert, FishTourneyLegend,
+        FishTourneyNoviceAttack, FishTourneyIntermediateAttack,
+        FishTourneyExpertAttack, FishTourneyLegendAttack
 
     optionsGUI := Gui(, "Fishing Settings")
     optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
-/* 
-    ;@region Add controls
 
-    ;@region Vein settings
-    If (MinerEnableVeins = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf checked",
-            "Enable Coal Veins Enhance")
+    ;@region Fishing settings
+    If (FishCatchingSearch = true) {
+        optionsGUI.Add("CheckBox", "vFishCatchingSearch ccfcfcf checked",
+            "Enable Search During Fishing")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf",
-            "Enable Coal Veins Enhance")
-    }
-    ;@endregion
-
-    ;@region Spammer settings
-    If (MinerEnableLeafton) {
-        bgMode := 1
-    } Else If (MinerEnableSpammer) {
-        bgMode := 2
-    } Else {
-        bgMode := 0
-    }
-    optionsGUI.Add("Text", "ccfcfcf vMinerBackgroundLabel",
-        "Background process:")
-    Switch bgMode {
-        Case 1:
-            optionsGUI.Add("DropDownList", "vMinerBackground Choose1", [
-                "Leafton Taxi", "Boss Spammer", "Off"])
-        Case 2:
-            optionsGUI.Add("DropDownList", "vMinerBackground Choose2", [
-                "Leafton Taxi", "Boss Spammer", "Off"])
-        Case 0:
-            optionsGUI.Add("DropDownList", "vMinerBackground Choose3", [
-                "Leafton Taxi", "Boss Spammer", "Off"])
-        default:
-            optionsGUI.Add("DropDownList", "vMinerBackground Choose3", [
-                "Leafton Taxi", "Boss Spammer", "Off"])
-    }
-    ;@endregion
-
-    ;@region Transmute settings
-    If (MinerEnableTransmute = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmute ccfcfcf checked",
-            "Enable Coal Bar To Coal Dia Transmute")
-    } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmute ccfcfcf",
-            "Enable Coal Bar To Coal Dia Transmute")
+        optionsGUI.Add("CheckBox", "vFishCatchingSearch ccfcfcf",
+            "Enable Search During Fishing")
     }
 
-
-    optionsGUI.Add("Text", "ccfcfcf", "Auto Bars Transmute Timer (s):")
+    optionsGUI.Add("Text", "ccfcfcf", "Fish Reeling in delay (s):")
     optionsGUI.AddEdit()
-    If (IsInteger(MinerTransmuteTimer) && MinerTransmuteTimer > 0) {
-        optionsGUI.Add("UpDown", "vMinerTransmuteTimer Range1-9999",
-            MinerTransmuteTimer)
+    If (IsInteger(FishCatchingDelay) && FishCatchingDelay > 0) {
+        optionsGUI.Add("UpDown", "vFishCatchingDelay Range1-600",
+            FishCatchingDelay)
     } Else {
         If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vMinerTransmuteTimer Range1-9999",
-                Settings.defaultNobodySettings.MinerTransmuteTimer)
+            optionsGUI.Add("UpDown", "vFishCatchingDelay Range1-600",
+                Settings.defaultNobodySettings.FishCatchingDelay)
         } Else {
-            optionsGUI.Add("UpDown", "vMinerTransmuteTimer Range1-9999",
-                Settings.defaultSettings.MinerTransmuteTimer)
+            optionsGUI.Add("UpDown", "vFishCatchingDelay Range1-600",
+                Settings.defaultSettings.FishCatchingDelay)
         }
     }
     ;@endregion
 
+    optionsGUI.Add("Text", "ccfcfcf", "")
 
-    ;@region Sphere settings
+    ;@region Tourney difficulty settings
 
-    optionsGUI.Add("Text", "ccfcfcf vMinerSphereModifierLabel",
-        "Drill Sphere Usage Amount Modifier:")
-    Switch MinerSphereModifier {
-        Case 1:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose1", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 10:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose2", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose3", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 100:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose4", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 250:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose5", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 1000:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose6", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 2500:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose7", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25000:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose8", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        default:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose1", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
+    ;@region Novice Tourney()
+    If (FishTourneyNovice = true) {
+        optionsGUI.Add("CheckBox", "vFishTourneyNovice ccfcfcf checked",
+            "Enable Novice Tourney")
+    } Else {
+        optionsGUI.Add("CheckBox", "vFishTourneyNovice ccfcfcf",
+            "Enable Novice Tourney")
+    }
+
+    ;@region Attack setting
+    optionsGUI.Add("Text", "ccfcfcf vFishTourneyNoviceAttackLabel",
+        "Novice Tourney Attack Type:")
+    Switch FishTourneyNoviceAttack {
+    Case 1:
+        optionsGUI.Add("DropDownList", "vFishTourneyNoviceAttack Choose1", [
+            "1",
+            "2",
+            "3"
+        ])
+    Case 2:
+        optionsGUI.Add("DropDownList", "vFishTourneyNoviceAttack Choose2", [
+            "1",
+            "2",
+            "3"
+        ])
+    Case 3:
+        optionsGUI.Add("DropDownList", "vFishTourneyNoviceAttack Choose3", [
+            "1",
+            "2",
+            "3"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vFishTourneyNoviceAttack Choose1", [
+            "1",
+            "2",
+            "3"
+        ])
     }
     ;@endregion
+    ;@endregion
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunFishing)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
-        RunSaveFishing)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+    ;@region Intermediate Tourney
+    If (FishTourneyIntermediate = true) {
+        optionsGUI.Add("CheckBox", "vFishTourneyIntermediate ccfcfcf checked",
+            "Enable Intermediate Tourney")
+    } Else {
+        optionsGUI.Add("CheckBox", "vFishTourneyIntermediate ccfcfcf",
+            "Enable Intermediate Tourney")
+    }
+
+    ;@region Attack setting
+    optionsGUI.Add("Text", "ccfcfcf vFishTourneyIntermediateAttackLabel",
+        "Intermediate Tourney Attack Type:")
+    Switch FishTourneyIntermediateAttack {
+    Case 1:
+        optionsGUI.Add("DropDownList", "vFishTourneyIntermediateAttack Choose1", [
+            "1",
+            "2",
+            "3"
+        ])
+    Case 2:
+        optionsGUI.Add("DropDownList", "vFishTourneyIntermediateAttack Choose2", [
+            "1",
+            "2",
+            "3"
+        ])
+    Case 3:
+        optionsGUI.Add("DropDownList", "vFishTourneyIntermediateAttack Choose3", [
+            "1",
+            "2",
+            "3"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vFishTourneyIntermediateAttack Choose1", [
+            "1",
+            "2",
+            "3"
+        ])
+    }
+    ;@endregion
+    ;@endregion
+
+    ;@region Expert Tourney
+    If (FishTourneyExpert = true) {
+        optionsGUI.Add("CheckBox", "vFishTourneyExpert ccfcfcf checked",
+            "Enable Expert Tourney")
+    } Else {
+        optionsGUI.Add("CheckBox", "vFishTourneyExpert ccfcfcf",
+            "Enable Expert Tourney")
+    }
+
+    ;@region Attack setting
+    optionsGUI.Add("Text", "ccfcfcf vFishTourneyExpertAttackLabel",
+        "Expert Tourney Attack Type:")
+    Switch FishTourneyExpertAttack {
+    Case 1:
+        optionsGUI.Add("DropDownList", "vFishTourneyExpertAttack Choose1", [
+            "1",
+            "2",
+            "3"
+        ])
+    Case 2:
+        optionsGUI.Add("DropDownList", "vFishTourneyExpertAttack Choose2", [
+            "1",
+            "2",
+            "3"
+        ])
+    Case 3:
+        optionsGUI.Add("DropDownList", "vFishTourneyExpertAttack Choose3", [
+            "1",
+            "2",
+            "3"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vFishTourneyExpertAttack Choose1", [
+            "1",
+            "2",
+            "3"
+        ])
+    }
+    ;@endregion
+    ;@endregion
+
+    ;@region Legendary Tourney
+    If (FishTourneyLegend = true) {
+        optionsGUI.Add("CheckBox", "vFishTourneyLegend ccfcfcf checked",
+            "Enable Legendary Tourney")
+    } Else {
+        optionsGUI.Add("CheckBox", "vFishTourneyLegend ccfcfcf",
+            "Enable Legendary Tourney")
+    }
+
+    ;@region Attack setting
+    optionsGUI.Add("Text", "ccfcfcf vFishTourneyLegendAttackLabel",
+        "Legendary Tourney Attack Type:")
+    Switch FishTourneyLegendAttack {
+    Case 1:
+        optionsGUI.Add("DropDownList", "vFishTourneyLegendAttack Choose1", [
+            "1",
+            "2",
+            "3"
+        ])
+    Case 2:
+        optionsGUI.Add("DropDownList", "vFishTourneyLegendAttack Choose2", [
+            "1",
+            "2",
+            "3"
+        ])
+    Case 3:
+        optionsGUI.Add("DropDownList", "vFishTourneyLegendAttack Choose3", [
+            "1",
+            "2",
+            "3"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vFishTourneyLegendAttack Choose1", [
+            "1",
+            "2",
+            "3"
+        ])
+    }
+    ;@endregion
+    ;@endregion
+    ;@endregion
+
+    optionsGUI.Add("Button", "default", "Run Fishing").OnEvent("Click", RunFishAutoCatch)
+
+    optionsGUI.Add("Button", "default yp", "Run Challenge").OnEvent("Click",
+        RunFishAutoCatchChallenge)
+
+    optionsGUI.Add("Button", "default yp", "Run Tourney").OnEvent("Click", RunFishTourneyStart)
+
+    optionsGUI.Add("Button", "default xs", "Save").OnEvent("Click",
         ProcessFishingSettings)
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
         CloseFishingSettings)
-         */
-    optionsGUI.Add("Text", "ccfcfcf", "(no keybind)")
-    MyBtn := optionsGUI.Add("Button", "Default w120", "FISH AUTOCATCH TEST")
-    MyBtn.OnEvent("Click", Button_Click_FishAutoCatch)
 
-    optionsGUI.Add("Text", "ccfcfcf", "(no keybind)")
-    MyBtn := optionsGUI.Add("Button", "Default w120", "FISH CHALLENGE TEST")
-    MyBtn.OnEvent("Click", Button_Click_FishAutoCatchChallenge)
-
-    optionsGUI.Add("Text", "ccfcfcf", "(no keybind)")
-    MyBtn := optionsGUI.Add("Button", "Default w120", "TOURNEY TEST")
-    MyBtn.OnEvent("Click", Button_Click_FishTourneyStart)
     ;@endregion
 
     optionsGUI.Show()
@@ -149,17 +224,22 @@ Button_Click_Fishing(thisGui, info) {
         FishingSave()
     }
 
-    RunFishing(*) {
+    RunFishAutoCatch(thisGui, info) {
         optionsGUI.Hide()
         Window.Activate()
-        fMineStart()
+        Fishing().fFishAutoCatch()
     }
 
-    RunSaveFishing(*) {
-        FishingSave()
+    RunFishAutoCatchChallenge(thisGui, info) {
         optionsGUI.Hide()
         Window.Activate()
-        fMineStart()
+        Fishing().fFishAutoCatch(true)
+    }
+
+    RunFishTourneyStart(thisGui, info) {
+        optionsGUI.Hide()
+        Window.Activate()
+        FishingTourney().Farm()
     }
 
     CloseFishingSettings(*) {
@@ -168,9 +248,16 @@ Button_Click_Fishing(thisGui, info) {
 
     FishingSave() {
         values := optionsGUI.Submit()
-
-        ;MinerEnableVeins := values.MinerEnableVeins
-
+        FishCatchingDelay := values.FishCatchingDelay
+        FishCatchingSearch := values.FishCatchingSearch
+        FishTourneyNovice := values.FishTourneyNovice
+        FishTourneyIntermediate := values.FishTourneyIntermediate
+        FishTourneyExpert := values.FishTourneyExpert
+        FishTourneyLegend := values.FishTourneyLegend
+        FishTourneyNoviceAttack := values.FishTourneyNoviceAttack
+        FishTourneyIntermediateAttack := values.FishTourneyIntermediateAttack
+        FishTourneyExpertAttack := values.FishTourneyExpertAttack
+        FishTourneyLegendAttack := values.FishTourneyLegendAttack
         Settings.SaveCurrentSettings()
     }
 }

@@ -64,6 +64,11 @@ Global BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
 
 Global SCAdvanceReplace
 
+Global FishCatchingDelay, FishCatchingSearch, FishTourneyNovice,
+    FishTourneyIntermediate, FishTourneyExpert, FishTourneyLegend,
+    FishTourneyNoviceAttack, FishTourneyIntermediateAttack,
+    FishTourneyExpertAttack, FishTourneyLegendAttack
+
 ;@endregion
 
 /**
@@ -426,6 +431,26 @@ Class cSettings {
             true, true, "bool", "Brew")
         this.Map["SCAdvanceReplace"] := singleSetting("SCAdvanceReplace",
             true, true, "bool", "ShadowCrystal")
+        this.Map["FishCatchingDelay"] := singleSetting("FishCatchingDelay",
+            5, 5, "int", "Fishing")
+        this.Map["FishCatchingSearch"] := singleSetting("FishCatchingSearch",
+            true, true, "bool", "Fishing")
+        this.Map["FishTourneyNovice"] := singleSetting("FishTourneyNovice",
+            true, true, "bool", "FishTourney")
+        this.Map["FishTourneyNoviceAttack"] := singleSetting("FishTourneyNoviceAttack",
+            1, 1, "int", "FishTourney")
+        this.Map["FishTourneyIntermediateIntermediate"] := singleSetting("FishTourneyIntermediate",
+            false, false, "bool", "FishTourney")
+        this.Map["FishTourneyIntermediateAttack"] := singleSetting("FishTourneyIntermediateAttack",
+            1, 1, "int", "FishTourney")
+        this.Map["FishTourneyExpert"] := singleSetting("FishTourneyExpert",
+            false, false, "bool", "FishTourney")
+        this.Map["FishTourneyExpertAttack"] := singleSetting("FishTourneyExpertAttack",
+            1, 1, "int", "FishTourney")
+        this.Map["FishTourneyLegend"] := singleSetting("FishTourneyLegend",
+            false, false, "bool", "FishTourney")
+        this.Map["FishTourneyLegendAttack"] := singleSetting("FishTourneyLegendAttack",
+            1, 1, "int", "FishTourney")
 
         ;@endregion
 
@@ -522,6 +547,11 @@ Class cSettings {
             BrewEnableScrolls, BrewEnableCardParts
 
         Global SCAdvanceReplace
+
+        Global FishCatchingDelay, FishCatchingSearch, FishTourneyNovice,
+            FishTourneyIntermediate, FishTourneyExpert, FishTourneyLegend,
+            FishTourneyNoviceAttack, FishTourneyIntermediateAttack,
+            FishTourneyExpertAttack, FishTourneyLegendAttack
         ;@endregion
 
         this.UpdateSettings()

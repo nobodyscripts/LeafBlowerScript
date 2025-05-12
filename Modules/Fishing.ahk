@@ -2,7 +2,8 @@
 #Include ../Lib/cRects.ahk
 #Include ../Lib/cPoints.ahk
 
-Global FishCatchingDelay := 5
+Global FishCatchingDelay := 0
+Global FishCatchingSearch := false
 
 /**
  * Fishing Class to contain all fishing related functions
@@ -38,7 +39,11 @@ Class Fishing {
         Time2 := A_Now
         Time3 := A_Now
         Time4 := A_Now
-        Search := challenge
+        If (challenge) {
+            Search := false
+        } Else {
+            Search := FishCatchingSearch
+        }
         Loop {
             If (!Window.IsActive()) {
                 Break
@@ -53,10 +58,14 @@ Class Fishing {
      * Fish ponds a single time
      */
     FishPonds(&Search, &Time1, &Time2, &Time3, &Time4) {
-        If (!Search) {
-            if(!this.PondQualityUpgrade()) {
+        If (Search) {
+            if (this.Search.IsButtonActive) {
+                ; Search if the buttons active because a slot is empty
+                this.Search.ClickButtonActive()
+            }
+            If (!this.PondQualityUpgrade()) {
                 ; Disable search if all ponds legendary
-                Search := true
+                Search := false
             }
         }
         If (!this.Pond1.CastRod.IsBackground()) {
