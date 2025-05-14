@@ -47,7 +47,7 @@ Class FishingTourney {
     /** @type {cPoint} */
     Start3 := cPoint(2061, 759)
     /** @type {cPoint} */
-    Start4 := cPoint(2061, 962)
+    Start4 := cPoint(2061, 984)
 
     ;@region Fight()
     /**

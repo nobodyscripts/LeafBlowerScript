@@ -455,8 +455,11 @@ MaxBVItemsJustBags641(*) {
  */
 BuyMaxBVPacks(*) {
     UlcWindow()
+    /** @type {cPoint} */
     ComBtn := Points.Borbventures.PacksBuyCommon
+    /** @type {cPoint} */
     RareBtn := Points.Borbventures.PacksBuyRare
+    /** @type {cPoint} */
     LegBtn := Points.Borbventures.PacksBuyLegendary
 
     Shops.OpenBorbVentures()
@@ -662,9 +665,9 @@ BLCMax() {
     Sleep(150)
     Travel.ScrollResetToTop()
     Travel.ScrollAmountDown(28)
-    if (cPoint(1865, 743).IsBackground()) {
+    If (cPoint(1865, 743).IsBackground()) {
         ; No button so nothing to increase
-        return 
+        Return
     }
     cPoint(1865, 743).ClickButtonActive() ; Buy max leaves
     Sleep(50)

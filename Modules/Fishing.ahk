@@ -39,16 +39,19 @@ Class Fishing {
         Time2 := A_Now
         Time3 := A_Now
         Time4 := A_Now
-        If (challenge) {
-            Searching := false
+        If (FishCatchingSearch && !challenge) {
+            Out.I("Started fishing with search")
+        } Else If (challenge) {
+            Out.I("Started fishing challenge")
         } Else {
-            Searching := FishCatchingSearch
+            Out.I("Started fishing")
         }
+
         Loop {
             If (!Window.IsActive()) {
                 Break
             }
-            this.FishPonds(&Searching, &Time1, &Time2, &Time3, &Time4, challenge)
+            this.FishPonds(&Time1, &Time2, &Time3, &Time4, challenge)
         }
     }
     ;@endregion
@@ -57,21 +60,13 @@ Class Fishing {
     /**
      * Fish ponds a single time
      */
-    FishPonds(&Searching, &Time1, &Time2, &Time3, &Time4, challenge) {
-        If (Searching) {
-            If (this.Search.IsButtonActive) {
+    FishPonds(&Time1, &Time2, &Time3, &Time4, challenge) {
+        If (FishCatchingSearch && !challenge) {
+            If (this.Search.IsButtonActive()) {
                 ; Search if the buttons active because a slot is empty
                 this.Search.ClickButtonActive()
-                If (FishCatchingSearch && !challenge) {
-                    Searching := true
-                }
             }
             this.PondQualityUpgrade()
-            If (this.AreAllPondsMax()) {
-                ; Disable search if all ponds legendary
-                Searching := false
-                Out.I("Disabling search")
-            }
         }
         If (!this.Pond1.CastRod.IsBackground()) {
             this.FishPond(this.Pond1, &Time1, 1)
@@ -195,7 +190,7 @@ Class Fishing {
         Out.I("Attempting pond upgrade")
         WeakestLink := false
         rarity := 1
-        While (!WeakestLink && rarity < 6) {
+        While (!WeakestLink && rarity < 6 && Window.IsActive()) {
             WeakestLink := this.GetLastPondOfRarity(rarity)
             rarity++
         }
@@ -205,7 +200,7 @@ Class Fishing {
         }
         Switch (WeakestLink) {
         Case 1:
-            While (!this.Pond1.Cancel.IsButtonActive()) {
+            While (!this.Pond1.Cancel.IsButtonActive() && Window.IsActive()) {
                 this.Pond1.CastRod.ClickButtonActive()
                 Sleep(50)
             }
@@ -213,7 +208,7 @@ Class Fishing {
             this.Pond1.Cancel.ClickButtonActive()
             Out.I("Canceled pond 1")
         Case 2:
-            While (!this.Pond2.Cancel.IsButtonActive()) {
+            While (!this.Pond2.Cancel.IsButtonActive() && Window.IsActive()) {
                 this.Pond2.CastRod.ClickButtonActive()
                 Sleep(50)
             }
@@ -221,7 +216,7 @@ Class Fishing {
             this.Pond2.Cancel.ClickButtonActive()
             Out.I("Canceled pond 2")
         Case 3:
-            While (!this.Pond3.Cancel.IsButtonActive()) {
+            While (!this.Pond3.Cancel.IsButtonActive() && Window.IsActive()) {
                 this.Pond3.CastRod.ClickButtonActive()
                 Sleep(50)
             }
@@ -229,7 +224,7 @@ Class Fishing {
             this.Pond3.Cancel.ClickButtonActive()
             Out.I("Canceled pond 3")
         Case 4:
-            While (!this.Pond4.Cancel.IsButtonActive()) {
+            While (!this.Pond4.Cancel.IsButtonActive() && Window.IsActive()) {
                 this.Pond4.CastRod.ClickButtonActive()
                 Sleep(50)
             }
