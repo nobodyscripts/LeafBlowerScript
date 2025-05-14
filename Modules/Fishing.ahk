@@ -40,15 +40,15 @@ Class Fishing {
         Time3 := A_Now
         Time4 := A_Now
         If (challenge) {
-            Search := false
+            Searching := false
         } Else {
-            Search := FishCatchingSearch
+            Searching := FishCatchingSearch
         }
         Loop {
             If (!Window.IsActive()) {
                 Break
             }
-            this.FishPonds(&Search, &Time1, &Time2, &Time3, &Time4)
+            this.FishPonds(&Searching, &Time1, &Time2, &Time3, &Time4, challenge)
         }
     }
     ;@endregion
@@ -57,15 +57,20 @@ Class Fishing {
     /**
      * Fish ponds a single time
      */
-    FishPonds(&Search, &Time1, &Time2, &Time3, &Time4) {
-        If (Search) {
-            if (this.Search.IsButtonActive) {
+    FishPonds(&Searching, &Time1, &Time2, &Time3, &Time4, challenge) {
+        If (Searching) {
+            If (this.Search.IsButtonActive) {
                 ; Search if the buttons active because a slot is empty
                 this.Search.ClickButtonActive()
+                If (FishCatchingSearch && !challenge) {
+                    Searching := true
+                }
             }
-            If (!this.PondQualityUpgrade()) {
+            this.PondQualityUpgrade()
+            If (this.AreAllPondsMax()) {
                 ; Disable search if all ponds legendary
-                Search := false
+                Searching := false
+                Out.I("Disabling search")
             }
         }
         If (!this.Pond1.CastRod.IsBackground()) {
@@ -115,6 +120,7 @@ Class Fishing {
         If (cRect(392, 344, 531, 375).pixelSearch()) {
             Return false
         }
+        Out.I("Search off cooldown")
         Return true
     }
     ;@endregion
@@ -129,56 +135,46 @@ Class Fishing {
         p3 := this.Pond3.GetPondRarity()
         p4 := this.Pond4.GetPondRarity()
         If (p4 > 0 && p1 = 6 && p2 = 6 && p3 = 6 && p4 = 6) {
-            out.d("1")
+            Out.V("Found 4 legendary ponds")
             Return true
-        } Else {
-            out.d("2")
-            Return false
         }
-        If (p3 > 0 && p1 = 6 && p2 = 6 && p3 = 6) {
-            out.d("3")
+        If (p3 > 0 && p1 = 6 && p2 = 6 && p3 = 6 && p4 = -1) {
+            Out.V("Found 3 legendary ponds")
             Return true
-        } Else {
-            out.d("4")
-            Return false
         }
-        If (p2 > 0 && p1 = 6 && p2 = 6) {
-            out.d("5")
+        If (p2 > 0 && p1 = 6 && p2 = 6 && p3 = -1 && p4 = -1) {
+            Out.V("Found 2 legendary ponds")
             Return true
-        } Else {
-            out.d("6")
-            Return false
         }
-        If (p1 = 6) {
-            out.d("7")
+        If (p1 = 6 && p2 = -1 && p3 = -1 && p4 = -1) {
+            Out.V("Found 1 legendary ponds")
             Return true
         } Else {
-            out.d("8")
             Return false
         }
     }
     ;@endregion
 
-    ;@region GetFirstPondOfRarity()
+    ;@region GetLastPondOfRarity()
     /**
-     * Get first pond where rarity matches var
+     * Get Last pond where rarity matches var
      */
-    GetFirstPondOfRarity(var) {
+    GetLastPondOfRarity(var) {
         p1 := this.Pond1.GetPondRarity()
         p2 := this.Pond2.GetPondRarity()
         p3 := this.Pond3.GetPondRarity()
         p4 := this.Pond4.GetPondRarity()
-        If (var = p1) {
-            Return 1
-        }
-        If (var = p2) {
-            Return 2
+        If (var = p4) {
+            Return 4
         }
         If (var = p3) {
             Return 3
         }
-        If (var = p4) {
-            Return 4
+        If (var = p2) {
+            Return 2
+        }
+        If (var = p1) {
+            Return 1
         }
         Return false
     }
@@ -190,6 +186,7 @@ Class Fishing {
      */
     PondQualityUpgrade() {
         If (this.AreAllPondsMax()) {
+            Out.I("All ponds detected at max")
             Return false
         }
         If (!this.IsSearchOffCD()) {
@@ -199,11 +196,11 @@ Class Fishing {
         WeakestLink := false
         rarity := 1
         While (!WeakestLink && rarity < 6) {
-            WeakestLink := this.GetFirstPondOfRarity(rarity)
+            WeakestLink := this.GetLastPondOfRarity(rarity)
             rarity++
         }
         If (!WeakestLink) {
-            Out.D("Pond rarity upgrade failed to get a pond to upgrade")
+            Out.I("Pond rarity upgrade failed to get a pond to upgrade")
             Return false
         }
         Switch (WeakestLink) {
@@ -240,6 +237,8 @@ Class Fishing {
             this.Pond4.Cancel.ClickButtonActive()
             Out.I("Canceled pond 4")
         default:
+            Out.D("Unknown pond provided for removal " WeakestLink)
+            Return false
         }
         If (!this.ConfirmCancel.WaitUntilActiveButtonS(3)) {
             Out.I("No confirm cancel, assuming no search state")
@@ -252,6 +251,7 @@ Class Fishing {
         this.NewPondRod.ClickButtonActive()
         this.NewPondRod2.ClickButtonActive()
         this.NewPondRod3.ClickButtonActive()
+        Return true
     }
     ;@endregion
 }

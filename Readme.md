@@ -308,6 +308,8 @@ digital vibrance off
   - ULC: Fix cheese quest
     - Fix coal wait with autobuyer
     - Fix soul shop/soul forge not running prior to mirage
+    - BV item purchasing button text now larger stopping purchase
+    - Boss skip off for first tower pass
   - Fishing: Fix overlapping timers desyncing fishing
     - Detect cast/reel with more careful checks
     - Detect % progress

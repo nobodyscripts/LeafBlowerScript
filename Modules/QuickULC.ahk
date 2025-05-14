@@ -473,10 +473,14 @@ ULCStage3(*) {
     Sleep(100)
     WaitForZoneChange("Soul Temple", 1300, 50) ; 65s Let lack of taxi be a trigger
     Sleep(70)
-    Shops.SoulTemple.MaxFloor() ; Max 20
-
     Shops.SoulShop.Max()
     Sleep(70)
+    Shops.SoulShop.Max()
+    Sleep(70)
+    Shops.SoulTemple.MaxFloor() ; Max 20
+    Sleep(70)
+
+    ; TODO Check for floor level, if not 20 loop farming
 
     ; Fight soul crypt floor 20
     Travel.SoulCrypt.GoTo()
@@ -531,6 +535,8 @@ ULCStage3(*) {
     Sleep(100)
 
     Shops.SoulTemple.MaxFloor() ; Max 100
+
+    ; TODO Check for floor level, if not 100 loop farming
 
     Travel.SoulCrypt.GoTo()
     Sleep(100)

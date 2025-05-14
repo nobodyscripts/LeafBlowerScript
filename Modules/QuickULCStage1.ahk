@@ -29,6 +29,23 @@ WaitForFloor100(*) {
     gToolTip.CenterDel()
 }
 
+TriggerLC(*) {
+    prestigeButton := cPoint(1393, 551)
+    UlcWindow()
+    Out.D("TriggerLC")
+    Shops.OpenGoldPortal()
+    prestigeButton.WaitUntilActiveButtonS(3)
+    If (!prestigeButton.IsButtonActive()) {
+        Out.I("Didn't find lc crunch button, aborting.")
+        Global ULCStageExit := true
+        Return false
+    }
+    prestigeButton.ClickButtonActive()
+    prestigeButton.ClickButtonActive()
+    Sleep(150)
+    Return true
+}
+
 TriggerBLC(*) {
     UlcWindow()
     Out.D("TriggerBLC")
