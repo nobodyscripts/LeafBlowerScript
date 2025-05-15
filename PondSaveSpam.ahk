@@ -43,7 +43,7 @@ F3::
     /** @type {cPoint} */
     search := Fishing().Search
     /** @type {cPoint} */
-    OpenFishing := cPoint(329, 1116)
+    OpenFishing := cPoint(329, 1135)
     pid := false
     WindowPattern := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
     LastLoop := A_TickCount
@@ -82,9 +82,27 @@ F3::
 
         Out.I("Opening fishing")
         OpenFishing.ClickOffset(2, 2)
+        Window.AwaitPanel(1)
+        If (!Window.IsPanel()) {
+            OpenFishing.ClickOffset(2, 2)
+            Window.AwaitPanel(1)
+        }
 
-        Window.AwaitPanel()
-        search.WaitUntilActiveButtonS(5)
+        search.WaitUntilActiveButtonS(2)
+
+        If (!Window.IsPanel()) {
+            If (Window.Exist()) {
+                If ((pid && ProcessExist(pid))) {
+                    Out.I("Closing LBR")
+                    ProcessClose(pid)
+                } Else {
+                    Out.I("Closing LBR")
+                    WinClose(WindowPattern)
+                }
+                WinWaitClose(WindowPattern)
+            }
+            Continue
+        }
 
         Out.I("Clicking search")
         search.ClickOffsetUntilColourS("0xC8BDA5", 2, 2, , 3)
