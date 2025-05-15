@@ -34,7 +34,7 @@ If (!IsSet(IsSecondary)) {
 /** @type {cLog} Global cLog object
  * Using Out instead of Log as thats taken by a func
  */
-Global Out := cLog(ScriptsLogFile, true, 3)
+Global Out := cLog(ScriptsLogFile, TimestampLogs, 3, LogBuffer)
 
 /**
  * @type {cGameWindow} Game window class global

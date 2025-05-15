@@ -34,9 +34,10 @@ _OutputDebug(this, text) {
  * Used in cSettings.initSettings after load of settings
  */
 UpdateDebugLevel() {
-    Global EnableLogging, Debug, Verbose, LogBuffer, Out
+    Global EnableLogging, Debug, Verbose, LogBuffer, Out, TimestampLogs
     ; If buffer setting has changed, remake class so that handle can be created
     Out.SetBuffer(LogBuffer)
+    Out.Timestamp := TimestampLogs
 
     If (FileExist(A_ScriptDir "\IsNobody")) {
         Out.DebugLevel := 3
@@ -67,8 +68,30 @@ UpdateDebugLevel() {
 /**
  * Log class to handle file open buffer and logging
  * @module cLog
- * @property {Type} property Desc
- * @method Name Desc
+ * Constructor(FileName := "", Timestamp := true, DebugLevel := 0, UseBuffer := true)
+ * @param {String} [FileName] Sets this.FileName, defaults to scriptname.Log
+ * Overwrites to ..\Secondaries.log if IsSecondary
+ * @param {Integer} [Timestamp=true] Sets if timestamps should be used
+ * @param {Integer} [DebugLevel=0] Int to select the debug output level for logging
+ * -1 disabled (Msgboxs errors on failure)
+ * 0 Important
+ * 1 Important and Debug
+ * 2 Important, Debug and Verbose
+ * 3 Important, Debug, Verbose and Stack tracing
+ * 
+ * @property FileName Filename to log to
+ * @property DebugLevel See above
+ * @property Timestamp Is timestamp included in logs
+ * @method SetBuffer Set direct log/buffered logging mode
+ * @method Error Log an error that has occured (string|error)
+ * @method Important Log an important message (string)
+ * @method I Log an important message (string)
+ * @method Debug Log a debug only message (string)
+ * @method D Log a debug only message (string)
+ * @method Verbose Log a verbose/spammy message (string)
+ * @method V Log a verbose/spammy message (string)
+ * @method Stack Log a stack trace
+ * @method S Log a stack trace
  */
 Class cLog {
     /** @type {File} Open file handle for logging object */
@@ -151,7 +174,8 @@ Class cLog {
      */
     _FlushFile() {
         If (this._FileLock) {
-            While (this._FileLock) {
+            WaitTime := A_TickCount
+            While (this._FileLock && (A_TickCount - WaitTime) < 200) {
                 Sleep(1)
             }
         }
@@ -217,7 +241,7 @@ Class cLog {
         }
         LastFlush++
         If (this.Timestamp) {
-            time := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec)
+            time := FormatTime(, 'MM/dd/yyyy hh:mm:ss.' A_MSec)
             logmessage := time ' ' logmessage
         }
         this._OutputDebug(logmessage)
@@ -234,21 +258,21 @@ Class cLog {
             }
         } Catch As exc {
             If (this.Timestamp) {
-                this._OutputDebug(time " LogError: Error writing to log - " 
-                exc.Message)
+                this._OutputDebug(time " LogError: Error writing to log - "
+                    exc.Message)
                 Sleep(1)
                 this._FileHandle.WriteLine(logmessage)
                 Sleep(1)
-                this._FileHandle.WriteLine(time 
+                this._FileHandle.WriteLine(time
                     " LogError: Error writing to log - " exc.Message)
             } Else {
-                this._OutputDebug("LogError: Error writing to log - " 
-                exc.Message)
+                this._OutputDebug("LogError: Error writing to log - "
+                    exc.Message)
                 Sleep(1)
                 this._FileHandle.WriteLine(logmessage)
                 Sleep(1)
-                this._FileHandle.WriteLine("LogError: Error writing to log - " 
-                exc.Message)
+                this._FileHandle.WriteLine("LogError: Error writing to log - "
+                    exc.Message)
             }
         }
     }
@@ -260,7 +284,7 @@ Class cLog {
      */
     _OutputLogWrite(logmessage) {
         If (this.Timestamp) {
-            time := FormatTime(, 'MM/dd/yyyy hh:mm:ss:' A_MSec)
+            time := FormatTime(, 'MM/dd/yyyy hh:mm:ss.' A_MSec)
             logmessage := time ' ' logmessage
         }
         this._OutputDebug(logmessage)

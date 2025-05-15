@@ -130,19 +130,19 @@ Class Fishing {
         p3 := this.Pond3.GetPondRarity()
         p4 := this.Pond4.GetPondRarity()
         If (p4 > 0 && p1 = 6 && p2 = 6 && p3 = 6 && p4 = 6) {
-            Out.V("Found 4 legendary ponds")
+            ;Out.V("Found 4 legendary ponds")
             Return true
         }
         If (p3 > 0 && p1 = 6 && p2 = 6 && p3 = 6 && p4 = -1) {
-            Out.V("Found 3 legendary ponds")
+            ;Out.V("Found 3 legendary ponds")
             Return true
         }
         If (p2 > 0 && p1 = 6 && p2 = 6 && p3 = -1 && p4 = -1) {
-            Out.V("Found 2 legendary ponds")
+            ;Out.V("Found 2 legendary ponds")
             Return true
         }
         If (p1 = 6 && p2 = -1 && p3 = -1 && p4 = -1) {
-            Out.V("Found 1 legendary ponds")
+            ;Out.V("Found 1 legendary ponds")
             Return true
         } Else {
             Return false
@@ -181,7 +181,7 @@ Class Fishing {
      */
     PondQualityUpgrade() {
         If (this.AreAllPondsMax()) {
-            Out.I("All ponds detected at max")
+            ;Out.I("All ponds detected at max")
             Return false
         }
         If (!this.IsSearchOffCD()) {
