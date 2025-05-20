@@ -13,6 +13,7 @@ Button_Click_Mine(thisGui, info) {
         BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
         BrewEnableScrolls, BrewEnableCardParts, BankEnableStorageUpgrade
 
+    /** @type {GUI} */
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"

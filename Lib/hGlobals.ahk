@@ -31,13 +31,15 @@ If (!IsSet(IsSecondary)) {
     Global IsSecondary := false
 }
 
-/** @type {cLog} Global cLog object
+/** 
  * Using Out instead of Log as thats taken by a func
+ * @type {cLog} Global cLog object
  */
 Global Out := cLog(ScriptsLogFile, TimestampLogs, 3, LogBuffer)
 
 /**
- * @type {cGameWindow} Game window class global
+ * Game window class global
+ * @type {cGameWindow} 
  */
 Global Window := cGameWindow(
     "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe")

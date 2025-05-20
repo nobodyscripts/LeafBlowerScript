@@ -3,6 +3,7 @@
 Button_Click_GFSS(thisGui, info) {
     Global Settings, GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
 
+    /** @type {GUI} */
     optionsGUI := Gui(, "GF/SS Bossfarm Settings")
     optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"

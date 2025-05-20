@@ -39,6 +39,7 @@ Global Debug := false
  * @function ClickOffset Click left mouse button at point with an offset
  * @function ClickButtonActive Click left mouse button at point if active
  * @function MouseMove Move mouse to point
+ * @function MouseMoveOffset Move mouse to point with offset
  * @function toString Convert x y to readable string
  * @function toStringWColour toSting with colour
  * @function toStringDisplay toString to 2 decimal places
@@ -232,6 +233,26 @@ Class cPoint {
     }
 
     /**
+     * Right Mouseclick at point with optional xy offset and delay
+     * @param {Integer} [xOffset] Amount to offset X when clicking to avoid 
+     * covering point
+     * @param {Integer} [yOffset] Amount to offset Y when clicking to avoid 
+     * covering point
+     * @param {Integer} [clickdelay=34] Delay for mouseclick
+     */
+    ClickOffsetR(xOffset := 1, yOffset := 1, clickdelay := 34) {
+        If (!Window.IsActive()) {
+            Out.I("No window found while trying to click at " this.x + xOffset " * " this
+                .y + yOffset)
+            Return false
+        }
+        MouseClick("right", this.x + xOffset, this.y + yOffset, , , "D")
+        Sleep(clickdelay)
+        MouseClick("right", this.x + xOffset, this.y + yOffset, , , "U")
+        ; Out.D("Clicking at " this.toStringDisplay(xOffset, yOffset))
+    }
+
+    /**
      * Check if point is active button background then click with 1*1 offset
      * @param {Integer} [xOffset] Amount to offset X when clicking to avoid 
      * covering point
@@ -258,6 +279,17 @@ Class cPoint {
      */
     MouseMove(speed := 5, relative := "") {
         MouseMove(this.x, this.y, speed, relative)
+    }
+
+    /**
+     * Move mouse to point
+     * @param {Integer} speed 0-100 with 100 being slowest
+     * @param {String} relative Set to "R" for relative to current location
+     * @param {Integer} offsetX Default X + 1
+     * @param {Integer} offsetY Default Y + 1
+     */
+    MouseMoveOffset(speed := 5, relative := "", offsetX := 1, offsetY := 1) {
+        MouseMove(this.x + offsetX, this.y + offsetY, speed, relative)
     }
 
     MouseMoveInterpolateTo(speed := 50, sleepperiod := 17) {

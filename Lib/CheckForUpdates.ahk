@@ -20,7 +20,8 @@ Global CheckForUpdatesInterval := 30 * 60 * 60 * 1000
  * @type {Integer} "24"
  */
 Global CheckForUpdatesLimiter := 24
-/** @type {UpdateChecker} */
+/** Update checking class, checks version against github in a low bandwidth approach
+ * @type {UpdateChecker} */
 Global Updater := UpdateChecker()
 
 ;Updater.Init()
@@ -162,6 +163,7 @@ Class UpdateChecker {
         Global settings
 
         If (!settings) {
+            /** @type {cSettings} */
             Global settings := cSettings()
 
             If (!settings.initSettings()) {
@@ -187,8 +189,10 @@ Class UpdateChecker {
         If (!webjson) {
             Return false
         }
+        /** @type {ScriptVersion} */
         localVer := ScriptVersion()
         localVer.SetByJson(localjson)
+        /** @type {ScriptVersion} */
         webVer := ScriptVersion()
         webVer.SetByJson(webjson)
         comparison := CompareScriptVersions(localVer, webVer, this.ReleasesOnly

@@ -32,6 +32,7 @@ Global GFToKillPerCycle, SSToKillPerCycle, GFSSNoReset
 Global GemFarmSleepAmount
 Global ClawCheckSizeOffset, ClawFindAny
 Global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
+/** @type {Array} */
 Global BVInvArr := []
 Global NavigateTime
 
@@ -64,10 +65,49 @@ Global BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
 
 Global SCAdvanceReplace
 
-Global FishCatchingDelay, FishCatchingSearch, FishTourneyNovice,
-    FishTourneyIntermediate, FishTourneyExpert, FishTourneyLegend,
-    FishTourneyNoviceAttack, FishTourneyIntermediateAttack,
-    FishTourneyExpertAttack, FishTourneyLegendAttack
+Global FishCatchingDelay, FishCatchingSearch
+
+Global FishEnableShopUpgrade, FishEnableUpgradeRods, FishEnableTourneyPass,
+    FishEnableUpgradeTourneyRods, FishEnableTransmute, FishEnableJourneyCollect
+
+Global FishTimerShopUpgrade, FishTimerUpgradeRods, FishTimerTourneyPass,
+    FishTimerUpgradeTourneyRods, FishTimerTransmute, FishTimerJourneyCollect
+
+Global FishTransmuteTtoFC, FishTransmuteFCtoCry, FishTransmuteCrytoA,
+    FishTransmuteFCtoT, FishTransmuteCrytoFC, FishTransmuteAtoCry
+
+Global FishNovice, FishIntermediate, FishExpert,
+    FishLegend, FishNoviceAttack, FishIntermediateAttack,
+    FishExpertAttack, FishLegendAttack
+
+Global FishChlCatchingDelay, FishChlCatchingSearch
+
+Global FishChlEnableShopUpgrade, FishChlEnableUpgradeRods,
+    FishChlEnableTransmute, FishChlEnableJourneyCollect
+
+Global FishChlTimerShopUpgrade, FishChlTimerUpgradeRods,
+    FishChlTimerTransmute, FishChlTimerJourneyCollect
+
+Global FishChlTransmuteTtoFC, FishChlTransmuteFCtoCry,
+    FishChlTransmuteCrytoA, FishChlTransmuteFCtoT,
+    FishChlTransmuteCrytoFC, FishChlTransmuteAtoCry
+
+Global FishTourCatchingDelay, FishTourCatchingSearch
+
+Global FishTourEnableShopUpgrade, FishTourEnableUpgradeRods,
+    FishTourEnableFishingPass, FishTourEnableUpgradeTourneyRods,
+    FishTourEnableTransmute, FishTourEnableJourneyCollect
+
+Global FishTourTimerShopUpgrade, FishTourTimerUpgradeRods,
+    FishTourTimerUpgradeTourneyRods, FishTourTimerTransmute,
+    FishTourTimerJourneyCollect
+
+Global FishTourTransmuteTtoFC, FishTourTransmuteFCtoCry, FishTourTransmuteCrytoA,
+    FishTourTransmuteFCtoT, FishTourTransmuteCrytoFC, FishTourTransmuteAtoCry
+
+Global FishTourNovice, FishTourIntermediate, FishTourExpert,
+    FishTourLegend, FishTourNoviceAttack, FishTourIntermediateAttack,
+    FishTourExpertAttack, FishTourLegendAttack
 
 ;@endregion
 
@@ -207,6 +247,12 @@ Class cSettings {
      * @type {Map<string, singleSetting>}
      */
     Map := Map()
+    /** Contains the defaults for Nobody mode held by global var name
+     *  @type {Object} */
+    defaultNobodySettings := {}
+    /** Contains the defaults held by global var name
+     *  @type {Object} */
+    defaultSettings := {}
     ;@endregion
 
     ;@region initSettings()
@@ -431,25 +477,146 @@ Class cSettings {
             true, true, "bool", "Brew")
         this.Map["SCAdvanceReplace"] := singleSetting("SCAdvanceReplace",
             true, true, "bool", "ShadowCrystal")
+
         this.Map["FishCatchingDelay"] := singleSetting("FishCatchingDelay",
-            5, 5, "int", "Fishing")
+            8, 8, "int", "Fishing")
         this.Map["FishCatchingSearch"] := singleSetting("FishCatchingSearch",
             true, true, "bool", "Fishing")
-        this.Map["FishTourneyNovice"] := singleSetting("FishTourneyNovice",
+
+        this.Map["FishEnableShopUpgrade"] := singleSetting("FishEnableShopUpgrade",
+            true, true, "bool", "Fishing")
+        this.Map["FishEnableUpgradeRods"] := singleSetting("FishEnableUpgradeRods",
+            true, true, "bool", "Fishing")
+        this.Map["FishEnableTourneyPass"] := singleSetting("FishEnableTourneyPass",
+            true, true, "bool", "Fishing")
+        this.Map["FishEnableUpgradeTourneyRods"] := singleSetting("FishEnableUpgradeTourneyRods",
+            true, true, "bool", "Fishing")
+        this.Map["FishEnableTransmute"] := singleSetting("FishEnableTransmute",
+            true, true, "bool", "Fishing")
+        this.Map["FishEnableJourneyCollect"] := singleSetting("FishEnableJourneyCollect",
+            true, true, "bool", "Fishing")
+        this.Map["FishTimerShopUpgrade"] := singleSetting("FishTimerShopUpgrade",
+            60, 60, "int", "Fishing")
+        this.Map["FishTimerUpgradeRods"] := singleSetting("FishTimerUpgradeRods",
+            60, 60, "int", "Fishing")
+        this.Map["FishTimerTourneyPass"] := singleSetting("FishTimerTourneyPass",
+            60, 60, "int", "Fishing")
+        this.Map["FishTimerUpgradeTourneyRods"] := singleSetting("FishTimerUpgradeTourneyRods",
+            60, 60, "int", "Fishing")
+        this.Map["FishTimerTransmute"] := singleSetting("FishTimerTransmute",
+            60, 60, "int", "Fishing")
+        this.Map["FishTimerJourneyCollect"] := singleSetting("FishTimerJourneyCollect",
+            60, 60, "int", "Fishing")
+        this.Map["FishTransmuteTtoFC"] := singleSetting("FishTransmuteTtoFC",
+            false, false, "bool", "Fishing")
+        this.Map["FishTransmuteFCtoCry"] := singleSetting("FishTransmuteFCtoCry",
+            false, false, "bool", "Fishing")
+        this.Map["FishTransmuteCrytoA"] := singleSetting("FishTransmuteCrytoA",
+            false, false, "bool", "Fishing")
+        this.Map["FishTransmuteFCtoT"] := singleSetting("FishTransmuteFCtoT",
+            false, false, "bool", "Fishing")
+        this.Map["FishTransmuteCrytoFC"] := singleSetting("FishTransmuteCrytoFC",
+            false, false, "bool", "Fishing")
+        this.Map["FishTransmuteAtoCry"] := singleSetting("FishTransmuteAtoCry",
+            false, false, "bool", "Fishing")
+        this.Map["FishChlCatchingDelay"] := singleSetting("FishChlCatchingDelay",
+            8, 8, "int", "FishChallenge")
+        this.Map["FishNovice"] := singleSetting("FishNovice",
+            false, false, "bool", "Fishing")
+        this.Map["FishIntermediate"] := singleSetting("FishIntermediate",
+            false, false, "bool", "Fishing")
+        this.Map["FishExpert"] := singleSetting("FishExpert",
+            false, false, "bool", "Fishing")
+        this.Map["FishLegend"] := singleSetting("FishLegend",
+            false, false, "bool", "Fishing")
+        this.Map["FishNoviceAttack"] := singleSetting("FishNoviceAttack", 1, 1, "int", "FishChallenge")
+        this.Map["FishIntermediateAttack"] := singleSetting("FishIntermediateAttack", 1, 1, "int", "FishChallenge")
+        this.Map["FishExpertAttack"] := singleSetting("FishExpertAttack", 1, 1, "int", "FishChallenge")
+        this.Map["FishLegendAttack"] := singleSetting("FishLegendAttack", 1, 1, "int", "FishChallenge")
+        this.Map["FishChlCatchingSearch"] := singleSetting("FishChlCatchingSearch",
+            true, true, "bool", "FishChallenge")
+        this.Map["FishChlEnableShopUpgrade"] := singleSetting("FishChlEnableShopUpgrade",
+            true, true, "bool", "FishChallenge")
+        this.Map["FishChlEnableUpgradeRods"] := singleSetting("FishChlEnableUpgradeRods",
+            true, true, "bool", "FishChallenge")
+        this.Map["FishChlEnableTransmute"] := singleSetting("FishChlEnableTransmute",
+            true, true, "bool", "FishChallenge")
+        this.Map["FishChlEnableJourneyCollect"] := singleSetting("FishChlEnableJourneyCollect",
+            true, true, "bool", "FishChallenge")
+        this.Map["FishChlTimerShopUpgrade"] := singleSetting("FishChlTimerShopUpgrade",
+            60, 60, "int", "FishChallenge")
+        this.Map["FishChlTimerUpgradeRods"] := singleSetting("FishChlTimerUpgradeRods",
+            60, 60, "int", "FishChallenge")
+        this.Map["FishChlTimerTransmute"] := singleSetting("FishChlTimerTransmute",
+            60, 60, "int", "FishChallenge")
+        this.Map["FishChlTimerJourneyCollect"] := singleSetting("FishChlTimerJourneyCollect",
+            60, 60, "int", "FishChallenge")
+        this.Map["FishChlTransmuteTtoFC"] := singleSetting("FishChlTransmuteTtoFC",
+            true, true, "bool", "FishChallenge")
+        this.Map["FishChlTransmuteFCtoCry"] := singleSetting("FishChlTransmuteFCtoCry",
+            false, false, "bool", "FishChallenge")
+        this.Map["FishChlTransmuteCrytoA"] := singleSetting("FishChlTransmuteCrytoA",
+            false, false, "bool", "FishChallenge")
+        this.Map["FishChlTransmuteFCtoT"] := singleSetting("FishChlTransmuteFCtoT",
+            false, false, "bool", "FishChallenge")
+        this.Map["FishChlTransmuteCrytoFC"] := singleSetting("FishChlTransmuteCrytoFC",
+            true, true, "bool", "FishChallenge")
+        this.Map["FishChlTransmuteAtoCry"] := singleSetting("FishChlTransmuteAtoCry",
+            true, true, "bool", "FishChallenge")
+        this.Map["FishTourCatchingDelay"] := singleSetting("FishTourCatchingDelay",
+            8, 8, "int", "FishTourney")
+        this.Map["FishTourCatchingSearch"] := singleSetting("FishTourCatchingSearch",
             true, true, "bool", "FishTourney")
-        this.Map["FishTourneyNoviceAttack"] := singleSetting("FishTourneyNoviceAttack",
-            1, 1, "int", "FishTourney")
-        this.Map["FishTourneyIntermediateIntermediate"] := singleSetting("FishTourneyIntermediate",
+        this.Map["FishTourEnableShopUpgrade"] := singleSetting("FishTourEnableShopUpgrade",
+            true, true, "bool", "FishTourney")
+        this.Map["FishTourEnableUpgradeRods"] := singleSetting("FishTourEnableUpgradeRods",
+            true, true, "bool", "FishTourney")
+        this.Map["FishTourEnableFishingPass"] := singleSetting("FishTourEnableFishingPass",
+            true, true, "bool", "FishTourney")
+        this.Map["FishTourEnableUpgradeTourneyRods"] := singleSetting("FishTourEnableUpgradeTourneyRods",
+            true, true, "bool", "FishTourney")
+        this.Map["FishTourEnableTransmute"] := singleSetting("FishTourEnableTransmute",
+            true, true, "bool", "FishTourney")
+        this.Map["FishTourEnableJourneyCollect"] := singleSetting("FishTourEnableJourneyCollect",
+            true, true, "bool", "FishTourney")
+        this.Map["FishTourTimerShopUpgrade"] := singleSetting("FishTourTimerShopUpgrade",
+            60, 60, "int", "FishTourney")
+        this.Map["FishTourTimerUpgradeRods"] := singleSetting("FishTourTimerUpgradeRods",
+            60, 60, "int", "FishTourney")
+        this.Map["FishTourTimerUpgradeTourneyRods"] := singleSetting("FishTourTimerUpgradeTourneyRods",
+            60, 60, "int", "FishTourney")
+        this.Map["FishTourTimerTransmute"] := singleSetting("FishTourTimerTransmute",
+            60, 60, "int", "FishTourney")
+        this.Map["FishTourTimerJourneyCollect"] := singleSetting("FishTourTimerJourneyCollect",
+            60, 60, "int", "FishTourney")
+        this.Map["FishTourTransmuteTtoFC"] := singleSetting("FishTourTransmuteTtoFC",
+            true, true, "bool", "FishTourney")
+        this.Map["FishTourTransmuteFCtoCry"] := singleSetting("FishTourTransmuteFCtoCry",
             false, false, "bool", "FishTourney")
-        this.Map["FishTourneyIntermediateAttack"] := singleSetting("FishTourneyIntermediateAttack",
-            1, 1, "int", "FishTourney")
-        this.Map["FishTourneyExpert"] := singleSetting("FishTourneyExpert",
+        this.Map["FishTourTransmuteCrytoA"] := singleSetting("FishTourTransmuteCrytoA",
             false, false, "bool", "FishTourney")
-        this.Map["FishTourneyExpertAttack"] := singleSetting("FishTourneyExpertAttack",
-            1, 1, "int", "FishTourney")
-        this.Map["FishTourneyLegend"] := singleSetting("FishTourneyLegend",
+        this.Map["FishTourTransmuteFCtoT"] := singleSetting("FishTourTransmuteFCtoT",
             false, false, "bool", "FishTourney")
-        this.Map["FishTourneyLegendAttack"] := singleSetting("FishTourneyLegendAttack",
+        this.Map["FishTourTransmuteCrytoFC"] := singleSetting("FishTourTransmuteCrytoFC",
+            true, true, "bool", "FishTourney")
+        this.Map["FishTourTransmuteAtoCry"] := singleSetting("FishTourTransmuteAtoCry",
+            true, true, "bool", "FishTourney")
+
+        this.Map["FishTourNovice"] := singleSetting("FishTourNovice",
+            true, true, "bool", "FishTourney")
+        this.Map["FishTourNoviceAttack"] := singleSetting("FishTourNoviceAttack",
+            1, 1, "int", "FishTourney")
+        this.Map["FishTourIntermediate"] := singleSetting("FishTourIntermediate",
+            false, false, "bool", "FishTourney")
+        this.Map["FishTourIntermediateAttack"] := singleSetting("FishTourIntermediateAttack",
+            1, 1, "int", "FishTourney")
+        this.Map["FishTourExpert"] := singleSetting("FishTourExpert",
+            false, false, "bool", "FishTourney")
+        this.Map["FishTourExpertAttack"] := singleSetting("FishTourExpertAttack",
+            1, 1, "int", "FishTourney")
+        this.Map["FishTourLegend"] := singleSetting("FishTourLegend",
+            false, false, "bool", "FishTourney")
+        this.Map["FishTourLegendAttack"] := singleSetting("FishTourLegendAttack",
             1, 1, "int", "FishTourney")
 
         ;@endregion
@@ -548,10 +715,49 @@ Class cSettings {
 
         Global SCAdvanceReplace
 
-        Global FishCatchingDelay, FishCatchingSearch, FishTourneyNovice,
-            FishTourneyIntermediate, FishTourneyExpert, FishTourneyLegend,
-            FishTourneyNoviceAttack, FishTourneyIntermediateAttack,
-            FishTourneyExpertAttack, FishTourneyLegendAttack
+        Global FishCatchingDelay, FishCatchingSearch
+
+        Global FishEnableShopUpgrade, FishEnableUpgradeRods, FishEnableTourneyPass,
+            FishEnableUpgradeTourneyRods, FishEnableTransmute, FishEnableJourneyCollect
+
+        Global FishTimerShopUpgrade, FishTimerUpgradeRods, FishTimerTourneyPass,
+            FishTimerUpgradeTourneyRods, FishTimerTransmute, FishTimerJourneyCollect
+
+        Global FishTransmuteTtoFC, FishTransmuteFCtoCry, FishTransmuteCrytoA,
+            FishTransmuteFCtoT, FishTransmuteCrytoFC, FishTransmuteAtoCry
+
+        Global FishNovice, FishIntermediate, FishExpert,
+            FishLegend, FishNoviceAttack, FishIntermediateAttack,
+            FishExpertAttack, FishLegendAttack
+
+        Global FishChlCatchingDelay, FishChlCatchingSearch
+
+        Global FishChlEnableShopUpgrade, FishChlEnableUpgradeRods,
+            FishChlEnableTransmute, FishChlEnableJourneyCollect
+
+        Global FishChlTimerShopUpgrade, FishChlTimerUpgradeRods,
+            FishChlTimerTransmute, FishChlTimerJourneyCollect
+
+        Global FishChlTransmuteTtoFC, FishChlTransmuteFCtoCry,
+            FishChlTransmuteCrytoA, FishChlTransmuteFCtoT,
+            FishChlTransmuteCrytoFC, FishChlTransmuteAtoCry
+
+        Global FishTourCatchingDelay, FishTourCatchingSearch
+
+        Global FishTourEnableShopUpgrade, FishTourEnableUpgradeRods,
+            FishTourEnableFishingPass, FishTourEnableUpgradeTourneyRods,
+            FishTourEnableTransmute, FishTourEnableJourneyCollect
+
+        Global FishTourTimerShopUpgrade, FishTourTimerUpgradeRods,
+            FishTourTimerUpgradeTourneyRods, FishTourTimerTransmute,
+            FishTourTimerJourneyCollect
+
+        Global FishTourTransmuteTtoFC, FishTourTransmuteFCtoCry, FishTourTransmuteCrytoA,
+            FishTourTransmuteFCtoT, FishTourTransmuteCrytoFC, FishTourTransmuteAtoCry
+
+        Global FishTourNovice, FishTourIntermediate, FishTourExpert,
+            FishTourLegend, FishTourNoviceAttack, FishTourIntermediateAttack,
+            FishTourExpertAttack, FishTourLegendAttack
         ;@endregion
 
         this.UpdateSettings()
@@ -567,6 +773,7 @@ Class cSettings {
                         this.IniToVar(this.Map[setting].Name, this.Map[setting]
                             .Category))
                 }
+                this.defaultNobodySettings.%this.Map[setting].Name% := this.Map[setting].NobodyDefaultValue
             } Catch As exc {
                 If (exc.Extra) {
                     Out.I("Error 35: LoadSettings failed - " exc.Message "`n" exc

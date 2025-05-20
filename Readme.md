@@ -261,6 +261,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added pond searching, replacing the weakest pond until all are legendary
   - Added apply new rods for up to legendary ponds
   - Added search if pond slot available and off cooldown
+  - Added rod upgrading (both types), journey collection, shop upgrades,
+    transmute, tourney single pass
   - GUI and settings for fishing and tourney
   - Challenge mode
   - Tourney mode
@@ -291,6 +293,7 @@ digital vibrance off
 - Add file size check to log files
 - Autoupdate
 - Save window position/attach to game window
+- Fix default settings locations used by gui no longer existing
 
 - Features:
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.
@@ -310,7 +313,7 @@ digital vibrance off
     - Fix soul shop/soul forge not running prior to mirage
     - BV item purchasing button text now larger stopping purchase
     - Boss skip off for first tower pass
-  - Fishing: Fix overlapping timers desyncing fishing
+  - Fishing: Fix pond search if no rod applied at start
     - Detect cast/reel with more careful checks
     - Detect % progress
     - Do fishing in tourney cooldown

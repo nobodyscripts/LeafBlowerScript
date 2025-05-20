@@ -32,33 +32,46 @@
  */
 Class Colours {
     ;@region Properties
-    /** @type {String} 0xFFF1D2 */
+    /** 0xFFF1D2
+     * @type {String} */
     Active := "0xFFF1D2"
-    /** @type {String} 0xFDD28A */
+    /** 0xFDD28A
+     *  @type {String} */
     ActiveMouseOver := "0xFDD28A"
-    /** @type {String} 0xB3A993 */
+    /** 0xB3A993
+     *  @type {String} */
     AfkActive := "0xB3A993"
-    /** @type {String} 0xB29361 */
+    /** 0xB29361
+     * @type {String} */
     AfkActiveMouseover := "0xB29361"
-    /** @type {String} 0x837C6C */
+    /** 0x837C6C
+     * @type {String} */
     DarkBgActive := "0x837C6C"
-    /** @type {String} 0x826C47 */
+    /** 0x826C47
+     * @type {String} */
     DarkBgActiveMouseover := "0x826C47"
-    /** @type {String} 0xC8BDA5 */
+    /** 0xC8BDA5
+     * @type {String} */
     Inactive := "0xC8BDA5"
-    /** @type {String} 0x97714A */
+    /** 0x97714A
+     * @type {String} */
     Background := "0x97714A"
-    /** @type {String} 0x97714B */
+    /** 0x97714B
+     * @type {String} */
     BackgroundSpotify := "0x97714B"
-    /** @type {String} 0x6A4F34 */
+    /** 0x6A4F34
+     * @type {String} */
     BackgroundAFK := "0x6A4F34"
-    /** @type {String} 0x78D063 */
+    /** 0x78D063
+     * @type {String} */
     BankTabSelectedActive := "0x78D063"
-    /** @type {String} 0xA0EC84 */
+    /** 0xA0EC84
+     * @type {String} */
     BankTabSelectedActiveMouseover := "0xA0EC84"
 
     ;@region ZoneColours
-    /** @type {Map} Contains zone sample colours */
+    /** Contains zone sample colours
+     * @type {Map} */
     ZoneColours := Map("Home Garden", "0x4A9754", ; (non unique)
         "Neighbors' Garden", "0x3B8D43", ; Blank comments for formatting
         "Mountain", "0xA2C6CB", ;
@@ -312,20 +325,20 @@ Class Colours {
      * Use .GetZoneByColour for zonesample colours
      */
     ColourIdent(input) {
-        switch (input) {
-            case this.Active: return "Active button"
-            case this.ActiveMouseOver: return "Active button mouse over"
-            case this.AfkActive: return "Active button afk mode"
-            case this.AfkActiveMouseover: return "Active button afk mode mouse over"
-            case this.DarkBgActive: return "Background dark mode button active"
-            case this.DarkBgActiveMouseover: return "Background dark mode button active mouse over"
-            case this.Inactive: return "Inactive button"
-            case this.Background: return "Panel background"
-            case this.BackgroundSpotify: return "Panel background spotify?"
-            case this.BackgroundAFK: return "Panel background afk mode"
-            case this.BankTabSelectedActive: return "Bank tab selected active"
-                
-            default: return "unknown"
+        Switch (input) {
+        Case this.Active: Return "Active button"
+        Case this.ActiveMouseOver: Return "Active button mouse over"
+        Case this.AfkActive: Return "Active button afk mode"
+        Case this.AfkActiveMouseover: Return "Active button afk mode mouse over"
+        Case this.DarkBgActive: Return "Background dark mode button active"
+        Case this.DarkBgActiveMouseover: Return "Background dark mode button active mouse over"
+        Case this.Inactive: Return "Inactive button"
+        Case this.Background: Return "Panel background"
+        Case this.BackgroundSpotify: Return "Panel background spotify?"
+        Case this.BackgroundAFK: Return "Panel background afk mode"
+        Case this.BankTabSelectedActive: Return "Bank tab selected active"
+
+        default: Return "unknown"
         }
     }
     ;@endregion

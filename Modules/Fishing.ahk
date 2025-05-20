@@ -5,13 +5,97 @@
 Global FishCatchingDelay := 0
 Global FishCatchingSearch := false
 
+Global FishEnableShopUpgrade := false
+Global FishEnableUpgradeRods := false
+Global FishEnableTourneyPass := false
+Global FishEnableUpgradeTourneyRods := false
+Global FishEnableTransmute := false
+Global FishEnableJourneyCollect := false
+
+Global FishTimerShopUpgrade := 1
+Global FishTimerUpgradeRods := 1
+Global FishTimerTourneyPass := 1
+Global FishTimerUpgradeTourneyRods := 1
+Global FishTimerTransmute := 1
+Global FishTimerJourneyCollect := 1
+
+Global FishTransmuteTtoFC := false
+Global FishTransmuteFCtoCry := false
+Global FishTransmuteCrytoA := false
+Global FishTransmuteFCtoT := false
+Global FishTransmuteCrytoFC := false
+Global FishTransmuteAtoCry := false
+
+Global FishChlCatchingDelay := 0
+Global FishChlCatchingSearch := false
+
+Global FishChlEnableShopUpgrade := false
+Global FishChlEnableUpgradeRods := false
+Global FishChlEnableTransmute := false
+Global FishChlEnableJourneyCollect := false
+
+Global FishChlTimerShopUpgrade := 1
+Global FishChlTimerUpgradeRods := 1
+Global FishChlTimerTransmute := 1
+Global FishChlTimerJourneyCollect := 1
+
+Global FishChlTransmuteTtoFC := false
+Global FishChlTransmuteFCtoCry := false
+Global FishChlTransmuteCrytoA := false
+Global FishChlTransmuteFCtoT := false
+Global FishChlTransmuteCrytoFC := false
+Global FishChlTransmuteAtoCry := false
+
+Global FishTourCatchingDelay := 0
+Global FishTourCatchingSearch := false
+
+Global FishTourEnableShopUpgrade := false
+Global FishTourEnableUpgradeRods := false
+Global FishTourEnableFishingPass := false
+Global FishTourEnableUpgradeTourneyRods := false
+Global FishTourEnableTransmute := false
+Global FishTourEnableJourneyCollect := false
+
+Global FishTourTimerShopUpgrade := 1
+Global FishTourTimerUpgradeRods := 1
+Global FishTourTimerUpgradeTourneyRods := 1
+Global FishTourTimerTransmute := 1
+Global FishTourTimerJourneyCollect := 1
+
+Global FishTourTransmuteTtoFC := false
+Global FishTourTransmuteFCtoCry := false
+Global FishTourTransmuteCrytoA := false
+Global FishTourTransmuteFCtoT := false
+Global FishTourTransmuteCrytoFC := false
+Global FishTourTransmuteAtoCry := false
+
+;@region Points
 /**
- * Fishing Class to contain all fishing related functions
- * @module Fishing
- * @property {Type} property Desc
- * @method Name Desc
+ * Points class to contain points of the tabs in fishing screen
+ * @module FishingTabs
  */
-Class Fishing {
+Class FishingTabs {
+    /** @type {cPoint} Pond (main fishing) tab button */
+    Pond := cPoint(287, 1163)
+    /** @type {cPoint} Shop tab button */
+    Shop := cPoint(1440, 1165),
+    /** @type {cPoint} Rods tab button */
+    Rods := cPoint(660, 1164),
+    /** @type {cPoint} Journey tab button */
+    Journey := cPoint(1635, 1164),
+    /** @type {cPoint} Transmute tab button */
+    Transmute := cPoint(2231, 1164),
+    /** @type {cPoint} Tourney Tab */
+    Tourney := cPoint(1835, 1166),
+    /** @type {cPoint} Tourney Rod tab */
+    TourneyRod := cPoint(1856, 1163)
+}
+
+/**
+ * Points class to contain points of the ponds screen
+ * @module FishingPonds
+ */
+Class FishingPonds {
     /** @type {cPoint} */
     Lure := cPoint(858, 314)
     /** @type {cPoint} */
@@ -25,20 +109,184 @@ Class Fishing {
     /** @type {cPoint} */
     NewPondRod3 := cPoint(1128, 892)
 
+    IsOnTab() {
+        If (this.Lure.IsButton() && this.Search.IsButton()) {
+            Return true
+        }
+        Return false
+    }
+}
+
+/**
+ * Points class to contain points of the Fishing rods screen
+ * @module FishingRods
+ */
+Class FishingRods {
+    /** @type {cPoint} First rod icon point +65 x per */
+    FirstRod := cPoint(350, 555)
+    /** @type {cPoint} Second rod icon point */
+    SecondRod := cPoint(415, 555)
+    /** @type {cPoint} Third rod icon point */
+    ThirdRod := cPoint(480, 555)
+    /** @type {cPoint} Fourth rod icon point */
+    FourthRod := cPoint(545, 555)
+    /** @type {cPoint} Fifth rod icon point */
+    FifthRod := cPoint(610, 555)
+    /** @type {cPoint} Sixth rod icon point */
+    SixthRod := cPoint(675, 555)
+    /** @type {cPoint} Seventh rod icon point */
+    SeventhRod := cPoint(740, 555)
+
+    /** @type {cPoint} Rod crafting button */
+    Craft := cPoint(620, 301)
+    /** @type {cPoint} Rod fish length upgrade */
+    Length := cPoint(1448, 615)
+    /** @type {cPoint} Rod quality upgrade */
+    Quality := cPoint(1448, 745)
+    /** @type {cPoint} Rod tier ascend upgrade */
+    Ascend := cPoint(1447, 874)
+
+    IsOnTab() {
+        If (!this.FirstRod.IsBackground() && this.Craft.IsButton()) {
+            Return true
+        }
+        Return false
+    }
+}
+
+/**
+ * Points class to contain points of the shop in fishing screen
+ * @module FishingShop
+ * @property {cPoint} BuySpot Buy fishing spot button
+ */
+Class FishingShop {
+    /** @type {cPoint} Buy fishing spot button */
+    BuySpot := cPoint(1570, 715)
+    /** @type {cPoint} Fishing credit amount button, shift wheel down one */
+    CreditsUpgrade := cPoint(1703, 815)
+
+    IsOnTab() {
+        If (this.BuySpot.IsButton() || this.BuySpot.IsBackground()) {
+            Return true
+        }
+        Return false
+    }
+}
+
+/**
+ * Points class to contain points of the fishing journey screen
+ * @module FishingJourney
+ */
+Class FishingJourney {
+    /** @type {cPoint} Journey claim all button */
+    ClaimAll := cPoint(548, 601)
+    /** @type {cPoint} Collect reset bonus */
+    Complete := cPoint(1243, 836)
+
+    IsOnTab() {
+        If (this.ClaimAll.IsButton()) {
+            Return true
+        }
+        Return false
+    }
+}
+
+/**
+ * Points class to contain points of the fishing tourney rod upgrade screen
+ * @module FishingTourneyRod
+ */
+Class FishingTourneyRod {
+    /** @type {cPoint} Upgrade rod tip */
+    Tip := cPoint(2028, 289)
+    /** @type {cPoint} Upgrade rod handle */
+    Handle := cPoint(2028, 421)
+    /** @type {cPoint} Upgrade rod shaft */
+    Shaft := cPoint(2035, 553)
+
+    IsOnTab() {
+        If (this.Tip.IsButton() && (this.Handle.IsButton() && this.Shaft.IsButton()) || this.Handle.IsBackground() &&
+        this.Shaft.IsBackground()) {
+            Return true
+        }
+        Return false
+    }
+}
+
+/**
+ * Points class to contain points of the fishing transmute screen
+ * @module FishingTransmute
+ */
+Class FishingTransmute {
+    /** @type {cPoint} Max Transmute Trash to Fish Credits */
+    TrashToCreditsMax := cPoint(719, 288)
+    /** @type {cPoint} Max Transmute Fish Credits to Tide Crystal */
+    CreditsToCrystalMax := cPoint(719, 416)
+    /** @type {cPoint} Max Transmute Tide Crystal to Advanced Tide Crystal  */
+    CrystalToAdvancedMax := cPoint(723, 545)
+
+    /** @type {cPoint} Max Transmute Fish Credits to Trash */
+    CreditsToTrashMax := cPoint(1759, 289)
+    /** @type {cPoint} Max Transmute Tide Crystal to Fish Credits */
+    CrystalToCreditsMax := cPoint(1761, 418)
+    /** @type {cPoint} Max Transmute Advanced Tide Crystal to Tide Crystal */
+    AdvancedToCrystalMax := cPoint(1759, 542)
+
+    IsOnTab() {
+        If (this.TrashToCreditsMax.IsButton() && this.CreditsToCrystalMax.IsButton() && this.CreditsToTrashMax.IsButton()) {
+            Return true
+        }
+        Return false
+    }
+}
+;@endregion
+
+/**
+ * Fishing Class to contain all fishing related functions
+ * @module Fishing
+ * @property {Type} property Desc
+ * @method Name Desc
+ */
+Class Fishing {
+
+    ;@region Properties
+    /** @type {FishingTabs} */
+    Tabs := FishingTabs()
+    /** @type {FishingPonds} */
+    Ponds := FishingPonds()
+    /** @type {FishingRods} */
+    Rods := FishingRods()
+    /** @type {FishingShop} */
+    Shop := FishingShop()
+    /** @type {FishingJourney} */
+    Journey := FishingJourney()
+    /** @type {FishingTourney} */
+    Tourney := FishingTourney().SetModeFishing()
+    /** @type {FishingJourneyRod} */
+    TourneyRod := FishingTourneyRod()
+    /** @type {FishingTransmute} */
+    Transmute := FishingTransmute()
+
+    /** @type {Pond} */
     Pond1 := Pond(1)
+    /** @type {Pond} */
     Pond2 := Pond(2)
+    /** @type {Pond} */
     Pond3 := Pond(3)
+    /** @type {Pond} */
     Pond4 := Pond(4)
+
+    ;@endregion
 
     ;@region fFishAutoCatch()
     /**
      * Attempt to auto catch fish (Simple)
      */
     fFishAutoCatch(challenge := false) {
-        Time1 := A_Now
-        Time2 := A_Now
-        Time3 := A_Now
-        Time4 := A_Now
+        StartTime := A_TickCount - (FishCatchingDelay * 1000)
+        Time1 := StartTime
+        Time2 := StartTime
+        Time3 := StartTime
+        Time4 := StartTime
         If (FishCatchingSearch && !challenge) {
             Out.I("Started fishing with search")
         } Else If (challenge) {
@@ -47,12 +295,245 @@ Class Fishing {
             Out.I("Started fishing")
         }
 
+        JourneyTime := A_Now
+        TransmuteTime := A_Now
+        RodsTime := A_Now
+        ShopTime := A_Now
+        TourneyTime := A_Now
+        TourneyRodTime := A_Now
+        LogToggle := true
         Loop {
             If (!Window.IsActive()) {
                 Break
             }
-            this.FishPonds(&Time1, &Time2, &Time3, &Time4, challenge)
+
+            While (!this.Ponds.IsOnTab()) {
+                this.Tabs.Pond.ClickButtonActive(, 5)
+            }
+            If (LogToggle) {
+                Out.I("Fishing pass")
+                LogToggle := false
+            }
+            If (FishCatchingSearch && !challenge) {
+                If (this.Ponds.Search.IsButtonActive()) {
+                    ; Search if the buttons active because a slot is empty
+                    this.Ponds.Search.ClickButtonActive()
+                    Out.I("Pond searched")
+                }
+                this.PondQualityUpgrade()
+            }
+            this.FishPonds(&Time1, &Time2, &Time3, &Time4, true)
+            If (FishTimerJourneyCollect &&
+                DateDiff(A_Now, JourneyTime, "S") > FishTimerJourneyCollect) {
+                this.JourneyCollect()
+                this.Tabs.Pond.ClickButtonActive()
+                JourneyTime := A_Now
+                LogToggle := true
+            }
+            If (FishTimerTransmute &&
+                DateDiff(A_Now, TransmuteTime, "S") > FishTimerTransmute) {
+                this.UserSelectedTransmute()
+                this.Tabs.Pond.ClickButtonActive()
+                TransmuteTime := A_Now
+                LogToggle := true
+            }
+            If (FishEnableUpgradeRods &&
+                DateDiff(A_Now, RodsTime, "S") > FishTimerUpgradeRods) {
+                this.UpgradeRods()
+                this.Tabs.Pond.ClickButtonActive()
+                RodsTime := A_Now
+                LogToggle := true
+            }
+            If (FishEnableShopUpgrade &&
+                DateDiff(A_Now, ShopTime, "S") > FishTimerShopUpgrade) {
+                this.ShopUpgrade()
+                this.Tabs.Pond.ClickButtonActive()
+                ShopTime := A_Now
+                LogToggle := true
+            }
+            If (FishEnableUpgradeTourneyRods &&
+                DateDiff(A_Now, TourneyRodTime, "S") > FishTimerUpgradeTourneyRods) {
+                this.TourneyRodUpgrade()
+                this.Tabs.Pond.ClickButtonActive()
+                TourneyRodTime := A_Now
+                LogToggle := true
+            }
+            If (FishEnableTourneyPass &&
+                DateDiff(A_Now, TourneyTime, "S") > FishTimerTourneyPass) {
+                this.TourneySinglePass()
+                this.Tabs.Pond.ClickButtonActive()
+                TourneyTime := A_Now
+                LogToggle := true
+            }
+
         }
+    }
+    ;@endregion
+
+    ;@region JourneyCollect()
+    /**
+     * Description
+     */
+    JourneyCollect() {
+        Out.I("Journey Collect")
+        While (!this.Journey.IsOnTab()) {
+            this.Tabs.Journey.ClickButtonActive(, 5)
+        }
+        this.Tabs.Journey.ClickButtonActive()
+        this.Journey.ClaimAll.WaitUntilButtonS()
+        this.Journey.ClaimAll.ClickButtonActive()
+        this.Journey.Complete.WaitUntilButton(20, 17)
+        this.Journey.Complete.ClickButtonActive()
+    }
+    ;@endregion
+
+    ;@region UserSelectedTransmute()
+    /**
+     * Go to transmute and transmute user selected items
+     */
+    UserSelectedTransmute() {
+        Out.I("User Selected Transmute")
+        While (!this.Transmute.IsOnTab()) {
+            this.Tabs.Transmute.ClickButtonActive(, 5)
+        }
+        this.Transmute.TrashToCreditsMax.WaitUntilButtonS()
+        If (FishTransmuteTtoFC) {
+            this.Transmute.TrashToCreditsMax.ClickButtonActive()
+        }
+        If (FishTransmuteFCtoCry) {
+            this.Transmute.CreditsToCrystalMax.ClickButtonActive()
+        }
+        If (FishTransmuteCrytoA) {
+            this.Transmute.CrystalToAdvancedMax.ClickButtonActive()
+        }
+
+        If (FishTransmuteFCtoT) {
+            this.Transmute.CreditsToTrashMax.ClickButtonActive()
+        }
+        If (FishTransmuteCrytoFC) {
+            this.Transmute.CrystalToCreditsMax.ClickButtonActive()
+        }
+        If (FishTransmuteAtoCry) {
+            this.Transmute.AdvancedToCrystalMax.ClickButtonActive()
+        }
+    }
+    ;@endregion
+
+    ;@region UserChlSelectedTransmute()
+    /**
+     * Go to transmute and transmute user selected items (Challenge)
+     */
+    UserChlSelectedTransmute() {
+        Out.I("User Selected Transmute challenge")
+        While (!this.Transmute.IsOnTab()) {
+            this.Tabs.Transmute.ClickButtonActive(, 5)
+        }
+        this.Transmute.TrashToCreditsMax.WaitUntilButtonS()
+        If (FishChlTransmuteTtoFC) {
+            this.Transmute.TrashToCreditsMax.ClickButtonActive()
+        }
+        If (FishChlTransmuteFCtoCry) {
+            this.Transmute.CreditsToCrystalMax.ClickButtonActive()
+        }
+        If (FishChlTransmuteCrytoA) {
+            this.Transmute.CrystalToAdvancedMax.ClickButtonActive()
+        }
+
+        If (FishChlTransmuteFCtoT) {
+            this.Transmute.CreditsToTrashMax.ClickButtonActive()
+        }
+        If (FishChlTransmuteCrytoFC) {
+            this.Transmute.CrystalToCreditsMax.ClickButtonActive()
+        }
+        If (FishChlTransmuteAtoCry) {
+            this.Transmute.AdvancedToCrystalMax.ClickButtonActive()
+        }
+    }
+    ;@endregion
+
+    ;@region UserTourSelectedTransmute()
+    /**
+     * Go to transmute and transmute user selected items (Tourney)
+     */
+    UserTourSelectedTransmute() {
+        Out.I("User Selected Transmute tourney")
+        While (!this.Transmute.IsOnTab()) {
+            this.Tabs.Transmute.ClickButtonActive(, 5)
+        }
+        this.Transmute.TrashToCreditsMax.WaitUntilButtonS()
+        If (FishTourTransmuteTtoFC) {
+            this.Transmute.TrashToCreditsMax.ClickButtonActive()
+        }
+        If (FishTourTransmuteFCtoCry) {
+            this.Transmute.CreditsToCrystalMax.ClickButtonActive()
+        }
+        If (FishTourTransmuteCrytoA) {
+            this.Transmute.CrystalToAdvancedMax.ClickButtonActive()
+        }
+
+        If (FishTourTransmuteFCtoT) {
+            this.Transmute.CreditsToTrashMax.ClickButtonActive()
+        }
+        If (FishTourTransmuteCrytoFC) {
+            this.Transmute.CrystalToCreditsMax.ClickButtonActive()
+        }
+        If (FishTourTransmuteAtoCry) {
+            this.Transmute.AdvancedToCrystalMax.ClickButtonActive()
+        }
+    }
+    ;@endregion
+
+    ;@region ShopUpgrade()
+    /**
+     * Upgrade fishing shop to max available prioritising important upgrades
+     */
+    ShopUpgrade() {
+        Out.I("Shop Upgrade")
+        While (!this.Shop.IsOnTab()) {
+            this.Tabs.Shop.ClickButtonActive(, 5)
+        }
+        this.Tabs.Shop.ClickButtonActive()
+        Travel.ScrollAmountDown(7)
+        this.Shop.BuySpot.ClickButtonActive()
+    }
+    ;@endregion
+
+    ;@region TourneyRodUpgrade()
+    /**
+     * Description
+     */
+    TourneyRodUpgrade() {
+        Out.I("Tourney Rod Upgrade")
+        While (!this.TourneyRod.IsOnTab()) {
+            this.Tabs.TourneyRod.ClickButtonActive(, 5)
+        }
+        While (this.TourneyRod.Shaft.IsButtonActive()) {
+            this.TourneyRod.Shaft.ClickButtonActive()
+        }
+        While (this.TourneyRod.Handle.IsButtonActive()) {
+            this.TourneyRod.Handle.ClickButtonActive()
+        }
+        While (this.TourneyRod.Tip.IsButtonActive()) {
+            this.TourneyRod.Tip.ClickButtonActive()
+        }
+    }
+    ;@endregion
+
+    ;@region TourneySinglePass()
+    /**
+     * Single pass of tourney fights
+     */
+    TourneySinglePass() {
+        ; Because isontab for tourney could have 4 bugged buttons (thus nothing)
+        ; set a timer as backup
+        Out.I("Tourney Single Pass")
+        limit := true
+        Timer().CoolDownS(1, &limit)
+        Out.D(this.Tabs.Tourney.IsButtonActive())
+        While (limit && !this.Tourney.IsOnTab()) {
+            this.Tabs.Tourney.ClickButtonActive(, 5)
+        }
+        this.Tourney.FarmSingle()
     }
     ;@endregion
 
@@ -61,48 +542,22 @@ Class Fishing {
      * Fish ponds a single time
      */
     FishPonds(&Time1, &Time2, &Time3, &Time4, challenge) {
-        If (FishCatchingSearch && !challenge) {
-            If (this.Search.IsButtonActive()) {
-                ; Search if the buttons active because a slot is empty
-                this.Search.ClickButtonActive()
-            }
-            this.PondQualityUpgrade()
-        }
+
         If (!this.Pond1.CastRod.IsBackground()) {
-            this.FishPond(this.Pond1, &Time1, 1)
+            this.Pond1.FishPond(&Time1)
         }
         If (!this.Pond2.CastRod.IsBackground()) {
-            this.FishPond(this.Pond2, &Time2, 2)
+            this.Pond2.FishPond(&Time2)
         }
         If (!this.Pond3.CastRod.IsBackground()) {
-            this.FishPond(this.Pond3, &Time3, 3)
+            this.Pond3.FishPond(&Time3)
         }
         If (!this.Pond4.CastRod.IsBackground()) {
-            this.FishPond(this.Pond4, &Time4, 4)
+            this.Pond4.FishPond(&Time4)
         }
         Sleep (17)
-        If (this.Lure.IsButtonActive()) {
-            this.Lure.ClickButtonActive()
-        }
-    }
-    ;@endregion
-
-    ;@region FishPond()
-    /**
-     * Fish ponds a single time
-     */
-    FishPond(pond, &Time, id) {
-        If (!pond.Progress.pixelSearch()) {
-            ; Was off cooldown and nothing catching
-            pond.CastRod.ClickButtonActive()
-        }
-        If (pond.Progress.PixelSearch() && !pond.CooldownSuffix.PixelSearch()) {
-            ;Out.D("Resetting cd on" id)
-            Time := A_Now
-        }
-        If (Time && DateDiff(A_Now, Time, "S") > FishCatchingDelay) {
-            ;Out.D("Casting " id)
-            pond.CastRod.ClickButtonActive()
+        If (this.Ponds.Lure.IsButtonActive() && (A_TickCount - Time1) / 1000 < FishCatchingDelay) {
+            this.Ponds.Lure.ClickButtonActive()
         }
     }
     ;@endregion
@@ -185,6 +640,7 @@ Class Fishing {
             Return false
         }
         If (!this.IsSearchOffCD()) {
+            ;Out.D("Search not off cooldown")
             Return false
         }
         Out.I("Attempting pond upgrade")
@@ -200,52 +656,117 @@ Class Fishing {
         }
         Switch (WeakestLink) {
         Case 1:
-            While (!this.Pond1.Cancel.IsButtonActive() && Window.IsActive()) {
-                this.Pond1.CastRod.ClickButtonActive()
-                Sleep(50)
-            }
-            this.Pond1.Cancel.ClickButtonActive()
-            this.Pond1.Cancel.ClickButtonActive()
-            Out.I("Canceled pond 1")
+            this.Pond1.CancelPond()
         Case 2:
-            While (!this.Pond2.Cancel.IsButtonActive() && Window.IsActive()) {
-                this.Pond2.CastRod.ClickButtonActive()
-                Sleep(50)
-            }
-            this.Pond2.Cancel.ClickButtonActive()
-            this.Pond2.Cancel.ClickButtonActive()
-            Out.I("Canceled pond 2")
+            this.Pond2.CancelPond()
         Case 3:
-            While (!this.Pond3.Cancel.IsButtonActive() && Window.IsActive()) {
-                this.Pond3.CastRod.ClickButtonActive()
-                Sleep(50)
-            }
-            this.Pond3.Cancel.ClickButtonActive()
-            this.Pond3.Cancel.ClickButtonActive()
-            Out.I("Canceled pond 3")
+            this.Pond3.CancelPond()
         Case 4:
-            While (!this.Pond4.Cancel.IsButtonActive() && Window.IsActive()) {
-                this.Pond4.CastRod.ClickButtonActive()
-                Sleep(50)
-            }
-            this.Pond4.Cancel.ClickButtonActive()
-            this.Pond4.Cancel.ClickButtonActive()
-            Out.I("Canceled pond 4")
+            this.Pond4.CancelPond()
         default:
             Out.D("Unknown pond provided for removal " WeakestLink)
             Return false
         }
-        If (!this.ConfirmCancel.WaitUntilActiveButtonS(3)) {
+        If (!this.Ponds.ConfirmCancel.WaitUntilActiveButtonS(3)) {
             Out.I("No confirm cancel, assuming no search state")
             Return false
         }
-        this.ConfirmCancel.ClickButtonActive()
-        this.Search.WaitUntilActiveButtonS(3)
-        this.Search.ClickButtonActive()
-        this.NewPondRod.WaitUntilActiveButtonS(3)
-        this.NewPondRod.ClickButtonActive()
-        this.NewPondRod2.ClickButtonActive()
-        this.NewPondRod3.ClickButtonActive()
+        this.Ponds.ConfirmCancel.ClickButtonActive()
+        this.Ponds.ConfirmCancel.ClickButtonActive()
+        this.Ponds.Search.WaitUntilActiveButtonS(3)
+        this.Ponds.Search.ClickButtonActive()
+        this.Ponds.NewPondRod.WaitUntilActiveButtonS(3)
+        this.Ponds.NewPondRod.ClickButtonActive()
+        this.Ponds.NewPondRod2.ClickButtonActive()
+        this.Ponds.NewPondRod3.ClickButtonActive()
+        Return true
+    }
+    ;@endregion
+
+    ;@region UpgradeRods()
+    /**
+     * Upgrade fishing rods to max available rotating between all of them
+     */
+    UpgradeRods() {
+        Rod1 := !this.Rods.FirstRod.IsBackground()
+        Rod2 := !this.Rods.SecondRod.IsBackground()
+        Rod3 := !this.Rods.ThirdRod.IsBackground()
+        Rod4 := !this.Rods.FourthRod.IsBackground()
+        Rod5 := !this.Rods.FifthRod.IsBackground()
+        Rod6 := !this.Rods.SixthRod.IsBackground()
+        Rod7 := !this.Rods.SeventhRod.IsBackground()
+        Out.I("Upgrade Rods")
+        While (!this.Rods.IsOnTab()) {
+            this.Tabs.Rods.ClickButtonActive(, 5)
+        }
+        Loop {
+            If (Rod1) {
+                Rod1 := this.UpgradeSingleRod(1)
+            }
+            If (Rod2 && !this.UpgradeSingleRod(2)) {
+                Rod2 := false
+            }
+            If (Rod3 && !this.UpgradeSingleRod(3)) {
+                Rod3 := false
+            }
+            If (Rod4 && !this.UpgradeSingleRod(4)) {
+                Rod4 := false
+            }
+            If (Rod5 && !this.UpgradeSingleRod(5)) {
+                Rod5 := false
+            }
+            If (Rod6 && !this.UpgradeSingleRod(6)) {
+                Rod6 := false
+            }
+            If (Rod7 && !this.UpgradeSingleRod(7)) {
+                Rod7 := false
+            }
+            If (!Rod1 && !Rod2 && !Rod3 && !Rod4 && !Rod5 && !Rod6 && !Rod7) {
+                Break
+            }
+        }
+    }
+    ;@endregion
+
+    ;@region UpgradeSingleRod()
+    /**
+     * Upgrade a single rod based on id
+     */
+
+    UpgradeSingleRod(id) {
+        /** @type {cPoint} */
+        RodButton := ""
+        Switch id {
+        Case 1:
+            RodButton := this.Rods.FirstRod
+        Case 2:
+            RodButton := this.Rods.SecondRod
+        Case 3:
+            RodButton := this.Rods.ThirdRod
+        Case 4:
+            RodButton := this.Rods.FourthRod
+        Case 5:
+            RodButton := this.Rods.FifthRod
+        Case 6:
+            RodButton := this.Rods.SixthRod
+        Case 7:
+            RodButton := this.Rods.SeventhRod
+        Default:
+            RodButton := this.Rods.FirstRod
+        }
+        If (RodButton.IsBackground()) {
+            Return false
+        }
+        RodButton.ClickOffset(3, 3)
+        this.Rods.Ascend.WaitUntilButtonS(1)
+        If (this.Rods.Ascend.IsButtonInactive() &&
+        this.Rods.Length.IsButtonInactive() &&
+        this.Rods.Quality.IsButtonInactive()) {
+            Return false
+        }
+        this.Rods.Ascend.ClickButtonActive()
+        this.Rods.Length.ClickButtonActive()
+        this.Rods.Quality.ClickButtonActive()
         Return true
     }
     ;@endregion
@@ -263,40 +784,54 @@ Class Pond {
     /** @type {cPoint} */
     CastRod := ""
     /** @type {cPoint} */
+    Bait := ""
+    /** @type {cPoint} */
+    BaitIcon := ""
+    /** @type {cPoint} */
     Cancel := ""
     /** @type {cRect} */
     Progress := ""
     /** @type {cRect} */
     CooldownSuffix := ""
+    id := 0
 
     __New(id := 0) {
         Switch (id) {
         Case 1:
-            this.Rarity := cPoint(308, 574)
+            this.Rarity := cPoint(305, 709)
             this.CastRod := cPoint(541, 667)
             this.Progress := cRect(400, 702, 500, 728)
             this.CooldownSuffix := cRect(464, 705, 500, 728)
             this.Cancel := cPoint(803, 485)
+            this.Bait := cPoint(800, 681)
+            this.BaitIcon := cPoint(826, 666)
         Case 2:
-            this.Rarity := cPoint(915, 569)
+            this.Rarity := cPoint(914, 709)
             this.CastRod := cPoint(1157, 667)
             this.Progress := cRect(1005, 699, 1108, 728)
             this.CooldownSuffix := cRect(1073, 703, 1108, 728)
             this.Cancel := cPoint(1411, 486)
+            this.Bait := cPoint(1407, 683)
+            this.BaitIcon := cPoint(1433, 665)
         Case 3:
-            this.Rarity := cPoint(307, 847)
+            this.Rarity := cPoint(305, 1007)
             this.CastRod := cPoint(542, 972)
             this.Progress := cRect(396, 1001, 500, 1031)
             this.CooldownSuffix := cRect(465, 1004, 500, 1031)
             this.Cancel := cPoint(803, 787)
+            this.Bait := cPoint(799, 983)
+            this.BaitIcon := cPoint(826, 964)
         Case 4:
-            this.Rarity := cPoint(913, 879)
+            this.Rarity := cPoint(914, 1007)
             this.CastRod := cPoint(1150, 972)
             this.Progress := cRect(1001, 1002, 1106, 1030)
             this.CooldownSuffix := cRect(1071, 1006, 1106, 1030)
             this.Cancel := cPoint(1409, 786)
+            this.Bait := cPoint(1407, 980)
+            this.BaitIcon := cPoint(1434, 964)
         default:
         }
+        this.id := id
     }
 
     ;@region GetPondRarity()
@@ -311,6 +846,8 @@ Class Pond {
     ;@region PondColourToRarity()
     /**
      * Convert colour code of pond rarity to rarity id
+     * -1 is background
+     * 0 is failure to match
      */
     PondColourToRarity(colour) {
         Switch colour {
@@ -339,9 +876,122 @@ Class Pond {
         Case "0x97714A":
             Return -1
         Default:
-            Out.D("Pond colour could not be matched " colour)
+            Out.D("Pond " this.id " colour could not be matched " colour)
             Return 0
         }
+    }
+    ;@endregion
+
+    ;@region GetBaitRarity()
+    /**
+     * Get the id of the rarity of the bait in use on the pond
+     * -2 is no bait
+     * -1 is background
+     * 0 is failure to match
+     */
+    GetBaitRarity() {
+        Switch this.Bait.GetColour() {
+        Case "0xFFF1D2":
+            If (this.BaitIcon.GetColour() != "0xFFF1D2") {
+                Return 1
+            } Else {
+                Return -2
+            }
+        Case "0xFDD898":
+            If (this.BaitIcon.GetColour() != "0xFDD898") {
+                Return 1
+            } Else {
+                Return -2
+            }
+        Case "0x32678D":
+            Return 2
+        Case "0xD4BC8B":
+            Return 2
+        Case "0xD3B834":
+            Return 3
+        Case "0xF5CD79":
+            Return 3
+        Case "0xB32408":
+            Return 4
+        Case "0xEEAF70":
+            Return 4
+        Case "0x9E0F9F":
+            Return 5
+        Case "0xEAAB8E":
+            Return 5
+        Case "0xE16015":
+            Return 6
+        Case "0xF7BB73":
+            Return 6
+        Case "0x97714A":
+            Return -1
+        Default:
+            Out.D("Pond " this.id " bait colour could not be matched " this.Bait.GetColour())
+            Return 0
+        }
+    }
+    ;@endregion
+
+    ;@region FishPond()
+    /**
+     * Fish ponds a single time
+     * @param Time Byref timestamp for seconds since last seen on cooldown
+     */
+    FishPond(&Time) {
+        If (!this.Progress.pixelSearch()) {
+            ; Was off cooldown and nothing catching
+            this.CastRod.ClickButtonActive()
+        }
+        If (this.Progress.PixelSearch() && !this.CooldownSuffix.PixelSearch()) {
+            ;Out.D("Resetting cd on" this.id)
+            Time := A_TickCount
+        }
+        If (Time && (A_TickCount - Time) / 1000 > FishCatchingDelay) {
+            ;Out.D("Casting " this.id)
+            this.CastRod.ClickButtonActive()
+        }
+    }
+    ;@endregion
+
+    ;@region CancelPond()
+    /**
+     * Cancel the pond this object represents
+     */
+    CancelPond() {
+        While (!this.Cancel.IsButtonActive() && Window.IsActive()) {
+            this.CastRod.ClickButtonActive()
+            Sleep(50)
+        }
+        this.Cancel.ClickButtonActive()
+        this.Cancel.ClickButtonActive()
+        Out.I("Canceled pond " this.id)
+    }
+    ;@endregion
+
+    ;@region SetBait()
+    /**
+     * Set bait to rarity based on provided rarity
+     */
+    SetBait(id) {
+        If (this.GetBaitRarity() = id) {
+            Return true
+        }
+        If (id > 3) {
+            Loop 7 {
+                this.Bait.ClickOffsetR()
+                If (this.GetBaitRarity() = id) {
+                    Return true
+                }
+            }
+        } Else {
+            Loop 7 {
+                this.Bait.ClickOffset()
+                If (this.GetBaitRarity() = id) {
+                    Return true
+                }
+            }
+        }
+        Return false
     }
     ;@endregion
 }

@@ -11,6 +11,7 @@
 #Include ..\Modules\FarmNatureBoss.ahk
 #Include ..\Modules\FarmNormalBoss.ahk
 #Include ..\Modules\Fishing.ahk
+#Include ..\Modules\FishingChallenge.ahk
 #Include ..\Modules\FishingTourney.ahk
 #Include ..\Modules\GemFarm.ahk
 #Include ..\Modules\NatureHyacinth.ahk

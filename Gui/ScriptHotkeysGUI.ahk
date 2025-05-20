@@ -2,6 +2,7 @@
 
 Button_Click_ScriptHotkeys(*) {
 
+    /** @type {GUI} */
     optionsGUI := Gui(, "Script Hotkey Customisation")
     optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"

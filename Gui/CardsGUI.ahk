@@ -8,6 +8,7 @@ Button_Click_Cards(thisGui, info) {
         CardsLegBuyAmount, CardsDontBuyCommons, CardsDontBuyRare,
         CardsDontBuyLeg, CardsSleepBuyAmount, CardsGreedyOpen, CardsGreedyBuy
 
+    /** @type {GUI} */
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"

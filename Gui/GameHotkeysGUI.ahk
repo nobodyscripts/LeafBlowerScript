@@ -2,6 +2,7 @@
 
 Button_Click_GameHotkeys(*) {
 
+    /** @type {GUI} */
     optionsGUI := Gui(, "Game Hotkey Customisation")
     optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"

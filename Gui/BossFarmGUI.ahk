@@ -6,6 +6,7 @@ Button_Click_BossFarm(thisGui, info) {
         BrewEnableArtifacts, BrewEnableEquipment, BrewEnableMaterials,
         BrewEnableScrolls, BrewEnableCardParts, BossFarmFast
 
+    /** @type {GUI} */
     optionsGUI := Gui(, "Boss Farm Mode Settings")
     optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"

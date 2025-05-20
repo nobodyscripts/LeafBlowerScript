@@ -2,14 +2,23 @@
 #Include ../Lib/cRects.ahk
 #Include ../Lib/cPoints.ahk
 
-Global FishTourneyNovice := true
-Global FishTourneyIntermediate := true
-Global FishTourneyExpert := false
-Global FishTourneyLegend := false
-Global FishTourneyNoviceAttack := 2
-Global FishTourneyIntermediateAttack := 2
-Global FishTourneyExpertAttack := 2
-Global FishTourneyLegendAttack := 2
+Global FishNovice := false
+Global FishIntermediate := false
+Global FishExpert := false
+Global FishLegend := false
+Global FishNoviceAttack := 1
+Global FishIntermediateAttack := 1
+Global FishExpertAttack := 1
+Global FishLegendAttack := 1
+
+Global FishTourNovice := false
+Global FishTourIntermediate := false
+Global FishTourExpert := false
+Global FishTourLegend := false
+Global FishTourNoviceAttack := 1
+Global FishTourIntermediateAttack := 1
+Global FishTourExpertAttack := 1
+Global FishTourLegendAttack := 1
 
 /**
  * FishingTourney tournament functions to seperate from the main fishing elements
@@ -18,10 +27,11 @@ Global FishTourneyLegendAttack := 2
  * @method Name Desc
  */
 Class FishingTourney {
-    Farm1 := FishTourneyNovice
-    Farm2 := FishTourneyIntermediate
-    Farm3 := FishTourneyExpert
-    Farm4 := FishTourneyLegend
+    Farm1 := FishTourNovice
+    Farm2 := FishTourIntermediate
+    Farm3 := FishTourExpert
+    Farm4 := FishTourLegend
+    Mode := 1
 
     /** @type {cPoint} */
     Attack1 := cPoint(537, 531)
@@ -49,26 +59,69 @@ Class FishingTourney {
     /** @type {cPoint} */
     Start4 := cPoint(2061, 984)
 
+    SetModeFishing() {
+        this.Mode := 0
+        this.Farm1 := FishNovice
+        this.Farm2 := FishIntermediate
+        this.Farm3 := FishExpert
+        this.Farm4 := FishLegend
+        return this
+    }
+    SetModeTourney() {
+        this.Mode := 1
+        this.Farm1 := FishTourNovice
+        this.Farm2 := FishTourIntermediate
+        this.Farm3 := FishTourExpert
+        this.Farm4 := FishTourLegend
+    }
+
+    IsOnTab() {
+        If (this.Start1.IsButton() || this.Start2.IsButton() || this.Start3.IsButton() || this.Start4.IsButton() ||
+        this.Attack1.IsButton()) {
+            Return true
+        }
+        Return false
+    }
+
     ;@region Fight()
     /**
      * Main active loop from post 'start', till end
      */
     Fight(difficulty) {
-        Switch (difficulty) {
-        Case 1:
-            UseAttack := FishTourneyNoviceAttack
+        If (this.Mode) {
+            Switch (difficulty) {
+            Case 1:
+                UseAttack := FishTourNoviceAttack
 
-        Case 2:
-            UseAttack := FishTourneyIntermediateAttack
+            Case 2:
+                UseAttack := FishTourIntermediateAttack
 
-        Case 3:
-            UseAttack := FishTourneyExpertAttack
+            Case 3:
+                UseAttack := FishTourExpertAttack
 
-        Case 4:
-            UseAttack := FishTourneyLegendAttack
+            Case 4:
+                UseAttack := FishTourLegendAttack
 
-        default:
-            UseAttack := 1
+            default:
+                UseAttack := 1
+            }
+        } Else {
+            Switch (difficulty) {
+            Case 1:
+                UseAttack := FishNoviceAttack
+
+            Case 2:
+                UseAttack := FishIntermediateAttack
+
+            Case 3:
+                UseAttack := FishExpertAttack
+
+            Case 4:
+                UseAttack := FishLegendAttack
+
+            default:
+                UseAttack := 1
+            }
         }
         Switch (UseAttack) {
         Case 1:
@@ -190,6 +243,33 @@ Class FishingTourney {
             Sleep(500)
         }
         Reload()
+    }
+    ;@endregion
+
+    ;@region FarmSingle()
+    /**
+     * Start a single pass farm of the available tourneys
+     */
+    FarmSingle() {
+        tooltiptoggle := false
+        If (Window.IsActive() && this.IsOnTab()) {
+            If (this.Farm1 && this.IsFightReady(1)) {
+                this.StartFight(1)
+                this.Fight(1)
+            }
+            If (this.Farm2 && this.IsFightReady(2)) {
+                this.StartFight(2)
+                this.Fight(2)
+            }
+            If (this.Farm3 && this.IsFightReady(3)) {
+                this.StartFight(3)
+                this.Fight(3)
+            }
+            If (this.Farm4 && this.IsFightReady(4)) {
+                this.StartFight(4)
+                this.Fight(4)
+            }
+        }
     }
     ;@endregion
 }

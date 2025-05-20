@@ -5,6 +5,7 @@ Button_Click_GeneralSettings(thisGui, info) {
     Global settings, EnableLogging, NavigateTime, DisableZoneChecks,
         DisableSettingsChecks, TimestampLogs, Debug, Verbose, LogBuffer
 
+    /** @type {GUI} */
     settingsGUI := Gui(, "General Settings")
     settingsGUI.Opt("+MinSize +MinSize500x")
     settingsGUI.BackColor := "0c0018"

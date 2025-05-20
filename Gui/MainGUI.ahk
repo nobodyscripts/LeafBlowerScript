@@ -64,8 +64,10 @@ Button_Click_PrestigeSpammer(thisGui, info) {
 RunGui() {
     Global Updater
     If (!Debug) {
+        /** @type {GUI} */
         MyGui := Gui(, "LBR NobodyScript")
     } Else {
+        /** @type {GUI} */
         MyGui := Gui(, "LBR TEST")
     }
     Updater.Init()

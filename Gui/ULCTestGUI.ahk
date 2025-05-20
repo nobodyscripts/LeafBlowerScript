@@ -5,6 +5,7 @@
 Button_Click_ULC(thisGui, info) {
     Global Settings
 
+    /** @type {GUI} */
     optionsGUI := Gui(, "ULC TEST")
     optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"

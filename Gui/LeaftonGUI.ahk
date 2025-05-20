@@ -9,6 +9,7 @@ Button_Click_Leafton(thisGui, info) {
         LeaftonRunOnceEnabled, LeaftonEnableBrewing, LeaftonBrewCycleTime,
         LeaftonBrewCutOffTime
 
+    /** @type {GUI} */
     optionsGUI := Gui(, "Leafton Settings")
     optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"

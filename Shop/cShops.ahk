@@ -2,7 +2,9 @@
 
 #Include Header.ahk
 
-/** @type {cShops} */
+/** Shops class, contains shop related functions and travel
+ * @type {cShops}
+ */
 Global Shops := cShops()
 
 /**
@@ -460,7 +462,7 @@ Class cShops {
      * @type {sSoulTemple}
      */
     SoulTemple := sSoulTemple()
-    
+
     /**
      * Shop class for Soul
      * @type {sSoulShop}

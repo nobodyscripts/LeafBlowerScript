@@ -6,6 +6,7 @@ Button_Click_Bank(thisGui, info) {
         BankEnableQADeposit, BankRunsSpammer, BankDepositTime,
         BankEnableStorageUpgrade
 
+    /** @type {GUI} */
     optionsGUI := Gui(, "Bank Maintainer Settings")
     optionsGUI.Opt("+MinSize +MinSize500x")
     optionsGUI.BackColor := "0c0018"
