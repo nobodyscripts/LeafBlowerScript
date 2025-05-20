@@ -138,15 +138,22 @@ Class FishingRods {
     SeventhRod := cPoint(740, 555)
 
     /** @type {cPoint} Rod crafting button */
-    Craft := cPoint(620, 301)
+    Craft := cPoint(617, 314)
     /** @type {cPoint} Rod fish length upgrade */
-    Length := cPoint(1448, 615)
+    Length := cPoint(1449, 602)
     /** @type {cPoint} Rod quality upgrade */
-    Quality := cPoint(1448, 745)
+    Quality := cPoint(1450, 732)
     /** @type {cPoint} Rod tier ascend upgrade */
-    Ascend := cPoint(1447, 874)
+    Ascend := cPoint(1450, 863)
+    /** @type {cPoint} Rod fish length upgrade */
+    Length2 := cPoint(1448, 615)
+    /** @type {cPoint} Rod quality upgrade */
+    Quality2 := cPoint(1448, 745)
+    /** @type {cPoint} Rod tier ascend upgrade */
+    Ascend2 := cPoint(1447, 874)
 
     IsOnTab() {
+        Out.D(this.FirstRod.GetDescription() " " this.Craft.GetDescription())
         If (!this.FirstRod.IsBackground() && this.Craft.IsButton()) {
             Return true
         }
@@ -160,13 +167,66 @@ Class FishingRods {
  * @property {cPoint} BuySpot Buy fishing spot button
  */
 Class FishingShop {
-    /** @type {cPoint} Buy fishing spot button */
-    BuySpot := cPoint(1570, 715)
-    /** @type {cPoint} Fishing credit amount button, shift wheel down one */
-    CreditsUpgrade := cPoint(1703, 815)
+    /** First rod icon for checks if on tab
+     * @type {cPoint} */
+    RodIcon := cPoint(332, 315)
+    /** Second rod icon for checks if on tab
+     * @type {cPoint} */
+    RodIcon2 := cPoint(340, 449)
+
+    /** 1 Auto fish purchase button
+     * @type {cPoint} */
+    Auto := cPoint(1571, 292)
+    /** 2 Auto fish threshold purchase button
+     * @type {cPoint} */
+    AutoThreshold := cPoint(1570, 434)
+    /** 3 Auto fish speed max purchase button
+     * @type {cPoint} */
+    FasterAuto := cPoint(1730, 578)
+    /** 4 Buy fishing spot max button
+     * @type {cPoint} */
+    BuySpot := cPoint(1730, 718)
+    /** 5 Buy minimum line max button
+     * @type {cPoint} */
+    MinLine := cPoint(1730, 860)
+    /** 6 Buy maximum line max button
+     * @type {cPoint} */
+    MaxLine := cPoint(1730, 1001)
+
+    /** 7 Rod recharge duration max button, shift wheel down one
+     * @type {cPoint} */
+    RodRecharge := cPoint(1730, 657)
+    /** 8 Fishing credit amount max button, shift wheel down one
+     * @type {cPoint} */
+    CreditsUpgrade := cPoint(1730, 815)
+    /** 9 Fishing rod amount max button, shift wheel down one
+     * @type {cPoint} */
+    MaxRods := cPoint(1731, 940)
+
+    /** 10 Fishing rarity max button, shift wheel down two
+     * @type {cPoint} */
+    Rarity := cPoint(1729, 595)
+    /** 11 Fishing spots rarity max button, shift wheel down two
+     * @type {cPoint} */
+    SpotRarity := cPoint(1729, 739)
+    /** 12 Tide crystal chance max button, shift wheel down two
+     * @type {cPoint} */
+    CrystalChance := cPoint(1728, 880)
+
+    /** 13 Fish bait unlock button, shift wheel down three
+     * @type {cPoint} */
+    BaitUnlock := cPoint(1570, 536)
+    /** 14 */
+    /** 15 */
+    /** 16 */
+
+    /** 17 Tourney unlock button, shift wheel down four
+     * @type {cPoint} */
+    TourneyUnlock := cPoint(1570, 900)
 
     IsOnTab() {
-        If (this.BuySpot.IsButton() || this.BuySpot.IsBackground()) {
+        If (!this.RodIcon.IsButton() && !this.RodIcon.IsBackground() &&
+        !this.RodIcon2.IsButton() && !this.RodIcon2.IsBackground()) {
             Return true
         }
         Return false
@@ -178,9 +238,11 @@ Class FishingShop {
  * @module FishingJourney
  */
 Class FishingJourney {
-    /** @type {cPoint} Journey claim all button */
+    /** Journey claim all button
+     * @type {cPoint} */
     ClaimAll := cPoint(548, 601)
-    /** @type {cPoint} Collect reset bonus */
+    /** Collect reset bonus
+     * @type {cPoint} */
     Complete := cPoint(1243, 836)
 
     IsOnTab() {
@@ -487,14 +549,69 @@ Class Fishing {
     /**
      * Upgrade fishing shop to max available prioritising important upgrades
      */
-    ShopUpgrade() {
+    ShopUpgrade(challenge := false) {
         Out.I("Shop Upgrade")
         While (!this.Shop.IsOnTab()) {
             this.Tabs.Shop.ClickButtonActive(, 5)
         }
-        this.Tabs.Shop.ClickButtonActive()
-        Travel.ScrollAmountDown(7)
-        this.Shop.BuySpot.ClickButtonActive()
+        If (!challenge) {
+            this.Shop.Auto.ClickButtonActive()
+            this.Shop.AutoThreshold.ClickButtonActive()
+            this.Shop.FasterAuto.ClickButtonActive()
+            this.Shop.BuySpot.ClickButtonActive()
+            this.Shop.MinLine.ClickButtonActive()
+            this.Shop.MaxLine.ClickButtonActive()
+
+            Travel.ScrollAmountDown(7)
+            this.Shop.RodRecharge.ClickButtonActive()
+            this.Shop.CreditsUpgrade.ClickButtonActive()
+            this.Shop.MaxRods.ClickButtonActive()
+
+            Travel.ScrollAmountDown(7)
+            this.Shop.Rarity.ClickButtonActive()
+            this.Shop.SpotRarity.ClickButtonActive()
+            this.Shop.CrystalChance.ClickButtonActive()
+
+            Travel.ScrollAmountDown(7)
+            this.Shop.BaitUnlock.ClickButtonActive()
+
+            Travel.ScrollAmountDown(7)
+            this.Shop.TourneyUnlock.ClickButtonActive()
+        } Else {
+            this.Shop.BuySpot.ClickButtonActive()
+            this.Shop.MinLine.ClickButtonActive()
+            this.Shop.MaxLine.ClickButtonActive()
+
+            Travel.ScrollAmountDown(7)
+            this.Shop.CreditsUpgrade.ClickButtonActive()
+            this.Shop.MaxRods.ClickButtonActive()
+            Travel.ScrollAmountDown(21)
+            this.Shop.TourneyUnlock.ClickButtonActive()
+            ; Low importance items
+            Travel.ScrollResetToTop()
+            this.Shop.Auto.ClickButtonActive()
+            this.Shop.AutoThreshold.ClickButtonActive()
+            this.Shop.FasterAuto.ClickButtonActive()
+            this.Shop.BuySpot.ClickButtonActive()
+            this.Shop.MinLine.ClickButtonActive()
+            this.Shop.MaxLine.ClickButtonActive()
+
+            Travel.ScrollAmountDown(7)
+            this.Shop.RodRecharge.ClickButtonActive()
+            this.Shop.CreditsUpgrade.ClickButtonActive()
+            this.Shop.MaxRods.ClickButtonActive()
+
+            Travel.ScrollAmountDown(7)
+            this.Shop.Rarity.ClickButtonActive()
+            this.Shop.SpotRarity.ClickButtonActive()
+            this.Shop.CrystalChance.ClickButtonActive()
+
+            Travel.ScrollAmountDown(7)
+            this.Shop.BaitUnlock.ClickButtonActive()
+
+            Travel.ScrollAmountDown(7)
+            this.Shop.TourneyUnlock.ClickButtonActive()
+        }
     }
     ;@endregion
 
@@ -570,7 +687,7 @@ Class Fishing {
         If (cRect(392, 344, 531, 375).pixelSearch()) {
             Return false
         }
-        Out.I("Search off cooldown")
+        ;Out.I("Search off cooldown")
         Return true
     }
     ;@endregion
@@ -635,6 +752,7 @@ Class Fishing {
      * Check for and attempt to upgrade pond quality to max
      */
     PondQualityUpgrade() {
+        returned := false
         If (this.AreAllPondsMax()) {
             ;Out.I("All ponds detected at max")
             Return false
@@ -643,7 +761,7 @@ Class Fishing {
             ;Out.D("Search not off cooldown")
             Return false
         }
-        Out.I("Attempting pond upgrade")
+        ;Out.I("Attempting pond upgrade")
         WeakestLink := false
         rarity := 1
         While (!WeakestLink && rarity < 6 && Window.IsActive()) {
@@ -654,31 +772,30 @@ Class Fishing {
             Out.I("Pond rarity upgrade failed to get a pond to upgrade")
             Return false
         }
+        ;Out.I("Weakest pond selected " WeakestLink)
         Switch (WeakestLink) {
         Case 1:
-            this.Pond1.CancelPond()
+            returned := this.Pond1.CancelPond()
         Case 2:
-            this.Pond2.CancelPond()
+            returned := this.Pond2.CancelPond()
         Case 3:
-            this.Pond3.CancelPond()
+            returned := this.Pond3.CancelPond()
         Case 4:
-            this.Pond4.CancelPond()
+            returned := this.Pond4.CancelPond()
         default:
             Out.D("Unknown pond provided for removal " WeakestLink)
             Return false
         }
-        If (!this.Ponds.ConfirmCancel.WaitUntilActiveButtonS(3)) {
-            Out.I("No confirm cancel, assuming no search state")
+        If (!returned) {
             Return false
         }
-        this.Ponds.ConfirmCancel.ClickButtonActive()
-        this.Ponds.ConfirmCancel.ClickButtonActive()
         this.Ponds.Search.WaitUntilActiveButtonS(3)
         this.Ponds.Search.ClickButtonActive()
         this.Ponds.NewPondRod.WaitUntilActiveButtonS(3)
         this.Ponds.NewPondRod.ClickButtonActive()
         this.Ponds.NewPondRod2.ClickButtonActive()
         this.Ponds.NewPondRod3.ClickButtonActive()
+        Out.I("Pond upgrade complete")
         Return true
     }
     ;@endregion
@@ -688,20 +805,39 @@ Class Fishing {
      * Upgrade fishing rods to max available rotating between all of them
      */
     UpgradeRods() {
-        Rod1 := !this.Rods.FirstRod.IsBackground()
-        Rod2 := !this.Rods.SecondRod.IsBackground()
-        Rod3 := !this.Rods.ThirdRod.IsBackground()
-        Rod4 := !this.Rods.FourthRod.IsBackground()
-        Rod5 := !this.Rods.FifthRod.IsBackground()
-        Rod6 := !this.Rods.SixthRod.IsBackground()
-        Rod7 := !this.Rods.SeventhRod.IsBackground()
         Out.I("Upgrade Rods")
+        Rod1 := Rod2 := Rod3 := Rod4 := Rod5 := Rod6 := Rod7 := false
         While (!this.Rods.IsOnTab()) {
             this.Tabs.Rods.ClickButtonActive(, 5)
         }
+        While (this.Rods.Craft.IsButtonActive()) {
+            this.Rods.Craft.ClickButtonActive()
+        }
+        If (!this.Rods.FirstRod.IsBackground() && !this.Rods.FirstRod.IsButton()) {
+            Rod1 := true
+        }
+        If (!this.Rods.SecondRod.IsBackground() && !this.Rods.SecondRod.IsButton()) {
+            Rod2 := true
+        }
+        If (!this.Rods.ThirdRod.IsBackground() && !this.Rods.ThirdRod.IsButton()) {
+            Rod3 := true
+        }
+        If (!this.Rods.FourthRod.IsBackground() && !this.Rods.FourthRod.IsButton()) {
+            Rod4 := true
+        }
+        If (!this.Rods.FifthRod.IsBackground() && !this.Rods.FifthRod.IsButton()) {
+            Rod5 := true
+        }
+        If (!this.Rods.SixthRod.IsBackground() && !this.Rods.SixthRod.IsButton()) {
+            Rod6 := true
+        }
+        If (!this.Rods.SeventhRod.IsBackground() && !this.Rods.SeventhRod.IsButton()) {
+            Rod7 := true
+        }
         Loop {
-            If (Rod1) {
-                Rod1 := this.UpgradeSingleRod(1)
+            Out.D(Rod1 " " Rod2 " " Rod3 " " Rod4 " " Rod5 " " Rod6 " " Rod7)
+            If (Rod1 && !this.UpgradeSingleRod(1)) {
+                Rod1 := false
             }
             If (Rod2 && !this.UpgradeSingleRod(2)) {
                 Rod2 := false
@@ -734,6 +870,7 @@ Class Fishing {
      */
 
     UpgradeSingleRod(id) {
+        Out.D("Rod upgrade pass on " id)
         /** @type {cPoint} */
         RodButton := ""
         Switch id {
@@ -754,20 +891,59 @@ Class Fishing {
         Default:
             RodButton := this.Rods.FirstRod
         }
-        If (RodButton.IsBackground()) {
+        If (RodButton.IsBackground() || RodButton.IsButtonActive()) {
+            Out.D("Exiting due to no rod on button " id)
             Return false
         }
         RodButton.ClickOffset(3, 3)
-        this.Rods.Ascend.WaitUntilButtonS(1)
-        If (this.Rods.Ascend.IsButtonInactive() &&
-        this.Rods.Length.IsButtonInactive() &&
-        this.Rods.Quality.IsButtonInactive()) {
+        Sleep(50)
+        i := 0
+        While (!this.IsRodSelectedForUpgrade() && i < 10) {
+            RodButton.ClickOffset(3, 3)
+            Sleep(50)
+            i++
+        }
+        If (!this.IsRodSelectedForUpgrade()) {
+            Out.D("Exiting due to rod not selected " id)
+            Return false
+        }
+        If (!this.IsRodUpgradeAvailable()) {
+            Out.D("Exiting due to no rod upgrades " id)
             Return false
         }
         this.Rods.Ascend.ClickButtonActive()
         this.Rods.Length.ClickButtonActive()
         this.Rods.Quality.ClickButtonActive()
+        this.Rods.Ascend2.ClickButtonActive()
+        this.Rods.Length2.ClickButtonActive()
+        this.Rods.Quality2.ClickButtonActive()
         Return true
+    }
+    ;@endregion
+
+    ;@region IsRodSelectedForUpgrade()
+    /**
+     * Description
+     */
+    IsRodSelectedForUpgrade() {
+        If (this.Rods.Ascend.IsButton() || this.Rods.Length.IsButton() || this.Rods.Quality.IsButton() || this.Rods.Ascend2
+        .IsButton() || this.Rods.Length2.IsButton() || this.Rods.Quality2.IsButton()) {
+            Return true
+        }
+        Return false
+    }
+    ;@endregion
+
+    ;@region IsRodUpgradeAvailable()
+    /**
+     * Description
+     */
+    IsRodUpgradeAvailable() {
+        If (this.Rods.Ascend.IsButtonActive() || this.Rods.Length.IsButtonActive() || this.Rods.Quality.IsButtonActive() ||
+        this.Rods.Ascend2.IsButtonActive() || this.Rods.Length2.IsButtonActive() || this.Rods.Quality2.IsButtonActive()) {
+            Return true
+        }
+        Return false
     }
     ;@endregion
 }
@@ -793,6 +969,9 @@ Class Pond {
     Progress := ""
     /** @type {cRect} */
     CooldownSuffix := ""
+    /** @type {cPoint} */
+    ConfirmCancel := cPoint(1395, 556)
+
     id := 0
 
     __New(id := 0) {
@@ -958,13 +1137,26 @@ Class Pond {
      * Cancel the pond this object represents
      */
     CancelPond() {
-        While (!this.Cancel.IsButtonActive() && Window.IsActive()) {
-            this.CastRod.ClickButtonActive()
-            Sleep(50)
+        /*    Limiter := Timer()
+            Limiter.CoolDownS(5, &bool)
+             While (!this.Cancel.IsButtonActive() && Window.IsActive() && bool) {
+                this.CastRod.ClickButtonActive()
+                Sleep(50)
+        } */
+        If (this.Cancel.IsButtonActive()) {
+            this.Cancel.ClickButtonActive()
+            this.Cancel.ClickButtonActive()
+            Out.I("Canceled pond " this.id)
+
+            If (!this.ConfirmCancel.WaitUntilActiveButtonS(1)) {
+                Out.I("No confirm cancel, assuming failed to cancel")
+                Return false
+            }
+            this.ConfirmCancel.ClickButtonActive()
+            this.ConfirmCancel.ClickButtonActive()
+            Return true
         }
-        this.Cancel.ClickButtonActive()
-        this.Cancel.ClickButtonActive()
-        Out.I("Canceled pond " this.id)
+        Return false
     }
     ;@endregion
 
