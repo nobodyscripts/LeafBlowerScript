@@ -357,6 +357,21 @@ Class cPoint {
     }
 
     /**
+     * Gets the colour converted to description at the point, protected by trycatch
+     * @returns {String} 
+     */
+    GetDescription() {
+        Try {
+            fetchedColour := PixelGetColor(this.x, this.y)
+        } Catch As exc {
+            Out.I("Error 36: GetColour check failed - " exc.Message)
+            MsgBox("Could not GetColour due to the following error:`n" exc.Message
+            )
+        }
+        Return Colours().ColourIdent(fetchedColour)
+    }
+
+    /**
      * Compare colour at point to string
      * @param colour 
      * @returns {Integer} 
@@ -584,7 +599,7 @@ Class cPoint {
             i--
             If (this.toStringWColour() != debugtemp) {
                 debugtemp := this.toStringWColour()
-                Out.D(this.toStringWColour() " " this.IsButton())
+                ;Out.D(this.toStringWColour() " " this.IsButton())
             }
             If (i <= 0) {
                 Break
