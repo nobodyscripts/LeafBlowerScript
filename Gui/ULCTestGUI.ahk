@@ -163,7 +163,9 @@ Button_Click_ULC(thisGui, info) {
     optionsGUI.Add("Button", "default", "Test: Transmute relic reset loop")
     .OnEvent("Click", RelicTransmute)
 
-    optionsGUI.Show()
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 }
 
 RelicTransmute(*) {

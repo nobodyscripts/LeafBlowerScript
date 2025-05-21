@@ -404,7 +404,9 @@ Button_Click_FishingTourney(thisGui, info) {
 
     ;@endregion
 
-    optionsGUI.Show()
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ProcessFishTourSettings(*) {
         Temp := thisGui.Gui

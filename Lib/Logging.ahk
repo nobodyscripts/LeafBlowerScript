@@ -322,7 +322,7 @@ Class cLog {
      * @param {string|error} out Output error message or error object
      */
     Error(out) {
-        If (Type(out) = Error) {
+        If (Type(out) = "Error") {
             ; Log the error, outputlog only posts outputdebug if logging is off
             ; if debuglevel is off msgbox it
             this._OutputLog("Error: " out.Message)

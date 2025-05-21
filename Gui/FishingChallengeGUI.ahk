@@ -212,7 +212,9 @@ Button_Click_FishingChallenge(thisGui, info) {
 
     ;@endregion
 
-    optionsGUI.Show()
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ProcessFishChlSettings(*) {
         Temp := thisGui.Gui

@@ -143,7 +143,9 @@ Button_Click_BossFarm(thisGui, info) {
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
         CloseBossFarmSettings)
 
-    optionsGUI.Show("w300")
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ProcessBossFarmSettings(*) {
         Temp := thisGui.Gui

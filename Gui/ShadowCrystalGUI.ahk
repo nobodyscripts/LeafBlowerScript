@@ -43,7 +43,9 @@ Button_Click_ShadowCrystal(thisGui, info) {
     .OnEvent("Click",
         CloseShadowCrystalSettings)
 
-    optionsGUI.Show("w300")
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ProcessShadowCrystalSettings(*) {
         Temp := thisGui.Gui

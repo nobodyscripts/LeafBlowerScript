@@ -35,7 +35,9 @@ Button_Click_GameHotkeys(thisGui, *) {
     optionsGUI.Add("Button", "default yp", "Apply To Game").OnEvent("Click",
         ApplyNewHotkeysToGame)
 
-    optionsGUI.Show()
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ResetGameHotKeys(*) {
         If (MsgBox("Are you sure you want to reset Script Hotkeys?",

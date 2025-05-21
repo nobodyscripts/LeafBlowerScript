@@ -32,7 +32,9 @@ Button_Click_GemFarm(thisGui, info) {
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
         CloseGemFarmSettings)
 
-    optionsGUI.Show("w300")
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ProcessGemFarmSettings(*) {
         Temp := thisGui.Gui

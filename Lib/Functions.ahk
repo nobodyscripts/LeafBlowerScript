@@ -36,7 +36,7 @@ fCustomClick(clickX, clickY, delay := 34) {
 ResetModifierKeys() {
     ; Cleanup incase still held, ahk cannot tell if the key has been sent as up
     ; getkeystate reports the key, not what lbr has been given
-    If (Window.IsActive()) {
+    If (Window.Exist() && Window.IsActive()) {
         ControlSend("{Control up}", , Window.Title)
         ControlSend("{Alt up}", , Window.Title)
         ControlSend("{Shift up}", , Window.Title)

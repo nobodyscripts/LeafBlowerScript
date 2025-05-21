@@ -55,7 +55,9 @@ Button_Click_GFSS(thisGui, info) {
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
         CloseGFSSSettings)
 
-    optionsGUI.Show("w300")
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ProcessGFSSSettings(*) {
         Temp := thisGui.Gui

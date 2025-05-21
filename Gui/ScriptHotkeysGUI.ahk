@@ -33,7 +33,9 @@ Button_Click_ScriptHotkeys(thisGui, info) {
     optionsGUI.Add("Button", "default yp", "Reset To Defaults").OnEvent("Click",
         ResetScriptHotKeys)
 
-    optionsGUI.Show()
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
 
     ResetScriptHotKeys(*) {

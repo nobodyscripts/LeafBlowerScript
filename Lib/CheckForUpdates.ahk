@@ -165,11 +165,11 @@ Class UpdateChecker {
     Init() {
         Global CheckForUpdatesEnable, CheckForUpdatesReleaseOnly,
             CheckForUpdatesLastCheck, CheckForUpdatesInterval
+        /** @type {cSettings} */
         Global settings
 
         If (!settings) {
-            /** @type {cSettings} */
-            Global settings := cSettings()
+            settings := cSettings()
 
             If (!settings.initSettings()) {
                 Return false

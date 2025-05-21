@@ -99,7 +99,9 @@ Button_Click_GeneralSettings(thisGui, info) {
     settingsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
         CloseUserGeneralSettings)
 
-    settingsGUI.Show("w300")
+    ShowGUIPosition(settingsGUI)
+    settingsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ProcessUserGeneralSettings(*) {
         

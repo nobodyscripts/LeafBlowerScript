@@ -397,7 +397,9 @@ Button_Click_Mine(thisGui, info) {
         optionsGUI["MinerSphereCountLabel"].Opt("ccfaf21")
     }
 
-    optionsGUI.Show()
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ProcessMineSettings(*) {
         Temp := thisGui.Gui

@@ -828,7 +828,9 @@ Button_Click_Cards(thisGui, info) {
     optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
         CloseCardsSettings)
 
-    optionsGUI.Show("w300")
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ProcessCardsSettings(*) {
         Temp := thisGui.Gui

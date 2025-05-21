@@ -217,6 +217,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Fix check for updates not triggering properly
   - Added save display to block interactions during saving
   - Added version display to main gui
+  - Save window position
 
 - Mine
   - Modified brew travel to be more stable.
@@ -294,7 +295,7 @@ output colour found, suggest rtx dynamic vibrance off, image scaling off,
 digital vibrance off
 - Add file size check to log files
 - Autoupdate
-- Save window position/attach to game window
+- Attach to game window option
 - Fix default settings locations used by gui no longer existing
 - Saving progress gui now saving settings takes a while
   - Diffed settings saving

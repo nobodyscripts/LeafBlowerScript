@@ -422,7 +422,9 @@ Button_Click_Fishing(thisGui, info) {
 
     ;@endregion
 
-    optionsGUI.Show()
+    ShowGUIPosition(optionsGUI)
+    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ProcessFishingSettings(*) {
         Temp := thisGui.Gui

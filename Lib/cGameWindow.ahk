@@ -90,7 +90,7 @@ Class cGameWindow {
      */
     Activate() {
         If (!this.Exist()) {
-            Out.I("Error: Window doesn't exist.")
+            Out.E("Window doesn't exist.")
             Return false ; Don't check further
         }
         If (!WinActive(this.Title)) {
@@ -110,11 +110,11 @@ Class cGameWindow {
         If (!this.Exist()) {
             If (this.LastLogged = 0) {
                 this.LastLogged := A_Now
-                Out.I("Error: Window doesn't exist.")
+                Out.E("Window doesn't exist.")
                 Return false
             }
             If (DateDiff(A_Now, this.LastLogged, "Seconds") >= 10) {
-                Out.I("Error: Window doesn't exist.")
+                Out.E("Window doesn't exist.")
                 this.LastLogged := A_Now
             }
             Return false

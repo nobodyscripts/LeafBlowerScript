@@ -209,9 +209,103 @@ RunGui() {
     MyBtn.OnEvent("Click", Button_Click_GeneralSettings)
 
     MyGui.AddText("ccfcfcf xs", "")
-    MyGui.AddText("ccfcfcf xs", "LBR NobodyScript " version )
+    MyGui.AddText("ccfcfcf xs", "LBR NobodyScript " version)
 
-    MyGui.Show()
-
+    ShowGUIPosition(MyGui)
     MyGui.OnEvent("Close", Button_Click_Exit)
+    MyGui.OnEvent("Size", SaveGUIPositionOnResize)
+    OnMessage(0x0003, SaveGUIPositionOnMove)
+}
+
+ShowGUIPosition(thisGUI) {
+    SplitTitle := StrSplit(thisGUI.Title, " ")
+    Title := thisGUI.Title
+    If (SplitTitle[1] = "LBR") {
+        Title := SplitTitle[1] " " SplitTitle[2]
+    }
+    Try {
+        arr := Settings.IniToVar(Title, "GUIPosition")
+    } Catch Error As OutputVar {
+        If (OutputVar.Message = "The requested key, section or file was not found.") {
+            Out.I("No window position stored for " Title)
+            thisGUI.Show()
+            Return
+        }
+        Out.E(OutputVar)
+        Return
+    }
+    coords := StrSplit(arr, ",", " ")
+    guiX := coords[1]
+    guiY := coords[2]
+    If (coords.Length > 2) {
+        guiW := coords[3]
+        guiH := coords[4]
+        thisGUI.Show("x" guiX " y" guiY " w" guiW " h" guiH)
+    } Else {
+        thisGUI.Show("x" guiX " y" guiY)
+    }
+}
+
+ResetGUIPosition(thisGUI) {
+    SplitTitle := StrSplit(thisGUI.Title, " ")
+    Title := thisGUI.Title
+    If (SplitTitle[1] = "LBR") {
+        Title := SplitTitle[1] " " SplitTitle[2]
+    }
+    Try {
+        arr := Settings.IniToVar(Title, "GUIPosition")
+    } Catch Error As OutputVar {
+        If (OutputVar.Message = "The requested key, section or file was not found.") {
+            Out.I("No window position stored for " Title)
+            Return
+        }
+        Out.E(OutputVar)
+        Return
+    }
+    coords := StrSplit(arr, ",", " ")
+    guiX := coords[1]
+    guiY := coords[2]
+    If (coords.Length > 2) {
+        guiW := coords[3]
+        guiH := coords[4]
+        WinMove(guiX, guiY, guiW, guiH, thisGUI.Title)
+    } Else {
+        WinMove(guiX, guiY, , , thisGUI.Title)
+    }
+}
+
+StorePos(thisGUI, resize := false) {
+    Static StorePosLock := false
+
+    If (Type(thisGUI) = "Gui" && !StorePosLock) {
+        StorePosLock := true
+        WinGetPos(&guiX, &guiY, &guiW, &guiH, thisGUI.Title)
+        Sleep(500)
+        Global Settings
+        If (WinExist(thisGUI.Title)) {
+            WinGetPos(&guiX, &guiY, &guiW, &guiH, thisGUI.Title)
+        }
+        SplitTitle := StrSplit(thisGUI.Title, " ")
+        Title := thisGUI.Title
+        If (SplitTitle[1] = "LBR") {
+            Title := SplitTitle[1] " " SplitTitle[2]
+        }
+        ;Out.I("Written window pos " thisGUI.Title " X" guiX " Y" guiY)
+        If (!resize) {
+            Settings.WriteToIni(Title, guiX "," guiY, "GUIPosition")
+        } Else {
+            Settings.WriteToIni(Title, guiX "," guiY "," guiW "," guiH, "GUIPosition")
+        }
+        StorePosLock := false
+    }
+}
+
+SaveGUIPositionOnMove(Wparam, Lparam, Msg, Hwnd) {
+    ;Out.D("onmessage " Wparam " " Lparam " " Msg " " Hwnd)
+    thisGUI := GuiFromHwnd(Hwnd)
+    SetTimer(StorePos.Bind(thisGUI), -500)
+}
+
+SaveGUIPositionOnResize(thisGUI, MinMax, Width, Height) {
+    SetTimer(StorePos.Bind(thisGUI, true), -500)
 }
