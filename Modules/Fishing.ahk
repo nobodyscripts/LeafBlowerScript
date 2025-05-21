@@ -259,11 +259,11 @@ Class FishingJourney {
  */
 Class FishingTourneyRod {
     /** @type {cPoint} Upgrade rod tip */
-    Tip := cPoint(2028, 289)
+    Tip := cPoint(2025, 289)
     /** @type {cPoint} Upgrade rod handle */
-    Handle := cPoint(2028, 421)
+    Handle := cPoint(2025, 421)
     /** @type {cPoint} Upgrade rod shaft */
-    Shaft := cPoint(2035, 553)
+    Shaft := cPoint(2025, 553)
 
     IsOnTab() {
         If (this.Tip.IsButton() && (this.Handle.IsButton() || this.Handle.IsBackground()) || (this.Shaft.IsButton() &&
@@ -620,19 +620,23 @@ Class Fishing {
      * Description
      */
     TourneyRodUpgrade() {
+        If (!this.Tabs.TourneyRod.IsButtonActive()) {
+            Out.E("Tourney Rod tab inactive, feature not available")
+            Return
+        }
         Out.I("Tourney Rod Upgrade")
+
         While (!this.TourneyRod.IsOnTab()) {
             this.Tabs.TourneyRod.ClickButtonActive(, 5)
         }
-        While (this.TourneyRod.Shaft.IsButtonActive()) {
+        While (this.TourneyRod.Shaft.IsButtonActive() ||
+        this.TourneyRod.Handle.IsButtonActive() ||
+        this.TourneyRod.Tip.IsButtonActive()) {
             this.TourneyRod.Shaft.ClickButtonActive()
-        }
-        While (this.TourneyRod.Handle.IsButtonActive()) {
             this.TourneyRod.Handle.ClickButtonActive()
-        }
-        While (this.TourneyRod.Tip.IsButtonActive()) {
             this.TourneyRod.Tip.ClickButtonActive()
         }
+
     }
     ;@endregion
 
