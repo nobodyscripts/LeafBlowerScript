@@ -266,8 +266,8 @@ Class FishingTourneyRod {
     Shaft := cPoint(2035, 553)
 
     IsOnTab() {
-        If (this.Tip.IsButton() && (this.Handle.IsButton() && this.Shaft.IsButton()) || this.Handle.IsBackground() &&
-        this.Shaft.IsBackground()) {
+        If (this.Tip.IsButton() && (this.Handle.IsButton() || this.Handle.IsBackground()) || (this.Shaft.IsButton() &&
+        this.Shaft.IsBackground())) {
             Return true
         }
         Return false
