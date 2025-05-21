@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-Button_Click_ScriptHotkeys(*) {
+Button_Click_ScriptHotkeys(thisGui, info) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "Script Hotkey Customisation")
@@ -53,6 +53,10 @@ Button_Click_ScriptHotkeys(*) {
     }
 
     SaveScriptHotkeysInput(*) {
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        thisGui.Gui.Hide()
+        Saving.Show()
         values := optionsGUI.Submit()
         For (name, key in Scriptkeys.Hotkeys) {
             key.SetValue(values.%name%)

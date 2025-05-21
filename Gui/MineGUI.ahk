@@ -400,7 +400,15 @@ Button_Click_Mine(thisGui, info) {
     optionsGUI.Show()
 
     ProcessMineSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         MineSave()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunMine(*) {

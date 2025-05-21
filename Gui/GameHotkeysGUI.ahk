@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-Button_Click_GameHotkeys(*) {
+Button_Click_GameHotkeys(thisGui, *) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "Game Hotkey Customisation")
@@ -54,6 +54,11 @@ Button_Click_GameHotkeys(*) {
     }
 
     SaveGameHotkeysInput(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         values := optionsGUI.Submit()
         For (name, key in GameKeys.Hotkeys) {
             If (name != "ClosePanel") {

@@ -146,7 +146,15 @@ Button_Click_BossFarm(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessBossFarmSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         BossFarmSave()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunBossFarm(*) {

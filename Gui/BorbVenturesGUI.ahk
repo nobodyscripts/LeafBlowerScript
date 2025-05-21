@@ -58,7 +58,15 @@ Button_Click_BorbVenture(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessBorbvSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         BorbvSave()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunBorbv(*) {

@@ -102,6 +102,12 @@ Button_Click_GeneralSettings(thisGui, info) {
     settingsGUI.Show("w300")
 
     ProcessUserGeneralSettings(*) {
+        
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        settingsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         Global EnableLogging, NavigateTime, DisableZoneChecks,
             DisableSettingsChecks, TimestampLogs, settings,
             CheckForUpdatesEnable, CheckForUpdatesReleaseOnly
@@ -118,6 +124,9 @@ Button_Click_GeneralSettings(thisGui, info) {
         LogBuffer := values.LogBuffer
         settings.SaveCurrentSettings()
         UpdateDebugLevel()
+        Saving.Hide()
+        Temp.Show()
+        settingsGUI.Show()
     }
 
     CloseUserGeneralSettings(*) {

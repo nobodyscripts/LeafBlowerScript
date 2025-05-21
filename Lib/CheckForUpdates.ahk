@@ -40,19 +40,21 @@ https://api.github.com/users/nobodyscripts/events/public
 */
 
 Class ScriptVersion {
-    raw := ""
-
+    Raw := ""
     Major := 0
     Minor := 0
     Patch := 0
     Release := ""
     Build := 0
+    Full := ""
 
     /**
      * 
      * @param {string} var Json string of format 
      */
     SetByJson(var) {
+
+        this.Raw := var["Version"]
         If (!var.Has("Major")) {
             split := StrSplit(var["Version"], ".", "vV") ; "3.1.2-Alpha"
             splitPatch := StrSplit(split[3], "-") ; "2-Alpha"
@@ -62,14 +64,15 @@ Class ScriptVersion {
             this.Patch := splitPatch[1]
             this.Release := splitPatch[2]
             this.Build := var["Build"]
+            this.Full := var["Version"] " - Build " var["Build"]
             Return
         }
-        this.raw := var
         this.Major := var["Major"]
         this.Minor := var["Minor"]
         this.Patch := var["Patch"]
         this.Release := var["Release"]
         this.Build := var["Build"]
+        this.Full := var["Version"] " - Build " var["Build"]
     }
 
     ReleaseToVal(var := this.Release) {
@@ -148,10 +151,12 @@ Class UpdateChecker {
     LastCheckTime := 0
     CheckInterval := 0 ; hours
     MaxChecks := 0
-    CurrentVersion := 0
+    /** @type {ScriptVersion} */
+    CurrentVersion := ScriptVersion()
     CurrentJsonFile := A_ScriptDir "\Version.json"
     IsNewRelease := false
     IsNewBeta := false
+    localjson := ""
 
     /**
      * Initialise class with loaded settings
@@ -175,27 +180,29 @@ Class UpdateChecker {
         this.ReleasesOnly := CheckForUpdatesReleaseOnly
         this.LastCheckTime := CheckForUpdatesLastCheck
         this.CheckInterval := CheckForUpdatesInterval
+        this.localjson := this.GetLocalJson()
+        /** @type {ScriptVersion} */
+        localVer := ScriptVersion()
+        If (!this.localjson) {
+            Return false
+        }
+        localVer.SetByJson(this.localjson)
+        this.CurrentVersion := localVer
+        Out.I("Script Version " localVer.Full)
     }
 
     Check() {
         If (!this.Enabled || !this.isUpdateCheckTimePassed()) {
             Return
         }
-        localjson := this.GetLocalJson()
-        If (!localjson) {
-            Return false
-        }
         webjson := this.GetWebJson()
         If (!webjson) {
             Return false
         }
         /** @type {ScriptVersion} */
-        localVer := ScriptVersion()
-        localVer.SetByJson(localjson)
-        /** @type {ScriptVersion} */
         webVer := ScriptVersion()
         webVer.SetByJson(webjson)
-        comparison := CompareScriptVersions(localVer, webVer, this.ReleasesOnly
+        comparison := CompareScriptVersions(this.CurrentVersion, webVer, this.ReleasesOnly
         )
         If (this.ReleasesOnly && comparison = -1) {
             this.IsNewRelease := true
@@ -224,8 +231,6 @@ Class UpdateChecker {
             Out.I("Error: No version file found in " this.CurrentJsonFile)
             Return false
         }
-
-        Out.I("Local:`r`n" filecontents)
         Return jsongo.Parse(filecontents)
     }
 

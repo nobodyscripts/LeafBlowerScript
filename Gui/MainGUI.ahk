@@ -10,6 +10,8 @@
 #Include CardsGUI.ahk
 #Include ClawGUI.ahk
 #Include FishingGUI.ahk
+#Include FishingChallengeGUI.ahk
+#Include FishingTourneyGUI.ahk
 #Include GameHotkeysGUI.ahk
 #Include GemFarmGUI.ahk
 #Include GFSSFarmGUI.ahk
@@ -63,15 +65,16 @@ Button_Click_PrestigeSpammer(thisGui, info) {
 
 RunGui() {
     Global Updater
-    If (!Debug) {
-        /** @type {GUI} */
-        MyGui := Gui(, "LBR NobodyScript")
-    } Else {
-        /** @type {GUI} */
-        MyGui := Gui(, "LBR TEST")
-    }
     Updater.Init()
     Updater.Check()
+    version := Updater.CurrentVersion.Full
+    If (!Debug) {
+        /** @type {GUI} */
+        MyGui := Gui(, "LBR NobodyScript " Updater.CurrentVersion.Build)
+    } Else {
+        /** @type {GUI} */
+        MyGui := Gui(, "LBR TEST " Updater.CurrentVersion.Build)
+    }
     If (Updater.IsNewRelease) {
         MyGui.AddLink("ccfcfcf",
             "New Release Available, <a href=`"https://github.com/nobodyscripts/LeafBlowerScript`">Open Main Page</a> or <a href=`"https://github.com/nobodyscripts/LeafBlowerScript/releases`">Releases</a>"
@@ -132,6 +135,8 @@ RunGui() {
     MyBtn := MyGui.Add("Button", "Default w120", "Resize Game`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_Resize)
 
+    ; ----------------------
+
     MyGui.Add("Text", "ys ccfcfcf", Scriptkeys.GetHotkey("MineMaintain"))
     MyBtn := MyGui.Add("Button", "Default w120", "Mine Maintainer")
     MyBtn.OnEvent("Click", Button_Click_Mine)
@@ -168,13 +173,23 @@ RunGui() {
     MyBtn := MyGui.Add("Button", "Default w120", "Gold Prestige Spam`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_PrestigeSpammer)
 
-    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
+    ; ----------------------
+
+    MyGui.Add("Text", "ys ccfcfcf", "(no keybind)")
     MyBtn := MyGui.Add("Button", "Default w120", "ULC TEST")
     MyBtn.OnEvent("Click", Button_Click_ULC)
 
     MyGui.Add("Text", "ccfcfcf", "(no keybind)")
     MyBtn := MyGui.Add("Button", "Default w120", "Fishing")
     MyBtn.OnEvent("Click", Button_Click_Fishing)
+
+    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "Default w120", "Fishing Challenge")
+    MyBtn.OnEvent("Click", Button_Click_FishingChallenge)
+
+    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "Default w120", "Fishing Tourney")
+    MyBtn.OnEvent("Click", Button_Click_FishingTourney)
 
     MyGui.Add("Text", "ccfcfcf", "")
     MyBtn := MyGui.Add("Button", "Default w120", "Edit Script Hotkeys")
@@ -192,6 +207,9 @@ RunGui() {
     MyGui.Add("Text", "ccfcfcf", "General Settings")
     MyBtn := MyGui.Add("Button", "Default w120", "Settings")
     MyBtn.OnEvent("Click", Button_Click_GeneralSettings)
+
+    MyGui.AddText("ccfcfcf xs", "")
+    MyGui.AddText("ccfcfcf xs", "LBR NobodyScript " version )
 
     MyGui.Show()
 

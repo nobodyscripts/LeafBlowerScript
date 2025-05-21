@@ -215,6 +215,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added second col for mine view to help those on lower resolutions
   - Added options to control Debug and Verbose in general settings
   - Fix check for updates not triggering properly
+  - Added save display to block interactions during saving
+  - Added version display to main gui
 
 - Mine
   - Modified brew travel to be more stable.
@@ -294,6 +296,8 @@ digital vibrance off
 - Autoupdate
 - Save window position/attach to game window
 - Fix default settings locations used by gui no longer existing
+- Saving progress gui now saving settings takes a while
+  - Diffed settings saving
 
 - Features:
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.

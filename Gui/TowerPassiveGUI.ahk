@@ -43,11 +43,19 @@ Button_Click_TowerPassive(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessTowerPassiveSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         values := optionsGUI.Submit()
         TowerPassiveBanksEnabled := values.TowerPassiveBanksEnabled
         TowerPassiveCraftEnabled := values.TowerPassiveCraftEnabled
         TowerPassiveTravelEnabled := values.TowerPassiveTravelEnabled
         settings.SaveCurrentSettings()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunTowerPassive(*) {

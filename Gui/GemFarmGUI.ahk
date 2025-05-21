@@ -35,7 +35,15 @@ Button_Click_GemFarm(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessGemFarmSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         GemFarmSave()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunGemFarm(*) {

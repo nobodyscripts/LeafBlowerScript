@@ -200,7 +200,15 @@ Button_Click_Hyacinth(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessHyacinthSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         HyacinthSave()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunHyacinth(*) {

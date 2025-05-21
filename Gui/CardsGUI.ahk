@@ -831,7 +831,15 @@ Button_Click_Cards(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessCardsSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         CardsSave()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunCards(*) {

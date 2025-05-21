@@ -101,7 +101,15 @@ Button_Click_Bank(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessBankSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         SaveBank()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunSaveBank(*) {

@@ -95,7 +95,15 @@ Button_Click_Leafton(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessLeaftonSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         LeaftonSave()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunLeafton(*) {

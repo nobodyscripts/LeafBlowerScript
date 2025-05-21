@@ -58,7 +58,15 @@ Button_Click_GFSS(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessGFSSSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         GFSSSave()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunGFSS(*) {

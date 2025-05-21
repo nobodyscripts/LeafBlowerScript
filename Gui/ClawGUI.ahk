@@ -42,7 +42,15 @@ Button_Click_Claw(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessClawSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         ClawSave()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunClaw(*) {

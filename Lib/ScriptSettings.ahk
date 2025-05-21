@@ -529,10 +529,10 @@ Class cSettings {
             false, false, "bool", "Fishing")
         this.Map["FishLegend"] := singleSetting("FishLegend",
             false, false, "bool", "Fishing")
-        this.Map["FishNoviceAttack"] := singleSetting("FishNoviceAttack", 1, 1, "int", "FishChallenge")
-        this.Map["FishIntermediateAttack"] := singleSetting("FishIntermediateAttack", 1, 1, "int", "FishChallenge")
-        this.Map["FishExpertAttack"] := singleSetting("FishExpertAttack", 1, 1, "int", "FishChallenge")
-        this.Map["FishLegendAttack"] := singleSetting("FishLegendAttack", 1, 1, "int", "FishChallenge")
+        this.Map["FishNoviceAttack"] := singleSetting("FishNoviceAttack", 1, 1, "int", "Fishing")
+        this.Map["FishIntermediateAttack"] := singleSetting("FishIntermediateAttack", 1, 1, "int", "Fishing")
+        this.Map["FishExpertAttack"] := singleSetting("FishExpertAttack", 1, 1, "int", "Fishing")
+        this.Map["FishLegendAttack"] := singleSetting("FishLegendAttack", 1, 1, "int", "Fishing")
         this.Map["FishChlCatchingSearch"] := singleSetting("FishChlCatchingSearch",
             true, true, "bool", "FishChallenge")
         this.Map["FishChlEnableShopUpgrade"] := singleSetting("FishChlEnableShopUpgrade",

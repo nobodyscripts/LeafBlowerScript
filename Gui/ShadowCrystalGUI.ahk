@@ -46,7 +46,15 @@ Button_Click_ShadowCrystal(thisGui, info) {
     optionsGUI.Show("w300")
 
     ProcessShadowCrystalSettings(*) {
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        optionsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
         ShadowCrystalSave()
+        Saving.Hide()
+        Temp.Show()
+        optionsGUI.Show()
     }
 
     RunShadowCrystal(*) {
