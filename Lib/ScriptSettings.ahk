@@ -858,7 +858,10 @@ Class cSettings {
      * @param {String} [section="Default"] 
      */
     WriteToIni(key, value, section := this.sFileSection) {
-        IniWrite(value, this.sFilename, section, key)
+        storedVal := IniRead(this.sFilename, section, key)
+        If (storedVal != value) {
+            IniWrite(value, this.sFilename, section, key)
+        }
     }
     ;@endregion
 

@@ -218,6 +218,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added save display to block interactions during saving
   - Added version display to main gui
   - Save window position
+  - Improved save setting times
 
 - Mine
   - Modified brew travel to be more stable.
