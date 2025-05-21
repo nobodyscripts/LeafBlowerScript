@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0
 
-
 Button_Click_GeneralSettings(thisGui, info) {
     Global settings, EnableLogging, NavigateTime, DisableZoneChecks,
         DisableSettingsChecks, TimestampLogs, Debug, Verbose, LogBuffer
 
     /** @type {GUI} */
     settingsGUI := Gui(, "General Settings")
-    settingsGUI.Opt("+MinSize +MinSize500x")
+    settingsGUI.Opt("")
     settingsGUI.BackColor := "0c0018"
 
     If (EnableLogging = true) {
@@ -68,7 +67,6 @@ Button_Click_GeneralSettings(thisGui, info) {
             "Disable Zone Checks")
     }
 
-
     If (DisableSettingsChecks = true) {
         settingsGUI.Add("CheckBox", "vDisableSettingsChecks ccfcfcf checked",
             "Disable Game Settings Checks")
@@ -104,7 +102,7 @@ Button_Click_GeneralSettings(thisGui, info) {
     OnMessage(0x0003, SaveGUIPositionOnMove)
 
     ProcessUserGeneralSettings(*) {
-        
+
         Temp := thisGui.Gui
         Saving := SavingGUI()
         settingsGUI.Hide()

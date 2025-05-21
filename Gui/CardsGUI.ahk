@@ -10,7 +10,7 @@ Button_Click_Cards(thisGui, info) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "Mine Maintainer Settings")
-    optionsGUI.Opt("+MinSize +MinSize500x")
+    optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
     optionsGUI.Add("Text", "ccfcfcf", "Cards Opening Options:")
     optionsGUI.Add("Text", "ccfcfcf", "Open Common Card Packs Amount:")

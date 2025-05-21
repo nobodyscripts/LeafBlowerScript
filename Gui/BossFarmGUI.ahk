@@ -8,7 +8,7 @@ Button_Click_BossFarm(thisGui, info) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "Boss Farm Mode Settings")
-    optionsGUI.Opt("+MinSize +MinSize500x")
+    optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
 
     If (BossFarmUsesWind = true) {
@@ -42,7 +42,7 @@ Button_Click_BossFarm(thisGui, info) {
         optionsGUI.Add("CheckBox", "vBossFarmFast ccfcfcf",
             "Enable Fast Artifact Use")
     }
-    
+
     optionsGUI.Add("Text", "ccfcfcf", "Delay between artifact use (ms):")
     optionsGUI.AddEdit()
     If (IsInteger(ArtifactSleepAmount) && ArtifactSleepAmount > 0) {

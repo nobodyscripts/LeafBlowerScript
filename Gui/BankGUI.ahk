@@ -8,7 +8,7 @@ Button_Click_Bank(thisGui, info) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "Bank Maintainer Settings")
-    optionsGUI.Opt("+MinSize +MinSize500x")
+    optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
 
     If (BankEnableStorageUpgrade = true) {

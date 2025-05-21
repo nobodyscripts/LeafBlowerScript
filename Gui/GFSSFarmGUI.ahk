@@ -5,7 +5,7 @@ Button_Click_GFSS(thisGui, info) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "GF/SS Bossfarm Settings")
-    optionsGUI.Opt("+MinSize +MinSize500x")
+    optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
 
     optionsGUI.Add("Text", "ccfcfcf", "GF To Kill Per Cycle:")
@@ -45,7 +45,6 @@ Button_Click_GFSS(thisGui, info) {
         optionsGUI.Add("CheckBox", "vGFSSNoReset ccfcfcf",
             "Disable resetting kill count")
     }
-
 
     optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunGFSS)
     optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",

@@ -5,9 +5,8 @@ Button_Click_GemFarm(thisGui, info) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "Gem Suitcase Farm Settings")
-    optionsGUI.Opt("+MinSize +MinSize500x")
+    optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
-
 
     optionsGUI.Add("Text", "ccfcfcf", "Delay between refreshes (ms):")
     optionsGUI.AddEdit()

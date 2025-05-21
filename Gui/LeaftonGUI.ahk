@@ -11,7 +11,7 @@ Button_Click_Leafton(thisGui, info) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "Leafton Settings")
-    optionsGUI.Opt("+MinSize +MinSize500x")
+    optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
 
     If (LeaftonCraftEnabled = true) {

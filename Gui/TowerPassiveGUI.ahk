@@ -6,7 +6,7 @@ Button_Click_TowerPassive(thisGui, info) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "Tower Passive Mode Settings")
-    optionsGUI.Opt("+MinSize +MinSize500x")
+    optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
 
     If (TowerPassiveBanksEnabled = true) {

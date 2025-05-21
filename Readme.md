@@ -228,6 +228,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Fix brew transmuting fuel to coal diamonds unintentionally
   - Extra check for vein removal being active
   - Fixes for game breaking mine script
+  - Fix transmute when auto transmute not purchased
 
 - GFSS
 

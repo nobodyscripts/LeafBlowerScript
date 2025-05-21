@@ -6,7 +6,7 @@ Button_Click_ShadowCrystal(thisGui, info) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "Shadow Crystal Fight Settings")
-    optionsGUI.Opt("+MinSize +MinSize500x")
+    optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
 
     If (SCAdvanceReplace = true) {
@@ -16,21 +16,21 @@ Button_Click_ShadowCrystal(thisGui, info) {
         optionsGUI.Add("CheckBox", "vSCAdvanceReplace ccfcfcf",
             "Use custom SC advancing")
     }
-/*
-    optionsGUI.Add("Text", "ccfcfcf", "Percent health remaining:")
-    optionsGUI.AddEdit()
-    If (IsInteger(SCPercent) && SCPercent > 0) {
-        optionsGUI.Add("UpDown", "vSCPercent Range1-9999", SCPercent)
-    } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vSCPercent Range1-9999",
-                Settings.defaultNobodySettings.SCPercent)
+    /*
+        optionsGUI.Add("Text", "ccfcfcf", "Percent health remaining:")
+        optionsGUI.AddEdit()
+        If (IsInteger(SCPercent) && SCPercent > 0) {
+            optionsGUI.Add("UpDown", "vSCPercent Range1-9999", SCPercent)
         } Else {
-            optionsGUI.Add("UpDown", "vSCPercent Range1-9999",
-                Settings.defaultSettings.SCPercent)
+            If (Settings.sUseNobody) {
+                optionsGUI.Add("UpDown", "vSCPercent Range1-9999",
+                    Settings.defaultNobodySettings.SCPercent)
+            } Else {
+                optionsGUI.Add("UpDown", "vSCPercent Range1-9999",
+                    Settings.defaultSettings.SCPercent)
+            }
         }
-    }
-*/
+    */
     optionsGUI.Add("Button", "default", "Run")
     .OnEvent("Click", RunShadowCrystal)
     optionsGUI.Add("Button", "default yp", "Save and Run")

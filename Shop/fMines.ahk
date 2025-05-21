@@ -142,16 +142,12 @@ Class sMine extends Zone {
      * @returns {Integer} 
      */
     IsOnTabTrans() {
-        If (!Points.Mine.Transmute.SingleCBarToCDia.IsBackground() && !Points.Mine
-        .Transmute.SingleCDiaToSDia.IsBackground() && !Points.Mine.Transmute
-        .SingleCDiaToFuel.IsBackground() && !Points.Mine.Transmute.SingleCDiaToSphere
-        .IsBackground() && !Points.Mine.Transmute.AllCBarsToCDias.IsBackground() &&
-        !Points.Mine.Transmute.AllCDiasToSDias.IsBackground() && !Points.Mine
-        .Transmute.AllCDiasToFuel.IsBackground() && !Points.Mine.Transmute.AllCDiasToSpheres
-        .IsBackground() && !Points.Mine.Transmute.AllSDiasToCDia.IsBackground() &&
-        !Points.Mine.Transmute.AutoCBarToCDia.IsBackground() && !Points.Mine
-        .Transmute.AutoCDiaToSDia.IsBackground() && !Points.Mine.Transmute.AutoCDiaToFuel
-        .IsBackground() && !Points.Mine.Transmute.AutoCDiaToSphere.IsBackground()) {
+        T := Points.Mine.Transmute
+        If (T.SingleCBarToCDia.IsButton() && T.SingleCDiaToSDia.IsButton() &&
+        T.SingleCDiaToFuel.IsButton() && T.SingleCDiaToSphere.IsButton() &&
+        T.AllCBarsToCDias.IsButton() && T.AllCDiasToSDias.IsButton() &&
+        T.AllCDiasToFuel.IsButton() && T.AllCDiasToSpheres.IsButton() &&
+        T.AllSDiasToCDia.IsButton()) {
             Return true
         }
         Return false

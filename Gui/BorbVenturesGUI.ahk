@@ -5,7 +5,7 @@ Button_Click_BorbVenture(thisGui, info) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "Borbventures Farm Settings")
-    optionsGUI.Opt("+MinSize +MinSize500x")
+    optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
 
     If (HaveBorbDLC = true) {

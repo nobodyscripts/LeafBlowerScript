@@ -4,7 +4,7 @@ Button_Click_ScriptHotkeys(thisGui, info) {
 
     /** @type {GUI} */
     optionsGUI := Gui(, "Script Hotkey Customisation")
-    optionsGUI.Opt("+MinSize +MinSize500x")
+    optionsGUI.Opt("")
     optionsGUI.BackColor := "0c0018"
     i := 1
     first := true
@@ -36,7 +36,6 @@ Button_Click_ScriptHotkeys(thisGui, info) {
     ShowGUIPosition(optionsGUI)
     optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
-
 
     ResetScriptHotKeys(*) {
         If (MsgBox("Are you sure you want to reset Script Hotkeys?",
