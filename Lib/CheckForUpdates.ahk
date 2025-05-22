@@ -271,4 +271,15 @@ Class UpdateChecker {
         Global settings
         settings.SaveCurrentSettings()
     }
+
+    UpdateScriptToNewDev(*) {
+        Download("*0 https://github.com/nobodyscripts/LeafBlowerScript/archive/refs/heads/main.zip", "Install.zip")
+
+        DirCopy("Install.zip", A_ScriptDir, 2)
+        DirCopy(A_ScriptDir "\LeafBlowerScript-main", A_ScriptDir, 2)
+        DirDelete(A_ScriptDir "\LeafBlowerScript-main", 1)
+        FileDelete(A_ScriptDir "\Install.zip")
+        MsgBox("LBR Script Update Completed.")
+        Reload()
+    }
 }

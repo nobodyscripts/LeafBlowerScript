@@ -75,19 +75,17 @@ RunGui() {
         /** @type {GUI} */
         MyGui := Gui(, "LBR TEST " Updater.CurrentVersion.Build)
     }
+    SetFontOptions(MyGUI)
     If (Updater.IsNewRelease) {
         MyGui.AddLink("",
             "New Release Available, <a href=`"https://github.com/nobodyscripts/LeafBlowerScript`">Open Main Page</a> or <a href=`"https://github.com/nobodyscripts/LeafBlowerScript/releases`">Releases</a>"
         )
     }
     If (Updater.IsNewBeta) {
-        MyGui.AddLink("",
-            "New Update Available, <a href=`"https://github.com/nobodyscripts/LeafBlowerScript'>Open Main Page</a> or <a href=`"https://github.com/nobodyscripts/LeafBlowerScript/archive/refs/heads/main.zip`">Direct Download</a>"
-        )
+        MyGui.Add("Text", "", "New beta update available.")
+        MyBtn := MyGui.Add("Button", "+Background" GuiBGColour "", "Update Script Beta")
+        MyBtn.OnEvent("Click", Updater.UpdateScriptToNewDev)
     }
-    ;MyGui.Opt("-SysMenu")
-
-    SetFontOptions(MyGUI)
 
     MyGui.Add("Text", "section", Scriptkeys.GetHotkey("Exit"))
     MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w80", "Exit")
