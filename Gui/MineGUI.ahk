@@ -16,49 +16,49 @@ Button_Click_Mine(thisGui, info) {
     /** @type {GUI} */
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("")
-    optionsGUI.BackColor := "0c0018"
+    SetFontOptions(optionsGUI)
 
     ;@region Add controls
 
     ;@region Vein settings
     If (MinerEnableVeins = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vMinerEnableVeins checked",
             "Enable Coal Veins Enhance")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeins ccfcfcf",
+        optionsGUI.Add("CheckBox", "vMinerEnableVeins",
             "Enable Coal Veins Enhance")
     }
 
     If (MinerEnableVeinUpgrade = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeinUpgrade ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vMinerEnableVeinUpgrade checked",
             "Enable Vein Level Upgrader")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeinUpgrade ccfcfcf",
+        optionsGUI.Add("CheckBox", "vMinerEnableVeinUpgrade",
             "Enable Vein Level Upgrader")
     }
 
     If (MinerEnableVeinRemoval = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeinRemoval ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vMinerEnableVeinRemoval checked",
             "Enable Removal of 6th Vein")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableVeinRemoval ccfcfcf",
+        optionsGUI.Add("CheckBox", "vMinerEnableVeinRemoval",
             "Enable Removal of 6th Vein")
     }
     ;@endregion
 
     ;@region Bank settings
     If (MinerEnableBanks = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableBanks ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vMinerEnableBanks checked",
             "Enable Banks")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableBanks ccfcfcf", "Enable Banks")
+        optionsGUI.Add("CheckBox", "vMinerEnableBanks", "Enable Banks")
     }
 
     If (BankEnableStorageUpgrade = true) {
-        optionsGUI.Add("CheckBox", "vBankEnableStorageUpgrade ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBankEnableStorageUpgrade checked",
             "Enable Banks Storage Upgrade")
     } Else {
-        optionsGUI.Add("CheckBox", "vBankEnableStorageUpgrade ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBankEnableStorageUpgrade",
             "Enable Banks Storage Upgrade")
     }
     ;@endregion
@@ -71,30 +71,42 @@ Button_Click_Mine(thisGui, info) {
     } Else {
         bgMode := 0
     }
-    optionsGUI.Add("Text", "ccfcfcf vMinerBackgroundLabel",
+    optionsGUI.Add("Text", "vMinerBackgroundLabel",
         "Background process:")
     Switch bgMode {
-        Case 1:
-            optionsGUI.Add("DropDownList", "vMinerBackground Choose1", [
-                "Leafton Taxi", "Boss Spammer", "Off"])
-        Case 2:
-            optionsGUI.Add("DropDownList", "vMinerBackground Choose2", [
-                "Leafton Taxi", "Boss Spammer", "Off"])
-        Case 0:
-            optionsGUI.Add("DropDownList", "vMinerBackground Choose3", [
-                "Leafton Taxi", "Boss Spammer", "Off"])
-        default:
-            optionsGUI.Add("DropDownList", "vMinerBackground Choose3", [
-                "Leafton Taxi", "Boss Spammer", "Off"])
+    Case 1:
+        optionsGUI.Add("DropDownList", "vMinerBackground Choose1", [
+            "Leafton Taxi",
+            "Boss Spammer",
+            "Off"
+        ])
+    Case 2:
+        optionsGUI.Add("DropDownList", "vMinerBackground Choose2", [
+            "Leafton Taxi",
+            "Boss Spammer",
+            "Off"
+        ])
+    Case 0:
+        optionsGUI.Add("DropDownList", "vMinerBackground Choose3", [
+            "Leafton Taxi",
+            "Boss Spammer",
+            "Off"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vMinerBackground Choose3", [
+            "Leafton Taxi",
+            "Boss Spammer",
+            "Off"
+        ])
     }
     ;@endregion
 
     ;@region Transmute settings
     If (MinerEnableTransmute = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmute ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmute checked",
             "Enable Coal Bar To Coal Dia Transmute")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmute ccfcfcf",
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmute",
             "Enable Coal Bar To Coal Dia Transmute")
     }
 
@@ -107,19 +119,19 @@ Button_Click_Mine(thisGui, info) {
     }
 
     If (MinerEnableTransmuteFuel = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteFuel ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteFuel checked",
             "Enable Coal Dia To Fuel Transmute")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteFuel ccfcfcf",
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteFuel",
             "Enable Coal Dia To Fuel Transmute")
     }
 
     If (MinerEnableTransmuteSphere = true) {
         optionsGUI.Add("CheckBox",
-            "vMinerEnableTransmuteSphere ccfcfcf checked",
+            "vMinerEnableTransmuteSphere checked",
             "Enable Coal Dia To Sphere Transmute")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSphere ccfcfcf",
+        optionsGUI.Add("CheckBox", "vMinerEnableTransmuteSphere",
             "Enable Coal Dia To Sphere Transmute")
     }
 
@@ -132,8 +144,8 @@ Button_Click_Mine(thisGui, info) {
             "Enable Shiny Dia To Coal Diamond Transmute")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Auto Bars Transmute Timer (s):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Auto Bars Transmute Timer (s):")
+    optionsGUI.AddEdit("cDefault")
     If (IsInteger(MinerTransmuteTimer) && MinerTransmuteTimer > 0) {
         optionsGUI.Add("UpDown", "vMinerTransmuteTimer Range1-9999",
             MinerTransmuteTimer)
@@ -150,16 +162,16 @@ Button_Click_Mine(thisGui, info) {
 
     ;@region Fuel settings
     If (MinerEnableFreeRefuel = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableFreeRefuel ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vMinerEnableFreeRefuel checked",
             "Enable Fuel Collection")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableFreeRefuel ccfcfcf",
+        optionsGUI.Add("CheckBox", "vMinerEnableFreeRefuel",
             "Enable Fuel Collection")
     }
-    optionsGUI.Add("Text", "ccfcfcf", "Fuel Collection Timer (m):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Fuel Collection Timer (m):")
+    optionsGUI.AddEdit("cDefault")
     If ((IsInteger(MinerRefuelTimer) || IsFloat(MinerRefuelTimer)) &&
-        MinerRefuelTimer > 0.15) {
+    MinerRefuelTimer > 0.15) {
         optionsGUI.Add("UpDown", "vMinerRefuelTimer Range0-9999",
             MinerRefuelTimer)
     } Else {
@@ -175,23 +187,23 @@ Button_Click_Mine(thisGui, info) {
 
     ;@region Sphere settings
     If (MinerEnableSphereUse = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableSphereUse ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vMinerEnableSphereUse checked",
             "Enable Drill Sphere Use")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableSphereUse ccfcfcf",
+        optionsGUI.Add("CheckBox", "vMinerEnableSphereUse",
             "Enable Drill Sphere Use")
     }
 
     If (MinerSphereGreedyUse = true) {
-        optionsGUI.Add("CheckBox", "vMinerSphereGreedyUse ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vMinerSphereGreedyUse checked",
             "Enable Greedy Sphere Use").OnEvent("Click", HandleGreedy)
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerSphereGreedyUse ccfcfcf",
+        optionsGUI.Add("CheckBox", "vMinerSphereGreedyUse",
             "Enable Greedy Sphere Use").OnEvent("Click", HandleGreedy)
     }
     optionsGUI.Add("Text", "ccfaf21", "Greedy caps to Amount")
-    optionsGUI.Add("Text", "ccfcfcf YP+25", "Drill Sphere Use Delay (ms):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "YP+25", "Drill Sphere Use Delay (ms):")
+    optionsGUI.AddEdit("cDefault")
     If (IsInteger(MinerSphereDelay) && MinerSphereDelay > 0) {
         optionsGUI.Add("UpDown", "vMinerSphereDelay Range1-9999",
             MinerSphereDelay)
@@ -205,9 +217,9 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf vMinerSphereCountLabel",
+    optionsGUI.Add("Text", "vMinerSphereCountLabel",
         "Drill Sphere Use Count, 0 (infinite):")
-    optionsGUI.AddEdit("vMinerSphereCountEdit")
+    optionsGUI.AddEdit("cDefault vMinerSphereCountEdit")
     If (IsInteger(MinerSphereCount)) {
         optionsGUI.Add("UpDown", "vMinerSphereCount Range0-99999",
             MinerSphereCount)
@@ -221,43 +233,114 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf vMinerSphereModifierLabel",
+    optionsGUI.Add("Text", "vMinerSphereModifierLabel",
         "Drill Sphere Usage Amount Modifier:")
     Switch MinerSphereModifier {
-        Case 1:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose1", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 10:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose2", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose3", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 100:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose4", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 250:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose5", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 1000:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose6", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 2500:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose7", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        Case 25000:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose8", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
-        default:
-            optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose1", ["1",
-                "10", "25", "100", "250", "1000", "2500", "25000"])
+    Case 1:
+        optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose1", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 10:
+        optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose2", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25:
+        optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose3", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 100:
+        optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose4", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 250:
+        optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose5", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 1000:
+        optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose6", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 2500:
+        optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose7", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    Case 25000:
+        optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose8", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
+    default:
+        optionsGUI.Add("DropDownList", "vMinerSphereModifier Choose1", [
+            "1",
+            "10",
+            "25",
+            "100",
+            "250",
+            "1000",
+            "2500",
+            "25000"
+        ])
     }
 
-
-    optionsGUI.Add("Text", "ccfcfcf", "Drill Sphere Cycle Timer (m):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Drill Sphere Cycle Timer (m):")
+    optionsGUI.AddEdit("cDefault")
     If ((IsInteger(MinerSphereTimer) || IsFloat(MinerSphereTimer)) &&
-        MinerSphereTimer > 0.15) {
+    MinerSphereTimer > 0.15) {
         optionsGUI.Add("UpDown", "vMinerSphereTimer Range0-9999",
             MinerSphereTimer)
     } Else {
@@ -273,19 +356,19 @@ Button_Click_Mine(thisGui, info) {
 
     ;@region Cave settings
     If (MinerEnableCaves = true) {
-        optionsGUI.Add("CheckBox", "ys vMinerEnableCaves ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "ys vMinerEnableCaves checked",
             "Enable Cave Diamond Drills")
     } Else {
-        optionsGUI.Add("CheckBox", "ys vMinerEnableCaves ccfcfcf",
+        optionsGUI.Add("CheckBox", "ys vMinerEnableCaves",
             "Enable Cave Diamond Drills")
     }
 
     optionsGUI.Add("Text", "ccfaf21",
         "Cave Drills unstable at lower resolutions.")
-    optionsGUI.Add("Text", "ccfcfcf", "Cave Drills Cycle Timer (m):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Cave Drills Cycle Timer (m):")
+    optionsGUI.AddEdit("cDefault")
     If ((IsInteger(MinerCaveTimer) || IsFloat(MinerCaveTimer)) &&
-        MinerCaveTimer > 0.15) {
+    MinerCaveTimer > 0.15) {
         optionsGUI.Add("UpDown", "vMinerCaveTimer Range0-9999", MinerCaveTimer)
     } Else {
         If (Settings.sUseNobody) {
@@ -300,17 +383,17 @@ Button_Click_Mine(thisGui, info) {
 
     ;@region Brew settings
     If (MinerEnableBrewing = true) {
-        optionsGUI.Add("CheckBox", "vMinerEnableBrewing ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vMinerEnableBrewing checked",
             "Enable Brewing")
     } Else {
-        optionsGUI.Add("CheckBox", "vMinerEnableBrewing ccfcfcf",
+        optionsGUI.Add("CheckBox", "vMinerEnableBrewing",
             "Enable Brewing")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Brew Cycle Timer (s):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Brew Cycle Timer (s):")
+    optionsGUI.AddEdit("cDefault")
     If ((IsInteger(MinerBrewCycleTime) || IsFloat(MinerBrewCycleTime)) &&
-        MinerBrewCycleTime >= 0) {
+    MinerBrewCycleTime >= 0) {
         optionsGUI.Add("UpDown", "vMinerBrewCycleTime Range0-9999",
             MinerBrewCycleTime)
     } Else {
@@ -323,10 +406,10 @@ Button_Click_Mine(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Brew Period Cutoff Timer (s):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Brew Period Cutoff Timer (s):")
+    optionsGUI.AddEdit("cDefault")
     If ((IsInteger(MinerBrewCutOffTime) || IsFloat(MinerBrewCutOffTime)) &&
-        MinerBrewCutOffTime >= 0) {
+    MinerBrewCutOffTime >= 0) {
         optionsGUI.Add("UpDown", "vMinerBrewCutOffTime Range0-9999",
             MinerBrewCutOffTime)
     } Else {
@@ -340,52 +423,52 @@ Button_Click_Mine(thisGui, info) {
     }
 
     If (BrewEnableArtifacts = true) {
-        optionsGUI.Add("CheckBox", "vBrewEnableArtifacts ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBrewEnableArtifacts checked",
             "Enable Brew Artifacts")
     } Else {
-        optionsGUI.Add("CheckBox", "vBrewEnableArtifacts ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBrewEnableArtifacts",
             "Enable Brew Artifacts")
     }
 
     If (BrewEnableEquipment = true) {
-        optionsGUI.Add("CheckBox", "vBrewEnableEquipment ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBrewEnableEquipment checked",
             "Enable Brew Equipment")
     } Else {
-        optionsGUI.Add("CheckBox", "vBrewEnableEquipment ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBrewEnableEquipment",
             "Enable Brew Equipment")
     }
 
     If (BrewEnableMaterials = true) {
-        optionsGUI.Add("CheckBox", "vBrewEnableMaterials ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBrewEnableMaterials checked",
             "Enable Brew Materials")
     } Else {
-        optionsGUI.Add("CheckBox", "vBrewEnableMaterials ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBrewEnableMaterials",
             "Enable Brew Materials")
     }
 
     If (BrewEnableScrolls = true) {
-        optionsGUI.Add("CheckBox", "vBrewEnableScrolls ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBrewEnableScrolls checked",
             "Enable Brew Scrolls")
     } Else {
-        optionsGUI.Add("CheckBox", "vBrewEnableScrolls ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBrewEnableScrolls",
             "Enable Brew Scrolls")
     }
 
     If (BrewEnableCardParts = true) {
-        optionsGUI.Add("CheckBox", "vBrewEnableCardParts ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBrewEnableCardParts checked",
             "Enable Brew Card Parts")
     } Else {
-        optionsGUI.Add("CheckBox", "vBrewEnableCardParts ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBrewEnableCardParts",
             "Enable Brew Card Parts")
     }
     ;@endregion
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunMine)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunMine)
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveMine)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessMineSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseMineSettings)
 
     ;@endregion
@@ -433,15 +516,15 @@ Button_Click_Mine(thisGui, info) {
     MineSave() {
         values := optionsGUI.Submit()
         Switch values.MinerBackground {
-            Case "Leafton Taxi":
-                MinerEnableLeafton := true
-                MinerEnableSpammer := false
-            Case "Boss Spammer":
-                MinerEnableLeafton := false
-                MinerEnableSpammer := true
-            default:
-                MinerEnableLeafton := false
-                MinerEnableSpammer := false
+        Case "Leafton Taxi":
+            MinerEnableLeafton := true
+            MinerEnableSpammer := false
+        Case "Boss Spammer":
+            MinerEnableLeafton := false
+            MinerEnableSpammer := true
+        default:
+            MinerEnableLeafton := false
+            MinerEnableSpammer := false
         }
         MinerEnableVeins := values.MinerEnableVeins
         MinerEnableTransmute := values.MinerEnableTransmute

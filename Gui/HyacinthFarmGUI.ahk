@@ -8,9 +8,9 @@ Button_Click_Hyacinth(thisGui, info) {
     /** @type {GUI} */
     optionsGUI := Gui(, "Hyacinth Farm Settings")
     optionsGUI.Opt("")
-    optionsGUI.BackColor := "0c0018"
+    SetFontOptions(optionsGUI)
 
-    optionsGUI.Add("Text", "ccfcfcf", "Which Farm Slot To Use:")
+    optionsGUI.Add("Text", "", "Which Farm Slot To Use:")
     Switch HyacinthUseSlot {
     Case "All":
         optionsGUI.Add("DropDownList", "vHyacinthUseSlot Choose1", [
@@ -182,7 +182,7 @@ Button_Click_Hyacinth(thisGui, info) {
         ])
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Which Flower To Use:")
+    optionsGUI.Add("Text", "", "Which Flower To Use:")
     Switch HyacinthUseFlower {
     Case "hyacinth":
         optionsGUI.Add("DropDownList", "vHyacinthUseFlower Choose1", [
@@ -510,44 +510,44 @@ Button_Click_Hyacinth(thisGui, info) {
     }
 
     If (HyacinthFarmBoss = true) {
-        optionsGUI.Add("CheckBox", "vHyacinthFarmBoss ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vHyacinthFarmBoss checked",
             "Enable Boss Spammer")
     } Else {
-        optionsGUI.Add("CheckBox", "vHyacinthFarmBoss ccfcfcf",
+        optionsGUI.Add("CheckBox", "vHyacinthFarmBoss",
             "Enable Boss Spammer")
     }
 
     If (HyacinthUseSpheres = true) {
-        optionsGUI.Add("CheckBox", "vHyacinthUseSpheres ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vHyacinthUseSpheres checked",
             "Enable Sphere Use")
     } Else {
-        optionsGUI.Add("CheckBox", "vHyacinthUseSpheres ccfcfcf",
+        optionsGUI.Add("CheckBox", "vHyacinthUseSpheres",
             "Enable Bar Sphere Use")
     }
 
     If (HyacinthUseNextAvailableFlower = true) {
         optionsGUI.Add("CheckBox",
-            "vHyacinthUseNextAvailableFlower ccfcfcf checked",
+            "vHyacinthUseNextAvailableFlower checked",
             "Enable Use Next Available Flower")
     } Else {
-        optionsGUI.Add("CheckBox", "vHyacinthUseNextAvailableFlower ccfcfcf",
+        optionsGUI.Add("CheckBox", "vHyacinthUseNextAvailableFlower",
             "Enable Use Next Available Flower")
     }
 
     If (HyacinthBanksEnabled = true) {
-        optionsGUI.Add("CheckBox", "vHyacinthBanksEnabled ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vHyacinthBanksEnabled checked",
             "Enable Banks")
     } Else {
-        optionsGUI.Add("CheckBox", "vHyacinthBanksEnabled ccfcfcf",
+        optionsGUI.Add("CheckBox", "vHyacinthBanksEnabled",
             "Enable Banks")
     }
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunHyacinth)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunHyacinth)
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveHyacinth)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessHyacinthSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseHyacinthSettings)
 
     ShowGUIPosition(optionsGUI)

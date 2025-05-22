@@ -641,7 +641,6 @@ Class Fishing {
             this.TourneyRod.Handle.ClickButtonActive()
             this.TourneyRod.Tip.ClickButtonActive()
         }
-
     }
     ;@endregion
 

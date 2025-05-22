@@ -6,10 +6,10 @@ Button_Click_GemFarm(thisGui, info) {
     /** @type {GUI} */
     optionsGUI := Gui(, "Gem Suitcase Farm Settings")
     optionsGUI.Opt("")
-    optionsGUI.BackColor := "0c0018"
+    SetFontOptions(optionsGUI)
 
-    optionsGUI.Add("Text", "ccfcfcf", "Delay between refreshes (ms):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Delay between refreshes (ms):")
+    optionsGUI.AddEdit("cDefault")
     If (IsInteger(GemFarmSleepAmount) && GemFarmSleepAmount > 0) {
         optionsGUI.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
             GemFarmSleepAmount)
@@ -23,12 +23,12 @@ Button_Click_GemFarm(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunGemFarm)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunGemFarm)
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveGemFarm)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessGemFarmSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseGemFarmSettings)
 
     ShowGUIPosition(optionsGUI)

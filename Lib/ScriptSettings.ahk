@@ -35,6 +35,9 @@ Global BVItemsArr, HaveBorbDLC, BVBlockMythLeg
 /** @type {Array} */
 Global BVInvArr := []
 Global NavigateTime
+Global GuiBGColour, GuiFontBold, GuiFontItalic, GuiFontStrike,
+    GuiFontUnderline, GuiFontColour, GuiFontSize, GuiFontWeight,
+    GuiFontName
 
 Global HyacinthUseSlot, HyacinthFarmBoss, HyacinthUseFlower, HyacinthUseSpheres,
     HyacinthUseNextAvailableFlower, HyacinthBanksEnabled
@@ -277,20 +280,42 @@ Class cSettings {
             false, false, "bool", "Default")
         this.Map["DisableSettingsChecks"] := singleSetting(
             "DisableSettingsChecks", false, false, "bool", "Default")
+        this.Map["NavigateTime"] := singleSetting("NavigateTime", 101, 101,
+            "int", "Default")
+
+        this.Map["GuiBGColour"] := singleSetting("GuiBGColour", "0c0018", "0c0018",
+            "string", "GUI")
+        this.Map["GuiFontColour"] := singleSetting("GuiFontColour", "cfcfcf", "cfcfcf",
+            "string", "GUI")
+        this.Map["GuiFontBold"] := singleSetting(
+            "GuiFontBold", false, false, "bool", "GUI")
+        this.Map["GuiFontItalic"] := singleSetting(
+            "GuiFontItalic", false, false, "bool", "GUI")
+        this.Map["GuiFontStrike"] := singleSetting(
+            "GuiFontStrike", false, false, "bool", "GUI")
+        this.Map["GuiFontUnderline"] := singleSetting(
+            "GuiFontUnderline", false, false, "bool", "GUI")
+        this.Map["GuiFontSize"] := singleSetting(
+            "GuiFontSize", 9, 9, "int", "GUI")
+        this.Map["GuiFontWeight"] := singleSetting(
+            "GuiFontWeight", 4, 4, "int", "GUI")
+        this.Map["GuiFontName"] := singleSetting(
+            "GuiFontName", "", "", "string", "GUI")
+
         this.Map["CheckForUpdatesEnable"] := singleSetting(
             "CheckForUpdatesEnable", true, true, "bool", "Updates")
         this.Map["CheckForUpdatesReleaseOnly"] := singleSetting(
             "CheckForUpdatesReleaseOnly", true, true, "bool", "Updates")
         this.Map["CheckForUpdatesLastCheck"] := singleSetting(
             "CheckForUpdatesLastCheck", 0, 0, "int", "Updates")
+
         this.Map["Debug"] := singleSetting("Debug", false, true, "bool",
             "Debug")
         this.Map["Verbose"] := singleSetting("Verbose", false, true, "bool",
             "Debug")
         this.Map["LogBuffer"] := singleSetting("LogBuffer", true, true, "bool",
             "Debug")
-        this.Map["NavigateTime"] := singleSetting("NavigateTime", 101, 101,
-            "int", "Default")
+
         this.Map["HaveBorbDLC"] := singleSetting("HaveBorbDLC", false, false,
             "bool", "Borbventures")
         this.Map["BVBlockMythLeg"] := singleSetting("BVBlockMythLeg", false,
@@ -300,6 +325,7 @@ Class cSettings {
             "0x01D814, 0xC9C9C9, 0xF91FF6", "array", "Borbventures")
         this.Map["BVInvArr"] := singleSetting("BVInvArr",
             "", "", "array", "Borbventures")
+
         this.Map["CardsCommonAmount"] := singleSetting("CardsCommonAmount",
             25000, 1000, "int", "Cards")
         this.Map["CardsRareAmount"] := singleSetting("CardsRareAmount", 25000,
@@ -322,6 +348,7 @@ Class cSettings {
             true, "bool", "Cards")
         this.Map["CardsBossFarmEnabled"] := singleSetting(
             "CardsBossFarmEnabled", true, true, "bool", "Cards")
+
         this.Map["CardsBuyEnabled"] := singleSetting("CardsBuyEnabled", true,
             true, "bool", "CardsBuy")
         this.Map["CardsBuyStyle"] := singleSetting("CardsBuyStyle",
@@ -340,18 +367,22 @@ Class cSettings {
             false, "bool", "CardsBuy")
         this.Map["CardsSleepBuyAmount"] := singleSetting("CardsSleepBuyAmount",
             17, 17, "int", "CardsBuy")
+
         this.Map["GFToKillPerCycle"] := singleSetting("GFToKillPerCycle", 8, 1,
             "int", "SSFarm")
         this.Map["SSToKillPerCycle"] := singleSetting("SSToKillPerCycle", 1, 1,
             "int", "SSFarm")
         this.Map["GFSSNoReset"] := singleSetting("GFSSNoReset", false, false,
             "bool", "SSFarm")
+
         this.Map["GemFarmSleepAmount"] := singleSetting("GemFarmSleepAmount",
             17, 17, "int", "GemFarm")
+
         this.Map["ClawCheckSizeOffset"] := singleSetting("ClawCheckSizeOffset",
             0, 0, "int", "Claw")
         this.Map["ClawFindAny"] := singleSetting("ClawFindAny", false, false,
             "bool", "Claw")
+
         this.Map["ArtifactSleepAmount"] := singleSetting("ArtifactSleepAmount",
             17, 17, "int", "BossFarm")
         this.Map["BossFarmUsesWind"] := singleSetting("BossFarmUsesWind", true,
@@ -364,6 +395,7 @@ Class cSettings {
             false, false, "bool", "BossFarm")
         this.Map["WobblyWingsSleepAmount"] := singleSetting(
             "WobblyWingsSleepAmount", 17, 17, "int", "BossFarm")
+
         this.Map["HyacinthUseSlot"] := singleSetting("HyacinthUseSlot", "All",
             "All", "text", "NatureFarm")
         this.Map["HyacinthFarmBoss"] := singleSetting("HyacinthFarmBoss", true,
@@ -377,6 +409,7 @@ Class cSettings {
             "NatureFarm")
         this.Map["HyacinthBanksEnabled"] := singleSetting(
             "HyacinthBanksEnabled", true, true, "bool", "NatureFarm")
+
         this.Map["BankEnableLGDeposit"] := singleSetting("BankEnableLGDeposit",
             true, true, "bool", "Bank")
         this.Map["BankEnableSNDeposit"] := singleSetting("BankEnableSNDeposit",
@@ -395,6 +428,7 @@ Class cSettings {
             true, "bool", "Bank")
         this.Map["BankDepositTime"] := singleSetting("BankDepositTime", 5, 5,
             "int", "Bank")
+
         this.Map["LeaftonCraftEnabled"] := singleSetting("LeaftonCraftEnabled",
             true, true, "bool", "Leafton")
         this.Map["LeaftonSpamsWind"] := singleSetting("LeaftonSpamsWind", true,
@@ -409,12 +443,14 @@ Class cSettings {
             "LeaftonBrewCycleTime", 10, 10, "int", "Leafton")
         this.Map["LeaftonBrewCutOffTime"] := singleSetting(
             "LeaftonBrewCutOffTime", 30, 30, "int", "Leafton")
+
         this.Map["TowerPassiveBanksEnabled"] := singleSetting(
             "TowerPassiveBanksEnabled", true, true, "bool", "TowerPassive")
         this.Map["TowerPassiveCraftEnabled"] := singleSetting(
             "TowerPassiveCraftEnabled", true, true, "bool", "TowerPassive")
         this.Map["TowerPassiveTravelEnabled"] := singleSetting(
             "TowerPassiveTravelEnabled", true, true, "bool", "TowerPassive")
+
         this.Map["MinerEnableVeins"] := singleSetting("MinerEnableVeins", true,
             true, "bool", "Miner")
         this.Map["MinerEnableTransmute"] := singleSetting(
@@ -465,6 +501,7 @@ Class cSettings {
             30, 30, "int", "Miner")
         this.Map["MinerBrewCutOffTime"] := singleSetting("MinerBrewCutOffTime",
             30, 30, "int", "Miner")
+
         this.Map["BrewEnableArtifacts"] := singleSetting("BrewEnableArtifacts",
             true, true, "bool", "Brew")
         this.Map["BrewEnableEquipment"] := singleSetting("BrewEnableEquipment",
@@ -475,6 +512,7 @@ Class cSettings {
             false, false, "bool", "Brew")
         this.Map["BrewEnableCardParts"] := singleSetting("BrewEnableCardParts",
             true, true, "bool", "Brew")
+
         this.Map["SCAdvanceReplace"] := singleSetting("SCAdvanceReplace",
             true, true, "bool", "ShadowCrystal")
 
@@ -482,7 +520,6 @@ Class cSettings {
             8, 8, "int", "Fishing")
         this.Map["FishCatchingSearch"] := singleSetting("FishCatchingSearch",
             true, true, "bool", "Fishing")
-
         this.Map["FishEnableShopUpgrade"] := singleSetting("FishEnableShopUpgrade",
             true, true, "bool", "Fishing")
         this.Map["FishEnableUpgradeRods"] := singleSetting("FishEnableUpgradeRods",
@@ -533,6 +570,7 @@ Class cSettings {
         this.Map["FishIntermediateAttack"] := singleSetting("FishIntermediateAttack", 1, 1, "int", "Fishing")
         this.Map["FishExpertAttack"] := singleSetting("FishExpertAttack", 1, 1, "int", "Fishing")
         this.Map["FishLegendAttack"] := singleSetting("FishLegendAttack", 1, 1, "int", "Fishing")
+
         this.Map["FishChlCatchingSearch"] := singleSetting("FishChlCatchingSearch",
             true, true, "bool", "FishChallenge")
         this.Map["FishChlEnableShopUpgrade"] := singleSetting("FishChlEnableShopUpgrade",
@@ -563,6 +601,7 @@ Class cSettings {
             true, true, "bool", "FishChallenge")
         this.Map["FishChlTransmuteAtoCry"] := singleSetting("FishChlTransmuteAtoCry",
             true, true, "bool", "FishChallenge")
+
         this.Map["FishTourCatchingDelay"] := singleSetting("FishTourCatchingDelay",
             8, 8, "int", "FishTourney")
         this.Map["FishTourCatchingSearch"] := singleSetting("FishTourCatchingSearch",
@@ -601,7 +640,6 @@ Class cSettings {
             true, true, "bool", "FishTourney")
         this.Map["FishTourTransmuteAtoCry"] := singleSetting("FishTourTransmuteAtoCry",
             true, true, "bool", "FishTourney")
-
         this.Map["FishTourNovice"] := singleSetting("FishTourNovice",
             true, true, "bool", "FishTourney")
         this.Map["FishTourNoviceAttack"] := singleSetting("FishTourNoviceAttack",
@@ -666,6 +704,10 @@ Class cSettings {
 
         Global CheckForUpdatesEnable, CheckForUpdatesReleaseOnly,
             CheckForUpdatesLastCheck
+
+        Global GuiBGColour, GuiFontBold, GuiFontItalic, GuiFontStrike,
+            GuiFontUnderline, GuiFontColour, GuiFontSize, GuiFontWeight,
+            GuiFontName
 
         Global CardsCommonAmount, CardsRareAmount, CardsLegendaryAmount,
             CardsDontOpenCommons, CardsDontOpenRare, CardsDontOpenLegendary,
@@ -865,7 +907,7 @@ Class cSettings {
         }
         If (!IsSet(storedVal)) {
             IniWrite(value, this.sFilename, section, key)
-            return
+            Return
         }
         If (storedVal != value) {
             IniWrite(value, this.sFilename, section, key)

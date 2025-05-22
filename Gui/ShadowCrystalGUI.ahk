@@ -7,18 +7,18 @@ Button_Click_ShadowCrystal(thisGui, info) {
     /** @type {GUI} */
     optionsGUI := Gui(, "Shadow Crystal Fight Settings")
     optionsGUI.Opt("")
-    optionsGUI.BackColor := "0c0018"
+    SetFontOptions(optionsGUI)
 
     If (SCAdvanceReplace = true) {
-        optionsGUI.Add("CheckBox", "vSCAdvanceReplace ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vSCAdvanceReplace checked",
             "Use custom SC advancing")
     } Else {
-        optionsGUI.Add("CheckBox", "vSCAdvanceReplace ccfcfcf",
+        optionsGUI.Add("CheckBox", "vSCAdvanceReplace",
             "Use custom SC advancing")
     }
     /*
-        optionsGUI.Add("Text", "ccfcfcf", "Percent health remaining:")
-        optionsGUI.AddEdit()
+        optionsGUI.Add("Text", "", "Percent health remaining:")
+        optionsGUI.AddEdit("cDefault")
         If (IsInteger(SCPercent) && SCPercent > 0) {
             optionsGUI.Add("UpDown", "vSCPercent Range1-9999", SCPercent)
         } Else {
@@ -31,15 +31,15 @@ Button_Click_ShadowCrystal(thisGui, info) {
             }
         }
     */
-    optionsGUI.Add("Button", "default", "Run")
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run")
     .OnEvent("Click", RunShadowCrystal)
-    optionsGUI.Add("Button", "default yp", "Save and Run")
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run")
     .OnEvent("Click",
         RunSaveShadowCrystal)
-    optionsGUI.Add("Button", "default yp", "Save")
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save")
     .OnEvent("Click",
         ProcessShadowCrystalSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel")
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel")
     .OnEvent("Click",
         CloseShadowCrystalSettings)
 

@@ -6,10 +6,10 @@ Button_Click_Claw(thisGui, info) {
     /** @type {GUI} */
     optionsGUI := Gui(, "Claw Farm Settings")
     optionsGUI.Opt("")
-    optionsGUI.BackColor := "0c0018"
+    SetFontOptions(optionsGUI)
 
-    optionsGUI.Add("Text", "ccfcfcf", "Claw Area Check Size Offset (px):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Claw Area Check Size Offset (px):")
+    optionsGUI.AddEdit("cDefault")
     If (IsInteger(ClawCheckSizeOffset) || IsFloat(ClawCheckSizeOffset)) {
         optionsGUI.Add("UpDown", "vClawCheckSizeOffset Range-999-999",
             ClawCheckSizeOffset)
@@ -24,19 +24,19 @@ Button_Click_Claw(thisGui, info) {
     }
 
     If (ClawFindAny = true) {
-        optionsGUI.Add("CheckBox", "vClawFindAny ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vClawFindAny checked",
             "Enable Find any fallback")
     } Else {
-        optionsGUI.Add("CheckBox", "vClawFindAny ccfcfcf",
+        optionsGUI.Add("CheckBox", "vClawFindAny",
             "Enable Find any fallback")
     }
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunClaw)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunClaw)
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveClaw)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessClawSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseClawSettings)
 
     ShowGUIPosition(optionsGUI)

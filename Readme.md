@@ -219,6 +219,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added version display to main gui
   - Save window position
   - Improved save setting times
+  - Custom font settings and background colours
 
 - Mine
   - Modified brew travel to be more stable.

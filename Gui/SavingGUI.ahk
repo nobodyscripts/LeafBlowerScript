@@ -15,8 +15,8 @@ Class SavingGUI {
         this.SavingGui.MarginX := 15
         this.SavingGui.MarginY := 15
         this.SavingGui.Opt("-MaximizeBox -MinimizeBox")
-        this.SavingGui.BackColor := "0c0018"
-        this.SavingGui.AddText("ccfcfcf vText", "Saving please wait..")
+        SetFontOptions(this.SavingGui)
+        this.SavingGui.AddText("vText", "Saving please wait..")
 
         this.Bar := this.SavingGui.AddProgress("c2363ec vProgBar")
         this.Bar.Value := 0

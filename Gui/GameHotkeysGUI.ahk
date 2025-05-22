@@ -5,34 +5,34 @@ Button_Click_GameHotkeys(thisGui, *) {
     /** @type {GUI} */
     optionsGUI := Gui(, "Game Hotkey Customisation")
     optionsGUI.Opt("")
-    optionsGUI.BackColor := "0c0018"
+    SetFontOptions(optionsGUI)
     i := 1
     first := true
     For (name, key in GameKeys.Hotkeys) {
         If (key && key.Name && key.Name != "ClosePanel") {
             If (i >= 10) {
-                optionsGUI.Add("Text", "ccfcfcf ys", key.Name . ":")
+                optionsGUI.Add("Text", "ys", key.Name . ":")
                 i := 1
             } Else {
                 If (first) {
-                    optionsGUI.Add("Text", "ccfcfcf section", key.Name . ":")
+                    optionsGUI.Add("Text", "section", key.Name . ":")
                     first := false
                 } Else {
-                    optionsGUI.Add("Text", "ccfcfcf", key.Name . ":")
+                    optionsGUI.Add("Text", "", key.Name . ":")
                 }
             }
-            optionsGUI.AddEdit("v" . key.Name . " w140", key.GetValue())
+            optionsGUI.AddEdit("cDefault v" . key.Name . " w140", key.GetValue())
             i++
         }
     }
 
-    optionsGUI.Add("Button", "default xs", "Save").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default xs", "Save").OnEvent("Click",
         SaveGameHotkeysInput)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseGameHotkeys)
-    optionsGUI.Add("Button", "default yp", "Reset To Defaults").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Reset To Defaults").OnEvent("Click",
         ResetGameHotKeys)
-    optionsGUI.Add("Button", "default yp", "Apply To Game").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Apply To Game").OnEvent("Click",
         ApplyNewHotkeysToGame)
 
     ShowGUIPosition(optionsGUI)

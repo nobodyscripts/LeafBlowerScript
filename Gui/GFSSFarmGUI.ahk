@@ -6,10 +6,10 @@ Button_Click_GFSS(thisGui, info) {
     /** @type {GUI} */
     optionsGUI := Gui(, "GF/SS Bossfarm Settings")
     optionsGUI.Opt("")
-    optionsGUI.BackColor := "0c0018"
+    SetFontOptions(optionsGUI)
 
-    optionsGUI.Add("Text", "ccfcfcf", "GF To Kill Per Cycle:")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "GF To Kill Per Cycle:")
+    optionsGUI.AddEdit("cDefault")
     If (IsInteger(GFToKillPerCycle) && GFToKillPerCycle > 0) {
         optionsGUI.Add("UpDown", "vGFToKillPerCycle Range1-9999",
             GFToKillPerCycle)
@@ -23,8 +23,8 @@ Button_Click_GFSS(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "SS To Kill Per Cycle:")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "SS To Kill Per Cycle:")
+    optionsGUI.AddEdit("cDefault")
     If (IsInteger(SSToKillPerCycle) && SSToKillPerCycle > 0) {
         optionsGUI.Add("UpDown", "vSSToKillPerCycle Range0-9999",
             SSToKillPerCycle)
@@ -39,19 +39,19 @@ Button_Click_GFSS(thisGui, info) {
     }
 
     If (GFSSNoReset = true) {
-        optionsGUI.Add("CheckBox", "vGFSSNoReset ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vGFSSNoReset checked",
             "Disable resetting kill count")
     } Else {
-        optionsGUI.Add("CheckBox", "vGFSSNoReset ccfcfcf",
+        optionsGUI.Add("CheckBox", "vGFSSNoReset",
             "Disable resetting kill count")
     }
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunGFSS)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunGFSS)
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveGFSS)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessGFSSSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseGFSSSettings)
 
     ShowGUIPosition(optionsGUI)

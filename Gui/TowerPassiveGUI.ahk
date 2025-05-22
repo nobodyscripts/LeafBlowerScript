@@ -7,37 +7,37 @@ Button_Click_TowerPassive(thisGui, info) {
     /** @type {GUI} */
     optionsGUI := Gui(, "Tower Passive Mode Settings")
     optionsGUI.Opt("")
-    optionsGUI.BackColor := "0c0018"
+    SetFontOptions(optionsGUI)
 
     If (TowerPassiveBanksEnabled = true) {
-        optionsGUI.Add("CheckBox", "vTowerPassiveBanksEnabled ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vTowerPassiveBanksEnabled checked",
             "Enable Banks")
     } Else {
-        optionsGUI.Add("CheckBox", "vTowerPassiveBanksEnabled ccfcfcf",
+        optionsGUI.Add("CheckBox", "vTowerPassiveBanksEnabled",
             "Enable Banks")
     }
 
     If (TowerPassiveCraftEnabled = true) {
-        optionsGUI.Add("CheckBox", "vTowerPassiveCraftEnabled ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vTowerPassiveCraftEnabled checked",
             "Enable Crafting")
     } Else {
-        optionsGUI.Add("CheckBox", "vTowerPassiveCraftEnabled ccfcfcf",
+        optionsGUI.Add("CheckBox", "vTowerPassiveCraftEnabled",
             "Enable Crafting")
     }
 
     If (TowerPassiveTravelEnabled = true) {
-        optionsGUI.Add("CheckBox", "vTowerPassiveTravelEnabled ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vTowerPassiveTravelEnabled checked",
             "Enable Travel to zone")
     } Else {
-        optionsGUI.Add("CheckBox", "vTowerPassiveTravelEnabled ccfcfcf",
+        optionsGUI.Add("CheckBox", "vTowerPassiveTravelEnabled",
             "Enable Travel to zone")
     }
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunTowerPassive
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunTowerPassive
     )
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessTowerPassiveSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseTowerPassiveSettings)
 
     optionsGUI.AddText("w180 h1", "")

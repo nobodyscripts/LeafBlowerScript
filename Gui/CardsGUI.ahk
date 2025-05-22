@@ -11,9 +11,9 @@ Button_Click_Cards(thisGui, info) {
     /** @type {GUI} */
     optionsGUI := Gui(, "Mine Maintainer Settings")
     optionsGUI.Opt("")
-    optionsGUI.BackColor := "0c0018"
-    optionsGUI.Add("Text", "ccfcfcf", "Cards Opening Options:")
-    optionsGUI.Add("Text", "ccfcfcf", "Open Common Card Packs Amount:")
+    SetFontOptions(optionsGUI)
+    optionsGUI.Add("Text", "", "Cards Opening Options:")
+    optionsGUI.Add("Text", "", "Open Common Card Packs Amount:")
     Switch CardsCommonAmount {
     Case 1:
         optionsGUI.Add("DropDownList", "vCardsCommonAmount Choose1", [
@@ -116,7 +116,7 @@ Button_Click_Cards(thisGui, info) {
         ])
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Open Rare Card Packs Amount:")
+    optionsGUI.Add("Text", "", "Open Rare Card Packs Amount:")
     Switch CardsRareAmount {
     Case 1:
         optionsGUI.Add("DropDownList", "vCardsRareAmount Choose1", [
@@ -219,7 +219,7 @@ Button_Click_Cards(thisGui, info) {
         ])
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Open Legendary Card Packs Amount:")
+    optionsGUI.Add("Text", "", "Open Legendary Card Packs Amount:")
     Switch CardsLegendaryAmount {
     Case 1:
         optionsGUI.Add("DropDownList", "vCardsLegendaryAmount Choose1", [
@@ -322,41 +322,41 @@ Button_Click_Cards(thisGui, info) {
         ])
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Greedy starts at Amount")
+    optionsGUI.Add("Text", "", "Greedy starts at Amount")
     If (CardsGreedyOpen = true) {
-        optionsGUI.Add("CheckBox", "vCardsGreedyOpen ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vCardsGreedyOpen checked",
             "Greedy Open Cards")
     } Else {
-        optionsGUI.Add("CheckBox", "vCardsGreedyOpen ccfcfcf",
+        optionsGUI.Add("CheckBox", "vCardsGreedyOpen",
             "Greedy Open Cards")
     }
 
     If (CardsDontOpenCommons = true) {
-        optionsGUI.Add("CheckBox", "vCardsDontOpenCommons ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vCardsDontOpenCommons checked",
             "Disable Opening Common Cards")
     } Else {
-        optionsGUI.Add("CheckBox", "vCardsDontOpenCommons ccfcfcf",
+        optionsGUI.Add("CheckBox", "vCardsDontOpenCommons",
             "Disable Opening Common Cards")
     }
 
     If (CardsDontOpenRare = true) {
-        optionsGUI.Add("CheckBox", "vCardsDontOpenRare ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vCardsDontOpenRare checked",
             "Disable Opening Rare Cards")
     } Else {
-        optionsGUI.Add("CheckBox", "vCardsDontOpenRare ccfcfcf",
+        optionsGUI.Add("CheckBox", "vCardsDontOpenRare",
             "Disable Opening Rare Cards")
     }
 
     If (CardsDontOpenLegendary = true) {
-        optionsGUI.Add("CheckBox", "vCardsDontOpenLegendary ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vCardsDontOpenLegendary checked",
             "Disable Opening Legendary Cards")
     } Else {
-        optionsGUI.Add("CheckBox", "vCardsDontOpenLegendary ccfcfcf",
+        optionsGUI.Add("CheckBox", "vCardsDontOpenLegendary",
             "Disable Opening Legendary Cards")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Cards Opening Delay (ms):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Cards Opening Delay (ms):")
+    optionsGUI.AddEdit("cDefault")
     If (IsInteger(CardsSleepAmount) && CardsSleepAmount > 0) {
         optionsGUI.Add("UpDown", "vCardsSleepAmount Range1-9999",
             CardsSleepAmount)
@@ -371,32 +371,32 @@ Button_Click_Cards(thisGui, info) {
     }
 
     If (CardsPermaLoop = true) {
-        optionsGUI.Add("CheckBox", "vCardsPermaLoop ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vCardsPermaLoop checked",
             "Enable Looping")
     } Else {
-        optionsGUI.Add("CheckBox", "vCardsPermaLoop ccfcfcf", "Enable Looping")
+        optionsGUI.Add("CheckBox", "vCardsPermaLoop", "Enable Looping")
     }
 
     If (CardsBossFarmEnabled = true) {
-        optionsGUI.Add("CheckBox", "vCardsBossFarmEnabled ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vCardsBossFarmEnabled checked",
             "Enable Boss Farm")
     } Else {
-        optionsGUI.Add("CheckBox", "vCardsBossFarmEnabled ccfcfcf",
+        optionsGUI.Add("CheckBox", "vCardsBossFarmEnabled",
             "Enable Boss Farm")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "")
-    optionsGUI.Add("Text", "ccfcfcf", "Cards Purchasing Options:")
+    optionsGUI.Add("Text", "", "")
+    optionsGUI.Add("Text", "", "Cards Purchasing Options:")
 
     If (CardsBuyEnabled = true) {
-        optionsGUI.Add("CheckBox", "vCardsBuyEnabled ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vCardsBuyEnabled checked",
             "Enable Card Purchasing")
     } Else {
-        optionsGUI.Add("CheckBox", "vCardsBuyEnabled ccfcfcf",
+        optionsGUI.Add("CheckBox", "vCardsBuyEnabled",
             "Enable Card Purchasing")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Purchase Card Packs Priority Style:")
+    optionsGUI.Add("Text", "", "Purchase Card Packs Priority Style:")
     Switch CardsBuyStyle {
     Case "RoundRobin":
         optionsGUI.Add("DropDownList", "vCardsBuyStyle Choose1", [
@@ -463,7 +463,7 @@ Button_Click_Cards(thisGui, info) {
         ])
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Purchase Common Card Packs Amount:")
+    optionsGUI.Add("Text", "", "Purchase Common Card Packs Amount:")
     Switch CardsCommonBuyAmount {
     Case 1:
         optionsGUI.Add("DropDownList", "vCardsCommonBuyAmount Choose1", [
@@ -566,7 +566,7 @@ Button_Click_Cards(thisGui, info) {
         ])
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Purchase Rare Card Packs Amount:")
+    optionsGUI.Add("Text", "", "Purchase Rare Card Packs Amount:")
     Switch CardsRareBuyAmount {
     Case 1:
         optionsGUI.Add("DropDownList", "vCardsRareBuyAmount Choose1", [
@@ -669,7 +669,7 @@ Button_Click_Cards(thisGui, info) {
         ])
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Purchase Legendary Card Packs Amount:")
+    optionsGUI.Add("Text", "", "Purchase Legendary Card Packs Amount:")
     Switch CardsLegBuyAmount {
     Case 1:
         optionsGUI.Add("DropDownList", "vCardsLegBuyAmount Choose1", [
@@ -772,41 +772,41 @@ Button_Click_Cards(thisGui, info) {
         ])
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Greedy starts at Amount")
+    optionsGUI.Add("Text", "", "Greedy starts at Amount")
     If (CardsGreedyBuy = true) {
-        optionsGUI.Add("CheckBox", "vCardsGreedyBuy ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vCardsGreedyBuy checked",
             "Greedy Buy Cards")
     } Else {
-        optionsGUI.Add("CheckBox", "vCardsGreedyBuy ccfcfcf",
+        optionsGUI.Add("CheckBox", "vCardsGreedyBuy",
             "Greedy Buy Cards")
     }
 
     If (CardsDontBuyCommons = true) {
-        optionsGUI.Add("CheckBox", "vCardsDontBuyCommons ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vCardsDontBuyCommons checked",
             "Disable Common Card Purchasing")
     } Else {
-        optionsGUI.Add("CheckBox", "vCardsDontBuyCommons ccfcfcf",
+        optionsGUI.Add("CheckBox", "vCardsDontBuyCommons",
             "Disable Common Card Purchasing")
     }
 
     If (CardsDontBuyRare = true) {
-        optionsGUI.Add("CheckBox", "vCardsDontBuyRare ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vCardsDontBuyRare checked",
             "Disable Rare Card Purchasing")
     } Else {
-        optionsGUI.Add("CheckBox", "vCardsDontBuyRare ccfcfcf",
+        optionsGUI.Add("CheckBox", "vCardsDontBuyRare",
             "Disable Rare Card Purchasing")
     }
 
     If (CardsDontBuyLeg = true) {
-        optionsGUI.Add("CheckBox", "vCardsDontBuyLeg ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vCardsDontBuyLeg checked",
             "Disable Legendary Card Purchasing")
     } Else {
-        optionsGUI.Add("CheckBox", "vCardsDontBuyLeg ccfcfcf",
+        optionsGUI.Add("CheckBox", "vCardsDontBuyLeg",
             "Disable Legendary Card Purchasing")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Cards Purchasing Delay (ms):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Cards Purchasing Delay (ms):")
+    optionsGUI.AddEdit("cDefault")
     If (IsInteger(CardsSleepBuyAmount) && CardsSleepBuyAmount > 0) {
         optionsGUI.Add("UpDown", "vCardsSleepBuyAmount Range1-9999",
             CardsSleepBuyAmount)
@@ -820,12 +820,12 @@ Button_Click_Cards(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunCards)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunCards)
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveCards)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessCardsSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseCardsSettings)
 
     ShowGUIPosition(optionsGUI)

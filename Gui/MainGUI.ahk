@@ -76,140 +76,141 @@ RunGui() {
         MyGui := Gui(, "LBR TEST " Updater.CurrentVersion.Build)
     }
     If (Updater.IsNewRelease) {
-        MyGui.AddLink("ccfcfcf",
+        MyGui.AddLink("",
             "New Release Available, <a href=`"https://github.com/nobodyscripts/LeafBlowerScript`">Open Main Page</a> or <a href=`"https://github.com/nobodyscripts/LeafBlowerScript/releases`">Releases</a>"
         )
     }
     If (Updater.IsNewBeta) {
-        MyGui.AddLink("ccfcfcf",
+        MyGui.AddLink("",
             "New Update Available, <a href=`"https://github.com/nobodyscripts/LeafBlowerScript'>Open Main Page</a> or <a href=`"https://github.com/nobodyscripts/LeafBlowerScript/archive/refs/heads/main.zip`">Direct Download</a>"
         )
     }
     ;MyGui.Opt("-SysMenu")
-    MyGui.BackColor := "0c0018"
 
-    MyGui.Add("Text", "ccfcfcf section", Scriptkeys.GetHotkey("Exit"))
-    MyBtn := MyGui.Add("Button", "Default w80", "Exit")
+    SetFontOptions(MyGUI)
+
+    MyGui.Add("Text", "section", Scriptkeys.GetHotkey("Exit"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w80", "Exit")
     MyBtn.OnEvent("Click", Button_Click_Exit)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("Reload"))
-    MyBtn := MyGui.Add("Button", "Default w80", "Reload/End")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("Reload"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w80", "Reload/End")
     MyBtn.OnEvent("Click", Button_Click_Reload)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("Cards"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Cards Open/Buyer")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("Cards"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Cards Open/Buyer")
     MyBtn.OnEvent("Click", Button_Click_Cards)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("GemFarm"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Gem Suitcase Farm")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("GemFarm"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Gem Suitcase Farm")
     MyBtn.OnEvent("Click", Button_Click_GemFarm)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("TowerBoost"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Tower Boost Usage`n(Run)")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("TowerBoost"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Tower Boost Usage`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_TowerBoost)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("Borbv"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Borbventure Farm")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("Borbv"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Borbventure Farm")
     MyBtn.OnEvent("Click", Button_Click_BorbVenture)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("Claw"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Claw Farm")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("Claw"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Claw Farm")
     MyBtn.OnEvent("Click", Button_Click_Claw)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("GFSS"))
-    MyBtn := MyGui.Add("Button", "Default w120", "GFSS Boss Farm")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("GFSS"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "GFSS Boss Farm")
     MyBtn.OnEvent("Click", Button_Click_GFSS)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("BossFarm"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Boss Farm Mode")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("BossFarm"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Boss Farm Mode")
     MyBtn.OnEvent("Click", Button_Click_BossFarm)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("NatureBoss"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Nature Boss`n(Run)")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("NatureBoss"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Nature Boss`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_NatureBoss)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("AutoClicker") " Autoclicker"
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("AutoClicker") " Autoclicker"
     )
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("GameResize"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Resize Game`n(Run)")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("GameResize"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Resize Game`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_Resize)
 
     ; ----------------------
 
-    MyGui.Add("Text", "ys ccfcfcf", Scriptkeys.GetHotkey("MineMaintain"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Mine Maintainer")
+    MyGui.Add("Text", "ys", Scriptkeys.GetHotkey("MineMaintain"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Mine Maintainer")
     MyBtn.OnEvent("Click", Button_Click_Mine)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("HyacinthFarm"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Hyacinth Farm")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("HyacinthFarm"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Hyacinth Farm")
     MyBtn.OnEvent("Click", Button_Click_Hyacinth)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("Bank"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Bank Maintainer Mode")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("Bank"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Bank Maintainer Mode")
     MyBtn.OnEvent("Click", Button_Click_Bank)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("CursedCheese"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Cursed Cheese Mode`n(Run)")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("CursedCheese"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Cursed Cheese Mode`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_CursedCheese)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("TowerPassive"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Tower Passive Mode")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("TowerPassive"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Tower Passive Mode")
     MyBtn.OnEvent("Click", Button_Click_TowerPassive)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("Leafton"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Leafton Mode")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("Leafton"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Leafton Mode")
     MyBtn.OnEvent("Click", Button_Click_Leafton)
 
-    MyGui.Add("Text", "ccfcfcf", Scriptkeys.GetHotkey("ShadowCrystal"))
-    MyBtn := MyGui.Add("Button", "Default w120", "Shadow Crystal Fight")
+    MyGui.Add("Text", "", Scriptkeys.GetHotkey("ShadowCrystal"))
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Shadow Crystal Fight")
     MyBtn.OnEvent("Click", Button_Click_ShadowCrystal)
 
-    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "SuitcaseSpam LE Farm`n(Run)")
+    MyGui.Add("Text", "", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "SuitcaseSpam LE Farm`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_SuitcaseSpam)
 
-    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "Gold Prestige Spam`n(Run)")
+    MyGui.Add("Text", "", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Gold Prestige Spam`n(Run)")
     MyBtn.OnEvent("Click", Button_Click_PrestigeSpammer)
 
     ; ----------------------
 
-    MyGui.Add("Text", "ys ccfcfcf", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "ULC TEST")
+    MyGui.Add("Text", "ys", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "ULC TEST")
     MyBtn.OnEvent("Click", Button_Click_ULC)
 
-    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "Fishing")
+    MyGui.Add("Text", "", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Fishing")
     MyBtn.OnEvent("Click", Button_Click_Fishing)
 
-    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "Fishing Challenge")
+    MyGui.Add("Text", "", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Fishing Challenge")
     MyBtn.OnEvent("Click", Button_Click_FishingChallenge)
 
-    MyGui.Add("Text", "ccfcfcf", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "Default w120", "Fishing Tourney")
+    MyGui.Add("Text", "", "(no keybind)")
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Fishing Tourney")
     MyBtn.OnEvent("Click", Button_Click_FishingTourney)
 
-    MyGui.Add("Text", "ccfcfcf", "")
-    MyBtn := MyGui.Add("Button", "Default w120", "Edit Script Hotkeys")
+    MyGui.Add("Text", "", "")
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Edit Script Hotkeys")
     MyBtn.OnEvent("Click", Button_Click_ScriptHotkeys)
 
-    MyGui.Add("Text", "ccfcfcf", "")
-    MyBtn := MyGui.Add("Button", "Default w120", "Edit Game Hotkeys")
+    MyGui.Add("Text", "", "")
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Edit Game Hotkeys")
     MyBtn.OnEvent("Click", Button_Click_GameHotkeys)
 
-    MyGui.Add("Text", "ccfcfcf", "")
-    MyBtn := MyGui.Add("Button", "Default w120", "Update game settings`n"
+    MyGui.Add("Text", "", "")
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Update game settings`n"
         "For script use")
     MyBtn.OnEvent("Click", fGameSettings)
 
-    MyGui.Add("Text", "ccfcfcf", "General Settings")
-    MyBtn := MyGui.Add("Button", "Default w120", "Settings")
+    MyGui.Add("Text", "", "General Settings")
+    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " w120", "Settings")
     MyBtn.OnEvent("Click", Button_Click_GeneralSettings)
 
-    MyGui.AddText("ccfcfcf xs", "")
-    MyGui.AddText("ccfcfcf xs", "LBR NobodyScript " version)
+    MyGui.AddText("xs", "")
+    MyGui.AddText("xs", "LBR NobodyScript " version)
 
     ShowGUIPosition(MyGui)
     MyGui.OnEvent("Close", Button_Click_Exit)
@@ -308,4 +309,48 @@ SaveGUIPositionOnMove(Wparam, Lparam, Msg, Hwnd) {
 
 SaveGUIPositionOnResize(thisGUI, MinMax, Width, Height) {
     SetTimer(StorePos.Bind(thisGUI, true), -500)
+}
+
+Global GuiBGColour := "0c0018"
+Global GuiFontBold := false
+Global GuiFontItalic := false
+Global GuiFontStrike := false
+Global GuiFontUnderline := false
+Global GuiFontColour := "cfcfcf"
+Global GuiFontSize := false
+Global GuiFontWeight := false
+Global GuiFontName := false
+
+SetFontOptions(MyGUI) {
+    output := ""
+    If (GuiFontBold) {
+        output := output . "bold "
+    }
+    If (GuiFontItalic) {
+        output := output . "italic "
+    }
+    If (GuiFontStrike) {
+        output := output . "strike "
+    }
+    If (GuiFontUnderline) {
+        output := output . "underline "
+    }
+    If (GuiFontColour) {
+        output := output . "c" GuiFontColour " "
+    }
+    If (GuiFontSize) {
+        output := output . "s" GuiFontSize " "
+    }
+    If (GuiFontWeight) {
+        output := output . "W" GuiFontWeight "00 "
+    }
+    output := output . "Q5 "
+    If (GuiFontName && output) {
+        MyGui.SetFont(output, GuiFontName)
+    } Else If (output) {
+        MyGui.SetFont(output,)
+    }
+    If (GuiBGColour) {
+        MyGui.BackColor := GuiBGColour
+    }
 }

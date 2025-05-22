@@ -9,18 +9,18 @@ Button_Click_Bank(thisGui, info) {
     /** @type {GUI} */
     optionsGUI := Gui(, "Bank Maintainer Settings")
     optionsGUI.Opt("")
-    optionsGUI.BackColor := "0c0018"
+    SetFontOptions(optionsGUI)
 
     If (BankEnableStorageUpgrade = true) {
-        optionsGUI.Add("CheckBox", "vBankEnableStorageUpgrade ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBankEnableStorageUpgrade checked",
             "Enable Storage Upgrade")
     } Else {
-        optionsGUI.Add("CheckBox", "vBankEnableStorageUpgrade ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBankEnableStorageUpgrade",
             "Enable Storage Upgrade")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Bank Deposit Timer (m):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Bank Deposit Timer (m):")
+    optionsGUI.AddEdit("cDefault")
     If (IsInteger(BankDepositTime) || IsFloat(BankDepositTime)) {
         optionsGUI.Add("UpDown", "vBankDepositTime Range0-9999",
             BankDepositTime)
@@ -35,67 +35,67 @@ Button_Click_Bank(thisGui, info) {
     }
 
     If (BankRunsSpammer = true) {
-        optionsGUI.Add("CheckBox", "vBankRunsSpammer ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBankRunsSpammer checked",
             "Enable Boss Spammer")
     } Else {
-        optionsGUI.Add("CheckBox", "vBankRunsSpammer ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBankRunsSpammer",
             "Enable Boss Spammer")
     }
 
     If (BankEnableLGDeposit = true) {
-        optionsGUI.Add("CheckBox", "vBankEnableLGDeposit ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBankEnableLGDeposit checked",
             "Enable Leaf Galaxy Bank")
     } Else {
-        optionsGUI.Add("CheckBox", "vBankEnableLGDeposit ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBankEnableLGDeposit",
             "Enable Leaf Galaxy Bank")
     }
 
     If (BankEnableSNDeposit = true) {
-        optionsGUI.Add("CheckBox", "vBankEnableSNDeposit ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBankEnableSNDeposit checked",
             "Enable Sacred Nebula Bank")
     } Else {
-        optionsGUI.Add("CheckBox", "vBankEnableSNDeposit ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBankEnableSNDeposit",
             "Enable Sacred Nebula Bank")
     }
 
     If (BankEnableEBDeposit = true) {
-        optionsGUI.Add("CheckBox", "vBankEnableEBDeposit ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBankEnableEBDeposit checked",
             "Enable Energy Belt Bank")
     } Else {
-        optionsGUI.Add("CheckBox", "vBankEnableEBDeposit ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBankEnableEBDeposit",
             "Enable Energy Belt Bank")
     }
 
     If (BankEnableFFDeposit = true) {
-        optionsGUI.Add("CheckBox", "vBankEnableFFDeposit ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBankEnableFFDeposit checked",
             "Enable Fire Fields Bank")
     } Else {
-        optionsGUI.Add("CheckBox", "vBankEnableFFDeposit ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBankEnableFFDeposit",
             "Enable Fire Fields Bank")
     }
 
     If (BankEnableSRDeposit = true) {
-        optionsGUI.Add("CheckBox", "vBankEnableSRDeposit ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBankEnableSRDeposit checked",
             "Enable Soul Realm Bank")
     } Else {
-        optionsGUI.Add("CheckBox", "vBankEnableSRDeposit ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBankEnableSRDeposit",
             "Enable Soul Realm Bank")
     }
 
     If (BankEnableQADeposit = true) {
-        optionsGUI.Add("CheckBox", "vBankEnableQADeposit ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBankEnableQADeposit checked",
             "Enable Quark Ambit Bank")
     } Else {
-        optionsGUI.Add("CheckBox", "vBankEnableQADeposit ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBankEnableQADeposit",
             "Enable Quark Ambit Bank")
     }
 
-    optionsGUI.Add("Button", "default", "Run").OnEvent("Click", RunBank)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunBank)
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveBank)
-    optionsGUI.Add("Button", "default yp", "Save").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessBankSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseBankSettings)
 
     ShowGUIPosition(optionsGUI)

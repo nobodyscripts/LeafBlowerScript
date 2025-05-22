@@ -9,42 +9,42 @@ Button_Click_BossFarm(thisGui, info) {
     /** @type {GUI} */
     optionsGUI := Gui(, "Boss Farm Mode Settings")
     optionsGUI.Opt("")
-    optionsGUI.BackColor := "0c0018"
+    SetFontOptions(optionsGUI)
 
     If (BossFarmUsesWind = true) {
-        optionsGUI.Add("CheckBox", "vBossFarmUsesWind ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBossFarmUsesWind checked",
             "Enable Wind Artifact")
     } Else {
-        optionsGUI.Add("CheckBox", "vBossFarmUsesWind ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBossFarmUsesWind",
             "Enable Wind Artifact")
     }
 
     If (BossFarmUsesWobblyWings = true) {
-        optionsGUI.Add("CheckBox", "vBossFarmUsesWobblyWings ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBossFarmUsesWobblyWings checked",
             "Enable Wobbly Wings Artifact")
     } Else {
-        optionsGUI.Add("CheckBox", "vBossFarmUsesWobblyWings ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBossFarmUsesWobblyWings",
             "Enable Wobbly Wings Artifact")
     }
 
     If (BossFarmUsesSeeds = true) {
-        optionsGUI.Add("CheckBox", "vBossFarmUsesSeeds ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBossFarmUsesSeeds checked",
             "Enable Seed Bag Artifact")
     } Else {
-        optionsGUI.Add("CheckBox", "vBossFarmUsesSeeds ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBossFarmUsesSeeds",
             "Enable Seed Bag Artifact")
     }
 
     If (BossFarmFast = true) {
-        optionsGUI.Add("CheckBox", "vBossFarmFast ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBossFarmFast checked",
             "Enable Fast Artifact Use")
     } Else {
-        optionsGUI.Add("CheckBox", "vBossFarmFast ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBossFarmFast",
             "Enable Fast Artifact Use")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Delay between artifact use (ms):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Delay between artifact use (ms):")
+    optionsGUI.AddEdit("cDefault")
     If (IsInteger(ArtifactSleepAmount) && ArtifactSleepAmount > 0) {
         optionsGUI.Add("UpDown", "vArtifactSleepAmount Range1-9999",
             ArtifactSleepAmount)
@@ -58,8 +58,8 @@ Button_Click_BossFarm(thisGui, info) {
         }
     }
 
-    optionsGUI.Add("Text", "ccfcfcf", "Delay between Wobbly Wings use (ms):")
-    optionsGUI.AddEdit()
+    optionsGUI.Add("Text", "", "Delay between Wobbly Wings use (ms):")
+    optionsGUI.AddEdit("cDefault")
     If (IsInteger(WobblyWingsSleepAmount) && WobblyWingsSleepAmount > 0) {
         optionsGUI.Add("UpDown", "vWobblyWingsSleepAmount Range1-9999",
             WobblyWingsSleepAmount)
@@ -74,73 +74,73 @@ Button_Click_BossFarm(thisGui, info) {
     }
 
     If (BrewEnableArtifacts = true) {
-        optionsGUI.Add("CheckBox", "vBrewEnableArtifacts ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBrewEnableArtifacts checked",
             "Enable Brew Artifacts")
     } Else {
-        optionsGUI.Add("CheckBox", "vBrewEnableArtifacts ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBrewEnableArtifacts",
             "Enable Brew Artifacts")
     }
 
     If (BrewEnableEquipment = true) {
-        optionsGUI.Add("CheckBox", "vBrewEnableEquipment ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBrewEnableEquipment checked",
             "Enable Brew Equipment")
     } Else {
-        optionsGUI.Add("CheckBox", "vBrewEnableEquipment ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBrewEnableEquipment",
             "Enable Brew Equipment")
     }
 
     If (BrewEnableMaterials = true) {
-        optionsGUI.Add("CheckBox", "vBrewEnableMaterials ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBrewEnableMaterials checked",
             "Enable Brew Materials")
     } Else {
-        optionsGUI.Add("CheckBox", "vBrewEnableMaterials ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBrewEnableMaterials",
             "Enable Brew Materials")
     }
 
     If (BrewEnableScrolls = true) {
-        optionsGUI.Add("CheckBox", "vBrewEnableScrolls ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBrewEnableScrolls checked",
             "Enable Brew Scrolls")
     } Else {
-        optionsGUI.Add("CheckBox", "vBrewEnableScrolls ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBrewEnableScrolls",
             "Enable Brew Scrolls")
     }
 
     If (BrewEnableCardParts = true) {
-        optionsGUI.Add("CheckBox", "vBrewEnableCardParts ccfcfcf checked",
+        optionsGUI.Add("CheckBox", "vBrewEnableCardParts checked",
             "Enable Brew Card Parts")
     } Else {
-        optionsGUI.Add("CheckBox", "vBrewEnableCardParts ccfcfcf",
+        optionsGUI.Add("CheckBox", "vBrewEnableCardParts",
             "Enable Brew Card Parts")
     }
 
-    optionsGUI.Add("Text", "ccfcfcf x10", "Normal boss farm:")
-    optionsGUI.Add("Button", "default x15", "Run").OnEvent("Click", RunBossFarm
+    optionsGUI.Add("Text", "x10", "Normal boss farm:")
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default x15", "Run").OnEvent("Click", RunBossFarm
     )
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveBossFarm)
 
-    optionsGUI.Add("Text", "ccfcfcf x10", "With brew mode:")
-    optionsGUI.Add("Button", "default x15", "Run").OnEvent("Click",
+    optionsGUI.Add("Text", "x10", "With brew mode:")
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default x15", "Run").OnEvent("Click",
         RunBossFarmBrew)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveBossFarmBrew)
 
-    optionsGUI.Add("Text", "ccfcfcf x10", "With borbs mode:")
-    optionsGUI.Add("Button", "default x15", "Run").OnEvent("Click",
+    optionsGUI.Add("Text", "x10", "With borbs mode:")
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default x15", "Run").OnEvent("Click",
         RunBossFarmBorbs)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveBossFarmBorbs)
 
-    optionsGUI.Add("Text", "ccfcfcf x10", "With cards mode:")
-    optionsGUI.Add("Button", "default x15", "Run").OnEvent("Click",
+    optionsGUI.Add("Text", "x10", "With cards mode:")
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default x15", "Run").OnEvent("Click",
         RunBossFarmCards)
-    optionsGUI.Add("Button", "default yp", "Save and Run").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveBossFarmCards)
 
-    optionsGUI.Add("Text", "ccfcfcf x10", "General:")
-    optionsGUI.Add("Button", "default x15", "Save").OnEvent("Click",
+    optionsGUI.Add("Text", "x10", "General:")
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default x15", "Save").OnEvent("Click",
         ProcessBossFarmSettings)
-    optionsGUI.Add("Button", "default yp", "Cancel").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseBossFarmSettings)
 
     ShowGUIPosition(optionsGUI)
