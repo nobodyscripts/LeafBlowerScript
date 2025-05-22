@@ -338,7 +338,7 @@ Class Colours {
         Case this.BackgroundAFK: Return "Panel background afk mode"
         Case this.BankTabSelectedActive: Return "Bank tab selected active"
 
-        default: Return "unknown"
+        default: Return "Unknown: " input
         }
     }
     ;@endregion

@@ -631,6 +631,7 @@ Class Fishing {
         }
         Out.D("Tourney rod: Ontab " this.TourneyRod.IsOnTab() ", ShaftActive " this.TourneyRod.Shaft.IsButtonActive() ", HandleActive " this
         .TourneyRod.Handle.IsButtonActive() ", TipActive " this.TourneyRod.Tip.IsButtonActive())
+        Out.D("Detected: Shaft " this.TourneyRod.Shaft.GetDescription() ", Handle " this.TourneyRod.Handle.GetDescription() ", Tip " this.TourneyRod.Tip.GetDescription())
         While (this.TourneyRod.Shaft.IsButtonActive() ||
         this.TourneyRod.Handle.IsButtonActive() ||
         this.TourneyRod.Tip.IsButtonActive()) {
