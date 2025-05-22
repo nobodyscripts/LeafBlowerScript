@@ -99,6 +99,7 @@ Button_Click_Bank(thisGui, info) {
         CloseBankSettings)
 
     ShowGUIPosition(optionsGUI)
+    MakeGUIResizableIfOversize(optionsGUI)
     optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
 

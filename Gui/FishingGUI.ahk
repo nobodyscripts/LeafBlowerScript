@@ -422,6 +422,7 @@ Button_Click_Fishing(thisGui, info) {
     ;@endregion
 
     ShowGUIPosition(optionsGUI)
+    MakeGUIResizableIfOversize(optionsGUI)
     optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
 

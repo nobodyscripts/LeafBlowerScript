@@ -44,6 +44,7 @@ Button_Click_ShadowCrystal(thisGui, info) {
         CloseShadowCrystalSettings)
 
     ShowGUIPosition(optionsGUI)
+    MakeGUIResizableIfOversize(optionsGUI)
     optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
 

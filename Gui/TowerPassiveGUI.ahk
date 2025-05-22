@@ -43,6 +43,7 @@ Button_Click_TowerPassive(thisGui, info) {
     optionsGUI.AddText("w180 h1", "")
 
     ShowGUIPosition(optionsGUI)
+    MakeGUIResizableIfOversize(optionsGUI)
     optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
 

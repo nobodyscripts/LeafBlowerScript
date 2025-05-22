@@ -93,6 +93,7 @@ Button_Click_Leafton(thisGui, info) {
         CloseLeaftonSettings)
 
     ShowGUIPosition(optionsGUI)
+    MakeGUIResizableIfOversize(optionsGUI)
     optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
 

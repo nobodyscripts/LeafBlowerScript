@@ -36,6 +36,7 @@ Button_Click_GameHotkeys(thisGui, *) {
         ApplyNewHotkeysToGame)
 
     ShowGUIPosition(optionsGUI)
+    MakeGUIResizableIfOversize(optionsGUI)
     optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
 

@@ -551,6 +551,7 @@ Button_Click_Hyacinth(thisGui, info) {
         CloseHyacinthSettings)
 
     ShowGUIPosition(optionsGUI)
+    MakeGUIResizableIfOversize(optionsGUI)
     optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
 

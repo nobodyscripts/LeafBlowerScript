@@ -55,6 +55,7 @@ Button_Click_GFSS(thisGui, info) {
         CloseGFSSSettings)
 
     ShowGUIPosition(optionsGUI)
+    MakeGUIResizableIfOversize(optionsGUI)
     optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
 

@@ -183,6 +183,7 @@ Button_Click_GeneralSettings(thisGui, info) {
         CloseUserGeneralSettings)
 
     ShowGUIPosition(settingsGUI)
+    MakeGUIResizableIfOversize(settingsGUI)
     settingsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
 

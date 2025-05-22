@@ -164,6 +164,7 @@ Button_Click_ULC(thisGui, info) {
     .OnEvent("Click", RelicTransmute)
 
     ShowGUIPosition(optionsGUI)
+    MakeGUIResizableIfOversize(optionsGUI)
     optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
 }

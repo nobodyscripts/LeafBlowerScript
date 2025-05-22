@@ -34,6 +34,7 @@ Button_Click_ScriptHotkeys(thisGui, info) {
         ResetScriptHotKeys)
 
     ShowGUIPosition(optionsGUI)
+    MakeGUIResizableIfOversize(optionsGUI)
     optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
     OnMessage(0x0003, SaveGUIPositionOnMove)
 

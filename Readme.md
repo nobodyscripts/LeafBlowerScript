@@ -223,6 +223,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Improved save setting times
   - Custom font settings and background colours
   - Load system fonts to selection for font name
+  - Dynamic vertical scroll bars if height is too tall for screen
 
 - Mine
   - Modified brew travel to be more stable.
