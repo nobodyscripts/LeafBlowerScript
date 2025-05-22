@@ -126,7 +126,7 @@ Button_Click_GeneralSettings(thisGui, info) {
         settingsGUI.Add("CheckBox", "vGuiFontUnderline",
             "Enable GUI Font Underline")
     }
-    
+
     settingsGUI.Add("Text", "", "GUI Font Size:")
     settingsGUI.AddEdit("cDefault")
     If (IsInteger(GuiFontSize) || IsFloat(GuiFontSize)) {
@@ -156,9 +156,20 @@ Button_Click_GeneralSettings(thisGui, info) {
                 .GuiFontWeight)
         }
     }
-    
+
     settingsGUI.Add("Text", "", "GUI Font Name (blank for default):")
-    settingsGUI.AddEdit("cDefault vGuiFontName w140", GuiFontName)
+
+    arr := [""]
+    Loop Reg "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts", "KVR" {
+        arr.InsertAt(2, RegExReplace(A_LoopRegName, "\W+\((TrueType|OpenType|All res)\)"))
+    }
+    preselectfont := 1
+    For id, value IN arr {
+        if (value = GuiFontName) {
+            preselectfont := id
+        }
+    }
+    settingsGUI.AddDropDownList("vGuiFontName Choose" preselectfont, arr)
 
     settingsGUI.Add("Text", "", "GUI Background Colour:")
     settingsGUI.AddEdit("cDefault vGuiBGColour w140", GuiBGColour)

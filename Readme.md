@@ -220,6 +220,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Save window position
   - Improved save setting times
   - Custom font settings and background colours
+  - Load system fonts to selection for font name
 
 - Mine
   - Modified brew travel to be more stable.
