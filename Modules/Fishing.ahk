@@ -629,9 +629,13 @@ Class Fishing {
         While (!this.TourneyRod.IsOnTab()) {
             this.Tabs.TourneyRod.ClickButtonActive(, 5)
         }
+        Out.D("Tourney rod: Ontab " this.TourneyRod.IsOnTab() ", ShaftActive " this.TourneyRod.Shaft.IsButtonActive() ", HandleActive " this
+        .TourneyRod.Handle.IsButtonActive() ", TipActive " this.TourneyRod.Tip.IsButtonActive())
         While (this.TourneyRod.Shaft.IsButtonActive() ||
         this.TourneyRod.Handle.IsButtonActive() ||
         this.TourneyRod.Tip.IsButtonActive()) {
+            Out.D("Tourney rod: Ontab " this.TourneyRod.IsOnTab() ", ShaftActive " this.TourneyRod.Shaft.IsButtonActive() ", HandleActive " this
+            .TourneyRod.Handle.IsButtonActive() ", TipActive " this.TourneyRod.Tip.IsButtonActive())
             this.TourneyRod.Shaft.ClickButtonActive()
             this.TourneyRod.Handle.ClickButtonActive()
             this.TourneyRod.Tip.ClickButtonActive()
