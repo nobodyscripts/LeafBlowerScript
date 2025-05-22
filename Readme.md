@@ -208,6 +208,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - General
   - Added LogBuffer setting to store log entries in a buffer, reducing disk
  writes with logging enabled.
+  - Added Update.ahk to replace current with test version
 
 - Hotkeys
 
