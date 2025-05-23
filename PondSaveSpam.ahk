@@ -41,7 +41,7 @@ F3::
     /** @type {cPoint} */
     RarityPoint := TargetPond.Rarity
     /** @type {cPoint} */
-    search := Fishing().Search
+    search := FishingPonds().Search
     /** @type {cPoint} */
     OpenFishing := cPoint(329, 1135)
     pid := false
