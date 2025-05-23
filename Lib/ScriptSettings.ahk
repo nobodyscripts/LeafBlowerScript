@@ -83,7 +83,7 @@ Global FishNovice, FishIntermediate, FishExpert,
     FishLegend, FishNoviceAttack, FishIntermediateAttack,
     FishExpertAttack, FishLegendAttack
 
-Global FishChlCatchingDelay, FishChlCatchingSearch
+Global FishChlCatchingDelay, FishChlCatchingSearch, FishChlAmount
 
 Global FishChlEnableShopUpgrade, FishChlEnableUpgradeRods,
     FishChlEnableTransmute, FishChlEnableJourneyCollect
@@ -601,6 +601,8 @@ Class cSettings {
             true, true, "bool", "FishChallenge")
         this.Map["FishChlTransmuteAtoCry"] := singleSetting("FishChlTransmuteAtoCry",
             true, true, "bool", "FishChallenge")
+        this.Map["FishChlAmount"] := singleSetting("FishChlAmount",
+            5, 5, "int", "FishChallenge")
 
         this.Map["FishTourCatchingDelay"] := singleSetting("FishTourCatchingDelay",
             8, 8, "int", "FishTourney")
@@ -772,7 +774,7 @@ Class cSettings {
             FishLegend, FishNoviceAttack, FishIntermediateAttack,
             FishExpertAttack, FishLegendAttack
 
-        Global FishChlCatchingDelay, FishChlCatchingSearch
+        Global FishChlCatchingDelay, FishChlCatchingSearch, FishChlAmount
 
         Global FishChlEnableShopUpgrade, FishChlEnableUpgradeRods,
             FishChlEnableTransmute, FishChlEnableJourneyCollect

@@ -283,35 +283,30 @@ Class FishingTourney {
                 If (FishTourTimerJourneyCollect &&
                     DateDiff(A_Now, JourneyTime, "S") > FishTourTimerJourneyCollect) {
                     cFishing.JourneyCollect()
-                    cFishing.Tabs.Pond.ClickButtonActive()
                     JourneyTime := A_Now
                     LogToggle := true
                 }
                 If (FishTourTimerTransmute &&
                     DateDiff(A_Now, TransmuteTime, "S") > FishTourTimerTransmute) {
                     cFishing.UserTourSelectedTransmute()
-                    cFishing.Tabs.Pond.ClickButtonActive()
                     TransmuteTime := A_Now
                     LogToggle := true
                 }
                 If (FishTourEnableUpgradeRods &&
                     DateDiff(A_Now, RodsTime, "S") > FishTourTimerUpgradeRods) {
                     cFishing.UpgradeRods()
-                    cFishing.Tabs.Pond.ClickButtonActive()
                     RodsTime := A_Now
                     LogToggle := true
                 }
                 If (FishTourEnableShopUpgrade &&
                     DateDiff(A_Now, ShopTime, "S") > FishTourTimerShopUpgrade) {
                     cFishing.ShopUpgrade()
-                    cFishing.Tabs.Pond.ClickButtonActive()
                     ShopTime := A_Now
                     LogToggle := true
                 }
                 If (FishTourEnableUpgradeTourneyRods &&
                     DateDiff(A_Now, TourneyRodTime, "S") > FishTourTimerUpgradeTourneyRods) {
                     cFishing.TourneyRodUpgrade()
-                    cFishing.Tabs.Pond.ClickButtonActive()
                     TourneyRodTime := A_Now
                     LogToggle := true
                 }

@@ -343,7 +343,7 @@ Class cPoint {
 
     /**
      * Gets the colour at the point, protected by trycatch
-     * @returns {String} 
+     * @returns {String} 0xFFFFFF
      */
     GetColour() {
         Try {
@@ -372,8 +372,8 @@ Class cPoint {
     }
 
     /**
-     * Compare colour at point to string
-     * @param colour 
+     * Compare colour at point to string 
+     * @param colour 0xFFFFFF
      * @returns {Integer} 
      */
     IsColour(colour) {

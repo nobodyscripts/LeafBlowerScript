@@ -26,6 +26,7 @@ Global FishTransmuteFCtoT := false
 Global FishTransmuteCrytoFC := false
 Global FishTransmuteAtoCry := false
 
+Global FishChlAmount := 0
 Global FishChlCatchingDelay := 0
 Global FishChlCatchingSearch := false
 
@@ -102,12 +103,6 @@ Class FishingPonds {
     ConfirmCancel := cPoint(1395, 556)
     /** @type {cPoint} */
     Search := cPoint(524, 313)
-    /** @type {cPoint} */
-    NewPondRod := cPoint(968, 892)
-    /** @type {cPoint} */
-    NewPondRod2 := cPoint(1048, 892)
-    /** @type {cPoint} */
-    NewPondRod3 := cPoint(1128, 892)
 
     IsOnTab() {
         If (this.Lure.IsButton() && this.Search.IsButton()) {
@@ -343,16 +338,14 @@ Class Fishing {
     /**
      * Attempt to auto catch fish (Simple)
      */
-    fFishAutoCatch(challenge := false) {
+    fFishAutoCatch() {
         StartTime := A_TickCount - (FishCatchingDelay * 1000)
         Time1 := StartTime
         Time2 := StartTime
         Time3 := StartTime
         Time4 := StartTime
-        If (FishCatchingSearch && !challenge) {
+        If (FishCatchingSearch) {
             Out.I("Started fishing with search")
-        } Else If (challenge) {
-            Out.I("Started fishing challenge")
         } Else {
             Out.I("Started fishing")
         }
@@ -376,7 +369,7 @@ Class Fishing {
                 Out.I("Fishing pass")
                 LogToggle := false
             }
-            If (FishCatchingSearch && !challenge) {
+            If (FishCatchingSearch) {
                 If (this.Ponds.Search.IsButtonActive()) {
                     ; Search if the buttons active because a slot is empty
                     this.Ponds.Search.ClickButtonActive()
@@ -384,46 +377,41 @@ Class Fishing {
                 }
                 this.PondQualityUpgrade()
             }
+            this.EnsureAllPondsHaveRods()
             this.FishPonds(&Time1, &Time2, &Time3, &Time4)
             If (FishTimerJourneyCollect &&
                 DateDiff(A_Now, JourneyTime, "S") > FishTimerJourneyCollect) {
                 this.JourneyCollect()
-                this.Tabs.Pond.ClickButtonActive()
                 JourneyTime := A_Now
                 LogToggle := true
             }
             If (FishTimerTransmute &&
                 DateDiff(A_Now, TransmuteTime, "S") > FishTimerTransmute) {
                 this.UserSelectedTransmute()
-                this.Tabs.Pond.ClickButtonActive()
                 TransmuteTime := A_Now
                 LogToggle := true
             }
             If (FishEnableUpgradeRods &&
                 DateDiff(A_Now, RodsTime, "S") > FishTimerUpgradeRods) {
                 this.UpgradeRods()
-                this.Tabs.Pond.ClickButtonActive()
                 RodsTime := A_Now
                 LogToggle := true
             }
             If (FishEnableShopUpgrade &&
                 DateDiff(A_Now, ShopTime, "S") > FishTimerShopUpgrade) {
                 this.ShopUpgrade()
-                this.Tabs.Pond.ClickButtonActive()
                 ShopTime := A_Now
                 LogToggle := true
             }
             If (FishEnableUpgradeTourneyRods &&
                 DateDiff(A_Now, TourneyRodTime, "S") > FishTimerUpgradeTourneyRods) {
                 this.TourneyRodUpgrade()
-                this.Tabs.Pond.ClickButtonActive()
                 TourneyRodTime := A_Now
                 LogToggle := true
             }
             If (FishEnableTourneyPass &&
                 DateDiff(A_Now, TourneyTime, "S") > FishTimerTourneyPass) {
                 this.TourneySinglePass()
-                this.Tabs.Pond.ClickButtonActive()
                 TourneyTime := A_Now
                 LogToggle := true
             }
@@ -578,10 +566,7 @@ Class Fishing {
             Travel.ScrollAmountDown(7)
             this.Shop.TourneyUnlock.ClickButtonActive()
         } Else {
-            this.Shop.BuySpot.ClickButtonActive()
-            this.Shop.MinLine.ClickButtonActive()
-            this.Shop.MaxLine.ClickButtonActive()
-
+            NewPond := this.Shop.BuySpot.ClickButtonActive()
             Travel.ScrollAmountDown(7)
             this.Shop.CreditsUpgrade.ClickButtonActive()
             this.Shop.MaxRods.ClickButtonActive()
@@ -589,28 +574,16 @@ Class Fishing {
             this.Shop.TourneyUnlock.ClickButtonActive()
             ; Low importance items
             Travel.ScrollResetToTop()
-            this.Shop.Auto.ClickButtonActive()
-            this.Shop.AutoThreshold.ClickButtonActive()
-            this.Shop.FasterAuto.ClickButtonActive()
             this.Shop.BuySpot.ClickButtonActive()
             this.Shop.MinLine.ClickButtonActive()
             this.Shop.MaxLine.ClickButtonActive()
+            this.Shop.Auto.ClickButtonActive()
+            this.Shop.AutoThreshold.ClickButtonActive()
+            this.Shop.FasterAuto.ClickButtonActive()
 
             Travel.ScrollAmountDown(7)
             this.Shop.RodRecharge.ClickButtonActive()
-            this.Shop.CreditsUpgrade.ClickButtonActive()
-            this.Shop.MaxRods.ClickButtonActive()
-
-            Travel.ScrollAmountDown(7)
-            this.Shop.Rarity.ClickButtonActive()
-            this.Shop.SpotRarity.ClickButtonActive()
-            this.Shop.CrystalChance.ClickButtonActive()
-
-            Travel.ScrollAmountDown(7)
-            this.Shop.BaitUnlock.ClickButtonActive()
-
-            Travel.ScrollAmountDown(7)
-            this.Shop.TourneyUnlock.ClickButtonActive()
+            return NewPond
         }
     }
     ;@endregion
@@ -667,7 +640,7 @@ Class Fishing {
     /**
      * Fish ponds a single time
      */
-    FishPonds(&Time1, &Time2, &Time3, &Time4, isTourney := false) {
+    FishPonds(&Time1, &Time2, &Time3, &Time4, isTourney := false, isChallenge := false) {
 
         If (!this.Pond1.CastRod.IsBackground()) {
             this.Pond1.FishPond(&Time1)
@@ -682,12 +655,16 @@ Class Fishing {
             this.Pond4.FishPond(&Time4)
         }
         Sleep (17)
-        If (!isTourney) {
-            If (this.Ponds.Lure.IsButtonActive() && (A_TickCount - Time1) / 1000 < FishCatchingDelay) {
+        If (isTourney) {
+            If (this.Ponds.Lure.IsButtonActive() && (A_TickCount - Time1) / 1000 < FishTourCatchingDelay) {
                 this.Ponds.Lure.ClickButtonActive()
             }
-        } else {
-            If (this.Ponds.Lure.IsButtonActive() && (A_TickCount - Time1) / 1000 < FishTourCatchingDelay) {
+        } Else If (isChallenge) {
+            If (this.Ponds.Lure.IsButtonActive() && (A_TickCount - Time1) / 1000 < FishChlCatchingDelay) {
+                this.Ponds.Lure.ClickButtonActive()
+            }
+        } Else {
+            If (this.Ponds.Lure.IsButtonActive() && (A_TickCount - Time1) / 1000 < FishCatchingDelay) {
                 this.Ponds.Lure.ClickButtonActive()
             }
         }
@@ -806,12 +783,71 @@ Class Fishing {
         }
         this.Ponds.Search.WaitUntilActiveButtonS(3)
         this.Ponds.Search.ClickButtonActive()
-        this.Ponds.NewPondRod.WaitUntilActiveButtonS(3)
-        this.Ponds.NewPondRod.ClickButtonActive()
-        this.Ponds.NewPondRod2.ClickButtonActive()
-        this.Ponds.NewPondRod3.ClickButtonActive()
+        Switch (this.PondCount()) {
+        Case 1:
+            this.Pond1.Rod1.WaitUntilActiveButtonS(3)
+            this.Pond1.Rod1.ClickButtonActive()
+            this.Pond1.BaitIcon.ClickButtonActive()
+        Case 2:
+            this.Pond2.Rod1.WaitUntilActiveButtonS(3)
+            this.Pond2.Rod1.ClickButtonActive()
+            this.Pond2.BaitIcon.ClickButtonActive()
+        Case 3:
+            this.Pond3.Rod1.WaitUntilActiveButtonS(3)
+            this.Pond3.Rod1.ClickButtonActive()
+            this.Pond3.BaitIcon.ClickButtonActive()
+        Case 4:
+            this.Pond4.Rod1.WaitUntilActiveButtonS(3)
+            this.Pond4.Rod1.ClickButtonActive()
+            this.Pond4.Rod2.ClickButtonActive()
+            this.Pond4.Rod3.ClickButtonActive()
+            this.Pond4.BaitIcon.ClickButtonActive()
+
+        default:
+        }
         Out.I("Pond upgrade complete")
         Return true
+    }
+    ;@endregion
+
+    ;@region AddNewPond()
+    /**
+     * Description
+     */
+    AddNewPond() {
+        While (this.Ponds.Search.IsButtonActive()) {
+            this.Ponds.Search.ClickButtonActive()
+        }
+        Switch (this.PondCount()) {
+        Case 2:
+            this.Pond2.Rod1.ClickButtonActive()
+            this.Pond2.BaitIcon.ClickButtonActive()
+        Case 3:
+            this.Pond3.Rod1.ClickButtonActive()
+            this.Pond3.BaitIcon.ClickButtonActive()
+        Case 4:
+            this.Pond4.Rod1.ClickButtonActive()
+            this.Pond4.BaitIcon.ClickButtonActive()
+        default:
+        }
+        Out.I("Pond Added")
+        Return
+    }
+    ;@endregion
+
+    ;@region PondCount()
+    PondCount() {
+        count := 1
+        If (!this.Pond2.CastRod.IsBackground()) {
+            count++
+        }
+        If (!this.Pond3.CastRod.IsBackground()) {
+            count++
+        }
+        If (!this.Pond4.CastRod.IsBackground()) {
+            count++
+        }
+        return count
     }
     ;@endregion
 
@@ -819,14 +855,20 @@ Class Fishing {
     /**
      * Upgrade fishing rods to max available rotating between all of them
      */
-    UpgradeRods() {
+    UpgradeRods(TotalPonds := 1, TotalRods := 1, Challenge := false) {
         Out.I("Upgrade Rods")
         Rod1 := Rod2 := Rod3 := Rod4 := Rod5 := Rod6 := Rod7 := false
         While (!this.Rods.IsOnTab()) {
             this.Tabs.Rods.ClickButtonActive(, 5)
         }
-        While (this.Rods.Craft.IsButtonActive()) {
+        count := 0
+        While (Challenge && TotalRods < TotalPonds && this.Rods.Craft.IsButtonActive()) {
             this.Rods.Craft.ClickButtonActive()
+            count++
+        }
+        While (!Challenge && this.Rods.Craft.IsButtonActive()) {
+            this.Rods.Craft.ClickButtonActive()
+            count++
         }
         If (!this.Rods.FirstRod.IsBackground() && !this.Rods.FirstRod.IsButton()) {
             Rod1 := true
@@ -876,6 +918,7 @@ Class Fishing {
                 Break
             }
         }
+        return count
     }
     ;@endregion
 
@@ -961,6 +1004,72 @@ Class Fishing {
         Return false
     }
     ;@endregion
+
+    ;@region ActiveRodCount()
+    /**
+     * Description
+     */
+    ActiveRodCount() {
+        count := 0
+        if(!this.Pond1.Rod1.IsButton() && !this.Pond1.Rod1.IsBackground() && !this.Pond1.Rod1.IsColour("0x8A6743")) {
+            count++
+        }
+        if(!this.Pond1.Rod2.IsButton() && !this.Pond1.Rod2.IsBackground() && !this.Pond1.Rod2.IsColour("0x8A6743")) {
+            count++
+        }
+        if(!this.Pond1.Rod3.IsButton() && !this.Pond1.Rod3.IsBackground() && !this.Pond1.Rod3.IsColour("0x8A6743")) {
+            count++
+        }
+        if(!this.Pond2.Rod1.IsButton() && !this.Pond2.Rod1.IsBackground() && !this.Pond2.Rod1.IsColour("0x8A6743")) {
+            count++
+        }
+        if(!this.Pond2.Rod2.IsButton() && !this.Pond2.Rod2.IsBackground() && !this.Pond2.Rod2.IsColour("0x8A6743")) {
+            count++
+        }
+        if(!this.Pond2.Rod3.IsButton() && !this.Pond2.Rod3.IsBackground() && !this.Pond2.Rod3.IsColour("0x8A6743")) {
+            count++
+        }
+        if(!this.Pond3.Rod1.IsButton() && !this.Pond3.Rod1.IsBackground() && !this.Pond3.Rod1.IsColour("0x8A6743")) {
+            count++
+        }
+        if(!this.Pond3.Rod2.IsButton() && !this.Pond3.Rod2.IsBackground() && !this.Pond3.Rod2.IsColour("0x8A6743")) {
+            count++
+        }
+        if(!this.Pond3.Rod3.IsButton() && !this.Pond3.Rod3.IsBackground() && !this.Pond3.Rod3.IsColour("0x8A6743")) {
+            count++
+        }
+        if(!this.Pond4.Rod1.IsButton() && !this.Pond4.Rod1.IsBackground() && !this.Pond4.Rod1.IsColour("0x8A6743")) {
+            count++
+        }
+        if(!this.Pond4.Rod2.IsButton() && !this.Pond4.Rod2.IsBackground() && !this.Pond4.Rod2.IsColour("0x8A6743")) {
+            count++
+        }
+        if(!this.Pond4.Rod3.IsButton() && !this.Pond4.Rod3.IsBackground() && !this.Pond4.Rod3.IsColour("0x8A6743")) {
+            count++
+        }
+        return count
+    }
+    ;@endregion
+
+    ;@region EnsureAllPondsHaveRods()
+    /**
+     * 
+     */
+    EnsureAllPondsHaveRods() {
+        if(this.Pond1.Rod1.IsButtonActive()) {
+           this.Pond1.Rod1.ClickButtonActive()
+        }
+        if(this.Pond2.Rod1.IsButtonActive()) {
+           this.Pond2.Rod1.ClickButtonActive()
+        }
+        if(this.Pond3.Rod1.IsButtonActive()) {
+           this.Pond3.Rod1.ClickButtonActive()
+        }
+        if(this.Pond4.Rod1.IsButtonActive()) {
+           this.Pond4.Rod1.ClickButtonActive()
+        }
+    }
+    ;@endregion
 }
 
 /**
@@ -986,6 +1095,12 @@ Class Pond {
     CooldownSuffix := ""
     /** @type {cPoint} */
     ConfirmCancel := cPoint(1395, 556)
+    /** @type {cPoint} */
+    Rod1 := ""
+    /** @type {cPoint} */
+    Rod2 := ""
+    /** @type {cPoint} */
+    Rod3 := ""
 
     id := 0
 
@@ -999,6 +1114,9 @@ Class Pond {
             this.Cancel := cPoint(803, 485)
             this.Bait := cPoint(800, 681)
             this.BaitIcon := cPoint(826, 666)
+            this.Rod1 := cPoint(359, 589)
+            this.Rod2 := cPoint(442, 588)
+            this.Rod3 := cPoint(520, 590)
         Case 2:
             this.Rarity := cPoint(914, 709)
             this.CastRod := cPoint(946, 654) ; Shifted to avoid tooltip in tourney mode
@@ -1007,6 +1125,9 @@ Class Pond {
             this.Cancel := cPoint(1411, 486)
             this.Bait := cPoint(1407, 683)
             this.BaitIcon := cPoint(1433, 665)
+            this.Rod1 := cPoint(968, 589)
+            this.Rod2 := cPoint(1047, 590)
+            this.Rod3 := cPoint(1128, 589)
         Case 3:
             this.Rarity := cPoint(305, 1007)
             this.CastRod := cPoint(542, 972)
@@ -1015,6 +1136,9 @@ Class Pond {
             this.Cancel := cPoint(803, 787)
             this.Bait := cPoint(799, 983)
             this.BaitIcon := cPoint(826, 964)
+            this.Rod1 := cPoint(360, 889)
+            this.Rod2 := cPoint(440, 888)
+            this.Rod3 := cPoint(521, 889)
         Case 4:
             this.Rarity := cPoint(914, 1007)
             this.CastRod := cPoint(1150, 972)
@@ -1023,6 +1147,9 @@ Class Pond {
             this.Cancel := cPoint(1409, 786)
             this.Bait := cPoint(1407, 980)
             this.BaitIcon := cPoint(1434, 964)
+            this.Rod1 := cPoint(967, 890)
+            this.Rod2 := cPoint(1048, 892)
+            this.Rod3 := cPoint(1128, 892)
         default:
         }
         this.id := id

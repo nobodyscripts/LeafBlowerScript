@@ -10,7 +10,7 @@ Button_Click_FishingChallenge(thisGui, info) {
     thisGui := thisGui
     Global Settings
 
-    Global FishChlCatchingDelay, FishChlCatchingSearch
+    Global FishChlCatchingDelay, FishChlCatchingSearch, FishChlAmount
 
     Global FishChlEnableShopUpgrade, FishChlEnableUpgradeRods,
         FishChlEnableTransmute, FishChlEnableJourneyCollect
@@ -199,15 +199,36 @@ Button_Click_FishingChallenge(thisGui, info) {
             "Enable Transmute Advanced Crystal to Crystal")
     }
     ;@endregion
-
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run Challenge").OnEvent("Click",
-        RunFishAutoCatchChallenge)
-
     ;@endregion
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
+    optionsGUI.Add("Text", "", "Challenge Run Amount:")
+    optionsGUI.AddEdit("cDefault")
+    If (IsInteger(FishChlAmount) && FishChlAmount > 0) {
+        optionsGUI.Add("UpDown", "vFishChlAmount Range1-9999",
+            FishChlAmount)
+    } Else {
+        If (Settings.sUseNobody) {
+            optionsGUI.Add("UpDown", "vFishChlAmount Range1-9999",
+                Settings.defaultNobodySettings.FishChlAmount)
+        } Else {
+            optionsGUI.Add("UpDown", "vFishChlAmount Range1-9999",
+                Settings.defaultSettings.FishChlAmount)
+        }
+    }
+
+
+    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run Once").OnEvent("Click",
+        RunFishChallengeSingle)
+
+    optionsGUI.Add("Button", "+Background" GuiBGColour " yp", "Run Looped").OnEvent("Click",
+        RunFishChallengeLoop)
+
+    optionsGUI.Add("Button", "+Background" GuiBGColour " yp", "Run User Amount").OnEvent("Click",
+        RunFishChallengeAmount)
+
+    optionsGUI.Add("Button", "+Background" GuiBGColour " yp", "Save").OnEvent("Click",
         ProcessFishChlSettings)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
+    optionsGUI.Add("Button", "+Background" GuiBGColour " yp", "Cancel").OnEvent("Click",
         CloseFishChlSettings)
 
     ;@endregion
@@ -229,10 +250,22 @@ Button_Click_FishingChallenge(thisGui, info) {
         optionsGUI.Show()
     }
 
-    RunFishAutoCatchChallenge(thisGui, info) {
+    RunFishChallengeSingle(thisGui, info) {
         optionsGUI.Hide()
         Window.Activate()
-        Fishing().fFishAutoCatch(true)
+        FishingChallenge().StartLoop()
+    }
+
+    RunFishChallengeLoop(thisGui, info) {
+        optionsGUI.Hide()
+        Window.Activate()
+        FishingChallenge().StartLoop()
+    }
+
+    RunFishChallengeAmount(thisGui, info) {
+        optionsGUI.Hide()
+        Window.Activate()
+        FishingChallenge().StartLoop()
     }
 
     CloseFishChlSettings(*) {
@@ -258,6 +291,7 @@ Button_Click_FishingChallenge(thisGui, info) {
         FishChlTransmuteFCtoT := values.FishChlTransmuteFCtoT
         FishChlTransmuteCrytoFC := values.FishChlTransmuteCrytoFC
         FishChlTransmuteAtoCry := values.FishChlTransmuteAtoCry
+        FishChlAmount := values.FishChlAmount
 
         Settings.SaveCurrentSettings()
     }

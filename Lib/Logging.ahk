@@ -153,7 +153,7 @@ Class cLog {
     _OpenHandle() {
         Try {
             this._FileHandle := FileOpen(this.FileName, "a-d")
-            this._OutputDebug("Logging to " this.FileName)
+            ;this._OutputDebug("Logging to " this.FileName)
         } Catch (Error) {
             MsgBox("Could not open " this.FileName " to write logs to.")
             this._OutputDebug("Could not open " this.FileName

@@ -274,7 +274,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added rod upgrading (both types), journey collection, shop upgrades,
     transmute, tourney single pass
   - GUI and settings for fishing and tourney
-  - Challenge mode
+  - Challenge mode (single, looped or custom amount of fishing challenges)
   - Tourney mode
   - Selectable attack type in Tourney mode per difficulty
   - Added Tourney mode secondary features (rod upgrading etc)
@@ -297,16 +297,12 @@ dressing.
 borderless fullscreen
 - Automated challenges (early game scripts/TAS)
 - Convert borbventures gui to checkboxes for item selection  
-- Transmute and reset relics
 - Add check to IsAspectRatioCorrect for setting from options.dat if failed,
 output colour found, suggest rtx dynamic vibrance off, image scaling off,
 digital vibrance off
 - Add file size check to log files
-- Autoupdate
 - Attach to game window option
 - Fix default settings locations used by gui no longer existing
-- Saving progress gui now saving settings takes a while
-  - Diffed settings saving
 
 - Features:
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.
@@ -329,7 +325,6 @@ digital vibrance off
   - Fishing: Fix pond search if no rod applied at start
     - Detect cast/reel with more careful checks
     - Detect % progress
-    - Automate fishing challenge (loop)
 
 ## Known issues
 
