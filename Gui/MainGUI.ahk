@@ -418,6 +418,7 @@ OnWheel(W, L, M, H) {
         Return 0
     }
 }
+
 OnScroll(WP, LP, M, H) {
     Static SCROLL_STEP := 20
     If !(LP = 0) ; not sent by a standard scrollbar

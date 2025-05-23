@@ -11,6 +11,12 @@
  */
 Class sRelics extends Zone {
 
+    pTransmuteAll := cPoint(1015, 1101)
+    ConfirmTransmute := cPoint(1362, 557) ; old this.ConfirmTransmute
+    TabLegend := cPoint(1944, 1180)
+    TabMastr := cPoint(2217, 1180)
+    ResetMastr := cPoint(980, 737)
+
     ;@region cFeatureRelics main travel
     /**
      * Go to Relics panel can return on any tab
@@ -37,7 +43,7 @@ Class sRelics extends Zone {
     ;@endregion
 
     TabLegendary() {
-        If (!cPoint(1944, 1180).ClickButtonActive()) {
+        If (!this.TabLegend.ClickButtonActive()) {
             Return false
         }
         Sleep(100)
@@ -45,7 +51,7 @@ Class sRelics extends Zone {
     }
 
     TabMaster() {
-        If (!cPoint(2217, 1180).ClickButtonActive()) {
+        If (!this.TabMastr.ClickButtonActive()) {
             Return false
         }
         Sleep(100)
@@ -53,26 +59,26 @@ Class sRelics extends Zone {
     }
 
     TransmuteAll() {
-        If (!cPoint(1015, 1101).ClickButtonActive()) {
+        If (!this.pTransmuteAll.ClickButtonActive()) {
             Return false
         }
-        If (!cPoint(1413, 521).WaitUntilActiveButtonS(0.5)) {
-            If (!cPoint(1015, 1101).ClickButtonActive()) {
+        If (!this.ConfirmTransmute.WaitUntilActiveButtonS(0.5)) {
+            If (!this.pTransmuteAll.ClickButtonActive()) {
                 Return false
             }
-            If (!cPoint(1413, 521).WaitUntilActiveButtonS(0.5)) {
+            If (!this.ConfirmTransmute.WaitUntilActiveButtonS(0.5)) {
                 Return false
             }
         }
         ; Confirm
-        If (!cPoint(1413, 521).ClickButtonActive()) {
+        If (!this.ConfirmTransmute.ClickButtonActive()) {
             Return false
         }
         Sleep(50)
-        If (cPoint(1413, 521).IsBackground()) {
+        If (this.ConfirmTransmute.IsBackground()) {
             Return true
         }
-        If (!cPoint(1413, 521).ClickButtonActive()) {
+        If (!this.ConfirmTransmute.ClickButtonActive()) {
             Return false
         }
         Sleep(50)
@@ -81,19 +87,19 @@ Class sRelics extends Zone {
     }
 
     ResetMaster() {
-        If (!cPoint(980, 737).ClickButtonActive()) {
+        If (!this.ResetMastr.ClickButtonActive()) {
             Return false
         }
         Sleep(50)
         ; Confirm
-        If (!cPoint(1413, 521).ClickButtonActive()) {
+        If (!this.ConfirmTransmute.ClickButtonActive()) {
             Return false
         }
         Sleep(50)
-        If (cPoint(1413, 521).IsBackground()) {
+        If (this.ConfirmTransmute.IsBackground()) {
             Return true
         }
-        If (!cPoint(1413, 521).ClickButtonActive()) {
+        If (!this.ConfirmTransmute.ClickButtonActive()) {
             Return false
         }
         Sleep(50)
