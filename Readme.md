@@ -277,6 +277,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Challenge mode
   - Tourney mode
   - Selectable attack type in Tourney mode per difficulty
+  - Added Tourney mode secondary features (rod upgrading etc)
 
 - PondSpamSave.ahk Standalone script for farming high rank ponds, F1 exit, F2 reload,
     F3 Activate, Hold F4 to stop on next loop. Set game to 10min autosave, save
@@ -328,7 +329,6 @@ digital vibrance off
   - Fishing: Fix pond search if no rod applied at start
     - Detect cast/reel with more careful checks
     - Detect % progress
-    - Do fishing in tourney cooldown
     - Automate fishing challenge (loop)
 
 ## Known issues

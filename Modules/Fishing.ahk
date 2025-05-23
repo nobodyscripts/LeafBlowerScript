@@ -384,7 +384,7 @@ Class Fishing {
                 }
                 this.PondQualityUpgrade()
             }
-            this.FishPonds(&Time1, &Time2, &Time3, &Time4, true)
+            this.FishPonds(&Time1, &Time2, &Time3, &Time4)
             If (FishTimerJourneyCollect &&
                 DateDiff(A_Now, JourneyTime, "S") > FishTimerJourneyCollect) {
                 this.JourneyCollect()
@@ -631,7 +631,8 @@ Class Fishing {
         }
         Out.D("Tourney rod: Ontab " this.TourneyRod.IsOnTab() ", ShaftActive " this.TourneyRod.Shaft.IsButtonActive() ", HandleActive " this
         .TourneyRod.Handle.IsButtonActive() ", TipActive " this.TourneyRod.Tip.IsButtonActive())
-        Out.D("Detected: Shaft " this.TourneyRod.Shaft.GetDescription() ", Handle " this.TourneyRod.Handle.GetDescription() ", Tip " this.TourneyRod.Tip.GetDescription())
+        Out.D("Detected: Shaft " this.TourneyRod.Shaft.GetDescription() ", Handle " this.TourneyRod.Handle.GetDescription() ", Tip " this
+        .TourneyRod.Tip.GetDescription())
         While (this.TourneyRod.Shaft.IsButtonActive() ||
         this.TourneyRod.Handle.IsButtonActive() ||
         this.TourneyRod.Tip.IsButtonActive()) {
@@ -666,7 +667,7 @@ Class Fishing {
     /**
      * Fish ponds a single time
      */
-    FishPonds(&Time1, &Time2, &Time3, &Time4, challenge) {
+    FishPonds(&Time1, &Time2, &Time3, &Time4, isTourney := false) {
 
         If (!this.Pond1.CastRod.IsBackground()) {
             this.Pond1.FishPond(&Time1)
@@ -681,8 +682,14 @@ Class Fishing {
             this.Pond4.FishPond(&Time4)
         }
         Sleep (17)
-        If (this.Ponds.Lure.IsButtonActive() && (A_TickCount - Time1) / 1000 < FishCatchingDelay) {
-            this.Ponds.Lure.ClickButtonActive()
+        If (!isTourney) {
+            If (this.Ponds.Lure.IsButtonActive() && (A_TickCount - Time1) / 1000 < FishCatchingDelay) {
+                this.Ponds.Lure.ClickButtonActive()
+            }
+        } else {
+            If (this.Ponds.Lure.IsButtonActive() && (A_TickCount - Time1) / 1000 < FishTourCatchingDelay) {
+                this.Ponds.Lure.ClickButtonActive()
+            }
         }
     }
     ;@endregion
@@ -994,7 +1001,7 @@ Class Pond {
             this.BaitIcon := cPoint(826, 666)
         Case 2:
             this.Rarity := cPoint(914, 709)
-            this.CastRod := cPoint(1157, 667)
+            this.CastRod := cPoint(946, 654) ; Shifted to avoid tooltip in tourney mode
             this.Progress := cRect(1005, 699, 1108, 728)
             this.CooldownSuffix := cRect(1073, 703, 1108, 728)
             this.Cancel := cPoint(1411, 486)

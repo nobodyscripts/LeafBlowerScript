@@ -65,7 +65,7 @@ Class FishingTourney {
         this.Farm2 := FishIntermediate
         this.Farm3 := FishExpert
         this.Farm4 := FishLegend
-        return this
+        Return this
     }
     SetModeTourney() {
         this.Mode := 1
@@ -185,7 +185,7 @@ Class FishingTourney {
     }
     ;@endregion
 
-    ;@region StartFight(id)
+    ;@region IsFightReady(id)
     /**
      * Start different tourneys based on id
      */
@@ -210,37 +210,132 @@ Class FishingTourney {
      * Start a looped farming of the available tourneys
      */
     Farm() {
-        tooltiptoggle := false
+        /* FishTourCatchingDelay := values.FishTourCatchingDelay
+           FishTourCatchingSearch := values.FishTourCatchingSearch
+           FishTourEnableShopUpgrade := values.FishTourEnableShopUpgrade
+           FishTourEnableUpgradeRods := values.FishTourEnableUpgradeRods
+           FishTourEnableFishingPass := values.FishTourEnableFishingPass
+           FishTourEnableUpgradeTourneyRods := values.FishTourEnableUpgradeTourneyRods
+           FishTourEnableTransmute := values.FishTourEnableTransmute
+           FishTourEnableJourneyCollect := values.FishTourEnableJourneyCollect
+           FishTourTimerShopUpgrade := values.FishTourTimerShopUpgrade
+           FishTourTimerUpgradeRods := values.FishTourTimerUpgradeRods
+           FishTourTimerUpgradeTourneyRods := values.FishTourTimerUpgradeTourneyRods
+           FishTourTimerTransmute := values.FishTourTimerTransmute
+           FishTourTimerJourneyCollect := values.FishTourTimerJourneyCollect
+           FishTourTransmuteTtoFC := values.FishTourTransmuteTtoFC
+           FishTourTransmuteFCtoCry := values.FishTourTransmuteFCtoCry
+           FishTourTransmuteCrytoA := values.FishTourTransmuteCrytoA
+           FishTourTransmuteFCtoT := values.FishTourTransmuteFCtoT
+           FishTourTransmuteCrytoFC := values.FishTourTransmuteCrytoFC
+           FishTourTransmuteAtoCry := values.FishTourTransmuteAtoCry
+           FishTourNovice := values.FishTourNovice
+           FishTourIntermediate := values.FishTourIntermediate
+           FishTourExpert := values.FishTourExpert
+           FishTourLegend := values.FishTourLegend
+           FishTourNoviceAttack := values.FishTourNoviceAttack
+           FishTourIntermediateAttack := values.FishTourIntermediateAttack
+           FishTourExpertAttack := values.FishTourExpertAttack
+        FishTourLegendAttack := values.FishTourLegendAttack */
+        /** @type {Fishing} */
+        cFishing := Fishing()
+        StartTime := A_TickCount - (FishCatchingDelay * 1000)
+        Time1 := StartTime
+        Time2 := StartTime
+        Time3 := StartTime
+        Time4 := StartTime
+        Out.I("Started Tourney Farm")
+        JourneyTime := A_Now
+        TransmuteTime := A_Now
+        RodsTime := A_Now
+        ShopTime := A_Now
+        TourneyRodTime := A_Now
+        LogToggle := true
         While (Window.IsActive()) {
+            While (!this.IsOnTab()) {
+                cFishing.Tabs.Tourney.ClickButtonActive()
+            }
             If (this.Farm1 && this.IsFightReady(1)) {
                 gToolTip.CenterDel()
-                tooltiptoggle := false
                 this.StartFight(1)
                 this.Fight(1)
             }
             If (this.Farm2 && this.IsFightReady(2)) {
                 gToolTip.CenterDel()
-                tooltiptoggle := false
                 this.StartFight(2)
                 this.Fight(2)
             }
             If (this.Farm3 && this.IsFightReady(3)) {
                 gToolTip.CenterDel()
-                tooltiptoggle := false
                 this.StartFight(3)
                 this.Fight(3)
             }
             If (this.Farm4 && this.IsFightReady(4)) {
                 gToolTip.CenterDel()
-                tooltiptoggle := false
                 this.StartFight(4)
                 this.Fight(4)
             }
-            If (!tooltiptoggle) {
+            If (!(this.Farm1 && this.IsFightReady(1)) &&
+            !(this.Farm2 && this.IsFightReady(2)) &&
+            !(this.Farm3 && this.IsFightReady(3)) &&
+            !(this.Farm4 && this.IsFightReady(4))) {
                 gToolTip.Center("Waiting on tourney cooldown")
-                tooltiptoggle := true
+                If (FishTourTimerJourneyCollect &&
+                    DateDiff(A_Now, JourneyTime, "S") > FishTourTimerJourneyCollect) {
+                    cFishing.JourneyCollect()
+                    cFishing.Tabs.Pond.ClickButtonActive()
+                    JourneyTime := A_Now
+                    LogToggle := true
+                }
+                If (FishTourTimerTransmute &&
+                    DateDiff(A_Now, TransmuteTime, "S") > FishTourTimerTransmute) {
+                    cFishing.UserTourSelectedTransmute()
+                    cFishing.Tabs.Pond.ClickButtonActive()
+                    TransmuteTime := A_Now
+                    LogToggle := true
+                }
+                If (FishTourEnableUpgradeRods &&
+                    DateDiff(A_Now, RodsTime, "S") > FishTourTimerUpgradeRods) {
+                    cFishing.UpgradeRods()
+                    cFishing.Tabs.Pond.ClickButtonActive()
+                    RodsTime := A_Now
+                    LogToggle := true
+                }
+                If (FishTourEnableShopUpgrade &&
+                    DateDiff(A_Now, ShopTime, "S") > FishTourTimerShopUpgrade) {
+                    cFishing.ShopUpgrade()
+                    cFishing.Tabs.Pond.ClickButtonActive()
+                    ShopTime := A_Now
+                    LogToggle := true
+                }
+                If (FishTourEnableUpgradeTourneyRods &&
+                    DateDiff(A_Now, TourneyRodTime, "S") > FishTourTimerUpgradeTourneyRods) {
+                    cFishing.TourneyRodUpgrade()
+                    cFishing.Tabs.Pond.ClickButtonActive()
+                    TourneyRodTime := A_Now
+                    LogToggle := true
+                }
+
+                If (FishTourEnableFishingPass) {
+                    While (!cFishing.Ponds.IsOnTab()) {
+                        cFishing.Tabs.Pond.ClickButtonActive(, 5)
+                    }
+                    If (LogToggle) {
+                        Out.I("Fishing pass")
+                        LogToggle := false
+                    }
+                    If (FishTourCatchingSearch) {
+                        If (cFishing.Ponds.Search.IsButtonActive()) {
+                            ; Search if the buttons active because a slot is empty
+                            cFishing.Ponds.Search.ClickButtonActive()
+                            Out.I("Pond searched")
+                        }
+                        cFishing.PondQualityUpgrade()
+                    }
+                    cFishing.FishPonds(&Time1, &Time2, &Time3, &Time4, true)
+                }
             }
-            Sleep(500)
+            Sleep(17)
         }
         Reload()
     }
