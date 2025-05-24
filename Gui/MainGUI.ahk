@@ -235,43 +235,34 @@ ShowGUIPosition(thisGUI) {
         Return
     }
     coords := StrSplit(arr, ",", " ")
+    MCount := MonitorGetCount()
+    i := 1
+    IsWindowOnScreen := false
     guiX := coords[1]
     guiY := coords[2]
     If (coords.Length > 2) {
         guiW := coords[3]
         guiH := coords[4]
-        thisGUI.Show("x" guiX " y" guiY " w" guiW " h" guiH)
-    } Else {
-        thisGUI.Show("x" guiX " y" guiY)
     }
-}
-
-ResetGUIPosition(thisGUI) {
-    SplitTitle := StrSplit(thisGUI.Title, " ")
-    Title := thisGUI.Title
-    If (SplitTitle[1] = "LBR") {
-        Title := SplitTitle[1] " " SplitTitle[2]
-    }
-    Try {
-        arr := Settings.IniToVar(Title, "GUIPosition")
-    } Catch Error As OutputVar {
-        If (OutputVar.Message = "The requested key, section or file was not found.") {
-            Out.I("No window position stored for " Title)
-            Return
+    While (i <= MCount) {
+        MonitorGetWorkArea(i, &Left, &Top, &Right, &Bottom)
+        If (coords.Length > 2) {
+            If (guiX >= Left && (guiX + guiW) <= Right && guiY >= Top && (guiY + guiH) <= Bottom) {
+                Out.I("4coord gui show")
+                thisGUI.Show("x" guiX " y" guiY)
+                Return
+            }
+        } Else {
+            If (guiX >= Left && (guiX + 100) <= Right && guiY >= Top && (guiY + 100) <= Bottom) {
+                Out.I("2coord gui show")
+                thisGUI.Show("x" guiX " y" guiY)
+                Return
+            }
         }
-        Out.E(OutputVar)
-        Return
+        i++
     }
-    coords := StrSplit(arr, ",", " ")
-    guiX := coords[1]
-    guiY := coords[2]
-    If (coords.Length > 2) {
-        guiW := coords[3]
-        guiH := coords[4]
-        WinMove(guiX, guiY, guiW, guiH, thisGUI.Title)
-    } Else {
-        WinMove(guiX, guiY, , , thisGUI.Title)
-    }
+    thisGUI.Show()
+    Out.I("Backup gui show")
 }
 
 StorePos(thisGUI, resize := false) {
@@ -291,11 +282,11 @@ StorePos(thisGUI, resize := false) {
             Title := SplitTitle[1] " " SplitTitle[2]
         }
         ;Out.I("Written window pos " thisGUI.Title " X" guiX " Y" guiY)
-        If (!resize) {
+        ;If (!resize) {
             Settings.WriteToIni(Title, guiX "," guiY, "GUIPosition")
-        } Else {
-            Settings.WriteToIni(Title, guiX "," guiY "," guiW "," guiH, "GUIPosition")
-        }
+        ;} Else {
+        ;    Settings.WriteToIni(Title, guiX "," guiY "," guiW "," guiH, "GUIPosition")
+        ;}
         StorePosLock := false
     }
 }

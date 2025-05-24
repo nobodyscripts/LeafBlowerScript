@@ -219,7 +219,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Fix check for updates not triggering properly
   - Added save display to block interactions during saving
   - Added version display to main gui
-  - Save window position
+  - Save window position and reset to center if stored location is off screen
   - Improved save setting times
   - Custom font settings and background colours
   - Load system fonts to selection for font name
