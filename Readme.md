@@ -224,6 +224,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Custom font settings and background colours
   - Load system fonts to selection for font name
   - Dynamic vertical scroll bars if height is too tall for screen
+  - Added button in general settings to install shortcuts to the script
+  - Added button in general settings to reset logs or settings
+  - Added button in general settings to force check for updates
 
 - Mine
   - Modified brew travel to be more stable.

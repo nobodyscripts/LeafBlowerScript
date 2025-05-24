@@ -159,13 +159,15 @@ Button_Click_GeneralSettings(thisGui, info) {
 
     settingsGUI.Add("Text", "", "GUI Font Name (blank for default):")
 
-    arr := [""]
+    arr := [
+        ""
+    ]
     Loop Reg "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts", "KVR" {
         arr.InsertAt(2, RegExReplace(A_LoopRegName, "\W+\((TrueType|OpenType|All res)\)"))
     }
     preselectfont := 1
     For id, value IN arr {
-        if (value = GuiFontName) {
+        If (value = GuiFontName) {
             preselectfont := id
         }
     }
@@ -179,8 +181,17 @@ Button_Click_GeneralSettings(thisGui, info) {
 
     settingsGUI.Add("Button", "+Background" GuiBGColour " default", "Save").OnEvent("Click",
         ProcessUserGeneralSettings)
-    settingsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
+    settingsGUI.Add("Button", "+Background" GuiBGColour " yp", "Cancel").OnEvent("Click",
         CloseUserGeneralSettings)
+
+    settingsGUI.Add("Button", "+Background" GuiBGColour " xs", "Install script to Start Menu").OnEvent("Click",
+        InstallShortcuts)
+    settingsGUI.Add("Button", "+BackgroundRed yp", "Reset all settings").OnEvent("Click",
+        ResetSettings)
+    settingsGUI.Add("Button", "+BackgroundYellow yp", "Reset all logs").OnEvent("Click",
+        ResetLogs)
+    settingsGUI.Add("Button", "+BackgroundYellow xs", "Force check for updates").OnEvent("Click",
+        ForceCheckForUpdates)
 
     ShowGUIPosition(settingsGUI)
     MakeGUIResizableIfOversize(settingsGUI)
@@ -225,5 +236,82 @@ Button_Click_GeneralSettings(thisGui, info) {
 
     CloseUserGeneralSettings(*) {
         settingsGUI.Hide()
+    }
+
+    InstallShortcuts(*) {
+        full_command_line := DllCall("GetCommandLine", "str")
+
+        If !(A_IsAdmin || RegExMatch(full_command_line, " /restart(?!\S)")) {
+            Try {
+                Run '*RunAs "' A_AhkPath '" /restart "' A_ScriptDir '\Installer.ahk"'
+            }
+            Return
+        }
+        MsgBox("Could not run without Admin")
+        Out.D("A_IsAdmin: " A_IsAdmin "`nCommand line: " full_command_line)
+    }
+
+    ResetSettings(*) {
+        Global Out
+        Out := ""
+        HasPressed := MsgBox("Remove all ini files? This resets all settings.",
+            "Setting Reset?", "0x1 0x100 0x10")
+        If (HasPressed = "OK") {
+            arr := []
+            Loop Files A_ScriptDir "\*", 'F' {
+                If (StrLower(A_LoopFileExt) = "ini") {
+                    Try {
+                        FileDelete(A_LoopFileFullPath)
+                        arr.Push(A_LoopFileFullPath)
+                    }
+                }
+            }
+            list := ""
+            For (value in arr) {
+                list .= "Deleted: " value "`n"
+            }
+            MsgBox("Setting Reset Complete.`n" list)
+            Reload()
+        }
+        Out := cLog()
+    }
+
+    ResetLogs(*) {
+        Global Out
+        Out := ""
+        HasPressed := MsgBox("Remove all log files? This resets all logs.",
+            "Log Reset?", "0x1 0x100 0x10")
+        If (HasPressed = "OK") {
+            arr := []
+            Loop Files A_ScriptDir "\*", 'F' {
+                If (StrLower(A_LoopFileExt) = "log") {
+                    Try {
+                        FileDelete(A_LoopFileFullPath)
+                        arr.Push(A_LoopFileFullPath)
+                    }
+                }
+            }
+            list := ""
+            For (value in arr) {
+                list .= "Deleted: " value "`n"
+            }
+            MsgBox("Log Reset Complete`n" list)
+            Reload()
+        }
+        Out := cLog()
+    }
+
+    ForceCheckForUpdates(*) {
+        Global CheckForUpdatesLastCheck
+
+        Temp := thisGui.Gui
+        Saving := SavingGUI()
+        settingsGUI.Hide()
+        Temp.Hide()
+        Saving.Show()
+
+        CheckForUpdatesLastCheck := 20000101120000
+        settings.SaveCurrentSettings()
+        Reload()
     }
 }

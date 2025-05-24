@@ -248,13 +248,11 @@ ShowGUIPosition(thisGUI) {
         MonitorGetWorkArea(i, &Left, &Top, &Right, &Bottom)
         If (coords.Length > 2) {
             If (guiX >= Left && (guiX + guiW) <= Right && guiY >= Top && (guiY + guiH) <= Bottom) {
-                Out.I("4coord gui show")
                 thisGUI.Show("x" guiX " y" guiY)
                 Return
             }
         } Else {
             If (guiX >= Left && (guiX + 100) <= Right && guiY >= Top && (guiY + 100) <= Bottom) {
-                Out.I("2coord gui show")
                 thisGUI.Show("x" guiX " y" guiY)
                 Return
             }
@@ -262,7 +260,6 @@ ShowGUIPosition(thisGUI) {
         i++
     }
     thisGUI.Show()
-    Out.I("Backup gui show")
 }
 
 StorePos(thisGUI, resize := false) {
