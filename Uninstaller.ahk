@@ -39,7 +39,11 @@ UninstallScript(*) {
         FileDelete(ShortcutFolder "\Leafblower.lnk")
         FileDelete(ShortcutFolder "\Update Leafblower.lnk")
         FileDelete(ShortcutFolder "\Uninstall Leafblower.lnk")
-        DirDelete(A_ScriptDir, 1)
+        HasPressed := MsgBox("Delete script folder? This removes everything in " A_ScriptDir,
+            "Delete folder?", "0x1 0x100 0x10")
+        If (HasPressed = "OK") {
+            DirDelete(A_ScriptDir, 1)
+        }
     } Catch Error As OutputVar {
         Out.E(OutputVar)
     }
