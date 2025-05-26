@@ -68,13 +68,10 @@ RunGui() {
     Updater.Init()
     Updater.Check()
     version := Updater.CurrentVersion.Full
-    If (!Debug) {
-        /** @type {GUI} */
-        MyGui := Gui(, "LBR NobodyScript " Updater.CurrentVersion.Build)
-    } Else {
-        /** @type {GUI} */
-        MyGui := Gui(, "LBR TEST " Updater.CurrentVersion.Build)
-    }
+
+    /** @type {GUI} */
+    MyGui := Gui(, "LBR NobodyScript " Updater.CurrentVersion.Build)
+
     SetFontOptions(MyGUI)
     If (Updater.IsNewRelease) {
         MyGui.AddLink("",
@@ -280,7 +277,7 @@ StorePos(thisGUI, resize := false) {
         }
         ;Out.I("Written window pos " thisGUI.Title " X" guiX " Y" guiY)
         ;If (!resize) {
-            Settings.WriteToIni(Title, guiX "," guiY, "GUIPosition")
+        Settings.WriteToIni(Title, guiX "," guiY, "GUIPosition")
         ;} Else {
         ;    Settings.WriteToIni(Title, guiX "," guiY "," guiW "," guiH, "GUIPosition")
         ;}

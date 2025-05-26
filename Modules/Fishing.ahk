@@ -415,7 +415,6 @@ Class Fishing {
                 TourneyTime := A_Now
                 LogToggle := true
             }
-
         }
     }
     ;@endregion
@@ -583,7 +582,7 @@ Class Fishing {
 
             Travel.ScrollAmountDown(7)
             this.Shop.RodRecharge.ClickButtonActive()
-            return NewPond
+            Return NewPond
         }
     }
     ;@endregion
@@ -628,7 +627,6 @@ Class Fishing {
         Out.I("Tourney Single Pass")
         limit := true
         Timer().CoolDownS(1, &limit)
-        Out.D(this.Tabs.Tourney.IsButtonActive())
         While (limit && !this.Tourney.IsOnTab()) {
             this.Tabs.Tourney.ClickButtonActive(, 5)
         }
@@ -761,7 +759,7 @@ Class Fishing {
             rarity++
         }
         If (!WeakestLink) {
-            Out.I("Pond rarity upgrade failed to get a pond to upgrade")
+            Out.E("Pond rarity upgrade failed to get a pond to upgrade")
             Return false
         }
         ;Out.I("Weakest pond selected " WeakestLink)
@@ -775,7 +773,7 @@ Class Fishing {
         Case 4:
             returned := this.Pond4.CancelPond()
         default:
-            Out.D("Unknown pond provided for removal " WeakestLink)
+            Out.E("Unknown pond provided for removal " WeakestLink)
             Return false
         }
         If (!returned) {
@@ -847,7 +845,7 @@ Class Fishing {
         If (!this.Pond4.CastRod.IsBackground()) {
             count++
         }
-        return count
+        Return count
     }
     ;@endregion
 
@@ -892,7 +890,7 @@ Class Fishing {
             Rod7 := true
         }
         Loop {
-            Out.D(Rod1 " " Rod2 " " Rod3 " " Rod4 " " Rod5 " " Rod6 " " Rod7)
+            ; Out.D(Rod1 " " Rod2 " " Rod3 " " Rod4 " " Rod5 " " Rod6 " " Rod7)
             If (Rod1 && !this.UpgradeSingleRod(1)) {
                 Rod1 := false
             }
@@ -918,7 +916,7 @@ Class Fishing {
                 Break
             }
         }
-        return count
+        Return count
     }
     ;@endregion
 
@@ -928,7 +926,7 @@ Class Fishing {
      */
 
     UpgradeSingleRod(id) {
-        Out.D("Rod upgrade pass on " id)
+        Out.I("Rod upgrade pass on " id)
         /** @type {cPoint} */
         RodButton := ""
         Switch id {
@@ -950,7 +948,7 @@ Class Fishing {
             RodButton := this.Rods.FirstRod
         }
         If (RodButton.IsBackground() || RodButton.IsButtonActive()) {
-            Out.D("Exiting due to no rod on button " id)
+            ;Out.D("No rod on button " id)
             Return false
         }
         RodButton.ClickOffset(3, 3)
@@ -962,11 +960,11 @@ Class Fishing {
             i++
         }
         If (!this.IsRodSelectedForUpgrade()) {
-            Out.D("Exiting due to rod not selected " id)
+            ;Out.D("Rod not selected " id)
             Return false
         }
         If (!this.IsRodUpgradeAvailable()) {
-            Out.D("Exiting due to no rod upgrades " id)
+            ;Out.D("No rod upgrades " id)
             Return false
         }
         this.Rods.Ascend.ClickButtonActive()
@@ -1011,43 +1009,43 @@ Class Fishing {
      */
     ActiveRodCount() {
         count := 0
-        if(!this.Pond1.Rod1.IsButton() && !this.Pond1.Rod1.IsBackground() && !this.Pond1.Rod1.IsColour("0x8A6743")) {
+        If (!this.Pond1.Rod1.IsButton() && !this.Pond1.Rod1.IsBackground() && !this.Pond1.Rod1.IsColour("0x8A6743")) {
             count++
         }
-        if(!this.Pond1.Rod2.IsButton() && !this.Pond1.Rod2.IsBackground() && !this.Pond1.Rod2.IsColour("0x8A6743")) {
+        If (!this.Pond1.Rod2.IsButton() && !this.Pond1.Rod2.IsBackground() && !this.Pond1.Rod2.IsColour("0x8A6743")) {
             count++
         }
-        if(!this.Pond1.Rod3.IsButton() && !this.Pond1.Rod3.IsBackground() && !this.Pond1.Rod3.IsColour("0x8A6743")) {
+        If (!this.Pond1.Rod3.IsButton() && !this.Pond1.Rod3.IsBackground() && !this.Pond1.Rod3.IsColour("0x8A6743")) {
             count++
         }
-        if(!this.Pond2.Rod1.IsButton() && !this.Pond2.Rod1.IsBackground() && !this.Pond2.Rod1.IsColour("0x8A6743")) {
+        If (!this.Pond2.Rod1.IsButton() && !this.Pond2.Rod1.IsBackground() && !this.Pond2.Rod1.IsColour("0x8A6743")) {
             count++
         }
-        if(!this.Pond2.Rod2.IsButton() && !this.Pond2.Rod2.IsBackground() && !this.Pond2.Rod2.IsColour("0x8A6743")) {
+        If (!this.Pond2.Rod2.IsButton() && !this.Pond2.Rod2.IsBackground() && !this.Pond2.Rod2.IsColour("0x8A6743")) {
             count++
         }
-        if(!this.Pond2.Rod3.IsButton() && !this.Pond2.Rod3.IsBackground() && !this.Pond2.Rod3.IsColour("0x8A6743")) {
+        If (!this.Pond2.Rod3.IsButton() && !this.Pond2.Rod3.IsBackground() && !this.Pond2.Rod3.IsColour("0x8A6743")) {
             count++
         }
-        if(!this.Pond3.Rod1.IsButton() && !this.Pond3.Rod1.IsBackground() && !this.Pond3.Rod1.IsColour("0x8A6743")) {
+        If (!this.Pond3.Rod1.IsButton() && !this.Pond3.Rod1.IsBackground() && !this.Pond3.Rod1.IsColour("0x8A6743")) {
             count++
         }
-        if(!this.Pond3.Rod2.IsButton() && !this.Pond3.Rod2.IsBackground() && !this.Pond3.Rod2.IsColour("0x8A6743")) {
+        If (!this.Pond3.Rod2.IsButton() && !this.Pond3.Rod2.IsBackground() && !this.Pond3.Rod2.IsColour("0x8A6743")) {
             count++
         }
-        if(!this.Pond3.Rod3.IsButton() && !this.Pond3.Rod3.IsBackground() && !this.Pond3.Rod3.IsColour("0x8A6743")) {
+        If (!this.Pond3.Rod3.IsButton() && !this.Pond3.Rod3.IsBackground() && !this.Pond3.Rod3.IsColour("0x8A6743")) {
             count++
         }
-        if(!this.Pond4.Rod1.IsButton() && !this.Pond4.Rod1.IsBackground() && !this.Pond4.Rod1.IsColour("0x8A6743")) {
+        If (!this.Pond4.Rod1.IsButton() && !this.Pond4.Rod1.IsBackground() && !this.Pond4.Rod1.IsColour("0x8A6743")) {
             count++
         }
-        if(!this.Pond4.Rod2.IsButton() && !this.Pond4.Rod2.IsBackground() && !this.Pond4.Rod2.IsColour("0x8A6743")) {
+        If (!this.Pond4.Rod2.IsButton() && !this.Pond4.Rod2.IsBackground() && !this.Pond4.Rod2.IsColour("0x8A6743")) {
             count++
         }
-        if(!this.Pond4.Rod3.IsButton() && !this.Pond4.Rod3.IsBackground() && !this.Pond4.Rod3.IsColour("0x8A6743")) {
+        If (!this.Pond4.Rod3.IsButton() && !this.Pond4.Rod3.IsBackground() && !this.Pond4.Rod3.IsColour("0x8A6743")) {
             count++
         }
-        return count
+        Return count
     }
     ;@endregion
 
@@ -1056,17 +1054,17 @@ Class Fishing {
      * 
      */
     EnsureAllPondsHaveRods() {
-        if(this.Pond1.Rod1.IsButtonActive()) {
-           this.Pond1.Rod1.ClickButtonActive()
+        If (this.Pond1.Rod1.IsButtonActive()) {
+            this.Pond1.Rod1.ClickButtonActive()
         }
-        if(this.Pond2.Rod1.IsButtonActive()) {
-           this.Pond2.Rod1.ClickButtonActive()
+        If (this.Pond2.Rod1.IsButtonActive()) {
+            this.Pond2.Rod1.ClickButtonActive()
         }
-        if(this.Pond3.Rod1.IsButtonActive()) {
-           this.Pond3.Rod1.ClickButtonActive()
+        If (this.Pond3.Rod1.IsButtonActive()) {
+            this.Pond3.Rod1.ClickButtonActive()
         }
-        if(this.Pond4.Rod1.IsButtonActive()) {
-           this.Pond4.Rod1.ClickButtonActive()
+        If (this.Pond4.Rod1.IsButtonActive()) {
+            this.Pond4.Rod1.ClickButtonActive()
         }
     }
     ;@endregion
@@ -1197,7 +1195,7 @@ Class Pond {
         Case "0x97714A":
             Return -1
         Default:
-            Out.D("Pond " this.id " colour could not be matched " colour)
+            Out.E("Pond " this.id " colour could not be matched " colour)
             Return 0
         }
     }
@@ -1247,7 +1245,7 @@ Class Pond {
         Case "0x97714A":
             Return -1
         Default:
-            Out.D("Pond " this.id " bait colour could not be matched " this.Bait.GetColour())
+            Out.E("Pond " this.id " bait colour could not be matched " this.Bait.GetColour())
             Return 0
         }
     }
@@ -1288,14 +1286,14 @@ Class Pond {
         If (this.Cancel.IsButtonActive()) {
             this.Cancel.ClickButtonActive()
             this.Cancel.ClickButtonActive()
-            Out.I("Canceled pond " this.id)
-
-            If (!this.ConfirmCancel.WaitUntilActiveButtonS(1)) {
+            If (!this.ConfirmCancel.WaitUntilActiveButtonS(2)) {
                 Out.I("No confirm cancel, assuming failed to cancel")
                 Return false
             }
-            this.ConfirmCancel.ClickButtonActive()
-            this.ConfirmCancel.ClickButtonActive()
+            While (window.IsActive() && this.ConfirmCancel.IsButtonActive()) {
+                this.ConfirmCancel.ClickButtonActive()
+            }
+            Out.I("Canceled pond " this.id)
             Return true
         }
         Return false
