@@ -19,18 +19,26 @@ Button_Click_GeneralSettings(thisGui, info) {
         settingsGUI.Add("CheckBox", "vLogging", "Enable Logging")
     }
 
-    If (Debug = true) {
-        settingsGUI.Add("CheckBox", "vDebug cff8800 checked",
-            "Enable Debug Logging")
+    If (Verbose = true) {
+        settingsGUI.Add("CheckBox", "vVerbose cff8800 checked",
+            "Enable Verbose Logging")
     } Else {
-        settingsGUI.Add("CheckBox", "vDebug cff8800", "Enable Debug Logging")
+        settingsGUI.Add("CheckBox", "vVerbose cff8800", "Enable Verbose Logging")
     }
 
-    If (Verbose = true) {
-        settingsGUI.Add("CheckBox", "vVerbose cff0000 checked",
-            "Enable Verbose Logging (Warn: Logs will fill quickly)")
+
+    If (Debug = true) {
+        settingsGUI.Add("CheckBox", "vDebug cff5100 checked",
+            "Enable Debug Logging")
     } Else {
-        settingsGUI.Add("CheckBox", "vVerbose cff0000", "Enable Verbose Logging (Warn: Logs will fill quickly)")
+        settingsGUI.Add("CheckBox", "vDebug cff5100", "Enable Debug Logging")
+    }
+
+    If (DebugAll = true) {
+        settingsGUI.Add("CheckBox", "vDebugAll cff0000 checked",
+            "Enable DebugAll Logging")
+    } Else {
+        settingsGUI.Add("CheckBox", "vDebugAll cff0000", "Enable DebugAll Logging")
     }
 
     If (LogBuffer = true) {
@@ -207,7 +215,7 @@ Button_Click_GeneralSettings(thisGui, info) {
         Saving.Show()
         Global EnableLogging, NavigateTime, DisableZoneChecks,
             DisableSettingsChecks, TimestampLogs, settings,
-            CheckForUpdatesEnable, CheckForUpdatesReleaseOnly
+            CheckForUpdatesEnable, CheckForUpdatesReleaseOnly, DebugAll
         values := settingsGUI.Submit()
         EnableLogging := values.Logging
         NavigateTime := values.NavigateTime
@@ -219,6 +227,7 @@ Button_Click_GeneralSettings(thisGui, info) {
         Debug := values.Debug
         Verbose := values.Verbose
         LogBuffer := values.LogBuffer
+        DebugAll := values.DebugAll
 
         GuiBGColour := values.GuiBGColour
         GuiFontBold := values.GuiFontBold
