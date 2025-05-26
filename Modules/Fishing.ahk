@@ -148,7 +148,7 @@ Class FishingRods {
     Ascend2 := cPoint(1447, 874)
 
     IsOnTab() {
-        Out.D(this.FirstRod.GetDescription() " " this.Craft.GetDescription())
+        ;Out.D(this.FirstRod.GetDescription() " " this.Craft.GetDescription())
         If (!this.FirstRod.IsBackground() && this.Craft.IsButton()) {
             Return true
         }
