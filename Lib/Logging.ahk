@@ -150,9 +150,13 @@ Class cLog {
     }
 
     _OpenHandle() {
+        static bufferedLogToggle := false
         Try {
             this._FileHandle := FileOpen(this.FileName, "a-d")
-            ;this._OutputDebug("Logging to " this.FileName)
+            if (!bufferedLogToggle){
+                this._OutputDebug("Logging to " this.FileName)
+                bufferedLogToggle := true
+            }
         } Catch (Error) {
             MsgBox("Could not open " this.FileName " to write logs to.")
             this._OutputDebug("Could not open " this.FileName
@@ -161,7 +165,11 @@ Class cLog {
     }
 
     _CloseHandle() {
-        If (Type(this._FileHandle) = File) {
+        If (FileGetSize(this.FileName, "B") = 0 && this._FileHandle.Pos != 0) {
+            this._FileHandle.Close()
+            FileDelete(this.FileName)
+        }
+        If (Type(this._FileHandle) = "File") {
             this._FileHandle.Close()
         }
         this._FileHandle := false
@@ -453,4 +461,11 @@ Class cLog {
             }
         }
     }
+}
+
+OnExit(ExitFunc)
+ExitFunc(ExitReason, ExitCode) {
+    Global Out
+    Out.I("Script exiting. Due to " ExitReason ".")
+    Out := false
 }

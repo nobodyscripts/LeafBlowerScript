@@ -31,7 +31,6 @@ SendMode("Input") ; Support for vm
 
 DetectHiddenWindows(true)
 Persistent() ; Prevent the script from exiting automatically.
-OnExit(ExitFunc)
 
 Global HadToHideNotifsF9 := false
 /** @type {cSettings} */
@@ -98,13 +97,13 @@ CreateScriptHotkeys() {
             ;"Screen:`t" screenx ", " screeny "`n"
             ;"Window:`t" windowx ", " windowy "`n"
             "Mouse1 click Client: " clientx ", " clienty " Color: #" SubStr(PixelGetColor(clientx, clienty), 3)
-            " - pos-1: " clientx-1 ", " clienty-1 " Color: #" SubStr(PixelGetColor(clientx-1, clienty-1), 3)
+            " - pos-1: " clientx - 1 ", " clienty - 1 " Color: #" SubStr(PixelGetColor(clientx - 1, clienty - 1), 3)
             ;"Current zone colour: " Points.ZoneSample.GetColour()
         )
         A_Clipboard := "cPoint(" clientx ", " clienty ")"
     }
 
-     ~WheelDown:: {
+    ~WheelDown:: {
         Out.D("Wheel down")
     }
 
@@ -579,8 +578,4 @@ CreateScriptHotkeys() {
             cReload()
             Return
         }
-    }
-
-    ExitFunc(ExitReason, ExitCode) {
-        Out.I("Script exiting. Due to " ExitReason ".")
     }
