@@ -273,7 +273,7 @@ Class UpdateChecker {
     }
 
     UpdateScriptToNewDev(*) {
-        Download("*0 https://github.com/nobodyscripts/LeafBlowerScript/archive/refs/heads/main.zip", "Install.zip")
+        Download("https://github.com/nobodyscripts/LeafBlowerScript/archive/refs/heads/main.zip", "Install.zip")
 
         DirCopy("Install.zip", A_ScriptDir, 2)
         DirCopy(A_ScriptDir "\LeafBlowerScript-main", A_ScriptDir, 2)
