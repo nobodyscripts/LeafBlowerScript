@@ -30,13 +30,13 @@ Class SavingGUI {
     Hide() {
         this.SavingGui.Hide()
         this.SavingGui.Enabled := false
-        SetTimer(this.IncrementSaveProgress.Bind(this), 0)
     }
     ;@endregion
 
     IncrementSaveProgress() {
         if (!this.SavingGui.Enabled) {
             SetTimer(, 0)
+            return
         }
         this.SavingGui["ProgBar"].value++
         If (this.SavingGui["ProgBar"].value > 100) {

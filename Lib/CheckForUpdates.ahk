@@ -276,7 +276,7 @@ Class UpdateChecker {
     UpdateScriptToNewDev(*) {
         WinHide("LBR ahk_class AutoHotkeyGUI ahk_exe AutoHotkey64.exe")
         Dialog := UpdatingGUI()
-        SetFontOptions(Dialog)
+        SetFontOptions(Dialog.UpdatingGui)
         Dialog.Show()
 
         Try {
