@@ -88,6 +88,7 @@ Class FishingTourney {
      * Main active loop from post 'start', till end
      */
     Fight(difficulty) {
+        timeout := A_Now
         If (this.Mode) {
             Switch (difficulty) {
             Case 1:
@@ -125,28 +126,28 @@ Class FishingTourney {
         }
         Switch (UseAttack) {
         Case 1:
-            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
+            While (Window.IsActive() && !this.Collect.IsButtonActive() && DateDiff(A_now, timeout, "S") < 30) {
                 this.Attack1.WaitUntilActiveButton()
                 this.Attack1.ClickButtonActive(2, 2)
             }
         Case 2:
-            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
+            While (Window.IsActive() && !this.Collect.IsButtonActive() && DateDiff(A_now, timeout, "S") < 30) {
                 this.Attack2.WaitUntilActiveButton()
                 this.Attack2.ClickButtonActive(2, 2)
             }
         Case 3:
-            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
+            While (Window.IsActive() && !this.Collect.IsButtonActive() && DateDiff(A_now, timeout, "S") < 30) {
                 this.Attack3.WaitUntilActiveButton()
                 this.Attack3.ClickButtonActive(2, 2)
             }
         default:
-            While (Window.IsActive() && !this.Collect.IsButtonActive()) {
+            While (Window.IsActive() && !this.Collect.IsButtonActive() && DateDiff(A_now, timeout, "S") < 30) {
                 this.Attack1.WaitUntilActiveButton()
                 this.Attack1.ClickButtonActive(2, 2)
             }
         }
 
-        While (Window.IsActive() && !this.Start1.IsButton()) {
+        While (Window.IsActive() && !this.Start1.IsButton() && DateDiff(A_now, timeout, "S") < 30) {
             this.Collect.WaitUntilActiveButton()
             this.Collect.ClickButtonActive(2, 2)
         }
@@ -158,30 +159,45 @@ Class FishingTourney {
      * Start different tourneys based on id
      */
     StartFight(id) {
+        timeout := A_Now
         Switch (id) {
         Case 1:
-            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
+            While (Window.IsActive() && !this.Attack1.IsButtonActive() && DateDiff(A_now, timeout, "S") < 2) {
                 this.Start1.WaitUntilActiveButton()
+                If (!this.Start1.IsButtonActive()) {
+                    Return false
+                }
                 this.Start1.ClickButtonActive(2, 2)
             }
         Case 2:
-            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
+            While (Window.IsActive() && !this.Attack1.IsButtonActive() && DateDiff(A_now, timeout, "S") < 2) {
                 this.Start2.WaitUntilActiveButton()
+                If (!this.Start2.IsButtonActive()) {
+                    Return false
+                }
                 this.Start2.ClickButtonActive(2, 2)
             }
         Case 3:
-            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
+            While (Window.IsActive() && !this.Attack1.IsButtonActive() && DateDiff(A_now, timeout, "S") < 2) {
                 this.Start3.WaitUntilActiveButton()
+                If (!this.Start3.IsButtonActive()) {
+                    Return false
+                }
                 this.Start3.ClickButtonActive(2, 2)
             }
         Case 4:
-            While (Window.IsActive() && !this.Attack1.IsButtonActive()) {
+            While (Window.IsActive() && !this.Attack1.IsButtonActive() && DateDiff(A_now, timeout, "S") < 2) {
                 this.Start4.WaitUntilActiveButton()
+                If (!this.Start4.IsButtonActive()) {
+                    Return false
+                }
                 this.Start4.ClickButtonActive(2, 2)
             }
         default:
+            Return false
         }
 
+        Return true
     }
     ;@endregion
 
@@ -210,33 +226,6 @@ Class FishingTourney {
      * Start a looped farming of the available tourneys
      */
     Farm() {
-        /* FishTourCatchingDelay := values.FishTourCatchingDelay
-           FishTourCatchingSearch := values.FishTourCatchingSearch
-           FishTourEnableShopUpgrade := values.FishTourEnableShopUpgrade
-           FishTourEnableUpgradeRods := values.FishTourEnableUpgradeRods
-           FishTourEnableFishingPass := values.FishTourEnableFishingPass
-           FishTourEnableUpgradeTourneyRods := values.FishTourEnableUpgradeTourneyRods
-           FishTourEnableTransmute := values.FishTourEnableTransmute
-           FishTourEnableJourneyCollect := values.FishTourEnableJourneyCollect
-           FishTourTimerShopUpgrade := values.FishTourTimerShopUpgrade
-           FishTourTimerUpgradeRods := values.FishTourTimerUpgradeRods
-           FishTourTimerUpgradeTourneyRods := values.FishTourTimerUpgradeTourneyRods
-           FishTourTimerTransmute := values.FishTourTimerTransmute
-           FishTourTimerJourneyCollect := values.FishTourTimerJourneyCollect
-           FishTourTransmuteTtoFC := values.FishTourTransmuteTtoFC
-           FishTourTransmuteFCtoCry := values.FishTourTransmuteFCtoCry
-           FishTourTransmuteCrytoA := values.FishTourTransmuteCrytoA
-           FishTourTransmuteFCtoT := values.FishTourTransmuteFCtoT
-           FishTourTransmuteCrytoFC := values.FishTourTransmuteCrytoFC
-           FishTourTransmuteAtoCry := values.FishTourTransmuteAtoCry
-           FishTourNovice := values.FishTourNovice
-           FishTourIntermediate := values.FishTourIntermediate
-           FishTourExpert := values.FishTourExpert
-           FishTourLegend := values.FishTourLegend
-           FishTourNoviceAttack := values.FishTourNoviceAttack
-           FishTourIntermediateAttack := values.FishTourIntermediateAttack
-           FishTourExpertAttack := values.FishTourExpertAttack
-        FishTourLegendAttack := values.FishTourLegendAttack */
         /** @type {Fishing} */
         cFishing := Fishing()
         StartTime := A_TickCount - (FishCatchingDelay * 1000)
@@ -257,23 +246,35 @@ Class FishingTourney {
             }
             If (this.Farm1 && this.IsFightReady(1)) {
                 gToolTip.CenterDel()
-                this.StartFight(1)
-                this.Fight(1)
+                If (this.StartFight(1)) {
+                    this.Fight(1)
+                } Else {
+                    Out.V("Could not start Novice tourney")
+                }
             }
             If (this.Farm2 && this.IsFightReady(2)) {
                 gToolTip.CenterDel()
-                this.StartFight(2)
-                this.Fight(2)
+                If (this.StartFight(2)) {
+                    this.Fight(2)
+                } Else {
+                    Out.V("Could not start Intermediate tourney")
+                }
             }
             If (this.Farm3 && this.IsFightReady(3)) {
                 gToolTip.CenterDel()
-                this.StartFight(3)
-                this.Fight(3)
+                If (this.StartFight(3)) {
+                    this.Fight(3)
+                } Else {
+                    Out.V("Could not start Expert tourney")
+                }
             }
             If (this.Farm4 && this.IsFightReady(4)) {
                 gToolTip.CenterDel()
-                this.StartFight(4)
-                this.Fight(4)
+                If (this.StartFight(4)) {
+                    this.Fight(4)
+                } Else {
+                    Out.V("Could not start Legend tourney")
+                }
             }
             If (!(this.Farm1 && this.IsFightReady(1)) &&
             !(this.Farm2 && this.IsFightReady(2)) &&
@@ -344,20 +345,32 @@ Class FishingTourney {
         tooltiptoggle := false
         If (Window.IsActive() && this.IsOnTab()) {
             If (this.Farm1 && this.IsFightReady(1)) {
-                this.StartFight(1)
-                this.Fight(1)
+                If (this.StartFight(1)) {
+                    this.Fight(1)
+                } Else {
+                    Out.V("Could not start Novice tourney")
+                }
             }
             If (this.Farm2 && this.IsFightReady(2)) {
-                this.StartFight(2)
-                this.Fight(2)
+                If (this.StartFight(2)) {
+                    this.Fight(2)
+                } Else {
+                    Out.V("Could not start Intermediate tourney")
+                }
             }
             If (this.Farm3 && this.IsFightReady(3)) {
-                this.StartFight(3)
-                this.Fight(3)
+                If (this.StartFight(3)) {
+                    this.Fight(3)
+                } Else {
+                    Out.V("Could not start Expert tourney")
+                }
             }
             If (this.Farm4 && this.IsFightReady(4)) {
-                this.StartFight(4)
-                this.Fight(4)
+                If (this.StartFight(4)) {
+                    this.Fight(4)
+                } Else {
+                    Out.V("Could not start Legend tourney")
+                }
             }
         }
     }
