@@ -20,7 +20,7 @@ Class UpdatingGUI {
 
         this.Bar := this.UpdatingGui.AddProgress("c2363ec vProgBar")
         this.Bar.Value := 0
-        SetTimer(this.IncrementSaveProgress.Bind(this), 50)
+        SetTimer(this.IncrementSaveProgress.Bind(this), 100)
         this.UpdatingGui.Enabled := true
         this.UpdatingGui.Show()
     }
@@ -39,8 +39,8 @@ Class UpdatingGUI {
             return
         }
         this.UpdatingGui["ProgBar"].value++
-        If (this.UpdatingGui["ProgBar"].value > 100) {
-            this.UpdatingGui["ProgBar"].value := 0
+        If (this.UpdatingGui["ProgBar"].value >= 100) {
+            this.UpdatingGui["ProgBar"].value := 1
         }
     }
 }
