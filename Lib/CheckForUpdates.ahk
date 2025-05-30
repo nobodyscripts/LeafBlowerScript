@@ -3,6 +3,7 @@
 #Include ..\ExtLIbs\jsongo_AHKv2-main\src\jsongo.v2.ahk
 #Include ScriptSettings.ahk
 #Include Logging.ahk
+#Include ..\Gui\UpdatingGUI.ahk
 
 /** @type {Boolean} */
 Global CheckForUpdatesEnable := true
@@ -273,12 +274,44 @@ Class UpdateChecker {
     }
 
     UpdateScriptToNewDev(*) {
-        Download("https://github.com/nobodyscripts/LeafBlowerScript/archive/refs/heads/main.zip", "Install.zip")
+        WinHide("LBR ahk_class AutoHotkeyGUI ahk_exe AutoHotkey64.exe")
+        Dialog := UpdatingGUI()
+        SetFontOptions(Dialog)
+        Dialog.Show()
 
-        DirCopy("Install.zip", A_ScriptDir, 2)
-        DirCopy(A_ScriptDir "\LeafBlowerScript-main", A_ScriptDir, 2)
-        DirDelete(A_ScriptDir "\LeafBlowerScript-main", 1)
-        FileDelete(A_ScriptDir "\Install.zip")
+        Try {
+            If (FileExist("Install.zip")) {
+                FileDelete("Install.zip")
+                Out.I("Removed old Install.zip")
+            }
+            Download("https://github.com/nobodyscripts/LeafBlowerScript/archive/refs/heads/main.zip", "Install.zip")
+        } Catch Error As uperr {
+            Dialog.Hide()
+            MsgBox("Error occured during update download:`r`n" uperr.Message)
+            Out.E("Install.zip download failed with error.")
+            Out.E(uperr)
+            Reload()
+        }
+        If (!FileExist("Install.zip")) {
+            Dialog.Hide()
+            Out.I("Install.zip failed to download.")
+            MsgBox("Error: Zip failed to download.")
+            Reload()
+        }
+        Try {
+            Out.I("Install.zip downloaded. Unpacking.")
+            DirCopy("Install.zip", A_ScriptDir, 1)
+            DirCopy(A_ScriptDir "\LeafBlowerScript-main", A_ScriptDir, 2)
+            DirDelete(A_ScriptDir "\LeafBlowerScript-main", 1)
+            FileDelete(A_ScriptDir "\Install.zip")
+        } Catch Error As unpackerr {
+            Dialog.Hide()
+            MsgBox("Error occured during update:`r`n" unpackerr.Message " " unpackerr.Extra)
+            Out.E("Update failed to extract with error.")
+            Out.E(unpackerr)
+            Reload()
+        }
+        Dialog.Hide()
         MsgBox("LBR Script Update Completed.")
         Reload()
     }

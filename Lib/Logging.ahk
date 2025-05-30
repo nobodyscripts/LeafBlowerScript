@@ -74,7 +74,7 @@ UpdateDebugLevel() {
  * @param {Integer} [DebugLevel=0] Int to select the debug output level for logging
  * -1 disabled (Msgboxs errors on failure)
  * 0 Important
- * 1 Important and Debug
+ * 1 Important and Verbose
  * 2 Important, Debug and Verbose
  * 3 Important, Debug, Verbose and Stack tracing
  * 
@@ -102,7 +102,7 @@ Class cLog {
     /** @type {Integer} Int to select the debug output level for logging
      * -1 disabled (Msgboxs errors on failure)
      * 0 Important
-     * 1 Important and Debug
+     * 1 Important and Verbose
      * 2 Important, Debug and Verbose
      * 3 Important, Debug, Verbose and Stack tracing
      */
@@ -120,7 +120,7 @@ Class cLog {
      * @param {Integer} [DebugLevel=0] Int to select the debug output level for logging
      * -1 disabled (Msgboxs errors on failure)
      * 0 Important
-     * 1 Important and Debug
+     * 1 Important and Verbose
      * 2 Important, Debug and Verbose
      * 3 Important, Debug, Verbose and Stack tracing
      */
@@ -150,10 +150,10 @@ Class cLog {
     }
 
     _OpenHandle() {
-        static bufferedLogToggle := false
+        Static bufferedLogToggle := false
         Try {
             this._FileHandle := FileOpen(this.FileName, "a-d")
-            if (!bufferedLogToggle){
+            If (!bufferedLogToggle) {
                 this._OutputDebug("Logging to " this.FileName)
                 bufferedLogToggle := true
             }
@@ -339,7 +339,9 @@ Class cLog {
             If (this.DebugLevel <= -1) {
                 MsgBox("Error: " out.Message "`r`n ErrorExtra: " out.Extra "`r`nStack: " out
                     .Stack)
-                Window.Activate()
+                If (IsSet(Window)) {
+                    Window.Activate()
+                }
             }
         } Else {
             ; Log the error, outputlog only posts outputdebug if logging is off
@@ -347,7 +349,9 @@ Class cLog {
             ; If we are not logging msgbox it
             If (this.DebugLevel <= -1) {
                 MsgBox("Error: " out)
-                Window.Activate()
+                If (IsSet(Window)) {
+                    Window.Activate()
+                }
             }
         }
     }
@@ -452,8 +456,8 @@ Class cLog {
             Sleep(1)
             Try {
                 FileAppend(msg, this.FileName)
-            } Catch Error As err {
-                this._OutputDebug("Logging failure " err.Message " " err.Extra)
+            } Catch Error As wrerr {
+                this._OutputDebug("Logging failure " wrerr.Message " " wrerr.Extra)
                 this._OutputDebug("Logging failure sending: " msg)
                 written := false
             } Else {

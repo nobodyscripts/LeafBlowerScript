@@ -21,19 +21,23 @@ Class SavingGUI {
         this.Bar := this.SavingGui.AddProgress("c2363ec vProgBar")
         this.Bar.Value := 0
         SetTimer(this.IncrementSaveProgress.Bind(this), 50)
+        this.SavingGui.Enabled := true
         this.SavingGui.Show()
-
     }
     ;@endregion
 
     ;@region Hide()
     Hide() {
         this.SavingGui.Hide()
+        this.SavingGui.Enabled := false
         SetTimer(this.IncrementSaveProgress.Bind(this), 0)
     }
     ;@endregion
 
     IncrementSaveProgress() {
+        if (!this.SavingGui.Enabled) {
+            SetTimer(, 0)
+        }
         this.SavingGui["ProgBar"].value++
         If (this.SavingGui["ProgBar"].value > 100) {
             this.SavingGui["ProgBar"].value := 0
