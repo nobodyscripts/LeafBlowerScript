@@ -34,77 +34,85 @@ Class sRelics extends Zone {
             Return false
         }
         If (reset) {
-            cPoint(570, 1163).ClickButtonActive()
+            cPoint(570, 1163).ClickButtonActive(5,5)
             Sleep(50)
-            cPoint(289, 1163).ClickButtonActive()
+            cPoint(289, 1163).ClickButtonActive(5,5)
         }
         Return true
     }
     ;@endregion
 
-    TabLegendary() {
-        If (!this.TabLegend.ClickButtonActive()) {
+    TabLegendary() {        
+        While (!this.pTransmuteAll.IsButtonActive()) {
+            this.TabLegend.ClickButtonActive(5,5)
+        }
+        If (!this.pTransmuteAll.IsButtonActive()) {
             Return false
         }
-        Sleep(100)
         Return true
     }
 
     TabMaster() {
-        If (!this.TabMastr.ClickButtonActive()) {
+        While (!this.ResetMastr.IsButtonActive()) {
+            this.TabMastr.ClickButtonActive(5,5)
+        }
+
+        If (!this.ResetMastr.IsButtonActive()) {
             Return false
         }
-        Sleep(100)
         Return true
     }
 
     TransmuteAll() {
-        If (!this.pTransmuteAll.ClickButtonActive()) {
+        this.pTransmuteAll.WaitUntilActiveButtonS(2)
+        If (!this.pTransmuteAll.IsButtonActive()) {
+            Out.I("No transmute all button")
             Return false
         }
-        If (!this.ConfirmTransmute.WaitUntilActiveButtonS(0.5)) {
-            If (!this.pTransmuteAll.ClickButtonActive()) {
-                Return false
-            }
-            If (!this.ConfirmTransmute.WaitUntilActiveButtonS(0.5)) {
-                Return false
-            }
+        While (this.pTransmuteAll.IsButtonActive()) {
+            this.pTransmuteAll.ClickButtonActive(5,5)
         }
-        ; Confirm
-        If (!this.ConfirmTransmute.ClickButtonActive()) {
+
+        this.ConfirmTransmute.WaitUntilActiveButtonS(2)
+        If (!this.ConfirmTransmute.IsButtonActive()) {
+            Out.I("No confirm transmute button")
             Return false
         }
-        Sleep(50)
+        While (this.ConfirmTransmute.IsButtonActive()) {
+            this.ConfirmTransmute.ClickButtonActive(5,5)
+        }
+
+        Wait := A_Now
+        while(!this.ConfirmTransmute.IsBackground() && DateDiff(A_now, Wait,"S") < 10) {
+            Sleep(17)
+        }
         If (this.ConfirmTransmute.IsBackground()) {
             Return true
         }
-        If (!this.ConfirmTransmute.ClickButtonActive()) {
-            Return false
-        }
-        Sleep(50)
-
-        Return true
+        Return false
     }
 
     ResetMaster() {
-        If (!this.ResetMastr.ClickButtonActive()) {
+        this.ResetMastr.WaitUntilActiveButtonS(2)
+        If (!this.ResetMastr.IsButtonActive()) {
             Return false
         }
-        Sleep(50)
-        ; Confirm
-        If (!this.ConfirmTransmute.ClickButtonActive()) {
+        While (this.ResetMastr.IsButtonActive()) {
+            this.ResetMastr.ClickButtonActive(5,5)
+        }
+
+        this.ConfirmTransmute.WaitUntilActiveButtonS(2)
+        If (!this.ConfirmTransmute.IsButtonActive()) {
             Return false
         }
-        Sleep(50)
+        While (this.ConfirmTransmute.IsButtonActive()) {
+            this.ConfirmTransmute.ClickButtonActive(5,5)
+        }
+
         If (this.ConfirmTransmute.IsBackground()) {
             Return true
         }
-        If (!this.ConfirmTransmute.ClickButtonActive()) {
-            Return false
-        }
-        Sleep(50)
-
-        Return true
+        Return false
     }
 
     ;@region TransMuteReset Spam

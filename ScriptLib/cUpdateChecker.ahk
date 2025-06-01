@@ -1,45 +1,22 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\ExtLIbs\jsongo_AHKv2-main\src\jsongo.v2.ahk
-#Include ScriptSettings.ahk
-#Include Logging.ahk
-#Include ..\Gui\UpdatingGUI.ahk
+#Include ExtLibs\jsongo_AHKv2-main\src\jsongo.v2.ahk
+#Include cSettings.ahk
+#Include cLogging.ahk
 
-/** @type {Boolean} */
-Global CheckForUpdatesEnable := true
-/** @type {Boolean} */
-Global CheckForUpdatesReleaseOnly := true
-/** @type {DateTime} */
-Global CheckForUpdatesLastCheck := 0
-/**
- * 30 mins in ms, check time (unused)
- * @type {Integer}
- */
-Global CheckForUpdatesInterval := 30 * 60 * 60 * 1000
-/**
- * Limit to check once every 24 hours
- * @type {Integer} "24"
- */
-Global CheckForUpdatesLimiter := 24
+S.AddSetting("Updates", "CheckForUpdatesEnable", true, "bool")
+S.AddSetting("Updates", "CheckForUpdatesReleaseOnly", true, "bool")
+S.AddSetting("Updates", "CheckForUpdatesLastCheck", 0, "int")
+S.AddSetting("Updates", "CheckForUpdatesInterval", 24, "int")
+
 /** Update checking class, checks version against github in a low bandwidth approach
  * @type {UpdateChecker} */
-Global Updater := UpdateChecker()
+;Global Updater := UpdateChecker()
 
-;Updater.Init()
-;Updater.Check()
-; Check every hour
-;SetTimer(Updater.Check, CheckForUpdatesInterval, 20)
 
-/*
-
-https://api.github.com/repos/<username>/<repository_name>/releases
-https://api.github.com/repos/nobodyscripts/leafblowerscript/releases
-returns json, 0.tag_name = "v3.1.1", 0.url = web link for browser
-
-https://api.github.com/users/nobodyscripts/events/public
-
-*/
-
+/**
+ * Version object for comparison and serialization
+ */
 Class ScriptVersion {
     Raw := ""
     Major := 0
@@ -145,6 +122,7 @@ CompareScriptVersions(obj, obj2, ReleasesOnly) {
     Return 0
 }
 
+
 Class UpdateChecker {
     Enabled := true
     ReleasesOnly := true
@@ -157,29 +135,28 @@ Class UpdateChecker {
     IsNewRelease := false
     IsNewBeta := false
     localjson := ""
+    /** @example "https://github.com/nobodyscripts/LeafBlowerScript/archive/refs/heads/main.zip" */
+    ZipDownload := ""
+    /** @example "LeafBlowerScript-main"*/
+    ZipFolder := ""
+    /** @example "https://raw.githubusercontent.com/nobodyscripts/LeafBlowerScript/main/Version.json" */
+    RemoteJson := ""
+    /** @example "LBR NobodyScript" */
+    ScriptName := ""
 
     /**
      * Initialise class with loaded settings
      * @returns {Integer} False if settings fail to load
      */
     Init() {
-        Global CheckForUpdatesEnable, CheckForUpdatesReleaseOnly,
-            CheckForUpdatesLastCheck, CheckForUpdatesInterval
-        /** @type {cSettings} */
-        Global settings
-
-        If (!settings) {
-            settings := cSettings()
-
-            If (!settings.initSettings()) {
-                Return false
-            }
+        If (!IsSet(S)) {
+            Return false
         }
 
-        this.Enabled := CheckForUpdatesEnable
-        this.ReleasesOnly := CheckForUpdatesReleaseOnly
-        this.LastCheckTime := CheckForUpdatesLastCheck
-        this.CheckInterval := CheckForUpdatesInterval
+        this.Enabled := S.Get("CheckForUpdatesEnable")
+        this.ReleasesOnly := S.Get("CheckForUpdatesReleaseOnly")
+        this.LastCheckTime := S.Get("CheckForUpdatesLastCheck")
+        this.CheckInterval := S.Get("CheckForUpdatesInterval")
         this.localjson := this.GetLocalJson()
         /** @type {ScriptVersion} */
         localVer := ScriptVersion()
@@ -188,7 +165,7 @@ Class UpdateChecker {
         }
         localVer.SetByJson(this.localjson)
         this.CurrentVersion := localVer
-        Out.I("Script Version " localVer.Full)
+        Out.I(this.Scriptname " Version " localVer.Full)
     }
 
     Check() {
@@ -237,9 +214,7 @@ Class UpdateChecker {
     GetWebJson() {
         Try {
             whr := ComObject("WinHttp.WinHttpRequest.5.1")
-            whr.Open("GET",
-                "https://raw.githubusercontent.com/nobodyscripts/LeafBlowerScript/main/Version.json",
-                true)
+            whr.Open("GET", this.RemoteJson, true)
             whr.Send()
             ; Using 'true' above and the call below allows the script to remain responsive.
             whr.WaitForResponse()
@@ -256,34 +231,29 @@ Class UpdateChecker {
     }
 
     isUpdateCheckTimePassed() {
-        Global CheckForUpdatesLastCheck, CheckForUpdatesLimiter
         If (this.LastCheckTime = 0 || DateDiff(this.LastCheckTime, A_Now,
-            "Hours") <= CheckForUpdatesLimiter * -1) {
-            CheckForUpdatesLastCheck := this.LastCheckTime := A_Now
-
-            this.SaveCheckTime()
+            "Hours") <= S.Get("CheckForUpdatesLimiter") * -1) {
+            this.LastCheckTime := A_Now
+            S.Set("CheckForUpdatesLastCheck", this.LastCheckTime)
+            S.SaveCurrentSettings()
             Return true
         }
         Return false
     }
 
-    SaveCheckTime() {
-        Global settings
-        settings.SaveCurrentSettings()
-    }
-
-    UpdateScriptToNewDev(*) {
-        WinHide("LBR ahk_class AutoHotkeyGUI ahk_exe AutoHotkey64.exe")
-        Dialog := UpdatingGUI()
-        SetFontOptions(Dialog.UpdatingGui)
+    /**
+     * Update script to new version based on settings in class, suggest close
+     * gui windows during process
+     * @param Dialog Gui window for progress display
+     */
+    UpdateScriptToNewDev(Dialog) {
         Dialog.Show()
-
         Try {
             If (FileExist("Install.zip")) {
                 FileDelete("Install.zip")
                 Out.I("Removed old Install.zip")
             }
-            Download("https://github.com/nobodyscripts/LeafBlowerScript/archive/refs/heads/main.zip", "Install.zip")
+            Download(this.ZipDownload, "Install.zip")
         } Catch Error As uperr {
             Dialog.Hide()
             MsgBox("Error occured during update download:`r`n" uperr.Message)
@@ -300,8 +270,8 @@ Class UpdateChecker {
         Try {
             Out.I("Install.zip downloaded. Unpacking.")
             DirCopy("Install.zip", A_ScriptDir, 1)
-            DirCopy(A_ScriptDir "\LeafBlowerScript-main", A_ScriptDir, 2)
-            DirDelete(A_ScriptDir "\LeafBlowerScript-main", 1)
+            DirCopy(A_ScriptDir "\" this.ZipFolder, A_ScriptDir, 2)
+            DirDelete(A_ScriptDir "\" this.ZipFolder, 1)
             FileDelete(A_ScriptDir "\Install.zip")
         } Catch Error As unpackerr {
             Dialog.Hide()
@@ -311,7 +281,7 @@ Class UpdateChecker {
             Reload()
         }
         Dialog.Hide()
-        MsgBox("LBR Script Update Completed.")
+        MsgBox(this.ScriptName " Update Completed.")
         Reload()
     }
 }

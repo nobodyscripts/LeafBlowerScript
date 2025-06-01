@@ -652,7 +652,7 @@ Class Fishing {
         If (!this.Pond4.CastRod.IsBackground()) {
             this.Pond4.FishPond(&Time4)
         }
-        Sleep (17)
+        Sleep(17)
         If (isTourney) {
             If (this.Ponds.Lure.IsButtonActive() && (A_TickCount - Time1) / 1000 < FishTourCatchingDelay) {
                 this.Ponds.Lure.ClickButtonActive()
