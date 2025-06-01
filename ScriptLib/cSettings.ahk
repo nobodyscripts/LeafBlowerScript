@@ -92,7 +92,7 @@ Class singleSetting {
      * Convert ini formatted string to value
      * @param value 
      */
-    ValueFromIniString(value) {
+    ValueFromIniString(value := this.Value) {
         Switch (StrLower(this.DataType)) {
         Case "bool":
             Return StrToBin(value)
@@ -180,7 +180,18 @@ Class cSettings {
      * Add a setting to the class to track and update
      */
     AddSetting(section, Name, default, type) {
-        this.Map[Name] := singleSetting(Name, default, type, section)
+        If (!this.IsSetting(Name)) {
+            this.Map[Name] := singleSetting(Name, default, type, section)
+        }
+    }
+    ;@endregion
+
+    ;@region AddSetting()
+    /**
+     * Add a setting to the class to track and update
+     */
+    IsSetting(Name) {
+        Return this.Map.Has(Name)
     }
     ;@endregion
 
@@ -284,7 +295,6 @@ Class cSettings {
         For (setting in this.Map) {
             this.SetDefault(this.Map[setting].Name)
             this.WriteToIni(this.Map[setting].Name)
-            ;Out.D("Set " this.Map[setting].Name " to default")
         }
     }
     ;@endregion
@@ -296,7 +306,6 @@ Class cSettings {
     SaveCurrentSettings() {
         For (setting in this.Map) {
             this.WriteToIni(this.Map[setting].Name)
-            ;Out.D("Written " this.Map[setting].Name)
         }
     }
     ;@endregion
@@ -312,7 +321,6 @@ Class cSettings {
         value := this.Map[Name].ValueToIniString(),
         fn := this.Filename,
         cat := this.Map[Name].Category
-        ;Out.D(Name " currently " value)
         Try {
             storedVal := IniRead(fn, cat, Name)
         } Catch {
@@ -321,7 +329,6 @@ Class cSettings {
             IniWrite(value, this.Filename, cat, Name)
             Return
         }
-        ;Out.D("Stored " storedVal " vs " value)
         If (storedVal != value) {
             IniWrite(value, this.Filename, cat, Name)
         }
@@ -336,7 +343,6 @@ Class cSettings {
         value := this.Map[Name].ValueToIniString(),
         fn := this.Filename,
         cat := this.Map[Name].Category
-        ;Out.D(Name " currently " value)
         Try {
             storedVal := IniRead(fn, cat, Name)
         } Catch {
@@ -360,7 +366,6 @@ Class cSettings {
      */
     IniToVar(name, section := this.Section, file := this.Filename) {
         value := this.Map[name].ValueFromIniString(this.ReadFromIni(file, section, name))
-        ;Out.D(name " has been loaded fetched as " value)
         Return value
     }
     ;@endregion
@@ -376,13 +381,6 @@ Class cSettings {
      */
     IniToMap(name, section := this.Section, file := this.Filename) {
         this.Map[name].SetFromIniString(this.ReadFromIni(file, section, name))
-        /* If (this.Map[name].DataType != "Array") {
-            Out.D(name " has been loaded into map as " this.Get(name))
-        } Else {
-            text := name " has been loaded into map as array "
-            text .= this.Map[name].ValueToIniString()
-            Out.D(text)
-        } */
     }
     ;@endregion
 }

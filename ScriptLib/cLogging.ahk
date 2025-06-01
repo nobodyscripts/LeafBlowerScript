@@ -27,6 +27,9 @@ Global Out
  * @property FileName Filename to log to
  * @property DebugLevel See above
  * @property Timestamp Is timestamp included in logs
+ * @property Enabled Is logging enabled, used to disable for a period
+ * @method Disable Is used to disable logging
+ * @method Enable Is used to enable logging
  * @method SetBuffer Set direct log/buffered logging mode
  * @method Error Log an error that has occured (string|error)
  * @method Important Log an important message (string)
@@ -46,6 +49,8 @@ Class cLog {
     FileName := ""
     /** @type {Boolean} Desc */
     Timestamp := true
+    /** @type {Boolean} Desc */
+    Enabled := true
     /** @type {Integer} Int to select the debug output level for logging
      * -1 disabled (Msgboxs errors on failure)
      * 0 Important
@@ -93,12 +98,6 @@ Class cLog {
         If (this._Buffer) {
             this._OpenHandle()
         }
-        ; Repeatedly flush the file every 5 seconds to avoid buffering for long
-        ;SetTimer(this._FlushFile.Bind(this), 1000)
-    }
-
-    __Delete() {
-        ;this._CloseHandle()
     }
 
     _OpenHandle() {
@@ -114,7 +113,7 @@ Class cLog {
                 Throw Error("File didn't exist after fileopen")
             }
             If (!bufferedLogToggle) {
-                this._OutputDebug("-------`r`nLogging to " this.FileName)
+                this.V(A_ScriptName " logging to " this.FileName)
                 bufferedLogToggle := true
             }
         } Catch (Error) {
@@ -187,7 +186,9 @@ Class cLog {
      * @param text 
      */
     _OutputDebug(text) {
-        OutputDebug(text "`r`n")
+        If (this.Enabled) {
+            OutputDebug(text "`r`n")
+        }
     }
     ;@endregion
 
@@ -196,14 +197,16 @@ Class cLog {
      * Output message to log of whatever debug level requires output
      */
     _OutputLog(logmessage) {
-        Try {
-            If (this._Buffer) {
-                this._OutputLogBuffered(logmessage)
-            } Else {
-                this._OutputLogWrite(logmessage)
+        If (this.Enabled) {
+            Try {
+                If (this._Buffer) {
+                    this._OutputLogBuffered(logmessage)
+                } Else {
+                    this._OutputLogWrite(logmessage)
+                }
+            } Catch Error As err {
+                this._OutputDebug(err.Message)
             }
-        } Catch Error As err {
-            this._OutputDebug(err.Message)
         }
     }
     ;@endregion
@@ -292,6 +295,26 @@ Class cLog {
                 this.LoopWrite("LogError: Error writing to log - " exc.Message "`r`n")
             }
         }
+    }
+    ;@endregion
+
+    ;@region Enable()
+    /**
+     * 
+     */
+    Enable() {
+        this._OpenHandle()
+        this.Enabled := true
+    }
+    ;@endregion
+
+    ;@region Disable()
+    /**
+     * 
+     */
+    Disable() {
+        this._CloseHandle()
+        this.Enabled := false
     }
     ;@endregion
 

@@ -33,12 +33,18 @@ UninstallScript(*) {
     }
     Try {
         ShortcutFolder := "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\NobodyScripts"
-        If (!DirExist(ShortcutFolder)) {
-            DirCreate(ShortcutFolder)
+        If (DirExist(ShortcutFolder)) {
+            If (FileExist(ShortcutFolder "\Leafblower NobodyScript.lnk")) {
+                FileDelete(ShortcutFolder "\Leafblower NobodyScript.lnk")
+            }
+            If (FileExist(ShortcutFolder "\Update Leafblower.lnk")) {
+                FileDelete(ShortcutFolder "\Update Leafblower.lnk")
+            }
+            If (FileExist(ShortcutFolder "\Uninstall Leafblower.lnk")) {
+                FileDelete(ShortcutFolder "\Uninstall Leafblower.lnk")
+            }
+            DirDelete(ShortcutFolder, 0)
         }
-        FileDelete(ShortcutFolder "\Leafblower.lnk")
-        FileDelete(ShortcutFolder "\Update Leafblower.lnk")
-        FileDelete(ShortcutFolder "\Uninstall Leafblower.lnk")
         HasPressed := MsgBox("Delete script folder? This removes everything in " A_ScriptDir,
             "Delete folder?", "0x1 0x100 0x10")
         If (HasPressed = "OK") {

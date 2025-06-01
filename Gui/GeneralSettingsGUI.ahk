@@ -26,7 +26,6 @@ Button_Click_GeneralSettings(thisGui, info) {
         settingsGUI.Add("CheckBox", "vVerbose cff8800", "Enable Verbose Logging")
     }
 
-
     If (Debug = true) {
         settingsGUI.Add("CheckBox", "vDebug cff5100 checked",
             "Enable Debug Logging")
@@ -261,6 +260,7 @@ Button_Click_GeneralSettings(thisGui, info) {
     }
 
     ResetSettings(*) {
+        /** @type {cLog} */
         Global Out
         Out := ""
         HasPressed := MsgBox("Remove all ini files? This resets all settings.",
@@ -280,12 +280,13 @@ Button_Click_GeneralSettings(thisGui, info) {
                 list .= "Deleted: " value "`n"
             }
             MsgBox("Setting Reset Complete.`n" list)
-            Reload()
         }
         Out := cLog()
+        Reload()
     }
 
     ResetLogs(*) {
+        /** @type {cLog} */
         Global Out
         Out := ""
         HasPressed := MsgBox("Remove all log files? This resets all logs.",
@@ -305,9 +306,9 @@ Button_Click_GeneralSettings(thisGui, info) {
                 list .= "Deleted: " value "`n"
             }
             MsgBox("Log Reset Complete`n" list)
-            Reload()
         }
         Out := cLog()
+        Reload()
     }
 
     ForceCheckForUpdates(*) {
