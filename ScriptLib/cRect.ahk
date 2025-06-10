@@ -17,6 +17,7 @@
  * @method ToolTipAtArea Places two blank tooltips at top left and bottom right 
  * of area aligned to top left corners of the tooltip
  * @method PixelSearch Find colour in area, returns coord
+ * @method ImageSearch Search rect for matching image
  */
 Class cRect {
     x1 {
@@ -151,6 +152,7 @@ Class cRect {
         ToolTip(" ", this.x2, this.y2, id2)
     }
 
+    ;@region PixelSearch()
     /**
      * Find coord of colour in area
      * @param {String} colour "0xFFFFFF" Formatted strings
@@ -167,10 +169,52 @@ Class cRect {
             }
             ; Out.D("PixelSearch false: " colour " not found")
         } Catch As exc {
-            Out.I("Error 8: PixelSearch search failed - " exc.Message)
+            Out.E("PixelSearch search failed - " exc.Message)
             MsgBox("Could not conduct the search due to the following error:`n" exc
                 .Message)
         }
         Return false
     }
+    ;@endregion
+
+    ;@region ImageSearch()
+    /**
+     * Search for image against rectangle area and return coord if found.
+     * @param Filename Filename for the image to search
+     * @param [TransparentCol=""] FFFFFF formatted colour to ignore on the image
+     * @param [Variation=0] 0-255 Int for how much difference between colour and sample
+     * @param [Width=""] Width to scale the image, where # is the new size in pixels.
+     * @param [Height=""] Height to scale the image, where # is the new size in pixels.
+     * If both are omitted, pictures load to their actual size.
+     * To preserve aspect ratio, set a width or height and use -1 for the other: *W300 *H-1
+     * @returns {Array | Boolean} [x, y] or false
+     */
+    ImageSearch(Filename, TransparentCol := "", Variation := 0, Width := "", Height := "") {
+        options := "*" Variation
+        If (TransparentCol != "") {
+            options .= " *Trans" TransparentCol
+        }
+        If (Width != "") {
+            options .= " *W" Width
+        }
+        If (Height != "") {
+            options .= " *H" Height
+        }
+        options .= " " Filename
+        Try {
+            found := ImageSearch(&OutX, &OutY, this.x1, this.y1, this.x2, this.y2, options)
+        } Catch Error As OutputVar {
+            Out.E("Image search failed critcally.")
+            Out.E(OutputVar)
+        }
+        If (!found) {
+            Return false
+        } Else {
+            Return [
+                OutX,
+                OutY
+            ]
+        }
+    }
+    ;@endregion
 }

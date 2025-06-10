@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * CursedKokkaupunki class for zone travel
@@ -28,12 +26,12 @@ Class CursedKokkaupunki extends Zone {
         Travel.OpenAreasLeafGalaxy(extradelay)
         this.ScrollAmountDown(28, scrolldelay)
         Sleep(delay + extradelay)
-        If (cPoint(1863, 636).IsButton()) {
-            /** @type {cPoint} */
-            Btn := cPoint(1863, 636)
+        If (cLBRButton(1863, 636).IsButton()) {
+            /** @type {cLBRButton} */
+            Btn := cLBRButton(1863, 636)
         } Else {
-            /** @type {cPoint} */
-            Btn := cPoint(1860, 659)
+            /** @type {cLBRButton} */
+            Btn := cLBRButton(1860, 659)
         }
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)

@@ -1,10 +1,10 @@
 ﻿#Requires AutoHotkey v2.0
 
-Global ClawCheckSizeOffset := 0
-Global ClawFindAny := false
+S.AddSetting("Claw", "ClawCheckSizeOffset", 0, "int")
+S.AddSetting("Claw", "ClawFindAny", false, "bool")
 
 fClawFarm() {
-    Global ClawFindAny
+    ClawFindAny := S.Get("ClawFindAny")
 
     If (!Travel.CursedHalloween.Goto()) {
         Return
@@ -60,7 +60,7 @@ ClawGetLocation(col) {
 }
 
 ClawGetHookLocation(ScreenX) {
-    Global ClawCheckSizeOffset
+    ClawCheckSizeOffset := S.Get("ClawCheckSizeOffset")
     ;Hook colour 0x8B9BB4
     ;296 346 top left Hook area 1440
     ;2042 400 bottom right Hook area 1440
@@ -71,8 +71,8 @@ ClawGetHookLocation(ScreenX) {
                     20 + ClawCheckSizeOffset), Window.RelH(373), "0x8B9BB4", 0)
         } Else {
             found := PixelSearch(&OutX, &OutY, ScreenX - Window.RelW(20),
-                Window.RelH(346), ScreenX + Window.RelW(20), Window.RelH(400),
-                "0x8B9BB4", 0)
+            Window.RelH(346), ScreenX + Window.RelW(20), Window.RelH(400),
+            "0x8B9BB4", 0)
         }
         ; Hook pixel search
         If (found and OutX != 0) {
@@ -88,7 +88,7 @@ ClawGetHookLocation(ScreenX) {
 
 IsClawAboveLocation(ScreenX) {
     ;374 height to check
-    If (!cPoint(ScreenX, Window.RelH(374), false).IsBackground()) {
+    If (!cLBRButton(ScreenX, Window.RelH(374), false).IsBackground()) {
         Return true
     }
     Return false

@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * SoulTemple class for zone travel
@@ -28,8 +26,8 @@ Class SoulTemple extends Zone {
         Travel.OpenAreasSoulRealm(extradelay)
         Sleep(delay)
 
-        /** @type {cPoint} */
-        Local Btn := cPoint(1852, 307)
+        /** @type {cLBRButton} */
+        Local Btn := cLBRButton(1852, 307)
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {

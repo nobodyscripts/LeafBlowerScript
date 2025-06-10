@@ -1,73 +1,74 @@
 #Requires AutoHotkey v2.0
 
 Button_Click_GemFarm(thisGui, info) {
-    Global Settings, GemFarmSleepAmount
 
-    /** @type {GUI} */
-    optionsGUI := Gui(, "Gem Suitcase Farm Settings")
-    optionsGUI.Opt("")
-    SetFontOptions(optionsGUI)
+    GemFarmSleepAmount := S.Get("GemFarmSleepAmount")
 
-    optionsGUI.Add("Text", "", "Delay between refreshes (ms):")
-    optionsGUI.AddEdit("cDefault")
+    GuiBGColour := S.Get("GuiBGColour")
+
+    /** @type {cGUI} */
+    MyGui := cGui(, "Gem Suitcase Farm Settings")
+    MyGui.Opt("")
+    MyGui.SetUserFontSettings()
+
+    MyGui.Add("Text", "", "Delay between refreshes (ms):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(GemFarmSleepAmount) && GemFarmSleepAmount > 0) {
-        optionsGUI.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
+        MyGui.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
             GemFarmSleepAmount)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
-                Settings.defaultNobodySettings.GemFarmSleepAmount)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
+                S.defaultNobodySettings.GemFarmSleepAmount)
         } Else {
-            optionsGUI.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
-                Settings.defaultSettings.GemFarmSleepAmount)
+            MyGui.Add("UpDown", "vGemFarmSleepAmount Range1-9999",
+                S.defaultSettings.GemFarmSleepAmount)
         }
     }
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunGemFarm)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunGemFarm)
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveGemFarm)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessGemFarmSettings)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseGemFarmSettings)
 
-    ShowGUIPosition(optionsGUI)
-    MakeGUIResizableIfOversize(optionsGUI)
-    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
-    OnMessage(0x0003, SaveGUIPositionOnMove)
+    MyGui.ShowGUIPosition()
+    MyGui.MakeGUIResizableIfOversize()
+    MyGui.OnEvent("Size", MyGui.SaveGUIPositionOnResize.Bind(MyGui))
+    OnMessage(0x0003, MyGui.SaveGUIPositionOnMove.Bind(MyGui))
 
     ProcessGemFarmSettings(*) {
         Temp := thisGui.Gui
         Saving := SavingGUI()
-        optionsGUI.Hide()
+        MyGui.Hide()
         Temp.Hide()
         Saving.Show()
         GemFarmSave()
         Saving.Hide()
         Temp.Show()
-        optionsGUI.Show()
+        MyGui.Show()
     }
 
     RunGemFarm(*) {
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         fGemFarmStart()
     }
 
     RunSaveGemFarm(*) {
         GemFarmSave()
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         fGemFarmStart()
     }
 
     CloseGemFarmSettings(*) {
-        optionsGUI.Hide()
+        MyGui.Hide()
     }
 
     GemFarmSave() {
-        values := optionsGUI.Submit()
-        GemFarmSleepAmount := values.GemFarmSleepAmount
-        Settings.SaveCurrentSettings()
+        values := MyGui.Submit()
+        S.Set("GemFarmSleepAmount", values.GemFarmSleepAmount)
+        S.SaveCurrentSettings()
     }
 }

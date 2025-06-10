@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\Lib\Logging.ahk
 #Include ..\Lib\cZone.ahk
 #Include ..\Lib\cTravel.ahk
 
@@ -11,11 +10,11 @@
  */
 Class sRelics extends Zone {
 
-    pTransmuteAll := cPoint(1015, 1101)
-    ConfirmTransmute := cPoint(1362, 557) ; old this.ConfirmTransmute
-    TabLegend := cPoint(1944, 1180)
-    TabMastr := cPoint(2217, 1180)
-    ResetMastr := cPoint(980, 737)
+    pTransmuteAll := cLBRButton(1015, 1101)
+    ConfirmTransmute := cLBRButton(1362, 557) ; old this.ConfirmTransmute
+    TabLegend := cLBRButton(1944, 1180)
+    TabMastr := cLBRButton(2217, 1180)
+    ResetMastr := cLBRButton(980, 737)
 
     ;@region cFeatureRelics main travel
     /**
@@ -29,22 +28,22 @@ Class sRelics extends Zone {
         If (!Window.AwaitPanelClose()) {
             Return false
         }
-        cPoint(969, 88).ClickButtonActive()
+        cLBRButton(969, 88).ClickButtonActive()
         If (!Window.AwaitPanel()) {
             Return false
         }
         If (reset) {
-            cPoint(570, 1163).ClickButtonActive(5,5)
+            cLBRButton(570, 1163).ClickButtonActive(5, 5)
             Sleep(50)
-            cPoint(289, 1163).ClickButtonActive(5,5)
+            cLBRButton(289, 1163).ClickButtonActive(5, 5)
         }
         Return true
     }
     ;@endregion
 
-    TabLegendary() {        
+    TabLegendary() {
         While (!this.pTransmuteAll.IsButtonActive()) {
-            this.TabLegend.ClickButtonActive(5,5)
+            this.TabLegend.ClickButtonActive(5, 5)
         }
         If (!this.pTransmuteAll.IsButtonActive()) {
             Return false
@@ -54,7 +53,7 @@ Class sRelics extends Zone {
 
     TabMaster() {
         While (!this.ResetMastr.IsButtonActive()) {
-            this.TabMastr.ClickButtonActive(5,5)
+            this.TabMastr.ClickButtonActive(5, 5)
         }
 
         If (!this.ResetMastr.IsButtonActive()) {
@@ -70,7 +69,7 @@ Class sRelics extends Zone {
             Return false
         }
         While (this.pTransmuteAll.IsButtonActive()) {
-            this.pTransmuteAll.ClickButtonActive(5,5)
+            this.pTransmuteAll.ClickButtonActive(5, 5)
         }
 
         this.ConfirmTransmute.WaitUntilActiveButtonS(2)
@@ -79,11 +78,11 @@ Class sRelics extends Zone {
             Return false
         }
         While (this.ConfirmTransmute.IsButtonActive()) {
-            this.ConfirmTransmute.ClickButtonActive(5,5)
+            this.ConfirmTransmute.ClickButtonActive(5, 5)
         }
 
         Wait := A_Now
-        while(!this.ConfirmTransmute.IsBackground() && DateDiff(A_now, Wait,"S") < 10) {
+        While (!this.ConfirmTransmute.IsBackground() && DateDiff(A_now, Wait, "S") < 10) {
             Sleep(17)
         }
         If (this.ConfirmTransmute.IsBackground()) {
@@ -98,7 +97,7 @@ Class sRelics extends Zone {
             Return false
         }
         While (this.ResetMastr.IsButtonActive()) {
-            this.ResetMastr.ClickButtonActive(5,5)
+            this.ResetMastr.ClickButtonActive(5, 5)
         }
 
         this.ConfirmTransmute.WaitUntilActiveButtonS(2)
@@ -106,7 +105,7 @@ Class sRelics extends Zone {
             Return false
         }
         While (this.ConfirmTransmute.IsButtonActive()) {
-            this.ConfirmTransmute.ClickButtonActive(5,5)
+            this.ConfirmTransmute.ClickButtonActive(5, 5)
         }
 
         If (this.ConfirmTransmute.IsBackground()) {

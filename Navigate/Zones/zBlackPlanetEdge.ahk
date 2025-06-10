@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * BlackPlanetEdge class for zone travel
@@ -60,10 +58,10 @@ Class BlackPlanetEdge extends Zone {
     ClickTravelButton(coord, delay) {
         ; Button to travel to Black Planet Edge
         ;Button := Points.Areas.EnergyBelt.BlackPlanetEdge
-        Button := cPoint()
+        Button := cLBRButton()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
+        If (!Button.ClickButtonActive(, , delay, S.Get("NavigateTime") + delay)) {
             Out.I("Black Planet Edge travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }

@@ -1,7 +1,5 @@
 ﻿#Requires AutoHotkey v2.0
 
-Global on9 := 0
-
 fFarmNatureBoss() {
     ; Check zone is available
     If (!GoToNatureBoss()) {
@@ -128,7 +126,7 @@ IsNatureBossTimerActive() {
     ; 2189 1033
     Try {
         ; TODO Move point to Points
-        If (!cPoint(1693, 960).IsBackground()) {
+        If (!cLBRButton(1693, 960).IsBackground()) {
             ; font 1
             ; TODO Move rect to Rects
             found := PixelSearch(&OutX, &OutY, Window.RelW(1574), Window.RelH(
@@ -148,7 +146,7 @@ IsNatureBossTimerActive() {
         }
         ; Halloween inactive, nature active
         ; TODO Move point to Points
-        If (cPoint(1650, 870).IsButton()) {
+        If (cLBRButton(1650, 870).IsButton()) {
             ; TODO Move rect to Rects
             found := cRect(1525, 897, 1660, 922).PixelSearch()
             If (found) {

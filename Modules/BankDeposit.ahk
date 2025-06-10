@@ -2,19 +2,21 @@
 
 #Include ..\Lib\cPoints.ahk
 
-Global BankEnableLGDeposit := true
-Global BankEnableSNDeposit := true
-Global BankEnableEBDeposit := true
-Global BankEnableFFDeposit := true
-Global BankEnableSRDeposit := true
-Global BankEnableQADeposit := true
-Global BankEnableStorageUpgrade := true
-Global BankRunsSpammer := true
-Global BankDepositTime := 5
-Global NavigateTime := 150
+S.AddSetting("Bank", "BankEnableLGDeposit", true, "bool")
+S.AddSetting("Bank", "BankEnableSNDeposit", true, "bool")
+S.AddSetting("Bank", "BankEnableEBDeposit", true, "bool")
+S.AddSetting("Bank", "BankEnableFFDeposit", true, "bool")
+S.AddSetting("Bank", "BankEnableSRDeposit", true, "bool")
+S.AddSetting("Bank", "BankEnableQADeposit", true, "bool")
+S.AddSetting("Bank", "BankEnableStorageUpgrade", false, "bool")
+S.AddSetting("Bank", "BankRunsSpammer", true, "bool")
+S.AddSetting("Bank", "BankDepositTime", 5, "int")
 
 fBankAutoDeposit() {
-    Global BankDepositTime
+    NavigateTime := S.Get("NavigateTime")
+    BankDepositTime := S.Get("BankDepositTime")
+    BankRunsSpammer := S.Get("BankRunsSpammer")
+    BankEnableStorageUpgrade := S.Get("BankEnableStorageUpgrade")
     DepositRESS := Points.Bank.DepositRESS
     UpgradeButton := Points.Bank.UpgradeStorage
     ; If user set 0 in gui without adding a fraction, make at least 1 second
@@ -75,6 +77,8 @@ fBankAutoDeposit() {
 }
 
 BankSinglePass() {
+    NavigateTime := S.Get("NavigateTime")
+    BankEnableStorageUpgrade := S.Get("BankEnableStorageUpgrade")
     DepositRESS := Points.Bank.DepositRESS
     UpgradeButton := Points.Bank.UpgradeStorage
     Shops.OpenBank()
@@ -129,6 +133,7 @@ BankSinglePass() {
 ;@region Support functions
 
 BankTravelAreaByInd(index) {
+    NavigateTime := S.Get("NavigateTime")
     Switch index {
     Case 0:
         Points.Bank.TabQA.ClickOffset()
@@ -149,9 +154,9 @@ BankTravelAreaByInd(index) {
 }
 
 /**
- * Get bank tab cPoint by index
+ * Get bank tab cLBRButton by index
  * @param index 
- * @returns {cPoint} | null
+ * @returns {cLBRButton} | null
  */
 BankTabCoordByInd(index) {
     Switch index {
@@ -171,22 +176,22 @@ BankTabCoordByInd(index) {
     }
 }
 BankIsTabEnabled(index) {
-    If (index = 5 && BankEnableLGDeposit) {
+    If (index = 5 && S.Get("BankEnableLGDeposit")) {
         Return true
     }
-    If (index = 4 && BankEnableSNDeposit) {
+    If (index = 4 && S.Get("BankEnableSNDeposit")) {
         Return true
     }
-    If (index = 3 && BankEnableEBDeposit) {
+    If (index = 3 && S.Get("BankEnableEBDeposit")) {
         Return true
     }
-    If (index = 2 && BankEnableFFDeposit) {
+    If (index = 2 && S.Get("BankEnableFFDeposit")) {
         Return true
     }
-    If (index = 1 && BankEnableSRDeposit) {
+    If (index = 1 && S.Get("BankEnableSRDeposit")) {
         Return true
     }
-    If (index = 0 && BankEnableQADeposit) {
+    If (index = 0 && S.Get("BankEnableQADeposit")) {
         Return true
     }
     Return false
@@ -194,7 +199,7 @@ BankIsTabEnabled(index) {
 
 /**
  * If bank tab open button should be green
- * @param {cPoint} buttonTab 
+ * @param {cLBRButton} buttonTab 
  * @returns {Integer} 
  */
 IsOnBankTab(buttonTab) {
@@ -234,10 +239,10 @@ EnableBanks(*) {
         Points.Bank.TabSR,
         Points.Bank.TabQA
     ]
-    AutoDeposit := cPoint(1378, 780)
-    AutoRSS := cPoint(1378, 927)
+    AutoDeposit := cLBRButton(1378, 780)
+    AutoRSS := cLBRButton(1378, 927)
     For (id, point IN Buttons) {
-        point.ClickOffsetUntilColour(Colours().BankTabSelectedActiveMouseover)
+        point.ClickOffsetUntilColour(point.BankTabSelectedActiveMouseover)
         Sleep(50)
         AutoDeposit.ClickButtonActive()
         Sleep(50)
@@ -249,7 +254,7 @@ EnableBanks(*) {
     ResetModifierKeys()
     Sleep(50)
     For (id, point IN Buttons) {
-        point.ClickOffsetUntilColour(Colours().BankTabSelectedActiveMouseover)
+        point.ClickOffsetUntilColour(point.BankTabSelectedActiveMouseover)
         Sleep(50)
         AutoRSS.ClickButtonActive()
         Sleep(50)

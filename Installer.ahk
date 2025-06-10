@@ -2,19 +2,18 @@
 #MaxThreadsPerHotkey 8
 #SingleInstance Force
 
-Global ScriptsLogFile := A_ScriptDir "\Secondaries.Log"
-Global IsSecondary := false
+/** @type {cLog} */
+Out := cLog(A_ScriptDir "\Installer.log", true, 3, false)
 
-#Include Lib\hGlobals.ahk
-#Include Lib\ScriptSettings.ahk
-#Include Lib\Functions.ahk
-#Include Lib\cGameWindow.ahk
+#Include ScriptLib\cSettings.ahk
+#Include Lib\Misc.ahk
+#Include Lib\cLBRWindow.ahk
 #Include Lib\Navigate.ahk
 #Include Lib\cHotkeysInitGame.ahk
 
-/** @type {cSettings} */
-Global settings := cSettings()
-settings.initSettings(true)
+S.initSettings(true)
+
+
 InstallScript()
 ;@region InstallScript()
 /**

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-#Include cHotkeys.ahk
+#Include ..\ScriptLib\cHotkeys.ahk
 
 ; ------------------- Keybinds -------------------
 
@@ -12,8 +12,6 @@
 Global Scriptkeys := cHotkeys()
 
 Scriptkeys.IsScriptHotkeys := true
-
-Scriptkeys.sFilename := A_ScriptDir "\ScriptHotkeys.ini"
 
 Scriptkeys.Hotkeys["Exit"] := cHotkey("Exit", Map("EN-US", "F1", "EN-GB", "F1",
     "Other", "F1"), "Default")
@@ -72,6 +70,3 @@ Scriptkeys.Hotkeys["Leafton"] := cHotkey("Leafton", Map("EN-US", "PgDn",
 Scriptkeys.Hotkeys["ShadowCrystal"] := cHotkey("ShadowCrystal", Map("EN-US",
     "Numpad9", "EN-GB", "Numpad9", "Other", "Numpad9"), "Default")
 
-If (!IsSet(DisableScriptKeysInit)) {
-    Scriptkeys.initHotkeys(IsSecondary)
-}

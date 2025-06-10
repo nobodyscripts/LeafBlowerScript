@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0
 
-Global ScriptsLogFile := A_ScriptDir "\GemAlert.Log"
-Global NavigateTime := 150
-Global IsSecondary := false
-Global DisableScriptKeysInit := true
+/** @type {cLog} */
+Out := cLog(A_ScriptDir "\GemAlert.log", true, 3, false)
 
-#Include Lib\hGlobals.ahk
+/** @type {cLBRWindow} */
+Global Window := cLBRWindow("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe", 2560, 1369)
+
 #Include Lib\cPoints.ahk
-#Include Lib\Functions.ahk
+#Include Lib\Misc.ahk
 #Include Lib\Navigate.ahk
-#Include Lib\ScriptSettings.ahk
-#Include Lib\cGameWindow.ahk
+#Include ScriptLib\cLogging.ahk
+#Include Lib\cLBRWindow.ahk
 
 
 GemAlert()
@@ -21,10 +21,11 @@ GemAlert()
  * tab is available for users
  */
 GemAlert() {
+    NavigateTime := S.Get("NavigateTime")
     If (!Window.Exist()) {
         ExitApp()
     }
-    Window.Activate()
+    Window.StartOrReload()
     Sleep(NavigateTime)
     If (Window.IsPanel()) {
         GameKeys.ClosePanel()
@@ -64,8 +65,8 @@ FindVeinsWithBars2() {
     SampleSlot6 := Points.Mine.Vein.Slot6.Icon.ClientToScreencPoint()
     CoordMode("Pixel", "Screen")
     If (PixelGetColor(SampleSlot4.x, SampleSlot4.y) != "0x6D758D" ||
-        PixelGetColor(SampleSlot5.x, SampleSlot5.y) != "0x6D758D" ||
-        PixelGetColor(SampleSlot6.x, SampleSlot6.y) != "0x6D758D") {
+    PixelGetColor(SampleSlot5.x, SampleSlot5.y) != "0x6D758D" ||
+    PixelGetColor(SampleSlot6.x, SampleSlot6.y) != "0x6D758D") {
         SoundBeep()
     }
     CoordMode("Pixel", "Client")

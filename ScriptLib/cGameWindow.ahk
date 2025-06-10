@@ -2,11 +2,12 @@
 
 #Include cTimer.ahk
 
-/**
- * Game window class global
- * @type {cGameWindow} 
- */
-Global Window
+If (!IsSet(Window)) {
+    /**
+     * Game window class global
+     * @type {cGameWindow} */
+    Global Window := cGameWindow()
+}
 
 /**
  * Game Window management class resolution independant
@@ -24,6 +25,9 @@ Global Window
  * @method IsActive Check if window active focus
  * @method Exist Check if window exists
  * @method ActiveOrReload Swap to window or reset script
+ * @method StartOrReload Feature toggle, reloads on stop, activates window, 
+ * optional callback for pre reload actions
+ * @method StartState Feature toggle, returns current state, activates window
  * @example cGameWindow("Notepad ahk_class Notepad ahk_exe Notepad.exe", 2560, 1369)
  */
 Class cGameWindow {
@@ -99,7 +103,7 @@ Class cGameWindow {
      */
     Activate() {
         If (!this.Exist()) {
-            Out.E("Window doesn't exist.")
+            Out.I("Window doesn't exist.")
             Return false ; Don't check further
         }
         If (!WinActive(this.Title)) {
@@ -119,11 +123,11 @@ Class cGameWindow {
         If (!this.Exist()) {
             If (this.LastLogged = 0) {
                 this.LastLogged := A_Now
-                Out.E("Window doesn't exist.")
+                Out.I("Window doesn't exist.")
                 Return false
             }
             If (DateDiff(A_Now, this.LastLogged, "Seconds") >= 10) {
-                Out.E("Window doesn't exist.")
+                Out.I("Window doesn't exist.")
                 this.LastLogged := A_Now
             }
             Return false
@@ -160,14 +164,27 @@ Class cGameWindow {
                 this.W := valW
                 this.H := valH
             } Catch As err {
-                Out.E("Window doesn't exist. Cannot get client position.")
-                Out.E(err)
+                Out.I("Window doesn't exist. Cannot get client position.")
                 Return false
             }
             Return true
         }
         this.X := this.Y := this.W := this.H := 0
         Return false
+    }
+    ;@endregion
+
+    ;@region ExistOrReload()
+    /**
+     * Check game is there or exit out a running process
+     */
+    ExistOrReload() {
+        If (!this.Exist()) {
+            Reload()
+            Sleep(5000)
+            Return false
+        }
+        Return true
     }
     ;@endregion
 
@@ -178,6 +195,59 @@ Class cGameWindow {
     ActiveOrReload() {
         If (!this.Activate()) {
             Reload()
+            Sleep(5000)
+            Return false
+        }
+        Return true
+    }
+    ;@endregion
+
+    ;@region StartOrReload()
+    /**
+     * Reload if game window is not found, or function has been previously started
+     * @param {Func} callback function to run prior to reload for cleanup
+     */
+    StartOrReload(callback?) {
+        active := this.ActiveOrReload()
+        Static isRunning := false
+        isRunning := !isRunning
+        If (active && !isRunning) {
+            If (isset(callback)) {
+                callback()
+            }
+            Reload()
+            Sleep(5000)
+            Return false
+        }
+        Return true
+    }
+    ;@endregion
+
+    ;@region StartOrReloadState()
+    /**
+     * Reload if game window is not found, or return toggled state
+     * @param {Func} callback
+     * @returns {Boolean} true if not running, false if running
+     */
+    StartOrReloadState() {
+        active := this.ActiveOrReload()
+        Static isRunning := false
+        isRunning := !isRunning
+        If (active && !isRunning) {
+            Return false
+        }
+        Return true
+    }
+    ;@endregion
+
+    ;@region StartOrExit()
+    /**
+     * Exit script if window doesn't exist and isn't made active
+     */
+    StartOrExit() {
+        If (!this.Activate()) {
+            ExitApp()
+            Sleep(5000)
         }
     }
     ;@endregion

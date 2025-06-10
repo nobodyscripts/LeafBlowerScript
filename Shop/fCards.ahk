@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\Lib\Logging.ahk
 #Include ..\Lib\cZone.ahk
 #Include ..\Lib\cTravel.ahk
-#Include ..\Lib\cPoint.ahk
 
 /**
  * Cards class for zone travel
@@ -28,7 +26,7 @@ Class sCards extends Zone {
             PacksBtn := Points.Card.Tab.Packs
             If (PacksBtn.IsButtonActive()) {
                 PacksBtn.Click()
-                Sleep(NavigateTime)
+                Sleep(S.Get("NavigateTime"))
             }
         }
         check(name) {
@@ -47,56 +45,56 @@ Class sCards extends Zone {
     GoToTranscend() {
         If (this.GoTo() && Points.Cards.Transcend.IsButtonActive()) {
             Points.Card.Tab.Transcend.Click()
-            Sleep(NavigateTime)
+            Sleep(S.Get("NavigateTime"))
         }
     }
 
     GoToCommon() {
         If (this.GoTo() && Points.Cards.Common.IsButtonActive()) {
             Points.Card.Tab.Common.Click()
-            Sleep(NavigateTime)
+            Sleep(S.Get("NavigateTime"))
         }
     }
 
     GoToUncommon() {
         If (this.GoTo() && Points.Cards.Uncommon.IsButtonActive()) {
             Points.Card.Tab.Uncommon.Click()
-            Sleep(NavigateTime)
+            Sleep(S.Get("NavigateTime"))
         }
     }
 
     GoToRare() {
         If (this.GoTo() && Points.Cards.Rare.IsButtonActive()) {
             Points.Card.Tab.Rare.Click()
-            Sleep(NavigateTime)
+            Sleep(S.Get("NavigateTime"))
         }
     }
 
     GoToEpic() {
         If (this.GoTo() && Points.Cards.Epic.IsButtonActive()) {
             Points.Card.Tab.Epic.Click()
-            Sleep(NavigateTime)
+            Sleep(S.Get("NavigateTime"))
         }
     }
 
     GoToMythical() {
         If (this.GoTo() && Points.Cards.Mythical.IsButtonActive()) {
             Points.Card.Tab.Mythical.Click()
-            Sleep(NavigateTime)
+            Sleep(S.Get("NavigateTime"))
         }
     }
 
     GoToLegendary() {
         If (this.GoTo() && Points.Cards.Legendary.IsButtonActive()) {
             Points.Card.Tab.Legendary.Click()
-            Sleep(NavigateTime)
+            Sleep(S.Get("NavigateTime"))
         }
     }
 
     GoToOptions() {
         If (this.GoTo() && Points.Cards.Options.IsButtonActive()) {
             Points.Card.Tab.Options.Click()
-            Sleep(NavigateTime)
+            Sleep(S.Get("NavigateTime"))
         }
     }
 }

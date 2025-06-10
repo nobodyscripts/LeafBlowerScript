@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\Lib\hTas.ahk
-#Include ..\Lib\cMousePattern.ahk
 #Include ..\Lib\cZone.ahk
+#Include ..\ScriptLib\cGameStage.ahk
+#Include ..\ScriptLib\cTask.ahk
 
 Class sBasic extends Zone {
 

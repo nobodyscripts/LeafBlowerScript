@@ -235,6 +235,7 @@ Class cShops {
      */
     OpenAlchemyGeneral(reset := false, delay := 0) {
         i := 1
+        NavigateTime := S.Get("NavigateTime")
         While (!this.IsAlchGeneralTab() && i <= 4) {
             If (this.OpenAlchemy(reset, delay)) {
                 Sleep(NavigateTime)

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\Lib\hTas.ahk
-#Include ..\Lib\cMousePattern.ahk
+#Include ..\ScriptLib\cMousePattern.ahk
+#Include ..\ScriptLib\cTask.ahk
+#Include ..\ScriptLib\cLogging.ahk
+#Include ..\Lib\cZone.ahk
 
 Class BlowLeaves extends cTask {
     RunFor := 60
@@ -10,9 +12,6 @@ Class BlowLeaves extends cTask {
     Zone := Zone()
     GameStage := cGameStage().Any()
 
-    /**
-     * 
-     */
     PreTask() {
         Out.I("Starting Blow Leaves task")
     }

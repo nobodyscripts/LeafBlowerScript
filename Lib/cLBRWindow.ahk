@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0
 
 #Include Navigate.ahk
-#Include cTimer.ahk
+#Include ..\ScriptLib\cGameWindow.ahk
+
+S.AddSetting("Default", "DisableSettingsChecks", false, "Bool")
 
 /**
  * Game Window management class 2560*1369
- * @module cGameWindow
+ * @module cLBRWindow
+ * @extends cGameWindow
  * @property {String} Title Window title description string, as used to match 
  * windows in ahk
  * @property {Integer} W Width
@@ -32,146 +35,14 @@
  * @method IsAFKOn
  * @method AFKFix
  */
-Class cGameWindow {
-    ;@region Properties
-    /** @type {String} Window title description string, as used to match windows
-     * in ahk
-     */
-    Title := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
-    /** @type {DateTime} Time since window check last failed and logged */
-    LastLogged := 0
-    /** @type {Integer} Window Width */
-    W := 0
-    /** @type {Integer} Window Height */
-    H := 0
-    /** @type {Integer} Window Horizontal Position X */
-    X := 0
-    /** @type {Integer} Window Vertical Position Y */
-    Y := 0
-    /** @type {Integer} Default client width by which scaling is set */
-    DefW := 2560
-    /** @type {Integer} Default client height by which scaling is set */
-    DefH := 1369
-    ;@endregion
-
-    ;@region __New()
-    /**
-     * Create new GameWindow class to handle window size and checks
-     * @constructor
-     * @param {String} Title AHK formatted window selection string
-     */
-    __New(Title := "") {
-        If (Title != "") {
-            this.Title := Title
-        }
-        this.Exist()
-    }
-    ;@endregion
-
-    ;@region Relative Coordinates
-    ; Convert positions from default size client resolution to current
-    ; resolution to allow higher accuracy
-    RelW(PosW) {
-        Return PosW / this.DefW * this.W
-    }
-
-    ; Convert positions from default size client resolution to current
-    ; resolution to allow higher accuracy
-    RelH(PosH) {
-        Return PosH / this.DefH * this.H
-    }
-    ;@endregion
-
-    ;@region Activate()
-    /**
-     * Activate window
-     * (Updates GameWindow properties when used)
-     * @returns {Boolean} Does window exist (and is therefore activated)
-     */
-    Activate() {
-        If (!this.Exist()) {
-            Out.E("Window doesn't exist.")
-            Return false ; Don't check further
-        }
-        If (!WinActive(this.Title)) {
-            WinActivate(this.Title)
-        }
-        Return true
-    }
-    ;@endregion
-
-    ;@region IsActive()
-    /**
-     * Is Game Window active
-     * (Updates GameWindow properties when used)
-     * @returns {Boolean} False if !exist or !active
-     */
-    IsActive() {
-        If (!this.Exist()) {
-            If (this.LastLogged = 0) {
-                this.LastLogged := A_Now
-                Out.E("Window doesn't exist.")
-                Return false
-            }
-            If (DateDiff(A_Now, this.LastLogged, "Seconds") >= 10) {
-                Out.E("Window doesn't exist.")
-                this.LastLogged := A_Now
-            }
-            Return false
-        }
-        If (!WinActive(this.Title)) {
-            ; Because this can be spammed lets limit rate the error log
-            If (this.LastLogged = 0) {
-                this.LastLogged := A_Now
-                Out.D("Window not active.")
-                Return false
-            }
-            If (DateDiff(A_Now, this.LastLogged, "Seconds") >= 10) {
-                Out.D("Window not active.")
-                this.LastLogged := A_Now
-            }
-            Return false
-        }
-        Return true
-    }
-    ;@endregion
-
-    ;@region Exist()
-    /**
-     * Fill xywh values and return bool of existance of window
-     * (Updates GameWindow properties when used)
-     * @returns {Boolean} Does this.Title exist
-     */
-    Exist() {
-        If (WinExist(this.Title)) {
-            Try {
-                WinGetClientPos(&valX, &valY, &valW, &valH, this.Title)
-                this.X := valX
-                this.Y := valY
-                this.W := valW
-                this.H := valH
-            } Catch As err {
-                Out.I(
-                    "Error: Window doesn't exist. Error getting client position."
-                )
-                Out.E(err)
-                Return false
-            }
-            Return true
-        }
-        this.X := this.Y := this.W := this.H := 0
-        Return false
-    }
-    ;@endregion
-
+Class cLBRWindow extends cGameWindow {
     ;@region AreGameSettingsCorrect()
     /**
      * Check if essential game settings are correct during runtime
      * @returns {Boolean} true/false
      */
     AreGameSettingsCorrect() {
-        Global DisableSettingsChecks
-        If (DisableSettingsChecks) {
+        If (S.Get("DisableSettingsChecks")) {
             Return true
         }
         If (!this.IsActive()) {
@@ -209,16 +80,16 @@ Class cGameWindow {
      */
     IsPanel() {
         Try {
-            targetColour := Points.Misc.PanelBG.GetColour()
+            /** @type {cLBRButton} */
+            point := Points.Misc.PanelBG
+            targetColour := point.GetColour()
             ; If its afk mode return as well, let afk check handle
-            If (targetColour = Colours()
-            .Background || targetColour = Colours()
-            .BackgroundAFK) {
+            If (targetColour = point.Background ||
+                targetColour = point.BackgroundAFK) {
                 ; Found panel background colour
                 Return true
             }
-            If (targetColour = Colours()
-            .BackgroundSpotify) {
+            If (targetColour = point.BackgroundSpotify) {
                 Out.I(
                     "Spotify colour warp detected, please avoid using spotify desktop."
                 )
@@ -262,12 +133,14 @@ Class cGameWindow {
         ;54 1328 (lower left of lower left hide button)
         ;2425 51 (top right of top right hide button)
         Try {
-            sampleColour := Points.Misc.AspectRatio1.GetColour()
-            sampleColour2 := Points.Misc.AspectRatio2.GetColour()
-            If (Colours()
-            .IsButtonOffPanel(sampleColour) || Colours()
-            .IsButtonOffPanel(
-                sampleColour2) && sampleColour = sampleColour2) {
+            /** @type {cLBRButton} */
+            point := Points.Misc.AspectRatio1
+            /** @type {cLBRButton} */
+            point2 := Points.Misc.AspectRatio2
+            sampleColour := point.GetColour()
+            sampleColour2 := point2.GetColour()
+            If (point.IsButtonOffPanel() ||
+            point2.IsButtonOffPanel() && sampleColour = sampleColour2) {
                 Return true
             }
         } Catch As exc {
@@ -355,12 +228,13 @@ Class cGameWindow {
      */
     IsDarkBackgroundOn() {
         Try {
-            sampleColour := Points.Misc.AspectRatio1.GetColour()
-            sampleColour2 := Points.Misc.AspectRatio2.GetColour()
-            If (Colours()
-            .IsButtonDarkened(sampleColour) || Colours()
-            .IsButtonDarkened(
-                sampleColour2)) {
+            /** @type {cLBRButton} */
+            point := Points.Misc.AspectRatio1
+            /** @type {cLBRButton} */
+            point2 := Points.Misc.AspectRatio2
+            sampleColour := point.GetColour()
+            sampleColour2 := point2.GetColour()
+            If (point.IsButtonDarkened() || point2.IsButtonDarkened()) {
                 Out.D("Corner buttons found with Dark Dialog Background on.")
                 ; Found dark mode
                 Return true
@@ -402,6 +276,7 @@ Class cGameWindow {
      * @returns {Boolean} 
      */
     IsTreesSetCheck() {
+        NavigateTime := S.Get("NavigateTime")
         Travel.OpenAreas(true, 300)
         Points.Areas.LeafGalaxy.HomeGarden.Click(NavigateTime + 300)
         Sleep(NavigateTime + 300)
@@ -424,12 +299,11 @@ Class cGameWindow {
      */
     IsAFKOn() {
         Try {
-            sampleColour := Points.Misc.AspectRatio1.GetColour()
-            sampleColour2 := Points.Misc.AspectRatio2.GetColour()
-            If (Colours()
-            .IsButtonAFK(sampleColour) || Colours()
-            .IsButtonAFK(
-                sampleColour2)) {
+            /** @type {cLBRButton} */
+            point := Points.Misc.AspectRatio1
+            /** @type {cLBRButton} */
+            point2 := Points.Misc.AspectRatio2
+            If (point.IsButtonAFK() || point2.IsButtonAFK()) {
                 Out.D("IsAFKOn: Corner buttons found with AFK on.")
                 ; Found dark mode
                 Return true
@@ -474,7 +348,7 @@ Class cGameWindow {
         /** @type {Timer} */
         lTimer := Timer()
         lTimer.CoolDownS(maxS, &Waiting)
-        while(!this.IsPanel() && Waiting) {
+        While (!this.IsPanel() && Waiting) {
             Sleep(17)
         }
         Return this.IsPanel()
@@ -493,7 +367,7 @@ Class cGameWindow {
         /** @type {Timer} */
         lTimer := Timer()
         lTimer.CoolDownS(maxS, &Waiting)
-        while(this.IsPanel() && Waiting) {
+        While (this.IsPanel() && Waiting) {
             Sleep(17)
         }
         Return !this.IsPanel()

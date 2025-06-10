@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * SparkRange class for zone travel
@@ -28,8 +26,8 @@ Class SparkRange extends Zone {
         Travel.OpenAreasSacredNebula(extradelay)
         Sleep(delay)
 
-        /** @type {cPoint} */
-        Local Btn := cPoint(1857, 1055)
+        /** @type {cLBRButton} */
+        Local Btn := cLBRButton(1857, 1055)
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {

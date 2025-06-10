@@ -2,8 +2,10 @@
 
 #Include cGameWindow.ahk
 
-/** @type {cToolTip} */
-;Global gToolTip := cToolTip()
+If (!IsSet(gToolTip)) {
+    /** @type {cToolTip} */
+    Global gToolTip := cToolTip()
+}
 
 /**
  * cTooltip class for displaying aligned tooltips

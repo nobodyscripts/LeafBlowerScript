@@ -1,74 +1,35 @@
 #Requires AutoHotkey v2.0
 #Include ../Lib/cRects.ahk
-#Include ../Lib/cPoints.ahk
+#Include ..\Lib\cLBRButton.ahk
 
-Global FishCatchingDelay := 0
-Global FishCatchingSearch := false
-
-Global FishEnableShopUpgrade := false
-Global FishEnableUpgradeRods := false
-Global FishEnableTourneyPass := false
-Global FishEnableUpgradeTourneyRods := false
-Global FishEnableTransmute := false
-Global FishEnableJourneyCollect := false
-
-Global FishTimerShopUpgrade := 1
-Global FishTimerUpgradeRods := 1
-Global FishTimerTourneyPass := 1
-Global FishTimerUpgradeTourneyRods := 1
-Global FishTimerTransmute := 1
-Global FishTimerJourneyCollect := 1
-
-Global FishTransmuteTtoFC := false
-Global FishTransmuteFCtoCry := false
-Global FishTransmuteCrytoA := false
-Global FishTransmuteFCtoT := false
-Global FishTransmuteCrytoFC := false
-Global FishTransmuteAtoCry := false
-
-Global FishChlAmount := 0
-Global FishChlCatchingDelay := 0
-Global FishChlCatchingSearch := false
-
-Global FishChlEnableShopUpgrade := false
-Global FishChlEnableUpgradeRods := false
-Global FishChlEnableTransmute := false
-Global FishChlEnableJourneyCollect := false
-
-Global FishChlTimerShopUpgrade := 1
-Global FishChlTimerUpgradeRods := 1
-Global FishChlTimerTransmute := 1
-Global FishChlTimerJourneyCollect := 1
-
-Global FishChlTransmuteTtoFC := false
-Global FishChlTransmuteFCtoCry := false
-Global FishChlTransmuteCrytoA := false
-Global FishChlTransmuteFCtoT := false
-Global FishChlTransmuteCrytoFC := false
-Global FishChlTransmuteAtoCry := false
-
-Global FishTourCatchingDelay := 0
-Global FishTourCatchingSearch := false
-
-Global FishTourEnableShopUpgrade := false
-Global FishTourEnableUpgradeRods := false
-Global FishTourEnableFishingPass := false
-Global FishTourEnableUpgradeTourneyRods := false
-Global FishTourEnableTransmute := false
-Global FishTourEnableJourneyCollect := false
-
-Global FishTourTimerShopUpgrade := 1
-Global FishTourTimerUpgradeRods := 1
-Global FishTourTimerUpgradeTourneyRods := 1
-Global FishTourTimerTransmute := 1
-Global FishTourTimerJourneyCollect := 1
-
-Global FishTourTransmuteTtoFC := false
-Global FishTourTransmuteFCtoCry := false
-Global FishTourTransmuteCrytoA := false
-Global FishTourTransmuteFCtoT := false
-Global FishTourTransmuteCrytoFC := false
-Global FishTourTransmuteAtoCry := false
+S.AddSetting("Fishing", "FishCatchingDelay", 8, "int")
+S.AddSetting("Fishing", "FishCatchingSearch", true, "bool")
+S.AddSetting("Fishing", "FishEnableShopUpgrade", true, "bool")
+S.AddSetting("Fishing", "FishEnableUpgradeRods", true, "bool")
+S.AddSetting("Fishing", "FishEnableTourneyPass", true, "bool")
+S.AddSetting("Fishing", "FishEnableUpgradeTourneyRods", true, "bool")
+S.AddSetting("Fishing", "FishEnableTransmute", true, "bool")
+S.AddSetting("Fishing", "FishEnableJourneyCollect", true, "bool")
+S.AddSetting("Fishing", "FishTimerShopUpgrade", 60, "int")
+S.AddSetting("Fishing", "FishTimerUpgradeRods", 60, "int")
+S.AddSetting("Fishing", "FishTimerTourneyPass", 60, "int")
+S.AddSetting("Fishing", "FishTimerUpgradeTourneyRods", 60, "int")
+S.AddSetting("Fishing", "FishTimerTransmute", 60, "int")
+S.AddSetting("Fishing", "FishTimerJourneyCollect", 60, "int")
+S.AddSetting("Fishing", "FishTransmuteTtoFC", false, "bool")
+S.AddSetting("Fishing", "FishTransmuteFCtoCry", false, "bool")
+S.AddSetting("Fishing", "FishTransmuteCrytoA", false, "bool")
+S.AddSetting("Fishing", "FishTransmuteFCtoT", false, "bool")
+S.AddSetting("Fishing", "FishTransmuteCrytoFC", false, "bool")
+S.AddSetting("Fishing", "FishTransmuteAtoCry", false, "bool")
+S.AddSetting("Fishing", "FishNovice", false, "bool")
+S.AddSetting("Fishing", "FishIntermediate", false, "bool")
+S.AddSetting("Fishing", "FishExpert", false, "bool")
+S.AddSetting("Fishing", "FishLegend", false, "bool")
+S.AddSetting("Fishing", "FishNoviceAttack", 1, "int")
+S.AddSetting("Fishing", "FishIntermediateAttack", 1, "int")
+S.AddSetting("Fishing", "FishExpertAttack", 1, "int")
+S.AddSetting("Fishing", "FishLegendAttack", 1, "int")
 
 ;@region Points
 /**
@@ -76,20 +37,20 @@ Global FishTourTransmuteAtoCry := false
  * @module FishingTabs
  */
 Class FishingTabs {
-    /** @type {cPoint} Pond (main fishing) tab button */
-    Pond := cPoint(287, 1163)
-    /** @type {cPoint} Shop tab button */
-    Shop := cPoint(1440, 1165),
-    /** @type {cPoint} Rods tab button */
-    Rods := cPoint(660, 1164),
-    /** @type {cPoint} Journey tab button */
-    Journey := cPoint(1635, 1164),
-    /** @type {cPoint} Transmute tab button */
-    Transmute := cPoint(2231, 1164),
-    /** @type {cPoint} Tourney Tab */
-    Tourney := cPoint(1835, 1166),
-    /** @type {cPoint} Tourney Rod tab */
-    TourneyRod := cPoint(1856, 1163)
+    /** @type {cLBRButton} Pond (main fishing) tab button */
+    Pond := cLBRButton(287, 1168)
+    /** @type {cLBRButton} Shop tab button */
+    Shop := cLBRButton(1440, 1165),
+    /** @type {cLBRButton} Rods tab button */
+    Rods := cLBRButton(660, 1164),
+    /** @type {cLBRButton} Journey tab button */
+    Journey := cLBRButton(1635, 1164),
+    /** @type {cLBRButton} Transmute tab button */
+    Transmute := cLBRButton(2231, 1164),
+    /** @type {cLBRButton} Tourney Tab */
+    Tourney := cLBRButton(1835, 1166),
+    /** @type {cLBRButton} Tourney Rod tab */
+    TourneyRod := cLBRButton(1856, 1163)
 }
 
 /**
@@ -97,12 +58,12 @@ Class FishingTabs {
  * @module FishingPonds
  */
 Class FishingPonds {
-    /** @type {cPoint} */
-    Lure := cPoint(858, 314)
-    /** @type {cPoint} */
-    ConfirmCancel := cPoint(1395, 556)
-    /** @type {cPoint} */
-    Search := cPoint(524, 313)
+    /** @type {cLBRButton} */
+    Lure := cLBRButton(858, 314)
+    /** @type {cLBRButton} */
+    ConfirmCancel := cLBRButton(1395, 556)
+    /** @type {cLBRButton} */
+    Search := cLBRButton(524, 313)
 
     IsOnTab() {
         If (this.Lure.IsButton() && this.Search.IsButton()) {
@@ -117,35 +78,35 @@ Class FishingPonds {
  * @module FishingRods
  */
 Class FishingRods {
-    /** @type {cPoint} First rod icon point +65 x per */
-    FirstRod := cPoint(350, 555)
-    /** @type {cPoint} Second rod icon point */
-    SecondRod := cPoint(415, 555)
-    /** @type {cPoint} Third rod icon point */
-    ThirdRod := cPoint(480, 555)
-    /** @type {cPoint} Fourth rod icon point */
-    FourthRod := cPoint(545, 555)
-    /** @type {cPoint} Fifth rod icon point */
-    FifthRod := cPoint(610, 555)
-    /** @type {cPoint} Sixth rod icon point */
-    SixthRod := cPoint(675, 555)
-    /** @type {cPoint} Seventh rod icon point */
-    SeventhRod := cPoint(740, 555)
+    /** @type {cLBRButton} First rod icon point +65 x per */
+    FirstRod := cLBRButton(350, 555)
+    /** @type {cLBRButton} Second rod icon point */
+    SecondRod := cLBRButton(415, 555)
+    /** @type {cLBRButton} Third rod icon point */
+    ThirdRod := cLBRButton(480, 555)
+    /** @type {cLBRButton} Fourth rod icon point */
+    FourthRod := cLBRButton(545, 555)
+    /** @type {cLBRButton} Fifth rod icon point */
+    FifthRod := cLBRButton(610, 555)
+    /** @type {cLBRButton} Sixth rod icon point */
+    SixthRod := cLBRButton(675, 555)
+    /** @type {cLBRButton} Seventh rod icon point */
+    SeventhRod := cLBRButton(740, 555)
 
-    /** @type {cPoint} Rod crafting button */
-    Craft := cPoint(617, 314)
-    /** @type {cPoint} Rod fish length upgrade */
-    Length := cPoint(1449, 602)
-    /** @type {cPoint} Rod quality upgrade */
-    Quality := cPoint(1450, 732)
-    /** @type {cPoint} Rod tier ascend upgrade */
-    Ascend := cPoint(1450, 863)
-    /** @type {cPoint} Rod fish length upgrade */
-    Length2 := cPoint(1448, 615)
-    /** @type {cPoint} Rod quality upgrade */
-    Quality2 := cPoint(1448, 745)
-    /** @type {cPoint} Rod tier ascend upgrade */
-    Ascend2 := cPoint(1447, 874)
+    /** @type {cLBRButton} Rod crafting button */
+    Craft := cLBRButton(617, 314)
+    /** @type {cLBRButton} Rod fish length upgrade */
+    Length := cLBRButton(1449, 602)
+    /** @type {cLBRButton} Rod quality upgrade */
+    Quality := cLBRButton(1450, 732)
+    /** @type {cLBRButton} Rod tier ascend upgrade */
+    Ascend := cLBRButton(1450, 863)
+    /** @type {cLBRButton} Rod fish length upgrade */
+    Length2 := cLBRButton(1448, 615)
+    /** @type {cLBRButton} Rod quality upgrade */
+    Quality2 := cLBRButton(1448, 745)
+    /** @type {cLBRButton} Rod tier ascend upgrade */
+    Ascend2 := cLBRButton(1447, 874)
 
     IsOnTab() {
         ;Out.D(this.FirstRod.GetDescription() " " this.Craft.GetDescription())
@@ -159,65 +120,65 @@ Class FishingRods {
 /**
  * Points class to contain points of the shop in fishing screen
  * @module FishingShop
- * @property {cPoint} BuySpot Buy fishing spot button
+ * @property {cLBRButton} BuySpot Buy fishing spot button
  */
 Class FishingShop {
     /** First rod icon for checks if on tab
-     * @type {cPoint} */
-    RodIcon := cPoint(332, 315)
+     * @type {cLBRButton} */
+    RodIcon := cLBRButton(332, 315)
     /** Second rod icon for checks if on tab
-     * @type {cPoint} */
-    RodIcon2 := cPoint(340, 449)
+     * @type {cLBRButton} */
+    RodIcon2 := cLBRButton(340, 449)
 
     /** 1 Auto fish purchase button
-     * @type {cPoint} */
-    Auto := cPoint(1571, 292)
+     * @type {cLBRButton} */
+    Auto := cLBRButton(1571, 292)
     /** 2 Auto fish threshold purchase button
-     * @type {cPoint} */
-    AutoThreshold := cPoint(1570, 434)
+     * @type {cLBRButton} */
+    AutoThreshold := cLBRButton(1570, 434)
     /** 3 Auto fish speed max purchase button
-     * @type {cPoint} */
-    FasterAuto := cPoint(1730, 578)
+     * @type {cLBRButton} */
+    FasterAuto := cLBRButton(1730, 578)
     /** 4 Buy fishing spot max button
-     * @type {cPoint} */
-    BuySpot := cPoint(1730, 718)
+     * @type {cLBRButton} */
+    BuySpot := cLBRButton(1730, 718)
     /** 5 Buy minimum line max button
-     * @type {cPoint} */
-    MinLine := cPoint(1730, 860)
+     * @type {cLBRButton} */
+    MinLine := cLBRButton(1730, 860)
     /** 6 Buy maximum line max button
-     * @type {cPoint} */
-    MaxLine := cPoint(1730, 1001)
+     * @type {cLBRButton} */
+    MaxLine := cLBRButton(1730, 1001)
 
     /** 7 Rod recharge duration max button, shift wheel down one
-     * @type {cPoint} */
-    RodRecharge := cPoint(1730, 657)
+     * @type {cLBRButton} */
+    RodRecharge := cLBRButton(1730, 657)
     /** 8 Fishing credit amount max button, shift wheel down one
-     * @type {cPoint} */
-    CreditsUpgrade := cPoint(1730, 815)
+     * @type {cLBRButton} */
+    CreditsUpgrade := cLBRButton(1730, 815)
     /** 9 Fishing rod amount max button, shift wheel down one
-     * @type {cPoint} */
-    MaxRods := cPoint(1731, 940)
+     * @type {cLBRButton} */
+    MaxRods := cLBRButton(1731, 940)
 
     /** 10 Fishing rarity max button, shift wheel down two
-     * @type {cPoint} */
-    Rarity := cPoint(1729, 595)
+     * @type {cLBRButton} */
+    Rarity := cLBRButton(1729, 595)
     /** 11 Fishing spots rarity max button, shift wheel down two
-     * @type {cPoint} */
-    SpotRarity := cPoint(1729, 739)
+     * @type {cLBRButton} */
+    SpotRarity := cLBRButton(1729, 739)
     /** 12 Tide crystal chance max button, shift wheel down two
-     * @type {cPoint} */
-    CrystalChance := cPoint(1728, 880)
+     * @type {cLBRButton} */
+    CrystalChance := cLBRButton(1728, 880)
 
     /** 13 Fish bait unlock button, shift wheel down three
-     * @type {cPoint} */
-    BaitUnlock := cPoint(1570, 536)
+     * @type {cLBRButton} */
+    BaitUnlock := cLBRButton(1570, 536)
     /** 14 */
     /** 15 */
     /** 16 */
 
     /** 17 Tourney unlock button, shift wheel down four
-     * @type {cPoint} */
-    TourneyUnlock := cPoint(1570, 900)
+     * @type {cLBRButton} */
+    TourneyUnlock := cLBRButton(1570, 900)
 
     IsOnTab() {
         If (!this.RodIcon.IsButton() && !this.RodIcon.IsBackground() &&
@@ -234,11 +195,11 @@ Class FishingShop {
  */
 Class FishingJourney {
     /** Journey claim all button
-     * @type {cPoint} */
-    ClaimAll := cPoint(548, 601)
+     * @type {cLBRButton} */
+    ClaimAll := cLBRButton(548, 601)
     /** Collect reset bonus
-     * @type {cPoint} */
-    Complete := cPoint(1243, 836)
+     * @type {cLBRButton} */
+    Complete := cLBRButton(1243, 836)
 
     IsOnTab() {
         If (this.ClaimAll.IsButton()) {
@@ -253,12 +214,12 @@ Class FishingJourney {
  * @module FishingTourneyRod
  */
 Class FishingTourneyRod {
-    /** @type {cPoint} Upgrade rod tip */
-    Tip := cPoint(2025, 289)
-    /** @type {cPoint} Upgrade rod handle */
-    Handle := cPoint(2025, 421)
-    /** @type {cPoint} Upgrade rod shaft */
-    Shaft := cPoint(2025, 553)
+    /** @type {cLBRButton} Upgrade rod tip */
+    Tip := cLBRButton(2025, 289)
+    /** @type {cLBRButton} Upgrade rod handle */
+    Handle := cLBRButton(2025, 421)
+    /** @type {cLBRButton} Upgrade rod shaft */
+    Shaft := cLBRButton(2025, 553)
 
     IsOnTab() {
         If (this.Tip.IsButton() && (this.Handle.IsButton() || this.Handle.IsBackground()) || (this.Shaft.IsButton() &&
@@ -274,19 +235,19 @@ Class FishingTourneyRod {
  * @module FishingTransmute
  */
 Class FishingTransmute {
-    /** @type {cPoint} Max Transmute Trash to Fish Credits */
-    TrashToCreditsMax := cPoint(719, 288)
-    /** @type {cPoint} Max Transmute Fish Credits to Tide Crystal */
-    CreditsToCrystalMax := cPoint(719, 416)
-    /** @type {cPoint} Max Transmute Tide Crystal to Advanced Tide Crystal  */
-    CrystalToAdvancedMax := cPoint(723, 545)
+    /** @type {cLBRButton} Max Transmute Trash to Fish Credits */
+    TrashToCreditsMax := cLBRButton(719, 288)
+    /** @type {cLBRButton} Max Transmute Fish Credits to Tide Crystal */
+    CreditsToCrystalMax := cLBRButton(719, 416)
+    /** @type {cLBRButton} Max Transmute Tide Crystal to Advanced Tide Crystal  */
+    CrystalToAdvancedMax := cLBRButton(723, 545)
 
-    /** @type {cPoint} Max Transmute Fish Credits to Trash */
-    CreditsToTrashMax := cPoint(1759, 289)
-    /** @type {cPoint} Max Transmute Tide Crystal to Fish Credits */
-    CrystalToCreditsMax := cPoint(1761, 418)
-    /** @type {cPoint} Max Transmute Advanced Tide Crystal to Tide Crystal */
-    AdvancedToCrystalMax := cPoint(1759, 542)
+    /** @type {cLBRButton} Max Transmute Fish Credits to Trash */
+    CreditsToTrashMax := cLBRButton(1759, 289)
+    /** @type {cLBRButton} Max Transmute Tide Crystal to Fish Credits */
+    CrystalToCreditsMax := cLBRButton(1761, 418)
+    /** @type {cLBRButton} Max Transmute Advanced Tide Crystal to Tide Crystal */
+    AdvancedToCrystalMax := cLBRButton(1759, 542)
 
     IsOnTab() {
         If (this.TrashToCreditsMax.IsButton() && this.CreditsToCrystalMax.IsButton() && this.CreditsToTrashMax.IsButton()) {
@@ -339,6 +300,21 @@ Class Fishing {
      * Attempt to auto catch fish (Simple)
      */
     fFishAutoCatch() {
+        FishCatchingDelay := S.Get("FishCatchingDelay")
+        FishCatchingSearch := S.Get("FishCatchingSearch")
+        FishTimerJourneyCollect := S.Get("FishTimerJourneyCollect")
+        FishTimerTransmute := S.Get("FishTimerTransmute")
+        FishEnableUpgradeRods := S.Get("FishEnableUpgradeRods")
+        FishTimerUpgradeRods := S.Get("FishTimerUpgradeRods")
+        FishEnableShopUpgrade := S.Get("FishEnableShopUpgrade")
+        FishTimerShopUpgrade := S.Get("FishTimerShopUpgrade")
+        FishEnableUpgradeTourneyRods := S.Get("FishEnableUpgradeTourneyRods")
+        FishTimerUpgradeTourneyRods := S.Get("FishTimerUpgradeTourneyRods")
+        FishEnableTourneyPass := S.Get("FishEnableTourneyPass")
+        FishTimerTourneyPass := S.Get("FishTimerTourneyPass")
+
+        Window.StartOrReload()
+
         StartTime := A_TickCount - (FishCatchingDelay * 1000)
         Time1 := StartTime
         Time2 := StartTime
@@ -429,10 +405,15 @@ Class Fishing {
             this.Tabs.Journey.ClickButtonActive(, 5)
         }
         this.Tabs.Journey.ClickButtonActive()
-        this.Journey.ClaimAll.WaitUntilButtonS()
-        this.Journey.ClaimAll.ClickButtonActive()
-        this.Journey.Complete.WaitUntilButton(20, 17)
-        this.Journey.Complete.ClickButtonActive()
+        If (this.Journey.ClaimAll.IsButton()) {
+            this.Journey.ClaimAll.WaitUntilButtonS(1)
+            this.Journey.ClaimAll.ClickButtonActive()
+            this.Journey.ClaimAll.ClickButtonActive()
+        }
+        If (this.Journey.Complete.IsButtonActive()) {
+            this.Journey.Complete.ClickButtonActive()
+            this.Journey.Complete.ClickButtonActive()
+        }
     }
     ;@endregion
 
@@ -445,6 +426,12 @@ Class Fishing {
         While (!this.Transmute.IsOnTab()) {
             this.Tabs.Transmute.ClickButtonActive(, 5)
         }
+        FishTransmuteTtoFC := S.Get("FishTransmuteTtoFC")
+        FishTransmuteFCtoCry := S.Get("FishTransmuteFCtoCry")
+        FishTransmuteCrytoA := S.Get("FishTransmuteCrytoA")
+        FishTransmuteFCtoT := S.Get("FishTransmuteFCtoT")
+        FishTransmuteCrytoFC := S.Get("FishTransmuteCrytoFC")
+        FishTransmuteAtoCry := S.Get("FishTransmuteAtoCry")
         this.Transmute.TrashToCreditsMax.WaitUntilButtonS()
         If (FishTransmuteTtoFC) {
             this.Transmute.TrashToCreditsMax.ClickButtonActive()
@@ -477,6 +464,12 @@ Class Fishing {
         While (!this.Transmute.IsOnTab()) {
             this.Tabs.Transmute.ClickButtonActive(, 5)
         }
+        FishChlTransmuteTtoFC := S.Get("FishChlTransmuteTtoFC")
+        FishChlTransmuteFCtoCry := S.Get("FishChlTransmuteFCtoCry")
+        FishChlTransmuteCrytoA := S.Get("FishChlTransmuteCrytoA")
+        FishChlTransmuteFCtoT := S.Get("FishChlTransmuteFCtoT")
+        FishChlTransmuteCrytoFC := S.Get("FishChlTransmuteCrytoFC")
+        FishChlTransmuteAtoCry := S.Get("FishChlTransmuteAtoCry")
         this.Transmute.TrashToCreditsMax.WaitUntilButtonS()
         If (FishChlTransmuteTtoFC) {
             this.Transmute.TrashToCreditsMax.ClickButtonActive()
@@ -509,6 +502,12 @@ Class Fishing {
         While (!this.Transmute.IsOnTab()) {
             this.Tabs.Transmute.ClickButtonActive(, 5)
         }
+        FishTourTransmuteTtoFC := S.Get("FishTourTransmuteTtoFC")
+        FishTourTransmuteFCtoCry := S.Get("FishTourTransmuteFCtoCry")
+        FishTourTransmuteCrytoA := S.Get("FishTourTransmuteCrytoA")
+        FishTourTransmuteFCtoT := S.Get("FishTourTransmuteFCtoT")
+        FishTourTransmuteCrytoFC := S.Get("FishTourTransmuteCrytoFC")
+        FishTourTransmuteAtoCry := S.Get("FishTourTransmuteAtoCry")
         this.Transmute.TrashToCreditsMax.WaitUntilButtonS()
         If (FishTourTransmuteTtoFC) {
             this.Transmute.TrashToCreditsMax.ClickButtonActive()
@@ -639,7 +638,9 @@ Class Fishing {
      * Fish ponds a single time
      */
     FishPonds(&Time1, &Time2, &Time3, &Time4, isTourney := false, isChallenge := false) {
-
+        FishCatchingDelay := S.Get("FishCatchingDelay")
+        FishChlCatchingDelay := S.Get("FishChlCatchingDelay")
+        FishTourCatchingDelay := S.Get("FishTourCatchingDelay")
         If (!this.Pond1.CastRod.IsBackground()) {
             this.Pond1.FishPond(&Time1)
         }
@@ -927,7 +928,7 @@ Class Fishing {
 
     UpgradeSingleRod(id) {
         Out.I("Rod upgrade pass on " id)
-        /** @type {cPoint} */
+        /** @type {cLBRButton} */
         RodButton := ""
         Switch id {
         Case 1:
@@ -1077,27 +1078,27 @@ Class Fishing {
  * @method Name Desc
  */
 Class Pond {
-    /** @type {cPoint} Rarity point */
+    /** @type {cLBRButton} Rarity point */
     Rarity := false
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     CastRod := ""
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     Bait := ""
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     BaitIcon := ""
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     Cancel := ""
     /** @type {cRect} */
     Progress := ""
     /** @type {cRect} */
     CooldownSuffix := ""
-    /** @type {cPoint} */
-    ConfirmCancel := cPoint(1395, 556)
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
+    ConfirmCancel := cLBRButton(1395, 556)
+    /** @type {cLBRButton} */
     Rod1 := ""
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     Rod2 := ""
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     Rod3 := ""
 
     id := 0
@@ -1105,49 +1106,49 @@ Class Pond {
     __New(id := 0) {
         Switch (id) {
         Case 1:
-            this.Rarity := cPoint(305, 709)
-            this.CastRod := cPoint(541, 667)
+            this.Rarity := cLBRButton(305, 709)
+            this.CastRod := cLBRButton(541, 667)
             this.Progress := cRect(400, 702, 500, 728)
             this.CooldownSuffix := cRect(464, 705, 500, 728)
-            this.Cancel := cPoint(803, 485)
-            this.Bait := cPoint(800, 681)
-            this.BaitIcon := cPoint(826, 666)
-            this.Rod1 := cPoint(359, 589)
-            this.Rod2 := cPoint(442, 588)
-            this.Rod3 := cPoint(520, 590)
+            this.Cancel := cLBRButton(803, 485)
+            this.Bait := cLBRButton(800, 681)
+            this.BaitIcon := cLBRButton(826, 666)
+            this.Rod1 := cLBRButton(359, 589)
+            this.Rod2 := cLBRButton(442, 588)
+            this.Rod3 := cLBRButton(520, 590)
         Case 2:
-            this.Rarity := cPoint(914, 709)
-            this.CastRod := cPoint(946, 654) ; Shifted to avoid tooltip in tourney mode
+            this.Rarity := cLBRButton(914, 709)
+            this.CastRod := cLBRButton(946, 654) ; Shifted to avoid tooltip in tourney mode
             this.Progress := cRect(1005, 699, 1108, 728)
             this.CooldownSuffix := cRect(1073, 703, 1108, 728)
-            this.Cancel := cPoint(1411, 486)
-            this.Bait := cPoint(1407, 683)
-            this.BaitIcon := cPoint(1433, 665)
-            this.Rod1 := cPoint(968, 589)
-            this.Rod2 := cPoint(1047, 590)
-            this.Rod3 := cPoint(1128, 589)
+            this.Cancel := cLBRButton(1411, 486)
+            this.Bait := cLBRButton(1407, 683)
+            this.BaitIcon := cLBRButton(1433, 665)
+            this.Rod1 := cLBRButton(968, 589)
+            this.Rod2 := cLBRButton(1047, 590)
+            this.Rod3 := cLBRButton(1128, 589)
         Case 3:
-            this.Rarity := cPoint(305, 1007)
-            this.CastRod := cPoint(542, 972)
+            this.Rarity := cLBRButton(305, 1007)
+            this.CastRod := cLBRButton(542, 972)
             this.Progress := cRect(396, 1001, 500, 1031)
             this.CooldownSuffix := cRect(465, 1004, 500, 1031)
-            this.Cancel := cPoint(803, 787)
-            this.Bait := cPoint(799, 983)
-            this.BaitIcon := cPoint(826, 964)
-            this.Rod1 := cPoint(360, 889)
-            this.Rod2 := cPoint(440, 888)
-            this.Rod3 := cPoint(521, 889)
+            this.Cancel := cLBRButton(803, 787)
+            this.Bait := cLBRButton(799, 983)
+            this.BaitIcon := cLBRButton(826, 964)
+            this.Rod1 := cLBRButton(360, 889)
+            this.Rod2 := cLBRButton(440, 888)
+            this.Rod3 := cLBRButton(521, 889)
         Case 4:
-            this.Rarity := cPoint(914, 1007)
-            this.CastRod := cPoint(1150, 972)
+            this.Rarity := cLBRButton(914, 1007)
+            this.CastRod := cLBRButton(1150, 972)
             this.Progress := cRect(1001, 1002, 1106, 1030)
             this.CooldownSuffix := cRect(1071, 1006, 1106, 1030)
-            this.Cancel := cPoint(1409, 786)
-            this.Bait := cPoint(1407, 980)
-            this.BaitIcon := cPoint(1434, 964)
-            this.Rod1 := cPoint(967, 890)
-            this.Rod2 := cPoint(1048, 892)
-            this.Rod3 := cPoint(1128, 892)
+            this.Cancel := cLBRButton(1409, 786)
+            this.Bait := cLBRButton(1407, 980)
+            this.BaitIcon := cLBRButton(1434, 964)
+            this.Rod1 := cLBRButton(967, 890)
+            this.Rod2 := cLBRButton(1048, 892)
+            this.Rod3 := cLBRButton(1128, 892)
         default:
         }
         this.id := id
@@ -1257,6 +1258,7 @@ Class Pond {
      * @param Time Byref timestamp for seconds since last seen on cooldown
      */
     FishPond(&Time) {
+        FishCatchingDelay := S.Get("FishCatchingDelay")
         If (!this.Progress.pixelSearch()) {
             ; Was off cooldown and nothing catching
             this.CastRod.ClickButtonActive()

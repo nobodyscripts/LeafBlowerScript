@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * SparkPortal class for zone travel
@@ -60,10 +58,10 @@ Class SparkPortal extends Zone {
     ClickTravelButton(coord, delay) {
         ; Button to travel to Spark Portal
         ;Button := Points.Areas.SacredNebula.SparkPortal
-        Button := cPoint()
+        Button := cLBRButton()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
+        If (!Button.ClickButtonActive(, , delay, S.Get("NavigateTime") + delay)) {
             Out.I("Spark Portal travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }

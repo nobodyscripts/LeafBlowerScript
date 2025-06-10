@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * TerrorGraveyard class for zone travel
@@ -29,8 +27,8 @@ Class TerrorGraveyard extends Zone {
         Sleep(delay)
         Travel.ScrollAmountDown(7)
         Sleep(delay)
-        /** @type {cPoint} */
-        Local Btn := cPoint(1863, 754)
+        /** @type {cLBRButton} */
+        Local Btn := cLBRButton(1863, 754)
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {

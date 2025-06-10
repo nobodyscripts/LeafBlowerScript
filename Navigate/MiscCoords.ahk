@@ -6,49 +6,49 @@
 /**
  * Misc points for buttons
  * @memberof module:cPoints
- * @property {cPoint} ZoneSample Top left corner used for zone background
+ * @property {cLBRButton} ZoneSample Top left corner used for zone background
  * samples
- * @property {cPoint} BlankBG Top left corner blank spot to remove afk
- * @property {cPoint} ScrollArrow Top scroll arrow in a scrollable panel
- * @property {cPoint} ScrollHandle Scroll handle in a scrollable panel
- * @property {cPoint} NotifArrow Notification arrow, left point of 
+ * @property {cLBRButton} BlankBG Top left corner blank spot to remove afk
+ * @property {cLBRButton} ScrollArrow Top scroll arrow in a scrollable panel
+ * @property {cLBRButton} ScrollHandle Scroll handle in a scrollable panel
+ * @property {cLBRButton} NotifArrow Notification arrow, left point of 
  * arrow when facing down
- * @property {cPoint} PanelClose Panel close button
- * @property {cPoint} PanelBG Panel colour check
- * @property {cPoint} PanelBG2 Panel colour check (smoothed)
- * @property {cPoint} PanelBG3 Panel colour check (smoothed)
- * @property {cPoint} AspectRatio1 Aspect ratio check point lower left hide
+ * @property {cLBRButton} PanelClose Panel close button
+ * @property {cLBRButton} PanelBG Panel colour check
+ * @property {cLBRButton} PanelBG2 Panel colour check (smoothed)
+ * @property {cLBRButton} PanelBG3 Panel colour check (smoothed)
+ * @property {cLBRButton} AspectRatio1 Aspect ratio check point lower left hide
  * button
- * @property {cPoint} AspectRatio2 Aspect ratio check point top right hide
+ * @property {cLBRButton} AspectRatio2 Aspect ratio check point top right hide
  * button
  * @property {cMiscSettingPoints} Settings Points for the game settings panel
  * @property {cMiscPetPoints} Pets Points for the Pets panel
  */
 Class cMiscPoints {
-    /** @type {cPoint} Top left corner used for zone background samples */
-    ZoneSample := cPoint(0, 0)
-    /** @type {cPoint} Top left corner blank spot to remove afk */
-    BlankBG := cPoint(10, 10)
-    /** @type {cPoint} Top scroll arrow in a scrollable panel */
-    ScrollArrow := cPoint(2220, 258)
-    /** @type {cPoint} Scroll handle in a scrollable panel */
-    ScrollHandle := cPoint(2220, 320)
-    /** @type {cPoint} Notification arrow, left point of arrow when facing down */
-    NotifArrow := cPoint(69, 1212)
-    /** @type {cPoint} Notification arrow, blank area */
-    NotifArrowExist := cPoint(61, 1235)
-    /** @type {cPoint} Panel close button */
-    PanelClose := cPoint(2223, 193)
-    /** @type {cPoint} Panel colour check */
-    PanelBG := cPoint(2183, 220)
-    /** @type {cPoint} Panel colour check (smoothed) */
-    PanelBG2 := cPoint(2193, 193)
-    /** @type {cPoint} Panel colour check (smoothed) */
-    PanelBG3 := cPoint(2193, 185)
-    /** @type {cPoint} Aspect ratio check point lower left hide button */
-    AspectRatio1 := cPoint(58, 1323)
-    /** @type {cPoint} Aspect ratio check point top right hide button */
-    AspectRatio2 := cPoint(2425, 51)
+    /** @type {cLBRButton} Top left corner used for zone background samples */
+    ZoneSample := cLBRButton(0, 0)
+    /** @type {cLBRButton} Top left corner blank spot to remove afk */
+    BlankBG := cLBRButton(10, 10)
+    /** @type {cLBRButton} Top scroll arrow in a scrollable panel */
+    ScrollArrow := cLBRButton(2220, 258)
+    /** @type {cLBRButton} Scroll handle in a scrollable panel */
+    ScrollHandle := cLBRButton(2220, 320)
+    /** @type {cLBRButton} Notification arrow, left point of arrow when facing down */
+    NotifArrow := cLBRButton(69, 1212)
+    /** @type {cLBRButton} Notification arrow, blank area */
+    NotifArrowExist := cLBRButton(61, 1235)
+    /** @type {cLBRButton} Panel close button */
+    PanelClose := cLBRButton(2223, 193)
+    /** @type {cLBRButton} Panel colour check */
+    PanelBG := cLBRButton(2183, 220)
+    /** @type {cLBRButton} Panel colour check (smoothed) */
+    PanelBG2 := cLBRButton(2193, 193)
+    /** @type {cLBRButton} Panel colour check (smoothed) */
+    PanelBG3 := cLBRButton(2193, 185)
+    /** @type {cLBRButton} Aspect ratio check point lower left hide button */
+    AspectRatio1 := cLBRButton(58, 1323)
+    /** @type {cLBRButton} Aspect ratio check point top right hide button */
+    AspectRatio2 := cLBRButton(2425, 51)
     /** @type {cMiscSettingPoints} Points for game settings panel */
     Settings := cMiscSettingPoints()
     /** @type {cMiscPetPoints} Points for Pets panel */
@@ -58,30 +58,30 @@ Class cMiscPoints {
 ;@region cMiscSettingPoints
 /**
  * Settings panel points
- * @memberof module:cMiscPoints
- * @property {cPoint} MiscTab Misc tab on settings (tab 6)
- * @property {cPoint} GraphicsTab Graphics tab on settings (tab 3)
+ * @memberof module:cMiscLBRButtons
+ * @property {cLBRButton} MiscTab Misc tab on settings (tab 6)
+ * @property {cLBRButton} GraphicsTab Graphics tab on settings (tab 3)
  */
 Class cMiscSettingPoints {
-    /** @type {cPoint} Misc tab on settings (tab 6) */
-    MiscTab := cPoint(1776, 1179)
-    /** @type {cPoint} Graphics tab on settings (tab 3) */
-    GraphicsTab := cPoint(887, 1179)
+    /** @type {cLBRButton} Misc tab on settings (tab 6) */
+    MiscTab := cLBRButton(1776, 1179)
+    /** @type {cLBRButton} Graphics tab on settings (tab 3) */
+    GraphicsTab := cLBRButton(887, 1179)
 }
 ;@endregion
 
 ;@region cMiscPetPoints
 /**
  * Pet panel points
- * @memberof module:cMiscPoints
- * @property {cPoint} PetsTab Pets tab on Pets Panel (tab 1)
- * @property {cPoint} TeamsTab Teams tab on Pets Panel (tab 2)
+ * @memberof module:cMiscLBRButtons
+ * @property {cLBRButton} PetsTab Pets tab on Pets Panel (tab 1)
+ * @property {cLBRButton} TeamsTab Teams tab on Pets Panel (tab 2)
  */
 Class cMiscPetPoints {
-    /** @type {cPoint} Pets tab on Pets Panel (tab 1) */
-    PetsTab := cPoint(550, 1165)
-    /** @type {cPoint} Teams tab on Pets Panel (tab 2) */
-    TeamsTab := cPoint(828, 1165)
+    /** @type {cLBRButton} Pets tab on Pets Panel (tab 1) */
+    PetsTab := cLBRButton(550, 1165)
+    /** @type {cLBRButton} Teams tab on Pets Panel (tab 2) */
+    TeamsTab := cLBRButton(828, 1165)
 }
 ;@endregion
 

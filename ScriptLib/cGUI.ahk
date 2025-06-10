@@ -87,14 +87,21 @@ Class cGui extends GUI {
     ShowGUIPosition() {
         SplitTitle := StrSplit(this.Title, " ")
         Title := this.Title
-        If (IsInteger(SplitTitle[SplitTitle.Length])) {
-            SplitTitle[SplitTitle.Length].Delete()
+        If (SplitTitle.Length > 1 && IsInteger(SplitTitle[SplitTitle.Length])) {
+            SplitTitle.Delete(SplitTitle.Length)
+            Title := ""
             For , value in SplitTitle {
-                Title .= value " "
+                If (IsSet(value)) {
+                    Title .= value " "
+                }
             }
             Title := Trim(Title)
         }
+        If (Title = "") {
+            Out.I("No window title for window, so cannot store")
+        }
         S.AddSetting("GUIPosition", Title, "0,0", "string")
+        S.initSettings()
         Try {
             arr := S.IniToVar(Title, "GUIPosition")
         } Catch Error As OutputVar {
@@ -339,10 +346,13 @@ Class cGui extends GUI {
             }
             SplitTitle := StrSplit(gui.Title, " ")
             Title := gui.Title
-            If (IsInteger(SplitTitle[SplitTitle.Length])) {
-                SplitTitle[SplitTitle.Length].Delete()
+            If (SplitTitle.Length > 1 && IsInteger(SplitTitle[SplitTitle.Length])) {
+                Title := ""
+                SplitTitle.Delete(SplitTitle.Length)
                 For , value in SplitTitle {
-                    Title .= value " "
+                    If (IsSet(value)) {
+                        Title .= value " "
+                    }
                 }
                 Title := Trim(Title)
             }
@@ -356,5 +366,4 @@ Class cGui extends GUI {
         }
     }
     ;@endregion
-
 }

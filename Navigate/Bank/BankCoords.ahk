@@ -6,23 +6,23 @@
 /**
  * Bank points for buttons
  * @memberof module:cPoints
- * @property {cPoint} DepositRESS Point for depositing refined soul 
+ * @property {cLBRButton} DepositRESS Point for depositing refined soul 
  * stone button
- * @property {cPoint} UpgradeStorage Point for Upgrade Storage button
- * @property {cPoint} TabLG Point for tab LG
- * @property {cPoint} TabSN Point for tab SN
- * @property {cPoint} TabEB Point for tab EB
- * @property {cPoint} TabFF Point for tab FF
- * @property {cPoint} TabSR Point for tab SR
- * @property {cPoint} TabQA Point for tab QA
+ * @property {cLBRButton} UpgradeStorage Point for Upgrade Storage button
+ * @property {cLBRButton} TabLG Point for tab LG
+ * @property {cLBRButton} TabSN Point for tab SN
+ * @property {cLBRButton} TabEB Point for tab EB
+ * @property {cLBRButton} TabFF Point for tab FF
+ * @property {cLBRButton} TabSR Point for tab SR
+ * @property {cLBRButton} TabQA Point for tab QA
  */
 Class cBankPoints {
-    DepositRESS := cPoint(1920, 460)
-    UpgradeStorage := cPoint(1970, 555)
-    TabLG := cPoint(600, 315)
-    TabSN := cPoint(600, 375)
-    TabEB := cPoint(600, 445)
-    TabFF := cPoint(600, 510)
-    TabSR := cPoint(600, 575)
-    TabQA := cPoint(600, 635)
+    DepositRESS := cLBRButton(1920, 460)
+    UpgradeStorage := cLBRButton(1970, 555)
+    TabLG := cLBRButton(600, 315)
+    TabSN := cLBRButton(600, 375)
+    TabEB := cLBRButton(600, 445)
+    TabFF := cLBRButton(600, 510)
+    TabSR := cLBRButton(600, 575)
+    TabQA := cLBRButton(600, 635)
 }

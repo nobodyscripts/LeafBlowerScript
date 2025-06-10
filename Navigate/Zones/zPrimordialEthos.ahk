@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * PrimordialEthos class for zone travel
@@ -24,14 +22,14 @@ Class PrimordialEthos extends Zone {
      * @param {Integer} [scrolldelay=0] Additional delay to NavigateTime
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
-    AttemptTravel(delay, scrolldelay := 0, extradelay := 0) { 
+    AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreasSoulRealm(extradelay)
         Sleep(delay)
         this.ScrollAmountDown(7, scrolldelay)
         Sleep(delay)
 
-        /** @type {cPoint} */
-        Local Btn := cPoint(1858, 840)
+        /** @type {cLBRButton} */
+        Local Btn := cLBRButton(1858, 840)
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {

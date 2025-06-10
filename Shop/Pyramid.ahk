@@ -21,8 +21,8 @@ Class sPyramid extends Zone {
         If (Window.IsPanel()) {
             Travel.ClosePanelIfActive()
         }
-        
-        cPoint(1279, 641).Click() ; Colour: #D3BF8F center screen
+
+        cLBRButton(1279, 641).Click() ; Colour: #D3BF8F center screen
         While (!Window.IsPanel()) {
             Sleep(17)
         }
@@ -39,13 +39,13 @@ Class sPyramid extends Zone {
     UnlockMax(*) {
         UlcWindow()
         If (Shops.Pyramid.GoTo()) {
-            If (cPoint(537, 741).ClickButtonActive()) { ; unlock max button
+            If (cLBRButton(537, 741).ClickButtonActive()) { ; unlock max button
                 Sleep(50)
             }
-            If (cPoint(537, 741).ClickButtonActive()) {
+            If (cLBRButton(537, 741).ClickButtonActive()) {
                 Sleep(50)
             }
-            If (!cPoint(537, 741).IsBackground()) {
+            If (!cLBRButton(537, 741).IsBackground()) {
                 Out.I("Pyramid unlock max failed, likely due to lack of resources")
                 Return false
             }
@@ -63,9 +63,9 @@ Class sPyramid extends Zone {
         If (Shops.Pyramid.UnlockMax()) {
             AmountToModifier(100)
             Sleep(50)
-            cPoint(985, 462).ClickButtonActive() ; Decrease level
+            cLBRButton(985, 462).ClickButtonActive() ; Decrease level
             Sleep(50)
-            cPoint(1536, 462).ClickButtonActive() ; Increase level
+            cLBRButton(1536, 462).ClickButtonActive() ; Increase level
             Sleep(50)
             ResetModifierKeys()
             Out.I("Pyramid max floor success")

@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.0
 
+#Include CardsBuy.ahk
+
 Global HadToHideNotifs := false
 Global HaveWarnedDisplayRewards := false
 
-; Vscode loves to warn me about globals so defining even though loading save
-Global CardsPermaLoop := false
-Global CardsDontOpenCommons := 0
-Global CardsCommonAmount := 1
-Global CardsCommonBuyAmount := 1
-Global CardsDontOpenRare := 0
-Global CardsRareAmount := 1
-Global CardsRareBuyAmount := 1
-Global CardsDontOpenLegendary := 0
-Global CardsLegendaryAmount := 1
-Global CardsLegBuyAmount := 1
-Global CardsSleepAmount := 150
-Global CardsSleepBuyAmount := 150
-Global CardsGreedyOpen := false
-Global CardsGreedyBuy := false
+S.AddSetting("Cards", "CardsCommonAmount", 25000, "int")
+S.AddSetting("Cards", "CardsRareAmount", 25000, "int")
+S.AddSetting("Cards", "CardsLegendaryAmount", 25000, "int")
+S.AddSetting("Cards", "CardsGreedyOpen", false, "bool")
+S.AddSetting("Cards", "CardsGreedyBuy", false, "bool")
+S.AddSetting("Cards", "CardsDontOpenCommons", false, "bool")
+S.AddSetting("Cards", "CardsDontOpenRare", false, "bool")
+S.AddSetting("Cards", "CardsDontOpenLegendary", false, "bool")
+S.AddSetting("Cards", "CardsSleepAmount", 875, "int")
+S.AddSetting("Cards", "CardsPermaLoop", true, "bool")
+S.AddSetting("Cards", "CardsBossFarmEnabled", true, "bool")
 
 fOpenCardLoop() {
+    CardsPermaLoop := S.Get("CardsPermaLoop")
+    CardsBuyEnabled := S.Get("CardsBuyEnabled")
     Global HadToHideNotifs
 
     If (IsNotificationActive()) {
@@ -85,13 +85,15 @@ fOpenCardLoop() {
 }
 
 CardsOpenSinglePass() {
+    CardsDontOpenCommons := S.Get("CardsDontOpenCommons")
+    CardsCommonAmount := S.Get("CardsCommonAmount")
+    CardsDontOpenRare := S.Get("CardsDontOpenRare")
+    CardsRareAmount := S.Get("CardsRareAmount")
+    CardsDontOpenLegendary := S.Get("CardsDontOpenLegendary")
+    CardsLegendaryAmount := S.Get("CardsLegendaryAmount")
     Global HadToHideNotifs
     ; Check if lost focus, close or crash and break if so
-    If (!Window.IsActive()) {
-        Out.I("Card opening: Did not find game. Aborted.")
-        Window.Activate()
-        ;return false ; Kill if no game
-    }
+    Window.StartOrReload()
 
     ; Use the transparent check to make sure we have a panel, otherwise
     ; we'll close notifications for no reason and get into a loop
@@ -143,7 +145,9 @@ CardsOpenSinglePass() {
 }
 
 CardOpenerRel(quality, offset, amount) {
-    Global HaveWarnedDisplayRewards, Debug, CardsGreedyOpen
+    CardsGreedyOpen := S.Get("CardsGreedyOpen")
+    CardsSleepAmount := S.Get("CardsSleepAmount")
+    Global HaveWarnedDisplayRewards
     offset := Window.RelH(offset)
     Switch quality {
     Case 1:
@@ -163,7 +167,7 @@ CardOpenerRel(quality, offset, amount) {
     }
     ; Check if button is active, if not we can skip
     AmountToModifier(amount)
-    Sleep(NavigateTime)
+    Sleep(S.Get("NavigateTime"))
     If (button.IsButtonActive() && Window.IsActive()) {
         ; Pack open
         button.ClickOffset(, offset, clickdelay)
@@ -194,15 +198,21 @@ CardOpenerRel(quality, offset, amount) {
 
 ; Seperate buyer to have faster turnover
 CardBuyerRel(quality, offset, amount) {
+    CardsGreedyBuy := S.Get("CardsGreedyBuy")
+    CardsSleepBuyAmount := S.Get("CardsSleepBuyAmount")
     offset := Window.RelH(offset)
     Switch quality {
     Case 1:
+        /** @type {cLBRButton} */
         button := Points.Card.BuyCommon
     Case 2:
+        /** @type {cLBRButton} */
         button := Points.Card.BuyRare
     Case 3:
+        /** @type {cLBRButton} */
         button := Points.Card.BuyLegend
     default:
+        /** @type {cLBRButton} */
         button := Points.Card.BuyCommon
     }
     ; Check if button is active, if not we can skip
@@ -230,6 +240,15 @@ CardBuyerRel(quality, offset, amount) {
 }
 
 CardButtonsActive() {
+    CardsGreedyOpen := S.Get("CardsGreedyOpen")
+    CardsCommonAmount := S.Get("CardsCommonAmount")
+    CardsCommonBuyAmount := S.Get("CardsCommonBuyAmount")
+    CardsRareAmount := S.Get("CardsRareAmount")
+    CardsRareBuyAmount := S.Get("CardsRareBuyAmount")
+    CardsLegendaryAmount := S.Get("CardsLegendaryAmount")
+    CardsLegBuyAmount := S.Get("CardsLegBuyAmount")
+    CardsBuyEnabled := S.Get("CardsBuyEnabled")
+    CardsGreedyBuy := S.Get("CardsGreedyBuy")
     ; Common
     If (!CardsGreedyOpen) {
         AmountToModifier(CardsCommonAmount)

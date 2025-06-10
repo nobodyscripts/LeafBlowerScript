@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
 
 fSuitcaseSpam() {
+    NavigateTime := S.Get("NavigateTime")
     If (!Window.IsActive()) {
         Return
     }

@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * TheCelestialPlane class for zone travel
@@ -60,10 +58,10 @@ Class TheCelestialPlane extends Zone {
     ClickTravelButton(coord, delay) {
         ; Button to travel to The Celestial Plane
         ;Button := Points.Areas.LeafGalaxy.TheCelestialPlane
-        Button := cPoint()
+        Button := cLBRButton()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
+        If (!Button.ClickButtonActive(, , delay, S.Get("NavigateTime") + delay)) {
             Out.I("The Celestial Plane travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }

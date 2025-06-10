@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0
 
 #Include Navigate.ahk
-#Include cGameWindow.ahk
 #Include cColours.ahk
 #Include cTravel.ahk
 
@@ -45,13 +44,13 @@ Class Zone {
      * @returns {Boolean} True if travel success, false if travel failed
      */
     GoTo(*) {
+        NavigateTime := S.Get("NavigateTime")
         If (!Window.IsActive()) {
             Out.I("No window found while trying to travel.")
             Return false
         }
-        Global DisableZoneChecks
         i := 0
-        If (!DisableZoneChecks) {
+        If (!S.Get("DisableZoneChecks")) {
             Out.I("Traveling to " this.Name)
             ; Advantage of this sample check is script doesn't travel if already
             ; there and can recheck if travels failed
@@ -72,7 +71,7 @@ Class Zone {
             Out.I("Traveling to " this.Name ". Attempt to blind travel with"
                 " slowed times.")
             this.AttemptTravel(NavigateTime, 50, 200)
-            If (DisableZoneChecks) {
+            If (S.Get("DisableZoneChecks")) {
                 ; Checks are disabled so blindly trust we reached zone
                 Return true
             }
@@ -100,13 +99,13 @@ Class Zone {
      * @returns {Boolean} True if travel success, false if travel failed
      */
     _GoToArea(Attempt, Check, Name) {
+        NavigateTime := S.Get("NavigateTime")
         If (!Window.IsActive()) {
             Out.I("No window found while trying to travel.")
             Return false
         }
-        Global DisableZoneChecks
         i := 0
-        If (!DisableZoneChecks) {
+        If (!S.Get("DisableZoneChecks")) {
             Out.I("Traveling to " Name)
             ; Advantage of this sample check is script doesn't travel if already
             ; there and can recheck if travels failed
@@ -126,7 +125,7 @@ Class Zone {
             Out.I("Traveling to " Name ". Attempt to blind travel with"
                 " slowed times.")
             Attempt(NavigateTime, 50, 200)
-            If (DisableZoneChecks) {
+            If (S.Get("DisableZoneChecks")) {
                 ; Checks are disabled so blindly trust we reached zone
                 Return true
             }
@@ -184,7 +183,7 @@ Class Zone {
      * @returns {Boolean}
      */
     IsZone(Name := "") {
-        if(Name = "" && this.Name != "") {
+        If (Name = "" && this.Name != "") {
             Name := this.Name
         }
         colour := this.GetZoneColour()
@@ -216,8 +215,7 @@ Class Zone {
      * @returns {String} Colour string for zone check
      */
     GetColourByName(name) {
-        Return Colours()
-        .GetColourByZone(name)
+        Return Colours().GetColourByZone(name)
     }
     ;@endregion
 
@@ -228,8 +226,7 @@ Class Zone {
      * @returns {String} Full name string of zone found in ZoneColours
      */
     GetNameByColour(colour) {
-        Return Colours()
-        .GetZoneByColour(colour)
+        Return Colours().GetZoneByColour(colour)
     }
     ;@endregion
 

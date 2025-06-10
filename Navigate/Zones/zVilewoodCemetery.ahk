@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * VilewoodCemetery class for zone travel
@@ -27,10 +25,10 @@ Class VilewoodCemetery extends Zone {
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreasSacredNebula(extradelay)
         Sleep(delay + extradelay)
-        /** @type {cPoint} */
-        Local Btn := cPoint(1855, 752)
+        /** @type {cLBRButton} */
+        Local Btn := cLBRButton(1855, 752)
         If (Btn.IsButtonActive()) {
-            Btn.ClickButtonActive(,,delay + extradelay)
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
             Out.I("Vilewood Cemetery not found while trying to travel.")
         }

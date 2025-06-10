@@ -1,15 +1,15 @@
 #Include ..\Lib\Navigate.ahk
-#Include ..\Lib\hGlobals.ahk
-#Include ..\Lib\hModules.ahk
 
+#Include BankDeposit.ahk
 #Include QuickULCStage1.ahk
 #Include QuickULCStage2.ahk
 #Include QuickULCStage4.ahk
 #Include GemFarm.ahk
+#include ..\ScriptLib\cToolTip.ahk
 
-Global ULCBVItemsMultiPass := true
-Global ULCBiotiteUseTW := "30m" ; "6h" "24h" "72h"
-Global ULCMineStoreToSpheres := false
+S.AddSetting("ULC", "ULCBVItemsMultiPass", true, "Bool")
+S.AddSetting("ULC", "ULCBiotiteUseTW", "30m", "String")
+S.AddSetting("ULC", "ULCMineStoreToSpheres", false, "Bool")
 
 /*
 Ingame settings
@@ -21,7 +21,7 @@ Ingame settings
     Borbventures Scale Min - Off
     Borbventures Chance - 60%
     Biotite leaf marketing - 74
-    
+
 Graphics settings
     Fixed Navigation - On
     Hide maxed shops - Off
@@ -258,10 +258,10 @@ ULCStage1(*) {
 
     gToolTip.Center("Waiting for Benitoite to build up")
     SetTimer(ToggleULCLoadouts, 1200)
-    If (!cPoint(1259, 1319).IsButtonActive()) { ; Moonstone shop icon
+    If (!cLBRButton(1259, 1319).IsButtonActive()) { ; Moonstone shop icon
         Travel.TheLeafTower.GoTo()
     }
-    While (!cPoint(1259, 1319).IsButtonActive()) {
+    While (!cLBRButton(1259, 1319).IsButtonActive()) {
         GameKeys.TriggerWind()
         Sleep(17)
     }
@@ -295,9 +295,9 @@ ULCStage1(*) {
 
         GoToTrade()
         Sleep(100)
-        cPoint(1530, 1087).ClickButtonActive() ; Boost all
+        cLBRButton(1530, 1087).ClickButtonActive() ; Boost all
         Sleep(34)
-        cPoint(1970, 1087).ClickButtonActive() ; Collect all
+        cLBRButton(1970, 1087).ClickButtonActive() ; Collect all
         ULCStageExitCheck(11)
     }
     If (!Shops.Pyramid.MaxFloor()) {
@@ -346,10 +346,10 @@ ULCStage2(*) {
     EquipBlower()
     Travel.MountMoltenfury.GoTo()
     Shops.Coal.GoTo()
-    /** @type {cPoint} */
-    MaxCoalFert := cPoint(1865, 535)
+    /** @type {cLBRButton} */
+    MaxCoalFert := cLBRButton(1865, 535)
     gToolTip.Center("Waiting for coal to collect")
-    MaxCoalFert.WaitWhileNotColourS(Colours().Background, 30)
+    MaxCoalFert.WaitWhileNotColourS(MaxCoalFert.Background, 30)
     Sleep(2000)
     gToolTip.CenterDel()
     Shops.Coal.Max()
@@ -441,7 +441,7 @@ ULCStage3(*) {
     Travel.TheLoneTree.GoTo()
     Shops.Sacred.Max()
 
-    If (cPoint(1639, 1308).GetColour() = "0xFFFFF6") { ; Mala shop button
+    If (cLBRButton(1639, 1308).GetColour() = "0xFFFFF6") { ; Mala shop button
         msg := "Malachite shop still locked, will need another pass of stage 3 to unlock energy"
         Out.E(msg)
         MsgBox(msg)
@@ -592,8 +592,7 @@ ULCStage4(*) {
 
     BuyMaxBVPacks()
 
-    Global ULCBVItemsMultiPass
-    If (ULCBVItemsMultiPass) {
+    If (S.Get("ULCBVItemsMultiPass")) {
         MaxBVItemsJustBags641()
         MaxBVItems()
     } Else {
@@ -613,7 +612,7 @@ TriggerULC(*) {
     UlcWindow()
     GameKeys.OpenBluePortal()
     Sleep(50)
-    cPoint(1710, 498).ClickButtonActive()
+    cLBRButton(1710, 498).ClickButtonActive()
     Sleep(8000)
 }
 
@@ -841,7 +840,7 @@ WaitForZoneChange(target, maxloops := 200, interval := 50) {
     Out.D("WaitForZoneChange")
     time := maxloops * interval / 1000
     gToolTip.CenterCD("Waiting for zone change", maxloops * interval)
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     zonesample := Points.Misc.ZoneSample
     zonesample.WaitWhileNotColour(col.GetColourByZone(target), maxloops, interval)
     gToolTip.CenterCDDel()
@@ -874,7 +873,7 @@ GoToSoulForge(*) {
     Sleep(100)
     GameKeys.ClosePanel()
     Sleep(100)
-    cPoint(1291, 991)
+    cLBRButton(1291, 991)
     .Click() ; Soul forge
 }
 
@@ -904,10 +903,10 @@ WaitFor40thDice() {
     Out.D("TODO WaitFor40thDice")
     ; remember dlc will likely effect position
 
-    ;cPoint(354, 395) ; 40th dice
-    ;cPoint(416, 398) ; 41st dice
-    ;cPoint(811, 299) ; Right page button
-    ;cPoint(990, 402) ; 50th dice (dlc)
+    ;cLBRButton(354, 395) ; 40th dice
+    ;cLBRButton(416, 398) ; 41st dice
+    ;cLBRButton(811, 299) ; Right page button
+    ;cLBRButton(990, 402) ; 50th dice (dlc)
 }
 
 ToggleULCLoadouts() {

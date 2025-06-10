@@ -18,7 +18,7 @@
 Class cAreasPoints {
     /** @type {cAreasFavPoints} Favs Favourites */
     Favs := cAreasFavPoints()
-    
+
     /** @type {cAreasLeafGPoints} Leaf Galaxy */
     LeafGalaxy := cAreasLeafGPoints()
 
@@ -36,10 +36,10 @@ Class cAreasPoints {
 
     /** @type {cAreasQuarkAPoints} Quark Ambit */
     QuarkAmbit := cAreasQuarkAPoints()
-    
+
     /** @type {cAreasUmbralClusterPoints} Umbral Cluster */
     UmbralCluster := cAreasUmbralClusterPoints()
-    
+
     /** @type {cAreasEventsPoints} Events */
     Events := cAreasEventsPoints()
 }
@@ -48,11 +48,11 @@ Class cAreasPoints {
 /**
  * Points.Areas.Favs
  * @memberof module:cAreasPoints
- * @property {cPoint} Tab Tab for areas panel (Favourites)
+ * @property {cLBRButton} Tab Tab for areas panel (Favourites)
  */
 Class cAreasFavPoints {
-    /** @type {cPoint} Tab for areas panel (Favourites) */
-    Tab := cPoint(300, 1167)
+    /** @type {cLBRButton} Tab for areas panel (Favourites) */
+    Tab := cLBRButton(300, 1167)
 }
 ;@endregion
 
@@ -60,19 +60,19 @@ Class cAreasFavPoints {
 /**
  * Points.Areas.LeafGalaxy
  * @memberof module:cVeinPoints
- * @property {cPoint} Tab Tab for areas panel (Leaf Galaxy)
- * @property {cPoint} HomeGarden Home Garden
- * @property {cPoint} Pub Pub (scroll down 46)
+ * @property {cLBRButton} Tab Tab for areas panel (Leaf Galaxy)
+ * @property {cLBRButton} HomeGarden Home Garden
+ * @property {cLBRButton} Pub Pub (scroll down 46)
  */
 Class cAreasLeafGPoints {
-    /** @type {cPoint} Tab for areas panel (Leaf Galaxy) */
-    Tab := cPoint(506, 1162)
+    /** @type {cLBRButton} Tab for areas panel (Leaf Galaxy) */
+    Tab := cLBRButton(506, 1162)
 
-    /** @type {cPoint} Home Garden */
-    HomeGarden := cPoint(1662, 325)
+    /** @type {cLBRButton} Home Garden */
+    HomeGarden := cLBRButton(1662, 325)
 
-    /** @type {cPoint} Pub (scroll down 46) */
-    Pub := cPoint(1662, 740)
+    /** @type {cLBRButton} Pub (scroll down 46) */
+    Pub := cLBRButton(1662, 740)
 }
 ;@endregion
 
@@ -82,8 +82,8 @@ Class cAreasLeafGPoints {
  * @memberof module:cVeinPoints
  */
 Class cAreasSacredNPoints {
-    /** @type {cPoint} Tab for areas panel */
-    Tab := cPoint(919, 1182)
+    /** @type {cLBRButton} Tab for areas panel */
+    Tab := cLBRButton(919, 1182)
 }
 ;@endregion
 
@@ -93,28 +93,28 @@ Class cAreasSacredNPoints {
  * @memberof module:cVeinPoints
  */
 Class cAreasEnergyBPoints {
-    /** @type {cPoint} Tab for areas panel */
-    Tab := cPoint(1137, 1180)
+    /** @type {cLBRButton} Tab for areas panel */
+    Tab := cLBRButton(1137, 1180)
 }
 ;@endregion
 
 ;@region cAreasFireFPoints
 /**
  * @memberof module:cVeinPoints
- * @property {cPoint} Tab Tab for areas panel (Fire Fields)
- * @property {cPoint} BorbianaJones Borbiana Jones screen
- * @property {cPoint} ResetGF Reset GF
- * @property {cPoint} ResetSS Reset SS
+ * @property {cLBRButton} Tab Tab for areas panel (Fire Fields)
+ * @property {cLBRButton} BorbianaJones Borbiana Jones screen
+ * @property {cLBRButton} ResetGF Reset GF
+ * @property {cLBRButton} ResetSS Reset SS
  */
 Class cAreasFireFPoints {
-    /** @type {cPoint} Tab for areas panel (Fire Fields) */
-    Tab := cPoint(1356, 1182)
-    /** @type {cPoint} Borbiana Jones screen */
-    BorbianaJones := cPoint(1735, 397)
-    /** @type {cPoint} Reset GF */
-    ResetGF := cPoint(820, 500)
-    /** @type {cPoint} Reset SS */
-    ResetSS := cPoint(1280, 500)
+    /** @type {cLBRButton} Tab for areas panel (Fire Fields) */
+    Tab := cLBRButton(1356, 1182)
+    /** @type {cLBRButton} Borbiana Jones screen */
+    BorbianaJones := cLBRButton(1735, 397)
+    /** @type {cLBRButton} Reset GF */
+    ResetGF := cLBRButton(820, 500)
+    /** @type {cLBRButton} Reset SS */
+    ResetSS := cLBRButton(1280, 500)
 }
 ;@endregion
 
@@ -123,54 +123,54 @@ Class cAreasFireFPoints {
  * @memberof module:cVeinPoints
  */
 Class cAreasSoulRPoints {
-    /** @type {cPoint} Tab for areas panel */
-    Tab := cPoint(1576, 1180)
+    /** @type {cLBRButton} Tab for areas panel */
+    Tab := cLBRButton(1576, 1180)
 }
 ;@endregion
 
 ;@region cAreasQuarkAPoints
 /**
  * @memberof module:cVeinPoints
- * @property {cPoint} Tab Tab for areas panel (Quark Ambit)
- * @property {cPoint} AstralOasis Astral Oasis
- * @property {cPoint} DimentionalTapestry Dimentional Tapestry
- * @property {cPoint} PlankScope Plank Scope
- * @property {cPoint} PlankScope2 Plank Scope second location
- * @property {cPoint} AnteLeafton Ante Leafton (scroll down 2)
- * @property {cPoint} AnteLeafton2 Ante Leafton (scroll down 2)
+ * @property {cLBRButton} Tab Tab for areas panel (Quark Ambit)
+ * @property {cLBRButton} AstralOasis Astral Oasis
+ * @property {cLBRButton} DimentionalTapestry Dimentional Tapestry
+ * @property {cLBRButton} PlankScope Plank Scope
+ * @property {cLBRButton} PlankScope2 Plank Scope second location
+ * @property {cLBRButton} AnteLeafton Ante Leafton (scroll down 2)
+ * @property {cLBRButton} AnteLeafton2 Ante Leafton (scroll down 2)
  */
 Class cAreasQuarkAPoints {
-    /** @type {cPoint} Tab for areas panel (Quark Ambit) */
-    Tab := cPoint(1792, 1179)
-    /** @type {cPoint} Astral Oasis */
-    AstralOasis := cPoint(1665, 643)
-    /** @type {cPoint} Dimentional Tapestry */
-    DimentionalTapestry := cPoint(1665, 820)
-    /** @type {cPoint} Plank Scope */
-    PlankScope := cPoint(1665, 970)
-    /** @type {cPoint} Plank Scope second location */
-    PlankScope2 := cPoint(1665, 1020)
-    /** @type {cPoint} Ante Leafton (scroll down 2) */
-    AnteLeafton := cPoint(1665, 970)
-    /** @type {cPoint} Ante Leafton (scroll down 2) */
-    AnteLeafton2 := cPoint(1665, 1020)
+    /** @type {cLBRButton} Tab for areas panel (Quark Ambit) */
+    Tab := cLBRButton(1792, 1179)
+    /** @type {cLBRButton} Astral Oasis */
+    AstralOasis := cLBRButton(1665, 643)
+    /** @type {cLBRButton} Dimentional Tapestry */
+    DimentionalTapestry := cLBRButton(1665, 820)
+    /** @type {cLBRButton} Plank Scope */
+    PlankScope := cLBRButton(1665, 970)
+    /** @type {cLBRButton} Plank Scope second location */
+    PlankScope2 := cLBRButton(1665, 1020)
+    /** @type {cLBRButton} Ante Leafton (scroll down 2) */
+    AnteLeafton := cLBRButton(1665, 970)
+    /** @type {cLBRButton} Ante Leafton (scroll down 2) */
+    AnteLeafton2 := cLBRButton(1665, 1020)
 }
 ;@endregion
 
 ;@region cAreasUmbralClusterPoints
 /**
  * @memberof module:cVeinPoints
- * @property {cPoint} Tab Tab for areas panel (Umbral Cluster)
- * @property {cPoint} AstralOasis Astral Oasis
- * @property {cPoint} DimentionalTapestry Dimentional Tapestry
- * @property {cPoint} PlankScope Plank Scope
- * @property {cPoint} PlankScope2 Plank Scope second location
- * @property {cPoint} AnteLeafton Ante Leafton (scroll down 2)
- * @property {cPoint} AnteLeafton2 Ante Leafton (scroll down 2)
+ * @property {cLBRButton} Tab Tab for areas panel (Umbral Cluster)
+ * @property {cLBRButton} AstralOasis Astral Oasis
+ * @property {cLBRButton} DimentionalTapestry Dimentional Tapestry
+ * @property {cLBRButton} PlankScope Plank Scope
+ * @property {cLBRButton} PlankScope2 Plank Scope second location
+ * @property {cLBRButton} AnteLeafton Ante Leafton (scroll down 2)
+ * @property {cLBRButton} AnteLeafton2 Ante Leafton (scroll down 2)
  */
 Class cAreasUmbralClusterPoints {
-    /** @type {cPoint} Tab for areas panel (Umbral Cluster) */
-    Tab := cPoint(1809, 1162)
+    /** @type {cLBRButton} Tab for areas panel (Umbral Cluster) */
+    Tab := cLBRButton(1809, 1162)
 }
 ;@endregion
 
@@ -179,24 +179,24 @@ cAreasUmbralClusterPoints
 ;@region cAreasEventsPoints
 /**
  * @memberof module:cVeinPoints
- * @property {cPoint} Tab Tab for areas panel (Events)
- * @property {cPoint} CursedHalloween Button in Events for Cursed Halloween
- * @property {cPoint} NatureBoss Nature boss button location depends on events
+ * @property {cLBRButton} Tab Tab for areas panel (Events)
+ * @property {cLBRButton} CursedHalloween Button in Events for Cursed Halloween
+ * @property {cLBRButton} NatureBoss Nature boss button location depends on events
  * active
- * @property {cPoint} NatureBoss2 Nature boss button location depends on events
+ * @property {cLBRButton} NatureBoss2 Nature boss button location depends on events
  * active
- * @property {cPoint} FarmField Farm Field
+ * @property {cLBRButton} FarmField Farm Field
  */
 Class cAreasEventsPoints {
-    /** @type {cPoint} Tab for areas panel (Events) */
-    Tab := cPoint(2030, 1164)
-    /** @type {cPoint} Button in Events for Cursed Halloween */
-    CursedHalloween := cPoint(1674, 329)
-    /** @type {cPoint} Nature boss button location depends on events active */
-    NatureBoss := cPoint(1682, 946)
-    /** @type {cPoint} Nature boss button location depends on events active */
-    NatureBoss2 := cPoint(1682, 860)
-    /** @type {cPoint} Farm field */
-    FarmField := cPoint(1682, 525)
+    /** @type {cLBRButton} Tab for areas panel (Events) */
+    Tab := cLBRButton(2030, 1164)
+    /** @type {cLBRButton} Button in Events for Cursed Halloween */
+    CursedHalloween := cLBRButton(1674, 329)
+    /** @type {cLBRButton} Nature boss button location depends on events active */
+    NatureBoss := cLBRButton(1682, 946)
+    /** @type {cLBRButton} Nature boss button location depends on events active */
+    NatureBoss2 := cLBRButton(1682, 860)
+    /** @type {cLBRButton} Farm field */
+    FarmField := cLBRButton(1682, 525)
 }
 ;@endregion

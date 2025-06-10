@@ -2,68 +2,70 @@
 
 Button_Click_ScriptHotkeys(thisGui, info) {
 
-    /** @type {GUI} */
-    optionsGUI := Gui(, "Script Hotkey Customisation")
-    optionsGUI.Opt("")
-    SetFontOptions(optionsGUI)
+    GuiBGColour := S.Get("GuiBGColour")
+
+    /** @type {cGUI} */
+    MyGui := cGui(, "Script Hotkey Customisation")
+    MyGui.Opt("")
+    MyGui.SetUserFontSettings()
     i := 1
     first := true
     For (name, key in Scriptkeys.Hotkeys) {
         If (key && key.Name) {
             If (i >= 10) {
-                optionsGUI.Add("Text", "ys", key.Name . ":")
+                MyGui.Add("Text", "ys", key.Name . ":")
                 i := 1
             } Else {
                 If (first) {
-                    optionsGUI.Add("Text", "section", key.Name . ":")
+                    MyGui.Add("Text", "section", key.Name . ":")
                     first := false
                 } Else {
-                    optionsGUI.Add("Text", "", key.Name . ":")
+                    MyGui.Add("Text", "", key.Name . ":")
                 }
             }
-            optionsGUI.AddEdit("cDefault v" . key.Name . " w140", key.GetValue())
+            MyGui.AddEdit("cDefault v" . key.Name . " w140", key.GetValue())
             i++
         }
     }
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default xs", "Save").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default xs", "Save").OnEvent("Click",
         SaveScriptHotkeysInput)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseScriptHotkeys)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Reset To Defaults").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Reset To Defaults").OnEvent("Click",
         ResetScriptHotKeys)
 
-    ShowGUIPosition(optionsGUI)
-    MakeGUIResizableIfOversize(optionsGUI)
-    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
-    OnMessage(0x0003, SaveGUIPositionOnMove)
+    MyGui.ShowGUIPosition()
+    MyGui.MakeGUIResizableIfOversize()
+    MyGui.OnEvent("Size", MyGui.SaveGUIPositionOnResize.Bind(MyGui))
+    OnMessage(0x0003, MyGui.SaveGUIPositionOnMove.Bind(MyGui))
 
     ResetScriptHotKeys(*) {
         If (MsgBox("Are you sure you want to reset Script Hotkeys?",
             "Reset Script Hotkeys?", "0x1 0x100 0x10") = "OK") {
-            optionsGUI.Hide()
+            MyGui.Hide()
             ; confirm
             Scriptkeys.WriteHotkeyDefaults()
-            cReload()
+            Reload()
         } Else {
             MsgBox("Aborted Script Hotkey Reset.")
         }
     }
 
     CloseScriptHotkeys(*) {
-        optionsGUI.Hide()
+        MyGui.Hide()
     }
 
     SaveScriptHotkeysInput(*) {
         Saving := SavingGUI()
-        optionsGUI.Hide()
+        MyGui.Hide()
         thisGui.Gui.Hide()
         Saving.Show()
-        values := optionsGUI.Submit()
+        values := MyGui.Submit()
         For (name, key in Scriptkeys.Hotkeys) {
             key.SetValue(values.%name%)
         }
         Scriptkeys.SaveCurrentHotkeys()
-        cReload()
+        Reload()
     }
 }

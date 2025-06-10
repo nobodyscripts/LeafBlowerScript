@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-#Include cRect.ahk
+#Include ..\ScriptLib\cRect.ahk
 
 /** @type {cRects} */
 Global Rects := cRects()

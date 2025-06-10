@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0
 
+#Include ..\ScriptLib\cGUI.ahk
+
 /**
  * UpdatingGUI Description
  * @module UpdatingGUI
  */
 Class UpdatingGUI {
-    /** @type {Gui} */
-    UpdatingGui := Gui()
+    /** @type {cGUI} */
+    UpdatingGui := cGui()
     /** @type {GuiControl} */
     Bar := ""
 
@@ -15,7 +17,7 @@ Class UpdatingGUI {
         this.UpdatingGui.MarginX := 15
         this.UpdatingGui.MarginY := 15
         this.UpdatingGui.Opt("-MaximizeBox -MinimizeBox")
-        this.UpdatingGui.SetFont("Q5")
+        this.UpdatingGui.SetUserFontSettings()
         this.UpdatingGui.AddText("vText", "Updating please wait..")
 
         this.Bar := this.UpdatingGui.AddProgress("c2363ec vProgBar")
@@ -34,9 +36,9 @@ Class UpdatingGUI {
     ;@endregion
 
     IncrementSaveProgress() {
-        if (!this.UpdatingGui.Enabled) {
+        If (!this.UpdatingGui.Enabled) {
             SetTimer(, 0)
-            return
+            Return
         }
         this.UpdatingGui["ProgBar"].value++
         If (this.UpdatingGui["ProgBar"].value >= 100) {

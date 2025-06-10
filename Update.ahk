@@ -1,18 +1,11 @@
 #Requires AutoHotkey v2.0.0
-
 #SingleInstance Force
-#Include Lib\Logging.ahk
+
+/** @type {cLog} */
+Out := cLog(A_ScriptDir "\Updater.log", true, 3, false)
+
+#Include ScriptLib\cLogging.ahk
 #Include Gui\UpdatingGUI.ahk
-
-Global EnableLogging := true
-Global Debug := true
-Global Verbose := true
-Global LogBuffer := true
-Global TimestampLogs := true
-Global DebugAll := true
-Global IsSecondary := false
-
-Out := cLog("Updater.log", true, 3, false)
 
 Dialog := UpdatingGUI()
 Dialog.Show()

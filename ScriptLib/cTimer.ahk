@@ -25,7 +25,7 @@ Class Timer {
         this.StartedAt := A_Now
         SetTimer(toggle.Bind(this), -Time)
 
-        toggle() {
+        toggle(*) {
             bool := false
             this.Running := false
         }
@@ -42,7 +42,7 @@ Class Timer {
         this.StartedAt := A_Now
         SetTimer(toggle.Bind(this), -(Time * 1000))
 
-        toggle() {
+        toggle(*) {
             bool := false
             this.Running := false
         }
@@ -59,7 +59,7 @@ Class Timer {
         this.StartedAt := A_Now
         SetTimer(toggle.Bind(this), -(Time * 60 * 1000))
 
-        toggle() {
+        toggle(*) {
             bool := false
             this.Running := false
         }

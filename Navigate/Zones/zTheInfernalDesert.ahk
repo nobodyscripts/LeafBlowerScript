@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
 
@@ -21,10 +20,10 @@ Class TheInfernalDesert extends Zone {
         Travel.OpenAreas(true, extradelay)
         this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
-        /** @type {cPoint} */
-        Local Btn := cPoint(1677, 652)
+        /** @type {cLBRButton} */
+        Local Btn := cLBRButton(1677, 652)
         If (Btn.IsButtonActive()) {
-            Btn.ClickButtonActive(,,delay + extradelay)
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
             Out.I("The Infernal Desert not found while trying to travel.")
         }

@@ -2,20 +2,19 @@
 #MaxThreadsPerHotkey 8
 #SingleInstance Force
 
-Global ScriptsLogFile := A_ScriptDir "\PondSaveSpam.Log"
-Global IsSecondary := false
+/** @type {cLog} */
+Out := cLog(A_ScriptDir "\PondSaveSpam.log", true, 3, false)
 
-#Include Lib\hGlobals.ahk
-#Include Lib\ScriptSettings.ahk
-#Include Lib\Functions.ahk
-#Include Lib\cGameWindow.ahk
+/** @type {cLBRWindow} */
+Global Window := cLBRWindow("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe", 2560, 1369)
+
+#Include ScriptLib\cSettings.ahk
+#Include Lib\Misc.ahk
+#Include Lib\cLBRWindow.ahk
 #Include Lib\Navigate.ahk
-#Include Lib\cHotkeysInitGame.ahk
 #Include Modules\Fishing.ahk
 
-/** @type {cSettings} */
-Global settings := cSettings()
-settings.initSettings(true)
+S.initSettings()
 
 Out.I("PondSaveSpam: Started")
 
@@ -38,16 +37,15 @@ F3::
     /** @type {Pond} */
     TargetPond := Pond(4)
 
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     RarityPoint := TargetPond.Rarity
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     search := FishingPonds().Search
-    /** @type {cPoint} */
-    OpenFishing := cPoint(329, 1135)
+    /** @type {cLBRButton} */
+    OpenFishing := cLBRButton(329, 1135)
     pid := false
     WindowPattern := "Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe"
     LastLoop := A_TickCount
-
     Loop {
         If (!Window.Exist()) {
             Out.I("Running LBR")

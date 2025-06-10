@@ -3,31 +3,32 @@
 #Include ..\Lib\cPoints.ahk
 #Include ..\Lib\Spammers.ahk
 
-Global LeaftonCraftEnabled := true
-Global LeaftonSpamsWind := true
-Global LeaftonBanksEnabled := true
-Global LeaftonRunOnceEnabled := false
-Global BankEnableLGDeposit := true
-Global BankEnableSNDeposit := true
-Global BankEnableEBDeposit := true
-Global BankEnableFFDeposit := true
-Global BankEnableSRDeposit := true
-Global BankEnableQADeposit := true
-Global BankDepositTime := 5
-Global NavigateTime := 150
-Global LeaftonEnableBrewing := true
-Global LeaftonBrewCycleTime := 10
-Global LeaftonBrewCutOffTime := 30
+S.AddSetting("Leafton", "LeaftonCraftEnabled", true, "bool")
+S.AddSetting("Leafton", "LeaftonSpamsWind", true, "bool")
+S.AddSetting("Leafton", "LeaftonBanksEnabled", true, "bool")
+S.AddSetting("Leafton", "LeaftonRunOnceEnabled", false, "bool")
+S.AddSetting("Leafton", "LeaftonEnableBrewing", false, "bool")
+S.AddSetting("Leafton", "LeaftonBrewCycleTime", 10, "int")
+S.AddSetting("Leafton", "LeaftonBrewCutOffTime", 30, "int")
 
 fLeaftonTaxi() {
-    Global BankDepositTime
+    NavigateTime := S.Get("NavigateTime")
+    LeaftonBanksEnabled := S.Get("LeaftonBanksEnabled")
+    LeaftonCraftEnabled := S.Get("LeaftonCraftEnabled")
+    LeaftonSpamsWind := S.Get("LeaftonSpamsWind")
+    LeaftonRunOnceEnabled := S.Get("LeaftonRunOnceEnabled")
+    LeaftonEnableBrewing := S.Get("LeaftonEnableBrewing")
+    LeaftonBrewCycleTime := S.Get("LeaftonBrewCycleTime")
+    LeaftonBrewCutOffTime := S.Get("LeaftonBrewCutOffTime")
+    BankDepositTime := S.Get("BankDepositTime")
+    
     ; If user set 0 in gui without adding a fraction, make at least 1 second
     If (BankDepositTime = 0) {
         BankDepositTime := 0.017
     }
     GoToAnteLeafton()
     starttime := A_Now
-    If (LeaftonSpamsWind) {
+    If (S.Get("LeaftonSpamsWind")) {
         Spammer.LeaftonStart()
     }
     centerCoord := Points.Leafton.Center
@@ -140,11 +141,13 @@ fLeaftonTaxi() {
     }
     Spammer.KillLeafton()
     If (StopRunning) {
-        cReload()
+        Reload()
     }
 }
 
 LeaftonTaxiSinglePassStart() {
+    NavigateTime := S.Get("NavigateTime")
+    LeaftonSpamsWind := S.Get("LeaftonSpamsWind")
     GoToAnteLeafton()
     If (LeaftonSpamsWind) {
         Spammer.LeaftonStart()
@@ -158,6 +161,7 @@ LeaftonTaxiSinglePassEnd() {
 }
 
 LeaftonTaxiSinglePass() {
+    NavigateTime := S.Get("NavigateTime")
     centerCoord := Points.Leafton.Center
     startCoord := Points.Leafton.Start
     If (!Window.IsActive()) {

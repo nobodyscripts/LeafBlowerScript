@@ -24,17 +24,19 @@
 #Include ..\Navigate\Zones\Header.ahk
 #Include ..\Shop\Header.ahk
 
-Global DisableZoneChecks := false
-Global NavigateTime := 150
+S.AddSetting("Default", "DisableZoneChecks", false, "Bool")
+S.AddSetting("Default", "NavigateTime", 150, "Int")
 
 GoToGF() {
+    NavigateTime := S.Get("NavigateTime")
+    /** @type {cLBRButton} */
+    FlameBrazierBtn := cLBRButton(1680, 947)
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
     }
-    Global DisableZoneChecks
     i := 0
-    If (!DisableZoneChecks) {
+    If (!S.Get("DisableZoneChecks")) {
         While (!IsAreaSampleColour("0x121328") && i <= 4) {
             If (!Window.IsActive()) {
                 Out.I("No window found while trying to travel.")
@@ -45,7 +47,7 @@ GoToGF() {
 
             ; Open Flame Brazier (GF zone)
             ; TODO Move point to Points
-            fSlowClickRelL(1680, 947, NavigateTime)
+            FlameBrazierBtn.ClickOffset(, , NavigateTime)
 
             ; Need a longer delay to load the slower map
             If (NavigateTime > 201) {
@@ -65,9 +67,10 @@ GoToGF() {
             " with slowed times.")
         ; TODO Replace below with travel and move to Points
         Travel.OpenAreasFireFields(200)
-        fSlowClickRelL(1680, 947, NavigateTime + 200) ; Open Flame Brazier (GF zone)
+        ; Open Flame Brazier (GF zone)
+        FlameBrazierBtn.ClickOffset(, , NavigateTime + 200)
         Sleep(NavigateTime + 200)
-        If (DisableZoneChecks) {
+        If (S.Get("DisableZoneChecks")) {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
@@ -83,13 +86,16 @@ GoToGF() {
 }
 
 GoToSS() {
+    NavigateTime := S.Get("NavigateTime")
+    /** @type {cLBRButton} */
+    FlameUniverseBtn := cLBRButton(1680, 988)
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
     }
-    Global DisableZoneChecks
+
     i := 0
-    If (!DisableZoneChecks) {
+    If (!S.Get("DisableZoneChecks")) {
         While (!IsAreaSampleColour("0x17190F") && i <= 4) {
             If (!Window.IsActive()) {
                 Out.I("No window found while trying to travel.")
@@ -99,7 +105,8 @@ GoToSS() {
             ; TODO Replace below with travel and move to Points
             Travel.OpenAreasFireFields()
             Travel.ScrollAmountDown(2, NavigateTime)
-            fSlowClickRelL(1680, 988, NavigateTime) ; Open Flame Universe (SS zone)
+            ; Open Flame Universe (SS zone)
+            FlameUniverseBtn.ClickOffset(, , NavigateTime)
             If (NavigateTime > 201) { ; Need a longer delay to load the slower map
                 Sleep(NavigateTime)
             } Else {
@@ -118,9 +125,10 @@ GoToSS() {
         ; TODO Replace below with travel and move to Points
         Travel.OpenAreasFireFields(200)
         Travel.ScrollAmountDown(2, NavigateTime + 200)
-        fSlowClickRelL(1680, 988, NavigateTime + 200) ; Open Flame Universe (SS zone)
+        ; Open Flame Universe (SS zone)
+        FlameUniverseBtn.ClickOffset(, , NavigateTime + 200)
         Sleep(NavigateTime + 200)
-        If (DisableZoneChecks) {
+        If (S.Get("DisableZoneChecks")) {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
@@ -136,13 +144,15 @@ GoToSS() {
 }
 
 GoToShadowCavern() {
+    NavigateTime := S.Get("NavigateTime")
+    /** @type {cLBRButton} */
+    ShadowCavernBtn := cLBRButton(1670, 320)
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
     }
-    Global DisableZoneChecks
     i := 0
-    If (!DisableZoneChecks) {
+    If (!S.Get("DisableZoneChecks")) {
         While (!IsAreaSampleColour("0x260000") && i <= 4) {
             If (!Window.IsActive()) {
                 Out.I("No window found while trying to travel.")
@@ -152,7 +162,7 @@ GoToShadowCavern() {
             ; TODO Replace below with travel and move to Points
             Travel.OpenAreasFireFields()
             ; Go to shadow cavern
-            fSlowClickRelL(1670, 320, NavigateTime)
+            ShadowCavernBtn.ClickOffset(, , NavigateTime)
             ; Need a longer delay to load the slower map
             If (NavigateTime > 201) {
                 Sleep(NavigateTime)
@@ -170,9 +180,10 @@ GoToShadowCavern() {
             " times.")
         ; TODO Replace below with travel and move to Points
         Travel.OpenAreasFireFields(200)
-        fSlowClickRelL(1670, 320, NavigateTime + 200) ; Go to shadow cavern
+        ; Go to shadow cavern
+        ShadowCavernBtn.ClickOffset(, , NavigateTime + 200)
         Sleep(NavigateTime + 200)
-        If (DisableZoneChecks) {
+        If (S.Get("DisableZoneChecks")) {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
@@ -187,6 +198,7 @@ GoToShadowCavern() {
 }
 
 GotoResetSS() {
+    NavigateTime := S.Get("NavigateTime")
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
@@ -203,6 +215,7 @@ GotoResetSS() {
 }
 
 ResetSS() {
+    NavigateTime := S.Get("NavigateTime")
     GotoResetSS()
     ; Reset SpectralSeeker
     button := Points.Areas.FireFields.ResetSS
@@ -212,6 +225,7 @@ ResetSS() {
 }
 
 ResetGF() {
+    NavigateTime := S.Get("NavigateTime")
     GotoResetSS()
     ; Reset Green Flame
     button := Points.Areas.FireFields.ResetGF
@@ -221,13 +235,13 @@ ResetGF() {
 }
 
 GoToNatureBoss() {
+    NavigateTime := S.Get("NavigateTime")
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
     }
-    Global DisableZoneChecks
     i := 0
-    If (!DisableZoneChecks) {
+    If (!S.Get("DisableZoneChecks")) {
         While (!IsAreaSampleColour("0x090B10") && i <= 4) {
             If (!Window.IsActive()) {
                 Out.I("No window found while trying to travel.")
@@ -266,7 +280,7 @@ GoToNatureBoss() {
             Return false
         }
         Sleep(NavigateTime + 200)
-        If (DisableZoneChecks) {
+        If (S.Get("DisableZoneChecks")) {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
@@ -295,14 +309,14 @@ NatureBossButtonClick() {
 }
 
 GoToCheeseBoss() {
+    NavigateTime := S.Get("NavigateTime")
     button := Points.Areas.Events.CursedHalloween
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
     }
-    Global DisableZoneChecks
     i := 0
-    If (!DisableZoneChecks) {
+    If (!S.Get("DisableZoneChecks")) {
         While (!IsAreaSampleColour("0x150412") && i <= 4) {
             If (!Window.IsActive()) {
                 Out.I("No window found while trying to travel.")
@@ -339,7 +353,7 @@ GoToCheeseBoss() {
             Return false
         }
         Sleep(NavigateTime + 200)
-        If (DisableZoneChecks) {
+        If (S.Get("DisableZoneChecks")) {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
@@ -354,16 +368,16 @@ GoToCheeseBoss() {
 }
 
 GoToFarmField() {
+    NavigateTime := S.Get("NavigateTime")
     button := Points.Areas.Events.FarmField
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
     }
-    Global DisableZoneChecks
     ; Of course i get this working then find a better way
     i := 0
     ; This ones messy because the colour matches home garden
-    If (!DisableZoneChecks) {
+    If (!S.Get("DisableZoneChecks")) {
         Out.I("Traveling to Farm Field")
         ; If farmfields we'll see the green + timer
         If (IsAreaSampleColour("0x4A9754") && IsBossTimerActive()) {
@@ -412,7 +426,7 @@ GoToFarmField() {
         ; Open farm field
         button.Click(NavigateTime + 200)
         Sleep(NavigateTime + 200)
-        If (DisableZoneChecks) {
+        If (S.Get("DisableZoneChecks")) {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
@@ -427,14 +441,14 @@ GoToFarmField() {
 }
 
 GoToAstralOasis() {
+    NavigateTime := S.Get("NavigateTime")
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
     }
-    Global DisableZoneChecks
     i := 0
     button := Points.Areas.QuarkAmbit.AstralOasis
-    If (!DisableZoneChecks) {
+    If (!S.Get("DisableZoneChecks")) {
         While (!IsAreaSampleColour("0x000108") && i <= 4) {
             If (!Window.IsActive()) {
                 Out.I("No window found while trying to travel.")
@@ -465,7 +479,7 @@ GoToAstralOasis() {
             button.ClickOffset(5, 37, NavigateTime + 200)
         }
         Sleep(NavigateTime + 200)
-        If (DisableZoneChecks) {
+        If (S.Get("DisableZoneChecks")) {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
@@ -481,14 +495,14 @@ GoToAstralOasis() {
 }
 
 GoToDimentionalTapestry() {
+    NavigateTime := S.Get("NavigateTime")
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
     }
-    Global DisableZoneChecks
     i := 0
     button := Points.Areas.Events.DimentionalTapestry
-    If (!DisableZoneChecks) {
+    If (!S.Get("DisableZoneChecks")) {
         While (!IsAreaSampleColour("0x37356B") && i <= 4) {
             If (!Window.IsActive()) {
                 Out.I("No window found while trying to travel.")
@@ -518,7 +532,7 @@ GoToDimentionalTapestry() {
             button.ClickOffset(5, 40, NavigateTime + 200)
         }
         Sleep(NavigateTime + 200)
-        If (DisableZoneChecks) {
+        If (S.Get("DisableZoneChecks")) {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
@@ -535,15 +549,15 @@ GoToDimentionalTapestry() {
 }
 
 GoToPlankScope() {
+    NavigateTime := S.Get("NavigateTime")
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
     }
-    Global DisableZoneChecks
     i := 0
     button := Points.Areas.Events.PlankScope
     button2 := Points.Areas.Events.PlankScope2
-    If (!DisableZoneChecks) {
+    If (!S.Get("DisableZoneChecks")) {
         While (!IsAreaSampleColour("0x0B1E32") && i <= 4) {
             If (!Window.IsActive()) {
                 Out.I("No window found while trying to travel.")
@@ -574,7 +588,7 @@ GoToPlankScope() {
             button2.ClickOffset(5, , NavigateTime + 200)
         }
         Sleep(NavigateTime + 200)
-        If (DisableZoneChecks) {
+        If (S.Get("DisableZoneChecks")) {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
@@ -590,6 +604,7 @@ GoToPlankScope() {
 }
 
 SingleAnteLeaftonTravel(extradelay := 0) {
+    NavigateTime := S.Get("NavigateTime")
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
@@ -613,9 +628,8 @@ GoToAnteLeafton() {
         Out.I("No window found while trying to travel.")
         Return false
     }
-    Global DisableZoneChecks
     i := 0
-    If (!DisableZoneChecks) {
+    If (!S.Get("DisableZoneChecks")) {
         While (!IsAreaBlack() || !IsBossTimerActive() && i <= 4) {
             If (!SingleAnteLeaftonTravel()) {
                 Return false
@@ -631,7 +645,7 @@ GoToAnteLeafton() {
         Out.I("Traveling to Ante Leafton. Attempt to blind travel"
             " with slowed times.")
         SingleAnteLeaftonTravel(200)
-        If (DisableZoneChecks) {
+        If (S.Get("DisableZoneChecks")) {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
@@ -647,14 +661,14 @@ GoToAnteLeafton() {
 }
 
 GotoCardsFirstTab() {
+    NavigateTime := S.Get("NavigateTime")
     If (!Window.IsActive()) {
         Out.I("No window found while trying to travel.")
         Return false
     }
-    Global DisableZoneChecks
     i := 0
     button := Points.Card.Tab.Packs
-    If (!DisableZoneChecks) {
+    If (!S.Get("DisableZoneChecks")) {
         While (!Shops.Cards.IsOnPacks() && Window.IsActive() && i <= 4) {
             If (!Window.IsActive()) {
                 Out.I("No window found while trying to travel.")
@@ -681,7 +695,7 @@ GotoCardsFirstTab() {
         button.Click(NavigateTime + 200)
         ; Open first tab incase wrong tab
         Sleep(NavigateTime + 200)
-        If (DisableZoneChecks) {
+        If (S.Get("DisableZoneChecks")) {
             ; Checks are disabled so blindly trust we reached zone
             Return true
         }
@@ -741,8 +755,8 @@ IsAreaBlack() {
  * Quick window handle for all the ulc test functions
  */
 UlcWindow() {
-    If (!Window.Activate()) {
-        cReload()
+    If (!Window.StartOrReload()) {
+        Reload()
         Return
     }
 }

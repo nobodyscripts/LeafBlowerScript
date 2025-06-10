@@ -2,7 +2,7 @@
 
 #Include Navigate.ahk
 #Include cZone.ahk
-#Include Functions.ahk
+#Include Misc.ahk
 
 /** @type {cTravel} */
 Global Travel := cTravel()
@@ -567,6 +567,7 @@ Class cTravel {
      * @param {Integer} delay Extra delay to apply to NavigateTime
      */
     _OpenAny(action, test, delay := 0) {
+        NavigateTime := S.Get("NavigateTime")
         NavTime := NavigateTime + delay
         If (NavTime < 72) {
             NavTime := 72
@@ -574,7 +575,7 @@ Class cTravel {
         this.ClosePanelIfActive()
         action() ; Open location in func
         Window.AwaitPanel()
-        Out.V("Panel opened " BinaryToStr(Window.IsPanel()))
+        Out.V("Panel opened " BinToStr(Window.IsPanel()))
         i := 0
         While (!test() && i <= 4) {
             action() ; Open location in func
@@ -588,12 +589,13 @@ Class cTravel {
     ;@region ResetScroll()
     /**
      * Swap tabs to reset scroll state in areas panel
-     * @param {cPoint} Button1 
-     * @param {cPoint} Button2 
+     * @param {cLBRButton} Button1 
+     * @param {cLBRButton} Button2 
      * @param {Integer} [delay=0] Extra delay to apply to NavigateTime
      * @returns {Integer} 
      */
     ResetScroll(Button1, Button2, delay := 0) {
+        NavigateTime := S.Get("NavigateTime")
         NavTime := NavigateTime + delay
         Button1.WaitUntilActiveButtonS(3)
         Out.V("Resetting panel scroll")
@@ -629,6 +631,7 @@ Class cTravel {
      * @param {number} [extraDelay=0] Add ms to the sleep timers
      */
     ScrollAmountDown(amount := 1, extraDelay := 0) {
+        NavigateTime := S.Get("NavigateTime")
         While (amount >= 7) {
             If (!Window.IsActive() || !Window.IsPanel()) {
                 Break
@@ -661,6 +664,7 @@ Class cTravel {
      * @param {number} [extraDelay=0] Add ms to the sleep timers
      */
     ScrollAmountUp(amount := 1, extraDelay := 0) {
+        NavigateTime := S.Get("NavigateTime")
         While (amount >= 7) {
             If (!Window.IsActive() || !Window.IsPanel()) {
                 Break
@@ -826,7 +830,7 @@ Class cTravel {
         }
         Return false
     }
-    ;@endregion 
+    ;@endregion
 
     ;@region OpenAreasEvents()
     /**
@@ -866,6 +870,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenSettings(reset := false) {
+        NavigateTime := S.Get("NavigateTime")
         Out.V("OpenSettings")
         this.ClosePanelIfActive()
         GameKeys.ClosePanel()
@@ -883,6 +888,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     ClosePanel() {
+        NavigateTime := S.Get("NavigateTime")
         GameKeys.ClosePanel()
         Sleep(NavigateTime)
         Return Window.IsPanel()

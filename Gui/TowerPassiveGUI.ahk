@@ -1,75 +1,76 @@
 #Requires AutoHotkey v2.0
 
 Button_Click_TowerPassive(thisGui, info) {
-    Global settings, TowerPassiveBanksEnabled, TowerPassiveCraftEnabled,
-        TowerPassiveTravelEnabled
+    TowerPassiveBanksEnabled := S.Get("TowerPassiveBanksEnabled")
+    TowerPassiveCraftEnabled := S.Get("TowerPassiveCraftEnabled")
+    TowerPassiveTravelEnabled := S.Get("TowerPassiveTravelEnabled")
+    GuiBGColour := S.Get("GuiBGColour")
 
-    /** @type {GUI} */
-    optionsGUI := Gui(, "Tower Passive Mode Settings")
-    optionsGUI.Opt("")
-    SetFontOptions(optionsGUI)
+    /** @type {cGUI} */
+    MyGui := cGui(, "Tower Passive Mode Settings")
+    MyGui.Opt("")
+    MyGui.SetUserFontSettings()
 
     If (TowerPassiveBanksEnabled = true) {
-        optionsGUI.Add("CheckBox", "vTowerPassiveBanksEnabled checked",
+        MyGui.Add("CheckBox", "vTowerPassiveBanksEnabled checked",
             "Enable Banks")
     } Else {
-        optionsGUI.Add("CheckBox", "vTowerPassiveBanksEnabled",
+        MyGui.Add("CheckBox", "vTowerPassiveBanksEnabled",
             "Enable Banks")
     }
 
     If (TowerPassiveCraftEnabled = true) {
-        optionsGUI.Add("CheckBox", "vTowerPassiveCraftEnabled checked",
+        MyGui.Add("CheckBox", "vTowerPassiveCraftEnabled checked",
             "Enable Crafting")
     } Else {
-        optionsGUI.Add("CheckBox", "vTowerPassiveCraftEnabled",
+        MyGui.Add("CheckBox", "vTowerPassiveCraftEnabled",
             "Enable Crafting")
     }
 
     If (TowerPassiveTravelEnabled = true) {
-        optionsGUI.Add("CheckBox", "vTowerPassiveTravelEnabled checked",
+        MyGui.Add("CheckBox", "vTowerPassiveTravelEnabled checked",
             "Enable Travel to zone")
     } Else {
-        optionsGUI.Add("CheckBox", "vTowerPassiveTravelEnabled",
+        MyGui.Add("CheckBox", "vTowerPassiveTravelEnabled",
             "Enable Travel to zone")
     }
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunTowerPassive
+    MyGui.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunTowerPassive
     )
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessTowerPassiveSettings)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseTowerPassiveSettings)
 
-    optionsGUI.AddText("w180 h1", "")
+    MyGui.AddText("w180 h1", "")
 
-    ShowGUIPosition(optionsGUI)
-    MakeGUIResizableIfOversize(optionsGUI)
-    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
-    OnMessage(0x0003, SaveGUIPositionOnMove)
+    MyGui.ShowGUIPosition()
+    MyGui.MakeGUIResizableIfOversize()
+    MyGui.OnEvent("Size", MyGui.SaveGUIPositionOnResize.Bind(MyGui))
+    OnMessage(0x0003, MyGui.SaveGUIPositionOnMove.Bind(MyGui))
 
     ProcessTowerPassiveSettings(*) {
         Temp := thisGui.Gui
         Saving := SavingGUI()
-        optionsGUI.Hide()
+        MyGui.Hide()
         Temp.Hide()
         Saving.Show()
-        values := optionsGUI.Submit()
-        TowerPassiveBanksEnabled := values.TowerPassiveBanksEnabled
-        TowerPassiveCraftEnabled := values.TowerPassiveCraftEnabled
-        TowerPassiveTravelEnabled := values.TowerPassiveTravelEnabled
-        settings.SaveCurrentSettings()
+        values := MyGui.Submit()
+        S.Set("TowerPassiveBanksEnabled", values.TowerPassiveBanksEnabled)
+        S.Set("TowerPassiveCraftEnabled", values.TowerPassiveCraftEnabled)
+        S.Set("TowerPassiveTravelEnabled", values.TowerPassiveTravelEnabled)
+        S.SaveCurrentSettings()
         Saving.Hide()
         Temp.Show()
-        optionsGUI.Show()
+        MyGui.Show()
     }
 
     RunTowerPassive(*) {
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         fTowerPassiveStart()
     }
 
     CloseTowerPassiveSettings(*) {
-        optionsGUI.Hide()
+        MyGui.Hide()
     }
 }

@@ -1,299 +1,297 @@
 #Requires AutoHotkey v2.0
 
-/**
- * 
- * @param thisGui 
- * @param info 
- */
 Button_Click_FishingChallenge(thisGui, info) {
+
+    FishChlCatchingDelay := S.Get("FishChlCatchingDelay")
+    FishChlCatchingSearch := S.Get("FishChlCatchingSearch")
+    FishChlEnableShopUpgrade := S.Get("FishChlEnableShopUpgrade")
+    FishChlEnableUpgradeRods := S.Get("FishChlEnableUpgradeRods")
+    FishChlEnableTransmute := S.Get("FishChlEnableTransmute")
+    FishChlEnableJourneyCollect := S.Get("FishChlEnableJourneyCollect")
+    FishChlTimerShopUpgrade := S.Get("FishChlTimerShopUpgrade")
+    FishChlTimerUpgradeRods := S.Get("FishChlTimerUpgradeRods")
+    FishChlTimerTransmute := S.Get("FishChlTimerTransmute")
+    FishChlTimerJourneyCollect := S.Get("FishChlTimerJourneyCollect")
+    FishChlTransmuteTtoFC := S.Get("FishChlTransmuteTtoFC")
+    FishChlTransmuteFCtoCry := S.Get("FishChlTransmuteFCtoCry")
+    FishChlTransmuteCrytoA := S.Get("FishChlTransmuteCrytoA")
+    FishChlTransmuteFCtoT := S.Get("FishChlTransmuteFCtoT")
+    FishChlTransmuteCrytoFC := S.Get("FishChlTransmuteCrytoFC")
+    FishChlTransmuteAtoCry := S.Get("FishChlTransmuteAtoCry")
+    FishChlAmount := S.Get("FishChlAmount")
+
+    GuiBGColour := S.Get("GuiBGColour")
+
     /** @type {GuiControl} */
     thisGui := thisGui
-    Global Settings
 
-    Global FishChlCatchingDelay, FishChlCatchingSearch, FishChlAmount
-
-    Global FishChlEnableShopUpgrade, FishChlEnableUpgradeRods,
-        FishChlEnableTransmute, FishChlEnableJourneyCollect
-
-    Global FishChlTimerShopUpgrade, FishChlTimerUpgradeRods,
-        FishChlTimerTransmute, FishChlTimerJourneyCollect
-
-    Global FishChlTransmuteTtoFC, FishChlTransmuteFCtoCry,
-        FishChlTransmuteCrytoA, FishChlTransmuteFCtoT,
-        FishChlTransmuteCrytoFC, FishChlTransmuteAtoCry
-
-    /** @type {GUI} */
-    optionsGUI := Gui(, "Fishing Challenge Settings")
-    ;optionsGUI.Opt("")
-    SetFontOptions(optionsGUI)
+    /** @type {cGUI} */
+    MyGui := cGui(, "Fishing Challenge Settings")
+    MyGui.SetUserFontSettings()
 
     ;@region Challenge settings
     ;@region Challenge - Fishing
-    optionsGUI.Add("Text", "", "Fish Reeling in delay (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Fish Reeling in delay (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishChlCatchingDelay) && FishChlCatchingDelay > 0) {
-        optionsGUI.Add("UpDown", "vFishChlCatchingDelay Range1-9999",
+        MyGui.Add("UpDown", "vFishChlCatchingDelay Range1-9999",
             FishChlCatchingDelay)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishChlCatchingDelay Range1-9999",
-                Settings.defaultNobodySettings.FishChlCatchingDelay)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishChlCatchingDelay Range1-9999",
+                S.defaultNobodySettings.FishChlCatchingDelay)
         } Else {
-            optionsGUI.Add("UpDown", "vFishChlCatchingDelay Range1-9999",
-                Settings.defaultSettings.FishChlCatchingDelay)
+            MyGui.Add("UpDown", "vFishChlCatchingDelay Range1-9999",
+                S.defaultSettings.FishChlCatchingDelay)
         }
     }
 
     If (FishChlCatchingSearch = true) {
-        optionsGUI.Add("CheckBox", "vFishChlCatchingSearch checked",
+        MyGui.Add("CheckBox", "vFishChlCatchingSearch checked",
             "Enable Search During Challenge")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishChlCatchingSearch",
+        MyGui.Add("CheckBox", "vFishChlCatchingSearch",
             "Enable Search During Challenge")
     }
     ;@endregion
 
-    optionsGUI.Add("Text", "", "---")
+    MyGui.Add("Text", "", "---")
 
     ;@region Challenge - ShopUpgrade
     If (FishChlEnableShopUpgrade = true) {
-        optionsGUI.Add("CheckBox", "vFishChlEnableShopUpgrade checked",
+        MyGui.Add("CheckBox", "vFishChlEnableShopUpgrade checked",
             "Enable Shop Upgrade During Challenge")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishChlEnableShopUpgrade",
+        MyGui.Add("CheckBox", "vFishChlEnableShopUpgrade",
             "Enable Shop Upgrade During Challenge")
     }
-    optionsGUI.Add("Text", "", "Shop Upgrade timer (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Shop Upgrade timer (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishChlTimerShopUpgrade) && FishChlTimerShopUpgrade > 0) {
-        optionsGUI.Add("UpDown", "vFishChlTimerShopUpgrade Range1-9999",
+        MyGui.Add("UpDown", "vFishChlTimerShopUpgrade Range1-9999",
             FishChlTimerShopUpgrade)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishChlTimerShopUpgrade Range1-9999",
-                Settings.defaultNobodySettings.FishChlTimerShopUpgrade)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishChlTimerShopUpgrade Range1-9999",
+                S.defaultNobodySettings.FishChlTimerShopUpgrade)
         } Else {
-            optionsGUI.Add("UpDown", "vFishChlTimerShopUpgrade Range1-9999",
-                Settings.defaultSettings.FishChlTimerShopUpgrade)
+            MyGui.Add("UpDown", "vFishChlTimerShopUpgrade Range1-9999",
+                S.defaultSettings.FishChlTimerShopUpgrade)
         }
     }
     ;@endregion
 
-    optionsGUI.Add("Text", "", "---")
+    MyGui.Add("Text", "", "---")
 
     ;@region Challenge - Rod Upgrade
     If (FishChlEnableUpgradeRods = true) {
-        optionsGUI.Add("CheckBox", "vFishChlEnableUpgradeRods checked",
+        MyGui.Add("CheckBox", "vFishChlEnableUpgradeRods checked",
             "Enable Rod Upgrades During Challenge")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishChlEnableUpgradeRods",
+        MyGui.Add("CheckBox", "vFishChlEnableUpgradeRods",
             "Enable Rod Upgrades During Challenge")
     }
-    optionsGUI.Add("Text", "", "Rod Upgrade timer (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Rod Upgrade timer (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishChlTimerUpgradeRods) && FishChlTimerUpgradeRods > 0) {
-        optionsGUI.Add("UpDown", "vFishChlTimerUpgradeRods Range1-9999",
+        MyGui.Add("UpDown", "vFishChlTimerUpgradeRods Range1-9999",
             FishChlTimerUpgradeRods)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishChlTimerUpgradeRods Range1-9999",
-                Settings.defaultNobodySettings.FishChlTimerUpgradeRods)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishChlTimerUpgradeRods Range1-9999",
+                S.defaultNobodySettings.FishChlTimerUpgradeRods)
         } Else {
-            optionsGUI.Add("UpDown", "vFishChlTimerUpgradeRods Range1-9999",
-                Settings.defaultSettings.FishChlTimerUpgradeRods)
+            MyGui.Add("UpDown", "vFishChlTimerUpgradeRods Range1-9999",
+                S.defaultSettings.FishChlTimerUpgradeRods)
         }
     }
     ;@endregion
 
-    optionsGUI.Add("Text", "", "---")
+    MyGui.Add("Text", "", "---")
 
     ;@region Challenge - Journey Collection
     If (FishChlEnableJourneyCollect = true) {
-        optionsGUI.Add("CheckBox", "vFishChlEnableJourneyCollect checked",
+        MyGui.Add("CheckBox", "vFishChlEnableJourneyCollect checked",
             "Enable Journey Collection During Challenge")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishChlEnableJourneyCollect",
+        MyGui.Add("CheckBox", "vFishChlEnableJourneyCollect",
             "Enable Journey Collection During Challenge")
     }
-    optionsGUI.Add("Text", "", "Journey Collection timer (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Journey Collection timer (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishChlTimerJourneyCollect) && FishChlTimerJourneyCollect > 0) {
-        optionsGUI.Add("UpDown", "vFishChlTimerJourneyCollect Range1-9999",
+        MyGui.Add("UpDown", "vFishChlTimerJourneyCollect Range1-9999",
             FishChlTimerJourneyCollect)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishChlTimerJourneyCollect Range1-9999",
-                Settings.defaultNobodySettings.FishChlTimerJourneyCollect)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishChlTimerJourneyCollect Range1-9999",
+                S.defaultNobodySettings.FishChlTimerJourneyCollect)
         } Else {
-            optionsGUI.Add("UpDown", "vFishChlTimerJourneyCollect Range1-9999",
-                Settings.defaultSettings.FishChlTimerJourneyCollect)
+            MyGui.Add("UpDown", "vFishChlTimerJourneyCollect Range1-9999",
+                S.defaultSettings.FishChlTimerJourneyCollect)
         }
     }
     ;@endregion
 
-    optionsGUI.Add("Text", "", "---")
+    MyGui.Add("Text", "", "---")
 
     ;@region Challenge - Transmute
     If (FishChlEnableTransmute = true) {
-        optionsGUI.Add("CheckBox", "vFishChlEnableTransmute checked",
+        MyGui.Add("CheckBox", "vFishChlEnableTransmute checked",
             "Enable Custom Transmute During Challenge")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishChlEnableTransmute",
+        MyGui.Add("CheckBox", "vFishChlEnableTransmute",
             "Enable Custom Transmute During Challenge")
     }
-    optionsGUI.Add("Text", "", "Transmute timer (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Transmute timer (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishChlTimerTransmute) && FishChlTimerTransmute > 0) {
-        optionsGUI.Add("UpDown", "vFishChlTimerTransmute Range1-9999",
+        MyGui.Add("UpDown", "vFishChlTimerTransmute Range1-9999",
             FishChlTimerTransmute)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishChlTimerTransmute Range1-9999",
-                Settings.defaultNobodySettings.FishChlTimerTransmute)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishChlTimerTransmute Range1-9999",
+                S.defaultNobodySettings.FishChlTimerTransmute)
         } Else {
-            optionsGUI.Add("UpDown", "vFishChlTimerTransmute Range1-9999",
-                Settings.defaultSettings.FishChlTimerTransmute)
+            MyGui.Add("UpDown", "vFishChlTimerTransmute Range1-9999",
+                S.defaultSettings.FishChlTimerTransmute)
         }
     }
 
     If (FishChlTransmuteTtoFC = true) {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteTtoFC checked",
+        MyGui.Add("CheckBox", "vFishChlTransmuteTtoFC checked",
             "Enable Transmute Trash to Fish Credits")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteTtoFC",
+        MyGui.Add("CheckBox", "vFishChlTransmuteTtoFC",
             "Enable Transmute Trash to Fish Credits")
     }
     If (FishChlTransmuteFCtoCry = true) {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteFCtoCry checked",
+        MyGui.Add("CheckBox", "vFishChlTransmuteFCtoCry checked",
             "Enable Transmute Fish Credits to Crystal")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteFCtoCry",
+        MyGui.Add("CheckBox", "vFishChlTransmuteFCtoCry",
             "Enable Transmute Fish Credits to Crystal")
     }
     If (FishChlTransmuteCrytoA = true) {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteCrytoA checked",
+        MyGui.Add("CheckBox", "vFishChlTransmuteCrytoA checked",
             "Enable Transmute Crystal to Advanced Crystal")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteCrytoA",
+        MyGui.Add("CheckBox", "vFishChlTransmuteCrytoA",
             "Enable Transmute Crystal to Advanced Crystal")
     }
     If (FishChlTransmuteFCtoT = true) {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteFCtoT checked",
+        MyGui.Add("CheckBox", "vFishChlTransmuteFCtoT checked",
             "Enable Transmute Fish Credits to Trash")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteFCtoT",
+        MyGui.Add("CheckBox", "vFishChlTransmuteFCtoT",
             "Enable Transmute Fish Credits to Trash")
     }
     If (FishChlTransmuteCrytoFC = true) {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteCrytoFC checked",
+        MyGui.Add("CheckBox", "vFishChlTransmuteCrytoFC checked",
             "Enable Transmute Crystal to Fish Credits")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteCrytoFC",
+        MyGui.Add("CheckBox", "vFishChlTransmuteCrytoFC",
             "Enable Transmute Crystal to Fish Credits")
     }
     If (FishChlTransmuteAtoCry = true) {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteAtoCry checked",
+        MyGui.Add("CheckBox", "vFishChlTransmuteAtoCry checked",
             "Enable Transmute Advanced Crystal to Crystal")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishChlTransmuteAtoCry",
+        MyGui.Add("CheckBox", "vFishChlTransmuteAtoCry",
             "Enable Transmute Advanced Crystal to Crystal")
     }
     ;@endregion
     ;@endregion
 
-    optionsGUI.Add("Text", "", "Challenge Run Amount:")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Challenge Run Amount:")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishChlAmount) && FishChlAmount > 0) {
-        optionsGUI.Add("UpDown", "vFishChlAmount Range1-9999",
+        MyGui.Add("UpDown", "vFishChlAmount Range1-9999",
             FishChlAmount)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishChlAmount Range1-9999",
-                Settings.defaultNobodySettings.FishChlAmount)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishChlAmount Range1-9999",
+                S.defaultNobodySettings.FishChlAmount)
         } Else {
-            optionsGUI.Add("UpDown", "vFishChlAmount Range1-9999",
-                Settings.defaultSettings.FishChlAmount)
+            MyGui.Add("UpDown", "vFishChlAmount Range1-9999",
+                S.defaultSettings.FishChlAmount)
         }
     }
 
-
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run Once").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default", "Run Once").OnEvent("Click",
         RunFishChallengeSingle)
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " yp", "Run Looped").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " yp", "Run Looped").OnEvent("Click",
         RunFishChallengeLoop)
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " yp", "Run User Amount").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " yp", "Run User Amount").OnEvent("Click",
         RunFishChallengeAmount)
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " yp", "Save").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " yp", "Save").OnEvent("Click",
         ProcessFishChlSettings)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " yp", "Cancel").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " yp", "Cancel").OnEvent("Click",
         CloseFishChlSettings)
 
     ;@endregion
 
-    ShowGUIPosition(optionsGUI)
-    MakeGUIResizableIfOversize(optionsGUI)
-    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
-    OnMessage(0x0003, SaveGUIPositionOnMove)
+    MyGui.ShowGUIPosition()
+    MyGui.MakeGUIResizableIfOversize()
+    MyGui.OnEvent("Size", MyGui.SaveGUIPositionOnResize.Bind(MyGui))
+    OnMessage(0x0003, MyGui.SaveGUIPositionOnMove.Bind(MyGui))
 
     ProcessFishChlSettings(*) {
         Temp := thisGui.Gui
         Saving := SavingGUI()
-        optionsGUI.Hide()
+        MyGui.Hide()
         Temp.Hide()
         Saving.Show()
         FishChlSave()
         Saving.Hide()
         Temp.Show()
-        optionsGUI.Show()
+        MyGui.Show()
     }
 
     RunFishChallengeSingle(thisGui, info) {
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         FishingChallenge().StartLoop()
     }
 
     RunFishChallengeLoop(thisGui, info) {
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         FishingChallenge().StartLoop()
     }
 
     RunFishChallengeAmount(thisGui, info) {
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         FishingChallenge().StartLoop()
     }
 
     CloseFishChlSettings(*) {
-        optionsGUI.Hide()
+        MyGui.Hide()
     }
 
     FishChlSave() {
-        values := optionsGUI.Submit()
+        values := MyGui.Submit()
 
-        FishChlCatchingDelay := values.FishChlCatchingDelay
-        FishChlCatchingSearch := values.FishChlCatchingSearch
-        FishChlEnableShopUpgrade := values.FishChlEnableShopUpgrade
-        FishChlEnableUpgradeRods := values.FishChlEnableUpgradeRods
-        FishChlEnableTransmute := values.FishChlEnableTransmute
-        FishChlEnableJourneyCollect := values.FishChlEnableJourneyCollect
-        FishChlTimerShopUpgrade := values.FishChlTimerShopUpgrade
-        FishChlTimerUpgradeRods := values.FishChlTimerUpgradeRods
-        FishChlTimerTransmute := values.FishChlTimerTransmute
-        FishChlTimerJourneyCollect := values.FishChlTimerJourneyCollect
-        FishChlTransmuteTtoFC := values.FishChlTransmuteTtoFC
-        FishChlTransmuteFCtoCry := values.FishChlTransmuteFCtoCry
-        FishChlTransmuteCrytoA := values.FishChlTransmuteCrytoA
-        FishChlTransmuteFCtoT := values.FishChlTransmuteFCtoT
-        FishChlTransmuteCrytoFC := values.FishChlTransmuteCrytoFC
-        FishChlTransmuteAtoCry := values.FishChlTransmuteAtoCry
-        FishChlAmount := values.FishChlAmount
+        S.Set("FishChlCatchingDelay", values.FishChlCatchingDelay)
+        S.Set("FishChlCatchingSearch", values.FishChlCatchingSearch)
+        S.Set("FishChlEnableShopUpgrade", values.FishChlEnableShopUpgrade)
+        S.Set("FishChlEnableUpgradeRods", values.FishChlEnableUpgradeRods)
+        S.Set("FishChlEnableTransmute", values.FishChlEnableTransmute)
+        S.Set("FishChlEnableJourneyCollect", values.FishChlEnableJourneyCollect)
+        S.Set("FishChlTimerShopUpgrade", values.FishChlTimerShopUpgrade)
+        S.Set("FishChlTimerUpgradeRods", values.FishChlTimerUpgradeRods)
+        S.Set("FishChlTimerTransmute", values.FishChlTimerTransmute)
+        S.Set("FishChlTimerJourneyCollect", values.FishChlTimerJourneyCollect)
+        S.Set("FishChlTransmuteTtoFC", values.FishChlTransmuteTtoFC)
+        S.Set("FishChlTransmuteFCtoCry", values.FishChlTransmuteFCtoCry)
+        S.Set("FishChlTransmuteCrytoA", values.FishChlTransmuteCrytoA)
+        S.Set("FishChlTransmuteFCtoT", values.FishChlTransmuteFCtoT)
+        S.Set("FishChlTransmuteCrytoFC", values.FishChlTransmuteCrytoFC)
+        S.Set("FishChlTransmuteAtoCry", values.FishChlTransmuteAtoCry)
+        S.Set("FishChlAmount", values.FishChlAmount)
 
-        Settings.SaveCurrentSettings()
+        S.SaveCurrentSettings()
     }
 }
 

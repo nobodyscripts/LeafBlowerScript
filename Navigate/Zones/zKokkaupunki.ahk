@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * Kokkaupunki class for zone travel
@@ -25,14 +23,14 @@ Class Kokkaupunki extends Zone {
      * @param {Integer} [extradelay=0] Additional delay to NavigateTime
      */
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
-        
+
         Travel.OpenAreas(true, extradelay)
         this.ScrollAmountDown(28, scrolldelay)
         Sleep(delay + extradelay)
-        /** @type {cPoint} */
-        Btn := cPoint(1687, 483)
+        /** @type {cLBRButton} */
+        Btn := cLBRButton(1687, 483)
         If (Btn.IsButtonActive()) {
-            Btn.ClickButtonActive(,,delay + extradelay)
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
             Out.I("Kokkaupunki not found while trying to travel.")
         }

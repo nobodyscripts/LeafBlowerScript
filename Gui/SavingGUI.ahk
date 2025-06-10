@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0
 
+#Include ..\ScriptLib\cGUI.ahk
+
 /**
  * SavingGUI Description
  * @module SavingGUI
  */
 Class SavingGUI {
-    /** @type {Gui} */
-    SavingGui := Gui()
+    /** @type {cGUI} */
+    SavingGui := cGui()
     /** @type {GuiControl} */
     Bar := ""
 
@@ -15,7 +17,7 @@ Class SavingGUI {
         this.SavingGui.MarginX := 15
         this.SavingGui.MarginY := 15
         this.SavingGui.Opt("-MaximizeBox -MinimizeBox")
-        SetFontOptions(this.SavingGui)
+        this.SavingGui.SetUserFontSettings()
         this.SavingGui.AddText("vText", "Saving please wait..")
 
         this.Bar := this.SavingGui.AddProgress("c2363ec vProgBar")
@@ -34,9 +36,9 @@ Class SavingGUI {
     ;@endregion
 
     IncrementSaveProgress() {
-        if (!this.SavingGui.Enabled) {
+        If (!this.SavingGui.Enabled) {
             SetTimer(, 0)
-            return
+            Return
         }
         this.SavingGui["ProgBar"].value++
         If (this.SavingGui["ProgBar"].value >= 100) {

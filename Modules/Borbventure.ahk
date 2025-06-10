@@ -1,11 +1,14 @@
 ﻿#Requires AutoHotkey v2.0
 
 Global bvAutostartDisabled := false
-Global HaveBorbDLC := false
-Global BVBlockMythLeg := false
+
+S.AddSetting("Borbventures", "HaveBorbDLC", false, "bool")
+S.AddSetting("Borbventures", "BVBlockMythLeg", false, "bool")
+S.AddSetting("Borbventures", "BVItemsArr", "0x018C9C, 0x01D814, 0x0F2A1D, 0x6CD820, 0xC9C9C9", "array")
 
 fBorbVentureJuiceFarm() {
-    Global bvAutostartDisabled, BVBlockMythLeg
+    Global bvAutostartDisabled
+    BVBlockMythLeg := S.Get("BVBlockMythLeg")
 
     If (!Shops.GotoBorbVFirstTab()) {
         Out.I("Borbv: Failed to travel, aborting.")
@@ -26,26 +29,27 @@ fBorbVentureJuiceFarm() {
     Loop {
         If (!Window.IsActive()) {
             Out.I("Borbv: Exiting as no game.")
-            cReload()
+            Reload()
             Return
         }
         If (!Window.IsPanel()) {
             Out.I("Borbv: Did not find panel. Aborted.")
-            cReload()
+            Reload()
             Return
         }
         BVMainLoop()
     }
     If (bvAutostartDisabled = true && !IsBVAutoStartOn()) {
         ; TODO Move point to Points
-        cPoint(591, 1100).Click()
+        cLBRButton(591, 1100).Click()
     }
     Out.I("Borbv: Aborted.")
     ToolTip()
 }
 
 BVMainLoop() {
-    Global HaveBorbDLC, BVBlockMythLeg
+    HaveBorbDLC := S.Get("HaveBorbDLC")
+    BVBlockMythLeg := S.Get("BVBlockMythLeg")
     ; Check for any finished items in view and collect them
     ; Not really needed now but not much harm to leave going 586 1098
     Loop 6 {
@@ -70,8 +74,8 @@ BVMainLoop() {
         If (arrowY && Window.IsActive()) {
             arrowCount++
             ; If slot is active, we don't care what it is
-            StartButton := cPoint(Window.RelW(1855), arrowY, false)
-            CancelButton := cPoint(Window.RelW(2100), arrowY, false)
+            StartButton := cLBRButton(Window.RelW(1855), arrowY, false)
+            CancelButton := cLBRButton(Window.RelW(2100), arrowY, false)
             If (StartButton.IsBackground() && !CancelButton.IsBackground()) {
                 ; If slots cancel button exists, assume active. This lets us
                 ; pause refreshing until something new happens to avoid wastage
@@ -122,7 +126,7 @@ BVMainLoop() {
             }
         }
     }
-    If (Debug) {
+    If (S.Get("DebugAll")) {
         ToolTip("Found " . activeSlots . " active slots`n"
             "Detailed mode " detailedMode ", Dlc " HaveBorbDLC ", Arrows " arrowCount ", Target items " targetItemsYArray
             .Length, Window.W / 2.2, Window.H / 6.5, 1)
@@ -149,7 +153,7 @@ AreBVSlotsAvailable(detailedMode, HaveBorbDLC, activeSlots, started) {
 
 BVStartItemFromSlot(SlotY) {
     Out.D("Attempting to start bv on slot with y " SlotY)
-    StartButton := cPoint(Window.RelW(1864), SlotY, false)
+    StartButton := cLBRButton(Window.RelW(1864), SlotY, false)
     If (SlotY != 0 && Window.IsActive() && StartButton.IsButtonInactive()) {
         ; Don't try to start more if we're full even if another is
         ; detected
@@ -158,7 +162,7 @@ BVStartItemFromSlot(SlotY) {
         ; Click team slot 1
         bvSleepTime := 72
         ; Click team slot 1
-        BorbSlot1 := cPoint(Window.RelW(1608), SlotY, false)
+        BorbSlot1 := cLBRButton(Window.RelW(1608), SlotY, false)
         BorbSlot1.ClickOffset(2, 0, bvSleepTime)
         Sleep(bvSleepTime)
         a := b := c := 0
@@ -168,7 +172,7 @@ BVStartItemFromSlot(SlotY) {
             Sleep(bvSleepTime)
         }
         ; Click team slot 2
-        BorbSlot2 := cPoint(Window.RelW(1728), SlotY, false)
+        BorbSlot2 := cLBRButton(Window.RelW(1728), SlotY, false)
         BorbSlot2.ClickOffset(2, 0, bvSleepTime)
         Sleep(bvSleepTime)
         While (BorbSlot2.IsButtonActive() && b < 2) {
@@ -177,7 +181,7 @@ BVStartItemFromSlot(SlotY) {
             Sleep(bvSleepTime)
         }
         ; Click Start
-        StartButton2 := cPoint(Window.RelW(1850), SlotY, false)
+        StartButton2 := cLBRButton(Window.RelW(1850), SlotY, false)
         StartButton2.ClickOffset(61, 0, bvSleepTime)
         Sleep(bvSleepTime)
         While (StartButton2.IsButtonActive() && c < 2) {
@@ -191,11 +195,13 @@ BVStartItemFromSlot(SlotY) {
 }
 
 BVGetFinishButtonLocation() {
-    col1 := Rects.Borbventures.FinishButtonCol.PixelSearch(Colours().Active)
+    /** @type {cLBRButton} */
+    point := Points.ZoneSample
+    col1 := Rects.Borbventures.FinishButtonCol.PixelSearch(point.Active)
     If (col1 != false) {
         Return col1
     }
-    col2 := Rects.Borbventures.FinishButtonCol.PixelSearch(Colours().ActiveMouseOver
+    col2 := Rects.Borbventures.FinishButtonCol.PixelSearch(point.ActiveMouseOver
     )
     If (col2 != false) {
         Return col2
@@ -212,8 +218,7 @@ BVGetFinishButtonLocation() {
  * @returns {number} 0 if nothing, Y if found, nonrel coord
  */
 BVScanSlotItem(X1, Y1, X2, Y2) {
-    Global BVItemsArr
-
+    BVItemsArr := S.Get("BVItemsArr")
     If (!BVItemsArr.Length) {
         BVItemsArr := [
             "0xF91FF6"
@@ -269,7 +274,7 @@ BVColourToItem(colour) {
  * @returns {string} Returns raw from Pixelgetcolor, can be false
  */
 BVScanSlotRarity(arrowY) {
-    rarity := cPoint(Window.RelW(331), arrowY, false).GetColour()
+    rarity := cLBRButton(Window.RelW(331), arrowY, false).GetColour()
     Out.V("Slot rarity " rarity)
     Return rarity
 }
@@ -277,8 +282,8 @@ BVScanSlotRarity(arrowY) {
 IsBVAutoStartOn() {
     font0 := !Points.Borbventures.AutoStartFont0.IsButtonActive()
     font1 := !Points.Borbventures.AutoStartFont1.IsButtonActive()
-    Out.D("BVAutostart: Font 0 check " BinaryToStr(font0)
-    ", Font 1 check " BinaryToStr(font1))
+    Out.D("BVAutostart: Font 0 check " BinToStr(font0)
+    ", Font 1 check " BinToStr(font1))
     If (font0 || font1) {
         Return false
     }

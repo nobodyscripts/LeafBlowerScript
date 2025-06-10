@@ -4,57 +4,63 @@
 #Include ..\Lib\cRects.ahk
 #Include ..\Lib\Spammers.ahk
 #Include ..\Lib\Navigate.ahk
-#Include ..\Lib\cTimer.ahk
+#Include ..\ScriptLib\cTimer.ahk
 #Include MineMaintainerCaves.ahk
 
-Global MinerEnableVeins := true
-Global MinerEnableVeinRemoval := true
-Global MinerEnableTransmute := true
-Global MinerEnableTransmuteSdia := false
-Global MinerEnableTransmuteFuel := false
-Global MinerEnableTransmuteSphere := false
-Global MinerEnableTransmuteSdiaToCDia := false
-Global MinerEnableFreeRefuel := true
-Global MinerEnableBanks := true
-Global MinerEnableSpammer := true
-Global MinerEnableVeinUpgrade := false
-Global MinerEnableCaves := true
-Global MinerEnableLeafton := true
-
-Global MinerEnableSphereUse := false
-Global MinerSphereDelay := 1000
-Global MinerSphereCount := 0
-Global MinerSphereTimer := 1
-Global MinerSphereModifier := 1
-Global MinerCaveTimer := 5
-
-Global MinerTransmuteTimer := 10
-Global MinerRefuelTimer := 1
-Global NavigateTime := 150
-
-Global BankEnableLGDeposit := true
-Global BankEnableSNDeposit := true
-Global BankEnableEBDeposit := true
-Global BankEnableFFDeposit := true
-Global BankEnableSRDeposit := true
-Global BankEnableQADeposit := true
-Global BankDepositTime := 5
-
-Global MinerColourCodeCommon := "0xA0A0A0"
-Global MinerColourCodeUncommon := "0x326DAB"
-Global MinerColourCodeRare := "0xD3C33F"
-Global MinerColourCodeEpic := "0xB3260A"
-Global MinerColourCodeMythical := "0x9E10C1"
-Global MinerColourCodeLegendary := "0xE1661A"
-
-Global MinerSphereGreedyUse := true
-
-Global MinerEnableBrewing := true
-Global MinerBrewCycleTime := 30
-Global MinerBrewCutOffTime := 20
+S.AddSetting("Miner", "MinerEnableVeins", true, "bool")
+S.AddSetting("Miner", "MinerEnableTransmute", true, "bool")
+S.AddSetting("Miner", "MinerEnableTransmuteSdia", false, "bool")
+S.AddSetting("Miner", "MinerEnableTransmuteFuel", false, "bool")
+S.AddSetting("Miner", "MinerEnableTransmuteSphere", false, "bool")
+S.AddSetting("Miner", "MinerEnableTransmuteSdiaToCDia", false, "bool")
+S.AddSetting("Miner", "MinerEnableFreeRefuel", true, "bool")
+S.AddSetting("Miner", "MinerEnableBanks", true, "bool")
+S.AddSetting("Miner", "MinerEnableSpammer", true, "bool")
+S.AddSetting("Miner", "MinerEnableLeafton", false, "bool")
+S.AddSetting("Miner", "MinerEnableVeinUpgrade", false, "bool")
+S.AddSetting("Miner", "MinerEnableVeinRemoval", false, "bool")
+S.AddSetting("Miner", "MinerEnableSphereUse", false, "bool")
+S.AddSetting("Miner", "MinerEnableCaves", true, "bool")
+S.AddSetting("Miner", "MinerSphereGreedyUse", false, "bool")
+S.AddSetting("Miner", "MinerSphereDelay", 1000, "int")
+S.AddSetting("Miner", "MinerSphereCount", 0, "int")
+S.AddSetting("Miner", "MinerSphereTimer", 1, "int")
+S.AddSetting("Miner", "MinerSphereModifier", 1, "int")
+S.AddSetting("Miner", "MinerTransmuteTimer", 10, "int")
+S.AddSetting("Miner", "MinerRefuelTimer", 1, "int")
+S.AddSetting("Miner", "MinerCaveTimer", 5, "int")
+S.AddSetting("Miner", "MinerEnableBrewing", true, "bool")
+S.AddSetting("Miner", "MinerBrewCycleTime", 30, "int")
+S.AddSetting("Miner", "MinerBrewCutOffTime", 30, "int")
 
 fMineMaintainer() {
-    Global MinerRefuelTimer, MinerSphereTimer, BankDepositTime
+    MinerEnableVeins := S.Get("MinerEnableVeins")
+    MinerEnableTransmute := S.Get("MinerEnableTransmute")
+    MinerEnableTransmuteSdia := S.Get("MinerEnableTransmuteSdia")
+    MinerEnableTransmuteFuel := S.Get("MinerEnableTransmuteFuel")
+    MinerEnableTransmuteSphere := S.Get("MinerEnableTransmuteSphere")
+    MinerEnableTransmuteSdiaToCDia := S.Get("MinerEnableTransmuteSdiaToCDia")
+    MinerEnableFreeRefuel := S.Get("MinerEnableFreeRefuel")
+    MinerEnableBanks := S.Get("MinerEnableBanks")
+    MinerEnableSpammer := S.Get("MinerEnableSpammer")
+    MinerEnableLeafton := S.Get("MinerEnableLeafton")
+    MinerEnableVeinUpgrade := S.Get("MinerEnableVeinUpgrade")
+    MinerEnableVeinRemoval := S.Get("MinerEnableVeinRemoval")
+    MinerEnableSphereUse := S.Get("MinerEnableSphereUse")
+    MinerEnableCaves := S.Get("MinerEnableCaves")
+    MinerSphereGreedyUse := S.Get("MinerSphereGreedyUse")
+    MinerSphereDelay := S.Get("MinerSphereDelay")
+    MinerSphereCount := S.Get("MinerSphereCount")
+    MinerSphereTimer := S.Get("MinerSphereTimer")
+    MinerSphereModifier := S.Get("MinerSphereModifier")
+    MinerTransmuteTimer := S.Get("MinerTransmuteTimer")
+    MinerRefuelTimer := S.Get("MinerRefuelTimer")
+    MinerCaveTimer := S.Get("MinerCaveTimer")
+    MinerEnableBrewing := S.Get("MinerEnableBrewing")
+    MinerBrewCycleTime := S.Get("MinerBrewCycleTime")
+    MinerBrewCutOffTime := S.Get("MinerBrewCutOffTime")
+    BankDepositTime := S.Get("BankDepositTime")
+    NavigateTime := S.Get("NavigateTime")
     If (MinerRefuelTimer = 0) { ; If user set 0 in gui without adding a fraction, make at least 1 second
         MinerRefuelTimer := 0.017
     }
@@ -72,19 +78,19 @@ fMineMaintainer() {
     SphereTime := A_Now
     CavesTime := A_Now
     CurrentTab := 0
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     VeinsTab := Points.Mine.Tab1Vein
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     MinesTab := Points.Mine.Tab2Mines
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     DrillTab := Points.Mine.Tab4Drill
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     ShopTab := Points.Mine.Tab5Shop
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     TransmuteTab := Points.Mine.Tab6Transmute
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     VeinUpgradeButton := Points.Mine.Vein.Upgrade
-    /** @type {cPoint} */
+    /** @type {cLBRButton} */
     CancelConfirm := Points.Mine.Vein.CancelConfirm
     /** @type {Timer} */
     BrewCycleTimer := Timer()
@@ -116,7 +122,7 @@ fMineMaintainer() {
             Out.D("Opening veins tab")
             While (!Shops.Mine.IsOnTabVein() && i <= 4) {
                 If (VeinsTab.IsButton()) {
-                    VeinsTab.ClickOffset(,,NavigateTime)
+                    VeinsTab.ClickOffset(, , NavigateTime)
                     Sleep(NavigateTime)
                 }
                 i++
@@ -147,7 +153,7 @@ fMineMaintainer() {
         If (Window.IsActive() && Window.IsPanel() && Shops.Mine.IsOnTabVein() &&
         VeinUpgradeButton.IsButtonActive() && MinerEnableVeinUpgrade) {
             Out.I("Upgrading vein")
-            VeinUpgradeButton.ClickOffset(,,NavigateTime)
+            VeinUpgradeButton.ClickOffset(, , NavigateTime)
         }
         ;@endregion
 
@@ -160,7 +166,7 @@ fMineMaintainer() {
                 Out.D("Opening transmute tab")
                 While (!Shops.Mine.IsOnTabTrans() && i <= 4) {
                     If (TransmuteTab.IsButton()) {
-                        TransmuteTab.ClickOffset(,,NavigateTime)
+                        TransmuteTab.ClickOffset(, , NavigateTime)
                         Sleep(NavigateTime)
                     }
                     i++
@@ -185,7 +191,7 @@ fMineMaintainer() {
                 Out.D("Opening drill tab")
                 While (!Shops.Mine.IsOnTabDrill() && i <= 4) {
                     If (DrillTab.IsButton()) {
-                        DrillTab.ClickOffset(,,NavigateTime)
+                        DrillTab.ClickOffset(, , NavigateTime)
                         Sleep(NavigateTime)
                     }
                     i++
@@ -210,7 +216,7 @@ fMineMaintainer() {
                 Out.D("Opening drill tab")
                 While (!Shops.Mine.IsOnTabDrill() && i <= 4) {
                     If (DrillTab.IsButton()) {
-                        DrillTab.ClickOffset(,,NavigateTime)
+                        DrillTab.ClickOffset(, , NavigateTime)
                         Sleep(NavigateTime)
                     }
                     i++
@@ -255,7 +261,7 @@ fMineMaintainer() {
             MinerCaveTimer * 60) {
                 i := 1
                 While (!Shops.Mine.IsOnTabMines() && i <= 4 && Window.IsPanel()) {
-                    MinesTab.ClickOffset(,,NavigateTime)
+                    MinesTab.ClickOffset(, , NavigateTime)
                     Sleep(NavigateTime)
                     i++
                 }
@@ -303,13 +309,14 @@ fMineMaintainer() {
 
 ;@region Transmute Functions
 isAnyTransmuteEnabled() {
-    Return MinerEnableTransmute || MinerEnableTransmuteSdia ||
-        MinerEnableTransmuteFuel || MinerEnableTransmuteSphere ||
-        MinerEnableTransmuteSdiaToCDia
+    Return S.Get("MinerEnableTransmute") || S.Get("MinerEnableTransmuteSdia") ||
+    S.Get("MinerEnableTransmuteFuel") || S.Get("MinerEnableTransmuteSphere") ||
+    S.Get("MinerEnableTransmuteSdiaToCDia")
 }
 
 TransmuteAllCoalBars() {
-    If (MinerEnableTransmute) {
+    NavigateTime := S.Get("NavigateTime")
+    If (S.Get("MinerEnableTransmute")) {
         TransmuteButton := Points.Mine.Transmute.AllCBarsToCDias
         While (Window.IsActive() && Window.IsPanel() && TransmuteButton.IsButtonActive() &&
         Shops.Mine.IsOnTabTrans()) {
@@ -318,7 +325,7 @@ TransmuteAllCoalBars() {
             Sleep(NavigateTime)
         }
     }
-    If (MinerEnableTransmuteSdia) {
+    If (S.Get("MinerEnableTransmuteSdia")) {
         SdiaTransmuteButton := Points.Mine.Transmute.AllCDiasToSDias
         While (Window.IsActive() && Window.IsPanel() && SdiaTransmuteButton.IsButtonActive() &&
         Shops.Mine.IsOnTabTrans()) {
@@ -327,7 +334,7 @@ TransmuteAllCoalBars() {
             Sleep(NavigateTime)
         }
     }
-    If (MinerEnableTransmuteFuel) {
+    If (S.Get("MinerEnableTransmuteFuel")) {
         FuelTransmuteButton := Points.Mine.Transmute.AllCDiasToFuel
         While (Window.IsActive() && Window.IsPanel() && FuelTransmuteButton.IsButtonActive() &&
         Shops.Mine.IsOnTabTrans()) {
@@ -336,7 +343,7 @@ TransmuteAllCoalBars() {
             Sleep(NavigateTime)
         }
     }
-    If (MinerEnableTransmuteSphere) {
+    If (S.Get("MinerEnableTransmuteSphere")) {
         SphereTransmuteButton := Points.Mine.Transmute.AllCDiasToSpheres
         While (Window.IsActive() && Window.IsPanel() && SphereTransmuteButton.IsButtonActive() &&
         Shops.Mine.IsOnTabTrans()) {
@@ -345,7 +352,7 @@ TransmuteAllCoalBars() {
             Sleep(NavigateTime)
         }
     }
-    If (MinerEnableTransmuteSdiaToCDia) {
+    If (S.Get("MinerEnableTransmuteSdiaToCDia")) {
         SdiaToCBTransmuteButton := Points.Mine.Transmute.AllSDiasToCDia
         While (Window.IsActive() && Window.IsPanel() && SdiaToCBTransmuteButton
         .IsButtonActive() && Shops.Mine.IsOnTabTrans()) {
@@ -359,6 +366,7 @@ TransmuteAllCoalBars() {
 
 ;@region Drill Functions
 CollectFreeDrillFuel() {
+    NavigateTime := S.Get("NavigateTime")
     FuelButton := Points.Mine.FreeFuel
     While (Window.IsActive() && Window.IsPanel() && FuelButton.IsButtonActive()) {
         FuelButton.ClickOffset()
@@ -368,14 +376,17 @@ CollectFreeDrillFuel() {
 
 UseDrillSphereLoop() {
     /**
-     * @type {cPoint} SphereButton
+     * @type {cLBRButton} SphereButton
      */
     SphereButton := Points.Mine.CoalSphere
 
     /**
-     * @type {cPoint} tempCount
+     * @type {cLBRButton} tempCount
      */
-    tempCount := MinerSphereCount
+    MinerSphereCount := tempCount := S.Get("MinerSphereCount")
+    MinerSphereDelay := S.Get("MinerSphereDelay")
+    MinerSphereModifier := S.Get("MinerSphereModifier")
+    MinerSphereGreedyUse := S.Get("MinerSphereGreedyUse")
 
     If (MinerSphereCount > 0) {
         While (Window.IsActive() && Window.IsPanel() && ;
@@ -422,6 +433,7 @@ UseDrillSphereLoop() {
 
 ;@region Vein functions
 EnhanceVeins() {
+    NavigateTime := S.Get("NavigateTime")
     slot1 := Points.Mine.Vein.Slot1.Enhance
     slot2 := Points.Mine.Vein.Slot2.Enhance
     slot3 := Points.Mine.Vein.Slot3.Enhance
@@ -467,6 +479,7 @@ EnhanceVeins() {
 }
 
 RemoveSingleVein() {
+    NavigateTime := S.Get("NavigateTime")
     Cancel1 := Points.Mine.Vein.Slot1.Cancel
     Cancel2 := Points.Mine.Vein.Slot2.Cancel
     Cancel3 := Points.Mine.Vein.Slot3.Cancel
@@ -547,6 +560,7 @@ RemoveSingleVein() {
 }
 
 VeinCancelConfirm() {
+    NavigateTime := S.Get("NavigateTime")
     CancelConfirm := Points.Mine.Vein.CancelConfirm
     CancelConfirm.WaitUntilButtonS(3)
     CancelConfirm.ClickButtonActive()
@@ -568,43 +582,41 @@ FindVeinsWithBars() {
     QualitySlot5 := Points.Mine.Vein.Slot5.Colour
     QualitySlot6 := Points.Mine.Vein.Slot6.Colour
 
-    results := [
-        {
-            Active: false,
-            Quality: "ignored",
-            Priority: 9999
-        },
-        ;
-        {
-            Active: false,
-            Quality: "ignored",
-            Priority: 9999
-        },
-        ;
-        {
-            Active: false,
-            Quality: "ignored",
-            Priority: 9999
-        },
-        ;
-        {
-            Active: false,
-            Quality: "ignored",
-            Priority: 9999
-        },
-        ;
-        {
-            Active: false,
-            Quality: "ignored",
-            Priority: 9999
-        },
-        ;
-        {
-            Active: false,
-            Quality: "ignored",
-            Priority: 9999
-        }
-    ]
+    results := [{
+        Active: false,
+        Quality: "ignored",
+        Priority: 9999
+    },
+    ;
+    {
+        Active: false,
+        Quality: "ignored",
+        Priority: 9999
+    },
+    ;
+    {
+        Active: false,
+        Quality: "ignored",
+        Priority: 9999
+    },
+    ;
+    {
+        Active: false,
+        Quality: "ignored",
+        Priority: 9999
+    },
+    ;
+    {
+        Active: false,
+        Quality: "ignored",
+        Priority: 9999
+    },
+    ;
+    {
+        Active: false,
+        Quality: "ignored",
+        Priority: 9999
+    }]
     If (SampleSlot1.GetColour() = "0x6D758D") {
         qualityText1 := VeinQualityColourToText(QualitySlot1.GetColour())
         results[1] := {
@@ -687,6 +699,12 @@ FindVeinsCount() {
 }
 
 VeinQualityColourToText(value) {
+    MinerColourCodeCommon := "0xA0A0A0"
+    MinerColourCodeUncommon := "0x326DAB"
+    MinerColourCodeRare := "0xD3C33F"
+    MinerColourCodeEpic := "0xB3260A"
+    MinerColourCodeMythical := "0x9E10C1"
+    MinerColourCodeLegendary := "0xE1661A"
     Switch value {
     Case MinerColourCodeCommon:
         Return "common"
@@ -754,29 +772,29 @@ ArrDebug(arr) {
 
 MineLogSettings() {
     Out.D("Dumping Mine settings to log:"
-        "`nMinerEnableVeins: " MinerEnableVeins
-        "`nMinerEnableTransmute: " MinerEnableTransmute
-        "`nMinerEnableFreeRefuel: " MinerEnableFreeRefuel
-        "`nMinerTransmuteTimer: " MinerTransmuteTimer
-        "`nMinerRefuelTimer: " MinerRefuelTimer
-        "`nMinerEnableSpammer: " MinerEnableSpammer
-        "`nMinerEnableBanks: " MinerEnableBanks
-        "`nMinerEnableVeinUpgrade: " MinerEnableVeinUpgrade
-        "`nMinerEnableVeinRemoval: " MinerEnableVeinRemoval
-        "`nMinerEnableCaves: " MinerEnableCaves
-        "`nMinerCaveTimer: " MinerCaveTimer
-        "`nMinerEnableLeafton: " MinerEnableLeafton
-        "`nMinerEnableSphereUse: " MinerEnableSphereUse
-        "`nMinerSphereDelay: " MinerSphereDelay
-        "`nMinerSphereCount: " MinerSphereCount
-        "`nMinerSphereTimer: " MinerSphereTimer
-        "`nMinerSphereGreedyUse: " MinerSphereGreedyUse
-        "`nMinerSphereModifier: " MinerSphereModifier
-        "`nMinerEnableTransmuteSdia: " MinerEnableTransmuteSdia
-        "`nMinerEnableTransmuteFuel: " MinerEnableTransmuteFuel
-        "`nMinerEnableTransmuteSphere: " MinerEnableTransmuteSphere
-        "`nMinerEnableTransmuteSdiaToCDia: " MinerEnableTransmuteSdiaToCDia
-        "`nMinerEnableBrewing: " MinerEnableBrewing
-        "`nMinerBrewCycleTime: " MinerBrewCycleTime
-        "`nMinerBrewCutOffTime: " MinerBrewCutOffTime)
+        "`nMinerEnableVeins: " S.Get("MinerEnableVeins")
+        "`nMinerEnableTransmute: " S.Get("MinerEnableTransmute")
+        "`nMinerEnableFreeRefuel: " S.Get("MinerEnableFreeRefuel")
+        "`nMinerTransmuteTimer: " S.Get("MinerTransmuteTimer")
+        "`nMinerRefuelTimer: " S.Get("MinerRefuelTimer")
+        "`nMinerEnableSpammer: " S.Get("MinerEnableSpammer")
+        "`nMinerEnableBanks: " S.Get("MinerEnableBanks")
+        "`nMinerEnableVeinUpgrade: " S.Get("MinerEnableVeinUpgrade")
+        "`nMinerEnableVeinRemoval: " S.Get("MinerEnableVeinRemoval")
+        "`nMinerEnableCaves: " S.Get("MinerEnableCaves")
+        "`nMinerCaveTimer: " S.Get("MinerCaveTimer")
+        "`nMinerEnableLeafton: " S.Get("MinerEnableLeafton")
+        "`nMinerEnableSphereUse: " S.Get("MinerEnableSphereUse")
+        "`nMinerSphereDelay: " S.Get("MinerSphereDelay")
+        "`nMinerSphereCount: " S.Get("MinerSphereCount")
+        "`nMinerSphereTimer: " S.Get("MinerSphereTimer")
+        "`nMinerSphereGreedyUse: " S.Get("MinerSphereGreedyUse")
+        "`nMinerSphereModifier: " S.Get("MinerSphereModifier")
+        "`nMinerEnableTransmuteSdia: " S.Get("MinerEnableTransmuteSdia")
+        "`nMinerEnableTransmuteFuel: " S.Get("MinerEnableTransmuteFuel")
+        "`nMinerEnableTransmuteSphere: " S.Get("MinerEnableTransmuteSphere")
+        "`nMinerEnableTransmuteSdiaToCDia: " S.Get("MinerEnableTransmuteSdiaToCDia")
+        "`nMinerEnableBrewing: " S.Get("MinerEnableBrewing")
+        "`nMinerBrewCycleTime: " S.Get("MinerBrewCycleTime")
+        "`nMinerBrewCutOffTime: " S.Get("MinerBrewCutOffTime)"))
 }

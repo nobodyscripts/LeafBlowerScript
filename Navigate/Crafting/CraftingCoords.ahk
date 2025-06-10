@@ -5,10 +5,10 @@
 /**
  * Crafting points for buttons
  * @memberof module:cPoints
- * @property {cPoint} Stop Stop button in crafting panel
- * @property {cPoint} Tab1 First tab in panel
+ * @property {cLBRButton} Stop Stop button in crafting panel
+ * @property {cLBRButton} Tab1 First tab in panel
  */
 Class cCraftingPoints {
-    Stop := cPoint(675, 750)
-    Tab1 := cPoint(500, 1180)
+    Stop := cLBRButton(675, 750)
+    Tab1 := cLBRButton(500, 1180)
 }

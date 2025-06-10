@@ -2,16 +2,18 @@
 
 #Include ..\Lib\cTravel.ahk
 
-Global GemFarmSleepAmount := 1
+S.AddSetting("GemFarm", "GemFarmSleepAmount", 17, "int")
+
+Global HadToHideNotifs := false
 Global TradesAutoRefreshOldState := false
 Global TradesDetailedModeOldState := false
-Global HadToRemoveBearo := false
 Global GemFarmActive := false
 
 fGemFarmSuitcase() {
-    Global TradesAutoRefreshOldState
-    Global TradesDetailedModeOldState
-    Global GemFarmSleepAmount, HadToHideNotifs, GemFarmActive
+    Global HadToHideNotifs, TradesAutoRefreshOldState, TradesDetailedModeOldState,
+        GemFarmActive
+    NavigateTime := S.Get("NavigateTime")
+    Debug := S.Get("Debug")
     DetailedToggle := Points.GemFarm.DetailedToggle
     NotifArrow := Points.Misc.NotifArrow
     AutoRefreshToggle := Points.GemFarm.AutoRefreshToggle
@@ -42,19 +44,13 @@ fGemFarmSuitcase() {
     ; Removes bearo from your pet team if its active
     RemoveBearo()
     Sleep(NavigateTime)
-    If (!Window.IsActive()) {
-        If (Debug) {
-            MsgBox("GemFarm: Exiting as no game.")
-        }
-        Out.I("GemFarm: Exiting as no game.")
-        Return
-    } Else {
-        ; We need the trade window now the Bearo and traveling is done
-        Shops.OpenTrades()
-        Sleep(NavigateTime)
-        GameKeys.RefreshTrades()
-        ; Need to refresh once otherwise there might be blank trade screen
-    }
+
+    Window.ActiveOrReload()
+    ; We need the trade window now the Bearo and traveling is done
+    Shops.OpenTrades()
+    Sleep(NavigateTime)
+    GameKeys.RefreshTrades()
+    ; Need to refresh once otherwise there might be blank trade screen
 
     ; Disable auto refresh if its on based on timer at top of panel
     TradesAutoRefreshOldState := IsTradeAutoRefreshOn()
@@ -129,25 +125,7 @@ fGemFarmSuitcase() {
     GemFarmActive := true
     Out.I("GemFarm: Starting main loop.")
     While (GemFarmActive) {
-        If (!Window.IsActive()) {
-            ToolTip(, , , 15)
-            If (Debug) {
-                MsgBox("GemFarm: Exiting as no game.")
-            }
-            Out.I("GemFarm: Exiting as no game.")
-            cReload() ; Kill the loop if the window closes
-            Return
-        }
-
-        If (!Window.IsPanel()) {
-            ToolTip(, , , 15)
-            If (Debug) {
-                MsgBox("GemFarm: Did not find panel. Aborted.")
-                Window.Activate()
-            }
-            Out.I("GemFarm: Did not find panel. Aborted.")
-            Break
-        }
+        Window.ActiveOrReload()
         Try {
             ; PixelSearch resolution independant function based on higher
             ; resolution to increase accuracy, using lower res resulted in
@@ -155,7 +133,7 @@ fGemFarmSuitcase() {
             Icon1 := Points.GemFarm.Icon1
             colour := Icon1.GetColour()
             If (colour = "0xFF0044") {
-                Sleep(GemFarmSleepAmount)
+                Sleep(S.Get("GemFarmSleepAmount"))
                 colour := Icon1.GetColour()
                 If (colour = "0xFF0044") {
                     ; Double check to try and avoid false usage
@@ -184,13 +162,14 @@ fGemFarmSuitcase() {
                 .Message)
         }
         GameKeys.RefreshTrades()
-        Sleep(GemFarmSleepAmount)
+        Sleep(S.Get("GemFarmSleepAmount"))
     }
     ToolTip(, , , 15)
     GemFarmActive := false
 }
 
 RemoveBearo() {
+    NavigateTime := S.Get("NavigateTime")
     Global HadToHideNotifs, HadToRemoveBearo
     Shops.OpenPets()
     Sleep(NavigateTime)
@@ -202,7 +181,7 @@ RemoveBearo() {
         SetTimer(ToolTip.Bind(, , , 16), -1000)
         HadToRemoveBearo := true
         Sleep(NavigateTime)
-        cPoint(coord[1], coord[2], false).ClickOffset(1, 1, NavigateTime)
+        cLBRButton(coord[1], coord[2], false).ClickOffset(1, 1, NavigateTime)
         Sleep(NavigateTime)
         Return true
     } Else {
@@ -222,12 +201,7 @@ FillTradeSlots() {
     2)
     SetTimer(ToolTip, -1000)
     While i > 0 {
-        If (!Window.IsActive()) {
-            Out.I("GemFarm: Fill trades exiting as no game.")
-            cReload() ; Kill the loop if the window closes
-            i := 0
-            Return false
-        }
+        Window.ActiveOrReload()
 
         If (!Window.IsPanel()) {
             Out.I("GemFarm: Fill Trade slots did not find panel. Aborted.")
@@ -335,9 +309,9 @@ ResetToPriorDetailedMode() {
 TradeForPyramid(*) {
     UlcWindow()
     ; (1252, 397) icon1
-    ; Start button cPoint(2029, 397) x+777
-    ; Cancel button cPoint(1742, 397) x+490
-    ; Collect button cPoint(1990, 397) x+738
+    ; Start button cLBRButton(2029, 397) x+777
+    ; Cancel button cLBRButton(1742, 397) x+490
+    ; Collect button cLBRButton(1990, 397) x+738
     /** @type {cRect} */
     scanArea := cRect(1252, 351, 1253, 1061) ; Scan area 1252, 351/1252, 1061
     Cheese := "0xD98A29"
@@ -396,18 +370,18 @@ TradeForPyramid(*) {
         If (!point) {
             Return false
         }
-        ; Start button cPoint(2029, 397) x+777
-        ; Cancel button cPoint(1742, 397) x+490
-        ; Collect button cPoint(1990, 397) x+738
+        ; Start button cLBRButton(2029, 397) x+777
+        ; Cancel button cLBRButton(1742, 397) x+490
+        ; Collect button cLBRButton(1990, 397) x+738
 
         /* 1252, 397 icon point ref
         Rect for text area
         1302, 377   50, -20
         1373, 410   121, 13
         */
-        Start := cPoint(point[1] + Window.RelW(777), point[2], false)
-        Cancel := cPoint(point[1] + Window.RelW(490), point[2], false)
-        Collect := cPoint(point[1] + Window.RelW(738), point[2], false)
+        Start := cLBRButton(point[1] + Window.RelW(777), point[2], false)
+        Cancel := cLBRButton(point[1] + Window.RelW(490), point[2], false)
+        Collect := cLBRButton(point[1] + Window.RelW(738), point[2], false)
         ; Is started?
         If (Cancel.IsButtonActive() || Collect.IsButtonActive()) {
             Return false
@@ -458,7 +432,7 @@ TradeForPyramidJustBeer(*) {
 
         If (Points.GemFarm.Start2.IsBackground()) {
             Out.I("Trades full")
-            cPoint(1530, 1087).ClickButtonActive() ; Boost all
+            cLBRButton(1530, 1087).ClickButtonActive() ; Boost all
             Break
         }
         i++
@@ -469,9 +443,9 @@ TradeForPyramidJustBeer(*) {
         If (!point) {
             Return false
         }
-        Start := cPoint(point[1] + Window.RelW(777), point[2], false)
-        Cancel := cPoint(point[1] + Window.RelW(490), point[2], false)
-        Collect := cPoint(point[1] + Window.RelW(738), point[2], false)
+        Start := cLBRButton(point[1] + Window.RelW(777), point[2], false)
+        Cancel := cLBRButton(point[1] + Window.RelW(490), point[2], false)
+        Collect := cLBRButton(point[1] + Window.RelW(738), point[2], false)
         ; Is started?
         If (Cancel.IsButtonActive() || Collect.IsButtonActive()) {
             Return false
@@ -487,18 +461,21 @@ TradeForPyramidJustBeer(*) {
     }
 }
 
-
 IsPlayerOutOfCheese() {
-    If (cRect(1746, 298, 1750, 1025).PixelSearch(Colours().Inactive)) {
+    /** @type {cLBRButton} */
+    point := Points.ZoneSample
+    If (cRect(1746, 298, 1750, 1025).PixelSearch(point.Inactive)) {
         Return true
     }
     Return false
 }
 
 CancelAllTrades() {
-    point := cRect(1920, 298, 1921, 1025).PixelSearch(Colours().Active)
+    /** @type {cLBRButton} */
+    pointCol := Points.ZoneSample
+    point := cRect(1920, 298, 1921, 1025).PixelSearch(pointCol.Active)
     While (point) {
-        cPoint(point[1], point[2], false).ClickOffset()
-        point := cRect(1920, 298, 1921, 1025).PixelSearch(Colours().Active)
+        cLBRButton(point[1], point[2], false).ClickOffset()
+        point := cRect(1920, 298, 1921, 1025).PixelSearch(pointCol.Active)
     }
 }

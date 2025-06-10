@@ -5,11 +5,11 @@
 /**
  * Leafton points for buttons
  * @memberof module:cPoints
- * @property {cPoint} Center Center of the screen for clicking the 
+ * @property {cLBRButton} Center Center of the screen for clicking the 
  * background object
- * @property {cPoint} Start Start button
+ * @property {cLBRButton} Start Start button
  */
 Class cLeaftonPoints {
-    Center := cPoint(1270, 680)
-    Start := cPoint(690, 370)
+    Center := cLBRButton(1270, 680)
+    Start := cLBRButton(690, 370)
 }

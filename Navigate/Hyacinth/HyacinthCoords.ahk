@@ -5,8 +5,8 @@
 /**
  * Hyacinth points for buttons
  * @memberof module:cPoints
- * @property {cPoint} UseSphere Hyacinth sphere button
+ * @property {cLBRButton} UseSphere Hyacinth sphere button
  */
 Class cHyacinthPoints {
-    UseSphere := cPoint(1615, 420)
+    UseSphere := cLBRButton(1615, 420)
 }

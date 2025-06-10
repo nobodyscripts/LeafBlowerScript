@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0
 
+/** @type {cLog} */
+Out := cLog(A_ScriptDir "\Test.log", true, 3, false)
+
+/** @type {cGameWindow} */
+Window := cGameWindow("Notepad.exe", 1278, 664)
+
 #Include cLogging.ahk
 #Include cGameWindow.ahk
 #Include cPoint.ahk
@@ -18,11 +24,6 @@
 #Include cUpdateChecker.ahk
 #Include Misc.ahk
 
-/** @type {cLog} */
-Out := cLog(A_ScriptDir "\Test.log", true, 3, false)
-
-/** @type {cGameWindow} */
-Window := cGameWindow("Notepad.exe", 1278, 664)
 
 S.AddSetting("TestSection", "TestVar", "true, array, test", "Array")
 S.initSettings()

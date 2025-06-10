@@ -1,12 +1,14 @@
 ﻿#Requires AutoHotkey v2.0
 
-Global GFSSNoReset := 0
-Global GFToKillPerCycle := 1
-Global SSToKillPerCycle := 1
+S.AddSetting("SSFarm", "GFToKillPerCycle", 8, "int")
+S.AddSetting("SSFarm", "SSToKillPerCycle", 1, "int")
+S.AddSetting("SSFarm", "GFSSNoReset", false, "bool")
 
 fFarmGFSS() {
     ResettingGF := false
-    Global GFSSNoReset
+    GFSSNoReset := S.Get("GFSSNoReset")
+    SSToKillPerCycle := S.Get("SSToKillPerCycle")
+    GFToKillPerCycle := S.Get("GFToKillPerCycle")
     Spammer.GFSSBossStart()
     Loop {
         If (!Window.IsActive()) {

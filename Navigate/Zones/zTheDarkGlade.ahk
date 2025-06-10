@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * TheDarkGlade class for zone travel
@@ -28,10 +26,10 @@ Class TheDarkGlade extends Zone {
         Travel.OpenAreas(true, extradelay)
         this.ScrollAmountDown(28, scrolldelay)
         Sleep(delay + extradelay)
-        /** @type {cPoint} */
-        Btn := cPoint(1686, 793)
+        /** @type {cLBRButton} */
+        Btn := cLBRButton(1686, 793)
         If (Btn.IsButtonActive()) {
-            Btn.ClickButtonActive(,,delay + extradelay)
+            Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
             Out.I("Cursed Kokkaupunki not found while trying to travel.")
         }

@@ -5,14 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "LBR Debug Attach",
-            "type": "autohotkey",
-            "request": "attach",
-            "port": "9002-9010",
-            "variableCategories": "recommend",
-            "useAutoJumpToError": true
-        },
-        {
             "name": "LBR Debug",
             "type": "autohotkey",
             "request": "launch",
@@ -27,7 +19,16 @@
             },
             "useDebugDirective": false,
             "useAutoJumpToError": true,
-            "stopOnEntry": false
+            "stopOnEntry": false,
+            "port": "9002-9010"
+        },
+        {
+            "name": "LBR Debug Attach",
+            "type": "autohotkey",
+            "request": "attach",
+            "port": "9002-9010",
+            "variableCategories": "recommend",
+            "useAutoJumpToError": true
         }
     ]
 }

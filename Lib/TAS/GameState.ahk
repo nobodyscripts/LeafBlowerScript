@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+#Include ..\GameSettings.ahk
+
 /**
  * Holds save data and performs checks on save data to return progress 
  * information
@@ -7,6 +9,9 @@
 Class GameState {
 
     __New() {
+        if(!IsSet(ActiveSavePath)) {
+            ActiveSavePath := ""
+        }
         this.SaveData := GetGameSettings(ActiveSavePath)
     }
 

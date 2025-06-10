@@ -5,136 +5,141 @@
  * @param info 
  */
 Button_Click_Leafton(thisGui, info) {
-    Global settings, LeaftonCraftEnabled, LeaftonSpamsWind, LeaftonBanksEnabled,
-        LeaftonRunOnceEnabled, LeaftonEnableBrewing, LeaftonBrewCycleTime,
-        LeaftonBrewCutOffTime
 
-    /** @type {GUI} */
-    optionsGUI := Gui(, "Leafton Settings")
-    optionsGUI.Opt("")
-    SetFontOptions(optionsGUI)
+    LeaftonCraftEnabled := S.Get("LeaftonCraftEnabled")
+    LeaftonSpamsWind := S.Get("LeaftonSpamsWind")
+    LeaftonBanksEnabled := S.Get("LeaftonBanksEnabled")
+    LeaftonRunOnceEnabled := S.Get("LeaftonRunOnceEnabled")
+    LeaftonEnableBrewing := S.Get("LeaftonEnableBrewing")
+    LeaftonBrewCycleTime := S.Get("LeaftonBrewCycleTime")
+    LeaftonBrewCutOffTime := S.Get("LeaftonBrewCutOffTime")
+
+    GuiBGColour := S.Get("GuiBGColour")
+
+    /** @type {cGUI} */
+    MyGui := cGui(, "Leafton Settings")
+    MyGui.Opt("")
+    MyGui.SetUserFontSettings()
 
     If (LeaftonCraftEnabled = true) {
-        optionsGUI.Add("CheckBox", "vLeaftonCraftEnabled checked",
+        MyGui.Add("CheckBox", "vLeaftonCraftEnabled checked",
             "Enable Leafton Crafting")
     } Else {
-        optionsGUI.Add("CheckBox", "vLeaftonCraftEnabled",
+        MyGui.Add("CheckBox", "vLeaftonCraftEnabled",
             "Enable Leafton Crafting")
     }
 
     If (LeaftonSpamsWind = true) {
-        optionsGUI.Add("CheckBox", "vLeaftonSpamsWind checked",
+        MyGui.Add("CheckBox", "vLeaftonSpamsWind checked",
             "Enable Wind Spammer")
     } Else {
-        optionsGUI.Add("CheckBox", "vLeaftonSpamsWind",
+        MyGui.Add("CheckBox", "vLeaftonSpamsWind",
             "Enable Wind Spammer")
     }
 
     If (LeaftonBanksEnabled = true) {
-        optionsGUI.Add("CheckBox", "vLeaftonBanksEnabled checked",
+        MyGui.Add("CheckBox", "vLeaftonBanksEnabled checked",
             "Enable Banks")
     } Else {
-        optionsGUI.Add("CheckBox", "vLeaftonBanksEnabled",
+        MyGui.Add("CheckBox", "vLeaftonBanksEnabled",
             "Enable Banks")
     }
 
     If (LeaftonRunOnceEnabled = true) {
-        optionsGUI.Add("CheckBox", "vLeaftonRunOnceEnabled checked",
+        MyGui.Add("CheckBox", "vLeaftonRunOnceEnabled checked",
             "Enable Leafton Run Once")
     } Else {
-        optionsGUI.Add("CheckBox", "vLeaftonRunOnceEnabled",
+        MyGui.Add("CheckBox", "vLeaftonRunOnceEnabled",
             "Enable Leafton Run Once")
     }
 
     If (LeaftonEnableBrewing = true) {
-        optionsGUI.Add("CheckBox", "vLeaftonEnableBrewing checked",
+        MyGui.Add("CheckBox", "vLeaftonEnableBrewing checked",
             "Enable Leafton Brewing")
     } Else {
-        optionsGUI.Add("CheckBox", "vLeaftonEnableBrewing",
+        MyGui.Add("CheckBox", "vLeaftonEnableBrewing",
             "Enable Leafton Brewing")
     }
 
-    optionsGUI.Add("Text", "", "Leafton Brew Cycle Time (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Leafton Brew Cycle Time (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(LeaftonBrewCycleTime) && LeaftonBrewCycleTime > 0) {
-        optionsGUI.Add("UpDown", "vLeaftonBrewCycleTime Range1-9999",
+        MyGui.Add("UpDown", "vLeaftonBrewCycleTime Range1-9999",
             LeaftonBrewCycleTime)
     } Else {
-        If (settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vLeaftonBrewCycleTime Range1-9999",
-                settings.defaultNobodySettings.LeaftonBrewCycleTime)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vLeaftonBrewCycleTime Range1-9999",
+                S.defaultNobodySettings.LeaftonBrewCycleTime)
         } Else {
-            optionsGUI.Add("UpDown", "vLeaftonBrewCycleTime Range1-9999",
-                settings.defaultSettings.LeaftonBrewCycleTime)
+            MyGui.Add("UpDown", "vLeaftonBrewCycleTime Range1-9999",
+                S.defaultSettings.LeaftonBrewCycleTime)
         }
     }
 
-    optionsGUI.Add("Text", "", "Leafton Brew Period Cutoff (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Leafton Brew Period Cutoff (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(LeaftonBrewCutOffTime) && LeaftonBrewCutOffTime > 0) {
-        optionsGUI.Add("UpDown", "vLeaftonBrewCutOffTime Range1-9999",
+        MyGui.Add("UpDown", "vLeaftonBrewCutOffTime Range1-9999",
             LeaftonBrewCutOffTime)
     } Else {
-        If (settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vLeaftonBrewCutOffTime Range1-9999",
-                settings.defaultNobodySettings.LeaftonBrewCutOffTime)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vLeaftonBrewCutOffTime Range1-9999",
+                S.defaultNobodySettings.LeaftonBrewCutOffTime)
         } Else {
-            optionsGUI.Add("UpDown", "vLeaftonBrewCutOffTime Range1-9999",
-                settings.defaultSettings.LeaftonBrewCutOffTime)
+            MyGui.Add("UpDown", "vLeaftonBrewCutOffTime Range1-9999",
+                S.defaultSettings.LeaftonBrewCutOffTime)
         }
     }
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunLeafton)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunLeafton)
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveLeafton)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessLeaftonSettings)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseLeaftonSettings)
 
-    ShowGUIPosition(optionsGUI)
-    MakeGUIResizableIfOversize(optionsGUI)
-    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
-    OnMessage(0x0003, SaveGUIPositionOnMove)
+    MyGui.ShowGUIPosition()
+    MyGui.MakeGUIResizableIfOversize()
+    MyGui.OnEvent("Size", MyGui.SaveGUIPositionOnResize.Bind(MyGui))
+    OnMessage(0x0003, MyGui.SaveGUIPositionOnMove.Bind(MyGui))
 
     ProcessLeaftonSettings(*) {
         Temp := thisGui.Gui
         Saving := SavingGUI()
-        optionsGUI.Hide()
+        MyGui.Hide()
         Temp.Hide()
         Saving.Show()
         LeaftonSave()
         Saving.Hide()
         Temp.Show()
-        optionsGUI.Show()
+        MyGui.Show()
     }
 
     RunLeafton(*) {
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         fLeaftonStart()
     }
 
     RunSaveLeafton(*) {
         LeaftonSave()
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         fLeaftonStart()
     }
 
     CloseLeaftonSettings(*) {
-        optionsGUI.Hide()
+        MyGui.Hide()
     }
 
     LeaftonSave() {
-        values := optionsGUI.Submit()
-        LeaftonCraftEnabled := values.LeaftonCraftEnabled
-        LeaftonSpamsWind := values.LeaftonSpamsWind
-        LeaftonBanksEnabled := values.LeaftonBanksEnabled
-        LeaftonRunOnceEnabled := values.LeaftonRunOnceEnabled
-        LeaftonEnableBrewing := values.LeaftonEnableBrewing
-        LeaftonBrewCycleTime := values.LeaftonBrewCycleTime
-        LeaftonBrewCutOffTime := values.LeaftonBrewCutOffTime
-        settings.SaveCurrentSettings()
+        values := MyGui.Submit()
+        S.Set("LeaftonCraftEnabled", values.LeaftonCraftEnabled)
+        S.Set("LeaftonSpamsWind", values.LeaftonSpamsWind)
+        S.Set("LeaftonBanksEnabled", values.LeaftonBanksEnabled)
+        S.Set("LeaftonRunOnceEnabled", values.LeaftonRunOnceEnabled)
+        S.Set("LeaftonEnableBrewing", values.LeaftonEnableBrewing)
+        S.Set("LeaftonBrewCycleTime", values.LeaftonBrewCycleTime)
+        S.Set("LeaftonBrewCutOffTime", values.LeaftonBrewCutOffTime)
+        S.SaveCurrentSettings()
     }
 }

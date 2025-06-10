@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0
 
-Global Out
+If (!IsSet(Out)) {
+    /**
+     * Out cLog class global
+     * @type {cLog} */
+    Global Out := cLog()
+}
 
 /**
  * Log class to handle file open buffer and logging
@@ -333,8 +338,8 @@ Class cLog {
             ; If we are not logging msgbox it
             If (this.DebugLevel <= -1) {
                 MsgBox("Error: " out.Message "`r`n ErrorExtra: " out.Extra "`r`nStack: " out
-                    .Stack)
-                If (IsSet(Window)) {
+                    .Stack, , 0x10)
+                If (IsSet(Window) && Window.Exist()) {
                     Window.Activate()
                 }
             }
@@ -343,8 +348,8 @@ Class cLog {
             this._OutputLog("Error: " out)
             ; If we are not logging msgbox it
             If (this.DebugLevel <= -1) {
-                MsgBox("Error: " out)
-                If (IsSet(Window)) {
+                MsgBox("Error: " out, , 0x10)
+                If (IsSet(Window) && Window.Exist()) {
                     Window.Activate()
                 }
             }

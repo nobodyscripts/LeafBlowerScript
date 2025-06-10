@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * TheLeafTower class for zone travel
@@ -62,10 +60,10 @@ Class TheLeafTower extends Zone {
     ClickTravelButton(coord, delay) {
         ; Button to travel to The Leaf Tower
         ;Button := Points.Areas.LeafGalaxy.TheLeafTower
-        Button := cPoint(coord[1] + Window.RelW(60), coord[2], false)
+        Button := cLBRButton(coord[1] + Window.RelW(60), coord[2], false)
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
-        If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {
+        If (!Button.ClickButtonActive(, , delay, S.Get("NavigateTime") + delay)) {
             Out.I("The Leaf Tower travel: Button not found.")
             ;Button.ToolTipAtCoord()
         }
@@ -76,48 +74,49 @@ Class TheLeafTower extends Zone {
      * @param delay 
      */
     MaxTowerFloor(delay := 72) {
+        NavigateTime := S.Get("NavigateTime")
         Out.D("Leaf tower max floor")
         Travel.OpenAreasLeafGalaxy()
         ; Scroll down if needed
         this.ScrollAmountDown(14, NavigateTime)
         Sleep(delay)
-        If (cPoint(2135, 999).IsButton()) {
+        If (cLBRButton(2135, 999).IsButton()) {
             ; If ars zone not unlocked buttons shift
             Out.D("Ars zone not unlocked using alt points")
-            /** @type {cPoint} Button to travel to Leafsink Harbor*/
-            LSButton := cPoint(1864, 782)
-            /** @type {cPoint} */
-            TowerMax := cPoint(2135, 999)
-            /** @type {cPoint} */
-            TowerArea := cPoint(1862, 939)
-        } Else If (cPoint(2135, 1022).IsButton()) {
+            /** @type {cLBRButton} Button to travel to Leafsink Harbor*/
+            LSButton := cLBRButton(1864, 782)
+            /** @type {cLBRButton} */
+            TowerMax := cLBRButton(2135, 999)
+            /** @type {cLBRButton} */
+            TowerArea := cLBRButton(1862, 939)
+        } Else If (cLBRButton(2135, 1022).IsButton()) {
             ; If ars zone not unlocked buttons shift
-            /** @type {cPoint} Button to travel to Leafsink Harbor*/
-            LSButton := cPoint(1867, 806)
-            /** @type {cPoint} */
-            TowerMax := cPoint(2135, 1022)
-            /** @type {cPoint} */
-            TowerArea := cPoint(1869, 958)
+            /** @type {cLBRButton} Button to travel to Leafsink Harbor*/
+            LSButton := cLBRButton(1867, 806)
+            /** @type {cLBRButton} */
+            TowerMax := cLBRButton(2135, 1022)
+            /** @type {cLBRButton} */
+            TowerArea := cLBRButton(1869, 958)
         } Else {
-            /** @type {cPoint} Button to travel to Leafsink Harbor*/
-            LSButton := cPoint(1853, 759)
-            /** @type {cPoint} */
-            TowerMax := cPoint(2134, 977)
-            /** @type {cPoint} */
-            TowerArea := cPoint(1861, 914)
+            /** @type {cLBRButton} Button to travel to Leafsink Harbor*/
+            LSButton := cLBRButton(1853, 759)
+            /** @type {cLBRButton} */
+            TowerMax := cLBRButton(2134, 977)
+            /** @type {cLBRButton} */
+            TowerArea := cLBRButton(1861, 914)
         }
 
         LSButton.WaitUntilActiveButton(200, 17)
         ; If no button we are misaligned
-        LSButton.ClickButtonActive(, , delay, NavigateTime + delay)
+        LSButton.ClickButtonActive(, , delay, S.Get("NavigateTime") + delay)
         Sleep(delay)
-        LSButton.ClickButtonActive(, , delay, NavigateTime + delay)
+        LSButton.ClickButtonActive(, , delay, S.Get("NavigateTime") + delay)
         If (!this.IsZone("Leafsink Harbor")) {
             If (LSButton.IsButtonInactive()) {
                 Out.I("Button inactive when trying to travel.")
             } Else {
-                Out.I("The Leaf Tower not found while trying to travel. " 
-                Colours().ColourIdent(LSButton.GetColour()))
+                Out.I("The Leaf Tower not found while trying to travel. "
+                    Colours().ColourIdent(LSButton.GetColour()))
             }
             Out.I("The Leaf Tower travel: Leafsink harbor travel failed.")
             Return false
@@ -150,7 +149,7 @@ Class TheLeafTower extends Zone {
         Out.I("TowerBoost: Could not find tower leaf to open area.")
         Return false
     }
-    LeafsingButton := cPoint(spot[1] + Window.RelW(69), spot[2] - Window.RelH(
+    LeafsingButton := cLBRButton(spot[1] + Window.RelW(69), spot[2] - Window.RelH(
         160), false)
     ; Open leafsing harbor to allow max level reset
     If (LeafsingButton.IsBackground()) {
@@ -161,7 +160,7 @@ Class TheLeafTower extends Zone {
     LeafsingButton.Click(101)
     Sleep(201)
 
-    TowerMax := cPoint(spot[1] + Window.RelW(460), spot[2] + Window.RelH(60),
+    TowerMax := cLBRButton(spot[1] + Window.RelW(460), spot[2] + Window.RelH(60),
         false)
     ; Max Tower level
     If (!TowerMax.IsButtonActive()) {
@@ -171,7 +170,7 @@ Class TheLeafTower extends Zone {
     TowerMax.Click(101)
     Sleep(101)
 
-    TowerArea := cPoint(spot[1] + Window.RelW(69), spot[2] - Window.RelH(5),
+    TowerArea := cLBRButton(spot[1] + Window.RelW(69), spot[2] - Window.RelH(5),
         false)
     ; Select Tower area
     If (!TowerArea.IsButtonActive()) {

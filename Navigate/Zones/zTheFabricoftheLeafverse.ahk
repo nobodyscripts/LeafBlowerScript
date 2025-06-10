@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * TheFabricoftheLeafverse class for zone travel
@@ -30,12 +28,12 @@ Class TheFabricoftheLeafverse extends Zone {
         this.ScrollAmountDown(7, scrolldelay)
         Sleep(delay)
 
-        /** @type {cPoint} */
-        Local Btn := cPoint(1862, 612)
+        /** @type {cLBRButton} */
+        Local Btn := cLBRButton(1862, 612)
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Local Btn := cPoint(1848, 656)
+            Local Btn := cLBRButton(1848, 656)
             If (Btn.IsButtonActive()) {
                 Btn.ClickButtonActive(, , delay + extradelay)
             } Else {

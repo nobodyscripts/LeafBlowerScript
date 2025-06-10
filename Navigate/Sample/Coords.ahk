@@ -5,8 +5,8 @@
 /**
  * Sample points for buttons
  * @memberof module:cPoints
- * @property {cPoint} Sample Sample button in Sample panel
+ * @property {cLBRButton} Sample Sample button in Sample panel
  */
 Class cSamplePoints {
-    Sample := cPoint(675, 750)
+    Sample := cLBRButton(675, 750)
 }

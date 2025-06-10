@@ -9,10 +9,11 @@ S.AddSetting("Updates", "CheckForUpdatesReleaseOnly", true, "bool")
 S.AddSetting("Updates", "CheckForUpdatesLastCheck", 0, "int")
 S.AddSetting("Updates", "CheckForUpdatesInterval", 24, "int")
 
-/** Update checking class, checks version against github in a low bandwidth approach
- * @type {UpdateChecker} */
-;Global Updater := UpdateChecker()
-
+If (!IsSet(Updater)) {
+    /** Update checking class, checks version against github in a low bandwidth approach
+     * @type {UpdateChecker} */
+    Global Updater := UpdateChecker()
+}
 
 /**
  * Version object for comparison and serialization
@@ -122,7 +123,6 @@ CompareScriptVersions(obj, obj2, ReleasesOnly) {
     Return 0
 }
 
-
 Class UpdateChecker {
     Enabled := true
     ReleasesOnly := true
@@ -194,18 +194,18 @@ Class UpdateChecker {
             If (FileExist(this.CurrentJsonFile)) {
                 filecontents := FileRead(this.CurrentJsonFile)
             } Else {
-                Out.I("Error: Version file not found at " this.CurrentJsonFile)
+                Out.E("Version file not found at " this.CurrentJsonFile)
                 MsgBox("Error: Version file not found at " this.CurrentJsonFile)
                 Return false
             }
         } Catch As exc {
-            Out.I("Error: Error opening version file " this.CurrentJsonFile
+            Out.E("Could not open version file " this.CurrentJsonFile
                 " - " exc.Message)
             MsgBox("Error: Error opening version file " this.CurrentJsonFile " - " exc.Message)
             Return false
         }
         If (!filecontents) {
-            Out.I("Error: No version file found in " this.CurrentJsonFile)
+            Out.E("No version file found in " this.CurrentJsonFile)
             Return false
         }
         Return jsongo.Parse(filecontents)
@@ -232,7 +232,7 @@ Class UpdateChecker {
 
     isUpdateCheckTimePassed() {
         If (this.LastCheckTime = 0 || DateDiff(this.LastCheckTime, A_Now,
-            "Hours") <= S.Get("CheckForUpdatesLimiter") * -1) {
+            "Hours") <= S.Get("CheckForUpdatesInterval") * -1) {
             this.LastCheckTime := A_Now
             S.Set("CheckForUpdatesLastCheck", this.LastCheckTime)
             S.SaveCurrentSettings()
@@ -263,7 +263,7 @@ Class UpdateChecker {
         }
         If (!FileExist("Install.zip")) {
             Dialog.Hide()
-            Out.I("Install.zip failed to download.")
+            Out.E("Install.zip failed to download.")
             MsgBox("Error: Zip failed to download.")
             Reload()
         }

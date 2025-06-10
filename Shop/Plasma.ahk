@@ -9,7 +9,7 @@ Class sPlasma extends Zone {
     GoTo() {
         UlcWindow()
         Travel.ClosePanelIfActive()
-        cPoint(1786, 1305).Click() ; Shop button
+        cLBRButton(1786, 1305).Click() ; Shop button
         Sleep(150)
     }
 
@@ -23,13 +23,13 @@ Class sPlasma extends Zone {
         Sleep(50)
         ; skip
         ; skip
-        cPoint(1862, 536).ClickButtonActive() ; Blow off
+        cLBRButton(1862, 536).ClickButtonActive() ; Blow off
         Sleep(50)
         Travel.ScrollAmountDown(7)
         Sleep(50)
-        cPoint(1858, 756).ClickButtonActive() ; craft backpack
+        cLBRButton(1858, 756).ClickButtonActive() ; craft backpack
         Sleep(50)
-        cPoint(1859, 867).ClickButtonActive() ; craft sets
+        cLBRButton(1859, 867).ClickButtonActive() ; craft sets
         Sleep(50)
     }
     /**
@@ -42,27 +42,27 @@ Class sPlasma extends Zone {
         Sleep(50)
         ; skip
         ; skip
-        cPoint(1862, 536).ClickButtonActive() ; Blow off
+        cLBRButton(1862, 536).ClickButtonActive() ; Blow off
         Sleep(50)
-        cPoint(1863, 651).ClickButtonActive() ; Energy storage
+        cLBRButton(1863, 651).ClickButtonActive() ; Energy storage
         Sleep(50)
-        cPoint(1857, 757).ClickButtonActive() ; Shard count
+        cLBRButton(1857, 757).ClickButtonActive() ; Shard count
         Sleep(50)
-        cPoint(1861, 876).ClickButtonActive() ; Leafscender time
+        cLBRButton(1861, 876).ClickButtonActive() ; Leafscender time
         Sleep(50)
-        cPoint(1858, 988).ClickButtonActive() ; type damage
+        cLBRButton(1858, 988).ClickButtonActive() ; type damage
         Sleep(50)
         Travel.ScrollAmountDown(7)
         Sleep(50)
-        cPoint(1858, 525).ClickButtonActive() ; cheaper transform
+        cLBRButton(1858, 525).ClickButtonActive() ; cheaper transform
         Sleep(50)
-        cPoint(1862, 645).ClickButtonActive() ; craft hammer
+        cLBRButton(1862, 645).ClickButtonActive() ; craft hammer
         Sleep(50)
-        cPoint(1858, 756).ClickButtonActive() ; craft backpack
+        cLBRButton(1858, 756).ClickButtonActive() ; craft backpack
         Sleep(50)
-        cPoint(1859, 867).ClickButtonActive() ; craft sets
+        cLBRButton(1859, 867).ClickButtonActive() ; craft sets
         Sleep(50)
-        cPoint(1687, 978).ClickButtonActive() ; gem business
+        cLBRButton(1687, 978).ClickButtonActive() ; gem business
         Sleep(50)
     }
 }

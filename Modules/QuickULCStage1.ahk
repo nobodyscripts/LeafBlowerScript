@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0
 
+#include ..\ScriptLib\cToolTip.ahk
+
 Global ULCStageExit := false
 
 GetDailyReward(*) {
     UlcWindow()
     Out.D("Get Daily Reward")
     Travel.ClosePanelIfActive()
-    cPoint(710, 139).Click()
+    cLBRButton(710, 139).Click()
     Sleep(100)
-    cPoint(664, 420).ClickButtonActive()
-    cPoint(664, 420).ClickButtonActive()
+    cLBRButton(664, 420).ClickButtonActive()
+    cLBRButton(664, 420).ClickButtonActive()
 }
 
 WaitForFloor100(*) {
@@ -30,7 +32,7 @@ WaitForFloor100(*) {
 }
 
 TriggerLC(*) {
-    prestigeButton := cPoint(1393, 551)
+    prestigeButton := cLBRButton(1393, 551)
     UlcWindow()
     Out.D("TriggerLC")
     Shops.OpenGoldPortal()
@@ -50,8 +52,8 @@ TriggerBLC(*) {
     UlcWindow()
     Out.D("TriggerBLC")
     Shops.OpenRedPortal()
-    /** @type {cPoint} */
-    crunchbtn := cPoint(1337, 558)
+    /** @type {cLBRButton} */
+    crunchbtn := cLBRButton(1337, 558)
     crunchbtn.WaitUntilActiveButtonS(3)
     If (!crunchbtn.IsButtonActive()) {
         Out.I("Didn't find blc crunch button, aborting.")
@@ -68,7 +70,7 @@ TriggerBLC(*) {
 
 TriggerMLC(*) {
     UlcWindow()
-    crunchbtn := cPoint(1329, 563)
+    crunchbtn := cLBRButton(1329, 563)
     Out.D("TriggerMLC")
     Shops.OpenGreenPortal()
     crunchbtn.WaitUntilActiveButtonS(3)
@@ -91,8 +93,8 @@ TriggerMLCConverters(*) {
     WaitForPortalAnimation()
     Shops.OpenConverters()
     Sleep(50)
-    /** @type {cPoint} */
-    StartConvertorsBtn := cPoint(1075, 1102)
+    /** @type {cLBRButton} */
+    StartConvertorsBtn := cLBRButton(1075, 1102)
     StartConvertorsBtn.WaitUntilActiveButtonS(5)
     Sleep(17)
     If (!StartConvertorsBtn.ClickButtonActive()) {
@@ -105,7 +107,7 @@ ActivateConverters(*) {
     UlcWindow()
     Out.D("ActivateConverters")
     GameKeys.OpenConverters()
-    StartConvertorsBtn := cPoint(1075, 1102)
+    StartConvertorsBtn := cLBRButton(1075, 1102)
     StartConvertorsBtn.WaitUntilActiveButtonS(3)
     If (!StartConvertorsBtn.ClickButtonActive()) {
         Out.I("Didn't find converter start button, exiting.")
@@ -131,12 +133,12 @@ WaitForBLCPortal(*) {
     UlcWindow()
     Travel.ClosePanelIfActive()
     Out.D("WaitForBLCPortal")
-    /** @type {cPoint} */
-    BlackFlaskStoreBtn := cPoint(828, 1225)
-    /** @type {cPoint} */
-    BuyBLCBtn := cPoint(1700, 304)
-    /** @type {cPoint} */
-    BLCBtn := cPoint(1063, 1220)
+    /** @type {cLBRButton} */
+    BlackFlaskStoreBtn := cLBRButton(828, 1225)
+    /** @type {cLBRButton} */
+    BuyBLCBtn := cLBRButton(1700, 304)
+    /** @type {cLBRButton} */
+    BLCBtn := cLBRButton(1063, 1220)
 
     Out.D("Waiting for flask button")
     gToolTip.Center("Waiting for black flask shop to be active")
@@ -199,11 +201,11 @@ PubTradeForCheese250(*) { ; TODO add option to use 250 instead of 2500 cheese
         Global ULCStageExit := true
         Return
     }
-    BartenderBtn := cPoint(241, 741)
+    BartenderBtn := cLBRButton(241, 741)
     Out.D("Clicking bartender")
     BartenderBtn.Click()
     Sleep(250)
-    QuestsBtn := cPoint(1091, 380)
+    QuestsBtn := cLBRButton(1091, 380)
     QuestsBtn.WaitUntilActiveButtonS(5)
     Out.D("Clicking quest")
     If (!QuestsBtn.ClickButtonActive()) {
@@ -218,7 +220,7 @@ PubTradeForCheese250(*) { ; TODO add option to use 250 instead of 2500 cheese
             Return
         }
     }
-    QuestCheese250Btn := cPoint(1702, 312)
+    QuestCheese250Btn := cLBRButton(1702, 312)
     QuestCheese250Btn.WaitUntilActiveButtonS(5)
     Out.D("Clicking cheese quest")
     If (!QuestCheese250Btn.ClickButtonActive()) {
@@ -244,11 +246,11 @@ PubTradeForCheese2500(*) {
         Global ULCStageExit := true
         Return
     }
-    BartenderBtn := cPoint(241, 741)
+    BartenderBtn := cLBRButton(241, 741)
     Out.D("Clicking bartender")
     BartenderBtn.Click()
     Sleep(250)
-    QuestsBtn := cPoint(1091, 380)
+    QuestsBtn := cLBRButton(1091, 380)
     QuestsBtn.WaitUntilActiveButtonS(3)
     Out.D("Clicking quest")
     If (!QuestsBtn.ClickButtonActive()) {
@@ -256,7 +258,7 @@ PubTradeForCheese2500(*) {
         Global ULCStageExit := true
         Return
     }
-    QuestCheese2500Btn := cPoint(1695, 696)
+    QuestCheese2500Btn := cLBRButton(1695, 696)
     QuestCheese2500Btn.WaitUntilActiveButtonS(3)
     Out.D("Clicking cheese quest")
     If (!QuestCheese2500Btn.ClickButtonActive()) {

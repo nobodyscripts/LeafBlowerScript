@@ -3,20 +3,16 @@
 #Include ..\Lib\cPoints.ahk
 #Include ..\Lib\Spammers.ahk
 
-Global TowerPassiveCraftEnabled := true
-Global TowerPassiveBanksEnabled := true
-Global TowerPassiveTravelEnabled := true
-Global BankEnableLGDeposit := true
-Global BankEnableSNDeposit := true
-Global BankEnableEBDeposit := true
-Global BankEnableFFDeposit := true
-Global BankEnableSRDeposit := true
-Global BankEnableQADeposit := true
-Global BankDepositTime := 5
-Global NavigateTime := 150
+S.AddSetting("TowerPassive", "TowerPassiveBanksEnabled", true, "bool")
+S.AddSetting("TowerPassive", "TowerPassiveCraftEnabled", true, "bool")
+S.AddSetting("TowerPassive", "TowerPassiveTravelEnabled", true, "bool")
 
 fTowerFarm() {
-    Global BankDepositTime
+    NavigateTime := S.Get("NavigateTime")
+    BankDepositTime := S.Get("BankDepositTime")
+    TowerPassiveBanksEnabled := S.Get("TowerPassiveBanksEnabled")
+    TowerPassiveCraftEnabled := S.Get("TowerPassiveCraftEnabled")
+    TowerPassiveTravelEnabled := S.Get("TowerPassiveTravelEnabled")
     ; If user set 0 in gui without adding a fraction, make at least 1 second
     If (BankDepositTime = 0) {
         BankDepositTime := 0.017
@@ -59,7 +55,7 @@ fTowerFarm() {
             }
             While (DateDiff(A_Now, starttime, "Seconds") < BankDepositTime * 60) {
                 If (TowerPassiveCraftEnabled && craftStopCoord.IsButtonActive() &&
-                     Window.IsActive()) {
+                Window.IsActive()) {
                     craftStopCoord.ClickOffset(, , 17)
                 }
             }

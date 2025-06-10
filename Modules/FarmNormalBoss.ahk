@@ -1,26 +1,37 @@
 ﻿#Requires AutoHotkey v2.0
 
+#include ..\ScriptLib\cToolTip.ahk
+#Include ..\Modules\Borbventure.ahk
+#Include ..\Modules\Cards.ahk
+
 Global SpammerPID := 0
-Global CardsBuyEnabled := false
-Global CardsBossFarmEnabled := false
-Global BrewEnableArtifacts := true
-Global BrewEnableEquipment := true
-Global BrewEnableMaterials := true
-Global BrewEnableCardParts := true
-Global BrewEnableScrolls := true
+Global on9 := 0
+
+S.AddSetting("BossFarm", "ArtifactSleepAmount", 17, "int")
+S.AddSetting("BossFarm", "BossFarmUsesWind", true, "bool")
+S.AddSetting("BossFarm", "BossFarmUsesWobblyWings", true, "bool")
+S.AddSetting("BossFarm", "BossFarmUsesSeeds", true, "bool")
+S.AddSetting("BossFarm", "BossFarmFast", false, "bool")
+S.AddSetting("BossFarm", "WobblyWingsSleepAmount", 17, "int")
+S.AddSetting("Brew", "BrewEnableArtifacts", true, "bool")
+S.AddSetting("Brew", "BrewEnableEquipment", true, "bool")
+S.AddSetting("Brew", "BrewEnableMaterials", true, "bool")
+S.AddSetting("Brew", "BrewEnableScrolls", false, "bool")
+S.AddSetting("Brew", "BrewEnableCardParts", true, "bool")
 
 fFarmNormalBoss(modecheck) {
     Global on9
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
     Spammer.NormalBossStart()
+    gToolTip.Center("Kills: " . Killcount)
     Loop {
         If (on9 != modecheck) {
             Return
         }
         If (!Window.IsActive()) {
             Out.I("BossFarm: Exiting as no game.")
-            cReload() ; Kill early if no game
+            Reload() ; Kill early if no game
             Return
         }
         IsTimerLong := IsBossTimerLong()
@@ -31,13 +42,13 @@ fFarmNormalBoss(modecheck) {
             ; TimerCurrentState " waslong " IsPrevTimerLong
             ; " islong " IsTimerLong)
             Killcount++
+            gToolTip.Center("Kills: " . Killcount)
         }
         IsPrevTimerLong := IsTimerLong
         If (Travel.HomeGarden.IsAreaGarden()) {
             Out.I("BossFarm: User killed.")
             gToolTip.CenterMS("Killed by boss", 3000)
         }
-        gToolTip.Center("Kills: " . Killcount)
     }
     gToolTip.CenterDel()
 }
@@ -48,13 +59,14 @@ fFarmNormalBossAndBrew(modecheck) {
     Shops.OpenAlchemyGeneral()
     IsPrevTimerLong := IsBossTimerLong()
     Spammer.NormalBossStart()
+    gToolTip.Center("Brewing on, Kills: " . Killcount)
     Loop {
         If (on9 != modecheck) {
             Break
         }
         If (!Window.IsActive()) {
             Out.I("BossBrew: Exiting as no game.")
-            cReload() ; Kill if no game
+            Reload() ; Kill if no game
             Break
         }
         If (!Window.IsPanel()) {
@@ -69,6 +81,7 @@ fFarmNormalBossAndBrew(modecheck) {
         If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
             ; If the timer is longer, killed too quick to get a gap
             Killcount++
+            gToolTip.Center("Brewing on, Kills: " . Killcount)
         }
         IsPrevTimerLong := IsTimerLong
         If (Travel.HomeGarden.IsAreaGarden() && Spammer.IsNormalBossActive()) {
@@ -77,12 +90,16 @@ fFarmNormalBossAndBrew(modecheck) {
             gToolTip.CenterMS("Killed by boss", 3000)
             Return
         }
-        gToolTip.Center("Brewing on, Kills: " . Killcount)
     }
     gToolTip.CenterDel()
 }
 
 SpamBrewButtons() {
+    BrewEnableArtifacts := S.Get("BrewEnableArtifacts")
+    BrewEnableEquipment := S.Get("BrewEnableEquipment")
+    BrewEnableMaterials := S.Get("BrewEnableMaterials")
+    BrewEnableScrolls := S.Get("BrewEnableScrolls")
+    BrewEnableCardParts := S.Get("BrewEnableCardParts")
     If (!Window.IsPanel()) {
         Out.I("SpamBrewButtons: Did not find panel. Aborted.")
         Return false
@@ -139,13 +156,14 @@ fNormalBossFarmWithBorbs(modecheck) {
     }
     Killcount := 0
     IsPrevTimerLong := IsBossTimerLong()
+    gToolTip.Center("Borbfarm on, Kills: " . Killcount)
     Loop {
         If (on9 != modecheck) {
             Return
         }
         If (!Window.IsActive()) {
             Out.I("BossBorbs: Exiting as no game.")
-            cReload()
+            Reload()
             Return
         }
         If (!Window.IsPanel()) {
@@ -158,13 +176,13 @@ fNormalBossFarmWithBorbs(modecheck) {
             gToolTip.CenterMS("Killed by boss", 3000)
             Return
         }
-        gToolTip.Center("Borbfarm on, Kills: " . Killcount)
         BVMainLoop()
         IsTimerLong := IsBossTimerLong()
         ; if state of timer has changed and is now off, we killed
         If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
             ; If the timer is longer, killed too quick to get a gap
             Killcount++
+            gToolTip.Center("Borbfarm on, Kills: " . Killcount)
         }
         IsPrevTimerLong := IsTimerLong
     }
@@ -194,13 +212,14 @@ fNormalBossFarmWithCards(modecheck) {
 
     Spammer.NormalBossStart()
     IsPrevTimerLong := IsBossTimerLong()
+    gToolTip.Center("Cardfarm on, Kills: " . Killcount)
     Loop {
         If (on9 != modecheck) {
             Return
         }
         If (!Window.IsActive()) {
             Out.I("BossCards: Exiting as no game.")
-            cReload() ; Kill if no game
+            Reload() ; Kill if no game
             Return
         }
         If (!Window.IsPanel()) {
@@ -218,7 +237,7 @@ fNormalBossFarmWithCards(modecheck) {
             Return
         }
         gToolTip.Center("Boss farm with cards active")
-        If (CardsBuyEnabled) {
+        If (S.Get("CardsBuyEnabled")) {
             Out.I("BossCards buy: Loop starting.")
             CardBuyLoop()
         } Else {
@@ -248,9 +267,9 @@ fNormalBossFarmWithCards(modecheck) {
             If ((IsPrevTimerLong != IsTimerLong && IsTimerLong)) {
                 ; If the timer is longer, killed too quick to get a gap
                 Killcount++
+                gToolTip.Center("Cardfarm on, Kills: " . Killcount)
             }
             IsPrevTimerLong := IsTimerLong
-            gToolTip.Center("Cardfarm on, Kills: " . Killcount)
         }
     }
     gToolTip.CenterDel()
@@ -261,5 +280,5 @@ fNormalBossFarmWithCards(modecheck) {
     }
     ResetModifierKeys() ; Cleanup incase of broken loop
     Out.I("BossCards: Stopped.")
-    gToolTip.CenterMS("Card opening aborted`nFound no active buttons.`nF3 to remove note",500)
+    gToolTip.CenterMS("Card opening aborted`nFound no active buttons.`nF3 to remove note", 500)
 }

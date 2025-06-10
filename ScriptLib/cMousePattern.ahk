@@ -2,8 +2,10 @@
 
 #Include cPoint.ahk
 
-/** @type {cMousePattern} */
-;Global MousePattern := cMousePattern()
+If (!IsSet(MousePattern)) {
+    /** @type {cMousePattern} */
+    Global MousePattern := cMousePattern()
+}
 
 Class cMousePattern {
     /**

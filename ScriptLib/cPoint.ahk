@@ -6,48 +6,42 @@
  * Defines the resolution independant locations for pixel checks.  
  * Convert positions from default client resolution to current resolution.
  * Create with relative coords and relative on, or use fixed coords with it off
- * to handle scaling manually (for dynamic situations).  
- * cPoint(x, y, relative) to construct.
- * @function __New construct
- * @example
- * cPoint(1, 10) ; Returns cPoint class
- * cPoint(1, 10, false) ; Returns cPoint class with non relative coords
+ * to handle scaling manually (for dynamic situations).
  * @module cPoint
  * @argument {Integer} x X value (output depends on .relative)
  * @argument {Integer} y Y value (output depends on .relative)
  * @argument {Boolean} relative Set true for relative coords on get, false for
  * original values
- * @property {Integer} x X value (output depends on .relative)
- * @property {Integer} y Y value (output depends on .relative)
- * @property {Boolean} relative Set true for relative coords on get, false for
- * original values
+ * @example
+ * cPoint(1, 10) ; Returns cPoint class
+ * cPoint(1, 10, false) ; Returns cPoint class with non relative coords
  * 
- * @function Set Set new values after construction
- * @function IsBackground Is point a background colour
- * @function IsButton Is point a button colour
- * @function IsButtonActive Is point an active button colour
- * @function IsButtonInactive Is point an inactive button colour
- * @function IsButtonOffPanel Is point an off panel button colour 
- * @function Click Click left mouse button at point
- * @function ClickOffset Click left mouse button at point with an offset
- * @function ClickButtonActive Click left mouse button at point if active
- * @function MouseMove Move mouse to point
- * @function toString Convert x y to readable string
- * @function toStringWColour toSting with colour
- * @function toStringDisplay toString to 2 decimal places
- * @function GetColour Get pixel colour at point
- * @function IsColour Check if pixel colour at point is equal
- * @function ToolTipAtCoord Create a blank tooltip with top left at point
- * @function ClickOffsetUntilColour Click offset while colour doesn't match
- * @function ClickOffsetWhileColour Click offset while colour matches
- * @function WaitWhileNotColour Loop while colour doesn't match
- * @function WaitWhileColour Loop while colour matches
- * @function WaitUntilActiveButton Loop till active button or max loop
- * @function GreedyModifierClick Use decending value modifiers to click while
+ * @method Set Set new values after construction
+ * @method IsBackground Is point a background colour
+ * @method IsButton Is point a button colour
+ * @method IsButtonActive Is point an active button colour
+ * @method IsButtonInactive Is point an inactive button colour
+ * @method IsButtonOffPanel Is point an off panel button colour 
+ * @method Click Click left mouse button at point
+ * @method ClickOffset Click left mouse button at point with an offset
+ * @method ClickButtonActive Click left mouse button at point if active
+ * @method MouseMove Move mouse to point
+ * @method toString Convert x y to readable string
+ * @method toStringWColour toSting with colour
+ * @method toStringDisplay toString to 2 decimal places
+ * @method GetColour Get pixel colour at point
+ * @method IsColour Check if pixel colour at point is equal
+ * @method ToolTipBlankAtCoord Create a blank tooltip with top left at point
+ * @method ClickOffsetUntilColour Click offset while colour doesn't match
+ * @method ClickOffsetWhileColour Click offset while colour matches
+ * @method WaitWhileNotColour Loop while colour doesn't match
+ * @method WaitWhileColour Loop while colour matches
+ * @method WaitUntilActiveButton Loop till active button or max loop
+ * @method GreedyModifierClick Use decending value modifiers to click while
  * looping on an active button, start at cap amount
- * @function ClientToScreen Convert point xy to screenspace xy and return as
+ * @method ClientToScreen Convert point xy to screenspace xy and return as
  * Array
- * @function ClientToScreencPoint Convert point xy to screenspace xy and return
+ * @method ClientToScreencPoint Convert point xy to screenspace xy and return
  * new cPoint
  */
 Class cPoint {
@@ -131,7 +125,6 @@ Class cPoint {
      * @param y 
      * @param {Integer=} relative Set true for relative coords on get, false for original values
      * @returns {cPoint}
-     * @function
      */
     Set(x, y, relative := true) {
         this.x := x
@@ -299,7 +292,7 @@ Class cPoint {
     /**
      * Compare colour at point to string 
      * @param colour 0xFFFFFF
-     * @returns {Integer} 
+     * @returns {Boolean} 
      */
     IsColour(colour) {
         fetchedColour := this.GetColour()
@@ -310,19 +303,36 @@ Class cPoint {
     }
 
     /**
-     * Create blank tooltip at point with optional id
-     * @param {Integer} id 
+     * Compare colour at point to string 
+     * @param colours Array of 0xFFFFFF formatted colours
+     * @returns {Boolean}
      */
-    ToolTipAtCoord(id := 15) {
-        ToolTip(" ", this.x, this.y, id)
+    IsColourArr(colours := []) {
+        fetchedColour := this.GetColour()
+        For colour in colours {
+            If (colour = fetchedColour) {
+                Return true
+            }
+        }
+        Return false
     }
 
     /**
      * Create blank tooltip at point with optional id
      * @param {Integer} id 
+     * @returns {Integer} HWND Or 0 if destroyed
      */
-    TextTipAtCoord(text := " ", id := 15) {
-        ToolTip(text, this.x, this.y, id)
+    ToolTipAtCoord(text := "", id := 15) {
+        return ToolTip(text, this.x, this.y, id)
+    }
+
+    /**
+     * Create blank tooltip at point with optional id
+     * @param {Integer} id
+     * @returns {Integer} HWND Or 0 if destroyed
+     */
+    ToolTipBlankAtCoord(id := 15) {
+        return ToolTip(" ", this.x, this.y, id)
     }
 
     /**
@@ -513,6 +523,7 @@ Class cPoint {
         Return this.WaitWhileNotColour(colour, seconds * 1000 / 20, 20)
     }
 
+    ;@region ClientToScreen()
     /**
      * Converts current cPoint to screenspace and returns [x,y]
      * @memberof cPoint
@@ -528,7 +539,9 @@ Class cPoint {
             sy
         ]
     }
+    ;@endregion
 
+    ;@region ClientToScreencPoint()
     /**
      * Converts current cPoint to screenspace and returns a new cPoint
      * @memberof cPoint
@@ -541,4 +554,6 @@ Class cPoint {
         sx := NumGet(ptr, 0, "int"), sy := NumGet(ptr, 4, "int")
         Return cPoint(sx, sy, false)
     }
+    ;@endregion
+
 }

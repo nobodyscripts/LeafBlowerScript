@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * TheInnerCursedPyramid class for zone travel
@@ -30,12 +28,12 @@ Class TheInnerCursedPyramid extends Zone {
         ;Travel.ScrollResetToTop()
         this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
-        If (!cPoint(1663, 936).IsButton()) {
-            /** @type {cPoint} */
-            Local Btn := cPoint(1865, 942)
+        If (!cLBRButton(1663, 936).IsButton()) {
+            /** @type {cLBRButton} */
+            Local Btn := cLBRButton(1865, 942)
         } Else {
-            /** @type {cPoint} */
-            Local Btn := cPoint(1663, 936)
+            /** @type {cLBRButton} */
+            Local Btn := cLBRButton(1663, 936)
         }
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
@@ -43,8 +41,8 @@ Class TheInnerCursedPyramid extends Zone {
             If (Btn.IsButtonInactive()) {
                 Out.I("Button inactive when trying to travel.")
             } Else {
-                Out.I("The Inner Cursed Pyramid not found while trying to travel. " 
-                Colours().ColourIdent(Btn.GetColour()))
+                Out.I("The Inner Cursed Pyramid not found while trying to travel. "
+                    Btn.ColourIdent(Btn.GetColour()))
             }
         }
         Sleep(delay + extradelay)

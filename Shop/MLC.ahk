@@ -20,19 +20,19 @@ Class sMLC extends Zone {
         Shops.MLC.GoTo()
         Travel.ScrollResetToTop()
         Sleep(50)
-        If (cPoint(1689, 315).ClickButtonActive()) { ; unlock cards
+        If (cLBRButton(1689, 315).ClickButtonActive()) { ; unlock cards
             Sleep(50)
         }
-        If (cPoint(1697, 407).ClickButtonActive()) { ; unlock bv
+        If (cLBRButton(1697, 407).ClickButtonActive()) { ; unlock bv
             Sleep(50)
         }
-        If (cPoint(1859, 533).ClickButtonActive()) { ; All leaves
+        If (cLBRButton(1859, 533).ClickButtonActive()) { ; All leaves
             Sleep(50)
         }
-        If (cPoint(1860, 647).ClickButtonActive()) { ; MLC
+        If (cLBRButton(1860, 647).ClickButtonActive()) { ; MLC
             Sleep(50)
         }
-        If (cPoint(1860, 756).ClickButtonActive()) { ; blc
+        If (cLBRButton(1860, 756).ClickButtonActive()) { ; blc
             Sleep(50)
         }
         ; missing (toggle)
@@ -43,129 +43,129 @@ Class sMLC extends Zone {
         ; missing (toggle)
         ; missing (toggle)
         If (!Rects.MLCShop.AutoFacts.PixelSearch()) {
-            If (cPoint(1692, 875).ClickButtonActive()) { ; Autofacts (toggle)
+            If (cLBRButton(1692, 875).ClickButtonActive()) { ; Autofacts (toggle)
                 Sleep(50)
             }
         }
-        If (cPoint(1863, 989).ClickButtonActive()) { ; Faster Autofacts
+        If (cLBRButton(1863, 989).ClickButtonActive()) { ; Faster Autofacts
             Sleep(50)
         }
         Travel.ScrollAmountDown(7)
         Sleep(50)
-        If (cPoint(1858, 527).ClickButtonActive()) { ; Offline seeds
+        If (cLBRButton(1858, 527).ClickButtonActive()) { ; Offline seeds
             Sleep(50)
         }
-        If (cPoint(1859, 645).ClickButtonActive()) { ; Offline MLC
+        If (cLBRButton(1859, 645).ClickButtonActive()) { ; Offline MLC
             Sleep(50)
         }
-        If (cPoint(1863, 760).ClickButtonActive()) { ; offline mlc
+        If (cLBRButton(1863, 760).ClickButtonActive()) { ; offline mlc
             Sleep(50)
         }
-        If (cPoint(1860, 870).ClickButtonActive()) { ; mtf
+        If (cLBRButton(1860, 870).ClickButtonActive()) { ; mtf
             Sleep(50)
         }
-        If (cPoint(1860, 985).ClickButtonActive()) { ; crunchy tower
-            Sleep(50)
-        }
-        Travel.ScrollAmountDown(7)
-        Sleep(50)
-        If (cPoint(1857, 528).ClickButtonActive()) { ; offline tower
-            Sleep(50)
-        }
-        If (cPoint(1856, 646).ClickButtonActive()) { ; authority
-            Sleep(50)
-        }
-        If (cPoint(1693, 766).ClickButtonActive()) { ; crunchy areas
-            Sleep(50)
-        }
-        If (cPoint(1858, 877).ClickButtonActive()) { ; crunchy coins
-            Sleep(50)
-        }
-        If (cPoint(1858, 877).ClickButtonActive()) { ; repeat
-            Sleep(50)
-        }
-        If (cPoint(1861, 989).ClickButtonActive()) { ; crunchy blc
-            Sleep(50)
-        }
-        If (cPoint(1861, 989).ClickButtonActive()) { ; repeat
+        If (cLBRButton(1860, 985).ClickButtonActive()) { ; crunchy tower
             Sleep(50)
         }
         Travel.ScrollAmountDown(7)
         Sleep(50)
-        If (cPoint(1687, 537).ClickButtonActive()) { ; crunchy pets
+        If (cLBRButton(1857, 528).ClickButtonActive()) { ; offline tower
+            Sleep(50)
+        }
+        If (cLBRButton(1856, 646).ClickButtonActive()) { ; authority
+            Sleep(50)
+        }
+        If (cLBRButton(1693, 766).ClickButtonActive()) { ; crunchy areas
+            Sleep(50)
+        }
+        If (cLBRButton(1858, 877).ClickButtonActive()) { ; crunchy coins
+            Sleep(50)
+        }
+        If (cLBRButton(1858, 877).ClickButtonActive()) { ; repeat
+            Sleep(50)
+        }
+        If (cLBRButton(1861, 989).ClickButtonActive()) { ; crunchy blc
+            Sleep(50)
+        }
+        If (cLBRButton(1861, 989).ClickButtonActive()) { ; repeat
+            Sleep(50)
+        }
+        Travel.ScrollAmountDown(7)
+        Sleep(50)
+        If (cLBRButton(1687, 537).ClickButtonActive()) { ; crunchy pets
             Sleep(50)
         }
         If (!Rects.MLCShop.CrunchySeeds.PixelSearch()) {
-            If (cPoint(1685, 649).ClickButtonActive()) { ; crunchy seeds lite (toggle)
+            If (cLBRButton(1685, 649).ClickButtonActive()) { ; crunchy seeds lite (toggle)
                 Sleep(50)
             }
         }
-        If (cPoint(1694, 763).ClickButtonActive()) { ; crunchy unique
+        If (cLBRButton(1694, 763).ClickButtonActive()) { ; crunchy unique
             Sleep(50)
         }
         ; missing
         If (!Rects.MLCShop.PoweredALB.PixelSearch()) {
-            If (cPoint(1690, 987).ClickButtonActive()) { ; leaf powered alb (toggle)
+            If (cLBRButton(1690, 987).ClickButtonActive()) { ; leaf powered alb (toggle)
                 Sleep(50)
             }
         }
         Travel.ScrollAmountDown(7)
         Sleep(50)
-        If (cPoint(1856, 535).ClickButtonActive()) { ; trade education
+        If (cLBRButton(1856, 535).ClickButtonActive()) { ; trade education
             Sleep(50)
         }
-        If (cPoint(1856, 535).ClickButtonActive()) { ; repeat
+        If (cLBRButton(1856, 535).ClickButtonActive()) { ; repeat
             Sleep(50)
         }
-        If (cPoint(1856, 643).ClickButtonActive()) { ; faster artifacts
+        If (cLBRButton(1856, 643).ClickButtonActive()) { ; faster artifacts
             Sleep(50)
         }
-        If (cPoint(1857, 758).ClickButtonActive()) { ; offline artifacts
+        If (cLBRButton(1857, 758).ClickButtonActive()) { ; offline artifacts
             Sleep(50)
         }
-        If (cPoint(1860, 869).ClickButtonActive()) { ; critical converters
+        If (cLBRButton(1860, 869).ClickButtonActive()) { ; critical converters
             Sleep(50)
         }
-        If (cPoint(1857, 980).ClickButtonActive()) { ; craft forge
-            Sleep(50)
-        }
-        Travel.ScrollAmountDown(7)
-        Sleep(50)
-        If (cPoint(1860, 532).ClickButtonActive()) { ; craft hammer
-            Sleep(50)
-        }
-        If (cPoint(1858, 639).ClickButtonActive()) { ; faster autocraft
-            Sleep(50)
-        }
-        If (cPoint(1692, 746).ClickButtonActive()) { ; unlock silver converters
-            Sleep(50)
-        }
-        If (cPoint(1699, 856).ClickButtonActive()) { ; unlock gold converters
-            Sleep(50)
-        }
-        If (cPoint(1691, 974).ClickButtonActive()) { ; unlock amber leaf
+        If (cLBRButton(1857, 980).ClickButtonActive()) { ; craft forge
             Sleep(50)
         }
         Travel.ScrollAmountDown(7)
         Sleep(50)
-        If (cPoint(1692, 516).ClickButtonActive()) { ; unlock amythyst leaf
+        If (cLBRButton(1860, 532).ClickButtonActive()) { ; craft hammer
             Sleep(50)
         }
-        If (cPoint(1693, 633).ClickButtonActive()) { ; unlock emerald leaf
+        If (cLBRButton(1858, 639).ClickButtonActive()) { ; faster autocraft
             Sleep(50)
         }
-        If (cPoint(1689, 748).ClickButtonActive()) { ; unlock kyanite leaf
+        If (cLBRButton(1692, 746).ClickButtonActive()) { ; unlock silver converters
             Sleep(50)
         }
-        If (cPoint(1692, 864).ClickButtonActive()) { ; unlock rhondonite leaf
+        If (cLBRButton(1699, 856).ClickButtonActive()) { ; unlock gold converters
             Sleep(50)
         }
-        If (cPoint(1688, 979).ClickButtonActive()) { ; unlock ruby leaf
+        If (cLBRButton(1691, 974).ClickButtonActive()) { ; unlock amber leaf
             Sleep(50)
         }
         Travel.ScrollAmountDown(7)
         Sleep(50)
-        If (cPoint(1691, 936).ClickButtonActive()) { ; unlock tektite leaf
+        If (cLBRButton(1692, 516).ClickButtonActive()) { ; unlock amythyst leaf
+            Sleep(50)
+        }
+        If (cLBRButton(1693, 633).ClickButtonActive()) { ; unlock emerald leaf
+            Sleep(50)
+        }
+        If (cLBRButton(1689, 748).ClickButtonActive()) { ; unlock kyanite leaf
+            Sleep(50)
+        }
+        If (cLBRButton(1692, 864).ClickButtonActive()) { ; unlock rhondonite leaf
+            Sleep(50)
+        }
+        If (cLBRButton(1688, 979).ClickButtonActive()) { ; unlock ruby leaf
+            Sleep(50)
+        }
+        Travel.ScrollAmountDown(7)
+        Sleep(50)
+        If (cLBRButton(1691, 936).ClickButtonActive()) { ; unlock tektite leaf
             Sleep(50)
         }
     }
@@ -176,10 +176,10 @@ Class sMLC extends Zone {
         Sleep(50)
         Travel.ScrollAmountDown(35)
         Sleep(50)
-        If (cPoint(1856, 535).ClickButtonActive()) { ; trade education
+        If (cLBRButton(1856, 535).ClickButtonActive()) { ; trade education
             Sleep(50)
         }
-        If (cPoint(1856, 535).ClickButtonActive()) { ; repeat
+        If (cLBRButton(1856, 535).ClickButtonActive()) { ; repeat
             Sleep(50)
         }
     }

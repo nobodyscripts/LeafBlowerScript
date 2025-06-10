@@ -1,17 +1,25 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
-Global ScriptsLogFile := A_ScriptDir "\TAS.Log"
-Global IsSecondary := false
-;Global DisableGameKeysInit := true
 Global DisableScriptKeysInit := true
 
-#Include Lib\hTas.ahk
-#Include Lib\hModules.ahk
+/** @type {cLog} */
+Out := cLog(A_ScriptDir "\TAS.log", true, 3, false)
 
-If (!Window.Activate()) {
-    Return
-}
+/** @type {cLBRWindow} */
+Global Window := cLBRWindow("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe", 2560, 1369)
+
+#Include ScriptLib\cSettings.ahk
+#Include Lib\Misc.ahk
+#Include Lib\cLBRWindow.ahk
+#Include Lib\Navigate.ahk
+#Include Lib\cHotkeysInitGame.ahk
+#Include Lib\TAS\cGameController.ahk
+
+S.initSettings()
+
+GameKeys.sFilename := A_ScriptDir "\UserHotkeys.ini"
+GameKeys.initHotkeys()
 
 gc := cGameController()
 

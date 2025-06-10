@@ -1,267 +1,280 @@
 #Requires AutoHotkey v2.0
 
 Button_Click_FishingTourney(thisGui, info) {
-    Global Settings
 
-    Global FishTourCatchingDelay, FishTourCatchingSearch
+    FishTourCatchingDelay := S.Get("FishTourCatchingDelay")
+    FishTourCatchingSearch := S.Get("FishTourCatchingSearch")
+    FishTourEnableShopUpgrade := S.Get("FishTourEnableShopUpgrade")
+    FishTourEnableUpgradeRods := S.Get("FishTourEnableUpgradeRods")
+    FishTourEnableFishingPass := S.Get("FishTourEnableFishingPass")
+    FishTourEnableUpgradeTourneyRods := S.Get("FishTourEnableUpgradeTourneyRods")
+    FishTourEnableTransmute := S.Get("FishTourEnableTransmute")
+    FishTourEnableJourneyCollect := S.Get("FishTourEnableJourneyCollect")
+    FishTourTimerShopUpgrade := S.Get("FishTourTimerShopUpgrade")
+    FishTourTimerUpgradeRods := S.Get("FishTourTimerUpgradeRods")
+    FishTourTimerUpgradeTourneyRods := S.Get("FishTourTimerUpgradeTourneyRods")
+    FishTourTimerTransmute := S.Get("FishTourTimerTransmute")
+    FishTourTimerJourneyCollect := S.Get("FishTourTimerJourneyCollect")
+    FishTourTransmuteTtoFC := S.Get("FishTourTransmuteTtoFC")
+    FishTourTransmuteFCtoCry := S.Get("FishTourTransmuteFCtoCry")
+    FishTourTransmuteCrytoA := S.Get("FishTourTransmuteCrytoA")
+    FishTourTransmuteFCtoT := S.Get("FishTourTransmuteFCtoT")
+    FishTourTransmuteCrytoFC := S.Get("FishTourTransmuteCrytoFC")
+    FishTourTransmuteAtoCry := S.Get("FishTourTransmuteAtoCry")
+    FishTourNovice := S.Get("FishTourNovice")
+    FishTourIntermediate := S.Get("FishTourIntermediate")
+    FishTourExpert := S.Get("FishTourExpert")
+    FishTourLegend := S.Get("FishTourLegend")
+    FishTourNoviceAttack := S.Get("FishTourNoviceAttack")
+    FishTourIntermediateAttack := S.Get("FishTourIntermediateAttack")
+    FishTourExpertAttack := S.Get("FishTourExpertAttack")
+    FishTourLegendAttack := S.Get("FishTourLegendAttack")
 
-    Global FishTourEnableShopUpgrade, FishTourEnableUpgradeRods,
-        FishTourEnableFishingPass, FishTourEnableUpgradeTourneyRods,
-        FishTourEnableTransmute, FishTourEnableJourneyCollect
+    GuiBGColour := S.Get("GuiBGColour")
 
-    Global FishTourTimerShopUpgrade, FishTourTimerUpgradeRods,
-        FishTourTimerUpgradeTourneyRods, FishTourTimerTransmute, FishTourTimerJourneyCollect
-
-    Global FishTourTransmuteTtoFC, FishTourTransmuteFCtoCry, FishTourTransmuteCrytoA,
-        FishTourTransmuteFCtoT, FishTourTransmuteCrytoFC, FishTourTransmuteAtoCry
-
-    Global FishTourNovice, FishTourIntermediate, FishTourExpert,
-        FishTourLegend, FishTourNoviceAttack, FishTourIntermediateAttack,
-        FishTourExpertAttack, FishTourLegendAttack
-
-    /** @type {GUI} */
-    optionsGUI := Gui(, "Fishing Tourney Settings")
-    SetFontOptions(optionsGUI)
+    /** @type {cGUI} */
+    MyGui := cGui(, "Fishing Tourney Settings")
+    MyGui.SetUserFontSettings()
 
     ;@region Tourney settings
     ;@region Fishing
     If (FishTourEnableFishingPass = true) {
-        optionsGUI.Add("CheckBox", "vFishTourEnableFishingPass checked",
+        MyGui.Add("CheckBox", "vFishTourEnableFishingPass checked",
             "Enable Fishing During Tourney")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourEnableFishingPass",
+        MyGui.Add("CheckBox", "vFishTourEnableFishingPass",
             "Enable Fishing During Tourney")
     }
-    optionsGUI.Add("Text", "", "Fish Reeling in delay (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Fish Reeling in delay (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishTourCatchingDelay) && FishTourCatchingDelay > 0) {
-        optionsGUI.Add("UpDown", "vFishTourCatchingDelay Range1-9999",
+        MyGui.Add("UpDown", "vFishTourCatchingDelay Range1-9999",
             FishTourCatchingDelay)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishTourCatchingDelay Range1-9999",
-                Settings.defaultNobodySettings.FishTourCatchingDelay)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishTourCatchingDelay Range1-9999",
+                S.defaultNobodySettings.FishTourCatchingDelay)
         } Else {
-            optionsGUI.Add("UpDown", "vFishTourCatchingDelay Range1-9999",
-                Settings.defaultSettings.FishTourCatchingDelay)
+            MyGui.Add("UpDown", "vFishTourCatchingDelay Range1-9999",
+                S.defaultSettings.FishTourCatchingDelay)
         }
     }
 
     If (FishTourCatchingSearch = true) {
-        optionsGUI.Add("CheckBox", "vFishTourCatchingSearch checked",
+        MyGui.Add("CheckBox", "vFishTourCatchingSearch checked",
             "Enable Search During Tourney")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourCatchingSearch",
+        MyGui.Add("CheckBox", "vFishTourCatchingSearch",
             "Enable Search During Tourney")
     }
     ;@endregion
 
-    optionsGUI.Add("Text", "", "---")
+    MyGui.Add("Text", "", "---")
 
     ;@region ShopUpgrade
     If (FishTourEnableShopUpgrade = true) {
-        optionsGUI.Add("CheckBox", "vFishTourEnableShopUpgrade checked",
+        MyGui.Add("CheckBox", "vFishTourEnableShopUpgrade checked",
             "Enable Shop Upgrade During Tourney")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourEnableShopUpgrade",
+        MyGui.Add("CheckBox", "vFishTourEnableShopUpgrade",
             "Enable Shop Upgrade During Tourney")
     }
-    optionsGUI.Add("Text", "", "Shop Upgrade timer (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Shop Upgrade timer (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishTourTimerShopUpgrade) && FishTourTimerShopUpgrade > 0) {
-        optionsGUI.Add("UpDown", "vFishTourTimerShopUpgrade Range1-9999",
+        MyGui.Add("UpDown", "vFishTourTimerShopUpgrade Range1-9999",
             FishTourTimerShopUpgrade)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishTourTimerShopUpgrade Range1-9999",
-                Settings.defaultNobodySettings.FishTourTimerShopUpgrade)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishTourTimerShopUpgrade Range1-9999",
+                S.defaultNobodySettings.FishTourTimerShopUpgrade)
         } Else {
-            optionsGUI.Add("UpDown", "vFishTourTimerShopUpgrade Range1-9999",
-                Settings.defaultSettings.FishTourTimerShopUpgrade)
+            MyGui.Add("UpDown", "vFishTourTimerShopUpgrade Range1-9999",
+                S.defaultSettings.FishTourTimerShopUpgrade)
         }
     }
     ;@endregion
 
-    optionsGUI.Add("Text", "", "---")
+    MyGui.Add("Text", "", "---")
 
     ;@region Rod Upgrade
     If (FishTourEnableUpgradeRods = true) {
-        optionsGUI.Add("CheckBox", "vFishTourEnableUpgradeRods checked",
+        MyGui.Add("CheckBox", "vFishTourEnableUpgradeRods checked",
             "Enable Rod Upgrades During Tourney")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourEnableUpgradeRods",
+        MyGui.Add("CheckBox", "vFishTourEnableUpgradeRods",
             "Enable Rod Upgrades During Tourney")
     }
-    optionsGUI.Add("Text", "", "Rod Upgrade timer (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Rod Upgrade timer (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishTourTimerUpgradeRods) && FishTourTimerUpgradeRods > 0) {
-        optionsGUI.Add("UpDown", "vFishTourTimerUpgradeRods Range1-9999",
+        MyGui.Add("UpDown", "vFishTourTimerUpgradeRods Range1-9999",
             FishTourTimerUpgradeRods)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishTourTimerUpgradeRods Range1-9999",
-                Settings.defaultNobodySettings.FishTourTimerUpgradeRods)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishTourTimerUpgradeRods Range1-9999",
+                S.defaultNobodySettings.FishTourTimerUpgradeRods)
         } Else {
-            optionsGUI.Add("UpDown", "vFishTourTimerUpgradeRods Range1-9999",
-                Settings.defaultSettings.FishTourTimerUpgradeRods)
+            MyGui.Add("UpDown", "vFishTourTimerUpgradeRods Range1-9999",
+                S.defaultSettings.FishTourTimerUpgradeRods)
         }
     }
     ;@endregion
 
-    optionsGUI.Add("Text", "", "---")
+    MyGui.Add("Text", "", "---")
 
     ;@region Tourney Rods
     If (FishTourEnableUpgradeTourneyRods = true) {
-        optionsGUI.Add("CheckBox", "vFishTourEnableUpgradeTourneyRods checked",
+        MyGui.Add("CheckBox", "vFishTourEnableUpgradeTourneyRods checked",
             "Enable Tourney Rod Upgrades During Tourney")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourEnableUpgradeTourneyRods",
+        MyGui.Add("CheckBox", "vFishTourEnableUpgradeTourneyRods",
             "Enable Tourney Rod Upgrades During Tourney")
     }
-    optionsGUI.Add("Text", "", "Tourney Rods Upgrade timer (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Tourney Rods Upgrade timer (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishTourTimerUpgradeTourneyRods) && FishTourTimerUpgradeTourneyRods > 0) {
-        optionsGUI.Add("UpDown", "vFishTourTimerUpgradeTourneyRods Range1-9999",
+        MyGui.Add("UpDown", "vFishTourTimerUpgradeTourneyRods Range1-9999",
             FishTourTimerUpgradeTourneyRods)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishTourTimerUpgradeTourneyRods Range1-9999",
-                Settings.defaultNobodySettings.FishTourTimerUpgradeTourneyRods)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishTourTimerUpgradeTourneyRods Range1-9999",
+                S.defaultNobodySettings.FishTourTimerUpgradeTourneyRods)
         } Else {
-            optionsGUI.Add("UpDown", "vFishTourTimerUpgradeTourneyRods Range1-9999",
-                Settings.defaultSettings.FishTourTimerUpgradeTourneyRods)
+            MyGui.Add("UpDown", "vFishTourTimerUpgradeTourneyRods Range1-9999",
+                S.defaultSettings.FishTourTimerUpgradeTourneyRods)
         }
     }
     ;@endregion
 
-    optionsGUI.Add("Text", "", "---")
+    MyGui.Add("Text", "", "---")
 
     ;@region Journey Collection
     If (FishTourEnableJourneyCollect = true) {
-        optionsGUI.Add("CheckBox", "vFishTourEnableJourneyCollect checked",
+        MyGui.Add("CheckBox", "vFishTourEnableJourneyCollect checked",
             "Enable Journey Collection During Tourney")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourEnableJourneyCollect",
+        MyGui.Add("CheckBox", "vFishTourEnableJourneyCollect",
             "Enable Journey Collection During Tourney")
     }
-    optionsGUI.Add("Text", "", "Journey Collection timer (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Journey Collection timer (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishTourTimerJourneyCollect) && FishTourTimerJourneyCollect > 0) {
-        optionsGUI.Add("UpDown", "vFishTourTimerJourneyCollect Range1-9999",
+        MyGui.Add("UpDown", "vFishTourTimerJourneyCollect Range1-9999",
             FishTourTimerJourneyCollect)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishTourTimerJourneyCollect Range1-9999",
-                Settings.defaultNobodySettings.FishTourTimerJourneyCollect)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishTourTimerJourneyCollect Range1-9999",
+                S.defaultNobodySettings.FishTourTimerJourneyCollect)
         } Else {
-            optionsGUI.Add("UpDown", "vFishTourTimerJourneyCollect Range1-9999",
-                Settings.defaultSettings.FishTourTimerJourneyCollect)
+            MyGui.Add("UpDown", "vFishTourTimerJourneyCollect Range1-9999",
+                S.defaultSettings.FishTourTimerJourneyCollect)
         }
     }
     ;@endregion
 
-    optionsGUI.Add("Text", "", "---")
+    MyGui.Add("Text", "", "---")
 
     ;@region Transmute
     If (FishTourEnableTransmute = true) {
-        optionsGUI.Add("CheckBox", "vFishTourEnableTransmute checked",
+        MyGui.Add("CheckBox", "vFishTourEnableTransmute checked",
             "Enable Custom Transmute During Tourney")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourEnableTransmute",
+        MyGui.Add("CheckBox", "vFishTourEnableTransmute",
             "Enable Custom Transmute During Tourney")
     }
-    optionsGUI.Add("Text", "", "Transmute timer (s):")
-    optionsGUI.AddEdit("cDefault")
+    MyGui.Add("Text", "", "Transmute timer (s):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(FishTourTimerTransmute) && FishTourTimerTransmute > 0) {
-        optionsGUI.Add("UpDown", "vFishTourTimerTransmute Range1-9999",
+        MyGui.Add("UpDown", "vFishTourTimerTransmute Range1-9999",
             FishTourTimerTransmute)
     } Else {
-        If (Settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vFishTourTimerTransmute Range1-9999",
-                Settings.defaultNobodySettings.FishTourTimerTransmute)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vFishTourTimerTransmute Range1-9999",
+                S.defaultNobodySettings.FishTourTimerTransmute)
         } Else {
-            optionsGUI.Add("UpDown", "vFishTourTimerTransmute Range1-9999",
-                Settings.defaultSettings.FishTourTimerTransmute)
+            MyGui.Add("UpDown", "vFishTourTimerTransmute Range1-9999",
+                S.defaultSettings.FishTourTimerTransmute)
         }
     }
 
     If (FishTourTransmuteTtoFC = true) {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteTtoFC checked",
+        MyGui.Add("CheckBox", "vFishTourTransmuteTtoFC checked",
             "Enable Transmute Trash to Fish Credits")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteTtoFC",
+        MyGui.Add("CheckBox", "vFishTourTransmuteTtoFC",
             "Enable Transmute Trash to Fish Credits")
     }
     If (FishTourTransmuteFCtoCry = true) {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteFCtoCry checked",
+        MyGui.Add("CheckBox", "vFishTourTransmuteFCtoCry checked",
             "Enable Transmute Fish Credits to Crystal")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteFCtoCry",
+        MyGui.Add("CheckBox", "vFishTourTransmuteFCtoCry",
             "Enable Transmute Fish Credits to Crystal")
     }
     If (FishTourTransmuteCrytoA = true) {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteCrytoA checked",
+        MyGui.Add("CheckBox", "vFishTourTransmuteCrytoA checked",
             "Enable Transmute Crystal to Advanced Crystal")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteCrytoA",
+        MyGui.Add("CheckBox", "vFishTourTransmuteCrytoA",
             "Enable Transmute Crystal to Advanced Crystal")
     }
     If (FishTourTransmuteFCtoT = true) {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteFCtoT checked",
+        MyGui.Add("CheckBox", "vFishTourTransmuteFCtoT checked",
             "Enable Transmute Fish Credits to Trash")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteFCtoT",
+        MyGui.Add("CheckBox", "vFishTourTransmuteFCtoT",
             "Enable Transmute Fish Credits to Trash")
     }
     If (FishTourTransmuteCrytoFC = true) {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteCrytoFC checked",
+        MyGui.Add("CheckBox", "vFishTourTransmuteCrytoFC checked",
             "Enable Transmute Crystal to Fish Credits")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteCrytoFC",
+        MyGui.Add("CheckBox", "vFishTourTransmuteCrytoFC",
             "Enable Transmute Crystal to Fish Credits")
     }
     If (FishTourTransmuteAtoCry = true) {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteAtoCry checked",
+        MyGui.Add("CheckBox", "vFishTourTransmuteAtoCry checked",
             "Enable Transmute Advanced Crystal to Crystal")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourTransmuteAtoCry",
+        MyGui.Add("CheckBox", "vFishTourTransmuteAtoCry",
             "Enable Transmute Advanced Crystal to Crystal")
     }
     ;@endregion
 
     ;@region Novice Tourney
     If (FishTourNovice = true) {
-        optionsGUI.Add("CheckBox", "vFishTourNovice ys checked",
+        MyGui.Add("CheckBox", "vFishTourNovice ys checked",
             "Enable Novice Tourney")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourNovice ys",
+        MyGui.Add("CheckBox", "vFishTourNovice ys",
             "Enable Novice Tourney")
     }
 
     ;@region Attack setting
-    optionsGUI.Add("Text", "vFishTourNoviceAttackLabel",
+    MyGui.Add("Text", "vFishTourNoviceAttackLabel",
         "Novice Tourney Attack Type:")
     Switch FishTourNoviceAttack {
     Case 1:
-        optionsGUI.Add("DropDownList", "vFishTourNoviceAttack Choose1", [
+        MyGui.Add("DropDownList", "vFishTourNoviceAttack Choose1", [
             "1",
             "2",
             "3"
         ])
     Case 2:
-        optionsGUI.Add("DropDownList", "vFishTourNoviceAttack Choose2", [
+        MyGui.Add("DropDownList", "vFishTourNoviceAttack Choose2", [
             "1",
             "2",
             "3"
         ])
     Case 3:
-        optionsGUI.Add("DropDownList", "vFishTourNoviceAttack Choose3", [
+        MyGui.Add("DropDownList", "vFishTourNoviceAttack Choose3", [
             "1",
             "2",
             "3"
         ])
     default:
-        optionsGUI.Add("DropDownList", "vFishTourNoviceAttack Choose1", [
+        MyGui.Add("DropDownList", "vFishTourNoviceAttack Choose1", [
             "1",
             "2",
             "3"
@@ -272,37 +285,37 @@ Button_Click_FishingTourney(thisGui, info) {
 
     ;@region Intermediate Tourney
     If (FishTourIntermediate = true) {
-        optionsGUI.Add("CheckBox", "vFishTourIntermediate checked",
+        MyGui.Add("CheckBox", "vFishTourIntermediate checked",
             "Enable Intermediate Tourney")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourIntermediate",
+        MyGui.Add("CheckBox", "vFishTourIntermediate",
             "Enable Intermediate Tourney")
     }
 
     ;@region Attack setting
-    optionsGUI.Add("Text", "vFishTourIntermediateAttackLabel",
+    MyGui.Add("Text", "vFishTourIntermediateAttackLabel",
         "Intermediate Tourney Attack Type:")
     Switch FishTourIntermediateAttack {
     Case 1:
-        optionsGUI.Add("DropDownList", "vFishTourIntermediateAttack Choose1", [
+        MyGui.Add("DropDownList", "vFishTourIntermediateAttack Choose1", [
             "1",
             "2",
             "3"
         ])
     Case 2:
-        optionsGUI.Add("DropDownList", "vFishTourIntermediateAttack Choose2", [
+        MyGui.Add("DropDownList", "vFishTourIntermediateAttack Choose2", [
             "1",
             "2",
             "3"
         ])
     Case 3:
-        optionsGUI.Add("DropDownList", "vFishTourIntermediateAttack Choose3", [
+        MyGui.Add("DropDownList", "vFishTourIntermediateAttack Choose3", [
             "1",
             "2",
             "3"
         ])
     default:
-        optionsGUI.Add("DropDownList", "vFishTourIntermediateAttack Choose1", [
+        MyGui.Add("DropDownList", "vFishTourIntermediateAttack Choose1", [
             "1",
             "2",
             "3"
@@ -313,37 +326,37 @@ Button_Click_FishingTourney(thisGui, info) {
 
     ;@region Expert Tourney
     If (FishTourExpert = true) {
-        optionsGUI.Add("CheckBox", "vFishTourExpert checked",
+        MyGui.Add("CheckBox", "vFishTourExpert checked",
             "Enable Expert Tourney")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourExpert",
+        MyGui.Add("CheckBox", "vFishTourExpert",
             "Enable Expert Tourney")
     }
 
     ;@region Attack setting
-    optionsGUI.Add("Text", "vFishTourExpertAttackLabel",
+    MyGui.Add("Text", "vFishTourExpertAttackLabel",
         "Expert Tourney Attack Type:")
     Switch FishTourExpertAttack {
     Case 1:
-        optionsGUI.Add("DropDownList", "vFishTourExpertAttack Choose1", [
+        MyGui.Add("DropDownList", "vFishTourExpertAttack Choose1", [
             "1",
             "2",
             "3"
         ])
     Case 2:
-        optionsGUI.Add("DropDownList", "vFishTourExpertAttack Choose2", [
+        MyGui.Add("DropDownList", "vFishTourExpertAttack Choose2", [
             "1",
             "2",
             "3"
         ])
     Case 3:
-        optionsGUI.Add("DropDownList", "vFishTourExpertAttack Choose3", [
+        MyGui.Add("DropDownList", "vFishTourExpertAttack Choose3", [
             "1",
             "2",
             "3"
         ])
     default:
-        optionsGUI.Add("DropDownList", "vFishTourExpertAttack Choose1", [
+        MyGui.Add("DropDownList", "vFishTourExpertAttack Choose1", [
             "1",
             "2",
             "3"
@@ -354,37 +367,37 @@ Button_Click_FishingTourney(thisGui, info) {
 
     ;@region Legendary Tourney
     If (FishTourLegend = true) {
-        optionsGUI.Add("CheckBox", "vFishTourLegend checked",
+        MyGui.Add("CheckBox", "vFishTourLegend checked",
             "Enable Legendary Tourney")
     } Else {
-        optionsGUI.Add("CheckBox", "vFishTourLegend",
+        MyGui.Add("CheckBox", "vFishTourLegend",
             "Enable Legendary Tourney")
     }
 
     ;@region Attack setting
-    optionsGUI.Add("Text", "vFishTourLegendAttackLabel",
+    MyGui.Add("Text", "vFishTourLegendAttackLabel",
         "Legendary Tourney Attack Type:")
     Switch FishTourLegendAttack {
     Case 1:
-        optionsGUI.Add("DropDownList", "vFishTourLegendAttack Choose1", [
+        MyGui.Add("DropDownList", "vFishTourLegendAttack Choose1", [
             "1",
             "2",
             "3"
         ])
     Case 2:
-        optionsGUI.Add("DropDownList", "vFishTourLegendAttack Choose2", [
+        MyGui.Add("DropDownList", "vFishTourLegendAttack Choose2", [
             "1",
             "2",
             "3"
         ])
     Case 3:
-        optionsGUI.Add("DropDownList", "vFishTourLegendAttack Choose3", [
+        MyGui.Add("DropDownList", "vFishTourLegendAttack Choose3", [
             "1",
             "2",
             "3"
         ])
     default:
-        optionsGUI.Add("DropDownList", "vFishTourLegendAttack Choose1", [
+        MyGui.Add("DropDownList", "vFishTourLegendAttack Choose1", [
             "1",
             "2",
             "3"
@@ -395,71 +408,70 @@ Button_Click_FishingTourney(thisGui, info) {
 
     ;@endregion
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default xs", "Run Tourney").OnEvent("Click", RunFishTourStart)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default xs", "Run Tourney").OnEvent("Click", RunFishTourStart)
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessFishTourSettings)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseFishTourSettings)
 
     ;@endregion
 
-    ShowGUIPosition(optionsGUI)
-    MakeGUIResizableIfOversize(optionsGUI)
-    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
-    OnMessage(0x0003, SaveGUIPositionOnMove)
+    MyGui.ShowGUIPosition()
+    MyGui.MakeGUIResizableIfOversize()
+    MyGui.OnEvent("Size", MyGui.SaveGUIPositionOnResize.Bind(MyGui))
+    OnMessage(0x0003, MyGui.SaveGUIPositionOnMove.Bind(MyGui))
 
     ProcessFishTourSettings(*) {
         Temp := thisGui.Gui
         Saving := SavingGUI()
-        optionsGUI.Hide()
+        MyGui.Hide()
         Temp.Hide()
         Saving.Show()
         FishTourSave()
         Saving.Hide()
         Temp.Show()
-        optionsGUI.Show()
+        MyGui.Show()
     }
 
     RunFishTourStart(thisGui, info) {
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         FishingTourney().Farm()
     }
 
     CloseFishTourSettings(*) {
-        optionsGUI.Hide()
+        MyGui.Hide()
     }
 
     FishTourSave() {
-        values := optionsGUI.Submit()
-        FishTourCatchingDelay := values.FishTourCatchingDelay
-        FishTourCatchingSearch := values.FishTourCatchingSearch
-        FishTourEnableShopUpgrade := values.FishTourEnableShopUpgrade
-        FishTourEnableUpgradeRods := values.FishTourEnableUpgradeRods
-        FishTourEnableFishingPass := values.FishTourEnableFishingPass
-        FishTourEnableUpgradeTourneyRods := values.FishTourEnableUpgradeTourneyRods
-        FishTourEnableTransmute := values.FishTourEnableTransmute
-        FishTourEnableJourneyCollect := values.FishTourEnableJourneyCollect
-        FishTourTimerShopUpgrade := values.FishTourTimerShopUpgrade
-        FishTourTimerUpgradeRods := values.FishTourTimerUpgradeRods
-        FishTourTimerUpgradeTourneyRods := values.FishTourTimerUpgradeTourneyRods
-        FishTourTimerTransmute := values.FishTourTimerTransmute
-        FishTourTimerJourneyCollect := values.FishTourTimerJourneyCollect
-        FishTourTransmuteTtoFC := values.FishTourTransmuteTtoFC
-        FishTourTransmuteFCtoCry := values.FishTourTransmuteFCtoCry
-        FishTourTransmuteCrytoA := values.FishTourTransmuteCrytoA
-        FishTourTransmuteFCtoT := values.FishTourTransmuteFCtoT
-        FishTourTransmuteCrytoFC := values.FishTourTransmuteCrytoFC
-        FishTourTransmuteAtoCry := values.FishTourTransmuteAtoCry
-        FishTourNovice := values.FishTourNovice
-        FishTourIntermediate := values.FishTourIntermediate
-        FishTourExpert := values.FishTourExpert
-        FishTourLegend := values.FishTourLegend
-        FishTourNoviceAttack := values.FishTourNoviceAttack
-        FishTourIntermediateAttack := values.FishTourIntermediateAttack
-        FishTourExpertAttack := values.FishTourExpertAttack
-        FishTourLegendAttack := values.FishTourLegendAttack
+        values := MyGui.Submit()
+        S.Set("FishTourCatchingDelay", values.FishTourCatchingDelay)
+        S.Set("FishTourCatchingSearch", values.FishTourCatchingSearch)
+        S.Set("FishTourEnableShopUpgrade", values.FishTourEnableShopUpgrade)
+        S.Set("FishTourEnableUpgradeRods", values.FishTourEnableUpgradeRods)
+        S.Set("FishTourEnableFishingPass", values.FishTourEnableFishingPass)
+        S.Set("FishTourEnableUpgradeTourneyRods", values.FishTourEnableUpgradeTourneyRods)
+        S.Set("FishTourEnableTransmute", values.FishTourEnableTransmute)
+        S.Set("FishTourEnableJourneyCollect", values.FishTourEnableJourneyCollect)
+        S.Set("FishTourTimerShopUpgrade", values.FishTourTimerShopUpgrade)
+        S.Set("FishTourTimerUpgradeRods", values.FishTourTimerUpgradeRods)
+        S.Set("FishTourTimerUpgradeTourneyRods", values.FishTourTimerUpgradeTourneyRods)
+        S.Set("FishTourTimerTransmute", values.FishTourTimerTransmute)
+        S.Set("FishTourTimerJourneyCollect", values.FishTourTimerJourneyCollect)
+        S.Set("FishTourTransmuteTtoFC", values.FishTourTransmuteTtoFC)
+        S.Set("FishTourTransmuteFCtoCry", values.FishTourTransmuteFCtoCry)
+        S.Set("FishTourTransmuteCrytoA", values.FishTourTransmuteCrytoA)
+        S.Set("FishTourTransmuteFCtoT", values.FishTourTransmuteFCtoT)
+        S.Set("FishTourTransmuteCrytoFC", values.FishTourTransmuteCrytoFC)
+        S.Set("FishTourTransmuteAtoCry", values.FishTourTransmuteAtoCry)
+        S.Set("FishTourNovice", values.FishTourNovice)
+        S.Set("FishTourIntermediate", values.FishTourIntermediate)
+        S.Set("FishTourExpert", values.FishTourExpert)
+        S.Set("FishTourLegend", values.FishTourLegend)
+        S.Set("FishTourNoviceAttack", values.FishTourNoviceAttack)
+        S.Set("FishTourIntermediateAttack", values.FishTourIntermediateAttack)
+        S.Set("FishTourExpertAttack", values.FishTourExpertAttack)
+        S.Set("FishTourLegendAttack", values.FishTourLegendAttack)
 
-        Settings.SaveCurrentSettings()
+        S.SaveCurrentSettings()
     }
 }

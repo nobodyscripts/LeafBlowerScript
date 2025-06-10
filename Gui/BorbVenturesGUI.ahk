@@ -1,34 +1,37 @@
 #Requires AutoHotkey v2.0
 
 Button_Click_BorbVenture(thisGui, info) {
-    Global settings, HaveBorbDLC, BVBlockMythLeg, BVItemsArr
+    HaveBorbDLC := S.Get("HaveBorbDLC")
+    BVBlockMythLeg := S.Get("BVBlockMythLeg")
+    BVItemsArr := S.Get("BVItemsArr")
 
-    /** @type {GUI} */
-    optionsGUI := Gui(, "Borbventures Farm Settings")
-    optionsGUI.Opt("")
-    SetFontOptions(optionsGUI)
+    GuiBGColour := S.Get("GuiBGColour")
+
+    /** @type {cGUI} */
+    MyGui := cGui(, "Borbventures Farm Settings")
+    MyGui.SetUserFontSettings()
 
     If (HaveBorbDLC = true) {
-        optionsGUI.Add("CheckBox", "vHaveBorbDLC checked",
+        MyGui.Add("CheckBox", "vHaveBorbDLC checked",
             "Own Borbventure DLC")
     } Else {
-        optionsGUI.Add("CheckBox", "vHaveBorbDLC",
+        MyGui.Add("CheckBox", "vHaveBorbDLC",
             "Own Borbventure DLC")
     }
 
     If (BVBlockMythLeg = true) {
-        optionsGUI.Add("CheckBox", "vBVBlockMythLeg checked",
+        MyGui.Add("CheckBox", "vBVBlockMythLeg checked",
             "Block Mythic and Legendries")
     } Else {
-        optionsGUI.Add("CheckBox", "vBVBlockMythLeg",
+        MyGui.Add("CheckBox", "vBVBlockMythLeg",
             "Block Mythic and Legendries")
     }
 
-    optionsGUI.Add("Text", "", "Which Borbv Colours to Scan:")
-    optionsGUI.Add("Edit", "cDefault vBVItemsArr r5 w275", ArrToCommaDelimStr(BVItemsArr
+    MyGui.Add("Text", "", "Which Borbv Colours to Scan:")
+    MyGui.Add("Edit", "cDefault vBVItemsArr r5 w275", ArrToCommaDelimStr(BVItemsArr
     ))
 
-    optionsGUI.Add("Text", "",
+    MyGui.Add("Text", "",
         "0xF91FF6 Borb ascention juice (purple default)`n"
         "0x70F928 Borb juice (green)`n"
         "0x0F2A1D Nature time sphere`n"
@@ -47,53 +50,51 @@ Button_Click_BorbVenture(thisGui, info) {
         "0x250D05 Quark Blob (purple)`n"
         "0x120D1C Quark Structures")
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunBorbv)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunBorbv)
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveBorbv)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessBorbvSettings)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseBorbvSettings)
 
-    ShowGUIPosition(optionsGUI)
-    MakeGUIResizableIfOversize(optionsGUI)
-    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
-    OnMessage(0x0003, SaveGUIPositionOnMove)
+    MyGui.ShowGUIPosition()
+    MyGui.MakeGUIResizableIfOversize()
+    MyGui.OnEvent("Size", MyGui.SaveGUIPositionOnResize.Bind(MyGui))
+    OnMessage(0x0003, MyGui.SaveGUIPositionOnMove.Bind(MyGui))
 
     ProcessBorbvSettings(*) {
         Temp := thisGui.Gui
         Saving := SavingGUI()
-        optionsGUI.Hide()
+        MyGui.Hide()
         Temp.Hide()
         Saving.Show()
         BorbvSave()
         Saving.Hide()
         Temp.Show()
-        optionsGUI.Show()
+        MyGui.Show()
     }
 
     RunBorbv(*) {
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         fBorbvStart()
     }
 
     RunSaveBorbv(*) {
         BorbvSave()
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         fBorbvStart()
     }
 
     CloseBorbvSettings(*) {
-        optionsGUI.Hide()
+        MyGui.Hide()
     }
 
     BorbvSave() {
-        values := optionsGUI.Submit()
-        HaveBorbDLC := values.HaveBorbDLC
-        BVBlockMythLeg := values.BVBlockMythLeg
-        BVItemsArr := CommaDelimStrToArr(values.BVItemsArr)
-        settings.SaveCurrentSettings()
+        values := MyGui.Submit()
+        S.Set("HaveBorbDLC", values.HaveBorbDLC)
+        S.Set("BVBlockMythLeg", values.BVBlockMythLeg)
+        S.Set("BVItemsArr", values.BVItemsArr)
+        S.SaveCurrentSettings()
     }
 }

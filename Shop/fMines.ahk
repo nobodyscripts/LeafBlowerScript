@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\Lib\Logging.ahk
 #Include ..\Lib\cZone.ahk
 #Include ..\Lib\cTravel.ahk
 
@@ -24,7 +23,7 @@ Class sMine extends Zone {
             Shops.OpenMining(false)
             If (Points.Mine.Tab1Vein.IsButtonActive()) {
                 Points.Mine.Tab1Vein.Click()
-                Sleep(NavigateTime)
+                Sleep(S.Get("NavigateTime"))
             }
             Return Window.IsPanel()
         }
@@ -39,9 +38,9 @@ Class sMine extends Zone {
         Shops.OpenMining(false)
 
         Points.Mine.Tab1Vein.Click()
-        Sleep(NavigateTime)
+        Sleep(S.Get("NavigateTime"))
         Points.Mine.Tab1Vein.Click()
-        Sleep(NavigateTime)
+        Sleep(S.Get("NavigateTime"))
     }
 
     /**
@@ -61,6 +60,7 @@ Class sMine extends Zone {
      * Go to mine panel > mines tab
      */
     GoToTabMines() {
+        NavigateTime := S.Get("NavigateTime")
         this.Goto()
         Points.Mine.Tab2Mines.Click()
         Sleep(NavigateTime)
@@ -94,6 +94,7 @@ Class sMine extends Zone {
      * Go to mine panel > drill tab
      */
     GoToTabDrill() {
+        NavigateTime := S.Get("NavigateTime")
         this.Goto()
         Points.Mine.Tab4Drill.Click()
         Sleep(NavigateTime)
@@ -117,6 +118,7 @@ Class sMine extends Zone {
      * Go to mine panel > shop tab
      */
     GoToTabShop() {
+        NavigateTime := S.Get("NavigateTime")
         this.Goto()
         Points.Mine.Tab5Shop.Click()
         Sleep(NavigateTime)
@@ -130,6 +132,7 @@ Class sMine extends Zone {
      * Go to mine panel > transmute tab
      */
     GoToTabTrans() {
+        NavigateTime := S.Get("NavigateTime")
         this.Goto()
         Points.Mine.Tab6Transmute.Click()
         Sleep(NavigateTime)

@@ -2,74 +2,76 @@
 
 Button_Click_GameHotkeys(thisGui, *) {
 
-    /** @type {GUI} */
-    optionsGUI := Gui(, "Game Hotkey Customisation")
-    optionsGUI.Opt("")
-    SetFontOptions(optionsGUI)
+    GuiBGColour := S.Get("GuiBGColour")
+
+    /** @type {cGUI} */
+    MyGui := cGui(, "Game Hotkey Customisation")
+    MyGui.Opt("")
+    MyGui.SetUserFontSettings()
     i := 1
     first := true
     For (name, key in GameKeys.Hotkeys) {
         If (key && key.Name && key.Name != "ClosePanel") {
             If (i >= 10) {
-                optionsGUI.Add("Text", "ys", key.Name . ":")
+                MyGui.Add("Text", "ys", key.Name . ":")
                 i := 1
             } Else {
                 If (first) {
-                    optionsGUI.Add("Text", "section", key.Name . ":")
+                    MyGui.Add("Text", "section", key.Name . ":")
                     first := false
                 } Else {
-                    optionsGUI.Add("Text", "", key.Name . ":")
+                    MyGui.Add("Text", "", key.Name . ":")
                 }
             }
-            optionsGUI.AddEdit("cDefault v" . key.Name . " w140", key.GetValue())
+            MyGui.AddEdit("cDefault v" . key.Name . " w140", key.GetValue())
             i++
         }
     }
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default xs", "Save").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default xs", "Save").OnEvent("Click",
         SaveGameHotkeysInput)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseGameHotkeys)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Reset To Defaults").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Reset To Defaults").OnEvent("Click",
         ResetGameHotKeys)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Apply To Game").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Apply To Game").OnEvent("Click",
         ApplyNewHotkeysToGame)
 
-    ShowGUIPosition(optionsGUI)
-    MakeGUIResizableIfOversize(optionsGUI)
-    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
-    OnMessage(0x0003, SaveGUIPositionOnMove)
+    MyGui.ShowGUIPosition()
+    MyGui.MakeGUIResizableIfOversize()
+    MyGui.OnEvent("Size", MyGui.SaveGUIPositionOnResize.Bind(MyGui))
+    OnMessage(0x0003, MyGui.SaveGUIPositionOnMove.Bind(MyGui))
 
     ResetGameHotKeys(*) {
         If (MsgBox("Are you sure you want to reset Script Hotkeys?",
             "Reset Script Hotkeys?", "0x1 0x100 0x10") = "OK") {
-            optionsGUI.Hide()
+            MyGui.Hide()
             ; confirm
             GameKeys.WriteHotkeyDefaults()
-            cReload()
+            Reload()
         } Else {
             MsgBox("Aborted Game Hotkey Reset.")
         }
     }
 
     CloseGameHotkeys(*) {
-        optionsGUI.Hide()
+        MyGui.Hide()
     }
 
     SaveGameHotkeysInput(*) {
         Temp := thisGui.Gui
         Saving := SavingGUI()
-        optionsGUI.Hide()
+        MyGui.Hide()
         Temp.Hide()
         Saving.Show()
-        values := optionsGUI.Submit()
+        values := MyGui.Submit()
         For (name, key in GameKeys.Hotkeys) {
             If (name != "ClosePanel") {
                 key.SetValue(values.%name%)
             }
         }
         GameKeys.SaveCurrentHotkeys()
-        cReload()
+        Reload()
     }
 
     ApplyNewHotkeysToGame(*) {
@@ -80,7 +82,7 @@ Button_Click_GameHotkeys(thisGui, *) {
         }
         If (MsgBox("Are you sure you want to apply new Game Hotkeys?",
             "Apply Game Hotkeys?", "0x1 0x100 0x10") = "OK") {
-            values := optionsGUI.Submit()
+            values := MyGui.Submit()
             For (name, key in GameKeys.Hotkeys) {
                 If (name != "ClosePanel") {
                     key.SetValue(values.%name%)
@@ -88,7 +90,7 @@ Button_Click_GameHotkeys(thisGui, *) {
             }
             GameKeys.SaveCurrentHotkeys()
             fGameSettings()
-            cReload()
+            Reload()
         } Else {
             MsgBox("Aborted Game Hotkey Apply.")
         }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+#Include StageNormal.ahk
+
 /**
  * Adapt to which type of speedrun we are attempting (second level)
  */

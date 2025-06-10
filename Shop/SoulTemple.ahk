@@ -14,13 +14,13 @@ Class sSoulTemple extends Zone {
 
         If (!Travel.SoulTemple.IsZone()) {
             Out.I("Failure: Soul Temple floor control did not travel to Soul Temple zone")
-            return false
+            Return false
         }
         Travel.ClosePanelIfActive()
         If (Window.IsPanel()) {
             Travel.ClosePanelIfActive()
         }
-        cPoint(1279, 641).Click() ; center screen
+        cLBRButton(1279, 641).Click() ; center screen
         Window.AwaitPanel()
         If (Window.IsPanel()) {
             Return true
@@ -35,13 +35,13 @@ Class sSoulTemple extends Zone {
     UnlockMax(*) {
         UlcWindow()
         If (Shops.SoulTemple.GoTo()) {
-            If (cPoint(537, 662).ClickButtonActive()) { ; unlock max button
+            If (cLBRButton(537, 662).ClickButtonActive()) { ; unlock max button
                 Sleep(50)
             }
-            If (cPoint(537, 662).ClickButtonActive()) {
+            If (cLBRButton(537, 662).ClickButtonActive()) {
                 Sleep(50)
             }
-            If (!cPoint(537, 662).IsBackground()) {
+            If (!cLBRButton(537, 662).IsBackground()) {
                 Out.I("SoulTemple unlock max failed, likely due to lack of resources")
                 Return false
             }
@@ -60,13 +60,13 @@ Class sSoulTemple extends Zone {
         If (Shops.SoulTemple.UnlockMax()) {
             AmountToModifier(100)
             Sleep(50)
-            cPoint(985, 462).ClickButtonActive() ; Decrease level
+            cLBRButton(985, 462).ClickButtonActive() ; Decrease level
             Sleep(50)
-            cPoint(985, 462).ClickButtonActive() ; Decrease level
+            cLBRButton(985, 462).ClickButtonActive() ; Decrease level
             Sleep(50)
-            cPoint(1536, 462).ClickButtonActive() ; Increase level
+            cLBRButton(1536, 462).ClickButtonActive() ; Increase level
             Sleep(50)
-            cPoint(1536, 462).ClickButtonActive() ; Increase level
+            cLBRButton(1536, 462).ClickButtonActive() ; Increase level
             Sleep(50)
             ResetModifierKeys()
             Out.I("SoulTemple maxed floor success")

@@ -16,27 +16,27 @@ Class cBrewPoints {
 /**
  * Brew points for buttons
  * @memberof module:cBrewPoints
- * @property {cPoint} Nav Point for first panel tab
- * @property {cPoint} Artifacts Artifacts 
- * @property {cPoint} Equipment Equipment
- * @property {cPoint} Materials Materials
- * @property {cPoint} Scrolls Scrolls
- * @property {cPoint} CardParts Card Parts
- * @property {cPoint} CardPartsFont1 Card Parts for fontsize 1
+ * @property {cLBRButton} Nav Point for first panel tab
+ * @property {cLBRButton} Artifacts Artifacts 
+ * @property {cLBRButton} Equipment Equipment
+ * @property {cLBRButton} Materials Materials
+ * @property {cLBRButton} Scrolls Scrolls
+ * @property {cLBRButton} CardParts Card Parts
+ * @property {cLBRButton} CardPartsFont1 Card Parts for fontsize 1
  */
 Class cBrewTab1Points {
     ; First tab and sub points
-    Nav := cPoint(526, 1180)
+    Nav := cLBRButton(526, 1180)
     ; Artifacts
-    Artifacts := cPoint(1745, 310)
+    Artifacts := cLBRButton(1745, 310)
     ; Equipment
-    Equipment := cPoint(1745, 463)
+    Equipment := cLBRButton(1745, 463)
     ; Materials
-    Materials := cPoint(1745, 610)
+    Materials := cLBRButton(1745, 610)
     ; Scrolls
-    Scrolls := cPoint(1745, 780)
+    Scrolls := cLBRButton(1745, 780)
     ; Card Parts
-    CardParts := cPoint(1745, 931)
+    CardParts := cLBRButton(1745, 931)
     ; Card Parts for fontsize 1
-    CardPartsFont1 := cPoint(1745, 960)
+    CardPartsFont1 := cLBRButton(1745, 960)
 }

@@ -108,7 +108,3 @@ GameKeys.Hotkeys["EquipSwordGearLoadout"] := cHotkey(
 GameKeys.Hotkeys["EquipElectricGearLoadout"] := cHotkey(
     "EquipElectricGearLoadout", Map("EN-US", "Numpad5", "EN-GB", "Numpad5",
         "Other", "Numpad5"), "Loadouts")
-
-If (!IsSet(DisableGameKeysInit)) {
-    GameKeys.initHotkeys(IsSecondary)
-}

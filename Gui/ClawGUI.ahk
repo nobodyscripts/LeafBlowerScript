@@ -1,82 +1,83 @@
 #Requires AutoHotkey v2.0
 
 Button_Click_Claw(thisGui, info) {
-    Global settings, ClawCheckSizeOffset, ClawFindAny
 
-    /** @type {GUI} */
-    optionsGUI := Gui(, "Claw Farm Settings")
-    optionsGUI.Opt("")
-    SetFontOptions(optionsGUI)
+    ClawCheckSizeOffset := S.Get("ClawCheckSizeOffset")
+    ClawFindAny := S.Get("ClawFindAny")
 
-    optionsGUI.Add("Text", "", "Claw Area Check Size Offset (px):")
-    optionsGUI.AddEdit("cDefault")
+    GuiBGColour := S.Get("GuiBGColour")
+
+    /** @type {cGUI} */
+    MyGui := cGui(, "Claw Farm Settings")
+    MyGui.SetUserFontSettings()
+
+    MyGui.Add("Text", "", "Claw Area Check Size Offset (px):")
+    MyGui.AddEdit("cDefault")
     If (IsInteger(ClawCheckSizeOffset) || IsFloat(ClawCheckSizeOffset)) {
-        optionsGUI.Add("UpDown", "vClawCheckSizeOffset Range-999-999",
+        MyGui.Add("UpDown", "vClawCheckSizeOffset Range-999-999",
             ClawCheckSizeOffset)
     } Else {
-        If (settings.sUseNobody) {
-            optionsGUI.Add("UpDown", "vClawCheckSizeOffset Range-999-9999",
-                settings.defaultNobodySettings.ClawCheckSizeOffset)
+        If (S.sUseNobody) {
+            MyGui.Add("UpDown", "vClawCheckSizeOffset Range-999-9999",
+                S.defaultNobodySettings.ClawCheckSizeOffset)
         } Else {
-            optionsGUI.Add("UpDown", "vClawCheckSizeOffset Range-999-9999",
-                settings.defaultSettings.ClawCheckSizeOffset)
+            MyGui.Add("UpDown", "vClawCheckSizeOffset Range-999-9999",
+                S.defaultSettings.ClawCheckSizeOffset)
         }
     }
 
     If (ClawFindAny = true) {
-        optionsGUI.Add("CheckBox", "vClawFindAny checked",
+        MyGui.Add("CheckBox", "vClawFindAny checked",
             "Enable Find any fallback")
     } Else {
-        optionsGUI.Add("CheckBox", "vClawFindAny",
+        MyGui.Add("CheckBox", "vClawFindAny",
             "Enable Find any fallback")
     }
 
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunClaw)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunClaw)
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
         RunSaveClaw)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Save").OnEvent("Click",
         ProcessClawSettings)
-    optionsGUI.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
+    MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Cancel").OnEvent("Click",
         CloseClawSettings)
 
-    ShowGUIPosition(optionsGUI)
-    MakeGUIResizableIfOversize(optionsGUI)
-    optionsGUI.OnEvent("Size", SaveGUIPositionOnResize)
-    OnMessage(0x0003, SaveGUIPositionOnMove)
+    MyGui.ShowGUIPosition()
+    MyGui.MakeGUIResizableIfOversize()
+    MyGui.OnEvent("Size", MyGui.SaveGUIPositionOnResize.Bind(MyGui))
+    OnMessage(0x0003, MyGui.SaveGUIPositionOnMove.Bind(MyGui))
 
     ProcessClawSettings(*) {
         Temp := thisGui.Gui
         Saving := SavingGUI()
-        optionsGUI.Hide()
+        MyGui.Hide()
         Temp.Hide()
         Saving.Show()
         ClawSave()
         Saving.Hide()
         Temp.Show()
-        optionsGUI.Show()
+        MyGui.Show()
     }
 
     RunClaw(*) {
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         fClawStart()
     }
 
     RunSaveClaw(*) {
         ClawSave()
-        optionsGUI.Hide()
-        Window.Activate()
+        MyGui.Hide()
         fClawStart()
     }
 
     CloseClawSettings(*) {
-        optionsGUI.Hide()
+        MyGui.Hide()
     }
 
     ClawSave() {
-        values := optionsGUI.Submit()
-        ClawCheckSizeOffset := values.ClawCheckSizeOffset
-        ClawFindAny := values.ClawFindAny
-        settings.SaveCurrentSettings()
+        values := MyGui.Submit()
+        S.Set("ClawCheckSizeOffset", values.ClawCheckSizeOffset)
+        S.Set("ClawFindAny", values.ClawFindAny)
+        S.SaveCurrentSettings()
     }
 }

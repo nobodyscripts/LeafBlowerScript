@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0
 
 #Include ..\Lib\cPoints.ahk
-#Include ..\Lib\cRect.ahk
+#Include ..\ScriptLib\cRect.ahk
 
 CavesSinglePass() {
+    NavigateTime := S.Get("NavigateTime")
     id := 1
     Buttons := GetCaveTabButtons()
     If (!Window.IsPanel()) {
@@ -28,11 +29,11 @@ CavesSinglePass() {
 
 CavesSingleCheck() {
     id := GetCurrentCave()
-    If (id > 0 && Debug) {
-        Out.I("Currently on cave " id " Diamond " BinaryToStr(IsCaveDiamond())
-            " Drill state is " BinaryToStr(IsCaveDrilling()) " Locked " BinaryToStr(
-                IsCaveLocked(id))
-            " Selected " BinaryToStr(IsCaveSelected(id)))
+    If (id > 0 && S.Get("DebugAll")) {
+        Out.I("Currently on cave " id " Diamond " BinToStr(IsCaveDiamond())
+        " Drill state is " BinToStr(IsCaveDrilling()) " Locked " BinToStr(
+            IsCaveLocked(id))
+        " Selected " BinToStr(IsCaveSelected(id)))
     }
     If (id = 0) {
         Out.D("Didn't find a selected cave")
@@ -58,7 +59,6 @@ IsCaveLocked(id) {
     }
     Return true
 }
-
 
 IsCaveSelected(id) {
     Buttons := GetCaveTabButtons()

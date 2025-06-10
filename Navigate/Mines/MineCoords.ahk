@@ -5,32 +5,32 @@
 /**
  * Mine points for buttons
  * @memberof module:cPoints
- * @property {cPoint} FreeFuel Mine (tab4) free fuel button
- * @property {cPoint} CoalSphere Mine (tab4) coal sphere button
- * @property {cPoint} Tab1Vein Mine navigate tab Vein
- * @property {cPoint} Tab2Mines Mine navigate tab Mines
- * @property {cPoint} Tab4Drill Mine navigate tab Drill
- * @property {cPoint} Tab5Shop Mine navigate tab Shop
- * @property {cPoint} Tab6Transmute Mine navigate tab Transmute
+ * @property {cLBRButton} FreeFuel Mine (tab4) free fuel button
+ * @property {cLBRButton} CoalSphere Mine (tab4) coal sphere button
+ * @property {cLBRButton} Tab1Vein Mine navigate tab Vein
+ * @property {cLBRButton} Tab2Mines Mine navigate tab Mines
+ * @property {cLBRButton} Tab4Drill Mine navigate tab Drill
+ * @property {cLBRButton} Tab5Shop Mine navigate tab Shop
+ * @property {cLBRButton} Tab6Transmute Mine navigate tab Transmute
  * @property {cCavePoints} Cave
  * @property {cTransmutePoints} Transmute
  * @property {cVeinPoints} Vein
  */
 Class cMinePoints {
-    /** @type {cPoint} */
-    FreeFuel := cPoint(1220, 615)
-    /** @type {cPoint} */
-    CoalSphere := cPoint(1260, 445)
-    /** @type {cPoint} */
-    Tab1Vein := cPoint(526, 1180)
-    /** @type {cPoint} */
-    Tab2Mines := cPoint(760, 1180)
-    /** @type {cPoint} */
-    Tab4Drill := cPoint(1320, 1180)
-    /** @type {cPoint} */
-    Tab5Shop := cPoint(1600, 1180)
-    /** @type {cPoint} */
-    Tab6Transmute := cPoint(1900, 1180)
+    /** @type {cLBRButton} */
+    FreeFuel := cLBRButton(1220, 615)
+    /** @type {cLBRButton} */
+    CoalSphere := cLBRButton(1260, 445)
+    /** @type {cLBRButton} */
+    Tab1Vein := cLBRButton(526, 1180)
+    /** @type {cLBRButton} */
+    Tab2Mines := cLBRButton(760, 1180)
+    /** @type {cLBRButton} */
+    Tab4Drill := cLBRButton(1320, 1180)
+    /** @type {cLBRButton} */
+    Tab5Shop := cLBRButton(1600, 1180)
+    /** @type {cLBRButton} */
+    Tab6Transmute := cLBRButton(1900, 1180)
 
     /** @type {cCavePoints} Mine Cave points */
     Cave := cCavePoints()
@@ -44,78 +44,78 @@ Class cMinePoints {
 
 /**
  * Mine Transmute points for buttons
- * @memberof module:cPoints
- * @property {cPoint} SingleCBarToCDia Button for Transmute CBar to CDia once
- * @property {cPoint} SingleCDiaToSDia Button for Transmute CDia to SDia once
- * @property {cPoint} SingleCDiaToFuel Button for Transmute CDia to Fuel once
- * @property {cPoint} SingleCDiaToSphere Button for Transmute CDia to Sphere
+ * @memberof module:cLBRButtons
+ * @property {cLBRButton} SingleCBarToCDia Button for Transmute CBar to CDia once
+ * @property {cLBRButton} SingleCDiaToSDia Button for Transmute CDia to SDia once
+ * @property {cLBRButton} SingleCDiaToFuel Button for Transmute CDia to Fuel once
+ * @property {cLBRButton} SingleCDiaToSphere Button for Transmute CDia to Sphere
  * once
- * @property {cPoint} AllCBarsToCDias Button for Transmute all CBars to CDias
- * @property {cPoint} AllCDiasToSDias Button for Transmute all CDias to SDias
- * @property {cPoint} AllCDiasToFuel Button for Transmute all CDias to Fuel
- * @property {cPoint} AllCDiasToSpheres Button for Transmute all CDias to 
+ * @property {cLBRButton} AllCBarsToCDias Button for Transmute all CBars to CDias
+ * @property {cLBRButton} AllCDiasToSDias Button for Transmute all CDias to SDias
+ * @property {cLBRButton} AllCDiasToFuel Button for Transmute all CDias to Fuel
+ * @property {cLBRButton} AllCDiasToSpheres Button for Transmute all CDias to 
  * Spheres
- * @property {cPoint} AllSDiasToCDia Button for Transmute all SDias to CDias
- * @property {cPoint} AutoCBarToCDia Button for Auto Transmute all CBar to CDia
- * @property {cPoint} AutoCDiaToSDia Button for Auto Transmute all CDia to SDia
- * @property {cPoint} AutoCDiaToFuel Button for Auto Transmute all CDia to Fuel
- * @property {cPoint} AutoCDiaToSphere Button for Auto Transmute all CDia to 
+ * @property {cLBRButton} AllSDiasToCDia Button for Transmute all SDias to CDias
+ * @property {cLBRButton} AutoCBarToCDia Button for Auto Transmute all CBar to CDia
+ * @property {cLBRButton} AutoCDiaToSDia Button for Auto Transmute all CDia to SDia
+ * @property {cLBRButton} AutoCDiaToFuel Button for Auto Transmute all CDia to Fuel
+ * @property {cLBRButton} AutoCDiaToSphere Button for Auto Transmute all CDia to 
  * Sphere
  */
 Class cTransmutePoints {
-    /** @type {cPoint} */
-    SingleCBarToCDia := cPoint(600, 387)
-    /** @type {cPoint} */
-    SingleCDiaToSDia := cPoint(603, 518)
-    /** @type {cPoint} */
-    SingleCDiaToFuel := cPoint(603, 644)
-    /** @type {cPoint} */
-    SingleCDiaToSphere := cPoint(602, 774)
-    /** @type {cPoint} */
-    AllCBarsToCDias := cPoint(703, 385)
-    /** @type {cPoint} */
-    AllCDiasToSDias := cPoint(723, 516)
-    /** @type {cPoint} */
-    AllCDiasToFuel := cPoint(724, 644)
-    /** @type {cPoint} */
-    AllCDiasToSpheres := cPoint(722, 772)
-    /** @type {cPoint} */
-    AllSDiasToCDia := cPoint(1750, 512)
-    /** @type {cPoint} */
-    AutoCBarToCDia := cPoint(1082, 384)
-    /** @type {cPoint} */
-    AutoCDiaToSDia := cPoint(1083, 514)
-    /** @type {cPoint} */
-    AutoCDiaToFuel := cPoint(1085, 643)
-    /** @type {cPoint} */
-    AutoCDiaToSphere := cPoint(1083, 771)
+    /** @type {cLBRButton} */
+    SingleCBarToCDia := cLBRButton(600, 387)
+    /** @type {cLBRButton} */
+    SingleCDiaToSDia := cLBRButton(603, 518)
+    /** @type {cLBRButton} */
+    SingleCDiaToFuel := cLBRButton(603, 644)
+    /** @type {cLBRButton} */
+    SingleCDiaToSphere := cLBRButton(602, 774)
+    /** @type {cLBRButton} */
+    AllCBarsToCDias := cLBRButton(703, 385)
+    /** @type {cLBRButton} */
+    AllCDiasToSDias := cLBRButton(723, 516)
+    /** @type {cLBRButton} */
+    AllCDiasToFuel := cLBRButton(724, 644)
+    /** @type {cLBRButton} */
+    AllCDiasToSpheres := cLBRButton(722, 772)
+    /** @type {cLBRButton} */
+    AllSDiasToCDia := cLBRButton(1750, 512)
+    /** @type {cLBRButton} */
+    AutoCBarToCDia := cLBRButton(1082, 384)
+    /** @type {cLBRButton} */
+    AutoCDiaToSDia := cLBRButton(1083, 514)
+    /** @type {cLBRButton} */
+    AutoCDiaToFuel := cLBRButton(1085, 643)
+    /** @type {cLBRButton} */
+    AutoCDiaToSphere := cLBRButton(1083, 771)
 }
 
 /**
  * Cave points for buttons
  * 78d063 (Some colour that was left in old file)
- * @memberof module:cPoints
- * @property {cPoint} DrillToggle Button for toggling drill on/off
- * @property {cPoint} AutoSearch Button for toggling auto search on/off
- * @property {cPoint} Select1 Button for selecting which cave to show
- * @property {cPoint} Select2 Button for selecting which cave to show
- * @property {cPoint} Select3 Button for selecting which cave to show
- * @property {cPoint} Select4 Button for selecting which cave to show
- * @property {cPoint} Select5 Button for selecting which cave to show
+ * @memberof module:cLBRButtons
+ * @property {cLBRButton} DrillToggle Button for toggling drill on/off
+ * @property {cLBRButton} AutoSearch Button for toggling auto search on/off
+ * @property {cLBRButton} Select1 Button for selecting which cave to show
+ * @property {cLBRButton} Select2 Button for selecting which cave to show
+ * @property {cLBRButton} Select3 Button for selecting which cave to show
+ * @property {cLBRButton} Select4 Button for selecting which cave to show
+ * @property {cLBRButton} Select5 Button for selecting which cave to show
  */
 Class cCavePoints {
-    /** @type {cPoint} */
-    DrillToggle := cPoint(970, 940)
-    /** @type {cPoint} */
-    AutoSearch := cPoint(768, 288)
-    /** @type {cPoint} */
-    Select1 := cPoint(328, 490)
-    /** @type {cPoint} */
-    Select2 := cPoint(328, 555)
-    /** @type {cPoint} */
-    Select3 := cPoint(328, 619)
-    /** @type {cPoint} */
-    Select4 := cPoint(328, 682)
-    /** @type {cPoint} */
-    Select5 := cPoint(328, 747)
+    /** @type {cLBRButton} */
+    DrillToggle := cLBRButton(970, 940)
+    /** @type {cLBRButton} */
+    AutoSearch := cLBRButton(768, 288)
+    /** @type {cLBRButton} */
+    Select1 := cLBRButton(328, 490)
+    /** @type {cLBRButton} */
+    Select2 := cLBRButton(328, 555)
+    /** @type {cLBRButton} */
+    Select3 := cLBRButton(328, 619)
+    /** @type {cLBRButton} */
+    Select4 := cLBRButton(328, 682)
+    /** @type {cLBRButton} */
+    Select5 := cLBRButton(328, 747)
 }

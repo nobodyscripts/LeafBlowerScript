@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0
 
-Global CardsBuyStyle := "FocusLegend"
-
-Global cardBuyOffset := 5
-
-Global CardsDontBuyCommons := true
-Global CardsDontBuyRare := true
-Global CardsDontBuyLeg := true
+S.AddSetting("CardsBuy", "CardsBuyEnabled", true, "bool")
+S.AddSetting("CardsBuy", "CardsBuyStyle", "FocusLegend", "text")
+S.AddSetting("CardsBuy", "CardsCommonBuyAmount", 25000, "int")
+S.AddSetting("CardsBuy", "CardsRareBuyAmount", 25000, "int")
+S.AddSetting("CardsBuy", "CardsLegBuyAmount", 25000, "int")
+S.AddSetting("CardsBuy", "CardsDontBuyCommons", false, "bool")
+S.AddSetting("CardsBuy", "CardsDontBuyRare", false, "bool")
+S.AddSetting("CardsBuy", "CardsDontBuyLeg", false, "bool")
+S.AddSetting("CardsBuy", "CardsSleepBuyAmount", 17, "int")
 
 CardBuySinglePass() {
     Global HadToHideNotifs
@@ -28,7 +30,7 @@ CardBuySinglePass() {
         Shops.OpenCards()
         Sleep(101)
     }
-    Switch CardsBuyStyle {
+    Switch S.Get("CardsBuyStyle") {
     Case "FocusLegend":
         state := CardBuyPattern([
             3,
@@ -72,11 +74,11 @@ CardBuySinglePass() {
             1
         ], false)
     }
-    Sleep(CardsSleepBuyAmount)
+    Sleep(S.Get("CardsSleepBuyAmount"))
 }
 
 CardBuyLoop() {
-    Global HadToHideNotifs, Debug
+    Global HadToHideNotifs
     Loop {
         ; Check if lost focus, close or crash and break if so
         If (!Window.IsActive()) {
@@ -96,7 +98,7 @@ CardBuyLoop() {
             Sleep(101)
         }
 
-        Switch CardsBuyStyle {
+        Switch S.Get("CardsBuyStyle") {
         Case "FocusLegend":
             state := CardBuyPattern([
                 3,
@@ -143,12 +145,19 @@ CardBuyLoop() {
         If (!state) {
             Break
         }
-        Sleep(CardsSleepBuyAmount)
+        Sleep(S.Get("CardsSleepBuyAmount"))
     }
     Sleep(72)
 }
 
 CardBuyPattern(pattern, buyAll) {
+    cardBuyOffset := 2
+    CardsDontBuyCommons := S.Get("CardsDontBuyCommons")
+    CardsCommonBuyAmount := S.Get("CardsCommonBuyAmount")
+    CardsDontBuyRare := S.Get("CardsDontBuyRare")
+    CardsRareBuyAmount := S.Get("CardsRareBuyAmount")
+    CardsDontBuyLeg := S.Get("CardsDontBuyLeg")
+    CardsLegBuyAmount := S.Get("CardsLegBuyAmount")
     CommonButtonActive := RareButtonActive := LegButtonActive := false
     If (buyAll) {
         For quality in pattern {

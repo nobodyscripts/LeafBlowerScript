@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-#Include cHotkeys.ahk
+#Include ..\ScriptLib\cHotkeys.ahk
 
 Class cHotkeysGames extends cHotkeys {
     IsGameHotkeys := true

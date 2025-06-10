@@ -1,24 +1,36 @@
 #Requires AutoHotkey v2.0
 #Include ../Lib/cRects.ahk
-#Include ../Lib/cPoints.ahk
+#Include ..\Lib\cLBRButton.ahk
+#Include ..\Lib\Misc.ahk
+#include ..\ScriptLib\cToolTip.ahk
 
-Global FishNovice := false
-Global FishIntermediate := false
-Global FishExpert := false
-Global FishLegend := false
-Global FishNoviceAttack := 1
-Global FishIntermediateAttack := 1
-Global FishExpertAttack := 1
-Global FishLegendAttack := 1
-
-Global FishTourNovice := false
-Global FishTourIntermediate := false
-Global FishTourExpert := false
-Global FishTourLegend := false
-Global FishTourNoviceAttack := 1
-Global FishTourIntermediateAttack := 1
-Global FishTourExpertAttack := 1
-Global FishTourLegendAttack := 1
+S.AddSetting("FishTourney", "FishTourCatchingDelay", 8, "int")
+S.AddSetting("FishTourney", "FishTourCatchingSearch", true, "bool")
+S.AddSetting("FishTourney", "FishTourEnableShopUpgrade", true, "bool")
+S.AddSetting("FishTourney", "FishTourEnableUpgradeRods", true, "bool")
+S.AddSetting("FishTourney", "FishTourEnableFishingPass", true, "bool")
+S.AddSetting("FishTourney", "FishTourEnableUpgradeTourneyRods", true, "bool")
+S.AddSetting("FishTourney", "FishTourEnableTransmute", true, "bool")
+S.AddSetting("FishTourney", "FishTourEnableJourneyCollect", true, "bool")
+S.AddSetting("FishTourney", "FishTourTimerShopUpgrade", 60, "int")
+S.AddSetting("FishTourney", "FishTourTimerUpgradeRods", 60, "int")
+S.AddSetting("FishTourney", "FishTourTimerUpgradeTourneyRods", 60, "int")
+S.AddSetting("FishTourney", "FishTourTimerTransmute", 60, "int")
+S.AddSetting("FishTourney", "FishTourTimerJourneyCollect", 60, "int")
+S.AddSetting("FishTourney", "FishTourTransmuteTtoFC", true, "bool")
+S.AddSetting("FishTourney", "FishTourTransmuteFCtoCry", false, "bool")
+S.AddSetting("FishTourney", "FishTourTransmuteCrytoA", false, "bool")
+S.AddSetting("FishTourney", "FishTourTransmuteFCtoT", false, "bool")
+S.AddSetting("FishTourney", "FishTourTransmuteCrytoFC", true, "bool")
+S.AddSetting("FishTourney", "FishTourTransmuteAtoCry", true, "bool")
+S.AddSetting("FishTourney", "FishTourNovice", true, "bool")
+S.AddSetting("FishTourney", "FishTourNoviceAttack", 1, "int")
+S.AddSetting("FishTourney", "FishTourIntermediate", false, "bool")
+S.AddSetting("FishTourney", "FishTourIntermediateAttack", 1, "int")
+S.AddSetting("FishTourney", "FishTourExpert", false, "bool")
+S.AddSetting("FishTourney", "FishTourExpertAttack", 1, "int")
+S.AddSetting("FishTourney", "FishTourLegend", false, "bool")
+S.AddSetting("FishTourney", "FishTourLegendAttack", 1, "int")
 
 /**
  * FishingTourney tournament functions to seperate from the main fishing elements
@@ -27,57 +39,63 @@ Global FishTourLegendAttack := 1
  * @method Name Desc
  */
 Class FishingTourney {
-    Farm1 := FishTourNovice
-    Farm2 := FishTourIntermediate
-    Farm3 := FishTourExpert
-    Farm4 := FishTourLegend
+    Farm1 := S.Get("FishTourNovice")
+    Farm2 := S.Get("FishTourIntermediate")
+    Farm3 := S.Get("FishTourExpert")
+    Farm4 := S.Get("FishTourLegend")
     Mode := 1
 
-    /** @type {cPoint} */
-    Attack1 := cPoint(537, 531)
-    /** @type {cPoint} */
-    Attack2 := cPoint(935, 528)
-    /** @type {cPoint} */
-    Attack3 := cPoint(1335, 530)
+    /** @type {cLBRButton} */
+    Attack1 := cLBRButton(537, 531)
+    /** @type {cLBRButton} */
+    Attack2 := cLBRButton(935, 528)
+    /** @type {cLBRButton} */
+    Attack3 := cLBRButton(1335, 530)
 
-    /** @type {cPoint} */
-    Special1 := cPoint(537, 790)
-    /** @type {cPoint} */
-    Special2 := cPoint(935, 790)
-    /** @type {cPoint} */
-    Special3 := cPoint(1335, 790)
+    /** @type {cLBRButton} */
+    Special1 := cLBRButton(537, 790)
+    /** @type {cLBRButton} */
+    Special2 := cLBRButton(935, 790)
+    /** @type {cLBRButton} */
+    Special3 := cLBRButton(1335, 790)
 
-    /** @type {cPoint} */
-    Collect := cPoint(528, 658)
+    /** @type {cLBRButton} */
+    Collect := cLBRButton(528, 658)
 
-    /** @type {cPoint} */
-    Start1 := cPoint(2061, 315)
-    /** @type {cPoint} */
-    Start2 := cPoint(2061, 541)
-    /** @type {cPoint} */
-    Start3 := cPoint(2061, 759)
-    /** @type {cPoint} */
-    Start4 := cPoint(2061, 984)
+    /** @type {cLBRButton} */
+    Start1 := cLBRButton(2061, 315)
+    /** @type {cLBRButton} */
+    Start2 := cLBRButton(2061, 541)
+    /** @type {cLBRButton} */
+    Start3 := cLBRButton(2061, 759)
+    /** @type {cLBRButton} */
+    Start4 := cLBRButton(2061, 984)
 
     SetModeFishing() {
         this.Mode := 0
-        this.Farm1 := FishNovice
-        this.Farm2 := FishIntermediate
-        this.Farm3 := FishExpert
-        this.Farm4 := FishLegend
+        this.Farm1 := S.Get("FishNovice")
+        this.Farm2 := S.Get("FishIntermediate")
+        this.Farm3 := S.Get("FishExpert")
+        this.Farm4 := S.Get("FishLegend")
         Return this
     }
+
     SetModeTourney() {
         this.Mode := 1
-        this.Farm1 := FishTourNovice
-        this.Farm2 := FishTourIntermediate
-        this.Farm3 := FishTourExpert
-        this.Farm4 := FishTourLegend
+        this.Farm1 := S.Get("FishTourNovice")
+        this.Farm2 := S.Get("FishTourIntermediate")
+        this.Farm3 := S.Get("FishTourExpert")
+        this.Farm4 := S.Get("FishTourLegend")
     }
 
     IsOnTab() {
-        If (this.Start1.IsButton() || this.Start2.IsButton() || this.Start3.IsButton() || this.Start4.IsButton() ||
-        this.Attack1.IsButton()) {
+        Out.D("Is on tourney tab, collect button detection? " BinToStr(this.Collect.IsButtonActive()))
+        If ((this.Start1.IsButton() || this.Start2.IsButton() ||
+        this.Start3.IsButton() || this.Start4.IsButton())
+        ||
+        this.Attack1.IsButton()
+        ||
+        this.Collect.IsButtonActive()) {
             Return true
         }
         Return false
@@ -92,16 +110,16 @@ Class FishingTourney {
         If (this.Mode) {
             Switch (difficulty) {
             Case 1:
-                UseAttack := FishTourNoviceAttack
+                UseAttack := S.Get("FishTourNoviceAttack")
 
             Case 2:
-                UseAttack := FishTourIntermediateAttack
+                UseAttack := S.Get("FishTourIntermediateAttack")
 
             Case 3:
-                UseAttack := FishTourExpertAttack
+                UseAttack := S.Get("FishTourExpertAttack")
 
             Case 4:
-                UseAttack := FishTourLegendAttack
+                UseAttack := S.Get("FishTourLegendAttack")
 
             default:
                 UseAttack := 1
@@ -109,16 +127,16 @@ Class FishingTourney {
         } Else {
             Switch (difficulty) {
             Case 1:
-                UseAttack := FishNoviceAttack
+                UseAttack := S.Get("FishNoviceAttack")
 
             Case 2:
-                UseAttack := FishIntermediateAttack
+                UseAttack := S.Get("FishIntermediateAttack")
 
             Case 3:
-                UseAttack := FishExpertAttack
+                UseAttack := S.Get("FishExpertAttack")
 
             Case 4:
-                UseAttack := FishLegendAttack
+                UseAttack := S.Get("FishLegendAttack")
 
             default:
                 UseAttack := 1
@@ -228,6 +246,17 @@ Class FishingTourney {
     Farm() {
         /** @type {Fishing} */
         cFishing := Fishing()
+        FishCatchingDelay := S.Get("FishCatchingDelay")
+        FishTourTimerJourneyCollect := S.Get("FishTourTimerJourneyCollect")
+        FishTourTimerTransmute := S.Get("FishTourTimerTransmute")
+        FishTourEnableUpgradeRods := S.Get("FishTourEnableUpgradeRods")
+        FishTourTimerUpgradeRods := S.Get("FishTourTimerUpgradeRods")
+        FishTourEnableShopUpgrade := S.Get("FishTourEnableShopUpgrade")
+        FishTourTimerShopUpgrade := S.Get("FishTourTimerShopUpgrade")
+        FishTourEnableUpgradeTourneyRods := S.Get("FishTourEnableUpgradeTourneyRods")
+        FishTourTimerUpgradeTourneyRods := S.Get("FishTourTimerUpgradeTourneyRods")
+        FishTourEnableFishingPass := S.Get("FishTourEnableFishingPass")
+        FishTourCatchingSearch := S.Get("FishTourCatchingSearch")
         StartTime := A_TickCount - (FishCatchingDelay * 1000)
         Time1 := StartTime
         Time2 := StartTime

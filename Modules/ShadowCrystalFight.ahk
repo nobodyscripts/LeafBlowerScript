@@ -1,30 +1,24 @@
 #Requires AutoHotkey v2.0
 
+S.AddSetting("ShadowCrystal", "SCAdvanceReplace", true, "bool")
+
 fShadowCrystalFight() {
-    global SCAdvanceReplace
-    If (!Window.Activate()) {
-        Out.I("Exiting due to no window")
-        Return
-    }
-    SCAdvanceReplace := true
+    Window.StartOrReload()
+    SCAdvanceReplace := S.Get("SCAdvanceReplace")
     StopAdvance := false
     ; TODO Move point to Points
-    AttackBtn := cPoint(1143, 422)
+    AttackBtn := cLBRButton(1143, 422)
     ; TODO Move point to Points
-    RestBtn := cPoint(1318, 422)
+    RestBtn := cLBRButton(1318, 422)
 
     If (!Window.IsActive() || !Window.IsPanel()) {
         Out.I("Exiting due to no panel or window")
         Return
     }
-    cPoint(Window.W / 4, Window.H / 4)
+    cLBRButton(Window.W / 4, Window.H / 4)
     .TextTipAtCoord("Running")
     Loop {
-        ; Is window
-        If (!Window.IsActive() || !Window.IsPanel()) {
-            Out.I("Exiting due to no panel or window")
-            Break
-        }
+        Window.ExistOrReload()
         State := ShadowCrystalState()
         Out.I(State)
         If (State = "PlayerDead") {
@@ -62,17 +56,17 @@ fShadowCrystalFight() {
 
 ShadowCrystalState() {
     ; TODO Move point to Points
-    HealthMin := cPoint(323, 321)
+    HealthMin := cLBRButton(323, 321)
     ; TODO Move point to Points
-    HealthBuffer := cPoint(365, 321)
+    HealthBuffer := cLBRButton(365, 321)
     ; TODO Move point to Points
-    HealthMax := cPoint(799, 321)
+    HealthMax := cLBRButton(799, 321)
     ; TODO Move point to Points
-    AttackBtn := cPoint(1143, 422)
+    AttackBtn := cLBRButton(1143, 422)
     ; TODO Move point to Points
-    RestBtn := cPoint(1318, 422)
+    RestBtn := cLBRButton(1318, 422)
     ; TODO Move point to Points
-    StaminaMin := cPoint(323, 397)
+    StaminaMin := cLBRButton(323, 397)
     ; Is player out of health
     If (AttackBtn.IsButtonInactive() && RestBtn.IsButtonActive() && HealthMin.IsColour("0xFFFFFF")) {
         Return "PlayerDead"
@@ -93,13 +87,13 @@ ShadowCrystalState() {
 }
 
 ReduceLevel() {
-    LevelDec := cPoint(1000, 310)
+    LevelDec := cLBRButton(1000, 310)
     LevelDec.ClickButtonActive()
     Sleep(17)
 }
 
 IncreaseLevel() {
-    LevelInc := cPoint(1445, 310)
+    LevelInc := cLBRButton(1445, 310)
     LevelInc.ClickButtonActive()
     Sleep(17)
 }

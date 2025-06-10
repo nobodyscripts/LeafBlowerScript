@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
 
 #Include ../ExtLIbs/PeepAHK-main/script/Peep.v2.ahk
+#Include GameSettings.ahk
 
 fCheckGameSettings() {
     err := 0

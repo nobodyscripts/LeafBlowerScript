@@ -5,12 +5,12 @@
 /**
  * Claw points for buttons
  * @memberof module:cPoints
- * @property {cPoint} CloseArea Close the area screen
- * @property {cPoint} OpenClaw Open claw machine
+ * @property {cLBRButton} CloseArea Close the area screen
+ * @property {cLBRButton} OpenClaw Open claw machine
  */
 Class cClawPoints {
     ; Close the area screen
-    CloseArea := cPoint(100, 519)
+    CloseArea := cLBRButton(100, 519)
     ; Open claw machine
-    OpenClaw := cPoint(552, 519)
+    OpenClaw := cLBRButton(552, 519)
 }

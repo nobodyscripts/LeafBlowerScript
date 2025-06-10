@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * TheCursedPyramid class for zone travel
@@ -29,15 +27,15 @@ Class TheCursedPyramid extends Zone {
         this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
 
-        /** @type {cPoint} */
-        Local Btn := cPoint(1668, 781)
+        /** @type {cLBRButton} */
+        Local Btn := cLBRButton(1668, 781)
         Btn.WaitUntilActiveButtonS(3)
         Btn.ClickButtonActive(, , delay + extradelay)
         If (!Btn.IsButtonActive()) {
             Out.I("The Cursed Pyramid not found while trying to travel.")
         }
         Sleep(delay + extradelay)
-        return this.IsZone()
+        Return this.IsZone()
         ; Delay to allow the map to change, otherwise we travel twice
     }
 

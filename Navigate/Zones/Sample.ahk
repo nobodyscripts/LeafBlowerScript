@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\..\Lib\Logging.ahk
 #Include ..\..\Lib\cZone.ahk
 #Include ..\..\Lib\cTravel.ahk
-#Include ..\..\Lib\cPoint.ahk
 
 /**
  * Sample class for zone travel
@@ -60,7 +58,7 @@ Class Sample extends Zone {
     ClickTravelButton(coord, delay) {
         ; Button to travel to FullName
         ;Button := Points.Areas.<Galaxy>.Sample
-        Button := cPoint()
+        Button := cLBRButton()
         Out.D("Zone travel button colour " Button.GetColour())
         ; If no button we are misaligned
         If (!Button.ClickButtonActive(, , delay, NavigateTime + delay)) {

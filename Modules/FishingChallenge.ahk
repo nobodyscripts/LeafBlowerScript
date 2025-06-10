@@ -1,5 +1,22 @@
 #Requires AutoHotkey v2.0
 
+S.AddSetting("FishChallenge", "FishChlCatchingDelay", 8, "int")
+S.AddSetting("FishChallenge", "FishChlCatchingSearch", true, "bool")
+S.AddSetting("FishChallenge", "FishChlEnableShopUpgrade", true, "bool")
+S.AddSetting("FishChallenge", "FishChlEnableUpgradeRods", true, "bool")
+S.AddSetting("FishChallenge", "FishChlEnableTransmute", true, "bool")
+S.AddSetting("FishChallenge", "FishChlEnableJourneyCollect", true, "bool")
+S.AddSetting("FishChallenge", "FishChlTimerShopUpgrade", 60, "int")
+S.AddSetting("FishChallenge", "FishChlTimerUpgradeRods", 60, "int")
+S.AddSetting("FishChallenge", "FishChlTimerTransmute", 60, "int")
+S.AddSetting("FishChallenge", "FishChlTimerJourneyCollect", 60, "int")
+S.AddSetting("FishChallenge", "FishChlTransmuteTtoFC", true, "bool")
+S.AddSetting("FishChallenge", "FishChlTransmuteFCtoCry", false, "bool")
+S.AddSetting("FishChallenge", "FishChlTransmuteCrytoA", false, "bool")
+S.AddSetting("FishChallenge", "FishChlTransmuteFCtoT", false, "bool")
+S.AddSetting("FishChallenge", "FishChlTransmuteCrytoFC", true, "bool")
+S.AddSetting("FishChallenge", "FishChlTransmuteAtoCry", true, "bool")
+S.AddSetting("FishChallenge", "FishChlAmount", 5, "int")
 
 /**
  * FishingChallenge class to handle the functions, singlepass and loop of completing the fishing challenge
@@ -10,53 +27,53 @@
  */
 Class FishingChallenge {
     /** Challenges button, fixed nav activebutton
-     * @type {cPoint} */
-    ChallengePanel := cPoint(792, 144)
+     * @type {cLBRButton} */
+    ChallengePanel := cLBRButton(792, 144)
     /** Return to main mode from challenge
-     * @type {cPoint} */
-    ChallengeReturnToMain := cPoint(690, 377)
+     * @type {cLBRButton} */
+    ChallengeReturnToMain := cLBRButton(690, 377)
     /** Stop challenges button in challenges screen
-     *  @type {cPoint} */
-    ChallengeStop := cPoint(1169, 376)
+     *  @type {cLBRButton} */
+    ChallengeStop := cLBRButton(1169, 376)
     /** Confirm stop challenge button
-     * @type {cPoint} */
-    ChallengeStopConfim := cPoint(1401, 557)
+     * @type {cLBRButton} */
+    ChallengeStopConfim := cLBRButton(1401, 557)
     /** Start fishing challenge button, 28 scroll down
-     * @type {cPoint} */
-    ChallengeStart := cPoint(1815, 599)
+     * @type {cLBRButton} */
+    ChallengeStart := cLBRButton(1815, 599)
     /** Complete page medal icon point Color: #C87B00
      * Closing closes panel entirely
-     * @type {cPoint} */
-    ChallengeCompleteMedal := cPoint(330, 462)
+     * @type {cLBRButton} */
+    ChallengeCompleteMedal := cLBRButton(330, 462)
     /** Challenge button while inside fishing challenge
-     *  @type {cPoint} */
-    ChallengePanel2 := cPoint(580, 56)
+     *  @type {cLBRButton} */
+    ChallengePanel2 := cLBRButton(580, 56)
     /** First bottom bar button (fishing/tool)
-     * @type {cPoint} */
-    FishPanel := cPoint(178, 1286)
+     * @type {cLBRButton} */
+    FishPanel := cLBRButton(178, 1286)
     /** Second bottom bar button (fishing after leaf)
-     * @type {cPoint} */
-    FishPanel2 := cPoint(251, 1285)
+     * @type {cLBRButton} */
+    FishPanel2 := cLBRButton(251, 1285)
     /** Third bottom bar button (fishing after leaf)
-     * @type {cPoint} */
-    FishPanel3 := cPoint(323, 1283)
+     * @type {cLBRButton} */
+    FishPanel3 := cLBRButton(323, 1283)
     /** Fishing bottom bar button when fixed nav is enabled
-     * @type {cPoint} */
-    FishPanelFixed := cPoint(319, 1145)
+     * @type {cLBRButton} */
+    FishPanelFixed := cLBRButton(319, 1145)
     /**  BLC icon in the offline rewards screen, to check
      * if game has returned from challenge 0xEE1C24 
-     * @type {cPoint} */
-    OfflinePanelBLCIcon := cPoint(655, 441)
+     * @type {cLBRButton} */
+    OfflinePanelBLCIcon := cLBRButton(655, 441)
 
     /** Used for IsChallengePanel
-     * @type {cPoint} */
-    SeedSet := cPoint(775, 159)
+     * @type {cLBRButton} */
+    SeedSet := cLBRButton(775, 159)
     /** Used for IsChallengePanel
-     * @type {cPoint} */
-    SeedRandom := cPoint(824, 1101)
+     * @type {cLBRButton} */
+    SeedRandom := cLBRButton(824, 1101)
     /** Used for IsChallengePanel
-     * @type {cPoint} */
-    SeedClear := cPoint(547, 1103)
+     * @type {cLBRButton} */
+    SeedClear := cLBRButton(547, 1103)
 
     /** @type {Fishing} */
     Fishing := Fishing()
@@ -77,6 +94,15 @@ Class FishingChallenge {
         this.StartChallenge()
         Out.I("Opening Fishing")
         this.OpenFishing()
+
+        FishCatchingSearch := S.Get("FishCatchingSearch")
+        FishCatchingDelay := S.Get("FishCatchingDelay")
+        FishChlTimerJourneyCollect := S.Get("FishChlTimerJourneyCollect")
+        FishChlTimerTransmute := S.Get("FishChlTimerTransmute")
+        FishChlEnableUpgradeRods := S.Get("FishChlEnableUpgradeRods")
+        FishChlTimerUpgradeRods := S.Get("FishChlTimerUpgradeRods")
+        FishChlEnableShopUpgrade := S.Get("FishChlEnableShopUpgrade")
+        FishChlTimerShopUpgrade := S.Get("FishChlTimerShopUpgrade")
 
         StartTime := A_TickCount - (FishCatchingDelay * 1000)
         Time1 := StartTime
@@ -106,7 +132,8 @@ Class FishingChallenge {
             }
             ActivePonds := this.Fishing.PondCount()
             ActiveRods := this.Fishing.ActiveRodCount()
-            Out.I("ActivePonds " ActivePonds " TotalPonds " TotalPonds " ActiveRods " ActiveRods " TotalRods " TotalRods)
+            Out.I("ActivePonds " ActivePonds " TotalPonds " TotalPonds " ActiveRods " ActiveRods " TotalRods " TotalRods
+            )
             While (!this.Fishing.Ponds.IsOnTab()) {
                 this.Fishing.Tabs.Pond.ClickButtonActive(, 5)
             }
@@ -120,7 +147,7 @@ Class FishingChallenge {
                     this.Fishing.AddNewPond()
                     ActivePonds++
                 }
-                
+
                 this.Fishing.PondQualityUpgrade()
             }
             this.Fishing.EnsureAllPondsHaveRods()
@@ -139,7 +166,7 @@ Class FishingChallenge {
             }
             If (FishChlEnableUpgradeRods &&
                 DateDiff(A_Now, RodsTime, "S") > FishChlTimerUpgradeRods) {
-                if(count := this.Fishing.UpgradeRods(TotalPonds, TotalRods, true)) {
+                If (count := this.Fishing.UpgradeRods(TotalPonds, TotalRods, true)) {
                     TotalRods += count
                 }
                 RodsTime := A_Now
@@ -147,27 +174,12 @@ Class FishingChallenge {
             }
             If (FishChlEnableShopUpgrade &&
                 DateDiff(A_Now, ShopTime, "S") > FishChlTimerShopUpgrade) {
-                if(this.Fishing.ShopUpgrade(true))                {
+                If (this.Fishing.ShopUpgrade(true)) {
                     TotalPonds++
                 }
                 ShopTime := A_Now
                 LogToggle := true
             }
-            /* Tourney disabled as seems like a waste of time grinding
-               to 750 fish credits just to finish soon after
-            
-            If (FishChlEnableUpgradeTourneyRods &&
-                DateDiff(A_Now, TourneyRodTime, "S") > FishChlTimerUpgradeTourneyRods) {
-                this.Fishing.TourneyRodUpgrade()
-                TourneyRodTime := A_Now
-                LogToggle := true
-            }
-            If (FishChlEnableTourneyPass &&
-                DateDiff(A_Now, TourneyTime, "S") > FishChlTimerTourneyPass) {
-                this.Fishing.TourneySinglePass()
-                TourneyTime := A_Now
-                LogToggle := true
-            } */
 
             ; If challenge complete panel shown
             If (this.ChallengeCompleteMedal.GetColour() = "0xC87B00") {
@@ -322,7 +334,7 @@ Class FishingChallenge {
             this.CheckForGameReload()
             Out.I("Challenge was reset at StartChallenge")
             this.StartChallenge()
-            return
+            Return
         }
         ; 4 shift + wheel down for fishing challenge
         Travel.ScrollAmountDown(28)

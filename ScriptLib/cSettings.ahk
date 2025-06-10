@@ -5,8 +5,18 @@
 
 ; ------------------- Settings -------------------
 ; Loads UserSettings.ini values for the rest of the script to use
-/** @type {cSettings} */
-Global S := cSettings()
+If (!IsSet(S)) {
+    /** Global settings values and management of them 
+     * @type {cSettings} */
+    Global S := cSettings()
+}
+
+S.AddSetting("Logging", "EnableLogging", false, "bool")
+S.AddSetting("Logging", "TimestampLogs", true, "bool")
+S.AddSetting("Logging", "Debug", false, "bool")
+S.AddSetting("Logging", "DebugAll", false, "bool")
+S.AddSetting("Logging", "Verbose", false, "bool")
+S.AddSetting("Logging", "LogBuffer", true, "bool")
 
 /**
  * Single instance of a script setting object
@@ -200,6 +210,10 @@ Class cSettings {
      * Get value by setting name
      */
     Get(Name) {
+        If (!this.IsSetting(Name)) {
+            Out.E("Setting " Name " was not initialised so cannot be read")
+            Throw Error("Setting " Name " was not initialised so cannot be read")
+        }
         Return this.Map[Name].Value
     }
     ;@endregion
@@ -209,6 +223,10 @@ Class cSettings {
      * Get value by setting name
      */
     Set(Name, value) {
+        If (!this.IsSetting(Name)) {
+            Out.E("Setting " Name " was not initialised so cannot be set to " value)
+            Throw Error("Setting " Name " was not initialised so cannot be set to " value)
+        }
         this.Map[Name].Value := value
     }
     ;@endregion
@@ -218,6 +236,10 @@ Class cSettings {
      * Get default value by setting name
      */
     GetDefault(Name) {
+        If (!this.IsSetting(Name)) {
+            Out.E("Setting " Name " was not initialised so cannot read default")
+            Throw Error("Setting " Name " was not initialised so cannot read default")
+        }
         Return this.Map[Name].DefaultValue
     }
     ;@endregion
@@ -227,6 +249,10 @@ Class cSettings {
      * Set value to default by setting name
      */
     SetDefault(Name) {
+        If (!this.IsSetting(Name)) {
+            Out.E("Setting " Name " was not initialised so cannot set default")
+            Throw Error("Setting " Name " was not initialised so cannot set default")
+        }
         Return this.Map[Name].Value := this.Map[Name].DefaultValue
     }
     ;@endregion

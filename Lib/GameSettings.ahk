@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\ExtLIbs\jsongo_AHKv2-main\src\jsongo.v2.ahk
+#Include CheckGameSettings.ahk
 
 /**
  * Update game settings to match scripts needs
@@ -9,7 +9,7 @@ fGameSettings(*) {
     If (Window.Exist()) {
         MsgBox("CLOSE GAME BEFORE RUNNING GAME SETTINGS CHANGE SCRIPT`n"
             "Script aborted")
-        cReload()
+        Reload()
         Return
     }
     If (!settingsJson := ConvertGameSettingsToJson(ActiveGameSettingsPath)) {
@@ -69,10 +69,10 @@ SetGameSettings(filename, data, backupName) {
                     FileDelete(filename)
                 }
             } Catch As exc {
-                Out.I("Error: Error moving file " filename " to " 
-                backupName " - " exc.Message)
-                MsgBox("Error: Error moving file " filename " to " 
-                backupName " - " exc.Message)
+                Out.I("Error: Error moving file " filename " to "
+                    backupName " - " exc.Message)
+                MsgBox("Error: Error moving file " filename " to "
+                    backupName " - " exc.Message)
             }
         }
         FileAppend(data, filename)
