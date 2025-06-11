@@ -53,6 +53,47 @@ Button_Click_PrestigeSpammer(thisGui, info) {
     fPrestigeSpammer()
 }
 
+Button_Click_SweepMouse(*) {
+    Window.ActiveOrReload()
+    Loop {
+        MousePattern.SevenHorizontal()
+        Sleep(1000)
+    }
+}
+
+Button_Click_SweepMouseBuyer(*) {
+    Window.ActiveOrReload()
+    /** @type {cLBRButton} */
+    point := Points.ZoneSample
+    /** @type {cRect} */
+    ButtonCol1 := cRect(1585, 183, 1590, 1148)
+    /** @type {cRect} */
+    ButtonCol2 := cRect(1789, 183, 1790, 1148)
+    Loop {
+        MousePattern.SevenHorizontal()
+        upgrades := true
+        While (upgrades) {
+            clickable := ButtonCol2.PixelSearch(point.Active, 5)
+            If (clickable != false) {
+                cLBRButton(clickable[1], clickable[2], false).ClickOffset()
+            }
+            Sleep(17)
+            clickable2 := ButtonCol1.PixelSearch(point.Active, 5)
+            If (clickable2 != false) {
+                cLBRButton(clickable2[1], clickable2[2], false).ClickOffset()
+            }
+            If (!clickable && !clickable2) {
+                upgrades := false
+            }
+        }
+        Sleep(1000)
+    }
+}
+
+Button_Click_RelicTransmute(*) {
+    Shops.Relics.TransMuteResetLoop()
+}
+
 RunGui() {
     Updater.Init()
     Updater.Check()
@@ -71,130 +112,141 @@ RunGui() {
     }
     If (Updater.IsNewBeta) {
         MyGui.Add("Text", "", "New beta update available.")
-        MyBtn := MyGui.Add("Button", "+Background" GuiBGColour "", "Update Script Beta")
-        MyBtn.OnEvent("Click", Updater.UpdateScriptToNewDev)
+        MyGui.Add("Button", "+Background" GuiBGColour "", "Update Script Beta")
+        .OnEvent("Click", Updater.UpdateScriptToNewDev)
     }
     ;@region Controls
 
     MyGui.Add("Text", "section", Scriptkeys.GetHotkey("Exit"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Exit")
-    MyBtn.OnEvent("Click", Button_Click_Exit)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Exit")
+    .OnEvent("Click", Button_Click_Exit)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("Reload"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Reload/End")
-    MyBtn.OnEvent("Click", Button_Click_Reload)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Reload/End")
+    .OnEvent("Click", Button_Click_Reload)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("Cards"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Cards Open/Buyer")
-    MyBtn.OnEvent("Click", Button_Click_Cards)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Cards Open/Buyer")
+    .OnEvent("Click", Button_Click_Cards)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("GemFarm"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Gem Suitcase Farm")
-    MyBtn.OnEvent("Click", Button_Click_GemFarm)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Gem Suitcase Farm")
+    .OnEvent("Click", Button_Click_GemFarm)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("TowerBoost"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Tower Boost Usage`n(Run)")
-    MyBtn.OnEvent("Click", Button_Click_TowerBoost)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Tower Boost Usage`n(Run)")
+    .OnEvent("Click", Button_Click_TowerBoost)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("Borbv"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Borbventure Farm")
-    MyBtn.OnEvent("Click", Button_Click_BorbVenture)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Borbventure Farm")
+    .OnEvent("Click", Button_Click_BorbVenture)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("Claw"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Claw Farm")
-    MyBtn.OnEvent("Click", Button_Click_Claw)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Claw Farm")
+    .OnEvent("Click", Button_Click_Claw)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("GFSS"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "GFSS Boss Farm")
-    MyBtn.OnEvent("Click", Button_Click_GFSS)
+    MyGui.Add("Button", "+Background" GuiBGColour, "GFSS Boss Farm")
+    .OnEvent("Click", Button_Click_GFSS)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("BossFarm"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Boss Farm Mode")
-    MyBtn.OnEvent("Click", Button_Click_BossFarm)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Boss Farm Mode")
+    .OnEvent("Click", Button_Click_BossFarm)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("NatureBoss"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Nature Boss`n(Run)")
-    MyBtn.OnEvent("Click", Button_Click_NatureBoss)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Nature Boss`n(Run)")
+    .OnEvent("Click", Button_Click_NatureBoss)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("AutoClicker") " Autoclicker"
     )
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("GameResize"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Resize Game`n(Run)")
-    MyBtn.OnEvent("Click", Button_Click_Resize)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Resize Game`n(Run)")
+    .OnEvent("Click", Button_Click_Resize)
 
     ; ----------------------
 
     MyGui.Add("Text", "ys", Scriptkeys.GetHotkey("MineMaintain"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Mine Maintainer")
-    MyBtn.OnEvent("Click", Button_Click_Mine)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Mine Maintainer")
+    .OnEvent("Click", Button_Click_Mine)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("HyacinthFarm"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Hyacinth Farm")
-    MyBtn.OnEvent("Click", Button_Click_Hyacinth)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Hyacinth Farm")
+    .OnEvent("Click", Button_Click_Hyacinth)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("Bank"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Bank Maintainer Mode")
-    MyBtn.OnEvent("Click", Button_Click_Bank)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Bank Maintainer Mode")
+    .OnEvent("Click", Button_Click_Bank)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("CursedCheese"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Cursed Cheese Mode`n(Run)")
-    MyBtn.OnEvent("Click", Button_Click_CursedCheese)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Cursed Cheese Mode`n(Run)")
+    .OnEvent("Click", Button_Click_CursedCheese)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("TowerPassive"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Tower Passive Mode")
-    MyBtn.OnEvent("Click", Button_Click_TowerPassive)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Tower Passive Mode")
+    .OnEvent("Click", Button_Click_TowerPassive)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("Leafton"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Leafton Mode")
-    MyBtn.OnEvent("Click", Button_Click_Leafton)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Leafton Mode")
+    .OnEvent("Click", Button_Click_Leafton)
 
     MyGui.Add("Text", "", Scriptkeys.GetHotkey("ShadowCrystal"))
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Shadow Crystal Fight")
-    MyBtn.OnEvent("Click", Button_Click_ShadowCrystal)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Shadow Crystal Fight")
+    .OnEvent("Click", Button_Click_ShadowCrystal)
 
     MyGui.Add("Text", "", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "SuitcaseSpam LE Farm`n(Run)")
-    MyBtn.OnEvent("Click", Button_Click_SuitcaseSpam)
+    MyGui.Add("Button", "+Background" GuiBGColour, "SuitcaseSpam LE Farm`n(Run)")
+    .OnEvent("Click", Button_Click_SuitcaseSpam)
 
     MyGui.Add("Text", "", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Gold Prestige Spam`n(Run)")
-    MyBtn.OnEvent("Click", Button_Click_PrestigeSpammer)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Gold Prestige Spam`n(Run)")
+    .OnEvent("Click", Button_Click_PrestigeSpammer)
+
+    MyGui.Add("Text", "", "(no keybind)")
+    MyGui.Add("Button", "+Background" GuiBGColour, "Sweep Leaves")
+    .OnEvent("Click", Button_Click_SweepMouse)
+
+    MyGui.Add("Text", "", "(no keybind)")
+    MyGui.Add("Button", "+Background" GuiBGColour, "Sweep Leaves with Autobuyer")
+    .OnEvent("Click", Button_Click_SweepMouseBuyer)
 
     ; ----------------------
 
     MyGui.Add("Text", "ys", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "ULC TEST")
-    MyBtn.OnEvent("Click", Button_Click_ULC)
+    MyGui.Add("Button", "+Background" GuiBGColour, "ULC TEST")
+    .OnEvent("Click", Button_Click_ULC)
 
     MyGui.Add("Text", "", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Fishing")
-    MyBtn.OnEvent("Click", Button_Click_Fishing)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Fishing")
+    .OnEvent("Click", Button_Click_Fishing)
 
     MyGui.Add("Text", "", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Fishing Challenge")
-    MyBtn.OnEvent("Click", Button_Click_FishingChallenge)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Fishing Challenge")
+    .OnEvent("Click", Button_Click_FishingChallenge)
 
     MyGui.Add("Text", "", "(no keybind)")
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Fishing Tourney")
-    MyBtn.OnEvent("Click", Button_Click_FishingTourney)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Fishing Tourney")
+    .OnEvent("Click", Button_Click_FishingTourney)
+
+    MyGui.Add("Text", "", "(no keybind)")
+    MyGui.Add("Button", "+Background" GuiBGColour, "Transmute relic reset loop")
+    .OnEvent("Click", Button_Click_RelicTransmute)
+    MyGui.Add("Text", "", "")
+    MyGui.Add("Button", "+Background" GuiBGColour, "Edit Script Hotkeys")
+    .OnEvent("Click", Button_Click_ScriptHotkeys)
 
     MyGui.Add("Text", "", "")
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Edit Script Hotkeys")
-    MyBtn.OnEvent("Click", Button_Click_ScriptHotkeys)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Edit Game Hotkeys")
+    .OnEvent("Click", Button_Click_GameHotkeys)
 
     MyGui.Add("Text", "", "")
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Edit Game Hotkeys")
-    MyBtn.OnEvent("Click", Button_Click_GameHotkeys)
-
-    MyGui.Add("Text", "", "")
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Update game settings`n"
+    MyGui.Add("Button", "+Background" GuiBGColour, "Update game settings`n"
         "For script use")
-    MyBtn.OnEvent("Click", fGameSettings)
+    .OnEvent("Click", fGameSettings)
 
     MyGui.Add("Text", "", "General Settings")
-    MyBtn := MyGui.Add("Button", "+Background" GuiBGColour " ", "Settings")
-    MyBtn.OnEvent("Click", Button_Click_GeneralSettings)
+    MyGui.Add("Button", "+Background" GuiBGColour, "Settings")
+    .OnEvent("Click", Button_Click_GeneralSettings)
 
     MyGui.AddText("xs", "")
     MyGui.AddText("xs", "LBR NobodyScript " version)
@@ -205,4 +257,5 @@ RunGui() {
     MyGui.MakeGUIResizableIfOversize()
     MyGui.OnEvent("Size", MyGui.SaveGUIPositionOnResize.Bind(MyGui))
     OnMessage(0x0003, MyGui.SaveGUIPositionOnMove.Bind(MyGui))
+    MyGui.OnEvent("Close", Button_Click_Exit)
 }

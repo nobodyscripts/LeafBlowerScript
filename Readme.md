@@ -1,4 +1,4 @@
-# LBR Resolution independent scripts v3.1.3-Alpha
+# LBR Resolution independent scripts v3.2.0-Beta
 
 Support and news: <https://discord.gg/YjE4jRtJqQ>
 
@@ -227,6 +227,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added button in general settings to install shortcuts to the script
   - Added button in general settings to reset logs or settings
   - Added button in general settings to force check for updates
+  - Moved button for relics reset loop to main menu
+  - Added button for mouse sweep/mouse sweep with autobuyer
 
 - Mine
   - Modified brew travel to be more stable.
@@ -281,6 +283,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Tourney mode
   - Selectable attack type in Tourney mode per difficulty
   - Added Tourney mode secondary features (rod upgrading etc)
+  - Added Tourney pass with attack 1 if fight previously started
 
 - PondSpamSave.ahk Standalone script for farming high rank ponds, F1 exit, F2 reload,
     F3 Activate, Hold F4 to stop on next loop. Set game to 10min autosave, save

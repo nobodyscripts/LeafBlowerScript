@@ -32,6 +32,7 @@ S.AddSetting("Fishing", "FishExpertAttack", 1, "int")
 S.AddSetting("Fishing", "FishLegendAttack", 1, "int")
 
 ;@region Points
+;@region FishingTabs
 /**
  * Points class to contain points of the tabs in fishing screen
  * @module FishingTabs
@@ -52,7 +53,9 @@ Class FishingTabs {
     /** @type {cLBRButton} Tourney Rod tab */
     TourneyRod := cLBRButton(1856, 1163)
 }
+;@endregion
 
+;@region FishingPonds
 /**
  * Points class to contain points of the ponds screen
  * @module FishingPonds
@@ -72,7 +75,9 @@ Class FishingPonds {
         Return false
     }
 }
+;@endregion
 
+;@region FishingRods
 /**
  * Points class to contain points of the Fishing rods screen
  * @module FishingRods
@@ -116,7 +121,9 @@ Class FishingRods {
         Return false
     }
 }
+;@endregion
 
+;@region FishingShop
 /**
  * Points class to contain points of the shop in fishing screen
  * @module FishingShop
@@ -188,7 +195,9 @@ Class FishingShop {
         Return false
     }
 }
+;@endregion
 
+;@region FishingJourney
 /**
  * Points class to contain points of the fishing journey screen
  * @module FishingJourney
@@ -208,7 +217,9 @@ Class FishingJourney {
         Return false
     }
 }
+;@endregion
 
+;@region FishingTourneyRod
 /**
  * Points class to contain points of the fishing tourney rod upgrade screen
  * @module FishingTourneyRod
@@ -229,7 +240,9 @@ Class FishingTourneyRod {
         Return false
     }
 }
+;@endregion
 
+;@region FishingTransmute
 /**
  * Points class to contain points of the fishing transmute screen
  * @module FishingTransmute
@@ -256,6 +269,7 @@ Class FishingTransmute {
         Return false
     }
 }
+;@endregion
 ;@endregion
 
 /**

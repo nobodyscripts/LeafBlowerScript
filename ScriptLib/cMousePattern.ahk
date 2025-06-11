@@ -18,11 +18,11 @@ Class cMousePattern {
      * Run mousemove on set of points in Pattern
      * @param Interupt If true stop Task mid way
      */
-    Task(Interupt) {
+    Task(Interupt?) {
         If (this.Pattern != []) {
             first := true
             For (point in this.Pattern) {
-                If (Interupt()) {
+                If (IsSet(Interupt) && Type(Interupt) = "Function" && Interupt()) {
                     Break
                 }
                 If (first) {
@@ -31,7 +31,7 @@ Class cMousePattern {
                     first := false
                 } Else {
                     ; Otherwise move incrementally to point to 'smooth' motion
-                    point.MouseMoveInterpolateTo(50)
+                    point.MouseMoveInterpolateTo(60)
                 }
             }
         }
@@ -60,7 +60,7 @@ Class cMousePattern {
 
     ThreeHorizontal() {
         this.SetThreeHorizontal()
-        this.Task(false)
+        this.Task()
     }
 
     SetFiveHorizontal() {
@@ -95,7 +95,50 @@ Class cMousePattern {
 
     FiveHorizontal() {
         this.SetFiveHorizontal()
-        this.Task(false)
+        this.Task()
+    }
+
+    SetSevenHorizontal() {
+        /** Tighter to the edges and more densely covered for early game
+         * |---------------------------------|
+         * |  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>  |
+         * |                              |  |
+         * |  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<  |
+         * |  |                              |
+         * |  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>  |
+         * |                              |  |
+         * |  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<  |
+         * |  |                              |
+         * |  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>  |
+         * |                              |  |
+         * |  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<  |
+         * |  |                              |
+         * |  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>  |
+         * |---------------------------------|
+         */
+        WSeg := Window.W / 10
+        HSeg := Window.H / 8
+        left1 := cPoint(WSeg, HSeg, false)
+        left2 := cPoint(WSeg, HSeg * 2, false)
+        left3 := cPoint(WSeg, HSeg * 3, false)
+        left4 := cPoint(WSeg, HSeg * 4, false)
+        left5 := cPoint(WSeg, HSeg * 5, false)
+        left6 := cPoint(WSeg, HSeg * 6, false)
+        left7 := cPoint(WSeg, HSeg * 7, false)
+        right1 := cPoint(WSeg * 9, HSeg, false)
+        right2 := cPoint(WSeg * 9, HSeg * 2, false)
+        right3 := cPoint(WSeg * 9, HSeg * 3, false)
+        right4 := cPoint(WSeg * 9, HSeg * 4, false)
+        right5 := cPoint(WSeg * 9, HSeg * 5, false)
+        right6 := cPoint(WSeg * 9, HSeg * 6, false)
+        right7 := cPoint(WSeg * 9, HSeg * 7, false)
+        this.Pattern := [left1, right1, right2, left2, left3, right3, right4,
+            left4, left5, right5, right6, left6, left7, right7]
+    }
+
+    SevenHorizontal() {
+        this.SetSevenHorizontal()
+        this.Task()
     }
 
     SetSpiral() {
@@ -131,7 +174,7 @@ Class cMousePattern {
 
     Spiral() {
         this.SetSpiral()
-        this.Task(false)
+        this.Task()
     }
 
     SetSpiralReverse() {
@@ -167,7 +210,7 @@ Class cMousePattern {
 
     SpiralReverse() {
         this.SetSpiralReverse()
-        this.Task(false)
+        this.Task()
     }
 
     SetBox() {
@@ -195,6 +238,6 @@ Class cMousePattern {
 
     Box() {
         this.SetBox()
-        this.Task(false)
+        this.Task()
     }
 }

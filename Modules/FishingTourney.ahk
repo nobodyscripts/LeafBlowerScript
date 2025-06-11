@@ -89,14 +89,33 @@ Class FishingTourney {
     }
 
     IsOnTab() {
-        Out.D("Is on tourney tab, collect button detection? " BinToStr(this.Collect.IsButtonActive()))
+        /* Out.D("Is on select fight " (this.Start1.IsButton() || this.Start2.IsButton() ||
+        this.Start3.IsButton() || this.Start4.IsButton()))
+        Out.D("Is on attack tourney view " (this.Attack1.IsButton() && this.Attack2.IsButton() && this.Attack3.IsButton()))
+        Out.D("Collect button detection? " BinToStr(this.Collect.IsButtonActive()))
+        */
         If ((this.Start1.IsButton() || this.Start2.IsButton() ||
         this.Start3.IsButton() || this.Start4.IsButton())
         ||
-        this.Attack1.IsButton()
+        (this.Attack1.IsButton() && this.Attack2.IsButton() && this.Attack3.IsButton())
         ||
-        this.Collect.IsButtonActive()) {
+        (this.Collect.IsButtonActive()) && !FishingPonds().isontab()) {
+            ;Out.D("Is on tourney tab true")
             Return true
+        }
+        ;Out.D("Is on tourney tab false")
+        Return false
+    }
+
+    GetTourneyState() {
+        Out.D("Is on tourney tab, collect button detection? " BinToStr(this.Collect.IsButtonActive()))
+        If (this.Start1.IsButton() || this.Start2.IsButton() ||
+        this.Start3.IsButton() || this.Start4.IsButton()) {
+            Return 1
+        } Else If (this.Attack1.IsButton() && this.Attack2.IsButton() && this.Attack3.IsButton()) {
+            Return 2
+        } Else If (this.Collect.IsButtonActive()) {
+            Return 3
         }
         Return false
     }
@@ -273,6 +292,20 @@ Class FishingTourney {
             While (!this.IsOnTab()) {
                 cFishing.Tabs.Tourney.ClickButtonActive()
             }
+            ; If not in screen to select a new fight either finish the fight, or collect
+            Switch (this.GetTourneyState()) {
+            Case 2:
+                Out.I("Found in progress fight, clearing with attack 1")
+                this.Fight(1)
+            Case 3:
+                timeout := A_Now
+                While (Window.IsActive() && !this.Start1.IsButton() && DateDiff(A_now, timeout, "S") < 5) {
+                    this.Collect.WaitUntilActiveButton()
+                    this.Collect.ClickButtonActive(2, 2)
+                }
+            default:
+            }
+
             If (this.Farm1 && this.IsFightReady(1)) {
                 gToolTip.CenterDel()
                 If (this.StartFight(1)) {
@@ -373,6 +406,19 @@ Class FishingTourney {
     FarmSingle() {
         tooltiptoggle := false
         If (Window.IsActive() && this.IsOnTab()) {
+            ; If not in screen to select a new fight either finish the fight, or collect
+            Switch (this.GetTourneyState()) {
+            Case 2:
+                Out.I("Found in progress fight, clearing with attack 1")
+                this.Fight(1)
+            Case 3:
+                timeout := A_Now
+                While (Window.IsActive() && !this.Start1.IsButton() && DateDiff(A_now, timeout, "S") < 5) {
+                    this.Collect.WaitUntilActiveButton()
+                    this.Collect.ClickButtonActive(2, 2)
+                }
+            default:
+            }
             If (this.Farm1 && this.IsFightReady(1)) {
                 If (this.StartFight(1)) {
                     this.Fight(1)
