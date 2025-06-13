@@ -67,22 +67,20 @@ Button_Click_SweepMouseBuyer(*) {
     point := Points.ZoneSample
     /** @type {cRect} */
     ButtonCol1 := cRect(1585, 183, 1590, 1148)
-    /** @type {cRect} */
-    ButtonCol2 := cRect(1789, 183, 1790, 1148)
     Loop {
         MousePattern.SevenHorizontal()
         upgrades := true
         While (upgrades) {
-            clickable := ButtonCol2.PixelSearch(point.Active, 5)
+            clickable := ButtonCol1.PixelSearch(point.Active)
             If (clickable != false) {
-                cLBRButton(clickable[1], clickable[2], false).ClickOffset()
+                If (cLBRButton(Window.RelW(1789), clickable[2], false).IsButtonActive()) {
+                    cLBRButton(Window.RelW(1789), clickable[2], false).ClickOffset(5, 5)
+                } Else {
+                    cLBRButton(clickable[1], clickable[2], false).ClickOffset(5, 5)
+                }
+                Sleep(34)
             }
-            Sleep(17)
-            clickable2 := ButtonCol1.PixelSearch(point.Active, 5)
-            If (clickable2 != false) {
-                cLBRButton(clickable2[1], clickable2[2], false).ClickOffset()
-            }
-            If (!clickable && !clickable2) {
+            If (!clickable) {
                 upgrades := false
             }
         }
