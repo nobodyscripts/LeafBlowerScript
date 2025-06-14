@@ -114,7 +114,7 @@ Class FishingRods {
     Ascend2 := cLBRButton(1447, 874)
 
     IsOnTab() {
-        ;Out.D(this.FirstRod.GetDescription() " " this.Craft.GetDescription())
+        ;Out.D(this.FirstRod.ColourToUserString() " " this.Craft.ColourToUserString())
         If (!this.FirstRod.IsBackground() && this.Craft.IsButton()) {
             Return true
         }
@@ -616,8 +616,8 @@ Class Fishing {
         }
         Out.D("Tourney rod: Ontab " this.TourneyRod.IsOnTab() ", ShaftActive " this.TourneyRod.Shaft.IsButtonActive() ", HandleActive " this
         .TourneyRod.Handle.IsButtonActive() ", TipActive " this.TourneyRod.Tip.IsButtonActive())
-        Out.D("Detected: Shaft " this.TourneyRod.Shaft.GetDescription() ", Handle " this.TourneyRod.Handle.GetDescription() ", Tip " this
-        .TourneyRod.Tip.GetDescription())
+        Out.D("Detected: Shaft " this.TourneyRod.Shaft.ColourToUserString() ", Handle " this.TourneyRod.Handle.ColourToUserString() ", Tip " this
+        .TourneyRod.Tip.ColourToUserString())
         While (this.TourneyRod.Shaft.IsButtonActive() ||
         this.TourneyRod.Handle.IsButtonActive() ||
         this.TourneyRod.Tip.IsButtonActive()) {
