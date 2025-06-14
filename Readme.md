@@ -311,8 +311,8 @@ digital vibrance off
 - Fix default settings locations used by gui no longer existing
 
 - Features:
+  - Card: Travel and opening review due to instability
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.
-  - GemFarm: Add rotation to use timeskips, allowing L1 farming.
   - GemFarm: Add check for ALB on state
   - Borbv: Load dlc purchase state from save file and remove setting.
   - Claw: Needs to use artifact if need be / get replacement.

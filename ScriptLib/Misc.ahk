@@ -137,10 +137,7 @@ LineGetColourInstancesOffsetV(x, y1, y2, colour, splitCount := 20) {
 ;@region Type functions
 ArrToCommaDelimStr(var) {
     output := ""
-    If (Type(var) = "String") {
-        If (var = "") {
-            Return false
-        }
+    If (Type(var) != "Array") {
         Return var
     }
     If (var.Length > 1) {
@@ -167,7 +164,6 @@ ObjToString(var) {
         output .= name ": " ObjToString(Value) ",`r`n"
     }
     output .= "}"
-
 }
 
 ToStr(var) {
