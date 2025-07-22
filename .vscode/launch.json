@@ -10,7 +10,10 @@
             "request": "launch",
             "program": "${workspaceFolder}/LeafBlowerV3.ahk",
             "args": [
-                "/ErrorStdOut=UTF-8"
+                "/run=fishing",
+                "/ErrorStdOut=UTF-8",
+                "/help",
+                //"/nogui"
             ],
             "variableCategories": "recommend",
             "usePerfTips": {

@@ -210,6 +210,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
  writes with logging enabled.
   - Added Update.ahk to replace current with test version
   - Updated check for updates to provide a button which updates the script
+  - Added command line arguements for auto starting features, nogui and help
 
 - Hotkeys
 
@@ -309,6 +310,7 @@ digital vibrance off
 - Add file size check to log files
 - Attach to game window option
 - Fix default settings locations used by gui no longer existing
+- Fix for cUpdateChecker - line 250 Dialog.Show() being an int
 
 - Features:
   - Card: Travel and opening review due to instability
