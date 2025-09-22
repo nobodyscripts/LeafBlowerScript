@@ -213,6 +213,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added command line arguements for auto starting features, nogui and help
 
 - Hotkeys
+  - Fix command line arguments blocking keybinds
 
 - GUI
   - Added second col for mine view to help those on lower resolutions

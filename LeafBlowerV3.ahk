@@ -67,9 +67,9 @@ If (!S.initSettings()) {
 }
 
 Out.I("Script loaded")
-HandleArgs()
 ; Setup script hotkeys
 CreateScriptHotkeys()
+HandleArgs()
 
 ; ------------------- Script Triggers -------------------
 
