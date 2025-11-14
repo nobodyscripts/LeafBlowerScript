@@ -4,9 +4,42 @@
 #Include Misc.ahk
 
 /**
- * cLBRButton
+ * cLBRButton Class, extends cButton > cPoint with LBR specific button related colour checking
  * @module cLBRButton
- * @method GreedyModifierClick Desc
+ * @extends cButton
+ * @property {String} Active Active button colour (excluding text)
+ * @property {String} ActiveMouseOver Active button colour when mouse over
+ * @property {String} Inactive Inactive button colour
+ * @property {String} Background Background window main colour
+ * @property {String} ActiveSelected
+ * @property {String} InactiveSelected
+ * @property {String} AfkActive
+ * @property {String} AfkActiveMouseover
+ * @property {String} BackgroundAFK
+ * @property {String} DarkBgActive
+ * @property {String} DarkBgActiveMouseover
+ * @property {String} BackgroundSpotify
+ * @property {String} BankTabSelectedActive
+ * @property {String} BankTabSelectedActiveMouseover
+ * @method IsButton 
+ * @method IsButtonAFK
+ * @method IsMouseOver
+ * @method IsButtonActive
+ * @method IsButtonInactive
+ * @method IsButtonOffPanel
+ * @method IsButtonDarkened
+ * @method IsColourMatch Matches on any colour property
+ * @method IsBackground
+ * @method IsCoveredByNotification
+ * @method ColourToUserString
+ * @method ClickButtonActive
+ * @method GreedyModifierClick
+ * @method WaitUntilActiveButton
+ * @method WaitUntilActiveButtonS
+ * @method WaitUntilButton
+ * @method WaitUntilButtonS
+ * @method WaitUntilClick
+ * @method WaitUntilClickTwice
  */
 Class cLBRButton extends cButton {
     /** 0xFFF1D2

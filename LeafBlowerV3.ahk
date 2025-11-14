@@ -15,7 +15,7 @@
  * @type {cLog} Global cLog object */
 Global Out := cLog(A_ScriptDir "\LeafBlowerV3.Log", true, 3, true)
 
-/** @type {cLBRWindow} */
+/** @type {cLBRWindow} LBR Window set to coords based on 2560 x 1369 client area */
 Global Window := cLBRWindow("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_exe game.exe", 2560, 1369)
 
 #Include ScriptLib\cSettings.ahk

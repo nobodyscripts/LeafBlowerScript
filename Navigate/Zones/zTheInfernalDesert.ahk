@@ -21,7 +21,7 @@ Class TheInfernalDesert extends Zone {
         this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
         /** @type {cLBRButton} */
-        Local Btn := cLBRButton(1677, 652)
+        Local Btn := cLBRButton(1677, 667)
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {

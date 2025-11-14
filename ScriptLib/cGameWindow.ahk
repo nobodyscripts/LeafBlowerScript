@@ -191,9 +191,11 @@ Class cGameWindow {
     ;@region ActiveOrReload()
     /**
      * Check game is there or exit out a running process
+     * Can only return true, as false will reload
      */
     ActiveOrReload() {
         If (!this.Activate()) {
+            Out.I("Game not activated, restarting script")
             Reload()
             Sleep(5000)
             Return false
@@ -205,37 +207,24 @@ Class cGameWindow {
     ;@region StartOrReload()
     /**
      * Reload if game window is not found, or function has been previously started
+     * Run once at start of function for toggle on/off
+     * Use ExistOrReload or ActiveOrReload in loops
      * @param {Func} callback function to run prior to reload for cleanup
      */
     StartOrReload(callback?) {
         active := this.ActiveOrReload()
         Static isRunning := false
-        isRunning := !isRunning
-        If (active && !isRunning) {
+        Out.D("Setting running state to " isRunning)
+        If (active && isRunning) {
             If (isset(callback)) {
                 callback()
             }
+            Out.I("Game active and script running, restarting script")
             Reload()
             Sleep(5000)
             Return false
         }
-        Return true
-    }
-    ;@endregion
-
-    ;@region StartOrReloadState()
-    /**
-     * Reload if game window is not found, or return toggled state
-     * @param {Func} callback
-     * @returns {Boolean} true if not running, false if running
-     */
-    StartOrReloadState() {
-        active := this.ActiveOrReload()
-        Static isRunning := false
         isRunning := !isRunning
-        If (active && !isRunning) {
-            Return false
-        }
         Return true
     }
     ;@endregion

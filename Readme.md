@@ -244,6 +244,9 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Fix transmute when auto transmute not purchased
 
 - GFSS
+  
+- Gem Suitcase
+  - Fix for travel button shifting with ui changes
 
 - BorbVentures
 
