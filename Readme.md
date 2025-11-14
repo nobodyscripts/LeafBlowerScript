@@ -247,6 +247,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   
 - Gem Suitcase
   - Fix for travel button shifting with ui changes
+  - Fix for HadToRemoveBearo not set error
 
 - BorbVentures
 

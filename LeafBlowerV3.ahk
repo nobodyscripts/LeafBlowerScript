@@ -295,6 +295,11 @@ fReloadApp(*) {
         ToolTip(, , , 15)
         Shops.OpenTrades()
         Sleep(34)
+        If (!IsSet(HadToRemoveBearo)) {
+            Out.I("F2: Bearo reset ignored as never set.")
+            Reload()
+            Return
+        }
         If (HadToRemoveBearo) {
             Out.I("F2: Equiping default loadout to reapply Bearo")
             GameKeys.EquipDefaultGearLoadout()
@@ -379,7 +384,7 @@ fGemFarmStart(*) { ; Gem farm using suitcase
         }
         Shops.OpenTrades()
         Sleep(34)
-        If (HadToRemoveBearo) {
+        If (IsSet(HadToRemoveBearo) && HadToRemoveBearo) {
             Out.I("F4: Equiping default loadout to reapply Bearo")
             GameKeys.EquipDefaultGearLoadout()
             HadToRemoveBearo := false
