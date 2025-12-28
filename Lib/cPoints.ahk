@@ -21,6 +21,7 @@ Global Points := cPoints()
  * @property {cCraftingPoints} Crafting
  * @property {cCardPoints} Dice
  * @property {cGemFarmPoints} GemFarm
+ * @property {cHarborPoints} Harbor
  * @property {cHyacinthPoints} Hyacinth
  * @property {cLeaftonPoints} Leafton
  * @property {cMinePoints} Mine
@@ -28,45 +29,63 @@ Global Points := cPoints()
  * 
  */
 Class cPoints {
-    /** @type {cLBRButton} Zone sample point */
+    /** Zone sample point
+     * @type {cLBRButton} */
     ZoneSample := cLBRButton(0, 0)
 
-    /** @type {cAreasPoints} Areas points */
+    /** Areas points
+     * @type {cAreasPoints} */
     Areas := cAreasPoints()
 
-    /** @type {cBankPoints} Bank points */
+    /** Bank points
+     * @type {cBankPoints} */
     Bank := cBankPoints()
 
-    /** @type {cBorbventuresPoints} Borbventures points */
+    /** Borbventures points
+     * @type {cBorbventuresPoints} */
     Borbventures := cBorbventuresPoints()
 
-    /** @type {cBrewPoints} Brew points */
+    /** Brew points
+     * @type {cBrewPoints} */
     Brew := cBrewPoints()
 
-    /** @type {cCardPoints} Card points */
+    /** Card points
+     * @type {cCardPoints} */
     Card := cCardPoints()
 
-    /** @type {cClawPoints} Claw points */
+    /** Claw points
+     * @type {cClawPoints} */
     Claw := cClawPoints()
 
-    /** @type {cCraftingPoints} Crafting points */
+    /** Crafting points
+     * @type {cCraftingPoints} */
     Crafting := cCraftingPoints()
 
-    /** @type {cDicePoints} Dice points */
+    /** Dice points
+     * @type {cDicePoints} */
     Dice := cDicePoints()
 
-    /** @type {cGemFarmPoints} GemFarm points */
+    /** GemFarm points
+     * @type {cGemFarmPoints} */
     GemFarm := cGemFarmPoints()
 
-    /** @type {cHyacinthPoints} Hyacinth points */
+    /** Harbor points
+     *  @type {cHarborPoints} */
+    Harbor := cHarborPoints()
+
+    /** Hyacinth points
+     * @type {cHyacinthPoints} */
     Hyacinth := cHyacinthPoints()
 
-    /** @type {cLeaftonPoints} Leafton points */
+    /** Leafton points
+     * @type {cLeaftonPoints} */
     Leafton := cLeaftonPoints()
 
-    /** @type {cMinePoints} Mine points */
+    /** Mine points
+     * @type {cMinePoints} */
     Mine := cMinePoints()
 
-    /** @type {cMiscPoints} Misc points */
+    /** Misc points
+     * @type {cMiscPoints} */
     Misc := cMiscPoints()
 }

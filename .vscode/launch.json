@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/LeafBlowerV3.ahk",
             "args": [
-                //"/run=transmuterelic",
+                //"/run=harbormanager",
                 "/ErrorStdOut=UTF-8",
                 "/help",
                 //"/nogui"

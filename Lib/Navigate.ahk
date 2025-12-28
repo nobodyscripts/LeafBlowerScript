@@ -17,6 +17,7 @@
 #Include ..\Navigate\Crafting\Header.ahk
 #Include ..\Navigate\Dice\Header.ahk
 #Include ..\Navigate\GemFarm\Header.ahk
+#Include ..\Navigate\Harbor\Header.ahk
 #Include ..\Navigate\Hyacinth\Header.ahk
 #Include ..\Navigate\Leafton\Header.ahk
 #Include ..\Navigate\Mines\Header.ahk

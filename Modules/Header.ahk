@@ -13,6 +13,7 @@
 #Include FishingChallenge.ahk
 #Include FishingTourney.ahk
 #Include GemFarm.ahk
+#Include Harbor.ahk
 #Include NatureHyacinth.ahk
 #Include TowerTimeWarp.ahk
 #Include TowerFarmPassive.ahk

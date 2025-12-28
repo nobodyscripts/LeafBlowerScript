@@ -168,7 +168,7 @@ HandleArgs() {
                 "    bossfarm|natureboss|resize|minemaintain|hyacinth|bank|cc|`n`r"
                 "    towerpassive|leafton|shadowcrystal|suitcasespam|goldprestige|`n`r"
                 "    sweep|sweepautobuyer|ulcstage1|ulcstage2|ulcstage3|ulcstage4|`n`r"
-                "    fishingchal|fishingtour|transmuterelic|maxbvitems`n`r"
+                "    fishingchal|fishingtour|transmuterelic|maxbvitems|harbormanager`n`r"
                 "`n`r"
             )
         }
@@ -243,6 +243,8 @@ HandleArgs() {
                     Shops.Relics.TransMuteResetLoop()
                 Case "maxbvitems":
                     MaxBVItems()
+                Case "harbormanager":
+                    Harbor().startHarborManager()
                 default:
                 }
             default:
