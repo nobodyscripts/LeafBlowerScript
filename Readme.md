@@ -290,6 +290,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Selectable attack type in Tourney mode per difficulty
   - Added Tourney mode secondary features (rod upgrading etc)
   - Added Tourney pass with attack 1 if fight previously started
+  - Added fourth row of transmutes
 
 - PondSpamSave.ahk Standalone script for farming high rank ponds, F1 exit, F2 reload,
     F3 Activate, Hold F4 to stop on next loop. Set game to 10min autosave, save
@@ -302,7 +303,6 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - Investigate fullscreen (it breaks fullscreen).
 - Trade farming for non gems/non suitcase version.
 - Brew + cards rotation mode.
-- Halloween + Nature artifact secondary which pauses main functions.
 - Adjust window resize based on delta from intended size, for non matching window
 dressing.
 - F12 and settings apply, account for notifications behind menu setting and
@@ -316,6 +316,10 @@ digital vibrance off
 - Attach to game window option
 - Fix default settings locations used by gui no longer existing
 - Fix for cUpdateChecker - line 250 Dialog.Show() being an int
+- Check for max buy buttons shifting locations
+- Max Buy auto confirm with shift
+- Leaf galaxy zone position changes
+- Close panel on travel now an option, check for travel issues.
 
 - Features:
   - Card: Travel and opening review due to instability
@@ -326,8 +330,10 @@ digital vibrance off
   - GFSS: Add setting for standalone WW in GFSS spammer.
   - GFSS: Review ending of gfssnoreset mode.
   - GFSS: Add BossFastFarm.
-  - NatBoss: Needs to use artifact if need be / get replacement.
+  - NatBoss/Cheese: Event button moved, check for travel issues.
   - Leafton: Leafton needs better setup routine. Travel to zone.
+    - Quark button moved, check for travel issues.
+    - Artifacts positions changed.
   - Mine: Check for broken functionality
     - Travel to alch failing for brewing despite window opening
   - ULC: Fix cheese quest
@@ -335,9 +341,19 @@ digital vibrance off
     - Fix soul shop/soul forge not running prior to mirage
     - BV item purchasing button text now larger stopping purchase
     - Boss skip off for first tower pass
+    - Pyramid changes
+    - Crafting changes
+    - Artifacts positions changed.
   - Fishing: Fix pond search if no rod applied at start
     - Detect cast/reel with more careful checks
     - Detect % progress
+    - Fix travel which broke on update
+    - Check shop and tourney for changes that cause issues (autowin/new items/
+      tourney cancel)
+    - Finish fixing moved pond coords
+  - Harbor: Add firstpass
+  - Anniversary: Add firstpass
+  - ShadowCrystal: Button moved, check for travel issues.
 
 ## Known issues
 

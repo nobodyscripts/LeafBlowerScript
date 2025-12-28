@@ -27,9 +27,11 @@ Button_Click_Fishing(thisGui, info) {
     FishTransmuteTtoFC := S.Get("FishTransmuteTtoFC")
     FishTransmuteFCtoCry := S.Get("FishTransmuteFCtoCry")
     FishTransmuteCrytoA := S.Get("FishTransmuteCrytoA")
+    FishTransmuteFCtoA := S.Get("FishTransmuteFCtoA")
     FishTransmuteFCtoT := S.Get("FishTransmuteFCtoT")
     FishTransmuteCrytoFC := S.Get("FishTransmuteCrytoFC")
     FishTransmuteAtoCry := S.Get("FishTransmuteAtoCry")
+    FishTransmuteAtoFC := S.Get("FishTransmuteAtoFC")
 
     GuiBGColour := S.Get("GuiBGColour")
 
@@ -241,6 +243,11 @@ Button_Click_Fishing(thisGui, info) {
         MyGui.Add("CheckBox", "vFishTransmuteCrytoA",
             "Enable Transmute Crystal to Advanced Crystal")
     }
+
+    checked := (FishTransmuteFCtoA) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishTransmuteFCtoA" checked,
+        "Enable Transmute Fish Credits to Advanced Crystal")
+
     If (FishTransmuteFCtoT = true) {
         MyGui.Add("CheckBox", "vFishTransmuteFCtoT checked",
             "Enable Transmute Fish Credits to Trash")
@@ -262,6 +269,10 @@ Button_Click_Fishing(thisGui, info) {
         MyGui.Add("CheckBox", "vFishTransmuteAtoCry",
             "Enable Transmute Advanced Crystal to Crystal")
     }
+
+    checked := (FishTransmuteAtoFC) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishTransmuteAtoFC" checked,
+        "Enable Transmute Advanced Crystal to Fish Credits")
     ;@endregion
 
     ;@region Fishing - Novice Tourney
@@ -491,9 +502,11 @@ Button_Click_Fishing(thisGui, info) {
         S.Set("FishTransmuteTtoFC", values.FishTransmuteTtoFC)
         S.Set("FishTransmuteFCtoCry", values.FishTransmuteFCtoCry)
         S.Set("FishTransmuteCrytoA", values.FishTransmuteCrytoA)
+        S.Set("FishTransmuteFCtoA", values.FishTransmuteFCtoA)
         S.Set("FishTransmuteFCtoT", values.FishTransmuteFCtoT)
         S.Set("FishTransmuteCrytoFC", values.FishTransmuteCrytoFC)
         S.Set("FishTransmuteAtoCry", values.FishTransmuteAtoCry)
+        S.Set("FishTransmuteAtoFC", values.FishTransmuteAtoFC)
 
         S.SaveCurrentSettings()
     }

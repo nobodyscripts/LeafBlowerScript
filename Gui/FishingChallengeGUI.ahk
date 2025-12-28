@@ -15,9 +15,11 @@ Button_Click_FishingChallenge(thisGui, info) {
     FishChlTransmuteTtoFC := S.Get("FishChlTransmuteTtoFC")
     FishChlTransmuteFCtoCry := S.Get("FishChlTransmuteFCtoCry")
     FishChlTransmuteCrytoA := S.Get("FishChlTransmuteCrytoA")
+    FishChlTransmuteFCtoA := S.Get("FishChlTransmuteFCtoA")
     FishChlTransmuteFCtoT := S.Get("FishChlTransmuteFCtoT")
     FishChlTransmuteCrytoFC := S.Get("FishChlTransmuteCrytoFC")
     FishChlTransmuteAtoCry := S.Get("FishChlTransmuteAtoCry")
+    FishChlTransmuteAtoFC := S.Get("FishChlTransmuteAtoFC")
     FishChlAmount := S.Get("FishChlAmount")
 
     GuiBGColour := S.Get("GuiBGColour")
@@ -179,6 +181,11 @@ Button_Click_FishingChallenge(thisGui, info) {
         MyGui.Add("CheckBox", "vFishChlTransmuteCrytoA",
             "Enable Transmute Crystal to Advanced Crystal")
     }
+
+    checked := (FishChlTransmuteFCtoA) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishChlTransmuteFCtoA" checked,
+        "Enable Transmute Fish Credits to Advanced Crystal")
+
     If (FishChlTransmuteFCtoT = true) {
         MyGui.Add("CheckBox", "vFishChlTransmuteFCtoT checked",
             "Enable Transmute Fish Credits to Trash")
@@ -200,6 +207,10 @@ Button_Click_FishingChallenge(thisGui, info) {
         MyGui.Add("CheckBox", "vFishChlTransmuteAtoCry",
             "Enable Transmute Advanced Crystal to Crystal")
     }
+    
+    checked := (FishChlTransmuteAtoFC) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishChlTransmuteAtoFC" checked,
+        "Enable Transmute Advanced Crystal to Fish Credits")
     ;@endregion
     ;@endregion
 
@@ -286,9 +297,11 @@ Button_Click_FishingChallenge(thisGui, info) {
         S.Set("FishChlTransmuteTtoFC", values.FishChlTransmuteTtoFC)
         S.Set("FishChlTransmuteFCtoCry", values.FishChlTransmuteFCtoCry)
         S.Set("FishChlTransmuteCrytoA", values.FishChlTransmuteCrytoA)
+        S.Set("FishChlTransmuteFCtoA", values.FishChlTransmuteFCtoA)
         S.Set("FishChlTransmuteFCtoT", values.FishChlTransmuteFCtoT)
         S.Set("FishChlTransmuteCrytoFC", values.FishChlTransmuteCrytoFC)
         S.Set("FishChlTransmuteAtoCry", values.FishChlTransmuteAtoCry)
+        S.Set("FishChlTransmuteAtoFC", values.FishChlTransmuteAtoFC)
         S.Set("FishChlAmount", values.FishChlAmount)
 
         S.SaveCurrentSettings()

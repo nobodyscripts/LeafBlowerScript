@@ -18,9 +18,11 @@ Button_Click_FishingTourney(thisGui, info) {
     FishTourTransmuteTtoFC := S.Get("FishTourTransmuteTtoFC")
     FishTourTransmuteFCtoCry := S.Get("FishTourTransmuteFCtoCry")
     FishTourTransmuteCrytoA := S.Get("FishTourTransmuteCrytoA")
+    FishTourTransmuteFCtoA := S.Get("FishTourTransmuteFCtoA")
     FishTourTransmuteFCtoT := S.Get("FishTourTransmuteFCtoT")
     FishTourTransmuteCrytoFC := S.Get("FishTourTransmuteCrytoFC")
     FishTourTransmuteAtoCry := S.Get("FishTourTransmuteAtoCry")
+    FishTourTransmuteAtoFC := S.Get("FishTourTransmuteAtoFC")
     FishTourNovice := S.Get("FishTourNovice")
     FishTourIntermediate := S.Get("FishTourIntermediate")
     FishTourExpert := S.Get("FishTourExpert")
@@ -198,58 +200,44 @@ Button_Click_FishingTourney(thisGui, info) {
         }
     }
 
-    If (FishTourTransmuteTtoFC = true) {
-        MyGui.Add("CheckBox", "vFishTourTransmuteTtoFC checked",
-            "Enable Transmute Trash to Fish Credits")
-    } Else {
-        MyGui.Add("CheckBox", "vFishTourTransmuteTtoFC",
-            "Enable Transmute Trash to Fish Credits")
-    }
-    If (FishTourTransmuteFCtoCry = true) {
-        MyGui.Add("CheckBox", "vFishTourTransmuteFCtoCry checked",
-            "Enable Transmute Fish Credits to Crystal")
-    } Else {
-        MyGui.Add("CheckBox", "vFishTourTransmuteFCtoCry",
-            "Enable Transmute Fish Credits to Crystal")
-    }
-    If (FishTourTransmuteCrytoA = true) {
-        MyGui.Add("CheckBox", "vFishTourTransmuteCrytoA checked",
-            "Enable Transmute Crystal to Advanced Crystal")
-    } Else {
-        MyGui.Add("CheckBox", "vFishTourTransmuteCrytoA",
-            "Enable Transmute Crystal to Advanced Crystal")
-    }
-    If (FishTourTransmuteFCtoT = true) {
-        MyGui.Add("CheckBox", "vFishTourTransmuteFCtoT checked",
-            "Enable Transmute Fish Credits to Trash")
-    } Else {
-        MyGui.Add("CheckBox", "vFishTourTransmuteFCtoT",
-            "Enable Transmute Fish Credits to Trash")
-    }
-    If (FishTourTransmuteCrytoFC = true) {
-        MyGui.Add("CheckBox", "vFishTourTransmuteCrytoFC checked",
-            "Enable Transmute Crystal to Fish Credits")
-    } Else {
-        MyGui.Add("CheckBox", "vFishTourTransmuteCrytoFC",
-            "Enable Transmute Crystal to Fish Credits")
-    }
-    If (FishTourTransmuteAtoCry = true) {
-        MyGui.Add("CheckBox", "vFishTourTransmuteAtoCry checked",
-            "Enable Transmute Advanced Crystal to Crystal")
-    } Else {
-        MyGui.Add("CheckBox", "vFishTourTransmuteAtoCry",
-            "Enable Transmute Advanced Crystal to Crystal")
-    }
+    checked := (FishTourTransmuteTtoFC) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishTourTransmuteTtoFC" checked,
+        "Enable Transmute Trash to Fish Credits")
+
+    checked := (FishTourTransmuteFCtoCry) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishTourTransmuteFCtoCry" checked,
+        "Enable Transmute Fish Credits to Crystal")
+
+    checked := (FishTourTransmuteCrytoA) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishTourTransmuteCrytoA" checked,
+        "Enable Transmute Crystal to Advanced Crystal")
+
+    checked := (FishTourTransmuteFCtoA) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishTourTransmuteFCtoA" checked,
+        "Enable Transmute Fish Credits to Advanced Crystal")
+
+    checked := (FishTourTransmuteFCtoT) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishTourTransmuteFCtoT" checked,
+        "Enable Transmute Fish Credits to Trash")
+
+    checked := (FishTourTransmuteCrytoFC) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishTourTransmuteCrytoFC" checked,
+        "Enable Transmute Crystal to Fish Credits")
+
+    checked := (FishTourTransmuteAtoCry) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishTourTransmuteAtoCry" checked,
+        "Enable Transmute Advanced Crystal to Crystal")
+
+    checked := (FishTourTransmuteAtoFC) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishTourTransmuteAtoFC" checked,
+        "Enable Transmute Advanced Crystal to Fish Credits")
+
     ;@endregion
 
     ;@region Novice Tourney
-    If (FishTourNovice = true) {
-        MyGui.Add("CheckBox", "vFishTourNovice ys checked",
-            "Enable Novice Tourney")
-    } Else {
-        MyGui.Add("CheckBox", "vFishTourNovice ys",
-            "Enable Novice Tourney")
-    }
+    checked := (FishTourNovice) ? " checked" : ""
+    MyGui.Add("CheckBox", "vFishTourNovice ys" checked,
+        "Enable Novice Tourney")
 
     ;@region Attack setting
     MyGui.Add("Text", "vFishTourNoviceAttackLabel",
@@ -460,9 +448,11 @@ Button_Click_FishingTourney(thisGui, info) {
         S.Set("FishTourTransmuteTtoFC", values.FishTourTransmuteTtoFC)
         S.Set("FishTourTransmuteFCtoCry", values.FishTourTransmuteFCtoCry)
         S.Set("FishTourTransmuteCrytoA", values.FishTourTransmuteCrytoA)
+        S.Set("FishTourTransmuteFCtoA", values.FishTourTransmuteFCtoA)
         S.Set("FishTourTransmuteFCtoT", values.FishTourTransmuteFCtoT)
         S.Set("FishTourTransmuteCrytoFC", values.FishTourTransmuteCrytoFC)
         S.Set("FishTourTransmuteAtoCry", values.FishTourTransmuteAtoCry)
+        S.Set("FishTourTransmuteAtoFC", values.FishTourTransmuteAtoFC)
         S.Set("FishTourNovice", values.FishTourNovice)
         S.Set("FishTourIntermediate", values.FishTourIntermediate)
         S.Set("FishTourExpert", values.FishTourExpert)

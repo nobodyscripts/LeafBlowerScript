@@ -19,9 +19,11 @@ S.AddSetting("Fishing", "FishTimerJourneyCollect", 60, "int")
 S.AddSetting("Fishing", "FishTransmuteTtoFC", false, "bool")
 S.AddSetting("Fishing", "FishTransmuteFCtoCry", false, "bool")
 S.AddSetting("Fishing", "FishTransmuteCrytoA", false, "bool")
+S.AddSetting("Fishing", "FishTransmuteFCtoA", false, "bool")
 S.AddSetting("Fishing", "FishTransmuteFCtoT", false, "bool")
 S.AddSetting("Fishing", "FishTransmuteCrytoFC", false, "bool")
 S.AddSetting("Fishing", "FishTransmuteAtoCry", false, "bool")
+S.AddSetting("Fishing", "FishTransmuteAtoFC", false, "bool")
 S.AddSetting("Fishing", "FishNovice", false, "bool")
 S.AddSetting("Fishing", "FishIntermediate", false, "bool")
 S.AddSetting("Fishing", "FishExpert", false, "bool")
@@ -61,11 +63,11 @@ Class FishingTabs {
  * @module FishingPonds
  */
 Class FishingPonds {
-    /** @type {cLBRButton} */
+    /** @type {cLBRButton} Lure button top left corner */
     Lure := cLBRButton(858, 314)
-    /** @type {cLBRButton} */
+    /** @type {cLBRButton} Cancel pond confirm button */
     ConfirmCancel := cLBRButton(1395, 556)
-    /** @type {cLBRButton} */
+    /** @type {cLBRButton} Search button top left corner */
     Search := cLBRButton(524, 313)
 
     IsOnTab() {
@@ -254,6 +256,8 @@ Class FishingTransmute {
     CreditsToCrystalMax := cLBRButton(719, 416)
     /** @type {cLBRButton} Max Transmute Tide Crystal to Advanced Tide Crystal  */
     CrystalToAdvancedMax := cLBRButton(723, 545)
+    /** @type {cLBRButton} Max Transmute Fish Credits to Advanced Tide Crystal */
+    CreditsToAdvancedMax := cLBRButton(719, 676)
 
     /** @type {cLBRButton} Max Transmute Fish Credits to Trash */
     CreditsToTrashMax := cLBRButton(1759, 289)
@@ -261,6 +265,8 @@ Class FishingTransmute {
     CrystalToCreditsMax := cLBRButton(1761, 418)
     /** @type {cLBRButton} Max Transmute Advanced Tide Crystal to Tide Crystal */
     AdvancedToCrystalMax := cLBRButton(1759, 542)
+    /** @type {cLBRButton} Max Transmute Advanced Tide Crystal to Fish Credits */
+    AdvancedToCreditsMax := cLBRButton(1759, 676)
 
     IsOnTab() {
         If (this.TrashToCreditsMax.IsButton() && this.CreditsToCrystalMax.IsButton() && this.CreditsToTrashMax.IsButton()) {
@@ -443,9 +449,11 @@ Class Fishing {
         FishTransmuteTtoFC := S.Get("FishTransmuteTtoFC")
         FishTransmuteFCtoCry := S.Get("FishTransmuteFCtoCry")
         FishTransmuteCrytoA := S.Get("FishTransmuteCrytoA")
+        FishTransmuteFCtoA := S.Get("FishTransmuteFCtoA")
         FishTransmuteFCtoT := S.Get("FishTransmuteFCtoT")
         FishTransmuteCrytoFC := S.Get("FishTransmuteCrytoFC")
         FishTransmuteAtoCry := S.Get("FishTransmuteAtoCry")
+        FishTransmuteAtoFC := S.Get("FishTransmuteAtoFC")
         this.Transmute.TrashToCreditsMax.WaitUntilButtonS()
         If (FishTransmuteTtoFC) {
             this.Transmute.TrashToCreditsMax.ClickButtonActive()
@@ -456,6 +464,9 @@ Class Fishing {
         If (FishTransmuteCrytoA) {
             this.Transmute.CrystalToAdvancedMax.ClickButtonActive()
         }
+        If (FishTransmuteFCtoA) {
+            this.Transmute.CreditsToAdvancedMax.ClickButtonActive()
+        }
 
         If (FishTransmuteFCtoT) {
             this.Transmute.CreditsToTrashMax.ClickButtonActive()
@@ -465,6 +476,9 @@ Class Fishing {
         }
         If (FishTransmuteAtoCry) {
             this.Transmute.AdvancedToCrystalMax.ClickButtonActive()
+        }
+        If (FishTransmuteAtoFC) {
+            this.Transmute.AdvancedToCreditsMax.ClickButtonActive()
         }
     }
     ;@endregion
@@ -481,9 +495,11 @@ Class Fishing {
         FishChlTransmuteTtoFC := S.Get("FishChlTransmuteTtoFC")
         FishChlTransmuteFCtoCry := S.Get("FishChlTransmuteFCtoCry")
         FishChlTransmuteCrytoA := S.Get("FishChlTransmuteCrytoA")
+        FishChlTransmuteFCtoA := S.Get("FishChlTransmuteFCtoA")
         FishChlTransmuteFCtoT := S.Get("FishChlTransmuteFCtoT")
         FishChlTransmuteCrytoFC := S.Get("FishChlTransmuteCrytoFC")
         FishChlTransmuteAtoCry := S.Get("FishChlTransmuteAtoCry")
+        FishChlTransmuteAtoFC := S.Get("FishChlTransmuteAtoFC")
         this.Transmute.TrashToCreditsMax.WaitUntilButtonS()
         If (FishChlTransmuteTtoFC) {
             this.Transmute.TrashToCreditsMax.ClickButtonActive()
@@ -494,6 +510,9 @@ Class Fishing {
         If (FishChlTransmuteCrytoA) {
             this.Transmute.CrystalToAdvancedMax.ClickButtonActive()
         }
+        If (FishChlTransmuteFCtoA) {
+            this.Transmute.CreditsToAdvancedMax.ClickButtonActive()
+        }
 
         If (FishChlTransmuteFCtoT) {
             this.Transmute.CreditsToTrashMax.ClickButtonActive()
@@ -503,6 +522,9 @@ Class Fishing {
         }
         If (FishChlTransmuteAtoCry) {
             this.Transmute.AdvancedToCrystalMax.ClickButtonActive()
+        }
+        If (FishChlTransmuteAtoFC) {
+            this.Transmute.AdvancedToCreditsMax.ClickButtonActive()
         }
     }
     ;@endregion
@@ -519,9 +541,11 @@ Class Fishing {
         FishTourTransmuteTtoFC := S.Get("FishTourTransmuteTtoFC")
         FishTourTransmuteFCtoCry := S.Get("FishTourTransmuteFCtoCry")
         FishTourTransmuteCrytoA := S.Get("FishTourTransmuteCrytoA")
+        FishTourTransmuteFCtoA := S.Get("FishTourTransmuteFCtoA")
         FishTourTransmuteFCtoT := S.Get("FishTourTransmuteFCtoT")
         FishTourTransmuteCrytoFC := S.Get("FishTourTransmuteCrytoFC")
         FishTourTransmuteAtoCry := S.Get("FishTourTransmuteAtoCry")
+        FishTourTransmuteAtoFC := S.Get("FishTourTransmuteAtoFC")
         this.Transmute.TrashToCreditsMax.WaitUntilButtonS()
         If (FishTourTransmuteTtoFC) {
             this.Transmute.TrashToCreditsMax.ClickButtonActive()
@@ -532,6 +556,9 @@ Class Fishing {
         If (FishTourTransmuteCrytoA) {
             this.Transmute.CrystalToAdvancedMax.ClickButtonActive()
         }
+        If (FishTourTransmuteFCtoA) {
+            this.Transmute.CreditsToAdvancedMax.ClickButtonActive()
+        }
 
         If (FishTourTransmuteFCtoT) {
             this.Transmute.CreditsToTrashMax.ClickButtonActive()
@@ -541,6 +568,9 @@ Class Fishing {
         }
         If (FishTourTransmuteAtoCry) {
             this.Transmute.AdvancedToCrystalMax.ClickButtonActive()
+        }
+        If (FishTourTransmuteAtoFC) {
+            this.Transmute.AdvancedToCreditsMax.ClickButtonActive()
         }
     }
     ;@endregion
@@ -1092,27 +1122,38 @@ Class Fishing {
  * @method Name Desc
  */
 Class Pond {
-    /** @type {cLBRButton} Rarity point */
+    /** Rarity left bar point
+     *  @type {cLBRButton} */
     Rarity := false
-    /** @type {cLBRButton} */
+    /** Cast/Reel button location
+     * @type {cLBRButton} */
     CastRod := ""
-    /** @type {cLBRButton} */
+    /** Bait button to check rarity
+     * @type {cLBRButton} */
     Bait := ""
-    /** @type {cLBRButton} */
+    /** Bait button icon to check rarity
+     * @type {cLBRButton} */
     BaitIcon := ""
-    /** @type {cLBRButton} */
+    /** Cancel pond to delete it
+     * @type {cLBRButton} */
     Cancel := ""
-    /** @type {cRect} */
+    /** Progress % text check location entire area
+     * @type {cRect} */
     Progress := ""
-    /** @type {cRect} */
+    /** Progress check area
+     * @type {cRect} */
     CooldownSuffix := ""
-    /** @type {cLBRButton} */
+    /** Confirmation for canceling a pond
+     * @type {cLBRButton} */
     ConfirmCancel := cLBRButton(1395, 556)
-    /** @type {cLBRButton} */
+    /** First rod for this pond
+     * @type {cLBRButton} */
     Rod1 := ""
-    /** @type {cLBRButton} */
+    /** Second rod for this pond
+     * @type {cLBRButton} */
     Rod2 := ""
-    /** @type {cLBRButton} */
+    /** Third rod for this pond
+     * @type {cLBRButton} */
     Rod3 := ""
 
     id := 0
@@ -1121,10 +1162,10 @@ Class Pond {
         Switch (id) {
         Case 1:
             this.Rarity := cLBRButton(305, 709)
-            this.CastRod := cLBRButton(541, 667)
-            this.Progress := cRect(400, 702, 500, 728)
-            this.CooldownSuffix := cRect(464, 705, 500, 728)
-            this.Cancel := cLBRButton(803, 485)
+            this.CastRod := cLBRButton(541, 677)
+            this.Progress := cRect(400, 717, 500, 740)
+            this.CooldownSuffix := cRect(464, 717, 500, 740)
+            this.Cancel := cLBRButton(803, 495)
             this.Bait := cLBRButton(800, 681)
             this.BaitIcon := cLBRButton(826, 666)
             this.Rod1 := cLBRButton(359, 589)

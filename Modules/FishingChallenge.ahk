@@ -13,9 +13,11 @@ S.AddSetting("FishChallenge", "FishChlTimerJourneyCollect", 60, "int")
 S.AddSetting("FishChallenge", "FishChlTransmuteTtoFC", true, "bool")
 S.AddSetting("FishChallenge", "FishChlTransmuteFCtoCry", false, "bool")
 S.AddSetting("FishChallenge", "FishChlTransmuteCrytoA", false, "bool")
+S.AddSetting("FishChallenge", "FishChlTransmuteFCtoA", false, "bool")
 S.AddSetting("FishChallenge", "FishChlTransmuteFCtoT", false, "bool")
 S.AddSetting("FishChallenge", "FishChlTransmuteCrytoFC", true, "bool")
 S.AddSetting("FishChallenge", "FishChlTransmuteAtoCry", true, "bool")
+S.AddSetting("FishChallenge", "FishChlTransmuteAtoFC", false, "bool")
 S.AddSetting("FishChallenge", "FishChlAmount", 5, "int")
 
 /**
