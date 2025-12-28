@@ -294,6 +294,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 
 - Harbor
   - Added Job refresh, Ship claim, Shop Buy Max, Journey collect
+  - Buy max shop using shift to bypass confirm
 
 - PondSpamSave.ahk Standalone script for farming high rank ponds, F1 exit, F2 reload,
     F3 Activate, Hold F4 to stop on next loop. Set game to 10min autosave, save

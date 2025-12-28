@@ -50,7 +50,7 @@ Class Harbor {
                 Break
             }
             If (HarborJobRefresh) {
-                this.JobRefresh()
+                 this.JobRefresh()
             }
 
             If (HarborShipsClaim &&
@@ -91,8 +91,8 @@ Class Harbor {
         If (this.IsClaimableJob()) {
             Points.Harbor.Overview.ClaimAll.ClickButtonActive(, 5)
         }
-        If (Points.Harbor.Overview.JobAddLeaf1.IsBackground() && 
-            Points.Harbor.Overview.JobClaim1.IsBackground()) {
+        If (Points.Harbor.Overview.JobAddLeaf1.IsBackground() &&
+        Points.Harbor.Overview.JobClaim1.IsBackground()) {
             Sleep(54)
             Points.Harbor.Overview.RefreshJobs.ClickButtonActive(, 5)
         }
@@ -215,9 +215,11 @@ Class Harbor {
             Window.ActiveOrReload()
             Points.Harbor.Shop.Tab.ClickButtonActive(, 5)
         }
+        SetModifierKeys(false, false, true)
         Points.Harbor.Shop.BuyMaxShop.WaitUntilButtonS(0.5)
         Points.Harbor.Shop.BuyMaxShop.ClickButtonActive(, 5)
         Points.Harbor.Shop.BuyMaxShop.ClickButtonActive(, 5)
+        ResetModifierKeys()
     }
     ;@endregion
 
