@@ -295,6 +295,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - Harbor
   - Added Job refresh, Ship claim, Shop Buy Max, Journey collect
   - Buy max shop using shift to bypass confirm
+  - Added GUI for settings
 
 - PondSpamSave.ahk Standalone script for farming high rank ponds, F1 exit, F2 reload,
     F3 Activate, Hold F4 to stop on next loop. Set game to 10min autosave, save
@@ -355,7 +356,6 @@ digital vibrance off
     - Check shop and tourney for changes that cause issues (autowin/new items/
       tourney cancel)
     - Finish fixing moved pond coords
-  - Harbor: Add firstpass
   - Anniversary: Add firstpass
   - ShadowCrystal: Button moved, check for travel issues.
 

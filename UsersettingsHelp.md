@@ -435,6 +435,29 @@ FishTourneyLegendAttack: (Default) 1
 The type of attack to repeatedly make during farming, 1 (100%),
 2 (60%~) or 3 (40%~).
 
+## Harbor
+
+HarborJobRefresh: (default) true
+Enable automatic container assignment, dispatch and collection of Delivery Jobs.
+
+HarborShopMax: (default) true
+Enable use of the Harbor shops Buy Max feature to buy cheapest upgrades.
+
+HarborShipsClaim: (default) true
+Enable claiming of any finished Ship Missions.
+
+HarborJourneyClaim: (default) true
+Enable claiming of any uncollected Harbor Journey rewards.
+
+HarborShopTimer: (default) 120
+Delay between attempts to Buy Max in Harbor Shop (seconds).
+
+HarborShipsTimer: (default) 30
+Delay between attempts to claim Ship Missions (seconds).
+
+HarborJourneyTimer: (default) 300
+Delay between attempts to claim Harbor Journey Rewards (seconds).
+
 ## Debug
 
 Debug: (Default) false  

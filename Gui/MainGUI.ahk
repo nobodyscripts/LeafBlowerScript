@@ -13,6 +13,7 @@
 #Include GameHotkeysGUI.ahk
 #Include GemFarmGUI.ahk
 #Include GFSSFarmGUI.ahk
+#Include HarborGUI.ahk
 #Include HyacinthFarmGUI.ahk
 #Include LeaftonGUI.ahk
 #Include MineGUI.ahk
@@ -229,6 +230,11 @@ RunGui() {
     MyGui.Add("Text", "", "(no keybind)")
     MyGui.Add("Button", "+Background" GuiBGColour, "Transmute relic reset loop")
     .OnEvent("Click", Button_Click_RelicTransmute)
+
+    MyGui.Add("Text", "", "(no keybind)")
+    MyGui.Add("Button", "+Background" GuiBGColour, "Harbor Manager")
+    .OnEvent("Click", Button_Click_Harbor)
+
     MyGui.Add("Text", "", "")
     MyGui.Add("Button", "+Background" GuiBGColour, "Edit Script Hotkeys")
     .OnEvent("Click", Button_Click_ScriptHotkeys)
