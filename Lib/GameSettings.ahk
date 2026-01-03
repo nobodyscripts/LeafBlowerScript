@@ -144,14 +144,26 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
     CheckVK(GameKeys.GetHotkeyVK("OpenCrafting") + 0.0)
     jsonData['hotkey_load_loadout_0']['value'] := ;
     CheckVK(GameKeys.GetHotkeyVK("EquipDefaultGearLoadout") + 0.0)
+    jsonData['hotkey_load_loadout_1']['value'] := ;
+    CheckVK(GameKeys.GetHotkeyVK("EquipSlapGearLoadout") + 0.0)
     jsonData['hotkey_load_loadout_2']['value'] := ;
     CheckVK(GameKeys.GetHotkeyVK("EquipTowerGearLoadout") + 0.0)
+    jsonData['hotkey_load_loadout_3']['value'] := ;
+    CheckVK(GameKeys.GetHotkeyVK("EquipSwordGearLoadout") + 0.0)
+    jsonData['hotkey_load_loadout_4']['value'] := ;
+    CheckVK(GameKeys.GetHotkeyVK("EquipElectricGearLoadout") + 0.0)
     jsonData['hotkey_mines']['value'] := ;
     CheckVK(GameKeys.GetHotkeyVK("OpenMining") + 0.0)
     jsonData['hotkey_pets']['value'] := ;
     CheckVK(GameKeys.GetHotkeyVK("OpenPets") + 0.0)
     jsonData['hotkey_prestige']['value'] := ;
     CheckVK(GameKeys.GetHotkeyVK("OpenGoldPortal") + 0.0)
+    jsonData['hotkey_blc']['value'] := ;
+    CheckVK(GameKeys.GetHotkeyVK("OpenRedPortal") + 0.0)
+    jsonData['hotkey_mlc']['value'] := ;
+    CheckVK(GameKeys.GetHotkeyVK("OpenGreenPortal") + 0.0)
+    jsonData['hotkey_ulc']['value'] := ;
+    CheckVK(GameKeys.GetHotkeyVK("OpenBluePortal") + 0.0)
     jsonData['hotkey_refresh_trades']['value'] := ;
     CheckVK(GameKeys.GetHotkeyVK("RefreshTrades") + 0.0)
     jsonData['hotkey_shop_gems']['value'] := ;
@@ -208,9 +220,6 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         'hotkey_load_craft_set_6', ;
         'hotkey_load_craft_set_7',
         ; loadouts
-        'hotkey_load_loadout_1', ;
-        'hotkey_load_loadout_3', ;
-        'hotkey_load_loadout_4', ;
         'hotkey_load_loadout_5', ;
         'hotkey_load_loadout_6', ;
         'hotkey_load_loadout_7',
@@ -254,9 +263,6 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         'hotkey_orange_science', ;
         'hotkey_black_science', ;
         'hotkey_strange_science',
-        ; Portals
-        'hotkey_blc', ;
-        'hotkey_mlc',
         ; mixture
         'hotkey_converters', ;
         'hotkey_printers', ;
@@ -286,34 +292,41 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         GameKeys.GetHotkeyVK("OpenCards") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenCrafting") + 0.0, ;
         GameKeys.GetHotkeyVK("EquipDefaultGearLoadout") + 0.0, ;
+        GameKeys.GetHotkeyVK("EquipSlapGearLoadout") + 0.0, ;
         GameKeys.GetHotkeyVK("EquipTowerGearLoadout") + 0.0, ;
+        GameKeys.GetHotkeyVK("EquipSwordGearLoadout") + 0.0, ;
+        GameKeys.GetHotkeyVK("EquipElectricGearLoadout") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenMining") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenPets") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenGoldPortal") + 0.0, ;
+        GameKeys.GetHotkeyVK("OpenRedPortal") + 0.0, ;
+        GameKeys.GetHotkeyVK("OpenGreenPortal") + 0.0, ;
+        GameKeys.GetHotkeyVK("OpenBluePortal") + 0.0, ;
         GameKeys.GetHotkeyVK("RefreshTrades") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenGemShop") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenTrades") + 0.0
     ]
 
     Out.V("Script keys set to: " ArrToCommaDelimStr(aInUse))
+    Out.V("Checking for other keybinds that conflict with script keybinds:")
     For (key in notRequiredHotkeys) {
         jsonData[key]['value'] := ResetIncorrectHotkey(jsonData[key]['value'],
-            aInUse)
+            aInUse, key)
     }
     Return jsonData
 }
 
-ResetIncorrectHotkey(var, aInUse) {
+ResetIncorrectHotkey(var, aInUse, name) {
     If (var = -1.0) {
         Return -1.0
     }
     If (var != "") {
-        Out.V("Checking key " var ": " GetKeyName(Format("vk{:X}", var)))
+        Out.V("Checking key " name " " var ": " GetKeyName(Format("vk{:X}", var)))
     }
     For (key in aInUse) {
         If (var = key) {
             If (var != "") {
-                Out.D("Had to reset keybind " var ": " GetKeyName(Format(
+                Out.D("Had to reset keybind " name " " var ": " GetKeyName(Format(
                     "vk{:X}", var)))
             }
             var := -1.0
@@ -323,6 +336,7 @@ ResetIncorrectHotkey(var, aInUse) {
 }
 
 CheckVK(var) {
+    ; Ignore key 27 so escape doesn't get keybound
     If (var = 27.0 || var = 27) {
         Return -1.0
     }

@@ -280,6 +280,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - ULC TEST
   - Added various functions to automate elements of the ULC process with the aim
     of automating ULC from start to finish for new users and endgame users
+  - Added keybinds required by ULC to game hotkeys feature, users can apply to
+    refresh with new keybinds.
 
 - Fishing
   - Added a quick test for catching fish (rough)
