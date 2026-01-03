@@ -7,7 +7,6 @@
  * @property {Map} ZoneColours Collection of sample colours by name of zone
  * @method GetColourByZone
  * @method GetZoneByColour
- * @method ColourIdent
  */
 Class Colours {
 

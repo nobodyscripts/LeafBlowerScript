@@ -214,7 +214,9 @@ Class cGameWindow {
     StartOrReload(callback?) {
         active := this.ActiveOrReload()
         Static isRunning := false
-        Out.D("Setting running state to " (!isRunning) ? "true" : "false")
+        text := "Setting running state to "
+        text .= (!isRunning) ? "true" : "false"
+        Out.D(text)
         If (active && isRunning) {
             If (isset(callback)) {
                 callback()

@@ -756,9 +756,6 @@ IsAreaBlack() {
  * Quick window handle for all the ulc test functions
  */
 UlcWindow() {
-    If (!Window.StartOrReload()) {
-        Reload()
-        Return
-    }
+    Window.ActiveOrReload()
 }
 ;@endregion

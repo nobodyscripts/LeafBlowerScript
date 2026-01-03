@@ -81,8 +81,8 @@ Class TheLeafTower extends Zone {
         this.ScrollAmountDown(14, NavigateTime)
         Sleep(delay)
         If (cLBRButton(2135, 999).IsButton()) {
-            ; If ars zone not unlocked buttons shift
-            Out.D("Ars zone not unlocked using alt points")
+            ; If Abandoned Research Station zone not unlocked buttons shift
+            Out.D("Abandoned Research Station zone not unlocked using alt points")
             /** @type {cLBRButton} Button to travel to Leafsink Harbor*/
             LSButton := cLBRButton(1864, 782)
             /** @type {cLBRButton} */
@@ -116,7 +116,7 @@ Class TheLeafTower extends Zone {
                 Out.I("Button inactive when trying to travel.")
             } Else {
                 Out.I("The Leaf Tower not found while trying to travel. "
-                    Colours().ColourIdent(LSButton.GetColour()))
+                    LSButton.ColourToUserString())
             }
             Out.I("The Leaf Tower travel: Leafsink harbor travel failed.")
             Return false

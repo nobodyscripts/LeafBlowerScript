@@ -6,12 +6,37 @@ Global ULCStageExit := false
 
 GetDailyReward(*) {
     UlcWindow()
-    Out.D("Get Daily Reward")
+    Out.V("Get Daily Reward")
+
+    /** @type {cLBRButton} */
+    DailyOpenWindow := cLBRButton(710, 139)
+    /** @type {cLBRButton} */
+    ClaimDaily := cLBRButton(664, 420)
+    /** @type {cLBRButton} */
+    DailyOpenTab := cLBRButton(527, 1181)
+    /** @type {cLBRButton} */
+    QuestsOpenTab := cLBRButton(805, 1181)
+    /** @type {cLBRButton} */
+    ClaimQuest1 := cLBRButton(1697, 313)
+    /** @type {cLBRButton} */
+    ClaimQuest2 := cLBRButton(1697, 497)
+    /** @type {cLBRButton} */
+    ClaimQuest3 := cLBRButton(1697, 699)
     Travel.ClosePanelIfActive()
-    cLBRButton(710, 139).Click()
+    DailyOpenWindow.Click()
+    DailyOpenTab.WaitUntilButton()
+    DailyOpenTab.Click()
+    ClaimDaily.WaitUntilButton() ; Wait for panel
+    ClaimDaily.ClickButtonActive()
+    ClaimDaily.ClickButtonActive()
+    Travel.ClosePanelIfActive()
+    DailyOpenWindow.Click()
+    QuestsOpenTab.WaitUntilButton() ; Wait for panel second time to get quests
+    QuestsOpenTab.Click()
     Sleep(100)
-    cLBRButton(664, 420).ClickButtonActive()
-    cLBRButton(664, 420).ClickButtonActive()
+    ClaimQuest1.ClickButtonActive() ; Claim quests if they are complete
+    ClaimQuest2.ClickButtonActive()
+    ClaimQuest3.ClickButtonActive()
 }
 
 WaitForFloor100(*) {

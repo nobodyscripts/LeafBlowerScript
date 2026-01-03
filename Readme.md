@@ -277,6 +277,10 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Add hotkey (Numpad9) to activate
   - Add setting to control auto advance replacement on/off
 
+- ULC TEST
+  - Added various functions to automate elements of the ULC process with the aim
+    of automating ULC from start to finish for new users and endgame users
+
 - Fishing
   - Added a quick test for catching fish (rough)
   - Added pond searching, replacing the weakest pond until all are legendary
