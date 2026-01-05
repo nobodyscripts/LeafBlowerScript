@@ -11,6 +11,11 @@ Button_Click_ULC(thisGui, info) {
     MyGui := cGui(, "ULC TEST")
     MyGui.SetUserFontSettings()
 
+    If (S.Get("DebugAll")) {
+        MyGui.Add("Button", "+Background" GuiBGColour, "TEST")
+        .OnEvent("Click", ulctest)
+    }
+
     MyGui.Add("Button", "+Background" GuiBGColour, "Scan and save BV Inventory")
     .OnEvent("Click", ScanBVInventory)
 
@@ -151,7 +156,6 @@ Button_Click_ULC(thisGui, info) {
 
     MyGui.Add("Button", "+Background" GuiBGColour, "Max all shops post wow")
     .OnEvent("Click", MaxAllShopsAfterWoW)
-
 
     MyGui.ShowGUIPosition()
     MyGui.MakeGUIResizableIfOversize()

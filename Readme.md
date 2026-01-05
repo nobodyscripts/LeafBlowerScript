@@ -175,7 +175,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 |                                                         |                                                                                                                               |
 |   Alternative renderer                                  |  All: Setting is tested for and errors without.                                                                               |
 |                                                         |                                                                                                                               |
-|   Font size (0)                                         |  F12: Tests this setting and errors (May cause missalignment, 1 may work, 0 is my default and will work better).|
+|   Font size (0)                                         |  F12: Tests this setting and errors (May cause missalignment, 1 may work, 0 is my default and will work better).              |
 |                                                         |                                                                                                                               |
 |   Font (Alternative)                                    |  F12: Tests this setting and errors without (May cause missalignment).                                                        |
 |                                                         |                                                                                                                               |

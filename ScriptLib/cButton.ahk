@@ -25,6 +25,8 @@
  * @method WaitUntilButtonS
  * @method WaitUntilClick
  * @method WaitUntilClickTwice
+ * @method WaitUntilNotButton
+ * @method WaitUntilNotButtonS
  */
 Class cButton extends cPoint {
     /** 0xFFFFFF
@@ -294,6 +296,43 @@ Class cButton extends cPoint {
         this.ClickButtonActive(xOffset, yOffset)
         this.ClickButtonActive(xOffset, yOffset)
         Return true
+    }
+    ;@endregion
+
+    ;@region WaitUntilNotButton()
+    /**
+     * Loop until button not found or max loops reached
+     * @memberof cPoint
+     * @param {Integer} maxLoops 
+     * @param {Integer} interval Delay between loop passes
+     * @returns {Integer} True if colour not a match, false if button
+     */
+    WaitUntilNotButton(maxLoops := 20, interval := 50) {
+        debugtemp := ""
+        i := maxLoops
+        While (Window.IsActive() && this.IsButton()) {
+            Sleep(interval)
+            i--
+            If (this.toStringWColour() != debugtemp) {
+                debugtemp := this.toStringWColour()
+                Out.D(this.toStringWColour() " " this.IsButton())
+            }
+            If (i <= 0) {
+                Break
+            }
+        }
+        Out.D("WaitUntilButton: " this.toStringWColour())
+        Return !this.IsButton()
+    }
+    
+    /**
+     * Loop until button not found or max loops reached
+     * @memberof cPoint
+     * @param {Integer} seconds Time period for loop
+     * @returns {Integer} True if colour matches, false if not
+     */
+    WaitUntilNotButtonS(seconds := 10) {
+        Return this.WaitUntilNotButton(seconds * 1000 / 20, 20)
     }
     ;@endregion
 }

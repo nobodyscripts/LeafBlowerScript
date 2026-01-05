@@ -164,6 +164,8 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
     CheckVK(GameKeys.GetHotkeyVK("OpenGreenPortal") + 0.0)
     jsonData['hotkey_ulc']['value'] := ;
     CheckVK(GameKeys.GetHotkeyVK("OpenBluePortal") + 0.0)
+    jsonData['hotkey_converters']['value'] := ;
+    CheckVK(GameKeys.GetHotkeyVK("OpenConverters") + 0.0)
     jsonData['hotkey_refresh_trades']['value'] := ;
     CheckVK(GameKeys.GetHotkeyVK("RefreshTrades") + 0.0)
     jsonData['hotkey_shop_gems']['value'] := ;
@@ -264,7 +266,6 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         'hotkey_black_science', ;
         'hotkey_strange_science',
         ; mixture
-        'hotkey_converters', ;
         'hotkey_printers', ;
         'hotkey_farming', ;
         'hotkey_mulch_shop', ;
@@ -302,6 +303,7 @@ ApplyScriptDefaultsOnGameSettings(jsonData) {
         GameKeys.GetHotkeyVK("OpenRedPortal") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenGreenPortal") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenBluePortal") + 0.0, ;
+        GameKeys.GetHotkeyVK("OpenConverters") + 0.0, ;
         GameKeys.GetHotkeyVK("RefreshTrades") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenGemShop") + 0.0, ;
         GameKeys.GetHotkeyVK("OpenTrades") + 0.0

@@ -25,14 +25,14 @@ GetDailyReward(*) {
     Travel.ClosePanelIfActive()
     DailyOpenWindow.Click()
     DailyOpenTab.WaitUntilButton()
-    DailyOpenTab.Click()
+    DailyOpenTab.ClickOffset(,5)
     ClaimDaily.WaitUntilButton() ; Wait for panel
     ClaimDaily.ClickButtonActive()
     ClaimDaily.ClickButtonActive()
     Travel.ClosePanelIfActive()
     DailyOpenWindow.Click()
     QuestsOpenTab.WaitUntilButton() ; Wait for panel second time to get quests
-    QuestsOpenTab.Click()
+    QuestsOpenTab.ClickOffset(,5)
     Sleep(100)
     ClaimQuest1.ClickButtonActive() ; Claim quests if they are complete
     ClaimQuest2.ClickButtonActive()
@@ -69,7 +69,7 @@ TriggerLC(*) {
     }
     prestigeButton.ClickButtonActive()
     prestigeButton.ClickButtonActive()
-    Sleep(150)
+    prestigeButton.WaitUntilNotButtonS(10)
     Return true
 }
 
@@ -90,12 +90,13 @@ TriggerBLC(*) {
     crunchbtn.ClickButtonActive()
     Sleep(34)
     crunchbtn.ClickButtonActive()
-    Sleep(150)
+    crunchbtn.WaitUntilNotButtonS(10)
 }
 
 TriggerMLC(*) {
-    UlcWindow()
     crunchbtn := cLBRButton(1329, 563)
+
+    UlcWindow()
     Out.D("TriggerMLC")
     Shops.OpenGreenPortal()
     crunchbtn.WaitUntilActiveButtonS(3)
@@ -109,35 +110,33 @@ TriggerMLC(*) {
     crunchbtn.ClickButtonActive()
     Sleep(34)
     crunchbtn.ClickButtonActive()
-    Sleep(150)
+    crunchbtn.WaitUntilNotButtonS(10)
 }
 
 TriggerMLCConverters(*) {
     TriggerMLC()
-    Out.D("TriggerMLCConverters")
     WaitForPortalAnimation()
-    Shops.OpenConverters()
-    Sleep(50)
-    /** @type {cLBRButton} */
-    StartConvertorsBtn := cLBRButton(1075, 1102)
+    ActivateConverters()
+}
+
+ActivateConverters(*) {
+    StartConvertorsBtn := cLBRButton(1074, 1102)
+
+    UlcWindow()
+    Out.D("ActivateConverters")
+    GameKeys.OpenConverters()
     StartConvertorsBtn.WaitUntilActiveButtonS(5)
-    Sleep(17)
-    If (!StartConvertorsBtn.ClickButtonActive()) {
-        Out.I("Didn't find converter start button, aborting.")
+    StartConvertorsBtn.ClickOffset(,5)
+    StartConvertorsBtn.ClickOffset(,5)
+    If (!Window.IsPanel()) {
+        Out.I("Didn't find converter start button, exiting.")
         Global ULCStageExit := true
     }
 }
 
-ActivateConverters(*) {
+ulctest(*) {
     UlcWindow()
-    Out.D("ActivateConverters")
-    GameKeys.OpenConverters()
-    StartConvertorsBtn := cLBRButton(1075, 1102)
-    StartConvertorsBtn.WaitUntilActiveButtonS(3)
-    If (!StartConvertorsBtn.ClickButtonActive()) {
-        Out.I("Didn't find converter start button, exiting.")
-        Global ULCStageExit := true
-    }
+    ActivateConverters()
 }
 
 WaitForPortalAnimation(*) {
