@@ -136,7 +136,7 @@ ActivateConverters(*) {
 
 ulctest(*) {
     UlcWindow()
-    ActivateConverters()
+    Travel.TerrorGraveyard.GoTo()
 }
 
 WaitForPortalAnimation(*) {

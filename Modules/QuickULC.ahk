@@ -65,6 +65,11 @@ Leafton farming
 
 Is crafted saved, automatic crafting with presets
 
+BV maxing didn't swap to correct tab when doing stage 4, panel opened true
+Error: Failure: Hema shop not unlocked for use
+Traveling to Plasma Forest failed.
+Traveling to Cursed Kokkaupunki failed
+Gem suitcase farm shows settings for a bit before loading trading
 */
 
 RunULCStage1(*) {
@@ -871,7 +876,7 @@ GoToSoulForge(*) {
     Out.D("GoToSoulForge")
     Travel.SoulForge.GoTo()
     Sleep(100)
-    GameKeys.ClosePanel()
+    GameKeys.ClosePanelIfActive()
     Sleep(100)
     cLBRButton(1291, 991)
     .Click() ; Soul forge

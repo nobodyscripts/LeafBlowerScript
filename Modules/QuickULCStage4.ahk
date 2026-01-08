@@ -107,8 +107,6 @@ MaxBVItems(*) {
     Sleep(100)
     Points.Borbventures.InvTab.Click()
     Sleep(100)
-    AmountToModifier(25000)
-    Sleep(70)
     i := 1
     If (BVInvArr.length > 1) {
         Out.D("MaxBVItems: Using scanned locations")
@@ -122,6 +120,8 @@ MaxBVItems(*) {
                     item != "cape" && item != "candy" && item != "box") {
                         btn.ClickOffset()
                         Sleep(180)
+                        AmountToModifier(25000)
+                        Sleep(70)
                         If (CraftBtn.IsButtonActive()) {
                             CraftBtn.ClickOffset(, , 50)
                             Sleep(70)
@@ -130,6 +130,8 @@ MaxBVItems(*) {
                             CraftBtn.ClickOffset(, , 50)
                             Sleep(70)
                         }
+                        ResetModifierKeys()
+                        Sleep(70)
                     }
                     i++
                 }
@@ -143,7 +145,9 @@ MaxBVItems(*) {
                 btn := cLBRButton(cvalue, rvalue)
                 If (!btn.IsBackground()) {
                     btn.ClickOffset()
-                    Sleep(150)
+                    Sleep(180)
+                    AmountToModifier(25000)
+                    Sleep(70)
                     If (CraftBtn.IsButtonActive() && IsItemCraftable()) {
                         CraftBtn.ClickOffset(, , 50)
                         Sleep(70)
@@ -152,6 +156,8 @@ MaxBVItems(*) {
                         CraftBtn.ClickOffset(, , 50)
                         Sleep(70)
                     }
+                    ResetModifierKeys()
+                    Sleep(70)
                 }
             }
         }
@@ -187,8 +193,6 @@ MaxBVItemsJustSocks(*) {
     Sleep(100)
     Points.Borbventures.InvTab.Click()
     Sleep(100)
-    AmountToModifier(25000)
-    Sleep(70)
     i := 1
     If (BVInvArr.Length > 1) {
         For (rid, rvalue IN BVItemRows) {
@@ -199,7 +203,9 @@ MaxBVItemsJustSocks(*) {
                     item := StrLower(BVInvArr[i])
                     If (item = "sock" && !btn.IsBackground()) {
                         btn.ClickOffset(, , 50)
-                        Sleep(150)
+                        Sleep(180)
+                        AmountToModifier(25000)
+                        Sleep(70)
                         If (CraftBtn.IsButtonActive()) {
                             Out.D("Clicking sock craft")
                             CraftBtn.ClickOffset(, , 50)
@@ -210,6 +216,8 @@ MaxBVItemsJustSocks(*) {
                             CraftBtn.ClickOffset(, , 50)
                             Sleep(70)
                         }
+                        ResetModifierKeys()
+                        Sleep(70)
                     }
                     i++
                 }
@@ -223,6 +231,8 @@ MaxBVItemsJustSocks(*) {
                 If (!btn.IsBackground()) {
                     btn.ClickOffset(, , 50)
                     Sleep(150)
+                    AmountToModifier(25000)
+                    Sleep(70)
                     If (CraftBtn.IsButtonActive() && IsBVSock()) {
                         Out.D("Clicking sock craft with unscanned bv")
                         CraftBtn.ClickOffset(, , 50)
@@ -233,6 +243,8 @@ MaxBVItemsJustSocks(*) {
                         CraftBtn.ClickOffset(, , 50)
                         Sleep(70)
                     }
+                    ResetModifierKeys()
+                    Sleep(70)
                 }
             }
         }
@@ -259,8 +271,6 @@ MaxBVItemsJustRings(*) {
     Sleep(100)
     Points.Borbventures.InvTab.Click()
     Sleep(100)
-    AmountToModifier(25000)
-    Sleep(70)
     i := 1
     If (BVInvArr.Length > 1) {
         For (rid, rvalue IN BVItemRows) {
@@ -272,6 +282,8 @@ MaxBVItemsJustRings(*) {
                     If (item = "ring" && !btn.IsBackground()) {
                         btn.ClickOffset(, , 50)
                         Sleep(150)
+                        AmountToModifier(25000)
+                        Sleep(70)
                         If (CraftBtn.IsButtonActive()) {
                             CraftBtn.ClickOffset(, , 50)
                             Sleep(70)
@@ -280,6 +292,8 @@ MaxBVItemsJustRings(*) {
                             CraftBtn.ClickOffset(, , 50)
                             Sleep(70)
                         }
+                        ResetModifierKeys()
+                        Sleep(70)
                     }
                     i++
                 }
@@ -293,6 +307,8 @@ MaxBVItemsJustRings(*) {
                 If (!btn.IsBackground()) {
                     btn.ClickOffset(, , 50)
                     Sleep(150)
+                    AmountToModifier(25000)
+                    Sleep(70)
                     If (CraftBtn.IsButtonActive() && IsBVRing()) {
                         CraftBtn.ClickOffset(, , 50)
                         Sleep(70)
@@ -301,6 +317,8 @@ MaxBVItemsJustRings(*) {
                         CraftBtn.ClickOffset(, , 50)
                         Sleep(70)
                     }
+                    ResetModifierKeys()
+                    Sleep(70)
                 }
             }
         }
@@ -327,8 +345,6 @@ MaxBVItemsJustBags(*) {
     Sleep(100)
     Points.Borbventures.InvTab.Click()
     Sleep(100)
-    AmountToModifier(25000)
-    Sleep(70)
     i := 1
     If (BVInvArr.Length > 1) {
         For (rid, rvalue IN BVItemRows) {
@@ -339,6 +355,8 @@ MaxBVItemsJustBags(*) {
                     If (!btn.IsBackground() && StrLower(BVInvArr[i]) = "backpack") {
                         btn.ClickOffset(, , 50)
                         Sleep(150)
+                        AmountToModifier(25000)
+                        Sleep(70)
                         If (CraftBtn.IsButtonActive()) {
                             CraftBtn.ClickOffset(, , 50)
                             Sleep(70)
@@ -347,6 +365,8 @@ MaxBVItemsJustBags(*) {
                             CraftBtn.ClickOffset(, , 50)
                             Sleep(70)
                         }
+                        ResetModifierKeys()
+                        Sleep(70)
                     }
                     i++
                 }
@@ -360,6 +380,8 @@ MaxBVItemsJustBags(*) {
                 If (!btn.IsBackground()) {
                     btn.ClickOffset(, , 50)
                     Sleep(150)
+                    AmountToModifier(25000)
+                    Sleep(70)
                     If (CraftBtn.IsButtonActive() && IsBVBackPack()) {
                         CraftBtn.ClickOffset(, , 50)
                         Sleep(70)
@@ -368,6 +390,8 @@ MaxBVItemsJustBags(*) {
                         CraftBtn.ClickOffset(, , 50)
                         Sleep(70)
                     }
+                    ResetModifierKeys()
+                    Sleep(70)
                 }
                 i++
             }
@@ -396,8 +420,6 @@ MaxBVItemsJustBags641(*) {
     Sleep(100)
     Points.Borbventures.InvTab.Click()
     Sleep(100)
-    AmountToModifier(25000)
-    Sleep(70)
     Done := 0
     While (Done < 12) {
         i := 1
@@ -411,12 +433,16 @@ MaxBVItemsJustBags641(*) {
                             btn.ClickOffset(, , 50)
                             Sleep(150)
                             If (CraftBtn.IsButtonActive()) {
+                                AmountToModifier(25000)
+                                Sleep(100)
                                 CraftBtn.ClickOffset(, , 50)
                                 Sleep(70)
                                 If (CraftBtn.IsButtonActive()) {
                                     CraftBtn.ClickOffset(, , 50)
                                     Sleep(70)
                                 }
+                                ResetModifierKeys()
+                                Sleep(70)
                             } Else {
                                 Done++
                             }
@@ -434,12 +460,16 @@ MaxBVItemsJustBags641(*) {
                         btn.ClickOffset(, , 50)
                         Sleep(150)
                         If (CraftBtn.IsButtonActive() && IsBVBackPack()) {
+                            AmountToModifier(25000)
+                            Sleep(100)
                             CraftBtn.ClickOffset(, , 50)
                             Sleep(70)
                             If (CraftBtn.IsButtonActive()) {
                                 CraftBtn.ClickOffset(, , 50)
                                 Sleep(70)
                             }
+                            ResetModifierKeys()
+                            Sleep(70)
                         } Else If (!CraftBtn.IsButtonActive() && IsBVBackPack()) {
                             Done++
                         }
@@ -532,10 +562,10 @@ ScanBVInventory(*) {
     CraftBtn := cLBRButton(1585, 630)
     UlcWindow()
     Shops.OpenBorbVentures()
-    Sleep(100)
+    Sleep(150)
     Points.Borbventures.InvTab.Click()
     Points.Borbventures.InvTab.Click()
-    Sleep(100)
+    Sleep(150)
 
     BVInvArr := []
 
@@ -546,7 +576,7 @@ ScanBVInventory(*) {
             invtype := ""
             If (!btn.IsBackground()) {
                 btn.ClickOffset()
-                Sleep(200)
+                Sleep(250)
                 If (CraftBtn.IsButton()) {
                     Displayed := false
                     If (IsBVCandy()) {

@@ -28,7 +28,7 @@ Class TerrorGraveyard extends Zone {
         Travel.ScrollAmountDown(7)
         Sleep(delay)
         /** @type {cLBRButton} */
-        Local Btn := cLBRButton(1863, 754)
+        Local Btn := cLBRButton(1863, 771) ; Prev 754
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
