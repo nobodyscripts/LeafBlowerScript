@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+; TODO Travel and opening review
+
 S.AddSetting("ShadowCrystal", "SCAdvanceReplace", true, "bool")
 
 fShadowCrystalFight() {

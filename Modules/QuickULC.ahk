@@ -44,33 +44,29 @@ ULC Saved
     Crafted, Quark, Cards, Other optional (tested with Dice)
 */
 
-/*
-TODO
-02/26/2025 04:03:23:414 Debug: Clicking cheese quest
-02/26/2025 04:03:23:447 Important: Didn't find cheese quest button, aborting.
-02/26/2025 04:03:23:456 Debug: Exited at id 8
-^ probably need to adjust WaitUntilActiveButton times
 
-CursedKokkaupunki > reset scroll > no second button on reset > exit bs 1
+; TODO Travel and opening review
 
-e300 trades optional
-
-Need a bv solution
-
-Display tooltip for WaitForPortalAnimation
-
-Gf/ss/quark custom travel to avoid closing areas panel
-
-Leafton farming
-
-Is crafted saved, automatic crafting with presets
-
-BV maxing didn't swap to correct tab when doing stage 4, panel opened true
-Error: Failure: Hema shop not unlocked for use
-Traveling to Plasma Forest failed.
-Traveling to Cursed Kokkaupunki failed
-Gem suitcase farm shows settings for a bit before loading trading
-*/
+;TODO Clicking cheese quest. Didn't find cheese quest button, aborting. Exited at id 8
+;^ probably need to adjust WaitUntilActiveButton times
+; TODO CursedKokkaupunki > reset scroll > no second button on reset > exit bs 1
+; TODO e300 trades optional
+; TODO Need a bv solution for farming purple juice quick
+; TODO Gf/ss/quark custom travel to avoid closing areas panel
+; TODO Leafton farming
+; TODO Check if crafted leaves saved, automatic crafting with presets
+; TODO BV maxing didn't swap to correct tab when doing stage 4, panel opened true
+; TODO Error: Failure: Hema shop not unlocked for use
+; TODO Traveling to Plasma Forest failed.
+; TODO Traveling to Cursed Kokkaupunki failed
+; TODO Gem suitcase farm shows settings for a bit before loading trading
+; TODO Fix coal wait with autobuyer
+; TODO Fix soul shop/soul forge not running prior to mirage
+; TODO BV item purchasing button text now larger stopping purchase
+; TODO Boss skip off for first tower pass check/toggle
+; TODO Pyramid changes
+; TODO Crafting changes
+; TODO Artifacts positions changed.
 
 RunULCStage1(*) {
     StartTotal := A_Now

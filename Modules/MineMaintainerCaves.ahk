@@ -3,6 +3,8 @@
 #Include ..\Lib\cPoints.ahk
 #Include ..\ScriptLib\cRect.ahk
 
+; TODO Travel and opening review
+
 CavesSinglePass() {
     NavigateTime := S.Get("NavigateTime")
     id := 1

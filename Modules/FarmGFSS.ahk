@@ -1,5 +1,10 @@
 ﻿#Requires AutoHotkey v2.0
 
+; TODO Travel and opening review
+; TODO Add setting for standalone WW in GFSS spammer.
+; TODO Review ending of gfssnoreset mode.
+; TODO Add BossFastFarm.
+
 S.AddSetting("SSFarm", "GFToKillPerCycle", 8, "int")
 S.AddSetting("SSFarm", "SSToKillPerCycle", 1, "int")
 S.AddSetting("SSFarm", "GFSSNoReset", false, "bool")

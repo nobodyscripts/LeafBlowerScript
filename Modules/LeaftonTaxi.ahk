@@ -3,6 +3,10 @@
 #Include ..\Lib\cPoints.ahk
 #Include ..\Lib\Spammers.ahk
 
+; TODO Travel and opening review
+; TODO Leafton needs better setup routine. Travel to zone.
+; TODO Artifacts positions changed.
+
 S.AddSetting("Leafton", "LeaftonCraftEnabled", true, "bool")
 S.AddSetting("Leafton", "LeaftonSpamsWind", true, "bool")
 S.AddSetting("Leafton", "LeaftonBanksEnabled", true, "bool")

@@ -4,6 +4,8 @@
 #Include ..\Modules\Borbventure.ahk
 #Include ..\Modules\Cards.ahk
 
+; TODO Travel and opening review
+
 Global SpammerPID := 0
 Global on9 := 0
 

@@ -2,6 +2,8 @@
 
 #Include ..\Lib\cPoints.ahk
 
+; TODO Travel and opening review
+
 S.AddSetting("Bank", "BankEnableLGDeposit", true, "bool")
 S.AddSetting("Bank", "BankEnableSNDeposit", true, "bool")
 S.AddSetting("Bank", "BankEnableEBDeposit", true, "bool")

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+; TODO Travel and opening review
+
 Global TowerFarmActive := false
 
 fTimeWarpAndRaiseTower() {

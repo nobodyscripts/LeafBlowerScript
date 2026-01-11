@@ -1,5 +1,8 @@
 ﻿#Requires AutoHotkey v2.0
 
+; TODO Travel and opening review
+; TODO Needs to get artifact if need be.
+
 S.AddSetting("Claw", "ClawCheckSizeOffset", 0, "int")
 S.AddSetting("Claw", "ClawFindAny", false, "bool")
 

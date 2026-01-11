@@ -231,6 +231,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added button in general settings to force check for updates
   - Moved button for relics reset loop to main menu
   - Added button for mouse sweep/mouse sweep with autobuyer
+  - Fix for cUpdateChecker - line 250 Dialog.Show() being an int
 
 - Mine
   - Modified brew travel to be more stable.
@@ -308,64 +309,6 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
     F3 Activate, Hold F4 to stop on next loop. Set game to 10min autosave, save
     game with open pond slot and search ready to use, close the game before
     running with F3. Fixed nav On, Hide max shops Off.
-
-## TODO
-
-- Check settings from options.dat as bootup tests
-- Investigate fullscreen (it breaks fullscreen).
-- Trade farming for non gems/non suitcase version.
-- Brew + cards rotation mode.
-- Adjust window resize based on delta from intended size, for non matching window
-dressing.
-- F12 and settings apply, account for notifications behind menu setting and
-borderless fullscreen
-- Automated challenges (early game scripts/TAS)
-- Convert borbventures gui to checkboxes for item selection  
-- Add check to IsAspectRatioCorrect for setting from options.dat if failed,
-output colour found, suggest rtx dynamic vibrance off, image scaling off,
-digital vibrance off
-- Add file size check to log files
-- Attach to game window option
-- Fix default settings locations used by gui no longer existing
-- Fix for cUpdateChecker - line 250 Dialog.Show() being an int
-- Check for max buy buttons shifting locations
-- Max Buy auto confirm with shift
-- Leaf galaxy zone position changes
-- Close panel on travel now an option, check for travel issues.
-
-- Features:
-  - Card: Travel and opening review due to instability
-  - GemFarm: Add mouse movement patterns to collect artifacts in the background.
-  - GemFarm: Add check for ALB on state
-  - GemFarm: Fix travel
-  - Borbv: Load dlc purchase state from save file and remove setting.
-  - Claw: Needs to use artifact if need be / get replacement.
-  - GFSS: Add setting for standalone WW in GFSS spammer.
-  - GFSS: Review ending of gfssnoreset mode.
-  - GFSS: Add BossFastFarm.
-  - NatBoss/Cheese: Event button moved, check for travel issues.
-  - Leafton: Leafton needs better setup routine. Travel to zone.
-    - Quark button moved, check for travel issues.
-    - Artifacts positions changed.
-  - Mine: Check for broken functionality
-    - Travel to alch failing for brewing despite window opening
-  - ULC: Fix cheese quest
-    - Fix coal wait with autobuyer
-    - Fix soul shop/soul forge not running prior to mirage
-    - BV item purchasing button text now larger stopping purchase
-    - Boss skip off for first tower pass
-    - Pyramid changes
-    - Crafting changes
-    - Artifacts positions changed.
-  - Fishing: Fix pond search if no rod applied at start
-    - Detect cast/reel with more careful checks
-    - Detect % progress
-    - Fix travel which broke on update
-    - Check shop and tourney for changes that cause issues (autowin/new items/
-      tourney cancel)
-    - Finish fixing moved pond coords
-  - Anniversary: Add firstpass
-  - ShadowCrystal: Button moved, check for travel issues.
 
 ## Known issues
 

@@ -11,6 +11,23 @@
 
 ; Applying these first incase self run functions in includes require them
 
+; -------------------- Notes -------------------
+; TODO GameSettingsService class/secondary? Get and store current settings with refresh - BV, Tests, ULC
+; TODO Investigate fullscreen (it breaks fullscreen).
+; TODO Trade farming for non gems/non suitcase version.
+; TODO Adjust window resize based on delta from intended size, for non matching window dressing.
+; TODO F12 and settings apply, account for notifications behind menu setting and borderless fullscreen
+; TODO Automated challenges (early game scripts/TAS)
+  
+; TODO Add check to IsAspectRatioCorrect for setting from options.dat if failed, output colour found, suggest rtx dynamic vibrance off, image scaling off, digital vibrance off
+; TODO Add file size check to log files
+; TODO Attach to game window option
+; TODO Fix default settings locations used by gui no longer existing
+; TODO Check for max buy buttons shifting locations
+; TODO Max Buy auto confirm with shift
+; TODO Leaf galaxy zone position changes
+; TODO Close panel on travel now an option, check for travel issues.
+
 /** Using Out instead of Log as thats taken by a func
  * @type {cLog} Global cLog object */
 Global Out := cLog(A_ScriptDir "\LeafBlowerV3.Log", true, 3, true)

@@ -30,7 +30,7 @@ Button_Click_BorbVenture(thisGui, info) {
     MyGui.Add("Text", "", "Which Borbv Colours to Scan:")
     MyGui.Add("Edit", "cDefault vBVItemsArr r5 w275", ArrToCommaDelimStr(BVItemsArr
     ))
-
+    ; TODO Convert borbventures gui to checkboxes for item selection
     MyGui.Add("Text", "",
         "0xF91FF6 Borb ascention juice (purple default)`n"
         "0x70F928 Borb juice (green)`n"

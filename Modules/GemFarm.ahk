@@ -2,6 +2,10 @@
 
 #Include ..\Lib\cTravel.ahk
 
+; TODO Travel and opening review
+; TODO Add mouse movement patterns to collect artifacts in the background.
+; TODO Add check for ALB on state
+
 S.AddSetting("GemFarm", "GemFarmSleepAmount", 17, "int")
 
 Global HadToHideNotifs := false

@@ -1,5 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
 
+; TODO Travel and opening review
+
 fFarmNatureBoss() {
     ; Check zone is available
     If (!GoToNatureBoss()) {

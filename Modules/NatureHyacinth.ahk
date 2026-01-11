@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+; TODO Travel and opening review
+
 S.AddSetting("NatureFarm", "HyacinthUseSlot", "All", "text")
 S.AddSetting("NatureFarm", "HyacinthFarmBoss", true, "bool")
 S.AddSetting("NatureFarm", "HyacinthUseFlower", "hyacinth", "text")

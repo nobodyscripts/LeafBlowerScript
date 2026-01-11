@@ -2,6 +2,9 @@
 
 #Include CardsBuy.ahk
 
+; TODO Brew + cards rotation mode.
+; TODO Travel and opening review due to instability
+
 Global HadToHideNotifs := false
 Global HaveWarnedDisplayRewards := false
 

@@ -3,6 +3,8 @@
 #Include ..\Lib\cLBRButton.ahk
 #Include ..\Navigate\Harbor\HarborCoords.ahk
 
+; TODO Travel and opening review
+
 S.AddSetting("Harbor", "HarborJobRefresh", true, "bool")
 S.AddSetting("Harbor", "HarborShopMax", true, "bool")
 S.AddSetting("Harbor", "HarborShipsClaim", true, "bool")

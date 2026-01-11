@@ -1,5 +1,9 @@
 ﻿#Requires AutoHotkey v2.0
 
+; TODO Fix BV having many more possible slots in endgame versus early game
+; TODO Load dlc purchase state from save file and remove setting.
+; TODO Travel and opening review
+
 Global bvAutostartDisabled := false
 
 S.AddSetting("Borbventures", "HaveBorbDLC", false, "bool")

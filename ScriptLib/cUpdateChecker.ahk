@@ -3,6 +3,7 @@
 #Include ExtLibs\jsongo_AHKv2-main\src\jsongo.v2.ahk
 #Include cSettings.ahk
 #Include cLogging.ahk
+#Include ..\Gui\UpdatingGUI.ahk
 
 S.AddSetting("Updates", "CheckForUpdatesEnable", true, "bool")
 S.AddSetting("Updates", "CheckForUpdatesReleaseOnly", true, "bool")
@@ -244,9 +245,9 @@ Class UpdateChecker {
     /**
      * Update script to new version based on settings in class, suggest close
      * gui windows during process
-     * @param Dialog Gui window for progress display
      */
-    UpdateScriptToNewDev(Dialog) {
+    UpdateScriptToNewDev() {
+        Dialog := UpdatingGUI()
         Dialog.Show()
         Try {
             If (FileExist("Install.zip")) {

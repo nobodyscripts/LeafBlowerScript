@@ -7,6 +7,9 @@
 #Include ..\ScriptLib\cTimer.ahk
 #Include MineMaintainerCaves.ahk
 
+; TODO Travel and opening review
+; TODO Travel to alch failing for brewing despite window opening
+
 S.AddSetting("Miner", "MinerEnableVeins", true, "bool")
 S.AddSetting("Miner", "MinerEnableTransmute", true, "bool")
 S.AddSetting("Miner", "MinerEnableTransmuteSdia", false, "bool")

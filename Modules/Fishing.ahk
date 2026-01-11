@@ -2,6 +2,13 @@
 #Include ../Lib/cRects.ahk
 #Include ..\Lib\cLBRButton.ahk
 
+; TODO Travel and opening review
+; TODO Fix pond search if no rod applied at start
+; TODO Detect cast/reel with more careful checks
+; TODO Detect % progress
+; TODO Check shop and tourney for changes that cause issues (autowin/new items/tourney cancel)
+; TODO Finish fixing moved pond coords
+
 S.AddSetting("Fishing", "FishCatchingDelay", 8, "int")
 S.AddSetting("Fishing", "FishCatchingSearch", true, "bool")
 S.AddSetting("Fishing", "FishEnableShopUpgrade", true, "bool")

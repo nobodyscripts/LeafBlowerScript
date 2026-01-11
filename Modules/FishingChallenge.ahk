@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+; TODO Travel and opening review
+
 S.AddSetting("FishChallenge", "FishChlCatchingDelay", 8, "int")
 S.AddSetting("FishChallenge", "FishChlCatchingSearch", true, "bool")
 S.AddSetting("FishChallenge", "FishChlEnableShopUpgrade", true, "bool")

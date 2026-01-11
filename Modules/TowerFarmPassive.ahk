@@ -3,6 +3,8 @@
 #Include ..\Lib\cPoints.ahk
 #Include ..\Lib\Spammers.ahk
 
+; TODO Travel and opening review
+
 S.AddSetting("TowerPassive", "TowerPassiveBanksEnabled", true, "bool")
 S.AddSetting("TowerPassive", "TowerPassiveCraftEnabled", true, "bool")
 S.AddSetting("TowerPassive", "TowerPassiveTravelEnabled", true, "bool")

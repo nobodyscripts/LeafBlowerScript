@@ -171,6 +171,7 @@ Class Zone {
             ; Found target colour
             Return true
         }
+        Out.D("IsZoneColour: Not in target zone, " this.CurrentZoneString())
         Return false
     }
     ;@endregion
@@ -192,8 +193,7 @@ Class Zone {
             ; Found target zone
             Return true
         }
-        ; TODO add this debug to the other funcs
-        Out.D("IsZoneName: Not in target zone, " this.CurrentZoneString())
+        Out.D("IsZone: Not in target zone, " this.CurrentZoneString())
         Return false
     }
     ;@endregion

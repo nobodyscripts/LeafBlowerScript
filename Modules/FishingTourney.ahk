@@ -4,6 +4,9 @@
 #Include ..\Lib\Misc.ahk
 #include ..\ScriptLib\cToolTip.ahk
 
+; TODO Travel and opening review
+; TODO Detect boosted options
+
 S.AddSetting("FishTourney", "FishTourCatchingDelay", 8, "int")
 S.AddSetting("FishTourney", "FishTourCatchingSearch", true, "bool")
 S.AddSetting("FishTourney", "FishTourEnableShopUpgrade", true, "bool")
