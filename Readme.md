@@ -242,6 +242,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Extra check for vein removal being active
   - Fixes for game breaking mine script
   - Fix transmute when auto transmute not purchased
+  - Fix MinerBrewCutOffTime setting not initialised
 
 - GFSS
   
@@ -336,6 +337,7 @@ digital vibrance off
   - Card: Travel and opening review due to instability
   - GemFarm: Add mouse movement patterns to collect artifacts in the background.
   - GemFarm: Add check for ALB on state
+  - GemFarm: Fix travel
   - Borbv: Load dlc purchase state from save file and remove setting.
   - Claw: Needs to use artifact if need be / get replacement.
   - GFSS: Add setting for standalone WW in GFSS spammer.

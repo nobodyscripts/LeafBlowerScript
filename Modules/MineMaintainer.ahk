@@ -796,5 +796,5 @@ MineLogSettings() {
         "`nMinerEnableTransmuteSdiaToCDia: " S.Get("MinerEnableTransmuteSdiaToCDia")
         "`nMinerEnableBrewing: " S.Get("MinerEnableBrewing")
         "`nMinerBrewCycleTime: " S.Get("MinerBrewCycleTime")
-        "`nMinerBrewCutOffTime: " S.Get("MinerBrewCutOffTime)"))
+        "`nMinerBrewCutOffTime: " S.Get("MinerBrewCutOffTime"))
 }
