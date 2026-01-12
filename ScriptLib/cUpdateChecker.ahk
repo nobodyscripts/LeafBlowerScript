@@ -5,6 +5,8 @@
 #Include cLogging.ahk
 #Include ..\Gui\UpdatingGUI.ahk
 
+; TODO Force check for updates not showing new version when version reduced
+
 S.AddSetting("Updates", "CheckForUpdatesEnable", true, "bool")
 S.AddSetting("Updates", "CheckForUpdatesReleaseOnly", true, "bool")
 S.AddSetting("Updates", "CheckForUpdatesLastCheck", 0, "int")

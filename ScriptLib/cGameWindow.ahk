@@ -27,6 +27,7 @@ If (!IsSet(Window)) {
  * @method ActiveOrReload Swap to window or reset script
  * @method StartOrReload Feature toggle, reloads on stop, activates window, 
  * optional callback for pre reload actions
+ * @method StartOrExit Exit script if window doesn't exist and isn't made active
  * @method StartState Feature toggle, returns current state, activates window
  * @example cGameWindow("Notepad ahk_class Notepad ahk_exe Notepad.exe", 2560, 1369)
  */

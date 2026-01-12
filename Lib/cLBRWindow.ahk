@@ -34,6 +34,8 @@ S.AddSetting("Default", "DisableSettingsChecks", false, "Bool")
  * @method IsTreesSetCheck
  * @method IsAFKOn
  * @method AFKFix
+ * @method AwaitPanel Wait for panel to be true or x seconds
+ * @method AwaitPanelClose Wait for panel closed to be true or x seconds
  */
 Class cLBRWindow extends cGameWindow {
     ;@region AreGameSettingsCorrect()

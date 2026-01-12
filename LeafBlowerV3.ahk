@@ -13,6 +13,9 @@
 
 ; -------------------- Notes -------------------
 ; TODO GameSettingsService class/secondary? Get and store current settings with refresh - BV, Tests, ULC
+; TODO GameHotkey rebuild to allow for reduced update locations when new added
+; TODO ScriptModuleAdd to allow simple feature addition with placeholders generated
+; TODO AddNewZone to allow simple zone addition with placeholders generated
 ; TODO Investigate fullscreen (it breaks fullscreen).
 ; TODO Trade farming for non gems/non suitcase version.
 ; TODO Adjust window resize based on delta from intended size, for non matching window dressing.
