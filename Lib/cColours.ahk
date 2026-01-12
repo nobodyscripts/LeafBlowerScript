@@ -88,7 +88,8 @@ Class Colours {
         "Blacklight Verge", "0x000000", ; (non unique)
         "Sombrynth", "0x000000", ; (non unique)
         "Latsyrc Wodash", "0x000009",
-        "Shadow Lighthouse", "0x000028")
+        "Shadow Lighthouse", "0x000028",
+        "Industrial Harbor", "0x6A4459")
     ;@endregion
 
     ;@region GetColourByZone()
@@ -109,15 +110,22 @@ Class Colours {
     /**
      * Gets the name of the zone based on colour sample
      * @param colour Colour code as found in ZoneColours
-     * @returns {String} Full name of the zone as found in ZoneColours
+     * @returns {Array[String]|false} Full names of the zone as found in ZoneColours
      */
     GetZoneByColour(colour) {
+        list := []
         For (zname, zcolour in this.ZoneColours) {
             If (colour = zcolour) {
-                Return zname
+                list.Push(zname)
             }
         }
-        Return false
+        If (list = []) {
+            Out.I("GetZoneByColour could not find zone: " colour)
+            Return false
+        }
+        Else {
+            Return list
+        }
     }
     ;@endregion
 

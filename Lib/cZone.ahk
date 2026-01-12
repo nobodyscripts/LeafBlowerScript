@@ -189,9 +189,16 @@ Class Zone {
         }
         colour := this.GetZoneColour()
         curName := this.GetNameByColour(colour)
-        If (curName = Name) {
-            ; Found target zone
-            Return true
+        If (curName = false) {
+            Out.D("IsZone: No zone found for colour, " this.CurrentZoneString())
+            Return false
+        }
+        For value IN curName {
+            If (value = Name) {
+                ; Found target zone
+                Out.D("IsZone: Are in target zone, " this.CurrentZoneString())
+                Return true
+            }
         }
         Out.D("IsZone: Not in target zone, " this.CurrentZoneString())
         Return false
@@ -269,6 +276,15 @@ Class Zone {
     CurrentZoneString() {
         colour := this.GetZoneColour()
         curName := this.GetNameByColour(colour)
-        Return "Name: " curName " colour: " colour
+        i := 0
+        For (value IN curName) {
+            if (i + 1 < curName.Length) {
+                names .= value . ", "
+            } else {
+                names .= value
+            }
+            i++
+        }
+        Return "Name: " names " colour: " colour
     }
 }
