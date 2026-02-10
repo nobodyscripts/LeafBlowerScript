@@ -1175,20 +1175,20 @@ Class Pond {
             this.Cancel := cLBRButton(803, 495)
             this.Bait := cLBRButton(800, 681)
             this.BaitIcon := cLBRButton(826, 666)
-            this.Rod1 := cLBRButton(359, 589)
-            this.Rod2 := cLBRButton(442, 588)
+            this.Rod1 := cLBRButton(359, 590)
+            this.Rod2 := cLBRButton(442, 590)
             this.Rod3 := cLBRButton(520, 590)
         Case 2:
             this.Rarity := cLBRButton(914, 709)
-            this.CastRod := cLBRButton(946, 654) ; Shifted to avoid tooltip in tourney mode
-            this.Progress := cRect(1005, 699, 1108, 728)
-            this.CooldownSuffix := cRect(1073, 703, 1108, 728)
-            this.Cancel := cLBRButton(1411, 486)
-            this.Bait := cLBRButton(1407, 683)
-            this.BaitIcon := cLBRButton(1433, 665)
-            this.Rod1 := cLBRButton(968, 589)
+            this.CastRod := cLBRButton(946, 674) ; Shifted to avoid tooltip in tourney mode
+            this.Progress := cRect(1005, 717, 1108, 740)
+            this.CooldownSuffix := cRect(1073, 717, 1108, 740)
+            this.Cancel := cLBRButton(1411, 495)
+            this.Bait := cLBRButton(1407, 681)
+            this.BaitIcon := cLBRButton(1433, 666)
+            this.Rod1 := cLBRButton(968, 590)
             this.Rod2 := cLBRButton(1047, 590)
-            this.Rod3 := cLBRButton(1128, 589)
+            this.Rod3 := cLBRButton(1128, 590)
         Case 3:
             this.Rarity := cLBRButton(305, 1007)
             this.CastRod := cLBRButton(542, 972)
@@ -1198,7 +1198,7 @@ Class Pond {
             this.Bait := cLBRButton(799, 983)
             this.BaitIcon := cLBRButton(826, 964)
             this.Rod1 := cLBRButton(360, 889)
-            this.Rod2 := cLBRButton(440, 888)
+            this.Rod2 := cLBRButton(440, 889)
             this.Rod3 := cLBRButton(521, 889)
         Case 4:
             this.Rarity := cLBRButton(914, 1007)
@@ -1209,8 +1209,8 @@ Class Pond {
             this.Bait := cLBRButton(1407, 980)
             this.BaitIcon := cLBRButton(1434, 964)
             this.Rod1 := cLBRButton(967, 890)
-            this.Rod2 := cLBRButton(1048, 892)
-            this.Rod3 := cLBRButton(1128, 892)
+            this.Rod2 := cLBRButton(1048, 890)
+            this.Rod3 := cLBRButton(1128, 890)
         default:
         }
         this.id := id
