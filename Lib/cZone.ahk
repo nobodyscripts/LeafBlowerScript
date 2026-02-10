@@ -10,7 +10,20 @@
  * @property {String} Name The name of the zone for display purposes
  * @property {String} AreaColour The colour of the sample pixel for the zone
  * @property {Boolean} BossTimer Require boss timer (or not) to match for success
- * @function GoTo Go to the zone defined in the extended version of this class
+ * @method __Call to allow direct usage of the class to GoTo zone
+ * @method GoTo Go to the zone defined in the extended version of this class
+ * @method IsZoneColour Check if zone colour matches current zone colour
+ * @method IsZone Check if zone colour matches based on text lookup
+ * @method GetZoneColour Get current zone colour
+ * @method GetColourByName Gets the colour the game needs to return to confirm 
+ * current zone
+ * @method GetNameByColour Gets the zone with matching colour sample
+ * @method ResetAreaScroll Resets the vertical scroll of the area window by 
+ * swapping tabs
+ * @method ScrollAmountDown Scroll downwards in a panel by ticks
+ * @method ScrollAmountUp Scroll upwards in a panel by ticks
+ * @method CurrentZoneString Formatted logging string for current zone information
+ * @method AwaitZoneChangeTo Wait for zone colour to change to target colour
  */
 Class Zone {
     ;@region Properties
@@ -51,17 +64,21 @@ Class Zone {
         }
         i := 0
         If (!S.Get("DisableZoneChecks")) {
-            Out.I("Traveling to " this.Name)
             ; Advantage of this sample check is script doesn't travel if already
             ; there and can recheck if travels failed
             While (!this.IsZoneColour() && this.BossTimer = !IsBossTimerActive() &&
             i <= 4) {
+                currentColour := this.GetZoneColour()
+                Out.I("Traveling to " this.Name " with delay " NavigateTime)
                 If (!Window.IsActive()) {
                     Out.I("No window found while trying to travel.")
                     Return false
                 }
                 this.AttemptTravel(NavigateTime)
+                this.AwaitZoneChangeTo(this.ZoneColour)
                 i++
+                Out.D("Attempt Travel End")
+
             }
         }
         If (this.IsZoneColour()) {
@@ -70,7 +87,9 @@ Class Zone {
         } Else {
             Out.I("Traveling to " this.Name ". Attempt to blind travel with"
                 " slowed times.")
+            Out.D("Attempt Travel with delay " NavigateTime ", 50, 200")
             this.AttemptTravel(NavigateTime, 50, 200)
+            this.AwaitZoneChangeTo(this.ZoneColour)
             If (S.Get("DisableZoneChecks")) {
                 ; Checks are disabled so blindly trust we reached zone
                 Return true
@@ -269,6 +288,7 @@ Class Zone {
     }
     ;@endregion
 
+    ;@region CurrentZoneString()
     /**
      * Debug string of current zone
      * @returns {String} Name: <zone name> Colour: <zone colour>
@@ -278,13 +298,24 @@ Class Zone {
         curName := this.GetNameByColour(colour)
         i := 0
         For (value IN curName) {
-            if (i + 1 < curName.Length) {
+            If (i + 1 < curName.Length) {
                 names .= value . ", "
-            } else {
+            } Else {
                 names .= value
             }
             i++
         }
         Return "Name: " names " colour: " colour
     }
+    ;@endregion
+
+    ;@region AwaitZoneChangeTo()
+    /**
+     * Wait loop for zone colour to change to target zone, could be wrong zone
+     * or blocked by alb/leaf/tree if on correct zone and still waiting
+     */
+    AwaitZoneChangeTo(colour) {
+        Points.ZoneSample.WaitWhileNotColourS(colour, 3)
+    }
+    ;@endregion
 }

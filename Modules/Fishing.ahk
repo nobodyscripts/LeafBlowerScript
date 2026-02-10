@@ -7,7 +7,7 @@
 ; TODO Detect cast/reel with more careful checks
 ; TODO Detect % progress
 ; TODO Check shop and tourney for changes that cause issues (autowin/new items/tourney cancel)
-; TODO Finish fixing moved pond coords
+; TODO Finish fixing moved pond coords (pond 2)
 
 S.AddSetting("Fishing", "FishCatchingDelay", 8, "int")
 S.AddSetting("Fishing", "FishCatchingSearch", true, "bool")

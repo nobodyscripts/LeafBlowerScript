@@ -211,6 +211,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added Update.ahk to replace current with test version
   - Updated check for updates to provide a button which updates the script
   - Added command line arguements for auto starting features, nogui and help
+  - Made some travel delays dynamic
 
 - Hotkeys
   - Fix command line arguments blocking keybinds

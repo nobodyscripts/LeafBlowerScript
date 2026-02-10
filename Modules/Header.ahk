@@ -5,7 +5,9 @@
 #Include Cards.ahk
 #Include CardsBuy.ahk
 #Include Claw.ahk
+#Include Converters.ahk
 #Include CursedCheese.ahk
+#Include DailyGems.ahk
 #Include FarmGFSS.ahk
 #Include FarmNatureBoss.ahk
 #Include FarmNormalBoss.ahk
@@ -15,6 +17,9 @@
 #Include GemFarm.ahk
 #Include Harbor.ahk
 #Include NatureHyacinth.ahk
+#Include Prestiges.ahk
+#Include Pub.ahk
+#Include Pyramid.ahk
 #Include TowerTimeWarp.ahk
 #Include TowerFarmPassive.ahk
 #Include LeaftonTaxi.ahk

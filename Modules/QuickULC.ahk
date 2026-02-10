@@ -205,10 +205,10 @@ ULCStageExitCheck(id) {
 
 ULCStage1(*) {
     Start := A_Now
-    WaitForPortalAnimation()
+    Prestiges().WaitForPortalAnimation()
     EquipBlower()
     EquipBlower()
-    GetDailyReward()
+    DailyGems().CollectAll()
 
     If (!Travel.TheLeafTower.MaxTowerFloor()) {
         Out.I("Could not travel to tower, exiting")
@@ -217,8 +217,8 @@ ULCStage1(*) {
     WaitForFloor100()
     ULCStageExitCheck(1)
 
-    TriggerMLC()
-    WaitForPortalAnimation()
+    Prestiges().ActivateGreenPortal()
+    Prestiges().WaitForPortalAnimation()
     ULCStageExitCheck(2)
 
     If (!Travel.TheLeafTower.MaxTowerFloor()) {
@@ -230,16 +230,17 @@ ULCStage1(*) {
     Shops.MLC.Max()
     ULCStageExitCheck(4)
 
-    TriggerMLCConverters()
-    WaitForPortalAnimation()
+    Prestiges().ActivateGreenPortal()
+    Prestiges().WaitForPortalAnimation()
+    Converters().Activate()
     ULCStageExitCheck(5)
 
     Sleep(100)
-    WaitForBLCPortal()
+    WaitForBLCPortal() ; After the mlc wait for black flask to blc then activate
     ULCStageExitCheck(12)
-    TriggerBLC()
+    Prestiges().ActivateRedPortal()
     ULCStageExitCheck(13)
-    WaitForPortalAnimation()
+    Prestiges().WaitForPortalAnimation()
     ULCStageExitCheck(14)
     Out.D("Max mlc")
     Shops.MLC.Max()
@@ -250,11 +251,12 @@ ULCStage1(*) {
             Out.I("Could not travel to inner pyramid, exiting")
             Return
         }
-        WaitTillPyramidReset()
+        Pyramid().WaitTillReset()
         ULCStageExitCheck(7)
     }
 
-    PubTradeForCheese2500()
+    ; TODO add option to use 250 instead of 2500 cheese
+    Pub().TradeForCheese2500()
     ULCStageExitCheck(8)
 
     gToolTip.Center("Waiting for Benitoite to build up")
@@ -310,7 +312,7 @@ ULCStage1(*) {
         Out.I("Could not travel to inner pyramid, exiting")
         Return
     }
-    WaitTillPyramidReset()
+    Pyramid().WaitTillReset()
     Finish := A_Now
     Out.I("Stage one completed in " DateDiff(Start, Finish, "Seconds") " seconds.")
     Return DateDiff(Start, Finish, "Seconds")
@@ -330,7 +332,7 @@ ULCStage2(*) {
             Out.I("Could not travel to inner pyramid, exiting")
             Return
         }
-        WaitTillPyramidReset()
+        Pyramid().WaitTillReset()
     }
     If (!Shops.Pyramid.IsFloor100Done()) {
         msg :=
@@ -609,14 +611,6 @@ ULCStage4(*) {
     Return DateDiff(Start, Finish, "Seconds")
 }
 
-TriggerULC(*) {
-    UlcWindow()
-    GameKeys.OpenBluePortal()
-    Sleep(50)
-    cLBRButton(1710, 498).ClickButtonActive()
-    Sleep(8000)
-}
-
 GoToTrade(*) {
     UlcWindow()
     Shops.OpenTrades()
@@ -872,10 +866,9 @@ GoToSoulForge(*) {
     Out.D("GoToSoulForge")
     Travel.SoulForge.GoTo()
     Sleep(100)
-    GameKeys.ClosePanelIfActive()
+    Travel.ClosePanelIfActive()
     Sleep(100)
-    cLBRButton(1291, 991)
-    .Click() ; Soul forge
+    cLBRButton(1291, 991).Click() ; Soul forge
 }
 
 GoToWarden(*) {

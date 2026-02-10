@@ -9,8 +9,8 @@ fPrestigeSpammer() {
         If (!Window.IsActive()) {
             Break
         }
-        TriggerLC()
-        WaitForPortalAnimation()
+        Prestiges().ActivateGoldPortal()
+        Prestiges().WaitForPortalAnimation()
         count++
     }
 }

@@ -25,7 +25,7 @@ Global Travel := cTravel()
  * @method OpenAreasEvents
  * @method IsOnEventPanel
  * @method ClosePanel Closes open panel or open settings
- * @method ClosePanelIfActive Closes open panel only if open
+ * @method ClosePanelIfActive Closes open panels if one is open, awaits panel closing
  * @method OpenSettings Open settings panel
  * @method ScrollAmountUp Scroll wheel up by an amount
  * @method ScrollAmountDown Scroll wheel down by an amount
@@ -567,11 +567,6 @@ Class cTravel {
      * @param {Integer} delay Extra delay to apply to NavigateTime
      */
     _OpenAny(action, test, delay := 0) {
-        NavigateTime := S.Get("NavigateTime")
-        NavTime := NavigateTime + delay
-        If (NavTime < 72) {
-            NavTime := 72
-        }
         this.ClosePanelIfActive()
         action() ; Open location in func
         Window.AwaitPanel()
@@ -579,7 +574,7 @@ Class cTravel {
         i := 0
         While (!test() && i <= 4) {
             action() ; Open location in func
-            Sleep(NavTime)
+            Window.AwaitPanel()
             i++
         }
         Return Window.IsPanel()
@@ -712,6 +707,7 @@ Class cTravel {
      * @returns {Boolean} Is panel active
      */
     OpenAreas(reset := false, delay := 0) {
+        Travel.ClosePanelIfActive()
         Out.V("Openareas")
         active := this._OpenAny(GameKeys.OpenAreas.Bind(GameKeys), Window.IsPanel
         .Bind(Window), delay)
@@ -897,7 +893,7 @@ Class cTravel {
 
     ;@region ClosePanelIfActive()
     /**
-     * Closes open panels if one is open
+     * Closes open panels if one is open, awaits panel closing
      * @returns {Boolean} Is panel active
      */
     ClosePanelIfActive() {

@@ -18,6 +18,11 @@ Class TheInfernalDesert extends Zone {
 
     AttemptTravel(delay, scrolldelay := 0, extradelay := 0) {
         Travel.OpenAreas(true, extradelay)
+        
+        if (!Window.IsPanel()) {
+            Out.I("Areas window not open")
+            return
+        }
         this.ScrollAmountDown(21, scrolldelay)
         Sleep(delay + extradelay)
         /** @type {cLBRButton} */
@@ -25,9 +30,13 @@ Class TheInfernalDesert extends Zone {
         If (Btn.IsButtonActive()) {
             Btn.ClickButtonActive(, , delay + extradelay)
         } Else {
-            Out.I("The Infernal Desert not found while trying to travel.")
+            If (this.IsZone(this.Name)) {
+                Out.I("The Infernal Desert travel success.")
+            } Else {
+                Out.I("The Infernal Desert not found while trying to travel.")
+            }
         }
-        Sleep(delay + extradelay)
+        ;Sleep(delay + extradelay)
         ; Delay to allow the map to change, otherwise we travel twice
     }
 }

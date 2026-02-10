@@ -6,20 +6,53 @@
 
 /**
  * cButton Class, extends cPoint with button related colour checking
+ * Defines the resolution independant locations for pixel checks.  
+ * Convert positions from default client resolution to current resolution.
+ * Create with relative coords and relative on, or use fixed coords with it off
+ * to handle scaling manually (for dynamic situations).
  * @module cButton
+ * @argument {Integer} x X value (output depends on .relative)
+ * @argument {Integer} y Y value (output depends on .relative)
+ * @argument {Boolean} relative Set true for relative coords on get, false for
+ * original values
+ * @example
+ * cPoint(1, 10) ; Returns cPoint class
+ * cPoint(1, 10, false) ; Returns cPoint class with non relative coords
  * @property {String} Active Active button colour (excluding text)
  * @property {String} ActiveMouseOver Active button colour when mouse over
  * @property {String} Inactive Inactive button colour
  * @property {String} Background Background window main colour
- * @method IsButton 
- * @method IsMouseOver
- * @method IsButtonActive
- * @method IsButtonInactive
+ * 
+ * @method Set Set new values after construction
+ * @method IsBackground Is point a background colour
+ * @method IsButton Is point a button colour
+ * @method IsButtonActive Is point an active button colour
+ * @method IsButtonInactive Is point an inactive button colour
+ * @method IsButtonOffPanel Is point an off panel button colour 
  * @method IsColourMatch Matches on any colour property
- * @method IsBackground
+ * @method IsMouseOver
+ * @method Click Click left mouse button at point
+ * @method ClickOffset Click left mouse button at point with an offset
+ * @method ClickButtonActive Click left mouse button at point if active
+ * @method MouseMove Move mouse to point
+ * @method toString Convert x y to readable string
+ * @method toStringWColour toSting with colour
+ * @method toStringDisplay toString to 2 decimal places
+ * @method GetColour Get pixel colour at point
+ * @method IsColour Check if pixel colour at point is equal
  * @method ColourToUserString
- * @method ClickButtonActive
- * @method WaitUntilActiveButton
+ * @method ToolTipBlankAtCoord Create a blank tooltip with top left at point
+ * @method ClickOffsetUntilColour Click offset while colour doesn't match
+ * @method ClickOffsetWhileColour Click offset while colour matches
+ * @method GreedyModifierClick Use decending value modifiers to click while
+ * looping on an active button, start at cap amount
+ * @method ClientToScreen Convert point xy to screenspace xy and return as
+ * Array
+ * @method ClientToScreencPoint Convert point xy to screenspace xy and return
+ * new cPoint
+ * @method WaitWhileNotColour Loop while colour doesn't match
+ * @method WaitWhileColour Loop while colour matches
+ * @method WaitUntilActiveButton Loop till active button or max loop
  * @method WaitUntilActiveButtonS
  * @method WaitUntilButton
  * @method WaitUntilButtonS

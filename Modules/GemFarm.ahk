@@ -35,6 +35,7 @@ fGemFarmSuitcase() {
             Window.W / 2 - Window.RelW(100), Window.H / 2, 3)
         Return
     }
+    Travel.ClosePanelIfActive()
 
     ; Disable notifications while doing bearo and auto refresh check
     If (Window.IsActive() && IsNotificationActive()) {

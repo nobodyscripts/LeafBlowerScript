@@ -4,39 +4,55 @@
 
 Global ULCStageExit := false
 
-GetDailyReward(*) {
+ulctest(*) {
     UlcWindow()
+    Travel.TerrorGraveyard.GoTo()
+}
+
+/**
+ * GUI Handle
+ */
+GetDailyReward(*) {
     Out.V("Get Daily Reward")
 
-    /** @type {cLBRButton} */
-    DailyOpenWindow := cLBRButton(710, 139)
-    /** @type {cLBRButton} */
-    ClaimDaily := cLBRButton(664, 420)
-    /** @type {cLBRButton} */
-    DailyOpenTab := cLBRButton(527, 1181)
-    /** @type {cLBRButton} */
-    QuestsOpenTab := cLBRButton(805, 1181)
-    /** @type {cLBRButton} */
-    ClaimQuest1 := cLBRButton(1697, 313)
-    /** @type {cLBRButton} */
-    ClaimQuest2 := cLBRButton(1697, 497)
-    /** @type {cLBRButton} */
-    ClaimQuest3 := cLBRButton(1697, 699)
-    Travel.ClosePanelIfActive()
-    DailyOpenWindow.Click()
-    DailyOpenTab.WaitUntilButton()
-    DailyOpenTab.ClickOffset(,5)
-    ClaimDaily.WaitUntilButton() ; Wait for panel
-    ClaimDaily.ClickButtonActive()
-    ClaimDaily.ClickButtonActive()
-    Travel.ClosePanelIfActive()
-    DailyOpenWindow.Click()
-    QuestsOpenTab.WaitUntilButton() ; Wait for panel second time to get quests
-    QuestsOpenTab.ClickOffset(,5)
-    Sleep(100)
-    ClaimQuest1.ClickButtonActive() ; Claim quests if they are complete
-    ClaimQuest2.ClickButtonActive()
-    ClaimQuest3.ClickButtonActive()
+    DailyGems().CollectAll()
+}
+
+/**
+ * GUI Handle
+ */
+TriggerBLC(*) {
+    Return Prestiges().ActivateRedPortal()
+}
+
+/**
+ * GUI Handle
+ */
+TriggerMLC(*) {
+    Return Prestiges().ActivateGreenPortal()
+}
+
+/**
+ * GUI Handle
+ */
+TriggerULC(*) {
+    Return Prestiges().ActivateBluePortal()
+}
+
+/**
+ * GUI Handle
+ */
+TriggerMLCConverters(*) {
+    Prestiges().ActivateGreenPortal()
+    Prestiges().WaitForPortalAnimation()
+    Converters().Activate()
+}
+
+/**
+ * GUI Handle
+ */
+ActivateConverters(*) {
+    Converters().Activate()
 }
 
 WaitForFloor100(*) {
@@ -51,102 +67,6 @@ WaitForFloor100(*) {
     }
     If (!Rects.Misc.FloorAmount100.PixelSearch()) {
         Out.I("Timed out checking for floor 100, aborting.")
-        Global ULCStageExit := true
-    }
-    gToolTip.CenterDel()
-}
-
-TriggerLC(*) {
-    prestigeButton := cLBRButton(1393, 551)
-    UlcWindow()
-    Out.D("TriggerLC")
-    Shops.OpenGoldPortal()
-    prestigeButton.WaitUntilActiveButtonS(3)
-    If (!prestigeButton.IsButtonActive()) {
-        Out.I("Didn't find lc crunch button, aborting.")
-        Global ULCStageExit := true
-        Return false
-    }
-    prestigeButton.ClickButtonActive()
-    prestigeButton.ClickButtonActive()
-    prestigeButton.WaitUntilNotButtonS(10)
-    Return true
-}
-
-TriggerBLC(*) {
-    UlcWindow()
-    Out.D("TriggerBLC")
-    Shops.OpenRedPortal()
-    /** @type {cLBRButton} */
-    crunchbtn := cLBRButton(1337, 558)
-    crunchbtn.WaitUntilActiveButtonS(3)
-    If (!crunchbtn.IsButtonActive()) {
-        Out.I("Didn't find blc crunch button, aborting.")
-        Global ULCStageExit := true
-        Return
-    }
-    crunchbtn.ClickButtonActive()
-    crunchbtn.WaitUntilActiveButtonS(2)
-    crunchbtn.ClickButtonActive()
-    Sleep(34)
-    crunchbtn.ClickButtonActive()
-    crunchbtn.WaitUntilNotButtonS(10)
-}
-
-TriggerMLC(*) {
-    crunchbtn := cLBRButton(1329, 563)
-
-    UlcWindow()
-    Out.D("TriggerMLC")
-    Shops.OpenGreenPortal()
-    crunchbtn.WaitUntilActiveButtonS(3)
-    If (!crunchbtn.IsButtonActive()) {
-        Out.I("Didn't find mlc crunch button, aborting.")
-        Global ULCStageExit := true
-        Return
-    }
-    crunchbtn.ClickButtonActive()
-    crunchbtn.WaitUntilActiveButtonS(2)
-    crunchbtn.ClickButtonActive()
-    Sleep(34)
-    crunchbtn.ClickButtonActive()
-    crunchbtn.WaitUntilNotButtonS(10)
-}
-
-TriggerMLCConverters(*) {
-    TriggerMLC()
-    WaitForPortalAnimation()
-    ActivateConverters()
-}
-
-ActivateConverters(*) {
-    StartConvertorsBtn := cLBRButton(1074, 1102)
-
-    UlcWindow()
-    Out.D("ActivateConverters")
-    GameKeys.OpenConverters()
-    StartConvertorsBtn.WaitUntilActiveButtonS(5)
-    StartConvertorsBtn.ClickOffset(,5)
-    StartConvertorsBtn.ClickOffset(,5)
-    If (!Window.IsPanel()) {
-        Out.I("Didn't find converter start button, exiting.")
-        Global ULCStageExit := true
-    }
-}
-
-ulctest(*) {
-    UlcWindow()
-    Travel.TerrorGraveyard.GoTo()
-}
-
-WaitForPortalAnimation(*) {
-    UlcWindow()
-    Out.D("WaitForPortalAnimation")
-    gToolTip.Center("Waiting for portal animation to finish")
-    Points.Misc.NotifArrowExist.WaitUntilActiveButtonS(20)
-    Sleep(200)
-    If (!Points.Misc.NotifArrowExist.IsButtonActive()) {
-        Out.I("Failed to see ui after portal animation")
         Global ULCStageExit := true
     }
     gToolTip.CenterDel()
@@ -202,100 +122,12 @@ WaitForBLCPortal(*) {
     gToolTip.CenterDel()
 }
 
-WaitTillPyramidReset(*) {
-    UlcWindow()
-    Out.D("WaitTillPyramidReset")
-    gToolTip.Center("Waiting for pyramid to reset zone")
-    colour := Colours().GetColourByZone("The Cursed Pyramid")
-    Points.Misc.ZoneSample.WaitWhileNotColour(colour, 1200, 50) ; 60s
-    If (Points.Misc.ZoneSample.IsColour(colour)) {
-        Out.I("Timed out waiting for pyramid to clear, "
-            "taxi may have already been bought.")
-    }
-    gToolTip.CenterDel()
-}
-
-PubTradeForCheese250(*) { ; TODO add option to use 250 instead of 2500 cheese
-    UlcWindow()
-    Out.D("PubTradeForCheese250")
-    Travel.TheCheesePub.GoTo()
-    Sleep(150)
-    If (!Travel.TheCheesePub.IsZoneColour()) {
-        Out.I("Didn't travel to cheese pub successfully, aborting.")
-        Global ULCStageExit := true
-        Return
-    }
-    BartenderBtn := cLBRButton(241, 741)
-    Out.D("Clicking bartender")
-    BartenderBtn.Click()
-    Sleep(250)
-    QuestsBtn := cLBRButton(1091, 380)
-    QuestsBtn.WaitUntilActiveButtonS(5)
-    Out.D("Clicking quest")
-    If (!QuestsBtn.ClickButtonActive()) {
-        Out.I("Didn't find quest button, aborting.")
-        Global ULCStageExit := true
-        Return
-    }
-    If (QuestsBtn.IsButtonActive()) {
-        If (!QuestsBtn.ClickButtonActive()) {
-            Out.I("Didn't find quest button, aborting.")
-            Global ULCStageExit := true
-            Return
-        }
-    }
-    QuestCheese250Btn := cLBRButton(1702, 312)
-    QuestCheese250Btn.WaitUntilActiveButtonS(5)
-    Out.D("Clicking cheese quest")
-    If (!QuestCheese250Btn.ClickButtonActive()) {
-        Out.I("Didn't find cheese quest button, aborting.")
-        Global ULCStageExit := true
-        Return
-    }
-    QuestCheese250Btn.WaitUntilActiveButtonS(5)
-    Out.D("Clicking cheese quest")
-    If (!QuestCheese250Btn.ClickButtonActive()) {
-        Out.I("Didn't find cheese quest button, aborting.")
-        Global ULCStageExit := true
-    }
+PubTradeForCheese250(*) { 
+    Pub().TradeForCheese250()
 }
 
 PubTradeForCheese2500(*) {
-    UlcWindow()
-    Out.D("PubTradeForCheese2500")
-    Travel.TheCheesePub.GoTo()
-    Sleep(150)
-    If (!Travel.TheCheesePub.IsZoneColour()) {
-        Out.I("Didn't travel to cheese pub successfully, aborting.")
-        Global ULCStageExit := true
-        Return
-    }
-    BartenderBtn := cLBRButton(241, 741)
-    Out.D("Clicking bartender")
-    BartenderBtn.Click()
-    Sleep(250)
-    QuestsBtn := cLBRButton(1091, 380)
-    QuestsBtn.WaitUntilActiveButtonS(3)
-    Out.D("Clicking quest")
-    If (!QuestsBtn.ClickButtonActive()) {
-        Out.I("Didn't find quest button, aborting.")
-        Global ULCStageExit := true
-        Return
-    }
-    QuestCheese2500Btn := cLBRButton(1695, 696)
-    QuestCheese2500Btn.WaitUntilActiveButtonS(3)
-    Out.D("Clicking cheese quest")
-    If (!QuestCheese2500Btn.ClickButtonActive()) {
-        Out.I("Didn't find cheese quest button, aborting.")
-        Global ULCStageExit := true
-        Return
-    }
-    QuestCheese2500Btn.WaitUntilActiveButtonS(3)
-    Out.D("Clicking cheese quest")
-    If (!QuestCheese2500Btn.ClickButtonActive()) {
-        Out.I("Didn't find cheese quest button, aborting.")
-        Global ULCStageExit := true
-    }
+    Pub().TradeForCheese2500()
 }
 
 IsULCCraftSaved() {
