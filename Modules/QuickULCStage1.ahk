@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0
 
 #include ..\ScriptLib\cToolTip.ahk
+#Include DailyGems.ahk
+#Include Prestiges.ahk
+#Include Converters.ahk
+#Include Pub.ahk
+#Include Pyramid.ahk
 
 Global ULCStageExit := false
 
@@ -14,7 +19,6 @@ ulctest(*) {
  */
 GetDailyReward(*) {
     Out.V("Get Daily Reward")
-
     DailyGems().CollectAll()
 }
 
@@ -122,7 +126,7 @@ WaitForBLCPortal(*) {
     gToolTip.CenterDel()
 }
 
-PubTradeForCheese250(*) { 
+PubTradeForCheese250(*) {
     Pub().TradeForCheese250()
 }
 
