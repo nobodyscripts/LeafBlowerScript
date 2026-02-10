@@ -26,7 +26,6 @@ Class HomeGarden extends Zone {
         Out.I("Traveling to Home Garden")
         Travel.OpenAreas(true, extradelay)
         Points.Areas.LeafGalaxy.HomeGarden.Click(S.Get("NavigateTime"))
-        Sleep(delay + extradelay)
     }
 
     IsAreaGarden() {

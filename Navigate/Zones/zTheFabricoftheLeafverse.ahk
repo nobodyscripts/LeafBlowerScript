@@ -41,8 +41,5 @@ Class TheFabricoftheLeafverse extends Zone {
             }
         }
 
-        Sleep(delay + extradelay)
-        Return this.IsZone()
-        ; Delay to allow the map to change, otherwise we travel twice
     }
 }

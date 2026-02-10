@@ -36,8 +36,6 @@ Class GreenPlanetEdge extends Zone {
         } Else {
             Out.I("Green Planet Edge leaf not found while trying to travel.")
         }
-        Sleep(delay + extradelay)
-        ; Delay to allow the map to change, otherwise we travel twice
     }
 
     /**

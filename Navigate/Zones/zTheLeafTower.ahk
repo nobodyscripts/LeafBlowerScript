@@ -35,9 +35,6 @@ Class TheLeafTower extends Zone {
         } Else {
             Out.I("The Leaf Tower leaf not found while trying to travel.")
         }
-        Sleep(delay + extradelay)
-        Return this.IsZone()
-        ; Delay to allow the map to change, otherwise we travel twice
     }
 
     /**

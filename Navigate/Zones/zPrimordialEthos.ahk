@@ -35,8 +35,5 @@ Class PrimordialEthos extends Zone {
         } Else {
             Out.I("Primordial Ethos not found while trying to travel.")
         }
-        Sleep(delay + extradelay)
-        Return this.IsZone()
-        ; Delay to allow the map to change, otherwise we travel twice
     }
 }

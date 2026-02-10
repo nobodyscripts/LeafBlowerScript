@@ -32,7 +32,5 @@ Class TheLoneTree extends Zone {
         } Else {
             Out.I("The Lone Tree not found while trying to travel.")
         }
-        Sleep(delay + extradelay)
-        ; Delay to allow the map to change, otherwise we travel twice
     }
 }

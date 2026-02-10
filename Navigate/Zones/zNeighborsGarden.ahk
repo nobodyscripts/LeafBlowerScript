@@ -36,8 +36,6 @@ Class NeighborsGarden extends Zone {
         } Else {
             Out.I("Neighbors' Garden leaf not found while trying to travel.")
         }
-        Sleep(delay + extradelay)
-        ; Delay to allow the map to change, otherwise we travel twice
     }
 
     /**

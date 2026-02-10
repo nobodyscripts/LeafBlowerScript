@@ -36,7 +36,5 @@ Class TheInfernalDesert extends Zone {
                 Out.I("The Infernal Desert not found while trying to travel.")
             }
         }
-        ;Sleep(delay + extradelay)
-        ; Delay to allow the map to change, otherwise we travel twice
     }
 }

@@ -36,8 +36,6 @@ Class TheMoon extends Zone {
         } Else {
             Out.I("The Moon leaf not found while trying to travel.")
         }
-        Sleep(delay + extradelay)
-        ; Delay to allow the map to change, otherwise we travel twice
     }
 
     /**

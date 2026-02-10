@@ -37,8 +37,5 @@ Class TheHollow extends Zone {
                 Out.I("The Hollow not found while trying to travel.")
             }
         }
-        Sleep(delay + extradelay)
-        Return this.IsZone()
-        ; Delay to allow the map to change, otherwise we travel twice
     }
 }
