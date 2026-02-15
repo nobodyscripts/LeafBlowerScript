@@ -217,4 +217,60 @@ Class cRect {
         }
     }
     ;@endregion
+
+    ;@region LineGetColourInstances()
+    /**
+     * Detects when the colour changes to remove redundant entries
+     * For a given 1px wide strip horizontally or vertically, get all blocks
+     * of colour from the first point reached.
+     * @returns {array|number} returns array of { x, y, colour } or false
+     */
+    LineGetColourInstances() {
+        foundArr := []
+        lastColour := ""
+        Try {
+            ; if no width, and y has length
+            If (this.x1 = this.x2 && this.y1 < this.y2) {
+                ; Starting point
+                i := this.y1
+                While (i <= this.y2) {
+                    newColour := PixelGetColor(this.x1, i)
+                    If (foundArr.Length = 0 || lastColour != newColour) {
+                        foundArr.Push({
+                            x: this.x1,
+                            y: i,
+                            colour: newColour
+                        })
+                        lastColour := newColour
+                    }
+                    i++
+                }
+                Return foundArr
+            }
+            ; if no height, and x has length
+            Else If (this.y1 = this.y2 && this.x1 < this.x2) {
+                ; Starting point
+                i := this.x1
+                While (i <= this.x2) {
+                    newColour := PixelGetColor(i, this.y1)
+                    If (foundArr.Length = 0 || lastColour != newColour) {
+                        foundArr.Push({
+                            x: i,
+                            y: this.y1,
+                            colour: newColour
+                        })
+                        lastColour := newColour
+                    }
+                    i++
+                }
+                Return foundArr
+            }
+        } Catch As exc {
+            Out.E("LineGetColourInstances check failed - " exc.Message)
+            MsgBox("Could not conduct the search due to the following error:`n" exc
+                .Message)
+        }
+        Return false
+    }
+    ;@endregion
 }

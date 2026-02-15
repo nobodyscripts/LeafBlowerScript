@@ -21,7 +21,6 @@
 ; TODO Adjust window resize based on delta from intended size, for non matching window dressing.
 ; TODO F12 and settings apply, account for notifications behind menu setting and borderless fullscreen
 ; TODO Automated challenges (early game scripts/TAS)
-  
 ; TODO Add check to IsAspectRatioCorrect for setting from options.dat if failed, output colour found, suggest rtx dynamic vibrance off, image scaling off, digital vibrance off
 ; TODO Add file size check to log files
 ; TODO Attach to game window option
@@ -457,8 +456,7 @@ fBorbvStart(*) { ; Borb pink juice farm in borbventures
         fBorbVentureJuiceFarm()
     } Else {
         If (bvAutostartDisabled = true && Shops.GotoBorbVFirstTab()) {
-            ; TODO move point to Points
-            fCustomClick(Window.RelW(591), Window.RelH(1100), 34)
+            cPoint(591, 1100).Click()
         }
         ToolTip()
         Reload()

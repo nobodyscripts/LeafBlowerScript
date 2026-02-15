@@ -41,64 +41,6 @@ SetModifierKeys(ctrl := false, alt := false, shift := false) {
     }
 }
 
-/**
- * For a given 1px wide strip horizontally or vertically, get all blocks
- * of colour from the first point reached.
- * @param x1 Top left Coordinate (non relative)
- * @param y1 Top left Coordinate (non relative)
- * @param x2 Bottom Right Coordinate (non relative)
- * @param y2 Bottom Right Coordinate (non relative)
- * @returns {array|number} returns array of { x, y, colour } or false
- */
-LineGetColourInstances(x1, y1, x2, y2) {
-    ; Returns array of points and colours {x, y, colour}
-    ; Detects when the colour changes to remove redundant entries
-    foundArr := []
-    lastColour := ""
-    Try {
-        ; if no width, and y has length
-        If (x1 = x2 && y1 < y2) {
-            ; Starting point
-            i := y1
-            While (i <= y2) {
-                colour := PixelGetColor(x1, i)
-                If (foundArr.Length = 0 || lastColour != colour) {
-                    foundArr.Push({
-                        x: x1,
-                        y: i,
-                        colour: colour
-                    })
-                    lastColour := colour
-                }
-                i++
-            }
-            Return foundArr
-        }
-        ; if no height, and x has length
-        If (y1 = y2 && x1 < x2) {
-            ; Starting point
-            i := x1
-            While (i <= x2) {
-                colour := PixelGetColor(i, y1)
-                If (foundArr.Length = 0 || foundArr[foundArr.Length].colour !=
-                    colour) {
-                    foundArr.Push({
-                        x: i,
-                        y: y1,
-                        colour: colour
-                    })
-                }
-                i++
-            }
-            Return foundArr
-        }
-    } Catch As exc {
-        Out.E("LineGetColourInstances check failed - " exc.Message)
-        MsgBox("Could not conduct the search due to the following error:`n" exc
-            .Message)
-    }
-    Return false
-}
 
 /**
  * 

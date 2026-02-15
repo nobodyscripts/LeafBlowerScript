@@ -42,49 +42,50 @@
  * @method WaitUntilClickTwice
  */
 Class cLBRButton extends cButton {
+    
     /** 0xFFF1D2
      * @type {String} */
-    Active := "0xFFF1D2"
+    Active := c.Active
     /** 0xFDD28A
      *  @type {String} */
-    ActiveMouseOver := "0xFDD28A"
+    ActiveMouseOver := c.ActiveMouseOver
     /** 0xC8BDA5
      * @type {String} */
-    Inactive := "0xC8BDA5"
+    Inactive := c.Inactive
     /** 0x97714A
      * @type {String} */
-    Background := "0x97714A"
+    Background := c.Background
     /** 0xFFFFFF
      * @type {String} */
-    ActiveSelected := ""
+    ActiveSelected := c.ActiveSelected
     /** 0xFFFFFF
      * @type {String} */
-    InactiveSelected := ""
+    InactiveSelected := c.InactiveSelected
 
     /** 0xB3A993
      *  @type {String} */
-    AfkActive := "0xB3A993"
+    AfkActive := c.AfkActive
     /** 0xB29361
      * @type {String} */
-    AfkActiveMouseover := "0xB29361"
+    AfkActiveMouseover := c.AfkActiveMouseover
     /** 0x6A4F34
      * @type {String} */
-    BackgroundAFK := "0x6A4F34"
+    BackgroundAFK := c.BackgroundAFK
     /** 0x837C6C
      * @type {String} */
-    DarkBgActive := "0x837C6C"
+    DarkBgActive := c.DarkBgActive
     /** 0x826C47
      * @type {String} */
-    DarkBgActiveMouseover := "0x826C47"
+    DarkBgActiveMouseover := c.DarkBgActiveMouseover
     /** 0x97714B
      * @type {String} */
-    BackgroundSpotify := "0x97714B"
+    BackgroundSpotify := c.BackgroundSpotify
     /** 0x78D063
      * @type {String} */
-    BankTabSelectedActive := "0x78D063"
+    BankTabSelectedActive := c.BankTabSelectedActive
     /** 0xA0EC84
      * @type {String} */
-    BankTabSelectedActiveMouseover := "0xA0EC84"
+    BankTabSelectedActiveMouseover := c.BankTabSelectedActiveMouseover
 
     ;@region Funcname()
     /**

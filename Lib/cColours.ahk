@@ -10,6 +10,52 @@
  */
 Class Colours {
 
+    ;@region Button Colours
+    /** 0xFFF1D2
+     * @type {String} */
+    Active := "0xFFF1D2"
+    /** 0xFDD28A
+     *  @type {String} */
+    ActiveMouseOver := "0xFDD28A"
+    /** 0xC8BDA5
+     * @type {String} */
+    Inactive := "0xC8BDA5"
+    /** 0x97714A
+     * @type {String} */
+    Background := "0x97714A"
+    /** 0xFFFFFF
+     * @type {String} */
+    ActiveSelected := ""
+    /** 0xFFFFFF
+     * @type {String} */
+    InactiveSelected := ""
+
+    /** 0xB3A993
+     *  @type {String} */
+    AfkActive := "0xB3A993"
+    /** 0xB29361
+     * @type {String} */
+    AfkActiveMouseover := "0xB29361"
+    /** 0x6A4F34
+     * @type {String} */
+    BackgroundAFK := "0x6A4F34"
+    /** 0x837C6C
+     * @type {String} */
+    DarkBgActive := "0x837C6C"
+    /** 0x826C47
+     * @type {String} */
+    DarkBgActiveMouseover := "0x826C47"
+    /** 0x97714B
+     * @type {String} */
+    BackgroundSpotify := "0x97714B"
+    /** 0x78D063
+     * @type {String} */
+    BankTabSelectedActive := "0x78D063"
+    /** 0xA0EC84
+     * @type {String} */
+    BankTabSelectedActiveMouseover := "0xA0EC84"
+    ;@endregion
+
     ;@region ZoneColours
     /** Contains zone sample colours
      * @type {Map} */
@@ -130,3 +176,8 @@ Class Colours {
     ;@endregion
 
 }
+
+/** Colour instance
+ * @type {Colours}
+ */
+c := Colours()
