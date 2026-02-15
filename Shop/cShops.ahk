@@ -132,7 +132,6 @@ Class cShops {
     ;@endregion
 
     ;@region OpenBorbVentures()
-    ;TODO split borbv to class
     /**
      * Open Borbventures panel, closes others first
      * @param {Integer} reset Use ResetAreaScroll or not to swap tabs

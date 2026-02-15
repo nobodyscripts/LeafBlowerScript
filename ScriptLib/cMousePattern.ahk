@@ -31,7 +31,7 @@ Class cMousePattern {
                     first := false
                 } Else {
                     ; Otherwise move incrementally to point to 'smooth' motion
-                    point.MouseMoveInterpolateTo(60)
+                    point.MouseMoveInterpolateTo(1, 17)
                 }
             }
         }

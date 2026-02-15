@@ -2,11 +2,10 @@
 
 #Include ..\Lib\cTravel.ahk
 
-; TODO Travel and opening review
-; TODO Add mouse movement patterns to collect artifacts in the background.
 ; TODO Add check for ALB on state
 
 S.AddSetting("GemFarm", "GemFarmSleepAmount", 17, "int")
+S.AddSetting("GemFarm", "GemFarmCollectArtifacts", true, "bool")
 
 Global HadToHideNotifs := false
 Global TradesAutoRefreshOldState := false
@@ -129,6 +128,9 @@ fGemFarmSuitcase() {
     fCount := 0
     GemFarmActive := true
     Out.I("GemFarm: Starting main loop.")
+    If (S.Get("GemFarmCollectArtifacts") == true) {
+        Spammer.CollectArtifactStart()
+    }
     While (GemFarmActive) {
         Window.ActiveOrReload()
         Try {
@@ -168,6 +170,9 @@ fGemFarmSuitcase() {
         }
         GameKeys.RefreshTrades()
         Sleep(S.Get("GemFarmSleepAmount"))
+    }
+    If (S.Get("GemFarmCollectArtifacts") == true) {
+        Spammer.KillCollectArtifact()
     }
     ToolTip(, , , 15)
     GemFarmActive := false

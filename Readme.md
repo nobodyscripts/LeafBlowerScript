@@ -251,6 +251,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
 - Gem Suitcase
   - Fix for travel button shifting with ui changes
   - Fix for HadToRemoveBearo not set error
+  - Added mouse movement patterns to collect artifacts in the background.
+  - Added setting for artifact collection.
 
 - BorbVentures
 

@@ -2,6 +2,7 @@
 
 #Include ..\ScriptLib\cSpammers.ahk
 
+/** @type {cSpammer} */
 Global Spammer := cSpammer()
 
 /**
@@ -21,12 +22,16 @@ Global Spammer := cSpammer()
  * @method GFSSBossStart Start green flame and spectralseeker boss spammer
  * @method IsGFSSActive Is green flame and spectralseeker spammer active
  * @method KillGFSS Kill process of green flame and spectralseeker spammer
+ * @method CollectArtifactStart Start Collect Artifact spammer
+ * @method IsCollectArtifactActive Is Collect Artifact active
+ * @method KillCollectArtifact Kill process of Collect Artifact spammer
  */
 Class cSpammer {
     NormalBossPID := 0
     WindPID := 0
     TowerPassivePID := 0
     GFSSPID := 0
+    CollectArtifactPID := 0
     ;@region KillAllSpammers()
     /**
      * Kill all secondary/spammer processes
@@ -43,6 +48,9 @@ Class cSpammer {
         }
         If (this.IsTowerPassiveActive()) {
             this.KillTowerPassive()
+        }
+        If (this.IsCollectArtifactActive()) {
+            this.KillCollectArtifact()
         }
     }
     ;@endregion
@@ -67,8 +75,8 @@ Class cSpammer {
      */
     IsNormalBossActive() {
         If ((this.NormalBossPID && ProcessExist(this.NormalBossPID)) ||
-            WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey"
-            )) {
+        WinExist(A_ScriptDir "\Secondaries\NormalBoss.ahk ahk_class AutoHotkey"
+        )) {
             Return true
         }
         Return false
@@ -114,8 +122,7 @@ Class cSpammer {
      */
     IsLeaftonActive() {
         If ((this.WindPID && ProcessExist(this.WindPID)) || WinExist(
-            A_ScriptDir "\Secondaries\LeaftonSpammer.ahk ahk_class AutoHotkey")
-        ) {
+            A_ScriptDir "\Secondaries\LeaftonSpammer.ahk ahk_class AutoHotkey")) {
             Return true
         }
         Return false
@@ -161,8 +168,8 @@ Class cSpammer {
      */
     IsTowerPassiveActive() {
         If ((this.TowerPassivePID && ProcessExist(this.TowerPassivePID)) ||
-            WinExist(A_ScriptDir "\Secondaries\TowerPassiveSpammer.ahk ahk_class AutoHotkey"
-            )) {
+        WinExist(A_ScriptDir "\Secondaries\TowerPassiveSpammer.ahk ahk_class AutoHotkey"
+        )) {
             Return true
         }
         Return false
@@ -229,6 +236,52 @@ Class cSpammer {
                 WinClose(A_ScriptDir "\Secondaries\GFSSBoss.ahk ahk_class AutoHotkey"
                 )
                 Out.I("Closed GFSSBoss.ahk using filename.")
+            }
+        }
+    }
+    ;@endregion
+
+    ;@region CollectArtifactStart()
+    /**
+     * Start Collect Artifacts spammer
+     */
+    CollectArtifactStart() {
+        If (Window.IsActive()) {
+            Run('"' A_AhkPath '" /restart "' A_ScriptDir '\Secondaries\CollectArtifact.ahk"', , , &
+                OutPid)
+            this.CollectArtifactPID := OutPid
+        }
+    }
+    ;@endregion
+
+    ;@region IsCollectArtifactActive()
+    /**
+     * Is Collect Artifact spammer active
+     * @returns {Boolean} 
+     */
+    IsCollectArtifactActive() {
+        If ((this.CollectArtifactPID && ProcessExist(this.CollectArtifactPID)) || WinExist(
+            A_ScriptDir "\Secondaries\CollectArtifact.ahk ahk_class AutoHotkey")) {
+            Return true
+        }
+        Return false
+    }
+    ;@endregion
+
+    ;@region KillCollectArtifact()
+    /**
+     * Kill process of Collect Artifact spammer
+     */
+    KillCollectArtifact() {
+        If (this.CollectArtifactPID && ProcessExist(this.CollectArtifactPID)) {
+            ProcessClose(this.CollectArtifactPID)
+            Out.I("Closed CollectArtifact.ahk using pid.")
+        } Else {
+            If (WinExist(A_ScriptDir "\Secondaries\CollectArtifact.ahk ahk_class AutoHotkey"
+            )) {
+                WinClose(A_ScriptDir "\Secondaries\CollectArtifact.ahk ahk_class AutoHotkey"
+                )
+                Out.I("Closed CollectArtifact.ahk using filename.")
             }
         }
     }

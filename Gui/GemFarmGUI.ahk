@@ -3,6 +3,7 @@
 Button_Click_GemFarm(thisGui, info) {
 
     GemFarmSleepAmount := S.Get("GemFarmSleepAmount")
+    GemFarmCollectArtifacts := S.Get("GemFarmCollectArtifacts")
 
     GuiBGColour := S.Get("GuiBGColour")
 
@@ -25,6 +26,10 @@ Button_Click_GemFarm(thisGui, info) {
                 S.defaultSettings.GemFarmSleepAmount)
         }
     }
+    
+    checked := (GemFarmCollectArtifacts) ? " checked" : ""
+    MyGui.Add("CheckBox", "vGemFarmCollectArtifacts" checked,
+        "Enable Collection of Artifacts")
 
     MyGui.Add("Button", "+Background" GuiBGColour " default", "Run").OnEvent("Click", RunGemFarm)
     MyGui.Add("Button", "+Background" GuiBGColour " default yp", "Save and Run").OnEvent("Click",
@@ -69,6 +74,7 @@ Button_Click_GemFarm(thisGui, info) {
     GemFarmSave() {
         values := MyGui.Submit()
         S.Set("GemFarmSleepAmount", values.GemFarmSleepAmount)
+        S.Set("GemFarmCollectArtifacts", values.GemFarmCollectArtifacts)
         S.SaveCurrentSettings()
     }
 }

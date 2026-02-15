@@ -158,6 +158,10 @@ It will skip if you run out of suitcases, so be sure you have some.
 100-150ms should be very safe for most people, increase/decrease till you
 find your sweet spot
 
+GemFarmCollectArtifacts: (Default) true
+Enables automatic mouse movement around the game window to collect artifacts
+while using suitcases to farm gems.
+
 ## Claw Farm
 
 ClawCheckSizeOffset: (Default) 0  
