@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0
-#Include ../Lib/cRects.ahk
+#Include ..\Lib\cRects.ahk
 #Include ..\Lib\cLBRButton.ahk
 #Include ..\Lib\Misc.ahk
+#Include ..\Lib\cColours.ahk
 #include ..\ScriptLib\cToolTip.ahk
 
 ; TODO Travel and opening review
@@ -67,6 +68,7 @@ Class FishingTourney {
     /** @type {cLBRButton} */
     Collect := cLBRButton(528, 658)
 
+    ; No autowin
     /** @type {cLBRButton} */
     Start1 := cLBRButton(2061, 315)
     /** @type {cLBRButton} */
@@ -75,6 +77,16 @@ Class FishingTourney {
     Start3 := cLBRButton(2061, 759)
     /** @type {cLBRButton} */
     Start4 := cLBRButton(2061, 984)
+
+    ; Newest pos
+    /** @type {cLBRButton} */
+    AWStart1 := cLBRButton(2061, 315)
+    /** @type {cLBRButton} */
+    AWStart2 := cLBRButton(2061, 561)
+    /** @type {cLBRButton} */
+    AWStart3 := cLBRButton(2061, 807)
+    /** @type {cLBRButton} */
+    AWStart4 := cLBRButton(2061, 1051)
 
     SetModeFishing() {
         this.Mode := 0
@@ -99,8 +111,7 @@ Class FishingTourney {
         Out.D("Is on attack tourney view " (this.Attack1.IsButton() && this.Attack2.IsButton() && this.Attack3.IsButton()))
         Out.D("Collect button detection? " BinToStr(this.Collect.IsButtonActive()))
         */
-        If ((this.Start1.IsButton() || this.Start2.IsButton() ||
-        this.Start3.IsButton() || this.Start4.IsButton())
+        If ((this.Start1.IsButton())
         ||
         (this.Attack1.IsButton() && this.Attack2.IsButton() && this.Attack3.IsButton())
         ||
@@ -114,8 +125,36 @@ Class FishingTourney {
 
     GetTourneyState() {
         Out.D("Is on tourney tab, collect button detection? " BinToStr(this.Collect.IsButtonActive()))
-        If (this.Start1.IsButton() || this.Start2.IsButton() ||
-        this.Start3.IsButton() || this.Start4.IsButton()) {
+
+        If (this.Start1.IsButton()) {
+            /** Rect to find buttons in tourney tab as they shift a lot
+             * @type {cRect}
+             */
+            ButtonSearch := cRect(2061, 278, 2061, 1070)
+            arr := ButtonSearch.LineGetColourInstances()
+            i := 1
+            For id, value IN arr {
+                If (value.colour == c.Active || value.colour == c.Inactive) {
+                    Switch (i) {
+                    Case 1:
+                        ; First one doesn't move so not needed, also detects
+                        ; on cancel tourney button
+                        ;this.Start1.Set(value.x, value.y+5)
+                    Case 2:
+                        Out.D("Setting start 2: " value.x " " value.y)
+                        this.Start2.Set(value.x, value.y + 5, false)
+                    Case 3:
+                        Out.D("Setting start 3: " value.x " " value.y)
+                        this.Start3.Set(value.x, value.y + 5, false)
+                    Case 4:
+                        Out.D("Setting start 4: " value.x " " value.y)
+                        this.Start4.Set(value.x, value.y + 5, false)
+                    default:
+                        Break
+                    }
+                    i++
+                }
+            }
             Return 1
         } Else If (this.Attack1.IsButton() && this.Attack2.IsButton() && this.Attack3.IsButton()) {
             Return 2
@@ -201,6 +240,7 @@ Class FishingTourney {
      * Start different tourneys based on id
      */
     StartFight(id) {
+        ; TODO Add await after starting for fight buttons
         timeout := A_Now
         Switch (id) {
         Case 1:
@@ -209,7 +249,7 @@ Class FishingTourney {
                 If (!this.Start1.IsButtonActive()) {
                     Return false
                 }
-                this.Start1.ClickButtonActive(2, 2)
+                Return this.Start1.ClickButtonActive(2, 2)
             }
         Case 2:
             While (Window.IsActive() && !this.Attack1.IsButtonActive() && DateDiff(A_now, timeout, "S") < 2) {
@@ -217,7 +257,7 @@ Class FishingTourney {
                 If (!this.Start2.IsButtonActive()) {
                     Return false
                 }
-                this.Start2.ClickButtonActive(2, 2)
+                Return this.Start2.ClickButtonActive(2, 2)
             }
         Case 3:
             While (Window.IsActive() && !this.Attack1.IsButtonActive() && DateDiff(A_now, timeout, "S") < 2) {
@@ -225,7 +265,7 @@ Class FishingTourney {
                 If (!this.Start3.IsButtonActive()) {
                     Return false
                 }
-                this.Start3.ClickButtonActive(2, 2)
+                Return this.Start3.ClickButtonActive(2, 2)
             }
         Case 4:
             While (Window.IsActive() && !this.Attack1.IsButtonActive() && DateDiff(A_now, timeout, "S") < 2) {
@@ -233,13 +273,12 @@ Class FishingTourney {
                 If (!this.Start4.IsButtonActive()) {
                     Return false
                 }
-                this.Start4.ClickButtonActive(2, 2)
+                Return this.Start4.ClickButtonActive(2, 2)
             }
         default:
-            Return false
-        }
 
-        Return true
+        }
+        Return false
     }
     ;@endregion
 
@@ -268,6 +307,7 @@ Class FishingTourney {
      * Start a looped farming of the available tourneys
      */
     Farm() {
+        UlcWindow()
         /** @type {Fishing} */
         cFishing := Fishing()
         FishCatchingDelay := S.Get("FishCatchingDelay")
@@ -296,9 +336,13 @@ Class FishingTourney {
         While (Window.IsActive()) {
             While (!this.IsOnTab()) {
                 cFishing.Tabs.Tourney.ClickButtonActive()
+                Out.D("Reset to Tourney tab")
             }
+            ; TODO Merge single with looped farm
             ; If not in screen to select a new fight either finish the fight, or collect
             Switch (this.GetTourneyState()) {
+            Case 1:
+                Out.D("Start tourney view looped")
             Case 2:
                 Out.I("Found in progress fight, clearing with attack 1")
                 this.Fight(1)
@@ -413,6 +457,8 @@ Class FishingTourney {
         If (Window.IsActive() && this.IsOnTab()) {
             ; If not in screen to select a new fight either finish the fight, or collect
             Switch (this.GetTourneyState()) {
+            Case 1:
+                Out.D("Start tourney view")
             Case 2:
                 Out.I("Found in progress fight, clearing with attack 1")
                 this.Fight(1)

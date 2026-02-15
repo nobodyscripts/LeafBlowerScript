@@ -302,6 +302,8 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Added Tourney mode secondary features (rod upgrading etc)
   - Added Tourney pass with attack 1 if fight previously started
   - Added fourth row of transmutes
+  - Made Tourney start button locations dynamically detected to account for
+    position changing with progression and feature unlocks
 
 - Harbor
   - Added Job refresh, Ship claim, Shop Buy Max, Journey collect
