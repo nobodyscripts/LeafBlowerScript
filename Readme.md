@@ -233,6 +233,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Moved button for relics reset loop to main menu
   - Added button for mouse sweep/mouse sweep with autobuyer
   - Fix for cUpdateChecker - line 250 Dialog.Show() being an int
+  - Converted Borbventures type selection to checkboxes
 
 - Mine
   - Modified brew travel to be more stable.

@@ -169,7 +169,7 @@ BVStartItemFromSlot(SlotY) {
         BorbSlot1 := cLBRButton(Window.RelW(1608), SlotY, false)
         BorbSlot1.ClickOffset(2, 0, bvSleepTime)
         Sleep(bvSleepTime)
-        a := b := c := 0
+        a := b := i := 0
         While (BorbSlot1.IsButtonActive() && a < 2) {
             BorbSlot1.ClickOffset(2, 0, bvSleepTime)
             a++
@@ -188,9 +188,9 @@ BVStartItemFromSlot(SlotY) {
         StartButton2 := cLBRButton(Window.RelW(1850), SlotY, false)
         StartButton2.ClickOffset(61, 0, bvSleepTime)
         Sleep(bvSleepTime)
-        While (StartButton2.IsButtonActive() && c < 2) {
+        While (StartButton2.IsButtonActive() && i < 2) {
             StartButton2.ClickOffset(61, 0, bvSleepTime)
-            c++
+            i++
             Sleep(bvSleepTime)
         }
         Return true
