@@ -135,21 +135,21 @@ PubTradeForCheese2500(*) {
 }
 
 IsULCCraftSaved() {
-    ; TODO
+    ; TODO IsULCCraftSaved
     Out.D("TODO IsULCCraftSaved")
     ; can be grabbed from profiles.def.objects.o_game.data.ulc_settings
 }
 
 WaitForAncients(*) {
     UlcWindow()
-    ; TODO
+    ; TODO WaitForAncients
     Out.D("TODO WaitForAncients")
 
 }
 
 CraftMoonLeafsAndPreset() {
     UlcWindow()
-    ; TODO
+    ; TODO CraftMoonLeafsAndPreset
     Out.D("TODO CraftMoonLeafsAndPreset")
 
 }

@@ -212,6 +212,7 @@ Hotkeys need to either be changed ingame or in script to match (Hotkeys.ahk)
   - Updated check for updates to provide a button which updates the script
   - Added command line arguements for auto starting features, nogui and help
   - Made some travel delays dynamic
+  - Fix settings not initialised in GFSS/Leafton/NormalBoss secondaries
 
 - Hotkeys
   - Fix command line arguments blocking keybinds

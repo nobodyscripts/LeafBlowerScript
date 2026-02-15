@@ -18,6 +18,10 @@ Global Window := cLBRWindow("Leaf Blower Revolution ahk_class YYGameMakerYY ahk_
 S.Filename := A_ScriptDir "\..\UserSettings.ini"
 S.initSettings()
 
+S.AddSetting("BossFarm", "ArtifactSleepAmount", 17, "int")
+S.AddSetting("BossFarm", "BossFarmUsesWind", true, "bool")
+S.AddSetting("BossFarm", "BossFarmUsesSeeds", true, "bool")
+
 Scriptkeys.sFilename := A_ScriptDir "\..\ScriptHotkeys.ini"
 Scriptkeys.initHotkeys()
 
