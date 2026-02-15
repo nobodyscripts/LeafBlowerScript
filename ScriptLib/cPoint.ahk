@@ -23,19 +23,30 @@
  * @method IsButtonInactive Is point an inactive button colour
  * @method IsButtonOffPanel Is point an off panel button colour 
  * @method Click Click left mouse button at point
+ * @method ClickR Click right mouse button at point
  * @method ClickOffset Click left mouse button at point with an offset
+ * @method ClickOffsetR Click right mouse button at point with an offset
  * @method ClickButtonActive Click left mouse button at point if active
  * @method MouseMove Move mouse to point
+ * @method MouseMoveOffset Move mouse to point
+ * @method MouseMoveInterpolateTo
  * @method toString Convert x y to readable string
  * @method toStringWColour toSting with colour
  * @method toStringDisplay toString to 2 decimal places
  * @method GetColour Get pixel colour at point
  * @method IsColour Check if pixel colour at point is equal
+ * @method IsColourArr Check if pixel colour at point is in array
+ * @method ToolTipAtCoord Create a tooltip with top left at point
  * @method ToolTipBlankAtCoord Create a blank tooltip with top left at point
- * @method ClickOffsetUntilColour Click offset while colour doesn't match
  * @method ClickOffsetWhileColour Click offset while colour matches
+ * @method ClickOffsetWhileArrColour Click offset while colour matches in array
+ * @method ClickOffsetWhileColourS Click offset while colour matches for seconds
+ * @method ClickOffsetUntilColour Click offset while colour doesn't match
+ * @method ClickOffsetUntilColourS Click offset while colour doesn't match for seconds
  * @method WaitWhileNotColour Loop while colour doesn't match
+ * @method WaitWhileNotColourS Loop while colour doesn't match for seconds
  * @method WaitWhileColour Loop while colour matches
+ * @method WaitWhileColourS Loop while colour matches for seconds
  * @method WaitUntilActiveButton Loop till active button or max loop
  * @method GreedyModifierClick Use decending value modifiers to click while
  * looping on an active button, start at cap amount
@@ -45,6 +56,7 @@
  * new cPoint
  */
 Class cPoint {
+    ;@region Properties
     /**
      * If Window.W has a value returns relative coord
      * otherwise returns raw value
@@ -105,6 +117,9 @@ Class cPoint {
      */
     relative := true
 
+    ;@endregion
+
+    ;@region Constructor
     /**
      * Create new point instance using def resolution resolution
      * maximised client coords
@@ -118,7 +133,9 @@ Class cPoint {
         this.y := y
         this.relative := relative
     }
+    ;@endregion
 
+    ;@region Set()
     /**
      * Set values on precreated cPoint
      * @param x 
@@ -132,7 +149,9 @@ Class cPoint {
         this.relative := relative
         Return this
     }
+    ;@endregion
 
+    ;@region Click()
     /**
      * Mouse click at point with optional delay
      * @param {Integer} [clickdelay=34] Delay for mouseclick
@@ -148,7 +167,9 @@ Class cPoint {
         MouseClick("Left", this.x, this.y, , , "U")
         ; Out.D("Clicking at " this.toStringDisplay())
     }
+    ;@endregion
 
+    ;@region ClickR()
     /**
      * Mouse click at point with optional delay
      * @param {Integer} [clickdelay=34] Delay for mouseclick
@@ -164,7 +185,9 @@ Class cPoint {
         MouseClick("Right", this.x, this.y, , , "U")
         ; Out.D("Clicking at " this.toStringDisplay())
     }
+    ;@endregion
 
+    ;@region ClickOffset()
     /**
      * Mouseclick at point with optional xy offset and delay
      * @param {Integer} [xOffset] Amount to offset X when clicking to avoid 
@@ -184,7 +207,9 @@ Class cPoint {
         MouseClick("left", this.x + xOffset, this.y + yOffset, , , "U")
         ; Out.D("Clicking at " this.toStringDisplay(xOffset, yOffset))
     }
+    ;@endregion
 
+    ;@region ClickOffsetR()
     /**
      * Right Mouseclick at point with optional xy offset and delay
      * @param {Integer} [xOffset] Amount to offset X when clicking to avoid 
@@ -204,7 +229,9 @@ Class cPoint {
         MouseClick("right", this.x + xOffset, this.y + yOffset, , , "U")
         ; Out.D("Clicking at " this.toStringDisplay(xOffset, yOffset))
     }
+    ;@endregion
 
+    ;@region MouseMove()
     /**
      * Move mouse to point
      * @param {Integer} speed 0-100 with 100 being slowest
@@ -213,7 +240,9 @@ Class cPoint {
     MouseMove(speed := 5, relative := "") {
         MouseMove(this.x, this.y, speed, relative)
     }
+    ;@endregion
 
+    ;@region MouseMoveOffset()
     /**
      * Move mouse to point
      * @param {Integer} speed 0-100 with 100 being slowest
@@ -224,7 +253,14 @@ Class cPoint {
     MouseMoveOffset(speed := 5, relative := "", offsetX := 1, offsetY := 1) {
         MouseMove(this.x + offsetX, this.y + offsetY, speed, relative)
     }
+    ;@endregion
 
+    ;@region MouseMoveInterpolateTo()
+    /**
+     * Move mouse to point with smoothed movement over a period
+     * @param {Integer} speed 0-100 with 100 being slowest
+     * @param {Integer} sleepperiod tick rate in ms
+     */
     MouseMoveInterpolateTo(speed := 50, sleepperiod := 17) {
         MouseGetPos(&startx, &starty)
         travelx := (this.x - startx) / 20
@@ -248,7 +284,9 @@ Class cPoint {
             i++
         }
     }
+    ;@endregion
 
+    ;@region To String
     /**
      * Point to loggable format
      * @returns {String} 
@@ -273,7 +311,9 @@ Class cPoint {
     toStringWColour() {
         Return this.toStringDisplay() " is now " this.GetColour()
     }
+    ;@endregion
 
+    ;@region GetColour()
     /**
      * Gets the colour at the point, protected by trycatch
      * @returns {String} 0xFFFFFF
@@ -288,7 +328,9 @@ Class cPoint {
         }
         Return fetchedColour
     }
+    ;@endregion
 
+    ;@region IsColour()
     /**
      * Compare colour at point to string 
      * @param colour 0xFFFFFF
@@ -301,7 +343,9 @@ Class cPoint {
         }
         Return false
     }
+    ;@endregion
 
+    ;@region IsColourArr()
     /**
      * Compare colour at point to string 
      * @param colours Array of 0xFFFFFF formatted colours
@@ -316,14 +360,16 @@ Class cPoint {
         }
         Return false
     }
+    ;@endregion
 
+    ;@region Tooltips
     /**
      * Create blank tooltip at point with optional id
      * @param {Integer} id 
      * @returns {Integer} HWND Or 0 if destroyed
      */
     ToolTipAtCoord(text := "", id := 15) {
-        return ToolTip(text, this.x, this.y, id)
+        Return ToolTip(text, this.x, this.y, id)
     }
 
     /**
@@ -332,9 +378,11 @@ Class cPoint {
      * @returns {Integer} HWND Or 0 if destroyed
      */
     ToolTipBlankAtCoord(id := 15) {
-        return ToolTip(" ", this.x, this.y, id)
+        Return ToolTip(" ", this.x, this.y, id)
     }
+    ;@endregion
 
+    ;@region ClickOffsetWhileColour()
     /**
      * Clickoffset with loop that checks for specified colour, useful for 
      * clicking until something changes.
@@ -361,7 +409,9 @@ Class cPoint {
         ;Out.D("ClickOffsetWhileColour: " this.toStringWColour())
         Return true
     }
+    ;@endregion
 
+    ;@region ClickOffsetWhileArrColour()
     /**
      * Clickoffset with loop that checks for specified colour, useful for 
      * clicking until something changes.
@@ -400,7 +450,9 @@ Class cPoint {
 
         Return true
     }
+    ;@endregion
 
+    ;@region ClickOffsetWhileColourS()
     /**
      * Clickoffset with loop that checks for specified colour, useful for 
      * clicking until something changes.
@@ -415,7 +467,9 @@ Class cPoint {
     ClickOffsetWhileColourS(colour, offsetX := 1, offsetY := 1, delay := 54, seconds := 10) {
         Return this.ClickOffsetWhileColour(colour, seconds * 1000 / 20, offsetX, offsetY, delay, 20)
     }
+    ;@endregion
 
+    ;@region ClickOffsetUntilColour()
     /**
      * Clickoffset with loop that checks for NOT being the specified colour, 
      * useful for clicking until something changes.
@@ -442,7 +496,9 @@ Class cPoint {
         }
         Return true
     }
+    ;@endregion
 
+    ;@region ClickOffsetUntilColourS()
     /**
      * Clickoffset with loop that checks for NOT being the specified colour, 
      * useful for clicking until something changes.
@@ -457,7 +513,9 @@ Class cPoint {
     ClickOffsetUntilColourS(colour, offsetX := 1, offsetY := 1, delay := 54, seconds := 10) {
         Return this.ClickOffsetUntilColour(colour, seconds * 1000 / 20, offsetX, offsetY, delay, 20)
     }
+    ;@endregion
 
+    ;@region WaitWhileColour()
     /**
      * Loop until colour found or max loops reached
      * @memberof cPoint
@@ -478,7 +536,9 @@ Class cPoint {
         ;Out.D("WaitWhileColour: " this.toStringWColour())
         Return this.GetColour() != colour
     }
+    ;@endregion
 
+    ;@region WaitWhileColourS()
     /**
      * Loop until colour found or max loops reached
      * @memberof cPoint
@@ -489,7 +549,9 @@ Class cPoint {
     WaitWhileColourS(colour, seconds := 10) {
         Return this.WaitWhileColour(colour, seconds * 1000 / 20, 20)
     }
+    ;@endregion
 
+    ;@region WaitWhileNotColour()
     /**
      * Loop until not colour specified or max loops reached
      * @memberof cPoint
@@ -511,7 +573,9 @@ Class cPoint {
         ;Out.D("WaitWhileNotColour: finish " this.toStringWColour())
         Return this.GetColour() = colour
     }
+    ;@endregion
 
+    ;@region WaitWhileNotColourS()
     /**
      * Loop until not colour specified or max loops reached
      * @memberof cPoint
@@ -522,6 +586,7 @@ Class cPoint {
     WaitWhileNotColourS(colour, seconds := 10) {
         Return this.WaitWhileNotColour(colour, seconds * 1000 / 20, 20)
     }
+    ;@endregion
 
     ;@region ClientToScreen()
     /**
